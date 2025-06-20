@@ -34,7 +34,7 @@ func (r ApiEnterMaintenanceRequest) Execute() (*http.Response, error) {
 EnterMaintenance Enter cluster maintenance mode.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClusterEnterMaintenanceRequest
+	@return ApiEnterMaintenanceRequest
 */
 func (a *MaintenanceAPIService) EnterMaintenance(ctx context.Context) ApiEnterMaintenanceRequest {
 	return ApiEnterMaintenanceRequest{
@@ -120,7 +120,7 @@ func (r ApiExitMaintenanceRequest) Execute() (*http.Response, error) {
 ExitMaintenance Exit cluster maintenance mode.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiClusterExitMaintenanceRequest
+	@return ApiExitMaintenanceRequest
 */
 func (a *MaintenanceAPIService) ExitMaintenance(ctx context.Context) ApiExitMaintenanceRequest {
 	return ApiExitMaintenanceRequest{

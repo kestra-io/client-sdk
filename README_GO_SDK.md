@@ -8,13 +8,6 @@
 - Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
-3. In the `api_cluster.go` file generated, you need to rename two struct that collides with exact name in `api_maintenance.go`:
-
-```go
-ApiEnterMaintenanceRequest > ApiClusterEnterMaintenanceRequest
-ApiExitMaintenanceRequest > ApiClusterExitMaintenanceRequest
-```
-
 Note: For now `go.mod` is generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID` we will need to check if we can change that at generation time.
 
 ## Step to use

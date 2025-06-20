@@ -42,6 +42,12 @@ if [[ ",$LANGUAGES," == *",go,"* ]]; then
 docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
     -i /local/kestra-ee.yml -g go -o /local/go-sdk --skip-validate-spec \
     --global-property=apiTests=false,modelTests=false \
-    --additional-properties=packageName=kestra_api_client,projectName=kestra_api,packageVersion=$VERSION,enumClassPrefix=true
+    --additional-properties=packageName=kestra_api_client,projectName=kestra_api,packageVersion=$VERSION,enumClassPrefix=true \
+    --git-user-id=kestra-io --git-repo-id=client-sdk/go-sdk
+# these generated structs collides between api_cluster.go and api_maintenance.go, needs to be improved TODO
+sed -i.bak -e 's/ApiEnterMaintenanceRequest/ApiClusterEnterMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
+sed -i.bak -e 's/ApiExitMaintenanceRequest/ApiClusterExitMaintenanceRequest/g' ./go-sdk/api_cluster.go && rm ./go-sdk/api_cluster.go.bak
+
+gofmt -w ./go-sdk
 fi
 

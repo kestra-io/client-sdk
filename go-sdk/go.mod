@@ -1,5 +1,7 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID
+module github.com/kestra-io/client-sdk/go-sdk
 
 go 1.18
 
-require gopkg.in/validator.v2 v2.0.1
+require (
+	gopkg.in/validator.v2 v2.0.1
+)
