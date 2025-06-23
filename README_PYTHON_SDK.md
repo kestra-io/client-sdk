@@ -8,7 +8,7 @@
    - Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
-3. Then multiples files changes are needed to be done manually in the generated SDK:
+3. Then multiple files changes are needed to be done manually in the generated SDK:
    - In the pyproject.toml file, set the following values (you need to replace the current one):
      ```toml
      license = "Apache-2.0"
