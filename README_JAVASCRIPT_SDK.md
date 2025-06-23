@@ -23,7 +23,7 @@ const kestraClient = new KestraClient(host, token, username, password);
 Then simply use the client to call the API:
 
 ```javascript
-kestraClient.flowsApi.searchFlows()
+kestraClient.flowsApi.searchFlows(1, 10, 'main') # mandatory params: page, size, tenant ('main' = default tenant)
 ```
 
 Each method of the API will expect a callback with the following signature:
