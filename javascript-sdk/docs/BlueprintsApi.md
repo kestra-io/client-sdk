@@ -31,13 +31,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.BlueprintsApi();
 let tenant = "tenant_example"; // String | 
 let blueprintControllerApiBlueprintItemWithSource = new KestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
-apiInstance.createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -76,13 +75,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The internal blueprint id to delete
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteInternalBlueprints(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteInternalBlueprints(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -122,13 +120,12 @@ let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
-apiInstance.getBlueprint(id, kind, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getBlueprint(id, kind, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -169,13 +166,12 @@ let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
-apiInstance.getBlueprintGraph(id, kind, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getBlueprintGraph(id, kind, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -216,13 +212,12 @@ let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
-apiInstance.getBlueprintSource(id, kind, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getBlueprintSource(id, kind, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -262,13 +257,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let tenant = "tenant_example"; // String | 
-apiInstance.internalBlueprint(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.internalBlueprint(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -307,13 +301,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let tenant = "tenant_example"; // String | 
-apiInstance.internalBlueprintFlow(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.internalBlueprintFlow(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -359,13 +352,12 @@ let opts = {
   'sort': "sort_example", // String | The sort of current page
   'tags': ["null"] // [String] | A tags filter
 };
-apiInstance.searchBlueprints(page, size, kind, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchBlueprints(page, size, kind, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -415,13 +407,12 @@ let opts = {
   'sort': "sort_example", // String | The sort of current page
   'tags': ["null"] // [String] | A tags filter
 };
-apiInstance.searchInternalBlueprints(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchInternalBlueprints(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -465,13 +456,12 @@ let apiInstance = new KestraApi.BlueprintsApi();
 let id = "id_example"; // String | The id of the internal blueprint to update
 let tenant = "tenant_example"; // String | 
 let blueprintControllerApiBlueprintItemWithSource = new KestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
-apiInstance.updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

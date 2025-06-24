@@ -39,22 +39,14 @@ export default class DashboardsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createDashboard operation.
-     * @callback module:api/DashboardsApi~createDashboardCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Dashboard} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a dashboard from yaml source
      * @param {String} tenant 
      * @param {String} body The dashboard definition as YAML
-     * @param {module:api/DashboardsApi~createDashboardCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Dashboard}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Dashboard} and HTTP response
      */
-    createDashboard(tenant, body, callback) {
+    createDashboardWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -82,25 +74,31 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteDashboard operation.
-     * @callback module:api/DashboardsApi~deleteDashboardCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a dashboard from yaml source
+     * @param {String} tenant 
+     * @param {String} body The dashboard definition as YAML
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Dashboard}
      */
+    createDashboard(tenant, body) {
+      return this.createDashboardWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a dashboard
      * @param {String} id The dashboard id
      * @param {String} tenant 
-     * @param {module:api/DashboardsApi~deleteDashboardCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteDashboard(id, tenant, callback) {
+    deleteDashboardWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -129,26 +127,31 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getDashboard operation.
-     * @callback module:api/DashboardsApi~getDashboardCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Dashboard} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a dashboard
+     * @param {String} id The dashboard id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteDashboard(id, tenant) {
+      return this.deleteDashboardWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a dashboard
      * @param {String} id The dashboard id
      * @param {String} tenant 
-     * @param {module:api/DashboardsApi~getDashboardCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Dashboard}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Dashboard} and HTTP response
      */
-    getDashboard(id, tenant, callback) {
+    getDashboardWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -177,17 +180,23 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getDashboardChartData operation.
-     * @callback module:api/DashboardsApi~getDashboardChartDataCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsMapStringObject} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a dashboard
+     * @param {String} id The dashboard id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Dashboard}
      */
+    getDashboard(id, tenant) {
+      return this.getDashboardWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Generate a dashboard chart data
@@ -195,10 +204,9 @@ export default class DashboardsApi {
      * @param {String} chartId The chart id
      * @param {String} tenant 
      * @param {module:model/GlobalFilter} globalFilter The filters to apply, some can override chart definition like labels & namespace
-     * @param {module:api/DashboardsApi~getDashboardChartDataCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsMapStringObject}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsMapStringObject} and HTTP response
      */
-    getDashboardChartData(id, chartId, tenant, globalFilter, callback) {
+    getDashboardChartDataWithHttpInfo(id, chartId, tenant, globalFilter) {
       let postBody = globalFilter;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -236,26 +244,33 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/{id}/charts/{chartId}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the previewChart operation.
-     * @callback module:api/DashboardsApi~previewChartCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsMapStringObject} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Generate a dashboard chart data
+     * @param {String} id The dashboard id
+     * @param {String} chartId The chart id
+     * @param {String} tenant 
+     * @param {module:model/GlobalFilter} globalFilter The filters to apply, some can override chart definition like labels & namespace
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsMapStringObject}
      */
+    getDashboardChartData(id, chartId, tenant, globalFilter) {
+      return this.getDashboardChartDataWithHttpInfo(id, chartId, tenant, globalFilter)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Preview a chart data
      * @param {String} tenant 
      * @param {module:model/DashboardControllerPreviewRequest} dashboardControllerPreviewRequest 
-     * @param {module:api/DashboardsApi~previewChartCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsMapStringObject}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsMapStringObject} and HTTP response
      */
-    previewChart(tenant, dashboardControllerPreviewRequest, callback) {
+    previewChartWithHttpInfo(tenant, dashboardControllerPreviewRequest) {
       let postBody = dashboardControllerPreviewRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -283,17 +298,23 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/charts/preview', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchDashboards operation.
-     * @callback module:api/DashboardsApi~searchDashboardsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsDashboard} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Preview a chart data
+     * @param {String} tenant 
+     * @param {module:model/DashboardControllerPreviewRequest} dashboardControllerPreviewRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsMapStringObject}
      */
+    previewChart(tenant, dashboardControllerPreviewRequest) {
+      return this.previewChartWithHttpInfo(tenant, dashboardControllerPreviewRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for dashboards
@@ -303,10 +324,9 @@ export default class DashboardsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] The filter query
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/DashboardsApi~searchDashboardsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsDashboard}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsDashboard} and HTTP response
      */
-    searchDashboards(page, size, tenant, opts, callback) {
+    searchDashboardsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -343,27 +363,36 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateDashboard operation.
-     * @callback module:api/DashboardsApi~updateDashboardCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Dashboard} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for dashboards
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q The filter query
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsDashboard}
      */
+    searchDashboards(page, size, tenant, opts) {
+      return this.searchDashboardsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a dashboard
      * @param {String} id The dashboard id
      * @param {String} tenant 
      * @param {String} body The dashboard definition as YAML
-     * @param {module:api/DashboardsApi~updateDashboardCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Dashboard}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Dashboard} and HTTP response
      */
-    updateDashboard(id, tenant, body, callback) {
+    updateDashboardWithHttpInfo(id, tenant, body) {
       let postBody = body;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -396,26 +425,32 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateChart operation.
-     * @callback module:api/DashboardsApi~validateChartCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ValidateConstraintViolation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a dashboard
+     * @param {String} id The dashboard id
+     * @param {String} tenant 
+     * @param {String} body The dashboard definition as YAML
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Dashboard}
      */
+    updateDashboard(id, tenant, body) {
+      return this.updateDashboardWithHttpInfo(id, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Validate a chart from yaml source
      * @param {String} tenant 
      * @param {String} body The chart definition as YAML
-     * @param {module:api/DashboardsApi~validateChartCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ValidateConstraintViolation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
-    validateChart(tenant, body, callback) {
+    validateChartWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -443,26 +478,31 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/validate/chart', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateDashboard operation.
-     * @callback module:api/DashboardsApi~validateDashboardCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ValidateConstraintViolation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Validate a chart from yaml source
+     * @param {String} tenant 
+     * @param {String} body The chart definition as YAML
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
      */
+    validateChart(tenant, body) {
+      return this.validateChartWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Validate dashboard from yaml source
      * @param {String} tenant 
      * @param {String} body The dashboard definition as YAML
-     * @param {module:api/DashboardsApi~validateDashboardCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ValidateConstraintViolation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
-    validateDashboard(tenant, body, callback) {
+    validateDashboardWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -490,8 +530,21 @@ export default class DashboardsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/dashboards/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Validate dashboard from yaml source
+     * @param {String} tenant 
+     * @param {String} body The dashboard definition as YAML
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+     */
+    validateDashboard(tenant, body) {
+      return this.validateDashboardWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

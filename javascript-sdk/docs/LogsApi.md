@@ -41,13 +41,12 @@ let opts = {
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
 };
-apiInstance.deleteLogsFromExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteLogsFromExecution(executionId, tenant, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -100,13 +99,12 @@ let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow identifier
 let triggerId = "triggerId_example"; // String | The trigger id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteLogsFromFlow(namespace, flowId, triggerId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteLogsFromFlow(namespace, flowId, triggerId, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -161,13 +159,12 @@ let opts = {
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
 };
-apiInstance.downloadLogsFromExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.downloadLogsFromExecution(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -221,13 +218,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'minLevel': new KestraApi.Level() // Level | The min log level filter
 };
-apiInstance.followLogsFromExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.followLogsFromExecution(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -281,13 +277,12 @@ let opts = {
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
 };
-apiInstance.listLogsFromExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listLogsFromExecution(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -350,13 +345,12 @@ let opts = {
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00") // Date | The end datetime
 };
-apiInstance.searchLogs(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchLogs(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

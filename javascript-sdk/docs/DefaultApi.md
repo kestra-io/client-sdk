@@ -25,13 +25,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.DefaultApi();
 let invitationId = "invitationId_example"; // String | 
-apiInstance.acceptInvitation(invitationId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.acceptInvitation(invitationId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -69,13 +68,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DefaultApi();
 let invitationId = "invitationId_example"; // String | 
 let authControllerInvitationUserRequest = new KestraApi.AuthControllerInvitationUserRequest(); // AuthControllerInvitationUserRequest | The basic information to create an account from an invitation
-apiInstance.createFromInvitation(invitationId, authControllerInvitationUserRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createFromInvitation(invitationId, authControllerInvitationUserRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -115,13 +113,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.DefaultApi();
 let username = "username_example"; // String | User that has forgotten his password
-apiInstance.forgottenPassword(username, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.forgottenPassword(username).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -163,13 +160,12 @@ let opts = {
   'identity': "identity_example", // String | 
   'secret': "secret_example" // String | 
 };
-apiInstance.login(username, password, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.login(username, password, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -211,13 +207,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.DefaultApi();
 let authControllerResetPasswordRequest = new KestraApi.AuthControllerResetPasswordRequest(); // AuthControllerResetPasswordRequest | The password
-apiInstance.resetPassword(authControllerResetPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.resetPassword(authControllerResetPasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

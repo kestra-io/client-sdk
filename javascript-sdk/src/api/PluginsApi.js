@@ -47,21 +47,13 @@ export default class PluginsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the getAllInputTypes operation.
-     * @callback module:api/PluginsApi~getAllInputTypesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/InputType>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Get all types for an inputs
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getAllInputTypesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/InputType>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InputType>} and HTTP response
      */
-    getAllInputTypes(tenant, callback) {
+    getAllInputTypesWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -85,26 +77,30 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/inputs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginBySubgroups operation.
-     * @callback module:api/PluginsApi~getPluginBySubgroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Plugin>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all types for an inputs
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InputType>}
      */
+    getAllInputTypes(tenant) {
+      return this.getAllInputTypesWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get plugins group by subgroups
      * @param {Boolean} includeDeprecated Whether to include deprecated plugins
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginBySubgroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Plugin>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Plugin>} and HTTP response
      */
-    getPluginBySubgroups(includeDeprecated, tenant, callback) {
+    getPluginBySubgroupsWithHttpInfo(includeDeprecated, tenant) {
       let postBody = null;
       // verify the required parameter 'includeDeprecated' is set
       if (includeDeprecated === undefined || includeDeprecated === null) {
@@ -133,27 +129,32 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/groups/subgroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginDocumentation operation.
-     * @callback module:api/PluginsApi~getPluginDocumentationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DocumentationWithSchema} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get plugins group by subgroups
+     * @param {Boolean} includeDeprecated Whether to include deprecated plugins
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Plugin>}
      */
+    getPluginBySubgroups(includeDeprecated, tenant) {
+      return this.getPluginBySubgroupsWithHttpInfo(includeDeprecated, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get plugin documentation
      * @param {String} cls The plugin full class name
      * @param {Boolean} all Include all the properties
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginDocumentationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DocumentationWithSchema}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DocumentationWithSchema} and HTTP response
      */
-    getPluginDocumentation(cls, all, tenant, callback) {
+    getPluginDocumentationWithHttpInfo(cls, all, tenant) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
@@ -187,17 +188,24 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/{cls}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginDocumentationFromVersion operation.
-     * @callback module:api/PluginsApi~getPluginDocumentationFromVersionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DocumentationWithSchema} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get plugin documentation
+     * @param {String} cls The plugin full class name
+     * @param {Boolean} all Include all the properties
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DocumentationWithSchema}
      */
+    getPluginDocumentation(cls, all, tenant) {
+      return this.getPluginDocumentationWithHttpInfo(cls, all, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get plugin documentation
@@ -205,10 +213,9 @@ export default class PluginsApi {
      * @param {String} version The plugin version
      * @param {Boolean} all Include all the properties
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginDocumentationFromVersionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DocumentationWithSchema}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DocumentationWithSchema} and HTTP response
      */
-    getPluginDocumentationFromVersion(cls, version, all, tenant, callback) {
+    getPluginDocumentationFromVersionWithHttpInfo(cls, version, all, tenant) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
@@ -247,25 +254,32 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/{cls}/versions/{version}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginGroupIcons operation.
-     * @callback module:api/PluginsApi~getPluginGroupIconsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, module:model/{String: PluginIcon}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get plugin documentation
+     * @param {String} cls The plugin type
+     * @param {String} version The plugin version
+     * @param {Boolean} all Include all the properties
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DocumentationWithSchema}
      */
+    getPluginDocumentationFromVersion(cls, version, all, tenant) {
+      return this.getPluginDocumentationFromVersionWithHttpInfo(cls, version, all, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get plugins icons
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginGroupIconsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, module:model/{String: PluginIcon}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, module:model/{String: PluginIcon}>} and HTTP response
      */
-    getPluginGroupIcons(tenant, callback) {
+    getPluginGroupIconsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -289,25 +303,29 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/icons/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginIcons operation.
-     * @callback module:api/PluginsApi~getPluginIconsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, module:model/{String: PluginIcon}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get plugins icons
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, module:model/{String: PluginIcon}>}
      */
+    getPluginGroupIcons(tenant) {
+      return this.getPluginGroupIconsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get plugins icons
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginIconsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, module:model/{String: PluginIcon}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, module:model/{String: PluginIcon}>} and HTTP response
      */
-    getPluginIcons(tenant, callback) {
+    getPluginIconsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -331,26 +349,30 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/icons', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPluginVersions operation.
-     * @callback module:api/PluginsApi~getPluginVersionsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PluginControllerApiPluginVersions} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get plugins icons
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, module:model/{String: PluginIcon}>}
      */
+    getPluginIcons(tenant) {
+      return this.getPluginIconsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all versions for a plugin
      * @param {String} cls The plugin type
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getPluginVersionsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PluginControllerApiPluginVersions}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PluginControllerApiPluginVersions} and HTTP response
      */
-    getPluginVersions(cls, tenant, callback) {
+    getPluginVersionsWithHttpInfo(cls, tenant) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
@@ -379,27 +401,32 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/{cls}/versions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSchemaFromInputType operation.
-     * @callback module:api/PluginsApi~getSchemaFromInputTypeCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DocumentationWithSchema} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all versions for a plugin
+     * @param {String} cls The plugin type
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PluginControllerApiPluginVersions}
      */
+    getPluginVersions(cls, tenant) {
+      return this.getPluginVersionsWithHttpInfo(cls, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get json schemas for an input type
      * The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
      * @param {module:model/Type} type The schema needed
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getSchemaFromInputTypeCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DocumentationWithSchema}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DocumentationWithSchema} and HTTP response
      */
-    getSchemaFromInputType(type, tenant, callback) {
+    getSchemaFromInputTypeWithHttpInfo(type, tenant) {
       let postBody = null;
       // verify the required parameter 'type' is set
       if (type === undefined || type === null) {
@@ -428,17 +455,24 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/inputs/{type}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSchemasFromType operation.
-     * @callback module:api/PluginsApi~getSchemasFromTypeCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, {String: Object}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get json schemas for an input type
+     * The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+     * @param {module:model/Type} type The schema needed
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DocumentationWithSchema}
      */
+    getSchemaFromInputType(type, tenant) {
+      return this.getSchemaFromInputTypeWithHttpInfo(type, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all json schemas for a type
@@ -446,10 +480,9 @@ export default class PluginsApi {
      * @param {module:model/SchemaType} type The schema needed
      * @param {Boolean} arrayOf If schema should be an array of requested type
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~getSchemasFromTypeCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, {String: Object}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
      */
-    getSchemasFromType(type, arrayOf, tenant, callback) {
+    getSchemasFromTypeWithHttpInfo(type, arrayOf, tenant) {
       let postBody = null;
       // verify the required parameter 'type' is set
       if (type === undefined || type === null) {
@@ -483,26 +516,33 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins/schemas/{type}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getVersionedPluginDetails operation.
-     * @callback module:api/PluginsApi~getVersionedPluginDetailsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginVersions} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all json schemas for a type
+     * The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+     * @param {module:model/SchemaType} type The schema needed
+     * @param {Boolean} arrayOf If schema should be an array of requested type
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
      */
+    getSchemasFromType(type, arrayOf, tenant) {
+      return this.getSchemasFromTypeWithHttpInfo(type, arrayOf, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get details about a Kestra's plugin artifact.
      * @param {String} groupId 
      * @param {String} artifactId 
-     * @param {module:api/PluginsApi~getVersionedPluginDetailsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginVersions}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiPluginVersions} and HTTP response
      */
-    getVersionedPluginDetails(groupId, artifactId, callback) {
+    getVersionedPluginDetailsWithHttpInfo(groupId, artifactId) {
       let postBody = null;
       // verify the required parameter 'groupId' is set
       if (groupId === undefined || groupId === null) {
@@ -531,27 +571,32 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getVersionedPluginDetailsFromVersion operation.
-     * @callback module:api/PluginsApi~getVersionedPluginDetailsFromVersionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginVersionDetails} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get details about a Kestra's plugin artifact.
+     * @param {String} groupId 
+     * @param {String} artifactId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiPluginVersions}
      */
+    getVersionedPluginDetails(groupId, artifactId) {
+      return this.getVersionedPluginDetailsWithHttpInfo(groupId, artifactId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get details about a specific Kestra's plugin artifact version.
      * @param {String} groupId 
      * @param {String} artifactId 
      * @param {String} version 
-     * @param {module:api/PluginsApi~getVersionedPluginDetailsFromVersionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginVersionDetails}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiPluginVersionDetails} and HTTP response
      */
-    getVersionedPluginDetailsFromVersion(groupId, artifactId, version, callback) {
+    getVersionedPluginDetailsFromVersionWithHttpInfo(groupId, artifactId, version) {
       let postBody = null;
       // verify the required parameter 'groupId' is set
       if (groupId === undefined || groupId === null) {
@@ -585,25 +630,31 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the installVersionedPlugins operation.
-     * @callback module:api/PluginsApi~installVersionedPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get details about a specific Kestra's plugin artifact version.
+     * @param {String} groupId 
+     * @param {String} artifactId 
+     * @param {String} version 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiPluginVersionDetails}
      */
+    getVersionedPluginDetailsFromVersion(groupId, artifactId, version) {
+      return this.getVersionedPluginDetailsFromVersionWithHttpInfo(groupId, artifactId, version)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Install a specific Kestra's plugin artifact
      * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
-     * @param {module:api/PluginsApi~installVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact} and HTTP response
      */
-    installVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
+    installVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest) {
       let postBody = clusterControllerApiPluginListRequest;
       // verify the required parameter 'clusterControllerApiPluginListRequest' is set
       if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
@@ -626,24 +677,28 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/install', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listAvailableVersionedPlugins operation.
-     * @callback module:api/PluginsApi~listAvailableVersionedPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Install a specific Kestra's plugin artifact
+     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
      */
+    installVersionedPlugins(clusterControllerApiPluginListRequest) {
+      return this.installVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get the list of available Kestra's plugin artifact.
-     * @param {module:api/PluginsApi~listAvailableVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listAvailableVersionedPlugins(callback) {
+    listAvailableVersionedPluginsWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -662,25 +717,28 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/available', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listPlugins operation.
-     * @callback module:api/PluginsApi~listPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Plugin>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get the list of available Kestra's plugin artifact.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listAvailableVersionedPlugins() {
+      return this.listAvailableVersionedPluginsWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get list of plugins
      * @param {String} tenant 
-     * @param {module:api/PluginsApi~listPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Plugin>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Plugin>} and HTTP response
      */
-    listPlugins(tenant, callback) {
+    listPluginsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -704,17 +762,22 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/plugins', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listVersionedPlugin operation.
-     * @callback module:api/PluginsApi~listVersionedPluginCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsClusterControllerApiPluginArtifact} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get list of plugins
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Plugin>}
      */
+    listPlugins(tenant) {
+      return this.listPluginsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get the list of installed Kestra's plugin artifact.
@@ -723,10 +786,9 @@ export default class PluginsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] The query
-     * @param {module:api/PluginsApi~listVersionedPluginCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsClusterControllerApiPluginArtifact}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsClusterControllerApiPluginArtifact} and HTTP response
      */
-    listVersionedPlugin(page, size, opts, callback) {
+    listVersionedPluginWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -758,25 +820,33 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the resolveVersionedPlugins operation.
-     * @callback module:api/PluginsApi~resolveVersionedPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get the list of installed Kestra's plugin artifact.
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.q The query
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsClusterControllerApiPluginArtifact}
      */
+    listVersionedPlugin(page, size, opts) {
+      return this.listVersionedPluginWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Resolve a specific Kestra's plugin artifact
      * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
-     * @param {module:api/PluginsApi~resolveVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult} and HTTP response
      */
-    resolveVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
+    resolveVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest) {
       let postBody = clusterControllerApiPluginListRequest;
       // verify the required parameter 'clusterControllerApiPluginListRequest' is set
       if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
@@ -799,25 +869,29 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/resolve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the uninstallVersionedPlugins operation.
-     * @callback module:api/PluginsApi~uninstallVersionedPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Resolve a specific Kestra's plugin artifact
+     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult}
      */
+    resolveVersionedPlugins(clusterControllerApiPluginListRequest) {
+      return this.resolveVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Uninstall Kestra's plugin artifacts
      * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
-     * @param {module:api/PluginsApi~uninstallVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact} and HTTP response
      */
-    uninstallVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
+    uninstallVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest) {
       let postBody = clusterControllerApiPluginListRequest;
       // verify the required parameter 'clusterControllerApiPluginListRequest' is set
       if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
@@ -840,26 +914,30 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/uninstall', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the uploadVersionedPlugins operation.
-     * @callback module:api/PluginsApi~uploadVersionedPluginsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PluginArtifact} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Uninstall Kestra's plugin artifacts
+     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
      */
+    uninstallVersionedPlugins(clusterControllerApiPluginListRequest) {
+      return this.uninstallVersionedPluginsWithHttpInfo(clusterControllerApiPluginListRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Upload a Kestra's plugin artifact
      * @param {Object} opts Optional parameters
      * @param {File} [file] 
-     * @param {module:api/PluginsApi~uploadVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PluginArtifact}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PluginArtifact} and HTTP response
      */
-    uploadVersionedPlugins(opts, callback) {
+    uploadVersionedPluginsWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -880,8 +958,21 @@ export default class PluginsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/versioned-plugins/upload', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Upload a Kestra's plugin artifact
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.file 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PluginArtifact}
+     */
+    uploadVersionedPlugins(opts) {
+      return this.uploadVersionedPluginsWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

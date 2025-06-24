@@ -114,14 +114,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 var api = new KestraApi.AppsApi()
 var tenant = "tenant_example"; // {String} 
 var appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // {AppsControllerApiBulkOperationRequest} The list of Apps UID
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest, callback);
+api.bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
 
 ```
 
