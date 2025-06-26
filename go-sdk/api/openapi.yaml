@@ -19039,94 +19039,58 @@ components:
       type: object
     Assertion:
       example:
-        isNotNull:
-          expression: expression
-          value: true
-        in:
-          expression: expression
-          value:
-          - value
-          - value
-        errorMessage:
-          expression: expression
-          value: value
-        equalTo:
-          expression: expression
-          value: "{}"
-        greaterThanOrEqualTo:
-          expression: expression
-          value: 0.8008281904610115
-        description:
-          expression: expression
-          value: value
-        contains:
-          expression: expression
-          value: value
-        lessThan:
-          expression: expression
-          value: 0.8008281904610115
-        isNull:
-          expression: expression
-          value: true
-        endsWith:
-          expression: expression
-          value: value
-        notIn:
-          expression: expression
-          value:
-          - value
-          - value
-        value:
-          expression: expression
-          value: "{}"
+        isNotNull: isNotNull
+        in: in
+        errorMessage: errorMessage
+        equalTo: equalTo
+        greaterThanOrEqualTo: greaterThanOrEqualTo
+        description: description
+        contains: contains
+        lessThan: lessThan
+        isNull: isNull
+        endsWith: endsWith
+        notIn: notIn
+        value: value
         taskId: taskId
-        lessThanOrEqualTo:
-          expression: expression
-          value: 0.8008281904610115
-        startsWith:
-          expression: expression
-          value: value
-        notEqualTo:
-          expression: expression
-          value: "{}"
-        greaterThan:
-          expression: expression
-          value: 0.8008281904610115
+        lessThanOrEqualTo: lessThanOrEqualTo
+        startsWith: startsWith
+        notEqualTo: notEqualTo
+        greaterThan: greaterThan
       properties:
         value:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         taskId:
           type: string
         errorMessage:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         description:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         endsWith:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         startsWith:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         contains:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         equalTo:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         notEqualTo:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         greaterThan:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         greaterThanOrEqualTo:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         lessThan:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         lessThanOrEqualTo:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         in:
-          $ref: "#/components/schemas/Property_List_String__"
+          type: string
         notIn:
-          $ref: "#/components/schemas/Property_List_String__"
+          type: string
         isNull:
-          $ref: "#/components/schemas/Property_Boolean_"
+          type: string
         isNotNull:
-          $ref: "#/components/schemas/Property_Boolean_"
+          type: string
       required:
       - value
       type: object
@@ -20736,17 +20700,13 @@ components:
         fixtures:
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
@@ -21116,17 +21076,13 @@ components:
         fixtures:
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
@@ -21378,7 +21334,7 @@ components:
     Fixtures:
       example:
         inputs:
-          key: "{}"
+          key: inputs
         files:
           key: files
         trigger:
@@ -21389,24 +21345,20 @@ components:
         tasks:
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
         - outputs:
             key: "{}"
-          description:
-            expression: expression
-            value: value
+          description: description
           id: id
           state: null
           value: value
       properties:
         inputs:
           additionalProperties:
-            type: object
+            type: string
           type: object
         files:
           additionalProperties:
@@ -25290,17 +25242,13 @@ components:
           fixtures:
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
@@ -25502,17 +25450,13 @@ components:
           fixtures:
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
@@ -27652,116 +27596,44 @@ components:
             disabled: true
             id: id
             assertions:
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
             type: type
             fixtures:
               inputs:
-                key: "{}"
+                key: inputs
               files:
                 key: files
               trigger:
@@ -27772,17 +27644,13 @@ components:
               tasks:
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
@@ -27790,116 +27658,44 @@ components:
             disabled: true
             id: id
             assertions:
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
             type: type
             fixtures:
               inputs:
-                key: "{}"
+                key: inputs
               files:
                 key: files
               trigger:
@@ -27910,17 +27706,13 @@ components:
               tasks:
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
@@ -27936,116 +27728,44 @@ components:
             disabled: true
             id: id
             assertions:
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
             type: type
             fixtures:
               inputs:
-                key: "{}"
+                key: inputs
               files:
                 key: files
               trigger:
@@ -28056,17 +27776,13 @@ components:
               tasks:
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
@@ -28074,116 +27790,44 @@ components:
             disabled: true
             id: id
             assertions:
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
-            - isNotNull:
-                expression: expression
-                value: true
-              in:
-                expression: expression
-                value:
-                - value
-                - value
-              errorMessage:
-                expression: expression
-                value: value
-              equalTo:
-                expression: expression
-                value: "{}"
-              greaterThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              description:
-                expression: expression
-                value: value
-              contains:
-                expression: expression
-                value: value
-              lessThan:
-                expression: expression
-                value: 0.8008281904610115
-              isNull:
-                expression: expression
-                value: true
-              endsWith:
-                expression: expression
-                value: value
-              notIn:
-                expression: expression
-                value:
-                - value
-                - value
-              value:
-                expression: expression
-                value: "{}"
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
+            - isNotNull: isNotNull
+              in: in
+              errorMessage: errorMessage
+              equalTo: equalTo
+              greaterThanOrEqualTo: greaterThanOrEqualTo
+              description: description
+              contains: contains
+              lessThan: lessThan
+              isNull: isNull
+              endsWith: endsWith
+              notIn: notIn
+              value: value
               taskId: taskId
-              lessThanOrEqualTo:
-                expression: expression
-                value: 0.8008281904610115
-              startsWith:
-                expression: expression
-                value: value
-              notEqualTo:
-                expression: expression
-                value: "{}"
-              greaterThan:
-                expression: expression
-                value: 0.8008281904610115
+              lessThanOrEqualTo: lessThanOrEqualTo
+              startsWith: startsWith
+              notEqualTo: notEqualTo
+              greaterThan: greaterThan
             type: type
             fixtures:
               inputs:
-                key: "{}"
+                key: inputs
               files:
                 key: files
               trigger:
@@ -28194,17 +27838,13 @@ components:
               tasks:
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
               - outputs:
                   key: "{}"
-                description:
-                  expression: expression
-                  value: value
+                description: description
                 id: id
                 state: null
                 value: value
@@ -28722,9 +28362,6 @@ components:
           type: object
       type: object
     Property_Boolean_:
-      example:
-        expression: expression
-        value: true
       properties:
         expression:
           type: string
@@ -28732,9 +28369,6 @@ components:
           type: boolean
       type: object
     Property_Double_:
-      example:
-        expression: expression
-        value: 0.8008281904610115
       properties:
         expression:
           type: string
@@ -28753,11 +28387,6 @@ components:
           type: string
       type: object
     Property_List_String__:
-      example:
-        expression: expression
-        value:
-        - value
-        - value
       properties:
         expression:
           type: string
@@ -28767,9 +28396,6 @@ components:
           type: array
       type: object
     Property_Object_:
-      example:
-        expression: expression
-        value: "{}"
       properties:
         expression:
           type: string
@@ -28777,9 +28403,6 @@ components:
           type: object
       type: object
     Property_String_:
-      example:
-        expression: expression
-        value: value
       properties:
         expression:
           type: string
@@ -30173,9 +29796,7 @@ components:
       example:
         outputs:
           key: "{}"
-        description:
-          expression: expression
-          value: value
+        description: description
         id: id
         state: null
         value: value
@@ -30191,7 +29812,7 @@ components:
             type: object
           type: object
         description:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
       required:
       - id
       type: object
@@ -30512,116 +30133,44 @@ components:
           disabled: true
           id: id
           assertions:
-          - isNotNull:
-              expression: expression
-              value: true
-            in:
-              expression: expression
-              value:
-              - value
-              - value
-            errorMessage:
-              expression: expression
-              value: value
-            equalTo:
-              expression: expression
-              value: "{}"
-            greaterThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            description:
-              expression: expression
-              value: value
-            contains:
-              expression: expression
-              value: value
-            lessThan:
-              expression: expression
-              value: 0.8008281904610115
-            isNull:
-              expression: expression
-              value: true
-            endsWith:
-              expression: expression
-              value: value
-            notIn:
-              expression: expression
-              value:
-              - value
-              - value
-            value:
-              expression: expression
-              value: "{}"
+          - isNotNull: isNotNull
+            in: in
+            errorMessage: errorMessage
+            equalTo: equalTo
+            greaterThanOrEqualTo: greaterThanOrEqualTo
+            description: description
+            contains: contains
+            lessThan: lessThan
+            isNull: isNull
+            endsWith: endsWith
+            notIn: notIn
+            value: value
             taskId: taskId
-            lessThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            startsWith:
-              expression: expression
-              value: value
-            notEqualTo:
-              expression: expression
-              value: "{}"
-            greaterThan:
-              expression: expression
-              value: 0.8008281904610115
-          - isNotNull:
-              expression: expression
-              value: true
-            in:
-              expression: expression
-              value:
-              - value
-              - value
-            errorMessage:
-              expression: expression
-              value: value
-            equalTo:
-              expression: expression
-              value: "{}"
-            greaterThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            description:
-              expression: expression
-              value: value
-            contains:
-              expression: expression
-              value: value
-            lessThan:
-              expression: expression
-              value: 0.8008281904610115
-            isNull:
-              expression: expression
-              value: true
-            endsWith:
-              expression: expression
-              value: value
-            notIn:
-              expression: expression
-              value:
-              - value
-              - value
-            value:
-              expression: expression
-              value: "{}"
+            lessThanOrEqualTo: lessThanOrEqualTo
+            startsWith: startsWith
+            notEqualTo: notEqualTo
+            greaterThan: greaterThan
+          - isNotNull: isNotNull
+            in: in
+            errorMessage: errorMessage
+            equalTo: equalTo
+            greaterThanOrEqualTo: greaterThanOrEqualTo
+            description: description
+            contains: contains
+            lessThan: lessThan
+            isNull: isNull
+            endsWith: endsWith
+            notIn: notIn
+            value: value
             taskId: taskId
-            lessThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            startsWith:
-              expression: expression
-              value: value
-            notEqualTo:
-              expression: expression
-              value: "{}"
-            greaterThan:
-              expression: expression
-              value: 0.8008281904610115
+            lessThanOrEqualTo: lessThanOrEqualTo
+            startsWith: startsWith
+            notEqualTo: notEqualTo
+            greaterThan: greaterThan
           type: type
           fixtures:
             inputs:
-              key: "{}"
+              key: inputs
             files:
               key: files
             trigger:
@@ -30632,17 +30181,13 @@ components:
             tasks:
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
@@ -30650,116 +30195,44 @@ components:
           disabled: true
           id: id
           assertions:
-          - isNotNull:
-              expression: expression
-              value: true
-            in:
-              expression: expression
-              value:
-              - value
-              - value
-            errorMessage:
-              expression: expression
-              value: value
-            equalTo:
-              expression: expression
-              value: "{}"
-            greaterThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            description:
-              expression: expression
-              value: value
-            contains:
-              expression: expression
-              value: value
-            lessThan:
-              expression: expression
-              value: 0.8008281904610115
-            isNull:
-              expression: expression
-              value: true
-            endsWith:
-              expression: expression
-              value: value
-            notIn:
-              expression: expression
-              value:
-              - value
-              - value
-            value:
-              expression: expression
-              value: "{}"
+          - isNotNull: isNotNull
+            in: in
+            errorMessage: errorMessage
+            equalTo: equalTo
+            greaterThanOrEqualTo: greaterThanOrEqualTo
+            description: description
+            contains: contains
+            lessThan: lessThan
+            isNull: isNull
+            endsWith: endsWith
+            notIn: notIn
+            value: value
             taskId: taskId
-            lessThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            startsWith:
-              expression: expression
-              value: value
-            notEqualTo:
-              expression: expression
-              value: "{}"
-            greaterThan:
-              expression: expression
-              value: 0.8008281904610115
-          - isNotNull:
-              expression: expression
-              value: true
-            in:
-              expression: expression
-              value:
-              - value
-              - value
-            errorMessage:
-              expression: expression
-              value: value
-            equalTo:
-              expression: expression
-              value: "{}"
-            greaterThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            description:
-              expression: expression
-              value: value
-            contains:
-              expression: expression
-              value: value
-            lessThan:
-              expression: expression
-              value: 0.8008281904610115
-            isNull:
-              expression: expression
-              value: true
-            endsWith:
-              expression: expression
-              value: value
-            notIn:
-              expression: expression
-              value:
-              - value
-              - value
-            value:
-              expression: expression
-              value: "{}"
+            lessThanOrEqualTo: lessThanOrEqualTo
+            startsWith: startsWith
+            notEqualTo: notEqualTo
+            greaterThan: greaterThan
+          - isNotNull: isNotNull
+            in: in
+            errorMessage: errorMessage
+            equalTo: equalTo
+            greaterThanOrEqualTo: greaterThanOrEqualTo
+            description: description
+            contains: contains
+            lessThan: lessThan
+            isNull: isNull
+            endsWith: endsWith
+            notIn: notIn
+            value: value
             taskId: taskId
-            lessThanOrEqualTo:
-              expression: expression
-              value: 0.8008281904610115
-            startsWith:
-              expression: expression
-              value: value
-            notEqualTo:
-              expression: expression
-              value: "{}"
-            greaterThan:
-              expression: expression
-              value: 0.8008281904610115
+            lessThanOrEqualTo: lessThanOrEqualTo
+            startsWith: startsWith
+            notEqualTo: notEqualTo
+            greaterThan: greaterThan
           type: type
           fixtures:
             inputs:
-              key: "{}"
+              key: inputs
             files:
               key: files
             trigger:
@@ -30770,17 +30243,13 @@ components:
             tasks:
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
@@ -30859,7 +30328,7 @@ components:
             message: message
           fixtures:
             inputs:
-              key: "{}"
+              key: inputs
             files:
               key: files
             trigger:
@@ -30870,17 +30339,13 @@ components:
             tasks:
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
@@ -30911,7 +30376,7 @@ components:
             message: message
           fixtures:
             inputs:
-              key: "{}"
+              key: inputs
             files:
               key: files
             trigger:
@@ -30922,17 +30387,13 @@ components:
             tasks:
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
             - outputs:
                 key: "{}"
-              description:
-                expression: expression
-                value: value
+              description: description
               id: id
               state: null
               value: value
@@ -31134,116 +30595,44 @@ components:
         disabled: true
         id: id
         assertions:
-        - isNotNull:
-            expression: expression
-            value: true
-          in:
-            expression: expression
-            value:
-            - value
-            - value
-          errorMessage:
-            expression: expression
-            value: value
-          equalTo:
-            expression: expression
-            value: "{}"
-          greaterThanOrEqualTo:
-            expression: expression
-            value: 0.8008281904610115
-          description:
-            expression: expression
-            value: value
-          contains:
-            expression: expression
-            value: value
-          lessThan:
-            expression: expression
-            value: 0.8008281904610115
-          isNull:
-            expression: expression
-            value: true
-          endsWith:
-            expression: expression
-            value: value
-          notIn:
-            expression: expression
-            value:
-            - value
-            - value
-          value:
-            expression: expression
-            value: "{}"
+        - isNotNull: isNotNull
+          in: in
+          errorMessage: errorMessage
+          equalTo: equalTo
+          greaterThanOrEqualTo: greaterThanOrEqualTo
+          description: description
+          contains: contains
+          lessThan: lessThan
+          isNull: isNull
+          endsWith: endsWith
+          notIn: notIn
+          value: value
           taskId: taskId
-          lessThanOrEqualTo:
-            expression: expression
-            value: 0.8008281904610115
-          startsWith:
-            expression: expression
-            value: value
-          notEqualTo:
-            expression: expression
-            value: "{}"
-          greaterThan:
-            expression: expression
-            value: 0.8008281904610115
-        - isNotNull:
-            expression: expression
-            value: true
-          in:
-            expression: expression
-            value:
-            - value
-            - value
-          errorMessage:
-            expression: expression
-            value: value
-          equalTo:
-            expression: expression
-            value: "{}"
-          greaterThanOrEqualTo:
-            expression: expression
-            value: 0.8008281904610115
-          description:
-            expression: expression
-            value: value
-          contains:
-            expression: expression
-            value: value
-          lessThan:
-            expression: expression
-            value: 0.8008281904610115
-          isNull:
-            expression: expression
-            value: true
-          endsWith:
-            expression: expression
-            value: value
-          notIn:
-            expression: expression
-            value:
-            - value
-            - value
-          value:
-            expression: expression
-            value: "{}"
+          lessThanOrEqualTo: lessThanOrEqualTo
+          startsWith: startsWith
+          notEqualTo: notEqualTo
+          greaterThan: greaterThan
+        - isNotNull: isNotNull
+          in: in
+          errorMessage: errorMessage
+          equalTo: equalTo
+          greaterThanOrEqualTo: greaterThanOrEqualTo
+          description: description
+          contains: contains
+          lessThan: lessThan
+          isNull: isNull
+          endsWith: endsWith
+          notIn: notIn
+          value: value
           taskId: taskId
-          lessThanOrEqualTo:
-            expression: expression
-            value: 0.8008281904610115
-          startsWith:
-            expression: expression
-            value: value
-          notEqualTo:
-            expression: expression
-            value: "{}"
-          greaterThan:
-            expression: expression
-            value: 0.8008281904610115
+          lessThanOrEqualTo: lessThanOrEqualTo
+          startsWith: startsWith
+          notEqualTo: notEqualTo
+          greaterThan: greaterThan
         type: type
         fixtures:
           inputs:
-            key: "{}"
+            key: inputs
           files:
             key: files
           trigger:
@@ -31254,17 +30643,13 @@ components:
           tasks:
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
@@ -31317,7 +30702,7 @@ components:
           message: message
         fixtures:
           inputs:
-            key: "{}"
+            key: inputs
           files:
             key: files
           trigger:
@@ -31328,17 +30713,13 @@ components:
           tasks:
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value
           - outputs:
               key: "{}"
-            description:
-              expression: expression
-              value: value
+            description: description
             id: id
             state: null
             value: value

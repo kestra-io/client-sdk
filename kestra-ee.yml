@@ -16561,39 +16561,39 @@ components:
       type: object
       properties:
         value:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         taskId:
           type: string
         errorMessage:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         description:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         endsWith:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         startsWith:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         contains:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
         equalTo:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         notEqualTo:
-          $ref: "#/components/schemas/Property_Object_"
+          type: string
         greaterThan:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         greaterThanOrEqualTo:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         lessThan:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         lessThanOrEqualTo:
-          $ref: "#/components/schemas/Property_Double_"
+          type: string
         in:
-          $ref: "#/components/schemas/Property_List_String__"
+          type: string
         notIn:
-          $ref: "#/components/schemas/Property_List_String__"
+          type: string
         isNull:
-          $ref: "#/components/schemas/Property_Boolean_"
+          type: string
         isNotNull:
-          $ref: "#/components/schemas/Property_Boolean_"
+          type: string
     AssertionResult:
       required:
         - actual
@@ -17749,7 +17749,7 @@ components:
         inputs:
           type: object
           additionalProperties:
-            type: object
+            type: string
         files:
           type: object
           additionalProperties:
@@ -20361,7 +20361,7 @@ components:
           additionalProperties:
             type: object
         description:
-          $ref: "#/components/schemas/Property_String_"
+          type: string
     TaskForExecution:
       required:
         - id

@@ -19,10 +19,10 @@ var _ MappedNullable = &Fixtures{}
 
 // Fixtures struct for Fixtures
 type Fixtures struct {
-	Inputs  map[string]map[string]interface{} `json:"inputs,omitempty"`
-	Files   *map[string]string                `json:"files,omitempty"`
-	Tasks   []TaskFixture                     `json:"tasks,omitempty"`
-	Trigger *TriggerFixture                   `json:"trigger,omitempty"`
+	Inputs  *map[string]string `json:"inputs,omitempty"`
+	Files   *map[string]string `json:"files,omitempty"`
+	Tasks   []TaskFixture      `json:"tasks,omitempty"`
+	Trigger *TriggerFixture    `json:"trigger,omitempty"`
 }
 
 // NewFixtures instantiates a new Fixtures object
@@ -43,19 +43,19 @@ func NewFixturesWithDefaults() *Fixtures {
 }
 
 // GetInputs returns the Inputs field value if set, zero value otherwise.
-func (o *Fixtures) GetInputs() map[string]map[string]interface{} {
+func (o *Fixtures) GetInputs() map[string]string {
 	if o == nil || IsNil(o.Inputs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]string
 		return ret
 	}
-	return o.Inputs
+	return *o.Inputs
 }
 
 // GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fixtures) GetInputsOk() (map[string]map[string]interface{}, bool) {
+func (o *Fixtures) GetInputsOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Inputs) {
-		return map[string]map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Inputs, true
 }
@@ -69,9 +69,9 @@ func (o *Fixtures) HasInputs() bool {
 	return false
 }
 
-// SetInputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Inputs field.
-func (o *Fixtures) SetInputs(v map[string]map[string]interface{}) {
-	o.Inputs = v
+// SetInputs gets a reference to the given map[string]string and assigns it to the Inputs field.
+func (o *Fixtures) SetInputs(v map[string]string) {
+	o.Inputs = &v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
