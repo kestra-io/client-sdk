@@ -38,13 +38,6 @@ export default class LogsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the deleteLogsFromExecution operation.
-     * @callback module:api/LogsApi~deleteLogsFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete logs for a specific execution, taskrun or task
@@ -55,9 +48,9 @@ export default class LogsApi {
      * @param {String} [taskRunId] The taskrun id
      * @param {String} [taskId] The task id
      * @param {Number} [attempt] The attempt number
-     * @param {module:api/LogsApi~deleteLogsFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteLogsFromExecution(executionId, tenant, opts, callback) {
+    deleteLogsFromExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -91,17 +84,28 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/{executionId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteLogsFromFlow operation.
-     * @callback module:api/LogsApi~deleteLogsFromFlowCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete logs for a specific execution, taskrun or task
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @param {String} opts.taskRunId The taskrun id
+     * @param {String} opts.taskId The task id
+     * @param {Number} opts.attempt The attempt number
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteLogsFromExecution(executionId, tenant, opts) {
+      return this.deleteLogsFromExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete logs for a specific execution, taskrun or task
@@ -109,9 +113,9 @@ export default class LogsApi {
      * @param {String} flowId The flow identifier
      * @param {String} triggerId The trigger id
      * @param {String} tenant 
-     * @param {module:api/LogsApi~deleteLogsFromFlowCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteLogsFromFlow(namespace, flowId, triggerId, tenant, callback) {
+    deleteLogsFromFlowWithHttpInfo(namespace, flowId, triggerId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -150,17 +154,25 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/{namespace}/{flowId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the downloadLogsFromExecution operation.
-     * @callback module:api/LogsApi~downloadLogsFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {File} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete logs for a specific execution, taskrun or task
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow identifier
+     * @param {String} triggerId The trigger id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteLogsFromFlow(namespace, flowId, triggerId, tenant) {
+      return this.deleteLogsFromFlowWithHttpInfo(namespace, flowId, triggerId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Download logs for a specific execution, taskrun or task
@@ -171,10 +183,9 @@ export default class LogsApi {
      * @param {String} [taskRunId] The taskrun id
      * @param {String} [taskId] The task id
      * @param {Number} [attempt] The attempt number
-     * @param {module:api/LogsApi~downloadLogsFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link File}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
-    downloadLogsFromExecution(executionId, tenant, opts, callback) {
+    downloadLogsFromExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -208,17 +219,28 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/{executionId}/download', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the followLogsFromExecution operation.
-     * @callback module:api/LogsApi~followLogsFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/EventLogEntry} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Download logs for a specific execution, taskrun or task
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @param {String} opts.taskRunId The taskrun id
+     * @param {String} opts.taskId The task id
+     * @param {Number} opts.attempt The attempt number
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
+    downloadLogsFromExecution(executionId, tenant, opts) {
+      return this.downloadLogsFromExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Follow logs for a specific execution
@@ -226,10 +248,9 @@ export default class LogsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {module:model/Level} [minLevel] The min log level filter
-     * @param {module:api/LogsApi~followLogsFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/EventLogEntry}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/EventLogEntry} and HTTP response
      */
-    followLogsFromExecution(executionId, tenant, opts, callback) {
+    followLogsFromExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -260,17 +281,25 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/{executionId}/follow', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listLogsFromExecution operation.
-     * @callback module:api/LogsApi~listLogsFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/LogEntry>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Follow logs for a specific execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/EventLogEntry}
      */
+    followLogsFromExecution(executionId, tenant, opts) {
+      return this.followLogsFromExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get logs for a specific execution, taskrun or task
@@ -281,10 +310,9 @@ export default class LogsApi {
      * @param {String} [taskRunId] The taskrun id
      * @param {String} [taskId] The task id
      * @param {Number} [attempt] The attempt number
-     * @param {module:api/LogsApi~listLogsFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/LogEntry>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/LogEntry>} and HTTP response
      */
-    listLogsFromExecution(executionId, tenant, opts, callback) {
+    listLogsFromExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -318,17 +346,28 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/{executionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchLogs operation.
-     * @callback module:api/LogsApi~searchLogsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsLogEntry} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get logs for a specific execution, taskrun or task
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @param {String} opts.taskRunId The taskrun id
+     * @param {String} opts.taskId The task id
+     * @param {Number} opts.attempt The attempt number
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/LogEntry>}
      */
+    listLogsFromExecution(executionId, tenant, opts) {
+      return this.listLogsFromExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for logs
@@ -345,10 +384,9 @@ export default class LogsApi {
      * @param {module:model/Level} [minLevel] The min log level filter
      * @param {Date} [startDate] The start datetime
      * @param {Date} [endDate] The end datetime
-     * @param {module:api/LogsApi~searchLogsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsLogEntry}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsLogEntry} and HTTP response
      */
-    searchLogs(page, size, tenant, opts, callback) {
+    searchLogsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -392,8 +430,32 @@ export default class LogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/logs/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Search for logs
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @param {String} opts.q A string filter
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {String} opts.triggerId A trigger id filter
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsLogEntry}
+     */
+    searchLogs(page, size, tenant, opts) {
+      return this.searchLogsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

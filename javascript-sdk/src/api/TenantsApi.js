@@ -36,20 +36,13 @@ export default class TenantsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the callDelete operation.
-     * @callback module:api/TenantsApi~callDeleteCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete a tenant and all its resources (flows, namespaces, apps, ...
      * @param {String} id The tenant id
-     * @param {module:api/TenantsApi~callDeleteCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    callDelete(id, callback) {
+    callDeleteWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -73,25 +66,29 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the create operation.
-     * @callback module:api/TenantsApi~createCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Tenant} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a tenant and all its resources (flows, namespaces, apps, ...
+     * @param {String} id The tenant id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    callDelete(id) {
+      return this.callDeleteWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a tenant
      * @param {module:model/Tenant} tenant 
-     * @param {module:api/TenantsApi~createCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Tenant}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Tenant} and HTTP response
      */
-    create(tenant, callback) {
+    createWithHttpInfo(tenant) {
       let postBody = tenant;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -114,17 +111,22 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the find operation.
-     * @callback module:api/TenantsApi~findCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTenant} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a tenant
+     * @param {module:model/Tenant} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Tenant}
      */
+    create(tenant) {
+      return this.createWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for tenants
@@ -133,10 +135,9 @@ export default class TenantsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/TenantsApi~findCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTenant}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTenant} and HTTP response
      */
-    find(page, size, opts, callback) {
+    findWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -168,25 +169,33 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the get operation.
-     * @callback module:api/TenantsApi~getCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Tenant} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for tenants
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTenant}
      */
+    find(page, size, opts) {
+      return this.findWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a tenant
      * @param {String} id The tenant id
-     * @param {module:api/TenantsApi~getCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Tenant}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Tenant} and HTTP response
      */
-    get(id, callback) {
+    getWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -210,27 +219,31 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setLogo operation.
-     * @callback module:api/TenantsApi~setLogoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiTenant} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a tenant
+     * @param {String} id The tenant id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Tenant}
      */
+    get(id) {
+      return this.getWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Set a tenant logo
      * @param {String} id The tenant id
      * @param {Object} opts Optional parameters
      * @param {File} [logo] The logo file
-     * @param {module:api/TenantsApi~setLogoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiTenant}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiTenant} and HTTP response
      */
-    setLogo(id, opts, callback) {
+    setLogoWithHttpInfo(id, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -256,26 +269,32 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{id}/logo', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the update operation.
-     * @callback module:api/TenantsApi~updateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Tenant} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Set a tenant logo
+     * @param {String} id The tenant id
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.logo The logo file
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiTenant}
      */
+    setLogo(id, opts) {
+      return this.setLogoWithHttpInfo(id, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a tenant
      * @param {String} id The tenant id
      * @param {module:model/Tenant} tenant 
-     * @param {module:api/TenantsApi~updateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Tenant}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Tenant} and HTTP response
      */
-    update(id, tenant, callback) {
+    updateWithHttpInfo(id, tenant) {
       let postBody = tenant;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -303,8 +322,21 @@ export default class TenantsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a tenant
+     * @param {String} id The tenant id
+     * @param {module:model/Tenant} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Tenant}
+     */
+    update(id, tenant) {
+      return this.updateWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -42,13 +42,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.createSCIMResourceByIdGroups(integration, tenant, scimUser, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createSCIMResourceByIdGroups(integration, tenant, scimUser, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -97,13 +96,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.createSCIMResourceByIdUsers(integration, tenant, scimUser, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createSCIMResourceByIdUsers(integration, tenant, scimUser, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -148,13 +146,12 @@ let apiInstance = new KestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteGroups(id, integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteGroups(id, integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -197,13 +194,12 @@ let apiInstance = new KestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteUsers(id, integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUsers(id, integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -246,13 +242,12 @@ let apiInstance = new KestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 let searchRequest = new KestraApi.SearchRequest(); // SearchRequest | 
-apiInstance.findGroups(integration, tenant, searchRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findGroups(integration, tenant, searchRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -295,13 +290,12 @@ let apiInstance = new KestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 let searchRequest = new KestraApi.SearchRequest(); // SearchRequest | 
-apiInstance.findUsers(integration, tenant, searchRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findUsers(integration, tenant, searchRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -348,13 +342,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.getSCIMResourceByIdGroups(id, integration, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSCIMResourceByIdGroups(id, integration, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -403,13 +396,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.getSCIMResourceByIdUsers(id, integration, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSCIMResourceByIdUsers(id, integration, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -459,13 +451,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.patchGroups(id, integration, tenant, patchRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchGroups(id, integration, tenant, patchRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -516,13 +507,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.patchUsers(id, integration, tenant, patchRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchUsers(id, integration, tenant, patchRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -576,13 +566,12 @@ let opts = {
   'startIndex': 56, // Number | 
   'count': 56 // Number | 
 };
-apiInstance.queryGroups(integration, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.queryGroups(integration, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -639,13 +628,12 @@ let opts = {
   'startIndex': 56, // Number | 
   'count': 56 // Number | 
 };
-apiInstance.queryUsers(integration, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.queryUsers(integration, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -699,13 +687,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.updateGroups(id, integration, tenant, scimResource, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateGroups(id, integration, tenant, scimResource, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -756,13 +743,12 @@ let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
 };
-apiInstance.updateUsers(id, integration, tenant, scimResource, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUsers(id, integration, tenant, scimResource, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

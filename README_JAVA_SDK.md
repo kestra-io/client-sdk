@@ -8,7 +8,7 @@
    - Last `kestra-ee.yml` was generated with micronaut openapi `6.15`, for the next make sure to use the most recent version of it who should fixe 2 bugs.
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
-3. Then multiples files changes are needed to be done manually in the generated SDK:
+3. Then multiple files changes are needed to be done manually in the generated SDK:
   - Remove all `classifier` from the build.gradle file.
   - Add this dependency in the build.gradle file:
     ```groovy

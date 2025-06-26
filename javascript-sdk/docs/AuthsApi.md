@@ -39,13 +39,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | 
-apiInstance.createApiTokenForCurrentUser(createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokenForCurrentUser(createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -91,13 +90,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AuthsApi();
 let tenant = "tenant_example"; // String | 
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | 
-apiInstance.createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -143,13 +141,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
 let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiTokenForCurrentUser(tokenId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenForCurrentUser(tokenId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -195,13 +192,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AuthsApi();
 let tokenId = "tokenId_example"; // String | The token id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiTokenForCurrentUserWithTenant(tokenId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenForCurrentUserWithTenant(tokenId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -246,13 +242,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
-apiInstance.getCurrentUser((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getCurrentUser().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -294,13 +289,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.getCurrentUserWithTenant(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getCurrentUserWithTenant(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -336,13 +330,12 @@ Get list of authentication methods
 import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.AuthsApi();
-apiInstance.index((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.index().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -383,13 +376,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
-apiInstance.listApiTokensForCurrentUser((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensForCurrentUser().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -431,13 +423,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokensForCurrentUserWithTenant(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensForCurrentUserWithTenant(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -482,13 +473,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
 let meControllerUserDetailsRequest = new KestraApi.MeControllerUserDetailsRequest(); // MeControllerUserDetailsRequest | The user details
-apiInstance.patchCurrentUser(meControllerUserDetailsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchCurrentUser(meControllerUserDetailsRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -534,13 +524,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AuthsApi();
 let tenant = "tenant_example"; // String | 
 let meControllerUserDetailsRequest = new KestraApi.MeControllerUserDetailsRequest(); // MeControllerUserDetailsRequest | The user details
-apiInstance.patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
