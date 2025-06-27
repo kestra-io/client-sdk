@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -22,13 +22,13 @@ var _ MappedNullable = &Backfill{}
 
 // Backfill struct for Backfill
 type Backfill struct {
-	Start                     time.Time                         `json:"start"`
-	End                       *time.Time                        `json:"end,omitempty"`
-	CurrentDate               *time.Time                        `json:"currentDate,omitempty"`
-	Paused                    *bool                             `json:"paused,omitempty"`
-	Inputs                    map[string]map[string]interface{} `json:"inputs,omitempty"`
-	Labels                    []Label                           `json:"labels,omitempty"`
-	PreviousNextExecutionDate *time.Time                        `json:"previousNextExecutionDate,omitempty"`
+	Start                     time.Time              `json:"start"`
+	End                       *time.Time             `json:"end,omitempty"`
+	CurrentDate               *time.Time             `json:"currentDate,omitempty"`
+	Paused                    *bool                  `json:"paused,omitempty"`
+	Inputs                    map[string]interface{} `json:"inputs,omitempty"`
+	Labels                    []Label                `json:"labels,omitempty"`
+	PreviousNextExecutionDate *time.Time             `json:"previousNextExecutionDate,omitempty"`
 }
 
 type _Backfill Backfill
@@ -172,9 +172,9 @@ func (o *Backfill) SetPaused(v bool) {
 }
 
 // GetInputs returns the Inputs field value if set, zero value otherwise.
-func (o *Backfill) GetInputs() map[string]map[string]interface{} {
+func (o *Backfill) GetInputs() map[string]interface{} {
 	if o == nil || IsNil(o.Inputs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Inputs
@@ -182,9 +182,9 @@ func (o *Backfill) GetInputs() map[string]map[string]interface{} {
 
 // GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Backfill) GetInputsOk() (map[string]map[string]interface{}, bool) {
+func (o *Backfill) GetInputsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Inputs) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Inputs, true
 }
@@ -198,8 +198,8 @@ func (o *Backfill) HasInputs() bool {
 	return false
 }
 
-// SetInputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Inputs field.
-func (o *Backfill) SetInputs(v map[string]map[string]interface{}) {
+// SetInputs gets a reference to the given map[string]interface{} and assigns it to the Inputs field.
+func (o *Backfill) SetInputs(v map[string]interface{}) {
 	o.Inputs = v
 }
 

@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Title** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**IncludedTasks** | Pointer to **[]string** |  | [optional] 
-**PublishedAt** | Pointer to **time.Time** |  | [optional] 
+**Description** | **string** |  | 
+**Tags** | **[]string** |  | 
+**IncludedTasks** | **[]string** |  | 
+**PublishedAt** | **time.Time** |  | 
 **Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewBlueprint
 
-`func NewBlueprint(title string, deleted bool, ) *Blueprint`
+`func NewBlueprint(id string, title string, description string, tags []string, includedTasks []string, publishedAt time.Time, deleted bool, ) *Blueprint`
 
 NewBlueprint instantiates a new Blueprint object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *Blueprint) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -95,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *Blueprint) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -120,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *Blueprint) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetIncludedTasks
 
@@ -145,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetIncludedTasks sets IncludedTasks field to given value.
 
-### HasIncludedTasks
-
-`func (o *Blueprint) HasIncludedTasks() bool`
-
-HasIncludedTasks returns a boolean if a field has been set.
 
 ### GetPublishedAt
 
@@ -170,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetPublishedAt sets PublishedAt field to given value.
 
-### HasPublishedAt
-
-`func (o *Blueprint) HasPublishedAt() bool`
-
-HasPublishedAt returns a boolean if a field has been set.
 
 ### GetDeleted
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttemptNumber** | Pointer to **int32** |  | [optional] 
-**OriginalCreatedDate** | Pointer to **time.Time** |  | [optional] 
+**AttemptNumber** | **int32** |  | 
+**OriginalCreatedDate** | **time.Time** |  | 
 
 ## Methods
 
 ### NewExecutionMetadata
 
-`func NewExecutionMetadata() *ExecutionMetadata`
+`func NewExecutionMetadata(attemptNumber int32, originalCreatedDate time.Time, ) *ExecutionMetadata`
 
 NewExecutionMetadata instantiates a new ExecutionMetadata object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetAttemptNumber sets AttemptNumber field to given value.
 
-### HasAttemptNumber
-
-`func (o *ExecutionMetadata) HasAttemptNumber() bool`
-
-HasAttemptNumber returns a boolean if a field has been set.
 
 ### GetOriginalCreatedDate
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetOriginalCreatedDate sets OriginalCreatedDate field to given value.
 
-### HasOriginalCreatedDate
-
-`func (o *ExecutionMetadata) HasOriginalCreatedDate() bool`
-
-HasOriginalCreatedDate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

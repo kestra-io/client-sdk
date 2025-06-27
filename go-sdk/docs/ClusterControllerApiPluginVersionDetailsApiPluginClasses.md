@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**Classes** | Pointer to [**[]ClusterControllerApiPluginVersionDetailsApiPluginClass**](ClusterControllerApiPluginVersionDetailsApiPluginClass.md) |  | [optional] 
+**Type** | **string** |  | 
+**Classes** | [**[]ClusterControllerApiPluginVersionDetailsApiPluginClass**](ClusterControllerApiPluginVersionDetailsApiPluginClass.md) |  | 
 
 ## Methods
 
 ### NewClusterControllerApiPluginVersionDetailsApiPluginClasses
 
-`func NewClusterControllerApiPluginVersionDetailsApiPluginClasses() *ClusterControllerApiPluginVersionDetailsApiPluginClasses`
+`func NewClusterControllerApiPluginVersionDetailsApiPluginClasses(type_ string, classes []ClusterControllerApiPluginVersionDetailsApiPluginClass, ) *ClusterControllerApiPluginVersionDetailsApiPluginClasses`
 
 NewClusterControllerApiPluginVersionDetailsApiPluginClasses instantiates a new ClusterControllerApiPluginVersionDetailsApiPluginClasses object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *ClusterControllerApiPluginVersionDetailsApiPluginClasses) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetClasses
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetClasses sets Classes field to given value.
 
-### HasClasses
-
-`func (o *ClusterControllerApiPluginVersionDetailsApiPluginClasses) HasClasses() bool`
-
-HasClasses returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

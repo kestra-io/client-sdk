@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,9 @@ API version: v1
 package kestra_api_client
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the KVControllerApiDeleteBulkResponse type satisfies the MappedNullable interface at compile time
@@ -19,15 +21,18 @@ var _ MappedNullable = &KVControllerApiDeleteBulkResponse{}
 
 // KVControllerApiDeleteBulkResponse struct for KVControllerApiDeleteBulkResponse
 type KVControllerApiDeleteBulkResponse struct {
-	Keys []string `json:"keys,omitempty"`
+	Keys []string `json:"keys"`
 }
+
+type _KVControllerApiDeleteBulkResponse KVControllerApiDeleteBulkResponse
 
 // NewKVControllerApiDeleteBulkResponse instantiates a new KVControllerApiDeleteBulkResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKVControllerApiDeleteBulkResponse() *KVControllerApiDeleteBulkResponse {
+func NewKVControllerApiDeleteBulkResponse(keys []string) *KVControllerApiDeleteBulkResponse {
 	this := KVControllerApiDeleteBulkResponse{}
+	this.Keys = keys
 	return &this
 }
 
@@ -39,34 +44,26 @@ func NewKVControllerApiDeleteBulkResponseWithDefaults() *KVControllerApiDeleteBu
 	return &this
 }
 
-// GetKeys returns the Keys field value if set, zero value otherwise.
+// GetKeys returns the Keys field value
 func (o *KVControllerApiDeleteBulkResponse) GetKeys() []string {
-	if o == nil || IsNil(o.Keys) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Keys
 }
 
-// GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
+// GetKeysOk returns a tuple with the Keys field value
 // and a boolean to check if the value has been set.
 func (o *KVControllerApiDeleteBulkResponse) GetKeysOk() ([]string, bool) {
-	if o == nil || IsNil(o.Keys) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Keys, true
 }
 
-// HasKeys returns a boolean if a field has been set.
-func (o *KVControllerApiDeleteBulkResponse) HasKeys() bool {
-	if o != nil && !IsNil(o.Keys) {
-		return true
-	}
-
-	return false
-}
-
-// SetKeys gets a reference to the given []string and assigns it to the Keys field.
+// SetKeys sets field value
 func (o *KVControllerApiDeleteBulkResponse) SetKeys(v []string) {
 	o.Keys = v
 }
@@ -81,10 +78,45 @@ func (o KVControllerApiDeleteBulkResponse) MarshalJSON() ([]byte, error) {
 
 func (o KVControllerApiDeleteBulkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Keys) {
-		toSerialize["keys"] = o.Keys
-	}
+	toSerialize["keys"] = o.Keys
 	return toSerialize, nil
+}
+
+func (o *KVControllerApiDeleteBulkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"keys",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKVControllerApiDeleteBulkResponse := _KVControllerApiDeleteBulkResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKVControllerApiDeleteBulkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KVControllerApiDeleteBulkResponse(varKVControllerApiDeleteBulkResponse)
+
+	return err
 }
 
 type NullableKVControllerApiDeleteBulkResponse struct {

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | **string** |  | 
-**Details** | Pointer to **string** |  | [optional] 
+**Details** | **string** |  | 
 
 ## Methods
 
 ### NewAssertionRunError
 
-`func NewAssertionRunError(message string, ) *AssertionRunError`
+`func NewAssertionRunError(message string, details string, ) *AssertionRunError`
 
 NewAssertionRunError instantiates a new AssertionRunError object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetDetails sets Details field to given value.
 
-### HasDetails
-
-`func (o *AssertionRunError) HasDetails() bool`
-
-HasDetails returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

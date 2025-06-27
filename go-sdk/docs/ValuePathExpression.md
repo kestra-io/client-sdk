@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AttributePath** | Pointer to [**AttributeReference**](AttributeReference.md) |  | [optional] 
+**AttributePath** | [**AttributeReference**](AttributeReference.md) |  | 
 **AttributeExpression** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewValuePathExpression
 
-`func NewValuePathExpression() *ValuePathExpression`
+`func NewValuePathExpression(attributePath AttributeReference, ) *ValuePathExpression`
 
 NewValuePathExpression instantiates a new ValuePathExpression object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetAttributePath sets AttributePath field to given value.
 
-### HasAttributePath
-
-`func (o *ValuePathExpression) HasAttributePath() bool`
-
-HasAttributePath returns a boolean if a field has been set.
 
 ### GetAttributeExpression
 

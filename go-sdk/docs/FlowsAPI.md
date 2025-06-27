@@ -20,7 +20,7 @@ Method | HTTP request | Description
 [**GenerateFlowGraphFromSource**](FlowsAPI.md#GenerateFlowGraphFromSource) | **Post** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
 [**GetFlow**](FlowsAPI.md#GetFlow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
 [**GetFlowDependencies**](FlowsAPI.md#GetFlowDependencies) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**GetFlowDependenciesFromNamespace**](FlowsAPI.md#GetFlowDependenciesFromNamespace) | **Get** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Get flow dependencies
+[**GetFlowDependenciesFromNamespace**](FlowsAPI.md#GetFlowDependenciesFromNamespace) | **Get** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 [**GetTaskFromFlow**](FlowsAPI.md#GetTaskFromFlow) | **Get** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**ImportFlows**](FlowsAPI.md#ImportFlows) | **Post** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**ListDistinctNamespaces**](FlowsAPI.md#ListDistinctNamespaces) | **Get** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
@@ -773,7 +773,7 @@ Name | Type | Description  | Notes
 
 ## ExportFlowsByIds
 
-> string ExportFlowsByIds(ctx, tenant).IdWithNamespace(idWithNamespace).Execute()
+> []string ExportFlowsByIds(ctx, tenant).IdWithNamespace(idWithNamespace).Execute()
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -800,7 +800,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ExportFlowsByIds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ExportFlowsByIds`: string
+	// response from `ExportFlowsByIds`: []string
 	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.ExportFlowsByIds`: %v\n", resp)
 }
 ```
@@ -825,7 +825,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**[]string**
 
 ### Authorization
 
@@ -843,7 +843,7 @@ Name | Type | Description  | Notes
 
 ## ExportFlowsByQuery
 
-> string ExportFlowsByQuery(ctx, tenant).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
+> []string ExportFlowsByQuery(ctx, tenant).Filters(filters).Q(q).Scope(scope).Namespace(namespace).Labels(labels).Execute()
 
 Export flows as a ZIP archive of yaml sources.
 
@@ -861,7 +861,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
@@ -874,7 +874,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.ExportFlowsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ExportFlowsByQuery`: string
+	// response from `ExportFlowsByQuery`: []string
 	fmt.Fprintf(os.Stdout, "Response from `FlowsAPI.ExportFlowsByQuery`: %v\n", resp)
 }
 ```
@@ -903,7 +903,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**[]string**
 
 ### Authorization
 
@@ -1229,7 +1229,7 @@ Name | Type | Description  | Notes
 
 > FlowTopologyGraph GetFlowDependenciesFromNamespace(ctx, namespace, tenant).DestinationOnly(destinationOnly).Execute()
 
-Get flow dependencies
+Retrieve flow dependencies
 
 ### Example
 
@@ -1685,7 +1685,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the flows to include (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
@@ -1826,7 +1826,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFlow
 
-> UpdateFlow200Response UpdateFlow(ctx, id, namespace, tenant).Body(body).Execute()
+> UpdateFlow200Response UpdateFlow(ctx, tenant, namespace, id).Body(body).Execute()
 
 Update a flow
 
@@ -1843,14 +1843,14 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The flow id
-	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
+	namespace := "namespace_example" // string | The flow namespace
+	id := "id_example" // string | The flow id
 	body := "body_example" // string | The flow source code
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlow(context.Background(), id, namespace, tenant).Body(body).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlow(context.Background(), tenant, namespace, id).Body(body).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlow``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1866,9 +1866,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The flow id | 
-**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
+**namespace** | **string** | The flow namespace | 
+**id** | **string** | The flow id | 
 
 ### Other Parameters
 
@@ -1902,7 +1902,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFlowsInNamespaceFromJson
 
-> UpdateFlowsInNamespaceFromJson200Response UpdateFlowsInNamespaceFromJson(ctx, namespace, tenant).Delete(delete).Flow(flow).Execute()
+> UpdateFlowsInNamespaceFromJson200Response UpdateFlowsInNamespaceFromJson(ctx, tenant, namespace).Delete(delete).Flow(flow).Execute()
 
 Update a complete namespace from json object
 
@@ -1921,14 +1921,14 @@ import (
 )
 
 func main() {
-	delete := true // bool | If missing flow should be deleted (default to true)
-	namespace := "namespace_example" // string | The flow namespace
 	tenant := "tenant_example" // string | 
+	namespace := "namespace_example" // string | The flow namespace
+	delete := true // bool | If missing flow should be deleted (default to true)
 	flow := []openapiclient.Flow{*openapiclient.NewFlow("Id_example", "Namespace_example", false, false, []openapiclient.Task{*openapiclient.NewTask("Id_example", "Type_example")})} // []Flow | A list of flows
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespaceFromJson(context.Background(), namespace, tenant).Delete(delete).Flow(flow).Execute()
+	resp, r, err := apiClient.FlowsAPI.UpdateFlowsInNamespaceFromJson(context.Background(), tenant, namespace).Delete(delete).Flow(flow).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FlowsAPI.UpdateFlowsInNamespaceFromJson``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1944,8 +1944,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**namespace** | **string** | The flow namespace | 
 **tenant** | **string** |  | 
+**namespace** | **string** | The flow namespace | 
 
 ### Other Parameters
 
@@ -1954,9 +1954,9 @@ Other parameters are passed through a pointer to a apiUpdateFlowsInNamespaceFrom
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
  **delete** | **bool** | If missing flow should be deleted | [default to true]
-
-
  **flow** | [**[]Flow**](Flow.md) | A list of flows | 
 
 ### Return type
@@ -2145,8 +2145,8 @@ import (
 )
 
 func main() {
-	section := openapiclient.FlowController.TaskValidationType("TASKS") // FlowControllerTaskValidationType | The type of task
 	tenant := "tenant_example" // string | 
+	section := openapiclient.FlowController.TaskValidationType("TASKS") // FlowControllerTaskValidationType | The type of task
 	body := "body_example" // string | A task definition that can be from tasks or triggers
 
 	configuration := openapiclient.NewConfiguration()
@@ -2176,8 +2176,8 @@ Other parameters are passed through a pointer to a apiValidateTaskRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **section** | [**FlowControllerTaskValidationType**](FlowControllerTaskValidationType.md) | The type of task | 
 
+ **section** | [**FlowControllerTaskValidationType**](FlowControllerTaskValidationType.md) | The type of task | 
  **body** | **string** | A task definition that can be from tasks or triggers | 
 
 ### Return type

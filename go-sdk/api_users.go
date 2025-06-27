@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -1163,16 +1164,16 @@ func (a *UsersAPIService) CreateUserExecute(r ApiCreateUserRequest) (*ApiUser, *
 }
 
 type ApiCreateUserBasicAuthRequest struct {
-	ctx                                   context.Context
-	ApiService                            *UsersAPIService
-	id                                    string
-	tenant                                string
-	abstractUserControllerPasswordRequest *AbstractUserControllerPasswordRequest
+	ctx                                      context.Context
+	ApiService                               *UsersAPIService
+	id                                       string
+	tenant                                   string
+	abstractUserControllerApiPasswordRequest *AbstractUserControllerApiPasswordRequest
 }
 
 // The password
-func (r ApiCreateUserBasicAuthRequest) AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest AbstractUserControllerPasswordRequest) ApiCreateUserBasicAuthRequest {
-	r.abstractUserControllerPasswordRequest = &abstractUserControllerPasswordRequest
+func (r ApiCreateUserBasicAuthRequest) AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest AbstractUserControllerApiPasswordRequest) ApiCreateUserBasicAuthRequest {
+	r.abstractUserControllerApiPasswordRequest = &abstractUserControllerApiPasswordRequest
 	return r
 }
 
@@ -1220,8 +1221,8 @@ func (a *UsersAPIService) CreateUserBasicAuthExecute(r ApiCreateUserBasicAuthReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractUserControllerPasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractUserControllerPasswordRequest is required and must be specified")
+	if r.abstractUserControllerApiPasswordRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractUserControllerApiPasswordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1242,7 +1243,7 @@ func (a *UsersAPIService) CreateUserBasicAuthExecute(r ApiCreateUserBasicAuthReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractUserControllerPasswordRequest
+	localVarPostBody = r.abstractUserControllerApiPasswordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1281,16 +1282,16 @@ func (a *UsersAPIService) CreateUserBasicAuthExecute(r ApiCreateUserBasicAuthReq
 }
 
 type ApiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest struct {
-	ctx                                   context.Context
-	ApiService                            *UsersAPIService
-	id                                    string
-	resourceTenant                        string
-	abstractUserControllerPasswordRequest *AbstractUserControllerPasswordRequest
+	ctx                                      context.Context
+	ApiService                               *UsersAPIService
+	id                                       string
+	resourceTenant                           string
+	abstractUserControllerApiPasswordRequest *AbstractUserControllerApiPasswordRequest
 }
 
 // The password
-func (r ApiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest) AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest AbstractUserControllerPasswordRequest) ApiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest {
-	r.abstractUserControllerPasswordRequest = &abstractUserControllerPasswordRequest
+func (r ApiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest) AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest AbstractUserControllerApiPasswordRequest) ApiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest {
+	r.abstractUserControllerApiPasswordRequest = &abstractUserControllerApiPasswordRequest
 	return r
 }
 
@@ -1338,8 +1339,8 @@ func (a *UsersAPIService) CreateUserBasicAuthWithResourceTenantasSuperAdminExecu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractUserControllerPasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractUserControllerPasswordRequest is required and must be specified")
+	if r.abstractUserControllerApiPasswordRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractUserControllerApiPasswordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1360,7 +1361,7 @@ func (a *UsersAPIService) CreateUserBasicAuthWithResourceTenantasSuperAdminExecu
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractUserControllerPasswordRequest
+	localVarPostBody = r.abstractUserControllerApiPasswordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1399,15 +1400,15 @@ func (a *UsersAPIService) CreateUserBasicAuthWithResourceTenantasSuperAdminExecu
 }
 
 type ApiCreateUserBasicAuthasSuperAdminRequest struct {
-	ctx                                   context.Context
-	ApiService                            *UsersAPIService
-	id                                    string
-	abstractUserControllerPasswordRequest *AbstractUserControllerPasswordRequest
+	ctx                                      context.Context
+	ApiService                               *UsersAPIService
+	id                                       string
+	abstractUserControllerApiPasswordRequest *AbstractUserControllerApiPasswordRequest
 }
 
 // The password
-func (r ApiCreateUserBasicAuthasSuperAdminRequest) AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest AbstractUserControllerPasswordRequest) ApiCreateUserBasicAuthasSuperAdminRequest {
-	r.abstractUserControllerPasswordRequest = &abstractUserControllerPasswordRequest
+func (r ApiCreateUserBasicAuthasSuperAdminRequest) AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest AbstractUserControllerApiPasswordRequest) ApiCreateUserBasicAuthasSuperAdminRequest {
+	r.abstractUserControllerApiPasswordRequest = &abstractUserControllerApiPasswordRequest
 	return r
 }
 
@@ -1452,8 +1453,8 @@ func (a *UsersAPIService) CreateUserBasicAuthasSuperAdminExecute(r ApiCreateUser
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractUserControllerPasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractUserControllerPasswordRequest is required and must be specified")
+	if r.abstractUserControllerApiPasswordRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractUserControllerApiPasswordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1474,7 +1475,7 @@ func (a *UsersAPIService) CreateUserBasicAuthasSuperAdminExecute(r ApiCreateUser
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractUserControllerPasswordRequest
+	localVarPostBody = r.abstractUserControllerApiPasswordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2985,9 +2986,9 @@ type ApiFindAllForAllTenantsRequest struct {
 	ApiService *UsersAPIService
 	page       *int32
 	size       *int32
-	sort       *[]string
 	q          *string
 	type_      *UserType
+	sort       *[]string
 }
 
 // The current page
@@ -2999,12 +3000,6 @@ func (r ApiFindAllForAllTenantsRequest) Page(page int32) ApiFindAllForAllTenants
 // The current page size
 func (r ApiFindAllForAllTenantsRequest) Size(size int32) ApiFindAllForAllTenantsRequest {
 	r.size = &size
-	return r
-}
-
-// The sort of current page
-func (r ApiFindAllForAllTenantsRequest) Sort(sort []string) ApiFindAllForAllTenantsRequest {
-	r.sort = &sort
 	return r
 }
 
@@ -3020,12 +3015,20 @@ func (r ApiFindAllForAllTenantsRequest) Type_(type_ UserType) ApiFindAllForAllTe
 	return r
 }
 
+// The sort of current page
+func (r ApiFindAllForAllTenantsRequest) Sort(sort []string) ApiFindAllForAllTenantsRequest {
+	r.sort = &sort
+	return r
+}
+
 func (r ApiFindAllForAllTenantsRequest) Execute() (*PagedResultsApiUser, *http.Response, error) {
 	return r.ApiService.FindAllForAllTenantsExecute(r)
 }
 
 /*
-FindAllForAllTenants Get all users in the instance across all tenantd
+FindAllForAllTenants List all users in the instance
+
+Superadmin-only. Lists users across all tenants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiFindAllForAllTenantsRequest
@@ -3065,17 +3068,25 @@ func (a *UsersAPIService) FindAllForAllTenantsExecute(r ApiFindAllForAllTenantsR
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
 
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
 	}
+	if r.sort != nil {
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3134,11 +3145,11 @@ type ApiFindAllForAllTenantsWithResourceTenantRequest struct {
 	ctx            context.Context
 	ApiService     *UsersAPIService
 	page           *int32
-	size           *int32
 	resourceTenant string
-	sort           *[]string
+	size           *int32
 	q              *string
 	type_          *UserType
+	sort           *[]string
 }
 
 // The current page
@@ -3150,12 +3161,6 @@ func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Page(page int32) ApiFi
 // The current page size
 func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Size(size int32) ApiFindAllForAllTenantsWithResourceTenantRequest {
 	r.size = &size
-	return r
-}
-
-// The sort of current page
-func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Sort(sort []string) ApiFindAllForAllTenantsWithResourceTenantRequest {
-	r.sort = &sort
 	return r
 }
 
@@ -3171,12 +3176,20 @@ func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Type_(type_ UserType) 
 	return r
 }
 
+// The sort of current page
+func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Sort(sort []string) ApiFindAllForAllTenantsWithResourceTenantRequest {
+	r.sort = &sort
+	return r
+}
+
 func (r ApiFindAllForAllTenantsWithResourceTenantRequest) Execute() (*PagedResultsApiUser, *http.Response, error) {
 	return r.ApiService.FindAllForAllTenantsWithResourceTenantExecute(r)
 }
 
 /*
-FindAllForAllTenantsWithResourceTenant Get all users in the instance across all tenantd
+FindAllForAllTenantsWithResourceTenant List all users in the instance
+
+Superadmin-only. Lists users across all tenants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
@@ -3219,17 +3232,25 @@ func (a *UsersAPIService) FindAllForAllTenantsWithResourceTenantExecute(r ApiFin
 		return localVarReturnValue, nil, reportError("size is required and must be specified")
 	}
 
-	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
 	}
+	if r.sort != nil {
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3296,7 +3317,7 @@ func (r ApiGetUserRequest) Execute() (*ApiUser, *http.Response, error) {
 }
 
 /*
-GetUser Get a user
+GetUser Retrieve a user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -3402,7 +3423,7 @@ func (r ApiGetUserWithResourceTenantasSuperAdminRequest) Execute() (*ApiUser, *h
 }
 
 /*
-GetUserWithResourceTenantasSuperAdmin Get a user
+GetUserWithResourceTenantasSuperAdmin Retrieve a user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -3507,7 +3528,7 @@ func (r ApiGetUserasSuperAdminRequest) Execute() (*ApiUser, *http.Response, erro
 }
 
 /*
-GetUserasSuperAdmin Get a user
+GetUserasSuperAdmin Retrieve a user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -3611,6 +3632,8 @@ func (r ApiImpersonateRequest) Execute() (map[string]interface{}, *http.Response
 /*
 Impersonate Impersonate a user
 
+Superadmin-only. Allows an admin to impersonate another user.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
 	@return ApiImpersonateRequest
@@ -3713,6 +3736,8 @@ func (r ApiImpersonateWithResourceTenantRequest) Execute() (map[string]interface
 
 /*
 ImpersonateWithResourceTenant Impersonate a user
+
+Superadmin-only. Allows an admin to impersonate another user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
@@ -3818,7 +3843,7 @@ func (r ApiListApiTokensRequest) Execute() (map[string]interface{}, *http.Respon
 }
 
 /*
-ListApiTokens List all API Tokens for specific user
+ListApiTokens List API tokens for a specific user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -3924,7 +3949,7 @@ func (r ApiListApiTokensWithResourceTenantasSuperAdminRequest) Execute() (map[st
 }
 
 /*
-ListApiTokensWithResourceTenantasSuperAdmin List all API Tokens for specific user
+ListApiTokensWithResourceTenantasSuperAdmin List API tokens for a specific user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -4029,7 +4054,7 @@ func (r ApiListApiTokensasSuperAdminRequest) Execute() (map[string]interface{}, 
 }
 
 /*
-ListApiTokensasSuperAdmin List all API Tokens for specific user
+ListApiTokensasSuperAdmin List API tokens for a specific user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -4215,7 +4240,15 @@ func (a *UsersAPIService) SearchUsersExecute(r ApiSearchUsersRequest) (*PagedRes
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
@@ -4369,7 +4402,15 @@ func (a *UsersAPIService) SearchUsersWithResourceTenantasSuperAdminExecute(r Api
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
@@ -4519,7 +4560,15 @@ func (a *UsersAPIService) SearchUsersasSuperAdminExecute(r ApiSearchUsersasSuper
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
@@ -4595,7 +4644,9 @@ func (r ApiSetSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
 }
 
 /*
-SetSuperAdmin Update a user service account
+SetSuperAdmin Update user superadmin status
+
+Superadmin-only. Updates whether a user is a superadmin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
@@ -4709,7 +4760,9 @@ func (r ApiSetSuperAdminWithResourceTenantRequest) Execute() (*ApiUser, *http.Re
 }
 
 /*
-SetSuperAdminWithResourceTenant Update a user service account
+SetSuperAdminWithResourceTenant Update user superadmin status
+
+Superadmin-only. Updates whether a user is a superadmin.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
@@ -4809,13 +4862,13 @@ func (a *UsersAPIService) SetSuperAdminWithResourceTenantExecute(r ApiSetSuperAd
 }
 
 type ApiUpdateCurrentUserPasswordRequest struct {
-	ctx                               context.Context
-	ApiService                        *UsersAPIService
-	meControllerUpdatePasswordRequest *MeControllerUpdatePasswordRequest
+	ctx                                  context.Context
+	ApiService                           *UsersAPIService
+	meControllerApiUpdatePasswordRequest *MeControllerApiUpdatePasswordRequest
 }
 
-func (r ApiUpdateCurrentUserPasswordRequest) MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest MeControllerUpdatePasswordRequest) ApiUpdateCurrentUserPasswordRequest {
-	r.meControllerUpdatePasswordRequest = &meControllerUpdatePasswordRequest
+func (r ApiUpdateCurrentUserPasswordRequest) MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest MeControllerApiUpdatePasswordRequest) ApiUpdateCurrentUserPasswordRequest {
+	r.meControllerApiUpdatePasswordRequest = &meControllerApiUpdatePasswordRequest
 	return r
 }
 
@@ -4824,7 +4877,9 @@ func (r ApiUpdateCurrentUserPasswordRequest) Execute() (map[string]interface{}, 
 }
 
 /*
-UpdateCurrentUserPassword Update login password for the current user.
+UpdateCurrentUserPassword Update authenticated user password
+
+Changes the login password for the authenticated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiUpdateCurrentUserPasswordRequest
@@ -4857,8 +4912,8 @@ func (a *UsersAPIService) UpdateCurrentUserPasswordExecute(r ApiUpdateCurrentUse
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.meControllerUpdatePasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("meControllerUpdatePasswordRequest is required and must be specified")
+	if r.meControllerApiUpdatePasswordRequest == nil {
+		return localVarReturnValue, nil, reportError("meControllerApiUpdatePasswordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4879,7 +4934,7 @@ func (a *UsersAPIService) UpdateCurrentUserPasswordExecute(r ApiUpdateCurrentUse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.meControllerUpdatePasswordRequest
+	localVarPostBody = r.meControllerApiUpdatePasswordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -4918,14 +4973,14 @@ func (a *UsersAPIService) UpdateCurrentUserPasswordExecute(r ApiUpdateCurrentUse
 }
 
 type ApiUpdateCurrentUserPasswordWithTenantRequest struct {
-	ctx                               context.Context
-	ApiService                        *UsersAPIService
-	tenant                            string
-	meControllerUpdatePasswordRequest *MeControllerUpdatePasswordRequest
+	ctx                                  context.Context
+	ApiService                           *UsersAPIService
+	tenant                               string
+	meControllerApiUpdatePasswordRequest *MeControllerApiUpdatePasswordRequest
 }
 
-func (r ApiUpdateCurrentUserPasswordWithTenantRequest) MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest MeControllerUpdatePasswordRequest) ApiUpdateCurrentUserPasswordWithTenantRequest {
-	r.meControllerUpdatePasswordRequest = &meControllerUpdatePasswordRequest
+func (r ApiUpdateCurrentUserPasswordWithTenantRequest) MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest MeControllerApiUpdatePasswordRequest) ApiUpdateCurrentUserPasswordWithTenantRequest {
+	r.meControllerApiUpdatePasswordRequest = &meControllerApiUpdatePasswordRequest
 	return r
 }
 
@@ -4934,7 +4989,9 @@ func (r ApiUpdateCurrentUserPasswordWithTenantRequest) Execute() (map[string]int
 }
 
 /*
-UpdateCurrentUserPasswordWithTenant Update login password for the current user.
+UpdateCurrentUserPasswordWithTenant Update authenticated user password
+
+Changes the login password for the authenticated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -4970,8 +5027,8 @@ func (a *UsersAPIService) UpdateCurrentUserPasswordWithTenantExecute(r ApiUpdate
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.meControllerUpdatePasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("meControllerUpdatePasswordRequest is required and must be specified")
+	if r.meControllerApiUpdatePasswordRequest == nil {
+		return localVarReturnValue, nil, reportError("meControllerApiUpdatePasswordRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4992,7 +5049,7 @@ func (a *UsersAPIService) UpdateCurrentUserPasswordWithTenantExecute(r ApiUpdate
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.meControllerUpdatePasswordRequest
+	localVarPostBody = r.meControllerApiUpdatePasswordRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

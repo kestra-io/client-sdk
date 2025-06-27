@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The ID of worker group. | [optional] 
-**Key** | Pointer to **string** | The key of the worker group. | [optional] 
-**Description** | Pointer to **string** | The description of the worker group. | [optional] 
-**ActiveWorkers** | Pointer to **int32** | The number of active workers for the group. | [optional] 
+**Id** | **string** | The ID of worker group. | 
+**Key** | **string** | The key of the worker group. | 
+**Description** | **string** | The description of the worker group. | 
+**ActiveWorkers** | **int32** | The number of active workers for the group. | 
 
 ## Methods
 
 ### NewClusterControllerApiWorkerGroupItem
 
-`func NewClusterControllerApiWorkerGroupItem() *ClusterControllerApiWorkerGroupItem`
+`func NewClusterControllerApiWorkerGroupItem(id string, key string, description string, activeWorkers int32, ) *ClusterControllerApiWorkerGroupItem`
 
 NewClusterControllerApiWorkerGroupItem instantiates a new ClusterControllerApiWorkerGroupItem object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ClusterControllerApiWorkerGroupItem) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *ClusterControllerApiWorkerGroupItem) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *ClusterControllerApiWorkerGroupItem) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetActiveWorkers
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetActiveWorkers sets ActiveWorkers field to given value.
 
-### HasActiveWorkers
-
-`func (o *ClusterControllerApiWorkerGroupItem) HasActiveWorkers() bool`
-
-HasActiveWorkers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

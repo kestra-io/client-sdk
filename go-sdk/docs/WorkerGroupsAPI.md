@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateWorkerGroup**](WorkerGroupsAPI.md#CreateWorkerGroup) | **Post** /api/v1/cluster/workergroups | Create a new worker group.
-[**DeleteWorkerGroupById**](WorkerGroupsAPI.md#DeleteWorkerGroupById) | **Delete** /api/v1/cluster/workergroups/{id} | Delete an existing worker group.
-[**GetWorkerGroupById**](WorkerGroupsAPI.md#GetWorkerGroupById) | **Get** /api/v1/cluster/workergroups/{id} | Get details about a worker group.
-[**ListWorkerGroups**](WorkerGroupsAPI.md#ListWorkerGroups) | **Get** /api/v1/cluster/workergroups | List all Worker Groups
-[**UpdateWorkerGroupById**](WorkerGroupsAPI.md#UpdateWorkerGroupById) | **Put** /api/v1/cluster/workergroups/{id} | Update an existing worker group.
+[**CreateWorkerGroup**](WorkerGroupsAPI.md#CreateWorkerGroup) | **Post** /api/v1/cluster/workergroups | Create a worker group
+[**DeleteWorkerGroupById**](WorkerGroupsAPI.md#DeleteWorkerGroupById) | **Delete** /api/v1/cluster/workergroups/{id} | Delete a worker group
+[**GetWorkerGroupById**](WorkerGroupsAPI.md#GetWorkerGroupById) | **Get** /api/v1/cluster/workergroups/{id} | Retrieve details of a specific worker group
+[**ListWorkerGroups**](WorkerGroupsAPI.md#ListWorkerGroups) | **Get** /api/v1/cluster/workergroups | List all worker groups
+[**UpdateWorkerGroupById**](WorkerGroupsAPI.md#UpdateWorkerGroupById) | **Put** /api/v1/cluster/workergroups/{id} | Update a worker group
 
 
 
@@ -16,7 +16,9 @@ Method | HTTP request | Description
 
 > ClusterControllerApiWorkerGroup CreateWorkerGroup(ctx).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 
-Create a new worker group.
+Create a worker group
+
+
 
 ### Example
 
@@ -31,7 +33,7 @@ import (
 )
 
 func main() {
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -80,7 +82,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} DeleteWorkerGroupById(ctx, id).Execute()
 
-Delete an existing worker group.
+Delete a worker group
+
+
 
 ### Example
 
@@ -148,7 +152,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiWorkerGroupDetails GetWorkerGroupById(ctx, id).Execute()
 
-Get details about a worker group.
+Retrieve details of a specific worker group
+
+
 
 ### Example
 
@@ -216,7 +222,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiWorkerGroupList ListWorkerGroups(ctx).Execute()
 
-List all Worker Groups
+List all worker groups
+
+
 
 ### Example
 
@@ -275,7 +283,9 @@ Other parameters are passed through a pointer to a apiListWorkerGroupsRequest st
 
 > ClusterControllerApiWorkerGroup UpdateWorkerGroupById(ctx, id).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 
-Update an existing worker group.
+Update a worker group
+
+
 
 ### Example
 
@@ -291,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

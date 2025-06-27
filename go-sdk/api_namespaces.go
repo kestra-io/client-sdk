@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -47,6 +48,8 @@ func (r ApiAutocompleteNamespacesRequest) Execute() ([]string, *http.Response, e
 
 /*
 AutocompleteNamespaces List namespaces for autocomplete
+
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -168,6 +171,8 @@ func (r ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest) Execute(
 /*
 AutocompleteNamespacesWithResourceTenantasSuperAdmin List namespaces for autocomplete
 
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
 	@return ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest
@@ -286,6 +291,8 @@ func (r ApiAutocompleteNamespacesasSuperAdminRequest) Execute() ([]string, *http
 
 /*
 AutocompleteNamespacesasSuperAdmin List namespaces for autocomplete
+
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAutocompleteNamespacesasSuperAdminRequest
@@ -504,7 +511,7 @@ func (r ApiDeleteNamespaceRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteNamespace Delete a flow
+DeleteNamespace Delete a namespace
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The namespace id
@@ -814,7 +821,7 @@ func (r ApiGetNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 }
 
 /*
-GetNamespace Get a namespace
+GetNamespace Retrieve namespace details
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The namespace id
@@ -1021,7 +1028,7 @@ type ApiInheritedVariablesRequest struct {
 	tenant     string
 }
 
-func (r ApiInheritedVariablesRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r ApiInheritedVariablesRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.InheritedVariablesExecute(r)
 }
 
@@ -1044,13 +1051,13 @@ func (a *NamespacesAPIService) InheritedVariables(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariablesRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariablesRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedVariables")
@@ -1212,9 +1219,27 @@ func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSec
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+	{
+		t := *r.filters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1608,7 +1633,15 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.existing != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")

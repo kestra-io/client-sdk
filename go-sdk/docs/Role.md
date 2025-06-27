@@ -5,18 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsManaged** | **bool** |  | 
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**Permissions** | Pointer to [**RolePermissions**](RolePermissions.md) |  | [optional] 
-**IsDefault** | Pointer to **bool** |  | [optional] 
+**Description** | **string** |  | 
+**Permissions** | [**RolePermissions**](RolePermissions.md) |  | 
+**IsDefault** | **bool** |  | 
 **Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewRole
 
-`func NewRole(isManaged bool, name string, deleted bool, ) *Role`
+`func NewRole(isManaged bool, id string, name string, description string, permissions RolePermissions, isDefault bool, deleted bool, ) *Role`
 
 NewRole instantiates a new Role object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *Role) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -115,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *Role) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetPermissions
 
@@ -140,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetPermissions sets Permissions field to given value.
 
-### HasPermissions
-
-`func (o *Role) HasPermissions() bool`
-
-HasPermissions returns a boolean if a field has been set.
 
 ### GetIsDefault
 
@@ -165,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetIsDefault sets IsDefault field to given value.
 
-### HasIsDefault
-
-`func (o *Role) HasIsDefault() bool`
-
-HasIsDefault returns a boolean if a field has been set.
 
 ### GetDeleted
 

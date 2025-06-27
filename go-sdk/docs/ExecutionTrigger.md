@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**LogFile** | Pointer to **string** |  | [optional] 
+**Variables** | **map[string]interface{}** |  | 
+**LogFile** | **string** |  | 
 
 ## Methods
 
 ### NewExecutionTrigger
 
-`func NewExecutionTrigger(id string, type_ string, ) *ExecutionTrigger`
+`func NewExecutionTrigger(id string, type_ string, variables map[string]interface{}, logFile string, ) *ExecutionTrigger`
 
 NewExecutionTrigger instantiates a new ExecutionTrigger object
 This constructor will assign default values to properties that have it defined,
@@ -70,28 +70,23 @@ SetType sets Type field to given value.
 
 ### GetVariables
 
-`func (o *ExecutionTrigger) GetVariables() map[string]map[string]interface{}`
+`func (o *ExecutionTrigger) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *ExecutionTrigger) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ExecutionTrigger) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *ExecutionTrigger) SetVariables(v map[string]map[string]interface{})`
+`func (o *ExecutionTrigger) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
-### HasVariables
-
-`func (o *ExecutionTrigger) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetLogFile
 
@@ -112,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetLogFile sets LogFile field to given value.
 
-### HasLogFile
-
-`func (o *ExecutionTrigger) HasLogFile() bool`
-
-HasLogFile returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

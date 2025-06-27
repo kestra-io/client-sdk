@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -366,7 +366,7 @@ type ApiExportNamespaceFilesRequest struct {
 	tenant     string
 }
 
-func (r ApiExportNamespaceFilesRequest) Execute() (string, *http.Response, error) {
+func (r ApiExportNamespaceFilesRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ExportNamespaceFilesExecute(r)
 }
 
@@ -389,13 +389,13 @@ func (a *FilesAPIService) ExportNamespaceFiles(ctx context.Context, namespace st
 
 // Execute executes the request
 //
-//	@return string
-func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesRequest) (string, *http.Response, error) {
+//	@return []string
+func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue string
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.ExportNamespaceFiles")

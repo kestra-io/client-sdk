@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -656,7 +656,15 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -674,7 +682,15 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -1471,7 +1487,15 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -1489,7 +1513,15 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -1730,7 +1762,15 @@ func (a *ExecutionsAPIService) GetExecutionFlowGraphExecute(r ApiGetExecutionFlo
 	localVarFormParams := url.Values{}
 
 	if r.subflows != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "csv")
+		t := *r.subflows
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2508,7 +2548,15 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -2526,7 +2574,15 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -3165,7 +3221,15 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -3183,7 +3247,15 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -3805,7 +3877,15 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -3823,7 +3903,15 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -4282,7 +4370,15 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -4300,7 +4396,15 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -4743,7 +4847,15 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -4761,7 +4873,15 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -5015,16 +5135,40 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		t := *r.filters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -5042,7 +5186,15 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -5438,10 +5590,26 @@ func (a *ExecutionsAPIService) SearchTaskRunExecute(r ApiSearchTaskRunRequest) (
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		t := *r.filters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -5462,7 +5630,15 @@ func (a *ExecutionsAPIService) SearchTaskRunExecute(r ApiSearchTaskRunRequest) (
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -5916,7 +6092,15 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -5934,7 +6118,15 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -6868,7 +7060,15 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -6886,7 +7086,15 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -7361,7 +7569,15 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -7379,7 +7595,15 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
+		t := *r.state
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
+		}
 	}
 	if r.labels != nil {
 		t := *r.labels

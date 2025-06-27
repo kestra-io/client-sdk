@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Before** | Pointer to **string** |  | [optional] 
-**After** | Pointer to **string** |  | [optional] 
+**Before** | **string** |  | 
+**After** | **string** |  | 
 
 ## Methods
 
 ### NewAuditLogControllerAuditLogDiff
 
-`func NewAuditLogControllerAuditLogDiff() *AuditLogControllerAuditLogDiff`
+`func NewAuditLogControllerAuditLogDiff(before string, after string, ) *AuditLogControllerAuditLogDiff`
 
 NewAuditLogControllerAuditLogDiff instantiates a new AuditLogControllerAuditLogDiff object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetBefore sets Before field to given value.
 
-### HasBefore
-
-`func (o *AuditLogControllerAuditLogDiff) HasBefore() bool`
-
-HasBefore returns a boolean if a field has been set.
 
 ### GetAfter
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetAfter sets After field to given value.
 
-### HasAfter
-
-`func (o *AuditLogControllerAuditLogDiff) HasAfter() bool`
-
-HasAfter returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 )
 
@@ -378,12 +379,12 @@ func (r ApiBulkExportAppsRequest) AppsControllerApiBulkOperationRequest(appsCont
 	return r
 }
 
-func (r ApiBulkExportAppsRequest) Execute() (string, *http.Response, error) {
+func (r ApiBulkExportAppsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.BulkExportAppsExecute(r)
 }
 
 /*
-BulkExportApps Export apps as a ZIP archive of yaml sources.
+BulkExportApps Export apps as a ZIP archive of YAML sources.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -399,13 +400,13 @@ func (a *AppsAPIService) BulkExportApps(ctx context.Context, tenant string) ApiB
 
 // Execute executes the request
 //
-//	@return string
-func (a *AppsAPIService) BulkExportAppsExecute(r ApiBulkExportAppsRequest) (string, *http.Response, error) {
+//	@return []string
+func (a *AppsAPIService) BulkExportAppsExecute(r ApiBulkExportAppsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue string
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppsAPIService.BulkExportApps")
@@ -1163,7 +1164,7 @@ func (r ApiGetAppRequest) Execute() (*AppsControllerApiAppSource, *http.Response
 }
 
 /*
-GetApp Get a app
+GetApp Retrieve an app
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uid The ID of the app
@@ -1593,7 +1594,15 @@ func (a *AppsAPIService) GetLogsFromAppExecutionExecute(r ApiGetLogsFromAppExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "minLevel", r.minLevel, "form", "")
 	}
 	if r.taskIds != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", r.taskIds, "form", "csv")
+		t := *r.taskIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2207,10 +2216,26 @@ func (a *AppsAPIService) SearchAppsExecute(r ApiSearchAppsRequest) (*PagedResult
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
+		t := *r.tags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -2360,7 +2385,15 @@ func (a *AppsAPIService) SearchAppsFromCatalogExecute(r ApiSearchAppsFromCatalog
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
+		t := *r.tags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")

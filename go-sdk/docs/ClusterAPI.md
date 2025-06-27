@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EnterMaintenance**](ClusterAPI.md#EnterMaintenance) | **Post** /api/v1/cluster/maintenance/enter | Enter cluster maintenance mode.
-[**ExitMaintenance**](ClusterAPI.md#ExitMaintenance) | **Post** /api/v1/cluster/maintenance/exit | Exit cluster maintenance mode.
+[**EnterMaintenance**](ClusterAPI.md#EnterMaintenance) | **Post** /api/v1/cluster/maintenance/enter | Enter cluster maintenance mode
+[**ExitMaintenance**](ClusterAPI.md#ExitMaintenance) | **Post** /api/v1/cluster/maintenance/exit | Exit cluster maintenance mode
 
 
 
@@ -13,7 +13,9 @@ Method | HTTP request | Description
 
 > EnterMaintenance(ctx).Execute()
 
-Enter cluster maintenance mode.
+Enter cluster maintenance mode
+
+
 
 ### Example
 
@@ -70,7 +72,9 @@ Other parameters are passed through a pointer to a apiEnterMaintenanceRequest st
 
 > ExitMaintenance(ctx).Execute()
 
-Exit cluster maintenance mode.
+Exit cluster maintenance mode
+
+
 
 ### Example
 

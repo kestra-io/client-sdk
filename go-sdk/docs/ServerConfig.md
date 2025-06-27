@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WorkerTaskRestartStrategy** | Pointer to [**NullableWorkerTaskRestartStrategy**](WorkerTaskRestartStrategy.md) |  | [optional] 
 **TerminationGracePeriod** | **string** |  | [default to "5m"]
-**Liveness** | Pointer to [**ServerConfigLiveness**](ServerConfigLiveness.md) |  | [optional] 
+**Liveness** | [**ServerConfigLiveness**](ServerConfigLiveness.md) |  | 
 
 ## Methods
 
 ### NewServerConfig
 
-`func NewServerConfig(terminationGracePeriod string, ) *ServerConfig`
+`func NewServerConfig(terminationGracePeriod string, liveness ServerConfigLiveness, ) *ServerConfig`
 
 NewServerConfig instantiates a new ServerConfig object
 This constructor will assign default values to properties that have it defined,
@@ -101,11 +101,6 @@ and a boolean to check if the value has been set.
 
 SetLiveness sets Liveness field to given value.
 
-### HasLiveness
-
-`func (o *ServerConfig) HasLiveness() bool`
-
-HasLiveness returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

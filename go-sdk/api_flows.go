@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -713,7 +713,15 @@ func (a *FlowsAPIService) DeleteFlowsByQueryExecute(r ApiDeleteFlowsByQueryReque
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -992,7 +1000,15 @@ func (a *FlowsAPIService) DisableFlowsByQueryExecute(r ApiDisableFlowsByQueryReq
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -1271,7 +1287,15 @@ func (a *FlowsAPIService) EnableFlowsByQueryExecute(r ApiEnableFlowsByQueryReque
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -1356,7 +1380,7 @@ func (r ApiExportFlowsByIdsRequest) IdWithNamespace(idWithNamespace []IdWithName
 	return r
 }
 
-func (r ApiExportFlowsByIdsRequest) Execute() (string, *http.Response, error) {
+func (r ApiExportFlowsByIdsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ExportFlowsByIdsExecute(r)
 }
 
@@ -1377,13 +1401,13 @@ func (a *FlowsAPIService) ExportFlowsByIds(ctx context.Context, tenant string) A
 
 // Execute executes the request
 //
-//	@return string
-func (a *FlowsAPIService) ExportFlowsByIdsExecute(r ApiExportFlowsByIdsRequest) (string, *http.Response, error) {
+//	@return []string
+func (a *FlowsAPIService) ExportFlowsByIdsExecute(r ApiExportFlowsByIdsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue string
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ExportFlowsByIds")
@@ -1502,7 +1526,7 @@ func (r ApiExportFlowsByQueryRequest) Labels(labels []string) ApiExportFlowsByQu
 	return r
 }
 
-func (r ApiExportFlowsByQueryRequest) Execute() (string, *http.Response, error) {
+func (r ApiExportFlowsByQueryRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ExportFlowsByQueryExecute(r)
 }
 
@@ -1523,13 +1547,13 @@ func (a *FlowsAPIService) ExportFlowsByQuery(ctx context.Context, tenant string)
 
 // Execute executes the request
 //
-//	@return string
-func (a *FlowsAPIService) ExportFlowsByQueryExecute(r ApiExportFlowsByQueryRequest) (string, *http.Response, error) {
+//	@return []string
+func (a *FlowsAPIService) ExportFlowsByQueryExecute(r ApiExportFlowsByQueryRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue string
+		localVarReturnValue []string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FlowsAPIService.ExportFlowsByQuery")
@@ -1545,13 +1569,29 @@ func (a *FlowsAPIService) ExportFlowsByQueryExecute(r ApiExportFlowsByQueryReque
 	localVarFormParams := url.Values{}
 
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		t := *r.filters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -1695,7 +1735,15 @@ func (a *FlowsAPIService) GenerateFlowGraphExecute(r ApiGenerateFlowGraphRequest
 		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
 	}
 	if r.subflows != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "csv")
+		t := *r.subflows
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1817,7 +1865,15 @@ func (a *FlowsAPIService) GenerateFlowGraphFromSourceExecute(r ApiGenerateFlowGr
 	}
 
 	if r.subflows != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "csv")
+		t := *r.subflows
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-yaml"}
@@ -2157,7 +2213,7 @@ func (r ApiGetFlowDependenciesFromNamespaceRequest) Execute() (*FlowTopologyGrap
 }
 
 /*
-GetFlowDependenciesFromNamespace Get flow dependencies
+GetFlowDependenciesFromNamespace Retrieve flow dependencies
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The flow namespace
@@ -2954,16 +3010,40 @@ func (a *FlowsAPIService) SearchFlowsExecute(r ApiSearchFlowsRequest) (*PagedRes
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.filters != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
+		t := *r.filters
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
+		t := *r.scope
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -3131,7 +3211,15 @@ func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourc
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -3196,9 +3284,9 @@ func (a *FlowsAPIService) SearchFlowsBySourceCodeExecute(r ApiSearchFlowsBySourc
 type ApiUpdateFlowRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
-	id         string
-	namespace  string
 	tenant     string
+	namespace  string
+	id         string
 	body       *string
 }
 
@@ -3216,20 +3304,20 @@ func (r ApiUpdateFlowRequest) Execute() (*UpdateFlow200Response, *http.Response,
 UpdateFlow Update a flow
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The flow id
-	@param namespace The flow namespace
 	@param tenant
+	@param namespace The flow namespace
+	@param id The flow id
 	@return ApiUpdateFlowRequest
 
 Deprecated
 */
-func (a *FlowsAPIService) UpdateFlow(ctx context.Context, id string, namespace string, tenant string) ApiUpdateFlowRequest {
+func (a *FlowsAPIService) UpdateFlow(ctx context.Context, tenant string, namespace string, id string) ApiUpdateFlowRequest {
 	return ApiUpdateFlowRequest{
 		ApiService: a,
 		ctx:        ctx,
-		id:         id,
-		namespace:  namespace,
 		tenant:     tenant,
+		namespace:  namespace,
+		id:         id,
 	}
 }
 
@@ -3252,9 +3340,9 @@ func (a *FlowsAPIService) UpdateFlowExecute(r ApiUpdateFlowRequest) (*UpdateFlow
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3322,9 +3410,9 @@ func (a *FlowsAPIService) UpdateFlowExecute(r ApiUpdateFlowRequest) (*UpdateFlow
 type ApiUpdateFlowsInNamespaceFromJsonRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
-	delete     *bool
-	namespace  string
 	tenant     string
+	namespace  string
+	delete     *bool
 	flow       *[]Flow
 }
 
@@ -3351,18 +3439,18 @@ All flow will be created / updated for this namespace.
 Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespace The flow namespace
 	@param tenant
+	@param namespace The flow namespace
 	@return ApiUpdateFlowsInNamespaceFromJsonRequest
 
 Deprecated
 */
-func (a *FlowsAPIService) UpdateFlowsInNamespaceFromJson(ctx context.Context, namespace string, tenant string) ApiUpdateFlowsInNamespaceFromJsonRequest {
+func (a *FlowsAPIService) UpdateFlowsInNamespaceFromJson(ctx context.Context, tenant string, namespace string) ApiUpdateFlowsInNamespaceFromJsonRequest {
 	return ApiUpdateFlowsInNamespaceFromJsonRequest{
 		ApiService: a,
 		ctx:        ctx,
-		namespace:  namespace,
 		tenant:     tenant,
+		namespace:  namespace,
 	}
 }
 
@@ -3385,8 +3473,8 @@ func (a *FlowsAPIService) UpdateFlowsInNamespaceFromJsonExecute(r ApiUpdateFlows
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/flows/{namespace}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3702,8 +3790,8 @@ func (a *FlowsAPIService) ValidateFlowsExecute(r ApiValidateFlowsRequest) ([]Val
 type ApiValidateTaskRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
-	section    *FlowControllerTaskValidationType
 	tenant     string
+	section    *FlowControllerTaskValidationType
 	body       *string
 }
 

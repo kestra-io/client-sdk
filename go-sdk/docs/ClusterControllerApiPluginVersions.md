@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GroupId** | Pointer to **string** |  | [optional] 
-**ArtifactId** | Pointer to **string** |  | [optional] 
-**Versions** | Pointer to [**[]ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata**](ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | [optional] 
+**GroupId** | **string** |  | 
+**ArtifactId** | **string** |  | 
+**Versions** | [**[]ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata**](ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | 
 
 ## Methods
 
 ### NewClusterControllerApiPluginVersions
 
-`func NewClusterControllerApiPluginVersions() *ClusterControllerApiPluginVersions`
+`func NewClusterControllerApiPluginVersions(groupId string, artifactId string, versions []ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata, ) *ClusterControllerApiPluginVersions`
 
 NewClusterControllerApiPluginVersions instantiates a new ClusterControllerApiPluginVersions object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetGroupId sets GroupId field to given value.
 
-### HasGroupId
-
-`func (o *ClusterControllerApiPluginVersions) HasGroupId() bool`
-
-HasGroupId returns a boolean if a field has been set.
 
 ### GetArtifactId
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetArtifactId sets ArtifactId field to given value.
 
-### HasArtifactId
-
-`func (o *ClusterControllerApiPluginVersions) HasArtifactId() bool`
-
-HasArtifactId returns a boolean if a field has been set.
 
 ### GetVersions
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetVersions sets Versions field to given value.
 
-### HasVersions
-
-`func (o *ClusterControllerApiPluginVersions) HasVersions() bool`
-
-HasVersions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

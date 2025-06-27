@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cluster** | Pointer to [**AbstractGraph**](AbstractGraph.md) |  | [optional] 
-**Nodes** | Pointer to **[]string** |  | [optional] 
-**Parents** | Pointer to **[]string** |  | [optional] 
-**Start** | Pointer to **string** |  | [optional] 
-**End** | Pointer to **string** |  | [optional] 
+**Cluster** | [**AbstractGraph**](AbstractGraph.md) |  | 
+**Nodes** | **[]string** |  | 
+**Parents** | **[]string** |  | 
+**Start** | **string** |  | 
+**End** | **string** |  | 
 
 ## Methods
 
 ### NewFlowGraphCluster
 
-`func NewFlowGraphCluster() *FlowGraphCluster`
+`func NewFlowGraphCluster(cluster AbstractGraph, nodes []string, parents []string, start string, end string, ) *FlowGraphCluster`
 
 NewFlowGraphCluster instantiates a new FlowGraphCluster object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetCluster sets Cluster field to given value.
 
-### HasCluster
-
-`func (o *FlowGraphCluster) HasCluster() bool`
-
-HasCluster returns a boolean if a field has been set.
 
 ### GetNodes
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetNodes sets Nodes field to given value.
 
-### HasNodes
-
-`func (o *FlowGraphCluster) HasNodes() bool`
-
-HasNodes returns a boolean if a field has been set.
 
 ### GetParents
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetParents sets Parents field to given value.
 
-### HasParents
-
-`func (o *FlowGraphCluster) HasParents() bool`
-
-HasParents returns a boolean if a field has been set.
 
 ### GetStart
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetStart sets Start field to given value.
 
-### HasStart
-
-`func (o *FlowGraphCluster) HasStart() bool`
-
-HasStart returns a boolean if a field has been set.
 
 ### GetEnd
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetEnd sets End field to given value.
 
-### HasEnd
-
-`func (o *FlowGraphCluster) HasEnd() bool`
-
-HasEnd returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

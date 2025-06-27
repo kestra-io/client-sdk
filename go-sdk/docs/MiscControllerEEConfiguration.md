@@ -28,6 +28,8 @@ Name | Type | Description | Notes
 **Banner** | Pointer to [**Banner**](Banner.md) |  | [optional] 
 **MailServiceEnabled** | Pointer to **bool** |  | [optional] 
 **OutputsInInternalStorageEnabled** | Pointer to **bool** |  | [optional] 
+**ContextCustomLinks** | Pointer to [**map[string]CustomLink**](CustomLink.md) |  | [optional] 
+**InMaintenance** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -647,6 +649,56 @@ SetOutputsInInternalStorageEnabled sets OutputsInInternalStorageEnabled field to
 `func (o *MiscControllerEEConfiguration) HasOutputsInInternalStorageEnabled() bool`
 
 HasOutputsInInternalStorageEnabled returns a boolean if a field has been set.
+
+### GetContextCustomLinks
+
+`func (o *MiscControllerEEConfiguration) GetContextCustomLinks() map[string]CustomLink`
+
+GetContextCustomLinks returns the ContextCustomLinks field if non-nil, zero value otherwise.
+
+### GetContextCustomLinksOk
+
+`func (o *MiscControllerEEConfiguration) GetContextCustomLinksOk() (*map[string]CustomLink, bool)`
+
+GetContextCustomLinksOk returns a tuple with the ContextCustomLinks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextCustomLinks
+
+`func (o *MiscControllerEEConfiguration) SetContextCustomLinks(v map[string]CustomLink)`
+
+SetContextCustomLinks sets ContextCustomLinks field to given value.
+
+### HasContextCustomLinks
+
+`func (o *MiscControllerEEConfiguration) HasContextCustomLinks() bool`
+
+HasContextCustomLinks returns a boolean if a field has been set.
+
+### GetInMaintenance
+
+`func (o *MiscControllerEEConfiguration) GetInMaintenance() bool`
+
+GetInMaintenance returns the InMaintenance field if non-nil, zero value otherwise.
+
+### GetInMaintenanceOk
+
+`func (o *MiscControllerEEConfiguration) GetInMaintenanceOk() (*bool, bool)`
+
+GetInMaintenanceOk returns a tuple with the InMaintenance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInMaintenance
+
+`func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool)`
+
+SetInMaintenance sets InMaintenance field to given value.
+
+### HasInMaintenance
+
+`func (o *MiscControllerEEConfiguration) HasInMaintenance() bool`
+
+HasInMaintenance returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

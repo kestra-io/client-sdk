@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Version** | **string** |  | 
 
 ## Methods
 
 ### NewMiscControllerPluginIdAndVersion
 
-`func NewMiscControllerPluginIdAndVersion() *MiscControllerPluginIdAndVersion`
+`func NewMiscControllerPluginIdAndVersion(id string, version string, ) *MiscControllerPluginIdAndVersion`
 
 NewMiscControllerPluginIdAndVersion instantiates a new MiscControllerPluginIdAndVersion object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MiscControllerPluginIdAndVersion) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *MiscControllerPluginIdAndVersion) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

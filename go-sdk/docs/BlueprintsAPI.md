@@ -6,11 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateInternalBlueprints**](BlueprintsAPI.md#CreateInternalBlueprints) | **Post** /api/v1/{tenant}/blueprints/custom | Create a new internal blueprint
 [**DeleteInternalBlueprints**](BlueprintsAPI.md#DeleteInternalBlueprints) | **Delete** /api/v1/{tenant}/blueprints/custom/{id} | Delete an internal blueprint
-[**GetBlueprint**](BlueprintsAPI.md#GetBlueprint) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Get a blueprint
-[**GetBlueprintGraph**](BlueprintsAPI.md#GetBlueprintGraph) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Get a blueprint graph
-[**GetBlueprintSource**](BlueprintsAPI.md#GetBlueprintSource) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Get a blueprint source code
-[**InternalBlueprint**](BlueprintsAPI.md#InternalBlueprint) | **Get** /api/v1/{tenant}/blueprints/custom/{id} | Get an internal blueprint
-[**InternalBlueprintFlow**](BlueprintsAPI.md#InternalBlueprintFlow) | **Get** /api/v1/{tenant}/blueprints/custom/{id}/source | Get an internal blueprint source code
+[**GetBlueprint**](BlueprintsAPI.md#GetBlueprint) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
+[**GetBlueprintGraph**](BlueprintsAPI.md#GetBlueprintGraph) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
+[**GetBlueprintSource**](BlueprintsAPI.md#GetBlueprintSource) | **Get** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code
+[**InternalBlueprint**](BlueprintsAPI.md#InternalBlueprint) | **Get** /api/v1/{tenant}/blueprints/custom/{id} | Retrieve an internal blueprint
+[**InternalBlueprintFlow**](BlueprintsAPI.md#InternalBlueprintFlow) | **Get** /api/v1/{tenant}/blueprints/custom/{id}/source | Retrieve an internal blueprint source code
 [**SearchBlueprints**](BlueprintsAPI.md#SearchBlueprints) | **Get** /api/v1/{tenant}/blueprints/community/{kind} | List all blueprints
 [**SearchInternalBlueprints**](BlueprintsAPI.md#SearchInternalBlueprints) | **Get** /api/v1/{tenant}/blueprints/custom | List all internal blueprints
 [**UpdateInternalBlueprints**](BlueprintsAPI.md#UpdateInternalBlueprints) | **Put** /api/v1/{tenant}/blueprints/custom/{id} | Update an internal blueprint
@@ -23,6 +23,8 @@ Method | HTTP request | Description
 
 Create a new internal blueprint
 
+
+
 ### Example
 
 ```go
@@ -32,12 +34,13 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -92,6 +95,8 @@ No authorization required
 > DeleteInternalBlueprints(ctx, id, tenant).Execute()
 
 Delete an internal blueprint
+
+
 
 ### Example
 
@@ -160,7 +165,9 @@ No authorization required
 
 > BlueprintControllerApiBlueprintItemWithSource GetBlueprint(ctx, id, kind, tenant).Execute()
 
-Get a blueprint
+Retrieve a blueprint
+
+
 
 ### Example
 
@@ -232,9 +239,11 @@ No authorization required
 
 ## GetBlueprintGraph
 
-> map[string]map[string]interface{} GetBlueprintGraph(ctx, id, kind, tenant).Execute()
+> map[string]interface{} GetBlueprintGraph(ctx, id, kind, tenant).Execute()
 
-Get a blueprint graph
+Retrieve a blueprint graph
+
+
 
 ### Example
 
@@ -260,7 +269,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintsAPI.GetBlueprintGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBlueprintGraph`: map[string]map[string]interface{}
+	// response from `GetBlueprintGraph`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `BlueprintsAPI.GetBlueprintGraph`: %v\n", resp)
 }
 ```
@@ -288,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -308,7 +317,9 @@ No authorization required
 
 > string GetBlueprintSource(ctx, id, kind, tenant).Execute()
 
-Get a blueprint source code
+Retrieve a blueprint source code
+
+
 
 ### Example
 
@@ -382,7 +393,9 @@ No authorization required
 
 > BlueprintControllerApiBlueprintItemWithSource InternalBlueprint(ctx, id, tenant).Execute()
 
-Get an internal blueprint
+Retrieve an internal blueprint
+
+
 
 ### Example
 
@@ -453,7 +466,9 @@ No authorization required
 
 > string InternalBlueprintFlow(ctx, id, tenant).Execute()
 
-Get an internal blueprint source code
+Retrieve an internal blueprint source code
+
+
 
 ### Example
 
@@ -525,6 +540,8 @@ No authorization required
 > PagedResultsBlueprintControllerApiBlueprintItem SearchBlueprints(ctx, kind, tenant).Page(page).Size(size).Q(q).Sort(sort).Tags(tags).Execute()
 
 List all blueprints
+
+
 
 ### Example
 
@@ -607,6 +624,8 @@ No authorization required
 
 List all internal blueprints
 
+
+
 ### Example
 
 ```go
@@ -685,6 +704,8 @@ No authorization required
 
 Update an internal blueprint
 
+
+
 ### Example
 
 ```go
@@ -694,13 +715,14 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	id := "id_example" // string | The id of the internal blueprint to update
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

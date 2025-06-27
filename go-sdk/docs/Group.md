@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | **string** |  | 
 **Deleted** | **bool** |  | 
-**Provider** | Pointer to [**IdentityProvider**](IdentityProvider.md) |  | [optional] 
+**Provider** | [**IdentityProvider**](IdentityProvider.md) |  | 
 
 ## Methods
 
 ### NewGroup
 
-`func NewGroup(name string, deleted bool, ) *Group`
+`func NewGroup(id string, name string, description string, deleted bool, provider IdentityProvider, ) *Group`
 
 NewGroup instantiates a new Group object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *Group) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -93,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *Group) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -138,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetProvider sets Provider field to given value.
 
-### HasProvider
-
-`func (o *Group) HasProvider() bool`
-
-HasProvider returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

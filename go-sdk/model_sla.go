@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -21,10 +21,10 @@ var _ MappedNullable = &SLA{}
 
 // SLA struct for SLA
 type SLA struct {
-	Id       string                     `json:"id"`
-	Type     SLAType                    `json:"type"`
-	Behavior SLABehavior                `json:"behavior"`
-	Labels   *FlowWithSourceAllOfLabels `json:"labels,omitempty"`
+	Id       string              `json:"id"`
+	Type     SLAType             `json:"type"`
+	Behavior SLABehavior         `json:"behavior"`
+	Labels   *AbstractFlowLabels `json:"labels,omitempty"`
 }
 
 type _SLA SLA
@@ -122,9 +122,9 @@ func (o *SLA) SetBehavior(v SLABehavior) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *SLA) GetLabels() FlowWithSourceAllOfLabels {
+func (o *SLA) GetLabels() AbstractFlowLabels {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowWithSourceAllOfLabels
+		var ret AbstractFlowLabels
 		return ret
 	}
 	return *o.Labels
@@ -132,7 +132,7 @@ func (o *SLA) GetLabels() FlowWithSourceAllOfLabels {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SLA) GetLabelsOk() (*FlowWithSourceAllOfLabels, bool) {
+func (o *SLA) GetLabelsOk() (*AbstractFlowLabels, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *SLA) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowWithSourceAllOfLabels and assigns it to the Labels field.
-func (o *SLA) SetLabels(v FlowWithSourceAllOfLabels) {
+// SetLabels gets a reference to the given AbstractFlowLabels and assigns it to the Labels field.
+func (o *SLA) SetLabels(v AbstractFlowLabels) {
 	o.Labels = &v
 }
 

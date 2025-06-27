@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Initial** | Pointer to **int32** |  | [optional] 
-**Max** | Pointer to **int32** |  | [optional] 
+**Initial** | **int32** |  | 
+**Max** | **int32** |  | 
 
 ## Methods
 
 ### NewMiscControllerPreview
 
-`func NewMiscControllerPreview() *MiscControllerPreview`
+`func NewMiscControllerPreview(initial int32, max int32, ) *MiscControllerPreview`
 
 NewMiscControllerPreview instantiates a new MiscControllerPreview object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetInitial sets Initial field to given value.
 
-### HasInitial
-
-`func (o *MiscControllerPreview) HasInitial() bool`
-
-HasInitial returns a boolean if a field has been set.
 
 ### GetMax
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetMax sets Max field to given value.
 
-### HasMax
-
-`func (o *MiscControllerPreview) HasMax() bool`
-
-HasMax returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

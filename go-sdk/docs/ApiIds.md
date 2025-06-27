@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Ids** | Pointer to **[]string** |  | [optional] 
+**Ids** | **[]string** |  | 
 
 ## Methods
 
 ### NewApiIds
 
-`func NewApiIds() *ApiIds`
+`func NewApiIds(ids []string, ) *ApiIds`
 
 NewApiIds instantiates a new ApiIds object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetIds sets Ids field to given value.
 
-### HasIds
-
-`func (o *ApiIds) HasIds() bool`
-
-HasIds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

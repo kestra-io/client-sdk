@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Nodes** | Pointer to [**[]FlowNode**](FlowNode.md) |  | [optional] 
-**Edges** | Pointer to [**[]FlowTopologyGraphEdge**](FlowTopologyGraphEdge.md) |  | [optional] 
+**Nodes** | [**[]FlowNode**](FlowNode.md) |  | 
+**Edges** | [**[]FlowTopologyGraphEdge**](FlowTopologyGraphEdge.md) |  | 
 
 ## Methods
 
 ### NewFlowTopologyGraph
 
-`func NewFlowTopologyGraph() *FlowTopologyGraph`
+`func NewFlowTopologyGraph(nodes []FlowNode, edges []FlowTopologyGraphEdge, ) *FlowTopologyGraph`
 
 NewFlowTopologyGraph instantiates a new FlowTopologyGraph object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetNodes sets Nodes field to given value.
 
-### HasNodes
-
-`func (o *FlowTopologyGraph) HasNodes() bool`
-
-HasNodes returns a boolean if a field has been set.
 
 ### GetEdges
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetEdges sets Edges field to given value.
 
-### HasEdges
-
-`func (o *FlowTopologyGraph) HasEdges() bool`
-
-HasEdges returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

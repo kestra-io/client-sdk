@@ -4,23 +4,25 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBasicAuth**](MiscAPI.md#CreateBasicAuth) | **Post** /api/v1/main/basicAuth | Create basic auth for the current instance
-[**GetConfiguration**](MiscAPI.md#GetConfiguration) | **Get** /api/v1/configs | Get current configurations
-[**GetUsages**](MiscAPI.md#GetUsages) | **Get** /api/v1/{tenant}/usages/all | Get instance usage information
-[**LicenseInfo**](MiscAPI.md#LicenseInfo) | **Get** /api/v1/license-info | Get current license information
-[**ListActions**](MiscAPI.md#ListActions) | **Get** /api/v1/{tenant}/acls/actions | Get list of actions
-[**ListPermissions**](MiscAPI.md#ListPermissions) | **Get** /api/v1/{tenant}/acls/permissions | Get list of permissions
-[**SetupConfiguration**](MiscAPI.md#SetupConfiguration) | **Get** /api/v1/setup | Currently running configuration
-[**SetupKestra**](MiscAPI.md#SetupKestra) | **Post** /api/v1/setup | Create the first user
-[**TenantUsage**](MiscAPI.md#TenantUsage) | **Get** /api/v1/{tenant}/usages | Get instance usage information for the current tenant
+[**CreateBasicAuth**](MiscAPI.md#CreateBasicAuth) | **Post** /api/v1/{tenant}/basicAuth | Configure basic authentication for the instance.
+[**GetConfiguration**](MiscAPI.md#GetConfiguration) | **Get** /api/v1/configs | Retrieve the instance configuration.
+[**GetUsages**](MiscAPI.md#GetUsages) | **Get** /api/v1/{tenant}/usages/all | Retrieve instance usage information
+[**LicenseInfo**](MiscAPI.md#LicenseInfo) | **Get** /api/v1/license-info | Retrieve license information
+[**ListActions**](MiscAPI.md#ListActions) | **Get** /api/v1/{tenant}/acls/actions | Retrieve list of actions
+[**ListPermissions**](MiscAPI.md#ListPermissions) | **Get** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
+[**SetupConfiguration**](MiscAPI.md#SetupConfiguration) | **Get** /api/v1/setup | Retrieve current setup configuration
+[**SetupKestra**](MiscAPI.md#SetupKestra) | **Post** /api/v1/setup | Create the first Superadmin user
+[**TenantUsage**](MiscAPI.md#TenantUsage) | **Get** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 
 
 
 ## CreateBasicAuth
 
-> CreateBasicAuth(ctx).MiscControllerBasicAuthCredentials(miscControllerBasicAuthCredentials).Execute()
+> CreateBasicAuth(ctx, tenant).MiscControllerBasicAuthCredentials(miscControllerBasicAuthCredentials).Execute()
 
-Create basic auth for the current instance
+Configure basic authentication for the instance.
+
+
 
 ### Example
 
@@ -35,11 +37,12 @@ import (
 )
 
 func main() {
-	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials() // MiscControllerBasicAuthCredentials | 
+	tenant := "tenant_example" // string | 
+	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials("Uid_example", "Username_example", "Password_example") // MiscControllerBasicAuthCredentials | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.MiscAPI.CreateBasicAuth(context.Background()).MiscControllerBasicAuthCredentials(miscControllerBasicAuthCredentials).Execute()
+	r, err := apiClient.MiscAPI.CreateBasicAuth(context.Background(), tenant).MiscControllerBasicAuthCredentials(miscControllerBasicAuthCredentials).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MiscAPI.CreateBasicAuth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -50,6 +53,10 @@ func main() {
 ### Path Parameters
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -58,6 +65,7 @@ Other parameters are passed through a pointer to a apiCreateBasicAuthRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
  **miscControllerBasicAuthCredentials** | [**MiscControllerBasicAuthCredentials**](MiscControllerBasicAuthCredentials.md) |  | 
 
 ### Return type
@@ -82,7 +90,9 @@ Name | Type | Description  | Notes
 
 > MiscControllerEEConfiguration GetConfiguration(ctx).Execute()
 
-Get current configurations
+Retrieve the instance configuration.
+
+
 
 ### Example
 
@@ -141,7 +151,7 @@ Other parameters are passed through a pointer to a apiGetConfigurationRequest st
 
 > Usage GetUsages(ctx, tenant).Execute()
 
-Get instance usage information
+Retrieve instance usage information
 
 ### Example
 
@@ -209,7 +219,9 @@ Name | Type | Description  | Notes
 
 > MiscControllerLicenseInfo LicenseInfo(ctx).Execute()
 
-Get current license information
+Retrieve license information
+
+
 
 ### Example
 
@@ -268,7 +280,9 @@ Other parameters are passed through a pointer to a apiLicenseInfoRequest struct 
 
 > []Action ListActions(ctx, tenant).Execute()
 
-Get list of actions
+Retrieve list of actions
+
+
 
 ### Example
 
@@ -336,7 +350,9 @@ Name | Type | Description  | Notes
 
 > []Permission ListPermissions(ctx, tenant).Execute()
 
-Get list of permissions
+Retrieve list of permissions
+
+
 
 ### Example
 
@@ -404,7 +420,7 @@ Name | Type | Description  | Notes
 
 > SetupConfiguration SetupConfiguration(ctx).Execute()
 
-Currently running configuration
+Retrieve current setup configuration
 
 ### Example
 
@@ -463,7 +479,9 @@ Other parameters are passed through a pointer to a apiSetupConfigurationRequest 
 
 > ApiUser SetupKestra(ctx).SetupConfigurationSetupData(setupConfigurationSetupData).Execute()
 
-Create the first user
+Create the first Superadmin user
+
+
 
 ### Example
 
@@ -478,7 +496,7 @@ import (
 )
 
 func main() {
-	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData() // SetupConfigurationSetupData | 
+	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData("Username_example", "Password_example", *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false)) // SetupConfigurationSetupData | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -527,7 +545,7 @@ Name | Type | Description  | Notes
 
 > UsageEE TenantUsage(ctx, tenant).Execute()
 
-Get instance usage information for the current tenant
+Retrieve usage information for the current tenant
 
 ### Example
 

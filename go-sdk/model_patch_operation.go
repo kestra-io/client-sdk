@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,9 @@ var _ MappedNullable = &PatchOperation{}
 
 // PatchOperation struct for PatchOperation
 type PatchOperation struct {
-	Operation *PatchOperationType    `json:"operation,omitempty"`
-	Path      *PatchOperationPath    `json:"path,omitempty"`
-	Value     map[string]interface{} `json:"value,omitempty"`
+	Operation *PatchOperationType `json:"operation,omitempty"`
+	Path      *PatchOperationPath `json:"path,omitempty"`
+	Value     interface{}         `json:"value,omitempty"`
 }
 
 // NewPatchOperation instantiates a new PatchOperation object
@@ -105,10 +105,10 @@ func (o *PatchOperation) SetPath(v PatchOperationPath) {
 	o.Path = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *PatchOperation) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PatchOperation) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -116,11 +116,12 @@ func (o *PatchOperation) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PatchOperation) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PatchOperation) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -132,8 +133,8 @@ func (o *PatchOperation) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *PatchOperation) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *PatchOperation) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -153,7 +154,7 @@ func (o PatchOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
 	return toSerialize, nil

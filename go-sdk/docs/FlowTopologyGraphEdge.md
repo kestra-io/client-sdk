@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Source** | Pointer to **string** |  | [optional] 
-**Target** | Pointer to **string** |  | [optional] 
-**Relation** | Pointer to [**FlowRelation**](FlowRelation.md) |  | [optional] 
+**Source** | **string** |  | 
+**Target** | **string** |  | 
+**Relation** | [**FlowRelation**](FlowRelation.md) |  | 
 
 ## Methods
 
 ### NewFlowTopologyGraphEdge
 
-`func NewFlowTopologyGraphEdge() *FlowTopologyGraphEdge`
+`func NewFlowTopologyGraphEdge(source string, target string, relation FlowRelation, ) *FlowTopologyGraphEdge`
 
 NewFlowTopologyGraphEdge instantiates a new FlowTopologyGraphEdge object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetSource sets Source field to given value.
 
-### HasSource
-
-`func (o *FlowTopologyGraphEdge) HasSource() bool`
-
-HasSource returns a boolean if a field has been set.
 
 ### GetTarget
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetTarget sets Target field to given value.
 
-### HasTarget
-
-`func (o *FlowTopologyGraphEdge) HasTarget() bool`
-
-HasTarget returns a boolean if a field has been set.
 
 ### GetRelation
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetRelation sets Relation field to given value.
 
-### HasRelation
-
-`func (o *FlowTopologyGraphEdge) HasRelation() bool`
-
-HasRelation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -9,23 +9,23 @@ Name | Type | Description | Notes
 **AllowedTriggers** | Pointer to [**[]NamespaceAllowedTrigger**](NamespaceAllowedTrigger.md) |  | [optional] 
 **StorageIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
 **SecretIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**PluginDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
-**AllowedNamespaces** | Pointer to [**[]NamespaceAllowedNamespace**](NamespaceAllowedNamespace.md) |  | [optional] 
-**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**Description** | **string** |  | 
+**Variables** | **map[string]interface{}** |  | 
+**PluginDefaults** | [**[]PluginDefault**](PluginDefault.md) |  | 
+**AllowedNamespaces** | [**[]NamespaceAllowedNamespace**](NamespaceAllowedNamespace.md) |  | 
+**WorkerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
 **StorageType** | Pointer to **string** |  | [optional] 
-**StorageConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**StorageConfiguration** | Pointer to **map[string]interface{}** |  | [optional] 
 **SecretType** | Pointer to **string** |  | [optional] 
 **SecretReadOnly** | Pointer to **bool** |  | [optional] 
-**SecretConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**SecretConfiguration** | Pointer to **map[string]interface{}** |  | [optional] 
 **OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewNamespace
 
-`func NewNamespace(id string, deleted bool, ) *Namespace`
+`func NewNamespace(id string, deleted bool, description string, variables map[string]interface{}, pluginDefaults []PluginDefault, allowedNamespaces []NamespaceAllowedNamespace, workerGroup WorkerGroup, ) *Namespace`
 
 NewNamespace instantiates a new Namespace object
 This constructor will assign default values to properties that have it defined,
@@ -174,36 +174,26 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *Namespace) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *Namespace) GetVariables() map[string]map[string]interface{}`
+`func (o *Namespace) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *Namespace) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Namespace) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *Namespace) SetVariables(v map[string]map[string]interface{})`
+`func (o *Namespace) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
-### HasVariables
-
-`func (o *Namespace) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetPluginDefaults
 
@@ -224,11 +214,6 @@ and a boolean to check if the value has been set.
 
 SetPluginDefaults sets PluginDefaults field to given value.
 
-### HasPluginDefaults
-
-`func (o *Namespace) HasPluginDefaults() bool`
-
-HasPluginDefaults returns a boolean if a field has been set.
 
 ### GetAllowedNamespaces
 
@@ -249,11 +234,6 @@ and a boolean to check if the value has been set.
 
 SetAllowedNamespaces sets AllowedNamespaces field to given value.
 
-### HasAllowedNamespaces
-
-`func (o *Namespace) HasAllowedNamespaces() bool`
-
-HasAllowedNamespaces returns a boolean if a field has been set.
 
 ### GetWorkerGroup
 
@@ -274,11 +254,6 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroup sets WorkerGroup field to given value.
 
-### HasWorkerGroup
-
-`func (o *Namespace) HasWorkerGroup() bool`
-
-HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetStorageType
 
@@ -307,20 +282,20 @@ HasStorageType returns a boolean if a field has been set.
 
 ### GetStorageConfiguration
 
-`func (o *Namespace) GetStorageConfiguration() map[string]map[string]interface{}`
+`func (o *Namespace) GetStorageConfiguration() map[string]interface{}`
 
 GetStorageConfiguration returns the StorageConfiguration field if non-nil, zero value otherwise.
 
 ### GetStorageConfigurationOk
 
-`func (o *Namespace) GetStorageConfigurationOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Namespace) GetStorageConfigurationOk() (*map[string]interface{}, bool)`
 
 GetStorageConfigurationOk returns a tuple with the StorageConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStorageConfiguration
 
-`func (o *Namespace) SetStorageConfiguration(v map[string]map[string]interface{})`
+`func (o *Namespace) SetStorageConfiguration(v map[string]interface{})`
 
 SetStorageConfiguration sets StorageConfiguration field to given value.
 
@@ -382,20 +357,20 @@ HasSecretReadOnly returns a boolean if a field has been set.
 
 ### GetSecretConfiguration
 
-`func (o *Namespace) GetSecretConfiguration() map[string]map[string]interface{}`
+`func (o *Namespace) GetSecretConfiguration() map[string]interface{}`
 
 GetSecretConfiguration returns the SecretConfiguration field if non-nil, zero value otherwise.
 
 ### GetSecretConfigurationOk
 
-`func (o *Namespace) GetSecretConfigurationOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Namespace) GetSecretConfigurationOk() (*map[string]interface{}, bool)`
 
 GetSecretConfigurationOk returns a tuple with the SecretConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecretConfiguration
 
-`func (o *Namespace) SetSecretConfiguration(v map[string]map[string]interface{})`
+`func (o *Namespace) SetSecretConfiguration(v map[string]interface{})`
 
 SetSecretConfiguration sets SecretConfiguration field to given value.
 

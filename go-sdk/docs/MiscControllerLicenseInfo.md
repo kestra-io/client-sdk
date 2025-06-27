@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** |  | [optional] 
-**Expiry** | Pointer to **time.Time** |  | [optional] 
-**Expired** | Pointer to **bool** |  | [optional] 
+**Type** | **string** |  | 
+**Expiry** | **time.Time** |  | 
+**Expired** | **bool** |  | 
 
 ## Methods
 
 ### NewMiscControllerLicenseInfo
 
-`func NewMiscControllerLicenseInfo() *MiscControllerLicenseInfo`
+`func NewMiscControllerLicenseInfo(type_ string, expiry time.Time, expired bool, ) *MiscControllerLicenseInfo`
 
 NewMiscControllerLicenseInfo instantiates a new MiscControllerLicenseInfo object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *MiscControllerLicenseInfo) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetExpiry
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetExpiry sets Expiry field to given value.
 
-### HasExpiry
-
-`func (o *MiscControllerLicenseInfo) HasExpiry() bool`
-
-HasExpiry returns a boolean if a field has been set.
 
 ### GetExpired
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetExpired sets Expired field to given value.
 
-### HasExpired
-
-`func (o *MiscControllerLicenseInfo) HasExpired() bool`
-
-HasExpired returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

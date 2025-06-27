@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetActiveServices**](ServicesAPI.md#GetActiveServices) | **Get** /api/v1/cluster/services/active | Get details about active services
-[**GetService**](ServicesAPI.md#GetService) | **Get** /api/v1/cluster/services/{id} | Get details about a service
-[**SearchServices**](ServicesAPI.md#SearchServices) | **Get** /api/v1/cluster/services/search | Search for service
+[**GetActiveServices**](ServicesAPI.md#GetActiveServices) | **Get** /api/v1/cluster/services/active | List all active services
+[**GetService**](ServicesAPI.md#GetService) | **Get** /api/v1/cluster/services/{id} | Retrieve details of a specific service
+[**SearchServices**](ServicesAPI.md#SearchServices) | **Get** /api/v1/cluster/services/search | Search for a service (e.g. Worker, Executor, etc)
 
 
 
@@ -14,7 +14,9 @@ Method | HTTP request | Description
 
 > ClusterControllerApiActiveServiceList GetActiveServices(ctx).Execute()
 
-Get details about active services
+List all active services
+
+
 
 ### Example
 
@@ -73,7 +75,9 @@ Other parameters are passed through a pointer to a apiGetActiveServicesRequest s
 
 > ServiceInstance GetService(ctx, id).Execute()
 
-Get details about a service
+Retrieve details of a specific service
+
+
 
 ### Example
 
@@ -141,7 +145,9 @@ Name | Type | Description  | Notes
 
 > PagedResultsClusterControllerApiServiceInstance SearchServices(ctx).Page(page).Size(size).Sort(sort).State(state).Type_(type_).Execute()
 
-Search for service
+Search for a service (e.g. Worker, Executor, etc)
+
+
 
 ### Example
 

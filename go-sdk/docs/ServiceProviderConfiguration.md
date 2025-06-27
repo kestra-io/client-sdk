@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Meta** | [**Meta**](Meta.md) |  | 
 **Id** | Pointer to **string** |  | [optional] 
 **ExternalId** | Pointer to **string** |  | [optional] 
-**ResourceType** | Pointer to **string** |  | [optional] 
+**ResourceType** | **string** |  | 
 **DocumentationUrl** | Pointer to **string** |  | [optional] 
 **Patch** | Pointer to [**ServiceProviderConfigurationSupportedConfiguration**](ServiceProviderConfigurationSupportedConfiguration.md) |  | [optional] 
 **Bulk** | Pointer to [**ServiceProviderConfigurationBulkConfiguration**](ServiceProviderConfigurationBulkConfiguration.md) |  | [optional] 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewServiceProviderConfiguration
 
-`func NewServiceProviderConfiguration(meta Meta, ) *ServiceProviderConfiguration`
+`func NewServiceProviderConfiguration(meta Meta, resourceType string, ) *ServiceProviderConfiguration`
 
 NewServiceProviderConfiguration instantiates a new ServiceProviderConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -203,11 +203,6 @@ and a boolean to check if the value has been set.
 
 SetResourceType sets ResourceType field to given value.
 
-### HasResourceType
-
-`func (o *ServiceProviderConfiguration) HasResourceType() bool`
-
-HasResourceType returns a boolean if a field has been set.
 
 ### GetDocumentationUrl
 

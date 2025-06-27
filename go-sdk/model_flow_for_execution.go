@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -21,20 +21,20 @@ var _ MappedNullable = &FlowForExecution{}
 
 // FlowForExecution struct for FlowForExecution
 type FlowForExecution struct {
-	Id             string                            `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace      string                            `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision       *int32                            `json:"revision,omitempty"`
-	Inputs         []InputObject                     `json:"inputs,omitempty"`
-	Outputs        []Output                          `json:"outputs,omitempty"`
-	Disabled       bool                              `json:"disabled"`
-	Labels         *FlowForExecutionAllOfLabels      `json:"labels,omitempty"`
-	Variables      map[string]map[string]interface{} `json:"variables,omitempty"`
-	Deleted        bool                              `json:"deleted"`
-	Tasks          []TaskForExecution                `json:"tasks"`
-	Errors         []TaskForExecution                `json:"errors,omitempty"`
-	Finally        []TaskForExecution                `json:"finally,omitempty"`
-	AfterExecution []TaskForExecution                `json:"afterExecution,omitempty"`
-	Triggers       []AbstractTriggerForExecution     `json:"triggers,omitempty"`
+	Id             string                        `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace      string                        `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision       *int32                        `json:"revision,omitempty"`
+	Inputs         []InputObject                 `json:"inputs,omitempty"`
+	Outputs        []Output                      `json:"outputs,omitempty"`
+	Disabled       bool                          `json:"disabled"`
+	Labels         map[string]interface{}        `json:"labels,omitempty"`
+	Variables      map[string]interface{}        `json:"variables,omitempty"`
+	Deleted        bool                          `json:"deleted"`
+	Tasks          []TaskForExecution            `json:"tasks"`
+	Errors         []TaskForExecution            `json:"errors,omitempty"`
+	Finally        []TaskForExecution            `json:"finally,omitempty"`
+	AfterExecution []TaskForExecution            `json:"afterExecution,omitempty"`
+	Triggers       []AbstractTriggerForExecution `json:"triggers,omitempty"`
 }
 
 type _FlowForExecution FlowForExecution
@@ -230,19 +230,19 @@ func (o *FlowForExecution) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *FlowForExecution) GetLabels() FlowForExecutionAllOfLabels {
+func (o *FlowForExecution) GetLabels() map[string]interface{} {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowForExecutionAllOfLabels
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetLabelsOk() (*FlowForExecutionAllOfLabels, bool) {
+func (o *FlowForExecution) GetLabelsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Labels) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Labels, true
 }
@@ -256,15 +256,15 @@ func (o *FlowForExecution) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowForExecutionAllOfLabels and assigns it to the Labels field.
-func (o *FlowForExecution) SetLabels(v FlowForExecutionAllOfLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given map[string]interface{} and assigns it to the Labels field.
+func (o *FlowForExecution) SetLabels(v map[string]interface{}) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *FlowForExecution) GetVariables() map[string]map[string]interface{} {
+func (o *FlowForExecution) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -272,9 +272,9 @@ func (o *FlowForExecution) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *FlowForExecution) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -288,8 +288,8 @@ func (o *FlowForExecution) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *FlowForExecution) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *FlowForExecution) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 

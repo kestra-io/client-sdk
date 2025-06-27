@@ -322,7 +322,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	dashboardControllerPreviewRequest := *openapiclient.NewDashboardControllerPreviewRequest() // DashboardControllerPreviewRequest | 
+	dashboardControllerPreviewRequest := *openapiclient.NewDashboardControllerPreviewRequest("Chart_example") // DashboardControllerPreviewRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Triggers** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
-**Disabled** | Pointer to **bool** |  | [optional] 
+**Triggers** | [**[]Trigger**](Trigger.md) |  | 
+**Disabled** | **bool** |  | 
 
 ## Methods
 
 ### NewTriggerControllerSetDisabledRequest
 
-`func NewTriggerControllerSetDisabledRequest() *TriggerControllerSetDisabledRequest`
+`func NewTriggerControllerSetDisabledRequest(triggers []Trigger, disabled bool, ) *TriggerControllerSetDisabledRequest`
 
 NewTriggerControllerSetDisabledRequest instantiates a new TriggerControllerSetDisabledRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetTriggers sets Triggers field to given value.
 
-### HasTriggers
-
-`func (o *TriggerControllerSetDisabledRequest) HasTriggers() bool`
-
-HasTriggers returns a boolean if a field has been set.
 
 ### GetDisabled
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetDisabled sets Disabled field to given value.
 
-### HasDisabled
-
-`func (o *TriggerControllerSetDisabledRequest) HasDisabled() bool`
-
-HasDisabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**FindAuditLog**](AuditLogsAPI.md#FindAuditLog) | **Post** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
-[**GetResourceDiffFromAuditLog**](AuditLogsAPI.md#GetResourceDiffFromAuditLog) | **Get** /api/v1/{tenant}/auditlogs/{id}/diff | Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+[**GetResourceDiffFromAuditLog**](AuditLogsAPI.md#GetResourceDiffFromAuditLog) | **Get** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
 [**ListAuditLogFromResourceId**](AuditLogsAPI.md#ListAuditLogFromResourceId) | **Get** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
 [**SearchAuditLogs**](AuditLogsAPI.md#SearchAuditLogs) | **Get** /api/v1/{tenant}/auditlogs/search | Search for audit logs
 
@@ -31,7 +31,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	auditLogControllerFindRequest := *openapiclient.NewAuditLogControllerFindRequest() // AuditLogControllerFindRequest | The find request
+	auditLogControllerFindRequest := *openapiclient.NewAuditLogControllerFindRequest(openapiclient.Permission("FLOW"), "TODO", map[string]interface{}{"key": interface{}(123)}) // AuditLogControllerFindRequest | The find request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -85,7 +85,9 @@ Name | Type | Description  | Notes
 
 > AuditLogControllerAuditLogDiff GetResourceDiffFromAuditLog(ctx, id, tenant).PreviousId(previousId).Execute()
 
-Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+Retrieve the diff between audit logs
+
+
 
 ### Example
 

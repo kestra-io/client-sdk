@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uid** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Uid** | **string** |  | 
+**Name** | **string** |  | 
+**Description** | **string** |  | 
+**Type** | **string** |  | 
+**Tags** | **[]string** |  | 
 
 ## Methods
 
 ### NewAppsControllerApiAppCatalogItem
 
-`func NewAppsControllerApiAppCatalogItem() *AppsControllerApiAppCatalogItem`
+`func NewAppsControllerApiAppCatalogItem(uid string, name string, description string, type_ string, tags []string, ) *AppsControllerApiAppCatalogItem`
 
 NewAppsControllerApiAppCatalogItem instantiates a new AppsControllerApiAppCatalogItem object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetUid sets Uid field to given value.
 
-### HasUid
-
-`func (o *AppsControllerApiAppCatalogItem) HasUid() bool`
-
-HasUid returns a boolean if a field has been set.
 
 ### GetName
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *AppsControllerApiAppCatalogItem) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *AppsControllerApiAppCatalogItem) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetType
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *AppsControllerApiAppCatalogItem) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *AppsControllerApiAppCatalogItem) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

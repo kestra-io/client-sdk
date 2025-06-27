@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -44,6 +44,8 @@ type MiscControllerEEConfiguration struct {
 	Banner                          *Banner                                `json:"banner,omitempty"`
 	MailServiceEnabled              *bool                                  `json:"mailServiceEnabled,omitempty"`
 	OutputsInInternalStorageEnabled *bool                                  `json:"outputsInInternalStorageEnabled,omitempty"`
+	ContextCustomLinks              *map[string]CustomLink                 `json:"contextCustomLinks,omitempty"`
+	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
 }
 
 // NewMiscControllerEEConfiguration instantiates a new MiscControllerEEConfiguration object
@@ -831,6 +833,70 @@ func (o *MiscControllerEEConfiguration) SetOutputsInInternalStorageEnabled(v boo
 	o.OutputsInInternalStorageEnabled = &v
 }
 
+// GetContextCustomLinks returns the ContextCustomLinks field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetContextCustomLinks() map[string]CustomLink {
+	if o == nil || IsNil(o.ContextCustomLinks) {
+		var ret map[string]CustomLink
+		return ret
+	}
+	return *o.ContextCustomLinks
+}
+
+// GetContextCustomLinksOk returns a tuple with the ContextCustomLinks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetContextCustomLinksOk() (*map[string]CustomLink, bool) {
+	if o == nil || IsNil(o.ContextCustomLinks) {
+		return nil, false
+	}
+	return o.ContextCustomLinks, true
+}
+
+// HasContextCustomLinks returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasContextCustomLinks() bool {
+	if o != nil && !IsNil(o.ContextCustomLinks) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextCustomLinks gets a reference to the given map[string]CustomLink and assigns it to the ContextCustomLinks field.
+func (o *MiscControllerEEConfiguration) SetContextCustomLinks(v map[string]CustomLink) {
+	o.ContextCustomLinks = &v
+}
+
+// GetInMaintenance returns the InMaintenance field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetInMaintenance() bool {
+	if o == nil || IsNil(o.InMaintenance) {
+		var ret bool
+		return ret
+	}
+	return *o.InMaintenance
+}
+
+// GetInMaintenanceOk returns a tuple with the InMaintenance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetInMaintenanceOk() (*bool, bool) {
+	if o == nil || IsNil(o.InMaintenance) {
+		return nil, false
+	}
+	return o.InMaintenance, true
+}
+
+// HasInMaintenance returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasInMaintenance() bool {
+	if o != nil && !IsNil(o.InMaintenance) {
+		return true
+	}
+
+	return false
+}
+
+// SetInMaintenance gets a reference to the given bool and assigns it to the InMaintenance field.
+func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool) {
+	o.InMaintenance = &v
+}
+
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -912,6 +978,12 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OutputsInInternalStorageEnabled) {
 		toSerialize["outputsInInternalStorageEnabled"] = o.OutputsInInternalStorageEnabled
+	}
+	if !IsNil(o.ContextCustomLinks) {
+		toSerialize["contextCustomLinks"] = o.ContextCustomLinks
+	}
+	if !IsNil(o.InMaintenance) {
+		toSerialize["inMaintenance"] = o.InMaintenance
 	}
 	return toSerialize, nil
 }

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Chart** | Pointer to **string** |  | [optional] 
+**Chart** | **string** |  | 
 **GlobalFilter** | Pointer to [**NullableGlobalFilter**](GlobalFilter.md) |  | [optional] 
 
 ## Methods
 
 ### NewDashboardControllerPreviewRequest
 
-`func NewDashboardControllerPreviewRequest() *DashboardControllerPreviewRequest`
+`func NewDashboardControllerPreviewRequest(chart string, ) *DashboardControllerPreviewRequest`
 
 NewDashboardControllerPreviewRequest instantiates a new DashboardControllerPreviewRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetChart sets Chart field to given value.
 
-### HasChart
-
-`func (o *DashboardControllerPreviewRequest) HasChart() bool`
-
-HasChart returns a boolean if a field has been set.
 
 ### GetGlobalFilter
 

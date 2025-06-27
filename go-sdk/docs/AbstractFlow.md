@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
 **Labels** | Pointer to [**AbstractFlowLabels**](AbstractFlowLabels.md) |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **Deleted** | **bool** |  | 
 
 ## Methods
@@ -195,20 +195,20 @@ HasLabels returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *AbstractFlow) GetVariables() map[string]map[string]interface{}`
+`func (o *AbstractFlow) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *AbstractFlow) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *AbstractFlow) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *AbstractFlow) SetVariables(v map[string]map[string]interface{})`
+`func (o *AbstractFlow) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

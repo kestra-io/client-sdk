@@ -11,10 +11,10 @@ Name | Type | Description | Notes
 **TaskRunId** | Pointer to **NullableString** |  | [optional] 
 **AttemptNumber** | Pointer to **NullableInt32** |  | [optional] 
 **TriggerId** | Pointer to **NullableString** |  | [optional] 
-**Timestamp** | Pointer to **time.Time** |  | [optional] 
-**Level** | Pointer to [**Level**](Level.md) |  | [optional] 
-**Thread** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Timestamp** | **time.Time** |  | 
+**Level** | [**Level**](Level.md) |  | 
+**Thread** | **string** |  | 
+**Message** | **string** |  | 
 **Deleted** | **bool** |  | 
 **ExecutionKind** | Pointer to [**NullableExecutionKind**](ExecutionKind.md) |  | [optional] 
 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewLogEntry
 
-`func NewLogEntry(namespace string, flowId string, deleted bool, ) *LogEntry`
+`func NewLogEntry(namespace string, flowId string, timestamp time.Time, level Level, thread string, message string, deleted bool, ) *LogEntry`
 
 NewLogEntry instantiates a new LogEntry object
 This constructor will assign default values to properties that have it defined,
@@ -271,11 +271,6 @@ and a boolean to check if the value has been set.
 
 SetTimestamp sets Timestamp field to given value.
 
-### HasTimestamp
-
-`func (o *LogEntry) HasTimestamp() bool`
-
-HasTimestamp returns a boolean if a field has been set.
 
 ### GetLevel
 
@@ -296,11 +291,6 @@ and a boolean to check if the value has been set.
 
 SetLevel sets Level field to given value.
 
-### HasLevel
-
-`func (o *LogEntry) HasLevel() bool`
-
-HasLevel returns a boolean if a field has been set.
 
 ### GetThread
 
@@ -321,11 +311,6 @@ and a boolean to check if the value has been set.
 
 SetThread sets Thread field to given value.
 
-### HasThread
-
-`func (o *LogEntry) HasThread() bool`
-
-HasThread returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -346,11 +331,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *LogEntry) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 ### GetDeleted
 

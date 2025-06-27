@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Keys** | Pointer to **[]string** |  | [optional] 
+**Keys** | **[]string** |  | 
 
 ## Methods
 
 ### NewKVControllerApiDeleteBulkRequest
 
-`func NewKVControllerApiDeleteBulkRequest() *KVControllerApiDeleteBulkRequest`
+`func NewKVControllerApiDeleteBulkRequest(keys []string, ) *KVControllerApiDeleteBulkRequest`
 
 NewKVControllerApiDeleteBulkRequest instantiates a new KVControllerApiDeleteBulkRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetKeys sets Keys field to given value.
 
-### HasKeys
-
-`func (o *KVControllerApiDeleteBulkRequest) HasKeys() bool`
-
-HasKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

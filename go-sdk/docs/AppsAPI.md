@@ -7,14 +7,14 @@ Method | HTTP request | Description
 [**BulkDeleteApps**](AppsAPI.md#BulkDeleteApps) | **Delete** /api/v1/{tenant}/apps | Delete existing apps
 [**BulkDisableApps**](AppsAPI.md#BulkDisableApps) | **Post** /api/v1/{tenant}/apps/disable | Disable existing apps
 [**BulkEnableApps**](AppsAPI.md#BulkEnableApps) | **Post** /api/v1/{tenant}/apps/enable | Enable existing apps
-[**BulkExportApps**](AppsAPI.md#BulkExportApps) | **Post** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of yaml sources.
+[**BulkExportApps**](AppsAPI.md#BulkExportApps) | **Post** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of YAML sources.
 [**CreateApp**](AppsAPI.md#CreateApp) | **Post** /api/v1/{tenant}/apps | Create a new app
 [**DeleteApp**](AppsAPI.md#DeleteApp) | **Delete** /api/v1/{tenant}/apps/{uid} | Delete an existing app
 [**DisableApp**](AppsAPI.md#DisableApp) | **Post** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
 [**DispatchApp**](AppsAPI.md#DispatchApp) | **Post** /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch} | Dispatch for a given app.
 [**DownloadFileFromAppExecution**](AppsAPI.md#DownloadFileFromAppExecution) | **Get** /api/v1/{tenant}/apps/view/{id}/file/download | Download file from an app execution
 [**EnableApp**](AppsAPI.md#EnableApp) | **Post** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
-[**GetApp**](AppsAPI.md#GetApp) | **Get** /api/v1/{tenant}/apps/{uid} | Get a app
+[**GetApp**](AppsAPI.md#GetApp) | **Get** /api/v1/{tenant}/apps/{uid} | Retrieve an app
 [**GetFileMetaFromAppExecution**](AppsAPI.md#GetFileMetaFromAppExecution) | **Get** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
 [**GetFilePreviewFromAppExecution**](AppsAPI.md#GetFilePreviewFromAppExecution) | **Get** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
 [**GetLogsFromAppExecution**](AppsAPI.md#GetLogsFromAppExecution) | **Get** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
@@ -48,7 +48,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -118,7 +118,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -188,7 +188,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -240,9 +240,9 @@ Name | Type | Description  | Notes
 
 ## BulkExportApps
 
-> string BulkExportApps(ctx, tenant).AppsControllerApiBulkOperationRequest(appsControllerApiBulkOperationRequest).Execute()
+> []string BulkExportApps(ctx, tenant).AppsControllerApiBulkOperationRequest(appsControllerApiBulkOperationRequest).Execute()
 
-Export apps as a ZIP archive of yaml sources.
+Export apps as a ZIP archive of YAML sources.
 
 ### Example
 
@@ -258,7 +258,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -267,7 +267,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppsAPI.BulkExportApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `BulkExportApps`: string
+	// response from `BulkExportApps`: []string
 	fmt.Fprintf(os.Stdout, "Response from `AppsAPI.BulkExportApps`: %v\n", resp)
 }
 ```
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**[]string**
 
 ### Authorization
 
@@ -744,7 +744,7 @@ Name | Type | Description  | Notes
 
 > AppsControllerApiAppSource GetApp(ctx, uid, tenant).Execute()
 
-Get a app
+Retrieve an app
 
 ### Example
 

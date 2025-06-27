@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to [**ServiceType**](ServiceType.md) |  | [optional] 
-**Total** | Pointer to **int64** |  | [optional] 
+**Type** | [**ServiceType**](ServiceType.md) |  | 
+**Total** | **int64** |  | 
 
 ## Methods
 
 ### NewClusterControllerApiActiveService
 
-`func NewClusterControllerApiActiveService() *ClusterControllerApiActiveService`
+`func NewClusterControllerApiActiveService(type_ ServiceType, total int64, ) *ClusterControllerApiActiveService`
 
 NewClusterControllerApiActiveService instantiates a new ClusterControllerApiActiveService object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *ClusterControllerApiActiveService) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetTotal
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
-### HasTotal
-
-`func (o *ClusterControllerApiActiveService) HasTotal() bool`
-
-HasTotal returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

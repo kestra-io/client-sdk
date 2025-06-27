@@ -10,8 +10,8 @@ Method | HTTP request | Description
 [**CreateBindingapsSuperAdmin**](BindingsAPI.md#CreateBindingapsSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/bindings | Create a binding
 [**DeleteBinding**](BindingsAPI.md#DeleteBinding) | **Delete** /api/v1/{tenant}/bindings/{id} | Delete a binding
 [**DeleteBindingapsSuperAdmin**](BindingsAPI.md#DeleteBindingapsSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/bindings/{id} | Delete a binding
-[**GetBinding**](BindingsAPI.md#GetBinding) | **Get** /api/v1/{tenant}/bindings/{id} | Get a binding
-[**GetBindingapsSuperAdmin**](BindingsAPI.md#GetBindingapsSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/bindings/{id} | Get a binding
+[**GetBinding**](BindingsAPI.md#GetBinding) | **Get** /api/v1/{tenant}/bindings/{id} | Retrieve a binding
+[**GetBindingapsSuperAdmin**](BindingsAPI.md#GetBindingapsSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/bindings/{id} | Retrieve a binding
 [**SearchBindings**](BindingsAPI.md#SearchBindings) | **Get** /api/v1/{tenant}/bindings/search | Search for bindings
 [**SearchBindingsapsSuperAdmin**](BindingsAPI.md#SearchBindingsapsSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/bindings/search | Search for bindings
 
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## BulkCreateBinding
 
-> []AbstractBindingControllerBindingDetail BulkCreateBinding(ctx, tenant).Binding(binding).Execute()
+> []AbstractBindingControllerApiBindingDetail BulkCreateBinding(ctx, tenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 
 Create multiple bindings
 
@@ -37,16 +37,16 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	binding := []openapiclient.Binding{*openapiclient.NewBinding(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", false)} // []Binding | The bindings
+	abstractBindingControllerApiCreateBindingRequest := []openapiclient.AbstractBindingControllerApiCreateBindingRequest{*openapiclient.NewAbstractBindingControllerApiCreateBindingRequest(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example")} // []AbstractBindingControllerApiCreateBindingRequest | The bindings
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BindingsAPI.BulkCreateBinding(context.Background(), tenant).Binding(binding).Execute()
+	resp, r, err := apiClient.BindingsAPI.BulkCreateBinding(context.Background(), tenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.BulkCreateBinding``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `BulkCreateBinding`: []AbstractBindingControllerBindingDetail
+	// response from `BulkCreateBinding`: []AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.BulkCreateBinding`: %v\n", resp)
 }
 ```
@@ -67,11 +67,11 @@ Other parameters are passed through a pointer to a apiBulkCreateBindingRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **binding** | [**[]Binding**](Binding.md) | The bindings | 
+ **abstractBindingControllerApiCreateBindingRequest** | [**[]AbstractBindingControllerApiCreateBindingRequest**](AbstractBindingControllerApiCreateBindingRequest.md) | The bindings | 
 
 ### Return type
 
-[**[]AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**[]AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## BulkCreateBindingapsSuperAdmin
 
-> []AbstractBindingControllerBindingDetail BulkCreateBindingapsSuperAdmin(ctx, resourceTenant).Binding(binding).Execute()
+> []AbstractBindingControllerApiBindingDetail BulkCreateBindingapsSuperAdmin(ctx, resourceTenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 
 Create multiple bindings
 
@@ -107,16 +107,16 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	binding := []openapiclient.Binding{*openapiclient.NewBinding(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", false)} // []Binding | The bindings
+	abstractBindingControllerApiCreateBindingRequest := []openapiclient.AbstractBindingControllerApiCreateBindingRequest{*openapiclient.NewAbstractBindingControllerApiCreateBindingRequest(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example")} // []AbstractBindingControllerApiCreateBindingRequest | The bindings
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BindingsAPI.BulkCreateBindingapsSuperAdmin(context.Background(), resourceTenant).Binding(binding).Execute()
+	resp, r, err := apiClient.BindingsAPI.BulkCreateBindingapsSuperAdmin(context.Background(), resourceTenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.BulkCreateBindingapsSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `BulkCreateBindingapsSuperAdmin`: []AbstractBindingControllerBindingDetail
+	// response from `BulkCreateBindingapsSuperAdmin`: []AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.BulkCreateBindingapsSuperAdmin`: %v\n", resp)
 }
 ```
@@ -137,11 +137,11 @@ Other parameters are passed through a pointer to a apiBulkCreateBindingapsSuperA
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **binding** | [**[]Binding**](Binding.md) | The bindings | 
+ **abstractBindingControllerApiCreateBindingRequest** | [**[]AbstractBindingControllerApiCreateBindingRequest**](AbstractBindingControllerApiCreateBindingRequest.md) | The bindings | 
 
 ### Return type
 
-[**[]AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**[]AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## CreateBinding
 
-> AbstractBindingControllerBindingDetail CreateBinding(ctx, tenant).Binding(binding).Execute()
+> AbstractBindingControllerApiBindingDetail CreateBinding(ctx, tenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 
 Create a binding
 
@@ -177,16 +177,16 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	binding := *openapiclient.NewBinding(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", false) // Binding | The binding
+	abstractBindingControllerApiCreateBindingRequest := *openapiclient.NewAbstractBindingControllerApiCreateBindingRequest(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example") // AbstractBindingControllerApiCreateBindingRequest | The binding
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BindingsAPI.CreateBinding(context.Background(), tenant).Binding(binding).Execute()
+	resp, r, err := apiClient.BindingsAPI.CreateBinding(context.Background(), tenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.CreateBinding``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateBinding`: AbstractBindingControllerBindingDetail
+	// response from `CreateBinding`: AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.CreateBinding`: %v\n", resp)
 }
 ```
@@ -207,11 +207,11 @@ Other parameters are passed through a pointer to a apiCreateBindingRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **binding** | [**Binding**](Binding.md) | The binding | 
+ **abstractBindingControllerApiCreateBindingRequest** | [**AbstractBindingControllerApiCreateBindingRequest**](AbstractBindingControllerApiCreateBindingRequest.md) | The binding | 
 
 ### Return type
 
-[**AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## CreateBindingapsSuperAdmin
 
-> AbstractBindingControllerBindingDetail CreateBindingapsSuperAdmin(ctx, resourceTenant).Binding(binding).Execute()
+> AbstractBindingControllerApiBindingDetail CreateBindingapsSuperAdmin(ctx, resourceTenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 
 Create a binding
 
@@ -247,16 +247,16 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	binding := *openapiclient.NewBinding(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", false) // Binding | The binding
+	abstractBindingControllerApiCreateBindingRequest := *openapiclient.NewAbstractBindingControllerApiCreateBindingRequest(openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example") // AbstractBindingControllerApiCreateBindingRequest | The binding
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BindingsAPI.CreateBindingapsSuperAdmin(context.Background(), resourceTenant).Binding(binding).Execute()
+	resp, r, err := apiClient.BindingsAPI.CreateBindingapsSuperAdmin(context.Background(), resourceTenant).AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.CreateBindingapsSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateBindingapsSuperAdmin`: AbstractBindingControllerBindingDetail
+	// response from `CreateBindingapsSuperAdmin`: AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.CreateBindingapsSuperAdmin`: %v\n", resp)
 }
 ```
@@ -277,11 +277,11 @@ Other parameters are passed through a pointer to a apiCreateBindingapsSuperAdmin
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **binding** | [**Binding**](Binding.md) | The binding | 
+ **abstractBindingControllerApiCreateBindingRequest** | [**AbstractBindingControllerApiCreateBindingRequest**](AbstractBindingControllerApiCreateBindingRequest.md) | The binding | 
 
 ### Return type
 
-[**AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -437,9 +437,9 @@ Name | Type | Description  | Notes
 
 ## GetBinding
 
-> AbstractBindingControllerBindingDetail GetBinding(ctx, id, tenant).Execute()
+> AbstractBindingControllerApiBindingDetail GetBinding(ctx, id, tenant).Execute()
 
-Get a binding
+Retrieve a binding
 
 ### Example
 
@@ -464,7 +464,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.GetBinding``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBinding`: AbstractBindingControllerBindingDetail
+	// response from `GetBinding`: AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.GetBinding`: %v\n", resp)
 }
 ```
@@ -490,7 +490,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -508,9 +508,9 @@ Name | Type | Description  | Notes
 
 ## GetBindingapsSuperAdmin
 
-> AbstractBindingControllerBindingDetail GetBindingapsSuperAdmin(ctx, id, resourceTenant).Execute()
+> AbstractBindingControllerApiBindingDetail GetBindingapsSuperAdmin(ctx, id, resourceTenant).Execute()
 
-Get a binding
+Retrieve a binding
 
 ### Example
 
@@ -535,7 +535,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.GetBindingapsSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBindingapsSuperAdmin`: AbstractBindingControllerBindingDetail
+	// response from `GetBindingapsSuperAdmin`: AbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.GetBindingapsSuperAdmin`: %v\n", resp)
 }
 ```
@@ -561,7 +561,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AbstractBindingControllerBindingDetail**](AbstractBindingControllerBindingDetail.md)
+[**AbstractBindingControllerApiBindingDetail**](AbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 
 ## SearchBindings
 
-> PagedResultsAbstractBindingControllerBindingDetail SearchBindings(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Id(id).Namespace(namespace).Execute()
+> PagedResultsAbstractBindingControllerApiBindingDetail SearchBindings(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Id(id).Namespace(namespace).Execute()
 
 Search for bindings
 
@@ -612,7 +612,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.SearchBindings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchBindings`: PagedResultsAbstractBindingControllerBindingDetail
+	// response from `SearchBindings`: PagedResultsAbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.SearchBindings`: %v\n", resp)
 }
 ```
@@ -643,7 +643,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsAbstractBindingControllerBindingDetail**](PagedResultsAbstractBindingControllerBindingDetail.md)
+[**PagedResultsAbstractBindingControllerApiBindingDetail**](PagedResultsAbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 
@@ -661,7 +661,7 @@ Name | Type | Description  | Notes
 
 ## SearchBindingsapsSuperAdmin
 
-> PagedResultsAbstractBindingControllerBindingDetail SearchBindingsapsSuperAdmin(ctx, resourceTenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Id(id).Namespace(namespace).Execute()
+> PagedResultsAbstractBindingControllerApiBindingDetail SearchBindingsapsSuperAdmin(ctx, resourceTenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Id(id).Namespace(namespace).Execute()
 
 Search for bindings
 
@@ -694,7 +694,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BindingsAPI.SearchBindingsapsSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchBindingsapsSuperAdmin`: PagedResultsAbstractBindingControllerBindingDetail
+	// response from `SearchBindingsapsSuperAdmin`: PagedResultsAbstractBindingControllerApiBindingDetail
 	fmt.Fprintf(os.Stdout, "Response from `BindingsAPI.SearchBindingsapsSuperAdmin`: %v\n", resp)
 }
 ```
@@ -725,7 +725,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsAbstractBindingControllerBindingDetail**](PagedResultsAbstractBindingControllerBindingDetail.md)
+[**PagedResultsAbstractBindingControllerApiBindingDetail**](PagedResultsAbstractBindingControllerApiBindingDetail.md)
 
 ### Authorization
 

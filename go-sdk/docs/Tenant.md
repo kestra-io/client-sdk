@@ -4,25 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StorageIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
-**SecretIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
+**StorageIsolation** | [**Isolation**](Isolation.md) |  | 
+**SecretIsolation** | [**Isolation**](Isolation.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
 **Deleted** | **bool** |  | 
-**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
-**StorageType** | Pointer to **string** |  | [optional] 
-**StorageConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**SecretType** | Pointer to **string** |  | [optional] 
-**SecretReadOnly** | Pointer to **bool** |  | [optional] 
-**SecretConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**RequireExistingNamespace** | Pointer to **bool** |  | [optional] 
-**OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
+**WorkerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
+**StorageType** | **string** |  | 
+**StorageConfiguration** | **map[string]interface{}** |  | 
+**SecretType** | **string** |  | 
+**SecretReadOnly** | **bool** |  | 
+**SecretConfiguration** | **map[string]interface{}** |  | 
+**RequireExistingNamespace** | **bool** |  | 
+**OutputsInInternalStorage** | **bool** |  | 
 
 ## Methods
 
 ### NewTenant
 
-`func NewTenant(id string, name string, deleted bool, ) *Tenant`
+`func NewTenant(storageIsolation Isolation, secretIsolation Isolation, id string, name string, deleted bool, workerGroup WorkerGroup, storageType string, storageConfiguration map[string]interface{}, secretType string, secretReadOnly bool, secretConfiguration map[string]interface{}, requireExistingNamespace bool, outputsInInternalStorage bool, ) *Tenant`
 
 NewTenant instantiates a new Tenant object
 This constructor will assign default values to properties that have it defined,
@@ -56,11 +56,6 @@ and a boolean to check if the value has been set.
 
 SetStorageIsolation sets StorageIsolation field to given value.
 
-### HasStorageIsolation
-
-`func (o *Tenant) HasStorageIsolation() bool`
-
-HasStorageIsolation returns a boolean if a field has been set.
 
 ### GetSecretIsolation
 
@@ -81,11 +76,6 @@ and a boolean to check if the value has been set.
 
 SetSecretIsolation sets SecretIsolation field to given value.
 
-### HasSecretIsolation
-
-`func (o *Tenant) HasSecretIsolation() bool`
-
-HasSecretIsolation returns a boolean if a field has been set.
 
 ### GetId
 
@@ -166,11 +156,6 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroup sets WorkerGroup field to given value.
 
-### HasWorkerGroup
-
-`func (o *Tenant) HasWorkerGroup() bool`
-
-HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetStorageType
 
@@ -191,36 +176,26 @@ and a boolean to check if the value has been set.
 
 SetStorageType sets StorageType field to given value.
 
-### HasStorageType
-
-`func (o *Tenant) HasStorageType() bool`
-
-HasStorageType returns a boolean if a field has been set.
 
 ### GetStorageConfiguration
 
-`func (o *Tenant) GetStorageConfiguration() map[string]map[string]interface{}`
+`func (o *Tenant) GetStorageConfiguration() map[string]interface{}`
 
 GetStorageConfiguration returns the StorageConfiguration field if non-nil, zero value otherwise.
 
 ### GetStorageConfigurationOk
 
-`func (o *Tenant) GetStorageConfigurationOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Tenant) GetStorageConfigurationOk() (*map[string]interface{}, bool)`
 
 GetStorageConfigurationOk returns a tuple with the StorageConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStorageConfiguration
 
-`func (o *Tenant) SetStorageConfiguration(v map[string]map[string]interface{})`
+`func (o *Tenant) SetStorageConfiguration(v map[string]interface{})`
 
 SetStorageConfiguration sets StorageConfiguration field to given value.
 
-### HasStorageConfiguration
-
-`func (o *Tenant) HasStorageConfiguration() bool`
-
-HasStorageConfiguration returns a boolean if a field has been set.
 
 ### GetSecretType
 
@@ -241,11 +216,6 @@ and a boolean to check if the value has been set.
 
 SetSecretType sets SecretType field to given value.
 
-### HasSecretType
-
-`func (o *Tenant) HasSecretType() bool`
-
-HasSecretType returns a boolean if a field has been set.
 
 ### GetSecretReadOnly
 
@@ -266,36 +236,26 @@ and a boolean to check if the value has been set.
 
 SetSecretReadOnly sets SecretReadOnly field to given value.
 
-### HasSecretReadOnly
-
-`func (o *Tenant) HasSecretReadOnly() bool`
-
-HasSecretReadOnly returns a boolean if a field has been set.
 
 ### GetSecretConfiguration
 
-`func (o *Tenant) GetSecretConfiguration() map[string]map[string]interface{}`
+`func (o *Tenant) GetSecretConfiguration() map[string]interface{}`
 
 GetSecretConfiguration returns the SecretConfiguration field if non-nil, zero value otherwise.
 
 ### GetSecretConfigurationOk
 
-`func (o *Tenant) GetSecretConfigurationOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Tenant) GetSecretConfigurationOk() (*map[string]interface{}, bool)`
 
 GetSecretConfigurationOk returns a tuple with the SecretConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecretConfiguration
 
-`func (o *Tenant) SetSecretConfiguration(v map[string]map[string]interface{})`
+`func (o *Tenant) SetSecretConfiguration(v map[string]interface{})`
 
 SetSecretConfiguration sets SecretConfiguration field to given value.
 
-### HasSecretConfiguration
-
-`func (o *Tenant) HasSecretConfiguration() bool`
-
-HasSecretConfiguration returns a boolean if a field has been set.
 
 ### GetRequireExistingNamespace
 
@@ -316,11 +276,6 @@ and a boolean to check if the value has been set.
 
 SetRequireExistingNamespace sets RequireExistingNamespace field to given value.
 
-### HasRequireExistingNamespace
-
-`func (o *Tenant) HasRequireExistingNamespace() bool`
-
-HasRequireExistingNamespace returns a boolean if a field has been set.
 
 ### GetOutputsInInternalStorage
 
@@ -341,11 +296,6 @@ and a boolean to check if the value has been set.
 
 SetOutputsInInternalStorage sets OutputsInInternalStorage field to given value.
 
-### HasOutputsInInternalStorage
-
-`func (o *Tenant) HasOutputsInInternalStorage() bool`
-
-HasOutputsInInternalStorage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

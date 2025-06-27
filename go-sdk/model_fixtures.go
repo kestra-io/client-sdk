@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,10 @@ var _ MappedNullable = &Fixtures{}
 
 // Fixtures struct for Fixtures
 type Fixtures struct {
-	Inputs  *map[string]string `json:"inputs,omitempty"`
-	Files   *map[string]string `json:"files,omitempty"`
-	Tasks   []TaskFixture      `json:"tasks,omitempty"`
-	Trigger *TriggerFixture    `json:"trigger,omitempty"`
+	Inputs  map[string]interface{} `json:"inputs,omitempty"`
+	Files   *map[string]string     `json:"files,omitempty"`
+	Tasks   []TaskFixture          `json:"tasks,omitempty"`
+	Trigger *TriggerFixture        `json:"trigger,omitempty"`
 }
 
 // NewFixtures instantiates a new Fixtures object
@@ -43,19 +43,19 @@ func NewFixturesWithDefaults() *Fixtures {
 }
 
 // GetInputs returns the Inputs field value if set, zero value otherwise.
-func (o *Fixtures) GetInputs() map[string]string {
+func (o *Fixtures) GetInputs() map[string]interface{} {
 	if o == nil || IsNil(o.Inputs) {
-		var ret map[string]string
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Inputs
+	return o.Inputs
 }
 
 // GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fixtures) GetInputsOk() (*map[string]string, bool) {
+func (o *Fixtures) GetInputsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Inputs) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Inputs, true
 }
@@ -69,9 +69,9 @@ func (o *Fixtures) HasInputs() bool {
 	return false
 }
 
-// SetInputs gets a reference to the given map[string]string and assigns it to the Inputs field.
-func (o *Fixtures) SetInputs(v map[string]string) {
-	o.Inputs = &v
+// SetInputs gets a reference to the given map[string]interface{} and assigns it to the Inputs field.
+func (o *Fixtures) SetInputs(v map[string]interface{}) {
+	o.Inputs = v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.

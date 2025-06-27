@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -21,11 +21,11 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
-	Id          string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
-	Description *string                `json:"description,omitempty"`
-	Value       map[string]interface{} `json:"value"`
-	Type        Type                   `json:"type"`
-	DisplayName *string                `json:"displayName,omitempty"`
+	Id          string      `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Description *string     `json:"description,omitempty"`
+	Value       interface{} `json:"value"`
+	Type        Type        `json:"type"`
+	DisplayName *string     `json:"displayName,omitempty"`
 }
 
 type _Output Output
@@ -34,7 +34,7 @@ type _Output Output
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOutput(id string, value map[string]interface{}, type_ Type) *Output {
+func NewOutput(id string, value interface{}, type_ Type) *Output {
 	this := Output{}
 	this.Id = id
 	this.Value = value
@@ -107,9 +107,10 @@ func (o *Output) SetDescription(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *Output) GetValue() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *Output) GetValue() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -118,15 +119,16 @@ func (o *Output) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *Output) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Output) GetValueOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // SetValue sets field value
-func (o *Output) SetValue(v map[string]interface{}) {
+func (o *Output) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -200,7 +202,9 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["value"] = o.Value
+	if o.Value != nil {
+		toSerialize["value"] = o.Value
+	}
 	toSerialize["type"] = o.Type
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName

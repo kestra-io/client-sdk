@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 List all internal blueprint tags
 
+
+
 ### Example
 
 ```go
@@ -84,6 +86,8 @@ No authorization required
 > []BlueprintControllerApiBlueprintTagItem ListBlueprintTags(ctx, kind, tenant).Q(q).Execute()
 
 List blueprint tags matching the filter
+
+
 
 ### Example
 

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -21,19 +21,18 @@ var _ MappedNullable = &AbstractUser{}
 
 // AbstractUser struct for AbstractUser
 type AbstractUser struct {
-	Type         UserType                             `json:"type"`
-	GroupList    []AbstractUserGroupIdentifier        `json:"groupList,omitempty"`
-	Groups       []map[string]interface{}             `json:"groups,omitempty"`
-	Username     string                               `json:"username"`
-	Email        string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&â€™*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
-	SuperAdmin   *bool                                `json:"superAdmin,omitempty"`
-	Id           *string                              `json:"id,omitempty"`
-	Name         *string                              `json:"name,omitempty"`
-	Description  *string                              `json:"description,omitempty"`
-	FirstName    *string                              `json:"firstName,omitempty"`
-	LastName     *string                              `json:"lastName,omitempty"`
-	Providers    []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
-	IsSuperAdmin *bool                                `json:"isSuperAdmin,omitempty"`
+	Type        UserType                             `json:"type"`
+	GroupList   []GroupIdentifier                    `json:"groupList,omitempty"`
+	Groups      []map[string]interface{}             `json:"groups,omitempty"`
+	Username    string                               `json:"username"`
+	Email       string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	SuperAdmin  *bool                                `json:"superAdmin,omitempty"`
+	Id          *string                              `json:"id,omitempty"`
+	Name        *string                              `json:"name,omitempty"`
+	Description *string                              `json:"description,omitempty"`
+	FirstName   *string                              `json:"firstName,omitempty"`
+	LastName    *string                              `json:"lastName,omitempty"`
+	Providers   []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
 }
 
 type _AbstractUser AbstractUser
@@ -83,9 +82,9 @@ func (o *AbstractUser) SetType(v UserType) {
 }
 
 // GetGroupList returns the GroupList field value if set, zero value otherwise.
-func (o *AbstractUser) GetGroupList() []AbstractUserGroupIdentifier {
+func (o *AbstractUser) GetGroupList() []GroupIdentifier {
 	if o == nil || IsNil(o.GroupList) {
-		var ret []AbstractUserGroupIdentifier
+		var ret []GroupIdentifier
 		return ret
 	}
 	return o.GroupList
@@ -93,7 +92,7 @@ func (o *AbstractUser) GetGroupList() []AbstractUserGroupIdentifier {
 
 // GetGroupListOk returns a tuple with the GroupList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractUser) GetGroupListOk() ([]AbstractUserGroupIdentifier, bool) {
+func (o *AbstractUser) GetGroupListOk() ([]GroupIdentifier, bool) {
 	if o == nil || IsNil(o.GroupList) {
 		return nil, false
 	}
@@ -109,8 +108,8 @@ func (o *AbstractUser) HasGroupList() bool {
 	return false
 }
 
-// SetGroupList gets a reference to the given []AbstractUserGroupIdentifier and assigns it to the GroupList field.
-func (o *AbstractUser) SetGroupList(v []AbstractUserGroupIdentifier) {
+// SetGroupList gets a reference to the given []GroupIdentifier and assigns it to the GroupList field.
+func (o *AbstractUser) SetGroupList(v []GroupIdentifier) {
 	o.GroupList = v
 }
 
@@ -418,38 +417,6 @@ func (o *AbstractUser) SetProviders(v []AbstractUserTenantIdentityProvider) {
 	o.Providers = v
 }
 
-// GetIsSuperAdmin returns the IsSuperAdmin field value if set, zero value otherwise.
-func (o *AbstractUser) GetIsSuperAdmin() bool {
-	if o == nil || IsNil(o.IsSuperAdmin) {
-		var ret bool
-		return ret
-	}
-	return *o.IsSuperAdmin
-}
-
-// GetIsSuperAdminOk returns a tuple with the IsSuperAdmin field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AbstractUser) GetIsSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsSuperAdmin) {
-		return nil, false
-	}
-	return o.IsSuperAdmin, true
-}
-
-// HasIsSuperAdmin returns a boolean if a field has been set.
-func (o *AbstractUser) HasIsSuperAdmin() bool {
-	if o != nil && !IsNil(o.IsSuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsSuperAdmin gets a reference to the given bool and assigns it to the IsSuperAdmin field.
-func (o *AbstractUser) SetIsSuperAdmin(v bool) {
-	o.IsSuperAdmin = &v
-}
-
 func (o AbstractUser) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -489,9 +456,6 @@ func (o AbstractUser) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Providers) {
 		toSerialize["providers"] = o.Providers
-	}
-	if !IsNil(o.IsSuperAdmin) {
-		toSerialize["isSuperAdmin"] = o.IsSuperAdmin
 	}
 	return toSerialize, nil
 }

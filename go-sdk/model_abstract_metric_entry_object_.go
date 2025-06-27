@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -22,12 +22,12 @@ var _ MappedNullable = &AbstractMetricEntryObject{}
 
 // AbstractMetricEntryObject struct for AbstractMetricEntryObject
 type AbstractMetricEntryObject struct {
-	Type        *string                `json:"type,omitempty"`
-	Value       map[string]interface{} `json:"value,omitempty"`
-	Name        string                 `json:"name"`
-	Description *string                `json:"description,omitempty"`
-	Tags        *map[string]string     `json:"tags,omitempty"`
-	Timestamp   *time.Time             `json:"timestamp,omitempty"`
+	Type        *string            `json:"type,omitempty"`
+	Value       interface{}        `json:"value,omitempty"`
+	Name        string             `json:"name"`
+	Description *string            `json:"description,omitempty"`
+	Tags        *map[string]string `json:"tags,omitempty"`
+	Timestamp   *time.Time         `json:"timestamp,omitempty"`
 }
 
 type _AbstractMetricEntryObject AbstractMetricEntryObject
@@ -82,10 +82,10 @@ func (o *AbstractMetricEntryObject) SetType(v string) {
 	o.Type = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *AbstractMetricEntryObject) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AbstractMetricEntryObject) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Value
@@ -93,11 +93,12 @@ func (o *AbstractMetricEntryObject) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractMetricEntryObject) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AbstractMetricEntryObject) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -109,8 +110,8 @@ func (o *AbstractMetricEntryObject) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *AbstractMetricEntryObject) SetValue(v map[string]interface{}) {
+// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+func (o *AbstractMetricEntryObject) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -247,7 +248,7 @@ func (o AbstractMetricEntryObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if !IsNil(o.Value) {
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
 	toSerialize["name"] = o.Name

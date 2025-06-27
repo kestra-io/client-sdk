@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | Pointer to **string** |  | [optional] 
-**Invalids** | Pointer to **map[string]interface{}** |  | [optional] 
+**Invalids** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetInvalids
 
-`func (o *BulkErrorResponse) GetInvalids() map[string]interface{}`
+`func (o *BulkErrorResponse) GetInvalids() interface{}`
 
 GetInvalids returns the Invalids field if non-nil, zero value otherwise.
 
 ### GetInvalidsOk
 
-`func (o *BulkErrorResponse) GetInvalidsOk() (*map[string]interface{}, bool)`
+`func (o *BulkErrorResponse) GetInvalidsOk() (*interface{}, bool)`
 
 GetInvalidsOk returns a tuple with the Invalids field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInvalids
 
-`func (o *BulkErrorResponse) SetInvalids(v map[string]interface{})`
+`func (o *BulkErrorResponse) SetInvalids(v interface{})`
 
 SetInvalids sets Invalids field to given value.
 
@@ -76,6 +76,16 @@ SetInvalids sets Invalids field to given value.
 
 HasInvalids returns a boolean if a field has been set.
 
+### SetInvalidsNil
+
+`func (o *BulkErrorResponse) SetInvalidsNil(b bool)`
+
+ SetInvalidsNil sets the value for Invalids to be an explicit nil
+
+### UnsetInvalids
+`func (o *BulkErrorResponse) UnsetInvalids()`
+
+UnsetInvalids ensures that no value is present for Invalids, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

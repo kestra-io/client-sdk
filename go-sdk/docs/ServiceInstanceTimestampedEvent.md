@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Ts** | Pointer to **time.Time** |  | [optional] 
-**Value** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**State** | Pointer to [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
+**Ts** | **time.Time** |  | 
+**Value** | **string** |  | 
+**Type** | **string** |  | 
+**State** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
 
 ## Methods
 
 ### NewServiceInstanceTimestampedEvent
 
-`func NewServiceInstanceTimestampedEvent() *ServiceInstanceTimestampedEvent`
+`func NewServiceInstanceTimestampedEvent(ts time.Time, value string, type_ string, state ServiceServiceState, ) *ServiceInstanceTimestampedEvent`
 
 NewServiceInstanceTimestampedEvent instantiates a new ServiceInstanceTimestampedEvent object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetTs sets Ts field to given value.
 
-### HasTs
-
-`func (o *ServiceInstanceTimestampedEvent) HasTs() bool`
-
-HasTs returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *ServiceInstanceTimestampedEvent) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### GetType
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *ServiceInstanceTimestampedEvent) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetState
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
-### HasState
-
-`func (o *ServiceInstanceTimestampedEvent) HasState() bool`
-
-HasState returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

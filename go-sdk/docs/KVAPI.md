@@ -107,7 +107,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	kVControllerApiDeleteBulkRequest := *openapiclient.NewKVControllerApiDeleteBulkRequest() // KVControllerApiDeleteBulkRequest | The keys
+	kVControllerApiDeleteBulkRequest := *openapiclient.NewKVControllerApiDeleteBulkRequest([]string{"Keys_example"}) // KVControllerApiDeleteBulkRequest | The keys
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -25,6 +25,7 @@ type MiscAPIService service
 type ApiCreateBasicAuthRequest struct {
 	ctx                                context.Context
 	ApiService                         *MiscAPIService
+	tenant                             string
 	miscControllerBasicAuthCredentials *MiscControllerBasicAuthCredentials
 }
 
@@ -38,15 +39,19 @@ func (r ApiCreateBasicAuthRequest) Execute() (*http.Response, error) {
 }
 
 /*
-CreateBasicAuth Create basic auth for the current instance
+CreateBasicAuth Configure basic authentication for the instance.
+
+Sets up basic authentication credentials.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
 	@return ApiCreateBasicAuthRequest
 */
-func (a *MiscAPIService) CreateBasicAuth(ctx context.Context) ApiCreateBasicAuthRequest {
+func (a *MiscAPIService) CreateBasicAuth(ctx context.Context, tenant string) ApiCreateBasicAuthRequest {
 	return ApiCreateBasicAuthRequest{
 		ApiService: a,
 		ctx:        ctx,
+		tenant:     tenant,
 	}
 }
 
@@ -63,7 +68,8 @@ func (a *MiscAPIService) CreateBasicAuthExecute(r ApiCreateBasicAuthRequest) (*h
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/main/basicAuth"
+	localVarPath := localBasePath + "/api/v1/{tenant}/basicAuth"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -129,7 +135,9 @@ func (r ApiGetConfigurationRequest) Execute() (*MiscControllerEEConfiguration, *
 }
 
 /*
-GetConfiguration Get current configurations
+GetConfiguration Retrieve the instance configuration.
+
+Global endpoint available to all users.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetConfigurationRequest
@@ -228,7 +236,7 @@ func (r ApiGetUsagesRequest) Execute() (*Usage, *http.Response, error) {
 }
 
 /*
-GetUsages Get instance usage information
+GetUsages Retrieve instance usage information
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -329,7 +337,9 @@ func (r ApiLicenseInfoRequest) Execute() (*MiscControllerLicenseInfo, *http.Resp
 }
 
 /*
-LicenseInfo Get current license information
+LicenseInfo Retrieve license information
+
+Global endpoint, available to any authenticated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLicenseInfoRequest
@@ -428,7 +438,9 @@ func (r ApiListActionsRequest) Execute() ([]Action, *http.Response, error) {
 }
 
 /*
-ListActions Get list of actions
+ListActions Retrieve list of actions
+
+Actions are used to restrict possible operations for each permission. Each action must be one of the following: CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g. only allow a user to read a flow, but not update or delete it.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -530,7 +542,9 @@ func (r ApiListPermissionsRequest) Execute() ([]Permission, *http.Response, erro
 }
 
 /*
-ListPermissions Get list of permissions
+ListPermissions Retrieve list of permissions
+
+Permissions are used to control access to resources within the Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -631,7 +645,7 @@ func (r ApiSetupConfigurationRequest) Execute() (*SetupConfiguration, *http.Resp
 }
 
 /*
-SetupConfiguration Currently running configuration
+SetupConfiguration Retrieve current setup configuration
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSetupConfigurationRequest
@@ -735,7 +749,9 @@ func (r ApiSetupKestraRequest) Execute() (*ApiUser, *http.Response, error) {
 }
 
 /*
-SetupKestra Create the first user
+SetupKestra Create the first Superadmin user
+
+Only used during initial instance setup.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSetupKestraRequest
@@ -839,7 +855,7 @@ func (r ApiTenantUsageRequest) Execute() (*UsageEE, *http.Response, error) {
 }
 
 /*
-TenantUsage Get instance usage information for the current tenant
+TenantUsage Retrieve usage information for the current tenant
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant

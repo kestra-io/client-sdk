@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,9 @@ API version: v1
 package kestra_api_client
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutionControllerSetLabelsByIdsRequest type satisfies the MappedNullable interface at compile time
@@ -19,16 +21,20 @@ var _ MappedNullable = &ExecutionControllerSetLabelsByIdsRequest{}
 
 // ExecutionControllerSetLabelsByIdsRequest struct for ExecutionControllerSetLabelsByIdsRequest
 type ExecutionControllerSetLabelsByIdsRequest struct {
-	ExecutionsId    []string `json:"executionsId,omitempty"`
-	ExecutionLabels []Label  `json:"executionLabels,omitempty"`
+	ExecutionsId    []string `json:"executionsId"`
+	ExecutionLabels []Label  `json:"executionLabels"`
 }
+
+type _ExecutionControllerSetLabelsByIdsRequest ExecutionControllerSetLabelsByIdsRequest
 
 // NewExecutionControllerSetLabelsByIdsRequest instantiates a new ExecutionControllerSetLabelsByIdsRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerSetLabelsByIdsRequest() *ExecutionControllerSetLabelsByIdsRequest {
+func NewExecutionControllerSetLabelsByIdsRequest(executionsId []string, executionLabels []Label) *ExecutionControllerSetLabelsByIdsRequest {
 	this := ExecutionControllerSetLabelsByIdsRequest{}
+	this.ExecutionsId = executionsId
+	this.ExecutionLabels = executionLabels
 	return &this
 }
 
@@ -40,66 +46,50 @@ func NewExecutionControllerSetLabelsByIdsRequestWithDefaults() *ExecutionControl
 	return &this
 }
 
-// GetExecutionsId returns the ExecutionsId field value if set, zero value otherwise.
+// GetExecutionsId returns the ExecutionsId field value
 func (o *ExecutionControllerSetLabelsByIdsRequest) GetExecutionsId() []string {
-	if o == nil || IsNil(o.ExecutionsId) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.ExecutionsId
 }
 
-// GetExecutionsIdOk returns a tuple with the ExecutionsId field value if set, nil otherwise
+// GetExecutionsIdOk returns a tuple with the ExecutionsId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerSetLabelsByIdsRequest) GetExecutionsIdOk() ([]string, bool) {
-	if o == nil || IsNil(o.ExecutionsId) {
+	if o == nil {
 		return nil, false
 	}
 	return o.ExecutionsId, true
 }
 
-// HasExecutionsId returns a boolean if a field has been set.
-func (o *ExecutionControllerSetLabelsByIdsRequest) HasExecutionsId() bool {
-	if o != nil && !IsNil(o.ExecutionsId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionsId gets a reference to the given []string and assigns it to the ExecutionsId field.
+// SetExecutionsId sets field value
 func (o *ExecutionControllerSetLabelsByIdsRequest) SetExecutionsId(v []string) {
 	o.ExecutionsId = v
 }
 
-// GetExecutionLabels returns the ExecutionLabels field value if set, zero value otherwise.
+// GetExecutionLabels returns the ExecutionLabels field value
 func (o *ExecutionControllerSetLabelsByIdsRequest) GetExecutionLabels() []Label {
-	if o == nil || IsNil(o.ExecutionLabels) {
+	if o == nil {
 		var ret []Label
 		return ret
 	}
+
 	return o.ExecutionLabels
 }
 
-// GetExecutionLabelsOk returns a tuple with the ExecutionLabels field value if set, nil otherwise
+// GetExecutionLabelsOk returns a tuple with the ExecutionLabels field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerSetLabelsByIdsRequest) GetExecutionLabelsOk() ([]Label, bool) {
-	if o == nil || IsNil(o.ExecutionLabels) {
+	if o == nil {
 		return nil, false
 	}
 	return o.ExecutionLabels, true
 }
 
-// HasExecutionLabels returns a boolean if a field has been set.
-func (o *ExecutionControllerSetLabelsByIdsRequest) HasExecutionLabels() bool {
-	if o != nil && !IsNil(o.ExecutionLabels) {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionLabels gets a reference to the given []Label and assigns it to the ExecutionLabels field.
+// SetExecutionLabels sets field value
 func (o *ExecutionControllerSetLabelsByIdsRequest) SetExecutionLabels(v []Label) {
 	o.ExecutionLabels = v
 }
@@ -114,13 +104,47 @@ func (o ExecutionControllerSetLabelsByIdsRequest) MarshalJSON() ([]byte, error) 
 
 func (o ExecutionControllerSetLabelsByIdsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ExecutionsId) {
-		toSerialize["executionsId"] = o.ExecutionsId
-	}
-	if !IsNil(o.ExecutionLabels) {
-		toSerialize["executionLabels"] = o.ExecutionLabels
-	}
+	toSerialize["executionsId"] = o.ExecutionsId
+	toSerialize["executionLabels"] = o.ExecutionLabels
 	return toSerialize, nil
+}
+
+func (o *ExecutionControllerSetLabelsByIdsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"executionsId",
+		"executionLabels",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExecutionControllerSetLabelsByIdsRequest := _ExecutionControllerSetLabelsByIdsRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varExecutionControllerSetLabelsByIdsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutionControllerSetLabelsByIdsRequest(varExecutionControllerSetLabelsByIdsRequest)
+
+	return err
 }
 
 type NullableExecutionControllerSetLabelsByIdsRequest struct {

@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | **string** |  | 
 **MaxAge** | **string** |  | 
-**Extended** | Pointer to **bool** |  | [optional] 
+**Extended** | **bool** |  | 
 
 ## Methods
 
 ### NewCreateApiTokenRequest
 
-`func NewCreateApiTokenRequest(name string, maxAge string, ) *CreateApiTokenRequest`
+`func NewCreateApiTokenRequest(name string, description string, maxAge string, extended bool, ) *CreateApiTokenRequest`
 
 NewCreateApiTokenRequest instantiates a new CreateApiTokenRequest object
 This constructor will assign default values to properties that have it defined,
@@ -67,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *CreateApiTokenRequest) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetMaxAge
 
@@ -112,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetExtended sets Extended field to given value.
 
-### HasExtended
-
-`func (o *CreateApiTokenRequest) HasExtended() bool`
-
-HasExtended returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

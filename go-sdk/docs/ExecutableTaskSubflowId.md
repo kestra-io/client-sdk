@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespace** | Pointer to **string** |  | [optional] 
-**FlowId** | Pointer to **string** |  | [optional] 
-**Revision** | Pointer to **NullableInt32** |  | [optional] 
+**Namespace** | **string** |  | 
+**FlowId** | **string** |  | 
+**Revision** | **NullableInt32** |  | 
 
 ## Methods
 
 ### NewExecutableTaskSubflowId
 
-`func NewExecutableTaskSubflowId() *ExecutableTaskSubflowId`
+`func NewExecutableTaskSubflowId(namespace string, flowId string, revision NullableInt32, ) *ExecutableTaskSubflowId`
 
 NewExecutableTaskSubflowId instantiates a new ExecutableTaskSubflowId object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ExecutableTaskSubflowId) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
-### HasFlowId
-
-`func (o *ExecutableTaskSubflowId) HasFlowId() bool`
-
-HasFlowId returns a boolean if a field has been set.
 
 ### GetRevision
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetRevision sets Revision field to given value.
 
-### HasRevision
-
-`func (o *ExecutableTaskSubflowId) HasRevision() bool`
-
-HasRevision returns a boolean if a field has been set.
 
 ### SetRevisionNil
 

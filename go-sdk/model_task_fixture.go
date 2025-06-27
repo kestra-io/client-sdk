@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -21,11 +21,11 @@ var _ MappedNullable = &TaskFixture{}
 
 // TaskFixture struct for TaskFixture
 type TaskFixture struct {
-	Id          string                            `json:"id"`
-	Value       *string                           `json:"value,omitempty"`
-	State       *StateType                        `json:"state,omitempty"`
-	Outputs     map[string]map[string]interface{} `json:"outputs,omitempty"`
-	Description *string                           `json:"description,omitempty"`
+	Id          string                 `json:"id"`
+	Value       *string                `json:"value,omitempty"`
+	State       *StateType             `json:"state,omitempty"`
+	Outputs     map[string]interface{} `json:"outputs,omitempty"`
+	Description *string                `json:"description,omitempty"`
 }
 
 type _TaskFixture TaskFixture
@@ -137,9 +137,9 @@ func (o *TaskFixture) SetState(v StateType) {
 }
 
 // GetOutputs returns the Outputs field value if set, zero value otherwise.
-func (o *TaskFixture) GetOutputs() map[string]map[string]interface{} {
+func (o *TaskFixture) GetOutputs() map[string]interface{} {
 	if o == nil || IsNil(o.Outputs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Outputs
@@ -147,9 +147,9 @@ func (o *TaskFixture) GetOutputs() map[string]map[string]interface{} {
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskFixture) GetOutputsOk() (map[string]map[string]interface{}, bool) {
+func (o *TaskFixture) GetOutputsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Outputs) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Outputs, true
 }
@@ -163,8 +163,8 @@ func (o *TaskFixture) HasOutputs() bool {
 	return false
 }
 
-// SetOutputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Outputs field.
-func (o *TaskFixture) SetOutputs(v map[string]map[string]interface{}) {
+// SetOutputs gets a reference to the given map[string]interface{} and assigns it to the Outputs field.
+func (o *TaskFixture) SetOutputs(v map[string]interface{}) {
 	o.Outputs = v
 }
 
