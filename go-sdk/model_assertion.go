@@ -21,23 +21,23 @@ var _ MappedNullable = &Assertion{}
 
 // Assertion struct for Assertion
 type Assertion struct {
-	Value                PropertyObject      `json:"value"`
-	TaskId               *string             `json:"taskId,omitempty"`
-	ErrorMessage         *PropertyString     `json:"errorMessage,omitempty"`
-	Description          *PropertyString     `json:"description,omitempty"`
-	EndsWith             *PropertyString     `json:"endsWith,omitempty"`
-	StartsWith           *PropertyString     `json:"startsWith,omitempty"`
-	Contains             *PropertyString     `json:"contains,omitempty"`
-	EqualTo              *PropertyObject     `json:"equalTo,omitempty"`
-	NotEqualTo           *PropertyObject     `json:"notEqualTo,omitempty"`
-	GreaterThan          *PropertyDouble     `json:"greaterThan,omitempty"`
-	GreaterThanOrEqualTo *PropertyDouble     `json:"greaterThanOrEqualTo,omitempty"`
-	LessThan             *PropertyDouble     `json:"lessThan,omitempty"`
-	LessThanOrEqualTo    *PropertyDouble     `json:"lessThanOrEqualTo,omitempty"`
-	In                   *PropertyListString `json:"in,omitempty"`
-	NotIn                *PropertyListString `json:"notIn,omitempty"`
-	IsNull               *PropertyBoolean    `json:"isNull,omitempty"`
-	IsNotNull            *PropertyBoolean    `json:"isNotNull,omitempty"`
+	Value                string  `json:"value"`
+	TaskId               *string `json:"taskId,omitempty"`
+	ErrorMessage         *string `json:"errorMessage,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	EndsWith             *string `json:"endsWith,omitempty"`
+	StartsWith           *string `json:"startsWith,omitempty"`
+	Contains             *string `json:"contains,omitempty"`
+	EqualTo              *string `json:"equalTo,omitempty"`
+	NotEqualTo           *string `json:"notEqualTo,omitempty"`
+	GreaterThan          *string `json:"greaterThan,omitempty"`
+	GreaterThanOrEqualTo *string `json:"greaterThanOrEqualTo,omitempty"`
+	LessThan             *string `json:"lessThan,omitempty"`
+	LessThanOrEqualTo    *string `json:"lessThanOrEqualTo,omitempty"`
+	In                   *string `json:"in,omitempty"`
+	NotIn                *string `json:"notIn,omitempty"`
+	IsNull               *string `json:"isNull,omitempty"`
+	IsNotNull            *string `json:"isNotNull,omitempty"`
 }
 
 type _Assertion Assertion
@@ -46,7 +46,7 @@ type _Assertion Assertion
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssertion(value PropertyObject) *Assertion {
+func NewAssertion(value string) *Assertion {
 	this := Assertion{}
 	this.Value = value
 	return &this
@@ -61,9 +61,9 @@ func NewAssertionWithDefaults() *Assertion {
 }
 
 // GetValue returns the Value field value
-func (o *Assertion) GetValue() PropertyObject {
+func (o *Assertion) GetValue() string {
 	if o == nil {
-		var ret PropertyObject
+		var ret string
 		return ret
 	}
 
@@ -72,7 +72,7 @@ func (o *Assertion) GetValue() PropertyObject {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetValueOk() (*PropertyObject, bool) {
+func (o *Assertion) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -80,7 +80,7 @@ func (o *Assertion) GetValueOk() (*PropertyObject, bool) {
 }
 
 // SetValue sets field value
-func (o *Assertion) SetValue(v PropertyObject) {
+func (o *Assertion) SetValue(v string) {
 	o.Value = v
 }
 
@@ -117,9 +117,9 @@ func (o *Assertion) SetTaskId(v string) {
 }
 
 // GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
-func (o *Assertion) GetErrorMessage() PropertyString {
+func (o *Assertion) GetErrorMessage() string {
 	if o == nil || IsNil(o.ErrorMessage) {
-		var ret PropertyString
+		var ret string
 		return ret
 	}
 	return *o.ErrorMessage
@@ -127,7 +127,7 @@ func (o *Assertion) GetErrorMessage() PropertyString {
 
 // GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetErrorMessageOk() (*PropertyString, bool) {
+func (o *Assertion) GetErrorMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.ErrorMessage) {
 		return nil, false
 	}
@@ -143,15 +143,15 @@ func (o *Assertion) HasErrorMessage() bool {
 	return false
 }
 
-// SetErrorMessage gets a reference to the given PropertyString and assigns it to the ErrorMessage field.
-func (o *Assertion) SetErrorMessage(v PropertyString) {
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *Assertion) SetErrorMessage(v string) {
 	o.ErrorMessage = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Assertion) GetDescription() PropertyString {
+func (o *Assertion) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
-		var ret PropertyString
+		var ret string
 		return ret
 	}
 	return *o.Description
@@ -159,7 +159,7 @@ func (o *Assertion) GetDescription() PropertyString {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetDescriptionOk() (*PropertyString, bool) {
+func (o *Assertion) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *Assertion) HasDescription() bool {
 	return false
 }
 
-// SetDescription gets a reference to the given PropertyString and assigns it to the Description field.
-func (o *Assertion) SetDescription(v PropertyString) {
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Assertion) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetEndsWith returns the EndsWith field value if set, zero value otherwise.
-func (o *Assertion) GetEndsWith() PropertyString {
+func (o *Assertion) GetEndsWith() string {
 	if o == nil || IsNil(o.EndsWith) {
-		var ret PropertyString
+		var ret string
 		return ret
 	}
 	return *o.EndsWith
@@ -191,7 +191,7 @@ func (o *Assertion) GetEndsWith() PropertyString {
 
 // GetEndsWithOk returns a tuple with the EndsWith field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetEndsWithOk() (*PropertyString, bool) {
+func (o *Assertion) GetEndsWithOk() (*string, bool) {
 	if o == nil || IsNil(o.EndsWith) {
 		return nil, false
 	}
@@ -207,15 +207,15 @@ func (o *Assertion) HasEndsWith() bool {
 	return false
 }
 
-// SetEndsWith gets a reference to the given PropertyString and assigns it to the EndsWith field.
-func (o *Assertion) SetEndsWith(v PropertyString) {
+// SetEndsWith gets a reference to the given string and assigns it to the EndsWith field.
+func (o *Assertion) SetEndsWith(v string) {
 	o.EndsWith = &v
 }
 
 // GetStartsWith returns the StartsWith field value if set, zero value otherwise.
-func (o *Assertion) GetStartsWith() PropertyString {
+func (o *Assertion) GetStartsWith() string {
 	if o == nil || IsNil(o.StartsWith) {
-		var ret PropertyString
+		var ret string
 		return ret
 	}
 	return *o.StartsWith
@@ -223,7 +223,7 @@ func (o *Assertion) GetStartsWith() PropertyString {
 
 // GetStartsWithOk returns a tuple with the StartsWith field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetStartsWithOk() (*PropertyString, bool) {
+func (o *Assertion) GetStartsWithOk() (*string, bool) {
 	if o == nil || IsNil(o.StartsWith) {
 		return nil, false
 	}
@@ -239,15 +239,15 @@ func (o *Assertion) HasStartsWith() bool {
 	return false
 }
 
-// SetStartsWith gets a reference to the given PropertyString and assigns it to the StartsWith field.
-func (o *Assertion) SetStartsWith(v PropertyString) {
+// SetStartsWith gets a reference to the given string and assigns it to the StartsWith field.
+func (o *Assertion) SetStartsWith(v string) {
 	o.StartsWith = &v
 }
 
 // GetContains returns the Contains field value if set, zero value otherwise.
-func (o *Assertion) GetContains() PropertyString {
+func (o *Assertion) GetContains() string {
 	if o == nil || IsNil(o.Contains) {
-		var ret PropertyString
+		var ret string
 		return ret
 	}
 	return *o.Contains
@@ -255,7 +255,7 @@ func (o *Assertion) GetContains() PropertyString {
 
 // GetContainsOk returns a tuple with the Contains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetContainsOk() (*PropertyString, bool) {
+func (o *Assertion) GetContainsOk() (*string, bool) {
 	if o == nil || IsNil(o.Contains) {
 		return nil, false
 	}
@@ -271,15 +271,15 @@ func (o *Assertion) HasContains() bool {
 	return false
 }
 
-// SetContains gets a reference to the given PropertyString and assigns it to the Contains field.
-func (o *Assertion) SetContains(v PropertyString) {
+// SetContains gets a reference to the given string and assigns it to the Contains field.
+func (o *Assertion) SetContains(v string) {
 	o.Contains = &v
 }
 
 // GetEqualTo returns the EqualTo field value if set, zero value otherwise.
-func (o *Assertion) GetEqualTo() PropertyObject {
+func (o *Assertion) GetEqualTo() string {
 	if o == nil || IsNil(o.EqualTo) {
-		var ret PropertyObject
+		var ret string
 		return ret
 	}
 	return *o.EqualTo
@@ -287,7 +287,7 @@ func (o *Assertion) GetEqualTo() PropertyObject {
 
 // GetEqualToOk returns a tuple with the EqualTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetEqualToOk() (*PropertyObject, bool) {
+func (o *Assertion) GetEqualToOk() (*string, bool) {
 	if o == nil || IsNil(o.EqualTo) {
 		return nil, false
 	}
@@ -303,15 +303,15 @@ func (o *Assertion) HasEqualTo() bool {
 	return false
 }
 
-// SetEqualTo gets a reference to the given PropertyObject and assigns it to the EqualTo field.
-func (o *Assertion) SetEqualTo(v PropertyObject) {
+// SetEqualTo gets a reference to the given string and assigns it to the EqualTo field.
+func (o *Assertion) SetEqualTo(v string) {
 	o.EqualTo = &v
 }
 
 // GetNotEqualTo returns the NotEqualTo field value if set, zero value otherwise.
-func (o *Assertion) GetNotEqualTo() PropertyObject {
+func (o *Assertion) GetNotEqualTo() string {
 	if o == nil || IsNil(o.NotEqualTo) {
-		var ret PropertyObject
+		var ret string
 		return ret
 	}
 	return *o.NotEqualTo
@@ -319,7 +319,7 @@ func (o *Assertion) GetNotEqualTo() PropertyObject {
 
 // GetNotEqualToOk returns a tuple with the NotEqualTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetNotEqualToOk() (*PropertyObject, bool) {
+func (o *Assertion) GetNotEqualToOk() (*string, bool) {
 	if o == nil || IsNil(o.NotEqualTo) {
 		return nil, false
 	}
@@ -335,15 +335,15 @@ func (o *Assertion) HasNotEqualTo() bool {
 	return false
 }
 
-// SetNotEqualTo gets a reference to the given PropertyObject and assigns it to the NotEqualTo field.
-func (o *Assertion) SetNotEqualTo(v PropertyObject) {
+// SetNotEqualTo gets a reference to the given string and assigns it to the NotEqualTo field.
+func (o *Assertion) SetNotEqualTo(v string) {
 	o.NotEqualTo = &v
 }
 
 // GetGreaterThan returns the GreaterThan field value if set, zero value otherwise.
-func (o *Assertion) GetGreaterThan() PropertyDouble {
+func (o *Assertion) GetGreaterThan() string {
 	if o == nil || IsNil(o.GreaterThan) {
-		var ret PropertyDouble
+		var ret string
 		return ret
 	}
 	return *o.GreaterThan
@@ -351,7 +351,7 @@ func (o *Assertion) GetGreaterThan() PropertyDouble {
 
 // GetGreaterThanOk returns a tuple with the GreaterThan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetGreaterThanOk() (*PropertyDouble, bool) {
+func (o *Assertion) GetGreaterThanOk() (*string, bool) {
 	if o == nil || IsNil(o.GreaterThan) {
 		return nil, false
 	}
@@ -367,15 +367,15 @@ func (o *Assertion) HasGreaterThan() bool {
 	return false
 }
 
-// SetGreaterThan gets a reference to the given PropertyDouble and assigns it to the GreaterThan field.
-func (o *Assertion) SetGreaterThan(v PropertyDouble) {
+// SetGreaterThan gets a reference to the given string and assigns it to the GreaterThan field.
+func (o *Assertion) SetGreaterThan(v string) {
 	o.GreaterThan = &v
 }
 
 // GetGreaterThanOrEqualTo returns the GreaterThanOrEqualTo field value if set, zero value otherwise.
-func (o *Assertion) GetGreaterThanOrEqualTo() PropertyDouble {
+func (o *Assertion) GetGreaterThanOrEqualTo() string {
 	if o == nil || IsNil(o.GreaterThanOrEqualTo) {
-		var ret PropertyDouble
+		var ret string
 		return ret
 	}
 	return *o.GreaterThanOrEqualTo
@@ -383,7 +383,7 @@ func (o *Assertion) GetGreaterThanOrEqualTo() PropertyDouble {
 
 // GetGreaterThanOrEqualToOk returns a tuple with the GreaterThanOrEqualTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetGreaterThanOrEqualToOk() (*PropertyDouble, bool) {
+func (o *Assertion) GetGreaterThanOrEqualToOk() (*string, bool) {
 	if o == nil || IsNil(o.GreaterThanOrEqualTo) {
 		return nil, false
 	}
@@ -399,15 +399,15 @@ func (o *Assertion) HasGreaterThanOrEqualTo() bool {
 	return false
 }
 
-// SetGreaterThanOrEqualTo gets a reference to the given PropertyDouble and assigns it to the GreaterThanOrEqualTo field.
-func (o *Assertion) SetGreaterThanOrEqualTo(v PropertyDouble) {
+// SetGreaterThanOrEqualTo gets a reference to the given string and assigns it to the GreaterThanOrEqualTo field.
+func (o *Assertion) SetGreaterThanOrEqualTo(v string) {
 	o.GreaterThanOrEqualTo = &v
 }
 
 // GetLessThan returns the LessThan field value if set, zero value otherwise.
-func (o *Assertion) GetLessThan() PropertyDouble {
+func (o *Assertion) GetLessThan() string {
 	if o == nil || IsNil(o.LessThan) {
-		var ret PropertyDouble
+		var ret string
 		return ret
 	}
 	return *o.LessThan
@@ -415,7 +415,7 @@ func (o *Assertion) GetLessThan() PropertyDouble {
 
 // GetLessThanOk returns a tuple with the LessThan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetLessThanOk() (*PropertyDouble, bool) {
+func (o *Assertion) GetLessThanOk() (*string, bool) {
 	if o == nil || IsNil(o.LessThan) {
 		return nil, false
 	}
@@ -431,15 +431,15 @@ func (o *Assertion) HasLessThan() bool {
 	return false
 }
 
-// SetLessThan gets a reference to the given PropertyDouble and assigns it to the LessThan field.
-func (o *Assertion) SetLessThan(v PropertyDouble) {
+// SetLessThan gets a reference to the given string and assigns it to the LessThan field.
+func (o *Assertion) SetLessThan(v string) {
 	o.LessThan = &v
 }
 
 // GetLessThanOrEqualTo returns the LessThanOrEqualTo field value if set, zero value otherwise.
-func (o *Assertion) GetLessThanOrEqualTo() PropertyDouble {
+func (o *Assertion) GetLessThanOrEqualTo() string {
 	if o == nil || IsNil(o.LessThanOrEqualTo) {
-		var ret PropertyDouble
+		var ret string
 		return ret
 	}
 	return *o.LessThanOrEqualTo
@@ -447,7 +447,7 @@ func (o *Assertion) GetLessThanOrEqualTo() PropertyDouble {
 
 // GetLessThanOrEqualToOk returns a tuple with the LessThanOrEqualTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetLessThanOrEqualToOk() (*PropertyDouble, bool) {
+func (o *Assertion) GetLessThanOrEqualToOk() (*string, bool) {
 	if o == nil || IsNil(o.LessThanOrEqualTo) {
 		return nil, false
 	}
@@ -463,15 +463,15 @@ func (o *Assertion) HasLessThanOrEqualTo() bool {
 	return false
 }
 
-// SetLessThanOrEqualTo gets a reference to the given PropertyDouble and assigns it to the LessThanOrEqualTo field.
-func (o *Assertion) SetLessThanOrEqualTo(v PropertyDouble) {
+// SetLessThanOrEqualTo gets a reference to the given string and assigns it to the LessThanOrEqualTo field.
+func (o *Assertion) SetLessThanOrEqualTo(v string) {
 	o.LessThanOrEqualTo = &v
 }
 
 // GetIn returns the In field value if set, zero value otherwise.
-func (o *Assertion) GetIn() PropertyListString {
+func (o *Assertion) GetIn() string {
 	if o == nil || IsNil(o.In) {
-		var ret PropertyListString
+		var ret string
 		return ret
 	}
 	return *o.In
@@ -479,7 +479,7 @@ func (o *Assertion) GetIn() PropertyListString {
 
 // GetInOk returns a tuple with the In field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetInOk() (*PropertyListString, bool) {
+func (o *Assertion) GetInOk() (*string, bool) {
 	if o == nil || IsNil(o.In) {
 		return nil, false
 	}
@@ -495,15 +495,15 @@ func (o *Assertion) HasIn() bool {
 	return false
 }
 
-// SetIn gets a reference to the given PropertyListString and assigns it to the In field.
-func (o *Assertion) SetIn(v PropertyListString) {
+// SetIn gets a reference to the given string and assigns it to the In field.
+func (o *Assertion) SetIn(v string) {
 	o.In = &v
 }
 
 // GetNotIn returns the NotIn field value if set, zero value otherwise.
-func (o *Assertion) GetNotIn() PropertyListString {
+func (o *Assertion) GetNotIn() string {
 	if o == nil || IsNil(o.NotIn) {
-		var ret PropertyListString
+		var ret string
 		return ret
 	}
 	return *o.NotIn
@@ -511,7 +511,7 @@ func (o *Assertion) GetNotIn() PropertyListString {
 
 // GetNotInOk returns a tuple with the NotIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetNotInOk() (*PropertyListString, bool) {
+func (o *Assertion) GetNotInOk() (*string, bool) {
 	if o == nil || IsNil(o.NotIn) {
 		return nil, false
 	}
@@ -527,15 +527,15 @@ func (o *Assertion) HasNotIn() bool {
 	return false
 }
 
-// SetNotIn gets a reference to the given PropertyListString and assigns it to the NotIn field.
-func (o *Assertion) SetNotIn(v PropertyListString) {
+// SetNotIn gets a reference to the given string and assigns it to the NotIn field.
+func (o *Assertion) SetNotIn(v string) {
 	o.NotIn = &v
 }
 
 // GetIsNull returns the IsNull field value if set, zero value otherwise.
-func (o *Assertion) GetIsNull() PropertyBoolean {
+func (o *Assertion) GetIsNull() string {
 	if o == nil || IsNil(o.IsNull) {
-		var ret PropertyBoolean
+		var ret string
 		return ret
 	}
 	return *o.IsNull
@@ -543,7 +543,7 @@ func (o *Assertion) GetIsNull() PropertyBoolean {
 
 // GetIsNullOk returns a tuple with the IsNull field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetIsNullOk() (*PropertyBoolean, bool) {
+func (o *Assertion) GetIsNullOk() (*string, bool) {
 	if o == nil || IsNil(o.IsNull) {
 		return nil, false
 	}
@@ -559,15 +559,15 @@ func (o *Assertion) HasIsNull() bool {
 	return false
 }
 
-// SetIsNull gets a reference to the given PropertyBoolean and assigns it to the IsNull field.
-func (o *Assertion) SetIsNull(v PropertyBoolean) {
+// SetIsNull gets a reference to the given string and assigns it to the IsNull field.
+func (o *Assertion) SetIsNull(v string) {
 	o.IsNull = &v
 }
 
 // GetIsNotNull returns the IsNotNull field value if set, zero value otherwise.
-func (o *Assertion) GetIsNotNull() PropertyBoolean {
+func (o *Assertion) GetIsNotNull() string {
 	if o == nil || IsNil(o.IsNotNull) {
-		var ret PropertyBoolean
+		var ret string
 		return ret
 	}
 	return *o.IsNotNull
@@ -575,7 +575,7 @@ func (o *Assertion) GetIsNotNull() PropertyBoolean {
 
 // GetIsNotNullOk returns a tuple with the IsNotNull field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Assertion) GetIsNotNullOk() (*PropertyBoolean, bool) {
+func (o *Assertion) GetIsNotNullOk() (*string, bool) {
 	if o == nil || IsNil(o.IsNotNull) {
 		return nil, false
 	}
@@ -591,8 +591,8 @@ func (o *Assertion) HasIsNotNull() bool {
 	return false
 }
 
-// SetIsNotNull gets a reference to the given PropertyBoolean and assigns it to the IsNotNull field.
-func (o *Assertion) SetIsNotNull(v PropertyBoolean) {
+// SetIsNotNull gets a reference to the given string and assigns it to the IsNotNull field.
+func (o *Assertion) SetIsNotNull(v string) {
 	o.IsNotNull = &v
 }
 

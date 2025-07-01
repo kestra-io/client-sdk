@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Retry** | Pointer to **map[string]interface{}** |  | [optional] 
-**Timeout** | Pointer to [**PropertyDuration**](PropertyDuration.md) |  | [optional] 
+**Timeout** | Pointer to [**string**](PropertyDuration.md) |  | [optional] 
 **Disabled** | Pointer to **bool** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **LogLevel** | Pointer to [**Level**](Level.md) |  | [optional] 
@@ -154,20 +154,20 @@ HasRetry returns a boolean if a field has been set.
 
 ### GetTimeout
 
-`func (o *Task) GetTimeout() PropertyDuration`
+`func (o *Task) GetTimeout() string`
 
 GetTimeout returns the Timeout field if non-nil, zero value otherwise.
 
 ### GetTimeoutOk
 
-`func (o *Task) GetTimeoutOk() (*PropertyDuration, bool)`
+`func (o *Task) GetTimeoutOk() (*string, bool)`
 
 GetTimeoutOk returns a tuple with the Timeout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTimeout
 
-`func (o *Task) SetTimeout(v PropertyDuration)`
+`func (o *Task) SetTimeout(v string)`
 
 SetTimeout sets Timeout field to given value.
 

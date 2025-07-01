@@ -26,7 +26,7 @@ type Task struct {
 	Version      *string                `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
 	Description  *string                `json:"description,omitempty"`
 	Retry        map[string]interface{} `json:"retry,omitempty"`
-	Timeout      *PropertyDuration      `json:"timeout,omitempty"`
+	Timeout      *string                `json:"timeout,omitempty"`
 	Disabled     *bool                  `json:"disabled,omitempty"`
 	WorkerGroup  *WorkerGroup           `json:"workerGroup,omitempty"`
 	LogLevel     *Level                 `json:"logLevel,omitempty"`
@@ -202,9 +202,9 @@ func (o *Task) SetRetry(v map[string]interface{}) {
 }
 
 // GetTimeout returns the Timeout field value if set, zero value otherwise.
-func (o *Task) GetTimeout() PropertyDuration {
+func (o *Task) GetTimeout() string {
 	if o == nil || IsNil(o.Timeout) {
-		var ret PropertyDuration
+		var ret string
 		return ret
 	}
 	return *o.Timeout
@@ -212,7 +212,7 @@ func (o *Task) GetTimeout() PropertyDuration {
 
 // GetTimeoutOk returns a tuple with the Timeout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetTimeoutOk() (*PropertyDuration, bool) {
+func (o *Task) GetTimeoutOk() (*string, bool) {
 	if o == nil || IsNil(o.Timeout) {
 		return nil, false
 	}
@@ -228,8 +228,8 @@ func (o *Task) HasTimeout() bool {
 	return false
 }
 
-// SetTimeout gets a reference to the given PropertyDuration and assigns it to the Timeout field.
-func (o *Task) SetTimeout(v PropertyDuration) {
+// SetTimeout gets a reference to the given string and assigns it to the Timeout field.
+func (o *Task) SetTimeout(v string) {
 	o.Timeout = &v
 }
 

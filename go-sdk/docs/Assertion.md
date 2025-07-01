@@ -4,29 +4,29 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | [**PropertyObject**](PropertyObject.md) |  | 
+**Value** | [**string**](PropertyObject.md) |  | 
 **TaskId** | Pointer to **string** |  | [optional] 
-**ErrorMessage** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
-**Description** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
-**EndsWith** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
-**StartsWith** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
-**Contains** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
-**EqualTo** | Pointer to [**PropertyObject**](PropertyObject.md) |  | [optional] 
-**NotEqualTo** | Pointer to [**PropertyObject**](PropertyObject.md) |  | [optional] 
-**GreaterThan** | Pointer to [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**GreaterThanOrEqualTo** | Pointer to [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**LessThan** | Pointer to [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**LessThanOrEqualTo** | Pointer to [**PropertyDouble**](PropertyDouble.md) |  | [optional] 
-**In** | Pointer to [**PropertyListString**](PropertyListString.md) |  | [optional] 
-**NotIn** | Pointer to [**PropertyListString**](PropertyListString.md) |  | [optional] 
-**IsNull** | Pointer to [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
-**IsNotNull** | Pointer to [**PropertyBoolean**](PropertyBoolean.md) |  | [optional] 
+**ErrorMessage** | Pointer to [**string**](PropertyString.md) |  | [optional] 
+**Description** | Pointer to [**string**](PropertyString.md) |  | [optional] 
+**EndsWith** | Pointer to [**string**](PropertyString.md) |  | [optional] 
+**StartsWith** | Pointer to [**string**](PropertyString.md) |  | [optional] 
+**Contains** | Pointer to [**string**](PropertyString.md) |  | [optional] 
+**EqualTo** | Pointer to [**string**](PropertyObject.md) |  | [optional] 
+**NotEqualTo** | Pointer to [**string**](PropertyObject.md) |  | [optional] 
+**GreaterThan** | Pointer to [**string**](PropertyDouble.md) |  | [optional] 
+**GreaterThanOrEqualTo** | Pointer to [**string**](PropertyDouble.md) |  | [optional] 
+**LessThan** | Pointer to [**string**](PropertyDouble.md) |  | [optional] 
+**LessThanOrEqualTo** | Pointer to [**string**](PropertyDouble.md) |  | [optional] 
+**In** | Pointer to [**string**](PropertyListString.md) |  | [optional] 
+**NotIn** | Pointer to [**string**](PropertyListString.md) |  | [optional] 
+**IsNull** | Pointer to [**string**](PropertyBoolean.md) |  | [optional] 
+**IsNotNull** | Pointer to [**string**](PropertyBoolean.md) |  | [optional] 
 
 ## Methods
 
 ### NewAssertion
 
-`func NewAssertion(value PropertyObject, ) *Assertion`
+`func NewAssertion(value string, ) *Assertion`
 
 NewAssertion instantiates a new Assertion object
 This constructor will assign default values to properties that have it defined,
@@ -43,20 +43,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetValue
 
-`func (o *Assertion) GetValue() PropertyObject`
+`func (o *Assertion) GetValue() string`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Assertion) GetValueOk() (*PropertyObject, bool)`
+`func (o *Assertion) GetValueOk() (*string, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Assertion) SetValue(v PropertyObject)`
+`func (o *Assertion) SetValue(v string)`
 
 SetValue sets Value field to given value.
 
@@ -88,20 +88,20 @@ HasTaskId returns a boolean if a field has been set.
 
 ### GetErrorMessage
 
-`func (o *Assertion) GetErrorMessage() PropertyString`
+`func (o *Assertion) GetErrorMessage() string`
 
 GetErrorMessage returns the ErrorMessage field if non-nil, zero value otherwise.
 
 ### GetErrorMessageOk
 
-`func (o *Assertion) GetErrorMessageOk() (*PropertyString, bool)`
+`func (o *Assertion) GetErrorMessageOk() (*string, bool)`
 
 GetErrorMessageOk returns a tuple with the ErrorMessage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrorMessage
 
-`func (o *Assertion) SetErrorMessage(v PropertyString)`
+`func (o *Assertion) SetErrorMessage(v string)`
 
 SetErrorMessage sets ErrorMessage field to given value.
 
@@ -113,20 +113,20 @@ HasErrorMessage returns a boolean if a field has been set.
 
 ### GetDescription
 
-`func (o *Assertion) GetDescription() PropertyString`
+`func (o *Assertion) GetDescription() string`
 
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
-`func (o *Assertion) GetDescriptionOk() (*PropertyString, bool)`
+`func (o *Assertion) GetDescriptionOk() (*string, bool)`
 
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-`func (o *Assertion) SetDescription(v PropertyString)`
+`func (o *Assertion) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
 
@@ -138,20 +138,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetEndsWith
 
-`func (o *Assertion) GetEndsWith() PropertyString`
+`func (o *Assertion) GetEndsWith() string`
 
 GetEndsWith returns the EndsWith field if non-nil, zero value otherwise.
 
 ### GetEndsWithOk
 
-`func (o *Assertion) GetEndsWithOk() (*PropertyString, bool)`
+`func (o *Assertion) GetEndsWithOk() (*string, bool)`
 
 GetEndsWithOk returns a tuple with the EndsWith field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEndsWith
 
-`func (o *Assertion) SetEndsWith(v PropertyString)`
+`func (o *Assertion) SetEndsWith(v string)`
 
 SetEndsWith sets EndsWith field to given value.
 
@@ -163,20 +163,20 @@ HasEndsWith returns a boolean if a field has been set.
 
 ### GetStartsWith
 
-`func (o *Assertion) GetStartsWith() PropertyString`
+`func (o *Assertion) GetStartsWith() string`
 
 GetStartsWith returns the StartsWith field if non-nil, zero value otherwise.
 
 ### GetStartsWithOk
 
-`func (o *Assertion) GetStartsWithOk() (*PropertyString, bool)`
+`func (o *Assertion) GetStartsWithOk() (*string, bool)`
 
 GetStartsWithOk returns a tuple with the StartsWith field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStartsWith
 
-`func (o *Assertion) SetStartsWith(v PropertyString)`
+`func (o *Assertion) SetStartsWith(v string)`
 
 SetStartsWith sets StartsWith field to given value.
 
@@ -188,20 +188,20 @@ HasStartsWith returns a boolean if a field has been set.
 
 ### GetContains
 
-`func (o *Assertion) GetContains() PropertyString`
+`func (o *Assertion) GetContains() string`
 
 GetContains returns the Contains field if non-nil, zero value otherwise.
 
 ### GetContainsOk
 
-`func (o *Assertion) GetContainsOk() (*PropertyString, bool)`
+`func (o *Assertion) GetContainsOk() (*string, bool)`
 
 GetContainsOk returns a tuple with the Contains field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContains
 
-`func (o *Assertion) SetContains(v PropertyString)`
+`func (o *Assertion) SetContains(v string)`
 
 SetContains sets Contains field to given value.
 
@@ -213,20 +213,20 @@ HasContains returns a boolean if a field has been set.
 
 ### GetEqualTo
 
-`func (o *Assertion) GetEqualTo() PropertyObject`
+`func (o *Assertion) GetEqualTo() string`
 
 GetEqualTo returns the EqualTo field if non-nil, zero value otherwise.
 
 ### GetEqualToOk
 
-`func (o *Assertion) GetEqualToOk() (*PropertyObject, bool)`
+`func (o *Assertion) GetEqualToOk() (*string, bool)`
 
 GetEqualToOk returns a tuple with the EqualTo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEqualTo
 
-`func (o *Assertion) SetEqualTo(v PropertyObject)`
+`func (o *Assertion) SetEqualTo(v string)`
 
 SetEqualTo sets EqualTo field to given value.
 
@@ -238,20 +238,20 @@ HasEqualTo returns a boolean if a field has been set.
 
 ### GetNotEqualTo
 
-`func (o *Assertion) GetNotEqualTo() PropertyObject`
+`func (o *Assertion) GetNotEqualTo() string`
 
 GetNotEqualTo returns the NotEqualTo field if non-nil, zero value otherwise.
 
 ### GetNotEqualToOk
 
-`func (o *Assertion) GetNotEqualToOk() (*PropertyObject, bool)`
+`func (o *Assertion) GetNotEqualToOk() (*string, bool)`
 
 GetNotEqualToOk returns a tuple with the NotEqualTo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotEqualTo
 
-`func (o *Assertion) SetNotEqualTo(v PropertyObject)`
+`func (o *Assertion) SetNotEqualTo(v string)`
 
 SetNotEqualTo sets NotEqualTo field to given value.
 
@@ -263,20 +263,20 @@ HasNotEqualTo returns a boolean if a field has been set.
 
 ### GetGreaterThan
 
-`func (o *Assertion) GetGreaterThan() PropertyDouble`
+`func (o *Assertion) GetGreaterThan() string`
 
 GetGreaterThan returns the GreaterThan field if non-nil, zero value otherwise.
 
 ### GetGreaterThanOk
 
-`func (o *Assertion) GetGreaterThanOk() (*PropertyDouble, bool)`
+`func (o *Assertion) GetGreaterThanOk() (*string, bool)`
 
 GetGreaterThanOk returns a tuple with the GreaterThan field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGreaterThan
 
-`func (o *Assertion) SetGreaterThan(v PropertyDouble)`
+`func (o *Assertion) SetGreaterThan(v string)`
 
 SetGreaterThan sets GreaterThan field to given value.
 
@@ -288,20 +288,20 @@ HasGreaterThan returns a boolean if a field has been set.
 
 ### GetGreaterThanOrEqualTo
 
-`func (o *Assertion) GetGreaterThanOrEqualTo() PropertyDouble`
+`func (o *Assertion) GetGreaterThanOrEqualTo() string`
 
 GetGreaterThanOrEqualTo returns the GreaterThanOrEqualTo field if non-nil, zero value otherwise.
 
 ### GetGreaterThanOrEqualToOk
 
-`func (o *Assertion) GetGreaterThanOrEqualToOk() (*PropertyDouble, bool)`
+`func (o *Assertion) GetGreaterThanOrEqualToOk() (*string, bool)`
 
 GetGreaterThanOrEqualToOk returns a tuple with the GreaterThanOrEqualTo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGreaterThanOrEqualTo
 
-`func (o *Assertion) SetGreaterThanOrEqualTo(v PropertyDouble)`
+`func (o *Assertion) SetGreaterThanOrEqualTo(v string)`
 
 SetGreaterThanOrEqualTo sets GreaterThanOrEqualTo field to given value.
 
@@ -313,20 +313,20 @@ HasGreaterThanOrEqualTo returns a boolean if a field has been set.
 
 ### GetLessThan
 
-`func (o *Assertion) GetLessThan() PropertyDouble`
+`func (o *Assertion) GetLessThan() string`
 
 GetLessThan returns the LessThan field if non-nil, zero value otherwise.
 
 ### GetLessThanOk
 
-`func (o *Assertion) GetLessThanOk() (*PropertyDouble, bool)`
+`func (o *Assertion) GetLessThanOk() (*string, bool)`
 
 GetLessThanOk returns a tuple with the LessThan field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLessThan
 
-`func (o *Assertion) SetLessThan(v PropertyDouble)`
+`func (o *Assertion) SetLessThan(v string)`
 
 SetLessThan sets LessThan field to given value.
 
@@ -338,20 +338,20 @@ HasLessThan returns a boolean if a field has been set.
 
 ### GetLessThanOrEqualTo
 
-`func (o *Assertion) GetLessThanOrEqualTo() PropertyDouble`
+`func (o *Assertion) GetLessThanOrEqualTo() string`
 
 GetLessThanOrEqualTo returns the LessThanOrEqualTo field if non-nil, zero value otherwise.
 
 ### GetLessThanOrEqualToOk
 
-`func (o *Assertion) GetLessThanOrEqualToOk() (*PropertyDouble, bool)`
+`func (o *Assertion) GetLessThanOrEqualToOk() (*string, bool)`
 
 GetLessThanOrEqualToOk returns a tuple with the LessThanOrEqualTo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLessThanOrEqualTo
 
-`func (o *Assertion) SetLessThanOrEqualTo(v PropertyDouble)`
+`func (o *Assertion) SetLessThanOrEqualTo(v string)`
 
 SetLessThanOrEqualTo sets LessThanOrEqualTo field to given value.
 
@@ -363,20 +363,20 @@ HasLessThanOrEqualTo returns a boolean if a field has been set.
 
 ### GetIn
 
-`func (o *Assertion) GetIn() PropertyListString`
+`func (o *Assertion) GetIn() string`
 
 GetIn returns the In field if non-nil, zero value otherwise.
 
 ### GetInOk
 
-`func (o *Assertion) GetInOk() (*PropertyListString, bool)`
+`func (o *Assertion) GetInOk() (*string, bool)`
 
 GetInOk returns a tuple with the In field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIn
 
-`func (o *Assertion) SetIn(v PropertyListString)`
+`func (o *Assertion) SetIn(v string)`
 
 SetIn sets In field to given value.
 
@@ -388,20 +388,20 @@ HasIn returns a boolean if a field has been set.
 
 ### GetNotIn
 
-`func (o *Assertion) GetNotIn() PropertyListString`
+`func (o *Assertion) GetNotIn() string`
 
 GetNotIn returns the NotIn field if non-nil, zero value otherwise.
 
 ### GetNotInOk
 
-`func (o *Assertion) GetNotInOk() (*PropertyListString, bool)`
+`func (o *Assertion) GetNotInOk() (*string, bool)`
 
 GetNotInOk returns a tuple with the NotIn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotIn
 
-`func (o *Assertion) SetNotIn(v PropertyListString)`
+`func (o *Assertion) SetNotIn(v string)`
 
 SetNotIn sets NotIn field to given value.
 
@@ -413,20 +413,20 @@ HasNotIn returns a boolean if a field has been set.
 
 ### GetIsNull
 
-`func (o *Assertion) GetIsNull() PropertyBoolean`
+`func (o *Assertion) GetIsNull() string`
 
 GetIsNull returns the IsNull field if non-nil, zero value otherwise.
 
 ### GetIsNullOk
 
-`func (o *Assertion) GetIsNullOk() (*PropertyBoolean, bool)`
+`func (o *Assertion) GetIsNullOk() (*string, bool)`
 
 GetIsNullOk returns a tuple with the IsNull field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsNull
 
-`func (o *Assertion) SetIsNull(v PropertyBoolean)`
+`func (o *Assertion) SetIsNull(v string)`
 
 SetIsNull sets IsNull field to given value.
 
@@ -438,20 +438,20 @@ HasIsNull returns a boolean if a field has been set.
 
 ### GetIsNotNull
 
-`func (o *Assertion) GetIsNotNull() PropertyBoolean`
+`func (o *Assertion) GetIsNotNull() string`
 
 GetIsNotNull returns the IsNotNull field if non-nil, zero value otherwise.
 
 ### GetIsNotNullOk
 
-`func (o *Assertion) GetIsNotNullOk() (*PropertyBoolean, bool)`
+`func (o *Assertion) GetIsNotNullOk() (*string, bool)`
 
 GetIsNotNullOk returns a tuple with the IsNotNull field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsNotNull
 
-`func (o *Assertion) SetIsNotNull(v PropertyBoolean)`
+`func (o *Assertion) SetIsNotNull(v string)`
 
 SetIsNotNull sets IsNotNull field to given value.
 

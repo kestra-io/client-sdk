@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Value** | Pointer to **string** |  | [optional] 
 **State** | Pointer to [**StateType**](StateType.md) |  | [optional] 
 **Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Description** | Pointer to [**PropertyString**](PropertyString.md) |  | [optional] 
+**Description** | Pointer to [**string**](PropertyString.md) |  | [optional] 
 
 ## Methods
 
@@ -126,20 +126,20 @@ HasOutputs returns a boolean if a field has been set.
 
 ### GetDescription
 
-`func (o *TaskFixture) GetDescription() PropertyString`
+`func (o *TaskFixture) GetDescription() string`
 
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
-`func (o *TaskFixture) GetDescriptionOk() (*PropertyString, bool)`
+`func (o *TaskFixture) GetDescriptionOk() (*string, bool)`
 
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-`func (o *TaskFixture) SetDescription(v PropertyString)`
+`func (o *TaskFixture) SetDescription(v string)`
 
 SetDescription sets Description field to given value.
 
