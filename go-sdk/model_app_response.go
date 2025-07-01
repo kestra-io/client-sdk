@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppResponse type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,23 @@ var _ MappedNullable = &AppResponse{}
 
 // AppResponse struct for AppResponse
 type AppResponse struct {
-	Dispatch *string              `json:"dispatch,omitempty"`
-	Stream   *string              `json:"stream,omitempty"`
-	Layout   *AppResponseUILayout `json:"layout,omitempty"`
+	Dispatch             string              `json:"dispatch"`
+	Stream               string              `json:"stream"`
+	Layout               AppResponseUILayout `json:"layout"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AppResponse AppResponse
 
 // NewAppResponse instantiates a new AppResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppResponse() *AppResponse {
+func NewAppResponse(dispatch string, stream string, layout AppResponseUILayout) *AppResponse {
 	this := AppResponse{}
+	this.Dispatch = dispatch
+	this.Stream = stream
+	this.Layout = layout
 	return &this
 }
 
@@ -41,100 +48,76 @@ func NewAppResponseWithDefaults() *AppResponse {
 	return &this
 }
 
-// GetDispatch returns the Dispatch field value if set, zero value otherwise.
+// GetDispatch returns the Dispatch field value
 func (o *AppResponse) GetDispatch() string {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Dispatch
+
+	return o.Dispatch
 }
 
-// GetDispatchOk returns a tuple with the Dispatch field value if set, nil otherwise
+// GetDispatchOk returns a tuple with the Dispatch field value
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetDispatchOk() (*string, bool) {
-	if o == nil || IsNil(o.Dispatch) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Dispatch, true
+	return &o.Dispatch, true
 }
 
-// HasDispatch returns a boolean if a field has been set.
-func (o *AppResponse) HasDispatch() bool {
-	if o != nil && !IsNil(o.Dispatch) {
-		return true
-	}
-
-	return false
-}
-
-// SetDispatch gets a reference to the given string and assigns it to the Dispatch field.
+// SetDispatch sets field value
 func (o *AppResponse) SetDispatch(v string) {
-	o.Dispatch = &v
+	o.Dispatch = v
 }
 
-// GetStream returns the Stream field value if set, zero value otherwise.
+// GetStream returns the Stream field value
 func (o *AppResponse) GetStream() string {
-	if o == nil || IsNil(o.Stream) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Stream
+
+	return o.Stream
 }
 
-// GetStreamOk returns a tuple with the Stream field value if set, nil otherwise
+// GetStreamOk returns a tuple with the Stream field value
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetStreamOk() (*string, bool) {
-	if o == nil || IsNil(o.Stream) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Stream, true
+	return &o.Stream, true
 }
 
-// HasStream returns a boolean if a field has been set.
-func (o *AppResponse) HasStream() bool {
-	if o != nil && !IsNil(o.Stream) {
-		return true
-	}
-
-	return false
-}
-
-// SetStream gets a reference to the given string and assigns it to the Stream field.
+// SetStream sets field value
 func (o *AppResponse) SetStream(v string) {
-	o.Stream = &v
+	o.Stream = v
 }
 
-// GetLayout returns the Layout field value if set, zero value otherwise.
+// GetLayout returns the Layout field value
 func (o *AppResponse) GetLayout() AppResponseUILayout {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil {
 		var ret AppResponseUILayout
 		return ret
 	}
-	return *o.Layout
+
+	return o.Layout
 }
 
-// GetLayoutOk returns a tuple with the Layout field value if set, nil otherwise
+// GetLayoutOk returns a tuple with the Layout field value
 // and a boolean to check if the value has been set.
 func (o *AppResponse) GetLayoutOk() (*AppResponseUILayout, bool) {
-	if o == nil || IsNil(o.Layout) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Layout, true
+	return &o.Layout, true
 }
 
-// HasLayout returns a boolean if a field has been set.
-func (o *AppResponse) HasLayout() bool {
-	if o != nil && !IsNil(o.Layout) {
-		return true
-	}
-
-	return false
-}
-
-// SetLayout gets a reference to the given AppResponseUILayout and assigns it to the Layout field.
+// SetLayout sets field value
 func (o *AppResponse) SetLayout(v AppResponseUILayout) {
-	o.Layout = &v
+	o.Layout = v
 }
 
 func (o AppResponse) MarshalJSON() ([]byte, error) {
@@ -147,16 +130,61 @@ func (o AppResponse) MarshalJSON() ([]byte, error) {
 
 func (o AppResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Dispatch) {
-		toSerialize["dispatch"] = o.Dispatch
+	toSerialize["dispatch"] = o.Dispatch
+	toSerialize["stream"] = o.Stream
+	toSerialize["layout"] = o.Layout
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Stream) {
-		toSerialize["stream"] = o.Stream
-	}
-	if !IsNil(o.Layout) {
-		toSerialize["layout"] = o.Layout
-	}
+
 	return toSerialize, nil
+}
+
+func (o *AppResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"dispatch",
+		"stream",
+		"layout",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppResponse := _AppResponse{}
+
+	err = json.Unmarshal(data, &varAppResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppResponse(varAppResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dispatch")
+		delete(additionalProperties, "stream")
+		delete(additionalProperties, "layout")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAppResponse struct {

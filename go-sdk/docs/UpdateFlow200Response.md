@@ -10,8 +10,9 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**FlowAllOfLabels**](FlowAllOfLabels.md) |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Labels** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
+**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
 **Finally** | Pointer to [**[]Task**](Task.md) |  | [optional] 
 **TaskDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
@@ -182,20 +183,20 @@ SetDisabled sets Disabled field to given value.
 
 ### GetLabels
 
-`func (o *UpdateFlow200Response) GetLabels() FlowAllOfLabels`
+`func (o *UpdateFlow200Response) GetLabels() map[string]interface{}`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *UpdateFlow200Response) GetLabelsOk() (*FlowAllOfLabels, bool)`
+`func (o *UpdateFlow200Response) GetLabelsOk() (*map[string]interface{}, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *UpdateFlow200Response) SetLabels(v FlowAllOfLabels)`
+`func (o *UpdateFlow200Response) SetLabels(v map[string]interface{})`
 
 SetLabels sets Labels field to given value.
 
@@ -207,20 +208,20 @@ HasLabels returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *UpdateFlow200Response) GetVariables() map[string]map[string]interface{}`
+`func (o *UpdateFlow200Response) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *UpdateFlow200Response) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *UpdateFlow200Response) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *UpdateFlow200Response) SetVariables(v map[string]map[string]interface{})`
+`func (o *UpdateFlow200Response) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
@@ -229,6 +230,31 @@ SetVariables sets Variables field to given value.
 `func (o *UpdateFlow200Response) HasVariables() bool`
 
 HasVariables returns a boolean if a field has been set.
+
+### GetWorkerGroup
+
+`func (o *UpdateFlow200Response) GetWorkerGroup() WorkerGroup`
+
+GetWorkerGroup returns the WorkerGroup field if non-nil, zero value otherwise.
+
+### GetWorkerGroupOk
+
+`func (o *UpdateFlow200Response) GetWorkerGroupOk() (*WorkerGroup, bool)`
+
+GetWorkerGroupOk returns a tuple with the WorkerGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkerGroup
+
+`func (o *UpdateFlow200Response) SetWorkerGroup(v WorkerGroup)`
+
+SetWorkerGroup sets WorkerGroup field to given value.
+
+### HasWorkerGroup
+
+`func (o *UpdateFlow200Response) HasWorkerGroup() bool`
+
+HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetDeleted
 

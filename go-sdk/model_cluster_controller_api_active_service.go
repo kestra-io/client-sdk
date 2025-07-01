@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiActiveService type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ClusterControllerApiActiveService{}
 
 // ClusterControllerApiActiveService struct for ClusterControllerApiActiveService
 type ClusterControllerApiActiveService struct {
-	Type  *ServiceType `json:"type,omitempty"`
-	Total *int64       `json:"total,omitempty"`
+	Type                 ServiceType `json:"type"`
+	Total                int64       `json:"total"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiActiveService ClusterControllerApiActiveService
 
 // NewClusterControllerApiActiveService instantiates a new ClusterControllerApiActiveService object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiActiveService() *ClusterControllerApiActiveService {
+func NewClusterControllerApiActiveService(type_ ServiceType, total int64) *ClusterControllerApiActiveService {
 	this := ClusterControllerApiActiveService{}
+	this.Type = type_
+	this.Total = total
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewClusterControllerApiActiveServiceWithDefaults() *ClusterControllerApiAct
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *ClusterControllerApiActiveService) GetType() ServiceType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret ServiceType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiActiveService) GetTypeOk() (*ServiceType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *ClusterControllerApiActiveService) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given ServiceType and assigns it to the Type field.
+// SetType sets field value
 func (o *ClusterControllerApiActiveService) SetType(v ServiceType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetTotal returns the Total field value if set, zero value otherwise.
+// GetTotal returns the Total field value
 func (o *ClusterControllerApiActiveService) GetTotal() int64 {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Total
+
+	return o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiActiveService) GetTotalOk() (*int64, bool) {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.Total, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *ClusterControllerApiActiveService) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+// SetTotal sets field value
 func (o *ClusterControllerApiActiveService) SetTotal(v int64) {
-	o.Total = &v
+	o.Total = v
 }
 
 func (o ClusterControllerApiActiveService) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o ClusterControllerApiActiveService) MarshalJSON() ([]byte, error) {
 
 func (o ClusterControllerApiActiveService) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
+	toSerialize["type"] = o.Type
+	toSerialize["total"] = o.Total
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiActiveService) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"total",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiActiveService := _ClusterControllerApiActiveService{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiActiveService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiActiveService(varClusterControllerApiActiveService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiActiveService struct {

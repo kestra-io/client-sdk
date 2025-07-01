@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -35,6 +35,7 @@ type MiscControllerEEConfiguration struct {
 	SystemNamespace                 *string                                `json:"systemNamespace,omitempty"`
 	HiddenLabelsPrefixes            []string                               `json:"hiddenLabelsPrefixes,omitempty"`
 	ResourceToFilters               []QueryFilterResourceField             `json:"resourceToFilters,omitempty"`
+	IsAiEnabled                     *bool                                  `json:"isAiEnabled,omitempty"`
 	Tenants                         *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
 	SecretsEnabled                  *bool                                  `json:"secretsEnabled,omitempty"`
 	SupportedStorages               []MiscControllerPluginIdAndVersion     `json:"supportedStorages,omitempty"`
@@ -44,7 +45,12 @@ type MiscControllerEEConfiguration struct {
 	Banner                          *Banner                                `json:"banner,omitempty"`
 	MailServiceEnabled              *bool                                  `json:"mailServiceEnabled,omitempty"`
 	OutputsInInternalStorageEnabled *bool                                  `json:"outputsInInternalStorageEnabled,omitempty"`
+	ContextCustomLinks              *map[string]CustomLink                 `json:"contextCustomLinks,omitempty"`
+	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
+	AdditionalProperties            map[string]interface{}
 }
+
+type _MiscControllerEEConfiguration MiscControllerEEConfiguration
 
 // NewMiscControllerEEConfiguration instantiates a new MiscControllerEEConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -543,6 +549,38 @@ func (o *MiscControllerEEConfiguration) SetResourceToFilters(v []QueryFilterReso
 	o.ResourceToFilters = v
 }
 
+// GetIsAiEnabled returns the IsAiEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsAiEnabled() bool {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiEnabled
+}
+
+// GetIsAiEnabledOk returns a tuple with the IsAiEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsAiEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		return nil, false
+	}
+	return o.IsAiEnabled, true
+}
+
+// HasIsAiEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsAiEnabled() bool {
+	if o != nil && !IsNil(o.IsAiEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiEnabled gets a reference to the given bool and assigns it to the IsAiEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsAiEnabled(v bool) {
+	o.IsAiEnabled = &v
+}
+
 // GetTenants returns the Tenants field value if set, zero value otherwise.
 func (o *MiscControllerEEConfiguration) GetTenants() MiscControllerTenantConfigurationInfo {
 	if o == nil || IsNil(o.Tenants) {
@@ -831,6 +869,70 @@ func (o *MiscControllerEEConfiguration) SetOutputsInInternalStorageEnabled(v boo
 	o.OutputsInInternalStorageEnabled = &v
 }
 
+// GetContextCustomLinks returns the ContextCustomLinks field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetContextCustomLinks() map[string]CustomLink {
+	if o == nil || IsNil(o.ContextCustomLinks) {
+		var ret map[string]CustomLink
+		return ret
+	}
+	return *o.ContextCustomLinks
+}
+
+// GetContextCustomLinksOk returns a tuple with the ContextCustomLinks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetContextCustomLinksOk() (*map[string]CustomLink, bool) {
+	if o == nil || IsNil(o.ContextCustomLinks) {
+		return nil, false
+	}
+	return o.ContextCustomLinks, true
+}
+
+// HasContextCustomLinks returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasContextCustomLinks() bool {
+	if o != nil && !IsNil(o.ContextCustomLinks) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextCustomLinks gets a reference to the given map[string]CustomLink and assigns it to the ContextCustomLinks field.
+func (o *MiscControllerEEConfiguration) SetContextCustomLinks(v map[string]CustomLink) {
+	o.ContextCustomLinks = &v
+}
+
+// GetInMaintenance returns the InMaintenance field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetInMaintenance() bool {
+	if o == nil || IsNil(o.InMaintenance) {
+		var ret bool
+		return ret
+	}
+	return *o.InMaintenance
+}
+
+// GetInMaintenanceOk returns a tuple with the InMaintenance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetInMaintenanceOk() (*bool, bool) {
+	if o == nil || IsNil(o.InMaintenance) {
+		return nil, false
+	}
+	return o.InMaintenance, true
+}
+
+// HasInMaintenance returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasInMaintenance() bool {
+	if o != nil && !IsNil(o.InMaintenance) {
+		return true
+	}
+
+	return false
+}
+
+// SetInMaintenance gets a reference to the given bool and assigns it to the InMaintenance field.
+func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool) {
+	o.InMaintenance = &v
+}
+
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -886,6 +988,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceToFilters) {
 		toSerialize["resourceToFilters"] = o.ResourceToFilters
 	}
+	if !IsNil(o.IsAiEnabled) {
+		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
 	if !IsNil(o.Tenants) {
 		toSerialize["tenants"] = o.Tenants
 	}
@@ -913,7 +1018,65 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputsInInternalStorageEnabled) {
 		toSerialize["outputsInInternalStorageEnabled"] = o.OutputsInInternalStorageEnabled
 	}
+	if !IsNil(o.ContextCustomLinks) {
+		toSerialize["contextCustomLinks"] = o.ContextCustomLinks
+	}
+	if !IsNil(o.InMaintenance) {
+		toSerialize["inMaintenance"] = o.InMaintenance
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerEEConfiguration := _MiscControllerEEConfiguration{}
+
+	err = json.Unmarshal(data, &varMiscControllerEEConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerEEConfiguration(varMiscControllerEEConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "commitId")
+		delete(additionalProperties, "commitDate")
+		delete(additionalProperties, "isCustomDashboardsEnabled")
+		delete(additionalProperties, "isTaskRunEnabled")
+		delete(additionalProperties, "isAnonymousUsageEnabled")
+		delete(additionalProperties, "isTemplateEnabled")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "preview")
+		delete(additionalProperties, "isBasicAuthEnabled")
+		delete(additionalProperties, "systemNamespace")
+		delete(additionalProperties, "hiddenLabelsPrefixes")
+		delete(additionalProperties, "resourceToFilters")
+		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "tenants")
+		delete(additionalProperties, "secretsEnabled")
+		delete(additionalProperties, "supportedStorages")
+		delete(additionalProperties, "supportedSecrets")
+		delete(additionalProperties, "pluginManagementEnabled")
+		delete(additionalProperties, "pluginCustomEnabled")
+		delete(additionalProperties, "banner")
+		delete(additionalProperties, "mailServiceEnabled")
+		delete(additionalProperties, "outputsInInternalStorageEnabled")
+		delete(additionalProperties, "contextCustomLinks")
+		delete(additionalProperties, "inMaintenance")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMiscControllerEEConfiguration struct {

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Field** | Pointer to [**QueryFilterField**](QueryFilterField.md) |  | [optional] 
-**Operation** | Pointer to [**QueryFilterOp**](QueryFilterOp.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Field** | [**QueryFilterField**](QueryFilterField.md) |  | 
+**Operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | 
+**Value** | **interface{}** |  | 
 
 ## Methods
 
 ### NewQueryFilter
 
-`func NewQueryFilter() *QueryFilter`
+`func NewQueryFilter(field QueryFilterField, operation QueryFilterOp, value interface{}, ) *QueryFilter`
 
 NewQueryFilter instantiates a new QueryFilter object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetField sets Field field to given value.
 
-### HasField
-
-`func (o *QueryFilter) HasField() bool`
-
-HasField returns a boolean if a field has been set.
 
 ### GetOperation
 
@@ -71,37 +66,37 @@ and a boolean to check if the value has been set.
 
 SetOperation sets Operation field to given value.
 
-### HasOperation
-
-`func (o *QueryFilter) HasOperation() bool`
-
-HasOperation returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *QueryFilter) GetValue() map[string]interface{}`
+`func (o *QueryFilter) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *QueryFilter) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *QueryFilter) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *QueryFilter) SetValue(v map[string]interface{})`
+`func (o *QueryFilter) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
-### HasValue
 
-`func (o *QueryFilter) HasValue() bool`
+### SetValueNil
 
-HasValue returns a boolean if a field has been set.
+`func (o *QueryFilter) SetValueNil(b bool)`
 
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *QueryFilter) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

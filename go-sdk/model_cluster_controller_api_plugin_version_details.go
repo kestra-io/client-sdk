@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiPluginVersionDetails type satisfies the MappedNullable interface at compile time
@@ -19,21 +20,31 @@ var _ MappedNullable = &ClusterControllerApiPluginVersionDetails{}
 
 // ClusterControllerApiPluginVersionDetails struct for ClusterControllerApiPluginVersionDetails
 type ClusterControllerApiPluginVersionDetails struct {
-	ArtifactId  *string                                                    `json:"artifactId,omitempty"`
-	GroupId     *string                                                    `json:"groupId,omitempty"`
-	Version     *string                                                    `json:"version,omitempty"`
-	Title       *string                                                    `json:"title,omitempty"`
-	Description *string                                                    `json:"description,omitempty"`
-	Icon        *string                                                    `json:"icon,omitempty"`
-	Classes     []ClusterControllerApiPluginVersionDetailsApiPluginClasses `json:"classes,omitempty"`
+	ArtifactId           string                                                     `json:"artifactId"`
+	GroupId              string                                                     `json:"groupId"`
+	Version              string                                                     `json:"version"`
+	Title                string                                                     `json:"title"`
+	Description          string                                                     `json:"description"`
+	Icon                 string                                                     `json:"icon"`
+	Classes              []ClusterControllerApiPluginVersionDetailsApiPluginClasses `json:"classes"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiPluginVersionDetails ClusterControllerApiPluginVersionDetails
 
 // NewClusterControllerApiPluginVersionDetails instantiates a new ClusterControllerApiPluginVersionDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiPluginVersionDetails() *ClusterControllerApiPluginVersionDetails {
+func NewClusterControllerApiPluginVersionDetails(artifactId string, groupId string, version string, title string, description string, icon string, classes []ClusterControllerApiPluginVersionDetailsApiPluginClasses) *ClusterControllerApiPluginVersionDetails {
 	this := ClusterControllerApiPluginVersionDetails{}
+	this.ArtifactId = artifactId
+	this.GroupId = groupId
+	this.Version = version
+	this.Title = title
+	this.Description = description
+	this.Icon = icon
+	this.Classes = classes
 	return &this
 }
 
@@ -45,226 +56,170 @@ func NewClusterControllerApiPluginVersionDetailsWithDefaults() *ClusterControlle
 	return &this
 }
 
-// GetArtifactId returns the ArtifactId field value if set, zero value otherwise.
+// GetArtifactId returns the ArtifactId field value
 func (o *ClusterControllerApiPluginVersionDetails) GetArtifactId() string {
-	if o == nil || IsNil(o.ArtifactId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ArtifactId
+
+	return o.ArtifactId
 }
 
-// GetArtifactIdOk returns a tuple with the ArtifactId field value if set, nil otherwise
+// GetArtifactIdOk returns a tuple with the ArtifactId field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetArtifactIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ArtifactId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ArtifactId, true
+	return &o.ArtifactId, true
 }
 
-// HasArtifactId returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasArtifactId() bool {
-	if o != nil && !IsNil(o.ArtifactId) {
-		return true
-	}
-
-	return false
-}
-
-// SetArtifactId gets a reference to the given string and assigns it to the ArtifactId field.
+// SetArtifactId sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetArtifactId(v string) {
-	o.ArtifactId = &v
+	o.ArtifactId = v
 }
 
-// GetGroupId returns the GroupId field value if set, zero value otherwise.
+// GetGroupId returns the GroupId field value
 func (o *ClusterControllerApiPluginVersionDetails) GetGroupId() string {
-	if o == nil || IsNil(o.GroupId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.GroupId
+
+	return o.GroupId
 }
 
-// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
+// GetGroupIdOk returns a tuple with the GroupId field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetGroupIdOk() (*string, bool) {
-	if o == nil || IsNil(o.GroupId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.GroupId, true
+	return &o.GroupId, true
 }
 
-// HasGroupId returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasGroupId() bool {
-	if o != nil && !IsNil(o.GroupId) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
+// SetGroupId sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetGroupId(v string) {
-	o.GroupId = &v
+	o.GroupId = v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *ClusterControllerApiPluginVersionDetails) GetVersion() string {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
+// SetVersion sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetVersion(v string) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetTitle returns the Title field value if set, zero value otherwise.
+// GetTitle returns the Title field value
 func (o *ClusterControllerApiPluginVersionDetails) GetTitle() string {
-	if o == nil || IsNil(o.Title) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Title
+
+	return o.Title
 }
 
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetTitleOk() (*string, bool) {
-	if o == nil || IsNil(o.Title) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Title, true
+	return &o.Title, true
 }
 
-// HasTitle returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasTitle() bool {
-	if o != nil && !IsNil(o.Title) {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle gets a reference to the given string and assigns it to the Title field.
+// SetTitle sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetTitle(v string) {
-	o.Title = &v
+	o.Title = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *ClusterControllerApiPluginVersionDetails) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetIcon returns the Icon field value if set, zero value otherwise.
+// GetIcon returns the Icon field value
 func (o *ClusterControllerApiPluginVersionDetails) GetIcon() string {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Icon
+
+	return o.Icon
 }
 
-// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// GetIconOk returns a tuple with the Icon field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetIconOk() (*string, bool) {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Icon, true
+	return &o.Icon, true
 }
 
-// HasIcon returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasIcon() bool {
-	if o != nil && !IsNil(o.Icon) {
-		return true
-	}
-
-	return false
-}
-
-// SetIcon gets a reference to the given string and assigns it to the Icon field.
+// SetIcon sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetIcon(v string) {
-	o.Icon = &v
+	o.Icon = v
 }
 
-// GetClasses returns the Classes field value if set, zero value otherwise.
+// GetClasses returns the Classes field value
 func (o *ClusterControllerApiPluginVersionDetails) GetClasses() []ClusterControllerApiPluginVersionDetailsApiPluginClasses {
-	if o == nil || IsNil(o.Classes) {
+	if o == nil {
 		var ret []ClusterControllerApiPluginVersionDetailsApiPluginClasses
 		return ret
 	}
+
 	return o.Classes
 }
 
-// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
+// GetClassesOk returns a tuple with the Classes field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetails) GetClassesOk() ([]ClusterControllerApiPluginVersionDetailsApiPluginClasses, bool) {
-	if o == nil || IsNil(o.Classes) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Classes, true
 }
 
-// HasClasses returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetails) HasClasses() bool {
-	if o != nil && !IsNil(o.Classes) {
-		return true
-	}
-
-	return false
-}
-
-// SetClasses gets a reference to the given []ClusterControllerApiPluginVersionDetailsApiPluginClasses and assigns it to the Classes field.
+// SetClasses sets field value
 func (o *ClusterControllerApiPluginVersionDetails) SetClasses(v []ClusterControllerApiPluginVersionDetailsApiPluginClasses) {
 	o.Classes = v
 }
@@ -279,28 +234,73 @@ func (o ClusterControllerApiPluginVersionDetails) MarshalJSON() ([]byte, error) 
 
 func (o ClusterControllerApiPluginVersionDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ArtifactId) {
-		toSerialize["artifactId"] = o.ArtifactId
+	toSerialize["artifactId"] = o.ArtifactId
+	toSerialize["groupId"] = o.GroupId
+	toSerialize["version"] = o.Version
+	toSerialize["title"] = o.Title
+	toSerialize["description"] = o.Description
+	toSerialize["icon"] = o.Icon
+	toSerialize["classes"] = o.Classes
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.GroupId) {
-		toSerialize["groupId"] = o.GroupId
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.Title) {
-		toSerialize["title"] = o.Title
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.Icon) {
-		toSerialize["icon"] = o.Icon
-	}
-	if !IsNil(o.Classes) {
-		toSerialize["classes"] = o.Classes
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiPluginVersionDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"artifactId",
+		"groupId",
+		"version",
+		"title",
+		"description",
+		"icon",
+		"classes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiPluginVersionDetails := _ClusterControllerApiPluginVersionDetails{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiPluginVersionDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiPluginVersionDetails(varClusterControllerApiPluginVersionDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifactId")
+		delete(additionalProperties, "groupId")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "classes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiPluginVersionDetails struct {

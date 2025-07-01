@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Role** | Pointer to [**Role**](Role.md) |  | [optional] 
-**NamespaceId** | Pointer to **string** |  | [optional] 
+**Role** | [**Role**](Role.md) |  | 
+**NamespaceId** | **string** |  | 
 
 ## Methods
 
 ### NewAclServiceNamespaceRole
 
-`func NewAclServiceNamespaceRole() *AclServiceNamespaceRole`
+`func NewAclServiceNamespaceRole(role Role, namespaceId string, ) *AclServiceNamespaceRole`
 
 NewAclServiceNamespaceRole instantiates a new AclServiceNamespaceRole object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
-### HasRole
-
-`func (o *AclServiceNamespaceRole) HasRole() bool`
-
-HasRole returns a boolean if a field has been set.
 
 ### GetNamespaceId
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetNamespaceId sets NamespaceId field to given value.
 
-### HasNamespaceId
-
-`func (o *AclServiceNamespaceRole) HasNamespaceId() bool`
-
-HasNamespaceId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

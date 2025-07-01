@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSecurityIntegration**](SecurityIntegrationsAPI.md#CreateSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations | Create a security integration.
-[**DeleteSecurityIntegration**](SecurityIntegrationsAPI.md#DeleteSecurityIntegration) | **Delete** /api/v1/{tenant}/security-integrations/{id} | Delete the security integration.
-[**DisableSecurityIntegration**](SecurityIntegrationsAPI.md#DisableSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations/{id}/disable | Disable the security integration.
-[**EnableSecurityIntegration**](SecurityIntegrationsAPI.md#EnableSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations/{id}/enable | Enable the security integration.
-[**GetSecurityIntegration**](SecurityIntegrationsAPI.md#GetSecurityIntegration) | **Get** /api/v1/{tenant}/security-integrations/{id} | Get a security integration.
-[**ListSecurityIntegrations**](SecurityIntegrationsAPI.md#ListSecurityIntegrations) | **Get** /api/v1/{tenant}/security-integrations | List all security integrations.
+[**CreateSecurityIntegration**](SecurityIntegrationsAPI.md#CreateSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations | Create a security integration
+[**DeleteSecurityIntegration**](SecurityIntegrationsAPI.md#DeleteSecurityIntegration) | **Delete** /api/v1/{tenant}/security-integrations/{id} | Delete a security integration
+[**DisableSecurityIntegration**](SecurityIntegrationsAPI.md#DisableSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations/{id}/disable | Disable a security integration
+[**EnableSecurityIntegration**](SecurityIntegrationsAPI.md#EnableSecurityIntegration) | **Post** /api/v1/{tenant}/security-integrations/{id}/enable | Enable a security integration
+[**GetSecurityIntegration**](SecurityIntegrationsAPI.md#GetSecurityIntegration) | **Get** /api/v1/{tenant}/security-integrations/{id} | Retrieve a security integration
+[**ListSecurityIntegrations**](SecurityIntegrationsAPI.md#ListSecurityIntegrations) | **Get** /api/v1/{tenant}/security-integrations | List all security integrations
 
 
 
@@ -17,7 +17,9 @@ Method | HTTP request | Description
 
 > map[string]interface{} CreateSecurityIntegration(ctx, tenant).CreateSecurityIntegrationRequest(createSecurityIntegrationRequest).Execute()
 
-Create a security integration.
+Create a security integration
+
+
 
 ### Example
 
@@ -87,7 +89,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} DeleteSecurityIntegration(ctx, id, tenant).Execute()
 
-Delete the security integration.
+Delete a security integration
+
+
 
 ### Example
 
@@ -158,7 +162,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} DisableSecurityIntegration(ctx, id, tenant).Execute()
 
-Disable the security integration.
+Disable a security integration
+
+
 
 ### Example
 
@@ -229,7 +235,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} EnableSecurityIntegration(ctx, id, tenant).Execute()
 
-Enable the security integration.
+Enable a security integration
+
+
 
 ### Example
 
@@ -300,7 +308,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} GetSecurityIntegration(ctx, id, tenant).Execute()
 
-Get a security integration.
+Retrieve a security integration
+
+
 
 ### Example
 
@@ -371,7 +381,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} ListSecurityIntegrations(ctx, tenant).Execute()
 
-List all security integrations.
+List all security integrations
+
+
 
 ### Example
 

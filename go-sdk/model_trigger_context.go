@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -22,15 +21,16 @@ var _ MappedNullable = &TriggerContext{}
 
 // TriggerContext struct for TriggerContext
 type TriggerContext struct {
-	Disabled          *bool            `json:"disabled,omitempty"`
-	TenantId          *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
-	Namespace         string           `json:"namespace"`
-	FlowId            string           `json:"flowId"`
-	TriggerId         string           `json:"triggerId"`
-	Date              time.Time        `json:"date"`
-	NextExecutionDate NullableTime     `json:"nextExecutionDate,omitempty"`
-	Backfill          NullableBackfill `json:"backfill,omitempty"`
-	StopAfter         []StateType      `json:"stopAfter,omitempty"`
+	Disabled             *bool            `json:"disabled,omitempty"`
+	TenantId             *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
+	Namespace            string           `json:"namespace"`
+	FlowId               string           `json:"flowId"`
+	TriggerId            string           `json:"triggerId"`
+	Date                 time.Time        `json:"date"`
+	NextExecutionDate    NullableTime     `json:"nextExecutionDate,omitempty"`
+	Backfill             NullableBackfill `json:"backfill,omitempty"`
+	StopAfter            []StateType      `json:"stopAfter,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TriggerContext TriggerContext
@@ -364,6 +364,11 @@ func (o TriggerContext) ToMap() (map[string]interface{}, error) {
 	if o.StopAfter != nil {
 		toSerialize["stopAfter"] = o.StopAfter
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -394,15 +399,28 @@ func (o *TriggerContext) UnmarshalJSON(data []byte) (err error) {
 
 	varTriggerContext := _TriggerContext{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTriggerContext)
+	err = json.Unmarshal(data, &varTriggerContext)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TriggerContext(varTriggerContext)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "triggerId")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "nextExecutionDate")
+		delete(additionalProperties, "backfill")
+		delete(additionalProperties, "stopAfter")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,11 +19,14 @@ var _ MappedNullable = &FlowId{}
 
 // FlowId struct for FlowId
 type FlowId struct {
-	Id        *string `json:"id,omitempty"`
-	Namespace *string `json:"namespace,omitempty"`
-	Revision  *int32  `json:"revision,omitempty"`
-	TenantId  *string `json:"tenantId,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Namespace            *string `json:"namespace,omitempty"`
+	Revision             *int32  `json:"revision,omitempty"`
+	TenantId             *string `json:"tenantId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FlowId FlowId
 
 // NewFlowId instantiates a new FlowId object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o FlowId) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TenantId) {
 		toSerialize["tenantId"] = o.TenantId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FlowId) UnmarshalJSON(data []byte) (err error) {
+	varFlowId := _FlowId{}
+
+	err = json.Unmarshal(data, &varFlowId)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowId(varFlowId)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "tenantId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFlowId struct {

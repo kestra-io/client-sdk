@@ -6,6 +6,9 @@ globalProperties:
   apiTests: false
   modelTests: false
 
+additionalProperties:
+  disallowAdditionalPropertiesIfNotPresent: false
+
 library: apache-httpclient
 invokerPackage: io.kestra.sdk.internal
 modelPackage: io.kestra.sdk.model

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,8 +20,9 @@ var _ MappedNullable = &NamespaceLight{}
 
 // NamespaceLight struct for NamespaceLight
 type NamespaceLight struct {
-	Id      string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Deleted bool   `json:"deleted"`
+	Id                   string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Deleted              bool   `json:"deleted"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NamespaceLight NamespaceLight
@@ -106,6 +106,11 @@ func (o NamespaceLight) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["deleted"] = o.Deleted
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,15 +139,21 @@ func (o *NamespaceLight) UnmarshalJSON(data []byte) (err error) {
 
 	varNamespaceLight := _NamespaceLight{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNamespaceLight)
+	err = json.Unmarshal(data, &varNamespaceLight)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NamespaceLight(varNamespaceLight)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

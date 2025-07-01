@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &AuthControllerAuth{}
 
 // AuthControllerAuth struct for AuthControllerAuth
 type AuthControllerAuth struct {
-	LoginPassword *bool    `json:"loginPassword,omitempty"`
-	MailsEnabled  *bool    `json:"mailsEnabled,omitempty"`
-	Oauths        []string `json:"oauths,omitempty"`
+	LoginPassword        *bool    `json:"loginPassword,omitempty"`
+	MailsEnabled         *bool    `json:"mailsEnabled,omitempty"`
+	Oauths               []string `json:"oauths,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AuthControllerAuth AuthControllerAuth
 
 // NewAuthControllerAuth instantiates a new AuthControllerAuth object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AuthControllerAuth) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Oauths) {
 		toSerialize["oauths"] = o.Oauths
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AuthControllerAuth) UnmarshalJSON(data []byte) (err error) {
+	varAuthControllerAuth := _AuthControllerAuth{}
+
+	err = json.Unmarshal(data, &varAuthControllerAuth)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthControllerAuth(varAuthControllerAuth)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "loginPassword")
+		delete(additionalProperties, "mailsEnabled")
+		delete(additionalProperties, "oauths")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAuthControllerAuth struct {

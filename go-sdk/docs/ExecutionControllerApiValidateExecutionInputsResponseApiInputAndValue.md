@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Input** | Pointer to [**InputObject**](InputObject.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Errors** | Pointer to [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputError**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | [optional] 
+**Input** | [**InputObject**](InputObject.md) |  | 
+**Value** | **interface{}** |  | 
+**Enabled** | **bool** |  | 
+**Errors** | [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputError**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | 
 
 ## Methods
 
 ### NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
 
-`func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue() *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue`
+`func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(input InputObject, value interface{}, enabled bool, errors []ExecutionControllerApiValidateExecutionInputsResponseApiInputError, ) *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue`
 
 NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue instantiates a new ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue object
 This constructor will assign default values to properties that have it defined,
@@ -47,37 +47,37 @@ and a boolean to check if the value has been set.
 
 SetInput sets Input field to given value.
 
-### HasInput
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasInput() bool`
-
-HasInput returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValue() map[string]interface{}`
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValue() interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValueOk() (*interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetValue(v map[string]interface{})`
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetValue(v interface{})`
 
 SetValue sets Value field to given value.
 
-### HasValue
 
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasValue() bool`
+### SetValueNil
 
-HasValue returns a boolean if a field has been set.
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetValueNil(b bool)`
 
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetEnabled
 
 `func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetEnabled() bool`
@@ -97,11 +97,6 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
-### HasEnabled
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasEnabled() bool`
-
-HasEnabled returns a boolean if a field has been set.
 
 ### GetErrors
 
@@ -122,11 +117,6 @@ and a boolean to check if the value has been set.
 
 SetErrors sets Errors field to given value.
 
-### HasErrors
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

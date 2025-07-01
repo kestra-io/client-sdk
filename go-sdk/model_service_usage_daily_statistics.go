@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServiceUsageDailyStatistics type satisfies the MappedNullable interface at compile time
@@ -19,18 +20,25 @@ var _ MappedNullable = &ServiceUsageDailyStatistics{}
 
 // ServiceUsageDailyStatistics struct for ServiceUsageDailyStatistics
 type ServiceUsageDailyStatistics struct {
-	Date *string `json:"date,omitempty"`
-	Min  *int64  `json:"min,omitempty"`
-	Max  *int64  `json:"max,omitempty"`
-	Avg  *int64  `json:"avg,omitempty"`
+	Date                 string `json:"date"`
+	Min                  int64  `json:"min"`
+	Max                  int64  `json:"max"`
+	Avg                  int64  `json:"avg"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceUsageDailyStatistics ServiceUsageDailyStatistics
 
 // NewServiceUsageDailyStatistics instantiates a new ServiceUsageDailyStatistics object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceUsageDailyStatistics() *ServiceUsageDailyStatistics {
+func NewServiceUsageDailyStatistics(date string, min int64, max int64, avg int64) *ServiceUsageDailyStatistics {
 	this := ServiceUsageDailyStatistics{}
+	this.Date = date
+	this.Min = min
+	this.Max = max
+	this.Avg = avg
 	return &this
 }
 
@@ -42,132 +50,100 @@ func NewServiceUsageDailyStatisticsWithDefaults() *ServiceUsageDailyStatistics {
 	return &this
 }
 
-// GetDate returns the Date field value if set, zero value otherwise.
+// GetDate returns the Date field value
 func (o *ServiceUsageDailyStatistics) GetDate() string {
-	if o == nil || IsNil(o.Date) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Date
+
+	return o.Date
 }
 
-// GetDateOk returns a tuple with the Date field value if set, nil otherwise
+// GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyStatistics) GetDateOk() (*string, bool) {
-	if o == nil || IsNil(o.Date) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Date, true
+	return &o.Date, true
 }
 
-// HasDate returns a boolean if a field has been set.
-func (o *ServiceUsageDailyStatistics) HasDate() bool {
-	if o != nil && !IsNil(o.Date) {
-		return true
-	}
-
-	return false
-}
-
-// SetDate gets a reference to the given string and assigns it to the Date field.
+// SetDate sets field value
 func (o *ServiceUsageDailyStatistics) SetDate(v string) {
-	o.Date = &v
+	o.Date = v
 }
 
-// GetMin returns the Min field value if set, zero value otherwise.
+// GetMin returns the Min field value
 func (o *ServiceUsageDailyStatistics) GetMin() int64 {
-	if o == nil || IsNil(o.Min) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Min
+
+	return o.Min
 }
 
-// GetMinOk returns a tuple with the Min field value if set, nil otherwise
+// GetMinOk returns a tuple with the Min field value
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyStatistics) GetMinOk() (*int64, bool) {
-	if o == nil || IsNil(o.Min) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Min, true
+	return &o.Min, true
 }
 
-// HasMin returns a boolean if a field has been set.
-func (o *ServiceUsageDailyStatistics) HasMin() bool {
-	if o != nil && !IsNil(o.Min) {
-		return true
-	}
-
-	return false
-}
-
-// SetMin gets a reference to the given int64 and assigns it to the Min field.
+// SetMin sets field value
 func (o *ServiceUsageDailyStatistics) SetMin(v int64) {
-	o.Min = &v
+	o.Min = v
 }
 
-// GetMax returns the Max field value if set, zero value otherwise.
+// GetMax returns the Max field value
 func (o *ServiceUsageDailyStatistics) GetMax() int64 {
-	if o == nil || IsNil(o.Max) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Max
+
+	return o.Max
 }
 
-// GetMaxOk returns a tuple with the Max field value if set, nil otherwise
+// GetMaxOk returns a tuple with the Max field value
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyStatistics) GetMaxOk() (*int64, bool) {
-	if o == nil || IsNil(o.Max) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Max, true
+	return &o.Max, true
 }
 
-// HasMax returns a boolean if a field has been set.
-func (o *ServiceUsageDailyStatistics) HasMax() bool {
-	if o != nil && !IsNil(o.Max) {
-		return true
-	}
-
-	return false
-}
-
-// SetMax gets a reference to the given int64 and assigns it to the Max field.
+// SetMax sets field value
 func (o *ServiceUsageDailyStatistics) SetMax(v int64) {
-	o.Max = &v
+	o.Max = v
 }
 
-// GetAvg returns the Avg field value if set, zero value otherwise.
+// GetAvg returns the Avg field value
 func (o *ServiceUsageDailyStatistics) GetAvg() int64 {
-	if o == nil || IsNil(o.Avg) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Avg
+
+	return o.Avg
 }
 
-// GetAvgOk returns a tuple with the Avg field value if set, nil otherwise
+// GetAvgOk returns a tuple with the Avg field value
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyStatistics) GetAvgOk() (*int64, bool) {
-	if o == nil || IsNil(o.Avg) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Avg, true
+	return &o.Avg, true
 }
 
-// HasAvg returns a boolean if a field has been set.
-func (o *ServiceUsageDailyStatistics) HasAvg() bool {
-	if o != nil && !IsNil(o.Avg) {
-		return true
-	}
-
-	return false
-}
-
-// SetAvg gets a reference to the given int64 and assigns it to the Avg field.
+// SetAvg sets field value
 func (o *ServiceUsageDailyStatistics) SetAvg(v int64) {
-	o.Avg = &v
+	o.Avg = v
 }
 
 func (o ServiceUsageDailyStatistics) MarshalJSON() ([]byte, error) {
@@ -180,19 +156,64 @@ func (o ServiceUsageDailyStatistics) MarshalJSON() ([]byte, error) {
 
 func (o ServiceUsageDailyStatistics) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Date) {
-		toSerialize["date"] = o.Date
+	toSerialize["date"] = o.Date
+	toSerialize["min"] = o.Min
+	toSerialize["max"] = o.Max
+	toSerialize["avg"] = o.Avg
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Min) {
-		toSerialize["min"] = o.Min
-	}
-	if !IsNil(o.Max) {
-		toSerialize["max"] = o.Max
-	}
-	if !IsNil(o.Avg) {
-		toSerialize["avg"] = o.Avg
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceUsageDailyStatistics) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"date",
+		"min",
+		"max",
+		"avg",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceUsageDailyStatistics := _ServiceUsageDailyStatistics{}
+
+	err = json.Unmarshal(data, &varServiceUsageDailyStatistics)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceUsageDailyStatistics(varServiceUsageDailyStatistics)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "min")
+		delete(additionalProperties, "max")
+		delete(additionalProperties, "avg")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceUsageDailyStatistics struct {

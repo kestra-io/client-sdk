@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &TenantInterface{}
 
 // TenantInterface struct for TenantInterface
 type TenantInterface struct {
-	TenantId *string `json:"tenantId,omitempty"`
+	TenantId             *string `json:"tenantId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TenantInterface TenantInterface
 
 // NewTenantInterface instantiates a new TenantInterface object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o TenantInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TenantId) {
 		toSerialize["tenantId"] = o.TenantId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TenantInterface) UnmarshalJSON(data []byte) (err error) {
+	varTenantInterface := _TenantInterface{}
+
+	err = json.Unmarshal(data, &varTenantInterface)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TenantInterface(varTenantInterface)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tenantId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTenantInterface struct {

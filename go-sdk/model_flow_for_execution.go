@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,20 +20,22 @@ var _ MappedNullable = &FlowForExecution{}
 
 // FlowForExecution struct for FlowForExecution
 type FlowForExecution struct {
-	Id             string                            `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace      string                            `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision       *int32                            `json:"revision,omitempty"`
-	Inputs         []InputObject                     `json:"inputs,omitempty"`
-	Outputs        []Output                          `json:"outputs,omitempty"`
-	Disabled       bool                              `json:"disabled"`
-	Labels         *FlowForExecutionAllOfLabels      `json:"labels,omitempty"`
-	Variables      map[string]map[string]interface{} `json:"variables,omitempty"`
-	Deleted        bool                              `json:"deleted"`
-	Tasks          []TaskForExecution                `json:"tasks"`
-	Errors         []TaskForExecution                `json:"errors,omitempty"`
-	Finally        []TaskForExecution                `json:"finally,omitempty"`
-	AfterExecution []TaskForExecution                `json:"afterExecution,omitempty"`
-	Triggers       []AbstractTriggerForExecution     `json:"triggers,omitempty"`
+	Id                   string                        `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace            string                        `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision             *int32                        `json:"revision,omitempty"`
+	Inputs               []InputObject                 `json:"inputs,omitempty"`
+	Outputs              []Output                      `json:"outputs,omitempty"`
+	Disabled             bool                          `json:"disabled"`
+	Labels               map[string]interface{}        `json:"labels,omitempty"`
+	Variables            map[string]interface{}        `json:"variables,omitempty"`
+	WorkerGroup          *WorkerGroup                  `json:"workerGroup,omitempty"`
+	Deleted              bool                          `json:"deleted"`
+	Tasks                []TaskForExecution            `json:"tasks"`
+	Errors               []TaskForExecution            `json:"errors,omitempty"`
+	Finally              []TaskForExecution            `json:"finally,omitempty"`
+	AfterExecution       []TaskForExecution            `json:"afterExecution,omitempty"`
+	Triggers             []AbstractTriggerForExecution `json:"triggers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FlowForExecution FlowForExecution
@@ -230,19 +231,19 @@ func (o *FlowForExecution) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *FlowForExecution) GetLabels() FlowForExecutionAllOfLabels {
+func (o *FlowForExecution) GetLabels() map[string]interface{} {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowForExecutionAllOfLabels
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetLabelsOk() (*FlowForExecutionAllOfLabels, bool) {
+func (o *FlowForExecution) GetLabelsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Labels) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Labels, true
 }
@@ -256,15 +257,15 @@ func (o *FlowForExecution) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowForExecutionAllOfLabels and assigns it to the Labels field.
-func (o *FlowForExecution) SetLabels(v FlowForExecutionAllOfLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given map[string]interface{} and assigns it to the Labels field.
+func (o *FlowForExecution) SetLabels(v map[string]interface{}) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *FlowForExecution) GetVariables() map[string]map[string]interface{} {
+func (o *FlowForExecution) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -272,9 +273,9 @@ func (o *FlowForExecution) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *FlowForExecution) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -288,9 +289,41 @@ func (o *FlowForExecution) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *FlowForExecution) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *FlowForExecution) SetVariables(v map[string]interface{}) {
 	o.Variables = v
+}
+
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
+func (o *FlowForExecution) GetWorkerGroup() WorkerGroup {
+	if o == nil || IsNil(o.WorkerGroup) {
+		var ret WorkerGroup
+		return ret
+	}
+	return *o.WorkerGroup
+}
+
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetWorkerGroupOk() (*WorkerGroup, bool) {
+	if o == nil || IsNil(o.WorkerGroup) {
+		return nil, false
+	}
+	return o.WorkerGroup, true
+}
+
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *FlowForExecution) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
+func (o *FlowForExecution) SetWorkerGroup(v WorkerGroup) {
+	o.WorkerGroup = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -497,6 +530,9 @@ func (o FlowForExecution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
 	toSerialize["deleted"] = o.Deleted
 	toSerialize["tasks"] = o.Tasks
 	if !IsNil(o.Errors) {
@@ -511,6 +547,11 @@ func (o FlowForExecution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Triggers) {
 		toSerialize["triggers"] = o.Triggers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -542,15 +583,34 @@ func (o *FlowForExecution) UnmarshalJSON(data []byte) (err error) {
 
 	varFlowForExecution := _FlowForExecution{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFlowForExecution)
+	err = json.Unmarshal(data, &varFlowForExecution)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FlowForExecution(varFlowForExecution)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "finally")
+		delete(additionalProperties, "afterExecution")
+		delete(additionalProperties, "triggers")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

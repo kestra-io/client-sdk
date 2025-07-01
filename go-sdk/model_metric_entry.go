@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -22,18 +21,19 @@ var _ MappedNullable = &MetricEntry{}
 
 // MetricEntry struct for MetricEntry
 type MetricEntry struct {
-	Namespace     string                `json:"namespace"`
-	FlowId        string                `json:"flowId"`
-	TaskId        NullableString        `json:"taskId,omitempty"`
-	ExecutionId   NullableString        `json:"executionId,omitempty"`
-	TaskRunId     NullableString        `json:"taskRunId,omitempty"`
-	Type          string                `json:"type"`
-	Name          string                `json:"name"`
-	Value         float64               `json:"value"`
-	Timestamp     time.Time             `json:"timestamp"`
-	Tags          map[string]string     `json:"tags,omitempty"`
-	Deleted       bool                  `json:"deleted"`
-	ExecutionKind NullableExecutionKind `json:"executionKind,omitempty"`
+	Namespace            string                `json:"namespace"`
+	FlowId               string                `json:"flowId"`
+	TaskId               NullableString        `json:"taskId,omitempty"`
+	ExecutionId          NullableString        `json:"executionId,omitempty"`
+	TaskRunId            NullableString        `json:"taskRunId,omitempty"`
+	Type                 string                `json:"type"`
+	Name                 string                `json:"name"`
+	Value                float64               `json:"value"`
+	Timestamp            time.Time             `json:"timestamp"`
+	Tags                 map[string]string     `json:"tags,omitempty"`
+	Deleted              bool                  `json:"deleted"`
+	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MetricEntry MetricEntry
@@ -467,6 +467,11 @@ func (o MetricEntry) ToMap() (map[string]interface{}, error) {
 	if o.ExecutionKind.IsSet() {
 		toSerialize["executionKind"] = o.ExecutionKind.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -500,15 +505,31 @@ func (o *MetricEntry) UnmarshalJSON(data []byte) (err error) {
 
 	varMetricEntry := _MetricEntry{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMetricEntry)
+	err = json.Unmarshal(data, &varMetricEntry)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MetricEntry(varMetricEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "taskRunId")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "executionKind")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

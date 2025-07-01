@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uid** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Uid** | **string** |  | 
+**Type** | **string** |  | 
+**Name** | **string** |  | 
 
 ## Methods
 
 ### NewApiAuth
 
-`func NewApiAuth() *ApiAuth`
+`func NewApiAuth(uid string, type_ string, name string, ) *ApiAuth`
 
 NewApiAuth instantiates a new ApiAuth object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetUid sets Uid field to given value.
 
-### HasUid
-
-`func (o *ApiAuth) HasUid() bool`
-
-HasUid returns a boolean if a field has been set.
 
 ### GetType
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *ApiAuth) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetName
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ApiAuth) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

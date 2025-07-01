@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,11 +19,14 @@ var _ MappedNullable = &HostUsage{}
 
 // HostUsage struct for HostUsage
 type HostUsage struct {
-	Uuid     *string            `json:"uuid,omitempty"`
-	Hardware *HostUsageHardware `json:"hardware,omitempty"`
-	Os       *HostUsageOs       `json:"os,omitempty"`
-	Jvm      *HostUsageJvm      `json:"jvm,omitempty"`
+	Uuid                 *string            `json:"uuid,omitempty"`
+	Hardware             *HostUsageHardware `json:"hardware,omitempty"`
+	Os                   *HostUsageOs       `json:"os,omitempty"`
+	Jvm                  *HostUsageJvm      `json:"jvm,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HostUsage HostUsage
 
 // NewHostUsage instantiates a new HostUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o HostUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Jvm) {
 		toSerialize["jvm"] = o.Jvm
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HostUsage) UnmarshalJSON(data []byte) (err error) {
+	varHostUsage := _HostUsage{}
+
+	err = json.Unmarshal(data, &varHostUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HostUsage(varHostUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "hardware")
+		delete(additionalProperties, "os")
+		delete(additionalProperties, "jvm")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHostUsage struct {

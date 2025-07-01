@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -38,7 +38,7 @@ func (r ApiCreateApiTokenForCurrentUserRequest) Execute() (map[string]interface{
 }
 
 /*
-CreateApiTokenForCurrentUser Create new API Token for authenticated user
+CreateApiTokenForCurrentUser Create API token for the authenticated user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateApiTokenForCurrentUserRequest
@@ -148,7 +148,7 @@ func (r ApiCreateApiTokenForCurrentUserWithTenantRequest) Execute() (map[string]
 }
 
 /*
-CreateApiTokenForCurrentUserWithTenant Create new API Token for authenticated user
+CreateApiTokenForCurrentUserWithTenant Create API token for the authenticated user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -255,7 +255,7 @@ func (r ApiDeleteApiTokenForCurrentUserRequest) Execute() (map[string]interface{
 }
 
 /*
-DeleteApiTokenForCurrentUser Delete an API Token for authenticated user
+DeleteApiTokenForCurrentUser Delete API token for the authenticated user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tokenId The token id
@@ -358,7 +358,7 @@ func (r ApiDeleteApiTokenForCurrentUserWithTenantRequest) Execute() (map[string]
 }
 
 /*
-DeleteApiTokenForCurrentUserWithTenant Delete an API Token for authenticated user
+DeleteApiTokenForCurrentUserWithTenant Delete API token for the authenticated user
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tokenId The token id
@@ -462,7 +462,9 @@ func (r ApiGetCurrentUserRequest) Execute() (*MeControllerMe, *http.Response, er
 }
 
 /*
-GetCurrentUser Get current user
+GetCurrentUser Get details about the authenticated user
+
+Requires the ME permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetCurrentUserRequest
@@ -561,7 +563,9 @@ func (r ApiGetCurrentUserWithTenantRequest) Execute() (*MeControllerMe, *http.Re
 }
 
 /*
-GetCurrentUserWithTenant Get current user
+GetCurrentUserWithTenant Get details about the authenticated user
+
+Requires the ME permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -662,7 +666,7 @@ func (r ApiIndexRequest) Execute() (*AuthControllerAuth, *http.Response, error) 
 }
 
 /*
-Index Get list of authentication methods
+Index Retrieve list of authentication methods
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiIndexRequest
@@ -760,7 +764,9 @@ func (r ApiListApiTokensForCurrentUserRequest) Execute() (map[string]interface{}
 }
 
 /*
-ListApiTokensForCurrentUser List all API Tokens for the authenticated user
+ListApiTokensForCurrentUser List API tokens for authenticated user
+
+Returns all API tokens belonging to the authenticated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListApiTokensForCurrentUserRequest
@@ -859,7 +865,9 @@ func (r ApiListApiTokensForCurrentUserWithTenantRequest) Execute() (map[string]i
 }
 
 /*
-ListApiTokensForCurrentUserWithTenant List all API Tokens for the authenticated user
+ListApiTokensForCurrentUserWithTenant List API tokens for authenticated user
+
+Returns all API tokens belonging to the authenticated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -967,7 +975,9 @@ func (r ApiPatchCurrentUserRequest) Execute() (map[string]interface{}, *http.Res
 }
 
 /*
-PatchCurrentUser Updates details for the current user. Returns user's updated information upon success.
+PatchCurrentUser Update authenticated user details
+
+Updates the authenticated user's profile information and returns the updated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPatchCurrentUserRequest
@@ -1078,7 +1088,9 @@ func (r ApiPatchCurrentUserWithTenantRequest) Execute() (map[string]interface{},
 }
 
 /*
-PatchCurrentUserWithTenant Updates details for the current user. Returns user's updated information upon success.
+PatchCurrentUserWithTenant Update authenticated user details
+
+Updates the authenticated user's profile information and returns the updated user.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant

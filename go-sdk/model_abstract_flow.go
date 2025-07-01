@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,15 +20,17 @@ var _ MappedNullable = &AbstractFlow{}
 
 // AbstractFlow struct for AbstractFlow
 type AbstractFlow struct {
-	Id        string                            `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace string                            `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision  *int32                            `json:"revision,omitempty"`
-	Inputs    []InputObject                     `json:"inputs,omitempty"`
-	Outputs   []Output                          `json:"outputs,omitempty"`
-	Disabled  bool                              `json:"disabled"`
-	Labels    *AbstractFlowLabels               `json:"labels,omitempty"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
-	Deleted   bool                              `json:"deleted"`
+	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace            string                 `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision             *int32                 `json:"revision,omitempty"`
+	Inputs               []InputObject          `json:"inputs,omitempty"`
+	Outputs              []Output               `json:"outputs,omitempty"`
+	Disabled             bool                   `json:"disabled"`
+	Labels               *AbstractFlowLabels    `json:"labels,omitempty"`
+	Variables            map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup          *WorkerGroup           `json:"workerGroup,omitempty"`
+	Deleted              bool                   `json:"deleted"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AbstractFlow AbstractFlow
@@ -256,9 +257,9 @@ func (o *AbstractFlow) SetLabels(v AbstractFlowLabels) {
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *AbstractFlow) GetVariables() map[string]map[string]interface{} {
+func (o *AbstractFlow) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -266,9 +267,9 @@ func (o *AbstractFlow) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractFlow) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *AbstractFlow) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -282,9 +283,41 @@ func (o *AbstractFlow) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *AbstractFlow) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *AbstractFlow) SetVariables(v map[string]interface{}) {
 	o.Variables = v
+}
+
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
+func (o *AbstractFlow) GetWorkerGroup() WorkerGroup {
+	if o == nil || IsNil(o.WorkerGroup) {
+		var ret WorkerGroup
+		return ret
+	}
+	return *o.WorkerGroup
+}
+
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractFlow) GetWorkerGroupOk() (*WorkerGroup, bool) {
+	if o == nil || IsNil(o.WorkerGroup) {
+		return nil, false
+	}
+	return o.WorkerGroup, true
+}
+
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *AbstractFlow) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
+func (o *AbstractFlow) SetWorkerGroup(v WorkerGroup) {
+	o.WorkerGroup = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -339,7 +372,15 @@ func (o AbstractFlow) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
 	toSerialize["deleted"] = o.Deleted
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -370,15 +411,29 @@ func (o *AbstractFlow) UnmarshalJSON(data []byte) (err error) {
 
 	varAbstractFlow := _AbstractFlow{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAbstractFlow)
+	err = json.Unmarshal(data, &varAbstractFlow)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AbstractFlow(varAbstractFlow)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

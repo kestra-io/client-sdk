@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,12 +19,15 @@ var _ MappedNullable = &FlowUsage{}
 
 // FlowUsage struct for FlowUsage
 type FlowUsage struct {
-	Count               *int32            `json:"count,omitempty"`
-	NamespacesCount     *int64            `json:"namespacesCount,omitempty"`
-	TaskTypeCount       *map[string]int64 `json:"taskTypeCount,omitempty"`
-	TriggerTypeCount    *map[string]int64 `json:"triggerTypeCount,omitempty"`
-	TaskRunnerTypeCount *map[string]int64 `json:"taskRunnerTypeCount,omitempty"`
+	Count                *int32            `json:"count,omitempty"`
+	NamespacesCount      *int64            `json:"namespacesCount,omitempty"`
+	TaskTypeCount        *map[string]int64 `json:"taskTypeCount,omitempty"`
+	TriggerTypeCount     *map[string]int64 `json:"triggerTypeCount,omitempty"`
+	TaskRunnerTypeCount  *map[string]int64 `json:"taskRunnerTypeCount,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FlowUsage FlowUsage
 
 // NewFlowUsage instantiates a new FlowUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o FlowUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TaskRunnerTypeCount) {
 		toSerialize["taskRunnerTypeCount"] = o.TaskRunnerTypeCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FlowUsage) UnmarshalJSON(data []byte) (err error) {
+	varFlowUsage := _FlowUsage{}
+
+	err = json.Unmarshal(data, &varFlowUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowUsage(varFlowUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "namespacesCount")
+		delete(additionalProperties, "taskTypeCount")
+		delete(additionalProperties, "triggerTypeCount")
+		delete(additionalProperties, "taskRunnerTypeCount")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFlowUsage struct {

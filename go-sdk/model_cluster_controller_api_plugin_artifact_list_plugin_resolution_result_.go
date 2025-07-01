@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiPluginArtifactListPluginResolutionResult type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ClusterControllerApiPluginArtifactListPluginResolutionRe
 
 // ClusterControllerApiPluginArtifactListPluginResolutionResult struct for ClusterControllerApiPluginArtifactListPluginResolutionResult
 type ClusterControllerApiPluginArtifactListPluginResolutionResult struct {
-	Total   *int32                   `json:"total,omitempty"`
-	Results []map[string]interface{} `json:"results,omitempty"`
+	Total                int32                    `json:"total"`
+	Results              []map[string]interface{} `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiPluginArtifactListPluginResolutionResult ClusterControllerApiPluginArtifactListPluginResolutionResult
 
 // NewClusterControllerApiPluginArtifactListPluginResolutionResult instantiates a new ClusterControllerApiPluginArtifactListPluginResolutionResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiPluginArtifactListPluginResolutionResult() *ClusterControllerApiPluginArtifactListPluginResolutionResult {
+func NewClusterControllerApiPluginArtifactListPluginResolutionResult(total int32, results []map[string]interface{}) *ClusterControllerApiPluginArtifactListPluginResolutionResult {
 	this := ClusterControllerApiPluginArtifactListPluginResolutionResult{}
+	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -40,66 +46,50 @@ func NewClusterControllerApiPluginArtifactListPluginResolutionResultWithDefaults
 	return &this
 }
 
-// GetTotal returns the Total field value if set, zero value otherwise.
+// GetTotal returns the Total field value
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) GetTotal() int32 {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Total
+
+	return o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) GetTotalOk() (*int32, bool) {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.Total, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+// SetTotal sets field value
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) SetTotal(v int32) {
-	o.Total = &v
+	o.Total = v
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) GetResults() []map[string]interface{} {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) GetResultsOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) HasResults() bool {
-	if o != nil && !IsNil(o.Results) {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []map[string]interface{} and assigns it to the Results field.
+// SetResults sets field value
 func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) SetResults(v []map[string]interface{}) {
 	o.Results = v
 }
@@ -114,13 +104,58 @@ func (o ClusterControllerApiPluginArtifactListPluginResolutionResult) MarshalJSO
 
 func (o ClusterControllerApiPluginArtifactListPluginResolutionResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
+	toSerialize["total"] = o.Total
+	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Results) {
-		toSerialize["results"] = o.Results
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total",
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiPluginArtifactListPluginResolutionResult := _ClusterControllerApiPluginArtifactListPluginResolutionResult{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiPluginArtifactListPluginResolutionResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiPluginArtifactListPluginResolutionResult(varClusterControllerApiPluginArtifactListPluginResolutionResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiPluginArtifactListPluginResolutionResult struct {

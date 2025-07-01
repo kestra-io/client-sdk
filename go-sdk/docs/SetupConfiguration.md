@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Done** | Pointer to **bool** |  | [optional] 
+**Done** | **bool** |  | 
 **RepositoryType** | Pointer to **string** |  | [optional] 
 **QueueType** | Pointer to **string** |  | [optional] 
 **StorageType** | Pointer to **string** |  | [optional] 
 **SecretType** | Pointer to **string** |  | [optional] 
-**PasswordRegexp** | Pointer to **string** |  | [optional] 
+**PasswordRegexp** | **string** |  | 
 
 ## Methods
 
 ### NewSetupConfiguration
 
-`func NewSetupConfiguration() *SetupConfiguration`
+`func NewSetupConfiguration(done bool, passwordRegexp string, ) *SetupConfiguration`
 
 NewSetupConfiguration instantiates a new SetupConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetDone sets Done field to given value.
 
-### HasDone
-
-`func (o *SetupConfiguration) HasDone() bool`
-
-HasDone returns a boolean if a field has been set.
 
 ### GetRepositoryType
 
@@ -174,11 +169,6 @@ and a boolean to check if the value has been set.
 
 SetPasswordRegexp sets PasswordRegexp field to given value.
 
-### HasPasswordRegexp
-
-`func (o *SetupConfiguration) HasPasswordRegexp() bool`
-
-HasPasswordRegexp returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

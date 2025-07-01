@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -41,6 +42,8 @@ func (r ApiCreateInvitationRequest) Execute() (*Invitation, *http.Response, erro
 
 /*
 CreateInvitation Create an invitation
+
+Creates a new invitation and sends an email if the mail server is enabled.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -156,6 +159,8 @@ func (r ApiCreateInvitationWithResourceTenantasSuperAdminRequest) Execute() (*In
 /*
 CreateInvitationWithResourceTenantasSuperAdmin Create an invitation
 
+Creates a new invitation and sends an email if the mail server is enabled.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
 	@return ApiCreateInvitationWithResourceTenantasSuperAdminRequest
@@ -269,6 +274,8 @@ func (r ApiCreateInvitationasSuperAdminRequest) Execute() (*Invitation, *http.Re
 /*
 CreateInvitationasSuperAdmin Create an invitation
 
+Creates a new invitation and sends an email if the mail server is enabled.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateInvitationasSuperAdminRequest
 */
@@ -374,6 +381,8 @@ func (r ApiDeleteInvitationRequest) Execute() (*http.Response, error) {
 /*
 DeleteInvitation Delete an invitation
 
+Deletes the invitation by its ID.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
 	@param tenant
@@ -468,6 +477,8 @@ func (r ApiDeleteInvitationWithResourceTenantasSuperAdminRequest) Execute() (*ht
 /*
 DeleteInvitationWithResourceTenantasSuperAdmin Delete an invitation
 
+Deletes the invitation by its ID.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
 	@param resourceTenant
@@ -561,6 +572,8 @@ func (r ApiDeleteInvitationasSuperAdminRequest) Execute() (*http.Response, error
 /*
 DeleteInvitationasSuperAdmin Delete an invitation
 
+Deletes the invitation by its ID.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
 	@return ApiDeleteInvitationasSuperAdminRequest
@@ -648,7 +661,9 @@ func (r ApiFindAllInvitationsForCurrentUserRequest) Execute() ([]Invitation, *ht
 }
 
 /*
-FindAllInvitationsForCurrentUser Get all invitations for a given email
+FindAllInvitationsForCurrentUser List invitations for the authenticated user
+
+Returns all invitations for the authenticated user's email across all tenants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiFindAllInvitationsForCurrentUserRequest
@@ -747,7 +762,9 @@ func (r ApiFindAllInvitationsForCurrentUserWithTenantRequest) Execute() ([]Invit
 }
 
 /*
-FindAllInvitationsForCurrentUserWithTenant Get all invitations for a given email
+FindAllInvitationsForCurrentUserWithTenant List invitations for the authenticated user
+
+Returns all invitations for the authenticated user's email across all tenants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -850,7 +867,9 @@ func (r ApiGetInvitationRequest) Execute() (*Invitation, *http.Response, error) 
 }
 
 /*
-GetInvitation Get an invitation
+GetInvitation Retrieve an invitation
+
+Retrieves the invitation by its ID, including the invitation link.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
@@ -956,7 +975,9 @@ func (r ApiGetInvitationWithResourceTenantasSuperAdminRequest) Execute() (*Invit
 }
 
 /*
-GetInvitationWithResourceTenantasSuperAdmin Get an invitation
+GetInvitationWithResourceTenantasSuperAdmin Retrieve an invitation
+
+Retrieves the invitation by its ID, including the invitation link.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
@@ -1061,7 +1082,9 @@ func (r ApiGetInvitationasSuperAdminRequest) Execute() (*Invitation, *http.Respo
 }
 
 /*
-GetInvitationasSuperAdmin Get an invitation
+GetInvitationasSuperAdmin Retrieve an invitation
+
+Retrieves the invitation by its ID, including the invitation link.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the invitation
@@ -1164,7 +1187,9 @@ func (r ApiListByEmailRequest) Execute() ([]Invitation, *http.Response, error) {
 }
 
 /*
-ListByEmail Get all invitations for a given email
+ListByEmail Retrieve all invitations for a given email
+
+Returns all invitations created for a given email address in the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param email The email address of the invited
@@ -1270,7 +1295,9 @@ func (r ApiListByEmailWithResourceTenantasSuperAdminRequest) Execute() ([]Invita
 }
 
 /*
-ListByEmailWithResourceTenantasSuperAdmin Get all invitations for a given email
+ListByEmailWithResourceTenantasSuperAdmin Retrieve all invitations for a given email
+
+Returns all invitations created for a given email address in the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param email The email address of the invited
@@ -1375,7 +1402,9 @@ func (r ApiListByEmailasSuperAdminRequest) Execute() ([]Invitation, *http.Respon
 }
 
 /*
-ListByEmailasSuperAdmin Get all invitations for a given email
+ListByEmailasSuperAdmin Retrieve all invitations for a given email
+
+Returns all invitations created for a given email address in the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param email The email address of the invited
@@ -1514,6 +1543,8 @@ func (r ApiSearchInvitationsRequest) Execute() (*PagedResultsInvitation, *http.R
 /*
 SearchInvitations Search for invitations
 
+Search and filter invitations by email, status, and pagination.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
 	@return ApiSearchInvitationsRequest
@@ -1564,7 +1595,15 @@ func (a *InvitationsAPIService) SearchInvitationsExecute(r ApiSearchInvitationsR
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1668,6 +1707,8 @@ func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Execute() (*P
 /*
 SearchInvitationsWithResourceTenantasSuperAdmin Search for invitations
 
+Search and filter invitations by email, status, and pagination.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceTenant
 	@return ApiSearchInvitationsWithResourceTenantasSuperAdminRequest
@@ -1718,7 +1759,15 @@ func (a *InvitationsAPIService) SearchInvitationsWithResourceTenantasSuperAdminE
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1821,6 +1870,8 @@ func (r ApiSearchInvitationsasSuperAdminRequest) Execute() (*PagedResultsInvitat
 /*
 SearchInvitationsasSuperAdmin Search for invitations
 
+Search and filter invitations by email, status, and pagination.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSearchInvitationsasSuperAdminRequest
 */
@@ -1868,7 +1919,15 @@ func (a *InvitationsAPIService) SearchInvitationsasSuperAdminExecute(r ApiSearch
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

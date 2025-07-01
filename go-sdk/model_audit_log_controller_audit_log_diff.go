@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AuditLogControllerAuditLogDiff type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &AuditLogControllerAuditLogDiff{}
 
 // AuditLogControllerAuditLogDiff struct for AuditLogControllerAuditLogDiff
 type AuditLogControllerAuditLogDiff struct {
-	Before *string `json:"before,omitempty"`
-	After  *string `json:"after,omitempty"`
+	Before               string `json:"before"`
+	After                string `json:"after"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AuditLogControllerAuditLogDiff AuditLogControllerAuditLogDiff
 
 // NewAuditLogControllerAuditLogDiff instantiates a new AuditLogControllerAuditLogDiff object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerAuditLogDiff() *AuditLogControllerAuditLogDiff {
+func NewAuditLogControllerAuditLogDiff(before string, after string) *AuditLogControllerAuditLogDiff {
 	this := AuditLogControllerAuditLogDiff{}
+	this.Before = before
+	this.After = after
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewAuditLogControllerAuditLogDiffWithDefaults() *AuditLogControllerAuditLog
 	return &this
 }
 
-// GetBefore returns the Before field value if set, zero value otherwise.
+// GetBefore returns the Before field value
 func (o *AuditLogControllerAuditLogDiff) GetBefore() string {
-	if o == nil || IsNil(o.Before) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Before
+
+	return o.Before
 }
 
-// GetBeforeOk returns a tuple with the Before field value if set, nil otherwise
+// GetBeforeOk returns a tuple with the Before field value
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogDiff) GetBeforeOk() (*string, bool) {
-	if o == nil || IsNil(o.Before) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Before, true
+	return &o.Before, true
 }
 
-// HasBefore returns a boolean if a field has been set.
-func (o *AuditLogControllerAuditLogDiff) HasBefore() bool {
-	if o != nil && !IsNil(o.Before) {
-		return true
-	}
-
-	return false
-}
-
-// SetBefore gets a reference to the given string and assigns it to the Before field.
+// SetBefore sets field value
 func (o *AuditLogControllerAuditLogDiff) SetBefore(v string) {
-	o.Before = &v
+	o.Before = v
 }
 
-// GetAfter returns the After field value if set, zero value otherwise.
+// GetAfter returns the After field value
 func (o *AuditLogControllerAuditLogDiff) GetAfter() string {
-	if o == nil || IsNil(o.After) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.After
+
+	return o.After
 }
 
-// GetAfterOk returns a tuple with the After field value if set, nil otherwise
+// GetAfterOk returns a tuple with the After field value
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogDiff) GetAfterOk() (*string, bool) {
-	if o == nil || IsNil(o.After) {
+	if o == nil {
 		return nil, false
 	}
-	return o.After, true
+	return &o.After, true
 }
 
-// HasAfter returns a boolean if a field has been set.
-func (o *AuditLogControllerAuditLogDiff) HasAfter() bool {
-	if o != nil && !IsNil(o.After) {
-		return true
-	}
-
-	return false
-}
-
-// SetAfter gets a reference to the given string and assigns it to the After field.
+// SetAfter sets field value
 func (o *AuditLogControllerAuditLogDiff) SetAfter(v string) {
-	o.After = &v
+	o.After = v
 }
 
 func (o AuditLogControllerAuditLogDiff) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o AuditLogControllerAuditLogDiff) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerAuditLogDiff) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Before) {
-		toSerialize["before"] = o.Before
+	toSerialize["before"] = o.Before
+	toSerialize["after"] = o.After
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.After) {
-		toSerialize["after"] = o.After
-	}
+
 	return toSerialize, nil
+}
+
+func (o *AuditLogControllerAuditLogDiff) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"before",
+		"after",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuditLogControllerAuditLogDiff := _AuditLogControllerAuditLogDiff{}
+
+	err = json.Unmarshal(data, &varAuditLogControllerAuditLogDiff)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuditLogControllerAuditLogDiff(varAuditLogControllerAuditLogDiff)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "before")
+		delete(additionalProperties, "after")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAuditLogControllerAuditLogDiff struct {

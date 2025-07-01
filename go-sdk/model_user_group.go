@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,11 +19,14 @@ var _ MappedNullable = &UserGroup{}
 
 // UserGroup struct for UserGroup
 type UserGroup struct {
-	Value   *string        `json:"value,omitempty"`
-	Ref     *string        `json:"ref,omitempty"`
-	Display *string        `json:"display,omitempty"`
-	Type    *UserGroupType `json:"type,omitempty"`
+	Value                *string        `json:"value,omitempty"`
+	Ref                  *string        `json:"ref,omitempty"`
+	Display              *string        `json:"display,omitempty"`
+	Type                 *UserGroupType `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroup UserGroup
 
 // NewUserGroup instantiates a new UserGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -192,7 +195,36 @@ func (o UserGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroup) UnmarshalJSON(data []byte) (err error) {
+	varUserGroup := _UserGroup{}
+
+	err = json.Unmarshal(data, &varUserGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroup(varUserGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "ref")
+		delete(additionalProperties, "display")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroup struct {

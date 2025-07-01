@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &AbstractGraph{}
 
 // AbstractGraph struct for AbstractGraph
 type AbstractGraph struct {
-	Uid        *string                  `json:"uid,omitempty"`
-	Type       *string                  `json:"type,omitempty"`
-	BranchType *AbstractGraphBranchType `json:"branchType,omitempty"`
+	Uid                  *string                  `json:"uid,omitempty"`
+	Type                 *string                  `json:"type,omitempty"`
+	BranchType           *AbstractGraphBranchType `json:"branchType,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AbstractGraph AbstractGraph
 
 // NewAbstractGraph instantiates a new AbstractGraph object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o AbstractGraph) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BranchType) {
 		toSerialize["branchType"] = o.BranchType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AbstractGraph) UnmarshalJSON(data []byte) (err error) {
+	varAbstractGraph := _AbstractGraph{}
+
+	err = json.Unmarshal(data, &varAbstractGraph)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractGraph(varAbstractGraph)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "branchType")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAbstractGraph struct {

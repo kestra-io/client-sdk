@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the DashboardControllerPreviewRequest type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,20 @@ var _ MappedNullable = &DashboardControllerPreviewRequest{}
 
 // DashboardControllerPreviewRequest struct for DashboardControllerPreviewRequest
 type DashboardControllerPreviewRequest struct {
-	Chart        *string              `json:"chart,omitempty"`
-	GlobalFilter NullableGlobalFilter `json:"globalFilter,omitempty"`
+	Chart                string               `json:"chart"`
+	GlobalFilter         NullableGlobalFilter `json:"globalFilter,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DashboardControllerPreviewRequest DashboardControllerPreviewRequest
 
 // NewDashboardControllerPreviewRequest instantiates a new DashboardControllerPreviewRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDashboardControllerPreviewRequest() *DashboardControllerPreviewRequest {
+func NewDashboardControllerPreviewRequest(chart string) *DashboardControllerPreviewRequest {
 	this := DashboardControllerPreviewRequest{}
+	this.Chart = chart
 	return &this
 }
 
@@ -40,36 +45,28 @@ func NewDashboardControllerPreviewRequestWithDefaults() *DashboardControllerPrev
 	return &this
 }
 
-// GetChart returns the Chart field value if set, zero value otherwise.
+// GetChart returns the Chart field value
 func (o *DashboardControllerPreviewRequest) GetChart() string {
-	if o == nil || IsNil(o.Chart) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Chart
+
+	return o.Chart
 }
 
-// GetChartOk returns a tuple with the Chart field value if set, nil otherwise
+// GetChartOk returns a tuple with the Chart field value
 // and a boolean to check if the value has been set.
 func (o *DashboardControllerPreviewRequest) GetChartOk() (*string, bool) {
-	if o == nil || IsNil(o.Chart) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Chart, true
+	return &o.Chart, true
 }
 
-// HasChart returns a boolean if a field has been set.
-func (o *DashboardControllerPreviewRequest) HasChart() bool {
-	if o != nil && !IsNil(o.Chart) {
-		return true
-	}
-
-	return false
-}
-
-// SetChart gets a reference to the given string and assigns it to the Chart field.
+// SetChart sets field value
 func (o *DashboardControllerPreviewRequest) SetChart(v string) {
-	o.Chart = &v
+	o.Chart = v
 }
 
 // GetGlobalFilter returns the GlobalFilter field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -125,13 +122,59 @@ func (o DashboardControllerPreviewRequest) MarshalJSON() ([]byte, error) {
 
 func (o DashboardControllerPreviewRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Chart) {
-		toSerialize["chart"] = o.Chart
-	}
+	toSerialize["chart"] = o.Chart
 	if o.GlobalFilter.IsSet() {
 		toSerialize["globalFilter"] = o.GlobalFilter.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DashboardControllerPreviewRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"chart",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDashboardControllerPreviewRequest := _DashboardControllerPreviewRequest{}
+
+	err = json.Unmarshal(data, &varDashboardControllerPreviewRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DashboardControllerPreviewRequest(varDashboardControllerPreviewRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "chart")
+		delete(additionalProperties, "globalFilter")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDashboardControllerPreviewRequest struct {

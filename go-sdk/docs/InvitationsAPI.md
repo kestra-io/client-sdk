@@ -10,14 +10,14 @@ Method | HTTP request | Description
 [**DeleteInvitation**](InvitationsAPI.md#DeleteInvitation) | **Delete** /api/v1/{tenant}/invitations/{id} | Delete an invitation
 [**DeleteInvitationWithResourceTenantasSuperAdmin**](InvitationsAPI.md#DeleteInvitationWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/invitations/{id} | Delete an invitation
 [**DeleteInvitationasSuperAdmin**](InvitationsAPI.md#DeleteInvitationasSuperAdmin) | **Delete** /api/v1/tenants/invitations/{id} | Delete an invitation
-[**FindAllInvitationsForCurrentUser**](InvitationsAPI.md#FindAllInvitationsForCurrentUser) | **Get** /api/v1/me/invitations | Get all invitations for a given email
-[**FindAllInvitationsForCurrentUserWithTenant**](InvitationsAPI.md#FindAllInvitationsForCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me/invitations | Get all invitations for a given email
-[**GetInvitation**](InvitationsAPI.md#GetInvitation) | **Get** /api/v1/{tenant}/invitations/{id} | Get an invitation
-[**GetInvitationWithResourceTenantasSuperAdmin**](InvitationsAPI.md#GetInvitationWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/invitations/{id} | Get an invitation
-[**GetInvitationasSuperAdmin**](InvitationsAPI.md#GetInvitationasSuperAdmin) | **Get** /api/v1/tenants/invitations/{id} | Get an invitation
-[**ListByEmail**](InvitationsAPI.md#ListByEmail) | **Get** /api/v1/{tenant}/invitations/email/{email} | Get all invitations for a given email
-[**ListByEmailWithResourceTenantasSuperAdmin**](InvitationsAPI.md#ListByEmailWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/invitations/email/{email} | Get all invitations for a given email
-[**ListByEmailasSuperAdmin**](InvitationsAPI.md#ListByEmailasSuperAdmin) | **Get** /api/v1/tenants/invitations/email/{email} | Get all invitations for a given email
+[**FindAllInvitationsForCurrentUser**](InvitationsAPI.md#FindAllInvitationsForCurrentUser) | **Get** /api/v1/me/invitations | List invitations for the authenticated user
+[**FindAllInvitationsForCurrentUserWithTenant**](InvitationsAPI.md#FindAllInvitationsForCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me/invitations | List invitations for the authenticated user
+[**GetInvitation**](InvitationsAPI.md#GetInvitation) | **Get** /api/v1/{tenant}/invitations/{id} | Retrieve an invitation
+[**GetInvitationWithResourceTenantasSuperAdmin**](InvitationsAPI.md#GetInvitationWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/invitations/{id} | Retrieve an invitation
+[**GetInvitationasSuperAdmin**](InvitationsAPI.md#GetInvitationasSuperAdmin) | **Get** /api/v1/tenants/invitations/{id} | Retrieve an invitation
+[**ListByEmail**](InvitationsAPI.md#ListByEmail) | **Get** /api/v1/{tenant}/invitations/email/{email} | Retrieve all invitations for a given email
+[**ListByEmailWithResourceTenantasSuperAdmin**](InvitationsAPI.md#ListByEmailWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/invitations/email/{email} | Retrieve all invitations for a given email
+[**ListByEmailasSuperAdmin**](InvitationsAPI.md#ListByEmailasSuperAdmin) | **Get** /api/v1/tenants/invitations/email/{email} | Retrieve all invitations for a given email
 [**SearchInvitations**](InvitationsAPI.md#SearchInvitations) | **Get** /api/v1/{tenant}/invitations/search | Search for invitations
 [**SearchInvitationsWithResourceTenantasSuperAdmin**](InvitationsAPI.md#SearchInvitationsWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/invitations/search | Search for invitations
 [**SearchInvitationsasSuperAdmin**](InvitationsAPI.md#SearchInvitationsasSuperAdmin) | **Get** /api/v1/tenants/invitations/search | Search for invitations
@@ -30,6 +30,8 @@ Method | HTTP request | Description
 
 Create an invitation
 
+
+
 ### Example
 
 ```go
@@ -39,12 +41,13 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	tenant := "tenant_example" // string | 
-	invitation := *openapiclient.NewInvitation("Email_example", false) // Invitation | Create a new invitation, send an email if the server-mail is enabled
+	invitation := *openapiclient.NewInvitation(false, "Email_example", "Id_example", []openapiclient.Binding{*openapiclient.NewBinding("Id_example", openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example", false)}, []string{"GroupIds_example"}, "TenantId_example", openapiclient.Invitation.InvitationStatus("PENDING"), time.Now(), time.Now(), time.Now(), false, openapiclient.UserType("STANDARD"), false, "Link_example") // Invitation | Create a new invitation, send an email if the server-mail is enabled
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -100,6 +103,8 @@ Name | Type | Description  | Notes
 
 Create an invitation
 
+
+
 ### Example
 
 ```go
@@ -109,12 +114,13 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	invitation := *openapiclient.NewInvitation("Email_example", false) // Invitation | Create a new invitation, send an email if the server-mail is enabled
+	invitation := *openapiclient.NewInvitation(false, "Email_example", "Id_example", []openapiclient.Binding{*openapiclient.NewBinding("Id_example", openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example", false)}, []string{"GroupIds_example"}, "TenantId_example", openapiclient.Invitation.InvitationStatus("PENDING"), time.Now(), time.Now(), time.Now(), false, openapiclient.UserType("STANDARD"), false, "Link_example") // Invitation | Create a new invitation, send an email if the server-mail is enabled
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -170,6 +176,8 @@ Name | Type | Description  | Notes
 
 Create an invitation
 
+
+
 ### Example
 
 ```go
@@ -179,11 +187,12 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
-	invitation := *openapiclient.NewInvitation("Email_example", false) // Invitation | Create a new invitation, send an email if the server-mail is enabled
+	invitation := *openapiclient.NewInvitation(false, "Email_example", "Id_example", []openapiclient.Binding{*openapiclient.NewBinding("Id_example", openapiclient.Binding.Type("USER"), "ExternalId_example", "RoleId_example", "NamespaceId_example", false)}, []string{"GroupIds_example"}, "TenantId_example", openapiclient.Invitation.InvitationStatus("PENDING"), time.Now(), time.Now(), time.Now(), false, openapiclient.UserType("STANDARD"), false, "Link_example") // Invitation | Create a new invitation, send an email if the server-mail is enabled
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -233,6 +242,8 @@ Name | Type | Description  | Notes
 > DeleteInvitation(ctx, id, tenant).Execute()
 
 Delete an invitation
+
+
 
 ### Example
 
@@ -303,6 +314,8 @@ Name | Type | Description  | Notes
 
 Delete an invitation
 
+
+
 ### Example
 
 ```go
@@ -372,6 +385,8 @@ Name | Type | Description  | Notes
 
 Delete an invitation
 
+
+
 ### Example
 
 ```go
@@ -436,7 +451,9 @@ Name | Type | Description  | Notes
 
 > []Invitation FindAllInvitationsForCurrentUser(ctx).Execute()
 
-Get all invitations for a given email
+List invitations for the authenticated user
+
+
 
 ### Example
 
@@ -495,7 +512,9 @@ Other parameters are passed through a pointer to a apiFindAllInvitationsForCurre
 
 > []Invitation FindAllInvitationsForCurrentUserWithTenant(ctx, tenant).Execute()
 
-Get all invitations for a given email
+List invitations for the authenticated user
+
+
 
 ### Example
 
@@ -563,7 +582,9 @@ Name | Type | Description  | Notes
 
 > Invitation GetInvitation(ctx, id, tenant).Execute()
 
-Get an invitation
+Retrieve an invitation
+
+
 
 ### Example
 
@@ -634,7 +655,9 @@ Name | Type | Description  | Notes
 
 > Invitation GetInvitationWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
 
-Get an invitation
+Retrieve an invitation
+
+
 
 ### Example
 
@@ -705,7 +728,9 @@ Name | Type | Description  | Notes
 
 > Invitation GetInvitationasSuperAdmin(ctx, id).Execute()
 
-Get an invitation
+Retrieve an invitation
+
+
 
 ### Example
 
@@ -773,7 +798,9 @@ Name | Type | Description  | Notes
 
 > []Invitation ListByEmail(ctx, email, tenant).Execute()
 
-Get all invitations for a given email
+Retrieve all invitations for a given email
+
+
 
 ### Example
 
@@ -844,7 +871,9 @@ Name | Type | Description  | Notes
 
 > []Invitation ListByEmailWithResourceTenantasSuperAdmin(ctx, email, resourceTenant).Execute()
 
-Get all invitations for a given email
+Retrieve all invitations for a given email
+
+
 
 ### Example
 
@@ -915,7 +944,9 @@ Name | Type | Description  | Notes
 
 > []Invitation ListByEmailasSuperAdmin(ctx, email).Execute()
 
-Get all invitations for a given email
+Retrieve all invitations for a given email
+
+
 
 ### Example
 
@@ -984,6 +1015,8 @@ Name | Type | Description  | Notes
 > PagedResultsInvitation SearchInvitations(ctx, tenant).Page(page).Size(size).Email(email).Status(status).Sort(sort).Execute()
 
 Search for invitations
+
+
 
 ### Example
 
@@ -1063,6 +1096,8 @@ Name | Type | Description  | Notes
 
 Search for invitations
 
+
+
 ### Example
 
 ```go
@@ -1140,6 +1175,8 @@ Name | Type | Description  | Notes
 > PagedResultsInvitation SearchInvitationsasSuperAdmin(ctx).Page(page).Size(size).Email(email).Status(status).Sort(sort).Execute()
 
 Search for invitations
+
+
 
 ### Example
 

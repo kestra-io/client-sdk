@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,13 +20,14 @@ var _ MappedNullable = &AssertionResult{}
 
 // AssertionResult struct for AssertionResult
 type AssertionResult struct {
-	Operator     string                 `json:"operator"`
-	Expected     map[string]interface{} `json:"expected"`
-	Actual       map[string]interface{} `json:"actual"`
-	IsSuccess    bool                   `json:"isSuccess"`
-	TaskId       *string                `json:"taskId,omitempty"`
-	Description  *string                `json:"description,omitempty"`
-	ErrorMessage *string                `json:"errorMessage,omitempty"`
+	Operator             string      `json:"operator"`
+	Expected             interface{} `json:"expected"`
+	Actual               interface{} `json:"actual"`
+	IsSuccess            bool        `json:"isSuccess"`
+	TaskId               string      `json:"taskId"`
+	Description          string      `json:"description"`
+	ErrorMessage         string      `json:"errorMessage"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AssertionResult AssertionResult
@@ -36,12 +36,15 @@ type _AssertionResult AssertionResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool) *AssertionResult {
+func NewAssertionResult(operator string, expected interface{}, actual interface{}, isSuccess bool, taskId string, description string, errorMessage string) *AssertionResult {
 	this := AssertionResult{}
 	this.Operator = operator
 	this.Expected = expected
 	this.Actual = actual
 	this.IsSuccess = isSuccess
+	this.TaskId = taskId
+	this.Description = description
+	this.ErrorMessage = errorMessage
 	return &this
 }
 
@@ -78,9 +81,10 @@ func (o *AssertionResult) SetOperator(v string) {
 }
 
 // GetExpected returns the Expected field value
-func (o *AssertionResult) GetExpected() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *AssertionResult) GetExpected() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -89,22 +93,24 @@ func (o *AssertionResult) GetExpected() map[string]interface{} {
 
 // GetExpectedOk returns a tuple with the Expected field value
 // and a boolean to check if the value has been set.
-func (o *AssertionResult) GetExpectedOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AssertionResult) GetExpectedOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Expected) {
+		return nil, false
 	}
-	return o.Expected, true
+	return &o.Expected, true
 }
 
 // SetExpected sets field value
-func (o *AssertionResult) SetExpected(v map[string]interface{}) {
+func (o *AssertionResult) SetExpected(v interface{}) {
 	o.Expected = v
 }
 
 // GetActual returns the Actual field value
-func (o *AssertionResult) GetActual() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *AssertionResult) GetActual() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -113,15 +119,16 @@ func (o *AssertionResult) GetActual() map[string]interface{} {
 
 // GetActualOk returns a tuple with the Actual field value
 // and a boolean to check if the value has been set.
-func (o *AssertionResult) GetActualOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AssertionResult) GetActualOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Actual) {
+		return nil, false
 	}
-	return o.Actual, true
+	return &o.Actual, true
 }
 
 // SetActual sets field value
-func (o *AssertionResult) SetActual(v map[string]interface{}) {
+func (o *AssertionResult) SetActual(v interface{}) {
 	o.Actual = v
 }
 
@@ -149,100 +156,76 @@ func (o *AssertionResult) SetIsSuccess(v bool) {
 	o.IsSuccess = v
 }
 
-// GetTaskId returns the TaskId field value if set, zero value otherwise.
+// GetTaskId returns the TaskId field value
 func (o *AssertionResult) GetTaskId() string {
-	if o == nil || IsNil(o.TaskId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TaskId
+
+	return o.TaskId
 }
 
-// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
+// GetTaskIdOk returns a tuple with the TaskId field value
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetTaskIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TaskId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TaskId, true
+	return &o.TaskId, true
 }
 
-// HasTaskId returns a boolean if a field has been set.
-func (o *AssertionResult) HasTaskId() bool {
-	if o != nil && !IsNil(o.TaskId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTaskId gets a reference to the given string and assigns it to the TaskId field.
+// SetTaskId sets field value
 func (o *AssertionResult) SetTaskId(v string) {
-	o.TaskId = &v
+	o.TaskId = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *AssertionResult) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AssertionResult) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *AssertionResult) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+// GetErrorMessage returns the ErrorMessage field value
 func (o *AssertionResult) GetErrorMessage() string {
-	if o == nil || IsNil(o.ErrorMessage) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ErrorMessage
+
+	return o.ErrorMessage
 }
 
-// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetErrorMessageOk() (*string, bool) {
-	if o == nil || IsNil(o.ErrorMessage) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ErrorMessage, true
+	return &o.ErrorMessage, true
 }
 
-// HasErrorMessage returns a boolean if a field has been set.
-func (o *AssertionResult) HasErrorMessage() bool {
-	if o != nil && !IsNil(o.ErrorMessage) {
-		return true
-	}
-
-	return false
-}
-
-// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+// SetErrorMessage sets field value
 func (o *AssertionResult) SetErrorMessage(v string) {
-	o.ErrorMessage = &v
+	o.ErrorMessage = v
 }
 
 func (o AssertionResult) MarshalJSON() ([]byte, error) {
@@ -256,18 +239,21 @@ func (o AssertionResult) MarshalJSON() ([]byte, error) {
 func (o AssertionResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["operator"] = o.Operator
-	toSerialize["expected"] = o.Expected
-	toSerialize["actual"] = o.Actual
+	if o.Expected != nil {
+		toSerialize["expected"] = o.Expected
+	}
+	if o.Actual != nil {
+		toSerialize["actual"] = o.Actual
+	}
 	toSerialize["isSuccess"] = o.IsSuccess
-	if !IsNil(o.TaskId) {
-		toSerialize["taskId"] = o.TaskId
+	toSerialize["taskId"] = o.TaskId
+	toSerialize["description"] = o.Description
+	toSerialize["errorMessage"] = o.ErrorMessage
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.ErrorMessage) {
-		toSerialize["errorMessage"] = o.ErrorMessage
-	}
+
 	return toSerialize, nil
 }
 
@@ -280,6 +266,9 @@ func (o *AssertionResult) UnmarshalJSON(data []byte) (err error) {
 		"expected",
 		"actual",
 		"isSuccess",
+		"taskId",
+		"description",
+		"errorMessage",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -298,15 +287,26 @@ func (o *AssertionResult) UnmarshalJSON(data []byte) (err error) {
 
 	varAssertionResult := _AssertionResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAssertionResult)
+	err = json.Unmarshal(data, &varAssertionResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AssertionResult(varAssertionResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "operator")
+		delete(additionalProperties, "expected")
+		delete(additionalProperties, "actual")
+		delete(additionalProperties, "isSuccess")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "errorMessage")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

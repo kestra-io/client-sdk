@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Inputs** | Pointer to **map[string]interface{}** |  | [optional] 
 **Files** | Pointer to **map[string]string** |  | [optional] 
 **Tasks** | Pointer to [**[]TaskFixture**](TaskFixture.md) |  | [optional] 
 **Trigger** | Pointer to [**TriggerFixture**](TriggerFixture.md) |  | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetInputs
 
-`func (o *Fixtures) GetInputs() map[string]map[string]interface{}`
+`func (o *Fixtures) GetInputs() map[string]interface{}`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *Fixtures) GetInputsOk() (*map[string]map[string]interface{}, bool)`
+`func (o *Fixtures) GetInputsOk() (*map[string]interface{}, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *Fixtures) SetInputs(v map[string]map[string]interface{})`
+`func (o *Fixtures) SetInputs(v map[string]interface{})`
 
 SetInputs sets Inputs field to given value.
 

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**TestSuiteId** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**FlowId** | Pointer to **string** |  | [optional] 
-**State** | Pointer to [**TestState**](TestState.md) |  | [optional] 
-**Results** | Pointer to [**[]UnitTestResult**](UnitTestResult.md) |  | [optional] 
+**Id** | **string** |  | 
+**TestSuiteId** | **string** |  | 
+**Namespace** | **string** |  | 
+**FlowId** | **string** |  | 
+**State** | [**TestState**](TestState.md) |  | 
+**Results** | [**[]UnitTestResult**](UnitTestResult.md) |  | 
 
 ## Methods
 
 ### NewTestSuiteRunResult
 
-`func NewTestSuiteRunResult() *TestSuiteRunResult`
+`func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, results []UnitTestResult, ) *TestSuiteRunResult`
 
 NewTestSuiteRunResult instantiates a new TestSuiteRunResult object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *TestSuiteRunResult) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetTestSuiteId
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetTestSuiteId sets TestSuiteId field to given value.
 
-### HasTestSuiteId
-
-`func (o *TestSuiteRunResult) HasTestSuiteId() bool`
-
-HasTestSuiteId returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -99,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *TestSuiteRunResult) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -124,11 +109,6 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
-### HasFlowId
-
-`func (o *TestSuiteRunResult) HasFlowId() bool`
-
-HasFlowId returns a boolean if a field has been set.
 
 ### GetState
 
@@ -149,11 +129,6 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
-### HasState
-
-`func (o *TestSuiteRunResult) HasState() bool`
-
-HasState returns a boolean if a field has been set.
 
 ### GetResults
 
@@ -174,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
-### HasResults
-
-`func (o *TestSuiteRunResult) HasResults() bool`
-
-HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

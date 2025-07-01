@@ -4,26 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IsExpired** | Pointer to **bool** |  | [optional] 
+**IsExpired** | **bool** |  | 
 **Email** | **string** |  | 
-**Id** | Pointer to **string** |  | [optional] 
-**Bindings** | Pointer to [**[]Binding**](Binding.md) |  | [optional] 
-**GroupIds** | Pointer to **[]string** |  | [optional] 
-**TenantId** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | [optional] 
-**SentAt** | Pointer to **time.Time** |  | [optional] 
-**ExpiredAt** | Pointer to **time.Time** |  | [optional] 
-**AcceptedAt** | Pointer to **time.Time** |  | [optional] 
+**Id** | **string** |  | 
+**Bindings** | [**[]Binding**](Binding.md) |  | 
+**GroupIds** | **[]string** |  | 
+**TenantId** | **string** |  | 
+**Status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | 
+**SentAt** | **time.Time** |  | 
+**ExpiredAt** | **time.Time** |  | 
+**AcceptedAt** | **time.Time** |  | 
 **Deleted** | **bool** |  | 
-**UserType** | Pointer to [**UserType**](UserType.md) |  | [optional] 
-**SuperAdmin** | Pointer to **bool** |  | [optional] 
-**Link** | Pointer to **string** |  | [optional] 
+**UserType** | [**UserType**](UserType.md) |  | 
+**SuperAdmin** | **bool** |  | 
+**Link** | **string** |  | 
 
 ## Methods
 
 ### NewInvitation
 
-`func NewInvitation(email string, deleted bool, ) *Invitation`
+`func NewInvitation(isExpired bool, email string, id string, bindings []Binding, groupIds []string, tenantId string, status InvitationInvitationStatus, sentAt time.Time, expiredAt time.Time, acceptedAt time.Time, deleted bool, userType UserType, superAdmin bool, link string, ) *Invitation`
 
 NewInvitation instantiates a new Invitation object
 This constructor will assign default values to properties that have it defined,
@@ -57,11 +57,6 @@ and a boolean to check if the value has been set.
 
 SetIsExpired sets IsExpired field to given value.
 
-### HasIsExpired
-
-`func (o *Invitation) HasIsExpired() bool`
-
-HasIsExpired returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -102,11 +97,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *Invitation) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetBindings
 
@@ -127,11 +117,6 @@ and a boolean to check if the value has been set.
 
 SetBindings sets Bindings field to given value.
 
-### HasBindings
-
-`func (o *Invitation) HasBindings() bool`
-
-HasBindings returns a boolean if a field has been set.
 
 ### GetGroupIds
 
@@ -152,11 +137,6 @@ and a boolean to check if the value has been set.
 
 SetGroupIds sets GroupIds field to given value.
 
-### HasGroupIds
-
-`func (o *Invitation) HasGroupIds() bool`
-
-HasGroupIds returns a boolean if a field has been set.
 
 ### GetTenantId
 
@@ -177,11 +157,6 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
-### HasTenantId
-
-`func (o *Invitation) HasTenantId() bool`
-
-HasTenantId returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -202,11 +177,6 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
-### HasStatus
-
-`func (o *Invitation) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 ### GetSentAt
 
@@ -227,11 +197,6 @@ and a boolean to check if the value has been set.
 
 SetSentAt sets SentAt field to given value.
 
-### HasSentAt
-
-`func (o *Invitation) HasSentAt() bool`
-
-HasSentAt returns a boolean if a field has been set.
 
 ### GetExpiredAt
 
@@ -252,11 +217,6 @@ and a boolean to check if the value has been set.
 
 SetExpiredAt sets ExpiredAt field to given value.
 
-### HasExpiredAt
-
-`func (o *Invitation) HasExpiredAt() bool`
-
-HasExpiredAt returns a boolean if a field has been set.
 
 ### GetAcceptedAt
 
@@ -277,11 +237,6 @@ and a boolean to check if the value has been set.
 
 SetAcceptedAt sets AcceptedAt field to given value.
 
-### HasAcceptedAt
-
-`func (o *Invitation) HasAcceptedAt() bool`
-
-HasAcceptedAt returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -322,11 +277,6 @@ and a boolean to check if the value has been set.
 
 SetUserType sets UserType field to given value.
 
-### HasUserType
-
-`func (o *Invitation) HasUserType() bool`
-
-HasUserType returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -347,11 +297,6 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
-### HasSuperAdmin
-
-`func (o *Invitation) HasSuperAdmin() bool`
-
-HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetLink
 
@@ -372,11 +317,6 @@ and a boolean to check if the value has been set.
 
 SetLink sets Link field to given value.
 
-### HasLink
-
-`func (o *Invitation) HasLink() bool`
-
-HasLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

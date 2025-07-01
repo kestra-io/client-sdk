@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Isolation type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &Isolation{}
 
 // Isolation struct for Isolation
 type Isolation struct {
-	DeniedServices []ServiceType `json:"deniedServices,omitempty"`
-	Enabled        *bool         `json:"enabled,omitempty"`
+	DeniedServices       []ServiceType `json:"deniedServices"`
+	Enabled              bool          `json:"enabled"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Isolation Isolation
 
 // NewIsolation instantiates a new Isolation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIsolation() *Isolation {
+func NewIsolation(deniedServices []ServiceType, enabled bool) *Isolation {
 	this := Isolation{}
+	this.DeniedServices = deniedServices
+	this.Enabled = enabled
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewIsolationWithDefaults() *Isolation {
 	return &this
 }
 
-// GetDeniedServices returns the DeniedServices field value if set, zero value otherwise.
+// GetDeniedServices returns the DeniedServices field value
 func (o *Isolation) GetDeniedServices() []ServiceType {
-	if o == nil || IsNil(o.DeniedServices) {
+	if o == nil {
 		var ret []ServiceType
 		return ret
 	}
+
 	return o.DeniedServices
 }
 
-// GetDeniedServicesOk returns a tuple with the DeniedServices field value if set, nil otherwise
+// GetDeniedServicesOk returns a tuple with the DeniedServices field value
 // and a boolean to check if the value has been set.
 func (o *Isolation) GetDeniedServicesOk() ([]ServiceType, bool) {
-	if o == nil || IsNil(o.DeniedServices) {
+	if o == nil {
 		return nil, false
 	}
 	return o.DeniedServices, true
 }
 
-// HasDeniedServices returns a boolean if a field has been set.
-func (o *Isolation) HasDeniedServices() bool {
-	if o != nil && !IsNil(o.DeniedServices) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeniedServices gets a reference to the given []ServiceType and assigns it to the DeniedServices field.
+// SetDeniedServices sets field value
 func (o *Isolation) SetDeniedServices(v []ServiceType) {
 	o.DeniedServices = v
 }
 
-// GetEnabled returns the Enabled field value if set, zero value otherwise.
+// GetEnabled returns the Enabled field value
 func (o *Isolation) GetEnabled() bool {
-	if o == nil || IsNil(o.Enabled) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Enabled
+
+	return o.Enabled
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
 func (o *Isolation) GetEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.Enabled) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Enabled, true
+	return &o.Enabled, true
 }
 
-// HasEnabled returns a boolean if a field has been set.
-func (o *Isolation) HasEnabled() bool {
-	if o != nil && !IsNil(o.Enabled) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+// SetEnabled sets field value
 func (o *Isolation) SetEnabled(v bool) {
-	o.Enabled = &v
+	o.Enabled = v
 }
 
 func (o Isolation) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o Isolation) MarshalJSON() ([]byte, error) {
 
 func (o Isolation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DeniedServices) {
-		toSerialize["deniedServices"] = o.DeniedServices
+	toSerialize["deniedServices"] = o.DeniedServices
+	toSerialize["enabled"] = o.Enabled
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Enabled) {
-		toSerialize["enabled"] = o.Enabled
-	}
+
 	return toSerialize, nil
+}
+
+func (o *Isolation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"deniedServices",
+		"enabled",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIsolation := _Isolation{}
+
+	err = json.Unmarshal(data, &varIsolation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Isolation(varIsolation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deniedServices")
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIsolation struct {

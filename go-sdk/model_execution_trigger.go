@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,10 +20,11 @@ var _ MappedNullable = &ExecutionTrigger{}
 
 // ExecutionTrigger struct for ExecutionTrigger
 type ExecutionTrigger struct {
-	Id        string                            `json:"id"`
-	Type      string                            `json:"type"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
-	LogFile   *string                           `json:"logFile,omitempty"`
+	Id                   string                 `json:"id"`
+	Type                 string                 `json:"type"`
+	Variables            map[string]interface{} `json:"variables"`
+	LogFile              string                 `json:"logFile"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ExecutionTrigger ExecutionTrigger
@@ -33,10 +33,12 @@ type _ExecutionTrigger ExecutionTrigger
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionTrigger(id string, type_ string) *ExecutionTrigger {
+func NewExecutionTrigger(id string, type_ string, variables map[string]interface{}, logFile string) *ExecutionTrigger {
 	this := ExecutionTrigger{}
 	this.Id = id
 	this.Type = type_
+	this.Variables = variables
+	this.LogFile = logFile
 	return &this
 }
 
@@ -96,68 +98,52 @@ func (o *ExecutionTrigger) SetType(v string) {
 	o.Type = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *ExecutionTrigger) GetVariables() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+// GetVariables returns the Variables field value
+func (o *ExecutionTrigger) GetVariables() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Variables
 }
 
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// GetVariablesOk returns a tuple with the Variables field value
 // and a boolean to check if the value has been set.
-func (o *ExecutionTrigger) GetVariablesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+func (o *ExecutionTrigger) GetVariablesOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
 
-// HasVariables returns a boolean if a field has been set.
-func (o *ExecutionTrigger) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *ExecutionTrigger) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables sets field value
+func (o *ExecutionTrigger) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetLogFile returns the LogFile field value if set, zero value otherwise.
+// GetLogFile returns the LogFile field value
 func (o *ExecutionTrigger) GetLogFile() string {
-	if o == nil || IsNil(o.LogFile) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LogFile
+
+	return o.LogFile
 }
 
-// GetLogFileOk returns a tuple with the LogFile field value if set, nil otherwise
+// GetLogFileOk returns a tuple with the LogFile field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionTrigger) GetLogFileOk() (*string, bool) {
-	if o == nil || IsNil(o.LogFile) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LogFile, true
+	return &o.LogFile, true
 }
 
-// HasLogFile returns a boolean if a field has been set.
-func (o *ExecutionTrigger) HasLogFile() bool {
-	if o != nil && !IsNil(o.LogFile) {
-		return true
-	}
-
-	return false
-}
-
-// SetLogFile gets a reference to the given string and assigns it to the LogFile field.
+// SetLogFile sets field value
 func (o *ExecutionTrigger) SetLogFile(v string) {
-	o.LogFile = &v
+	o.LogFile = v
 }
 
 func (o ExecutionTrigger) MarshalJSON() ([]byte, error) {
@@ -172,12 +158,13 @@ func (o ExecutionTrigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
+	toSerialize["variables"] = o.Variables
+	toSerialize["logFile"] = o.LogFile
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.LogFile) {
-		toSerialize["logFile"] = o.LogFile
-	}
+
 	return toSerialize, nil
 }
 
@@ -188,6 +175,8 @@ func (o *ExecutionTrigger) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"type",
+		"variables",
+		"logFile",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -206,15 +195,23 @@ func (o *ExecutionTrigger) UnmarshalJSON(data []byte) (err error) {
 
 	varExecutionTrigger := _ExecutionTrigger{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varExecutionTrigger)
+	err = json.Unmarshal(data, &varExecutionTrigger)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ExecutionTrigger(varExecutionTrigger)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "logFile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

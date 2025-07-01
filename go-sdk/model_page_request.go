@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &PageRequest{}
 
 // PageRequest struct for PageRequest
 type PageRequest struct {
-	StartIndex *int32 `json:"startIndex,omitempty"`
-	Count      *int32 `json:"count,omitempty"`
+	StartIndex           *int32 `json:"startIndex,omitempty"`
+	Count                *int32 `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PageRequest PageRequest
 
 // NewPageRequest instantiates a new PageRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o PageRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PageRequest) UnmarshalJSON(data []byte) (err error) {
+	varPageRequest := _PageRequest{}
+
+	err = json.Unmarshal(data, &varPageRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PageRequest(varPageRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "startIndex")
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePageRequest struct {

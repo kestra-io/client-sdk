@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | **[]map[string]map[string]interface{}** |  | 
+**Results** | **[]map[string]interface{}** |  | 
 **Total** | **int64** |  | 
 
 ## Methods
 
 ### NewPagedResultsMapStringObject
 
-`func NewPagedResultsMapStringObject(results []map[string]map[string]interface{}, total int64, ) *PagedResultsMapStringObject`
+`func NewPagedResultsMapStringObject(results []map[string]interface{}, total int64, ) *PagedResultsMapStringObject`
 
 NewPagedResultsMapStringObject instantiates a new PagedResultsMapStringObject object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResults
 
-`func (o *PagedResultsMapStringObject) GetResults() []map[string]map[string]interface{}`
+`func (o *PagedResultsMapStringObject) GetResults() []map[string]interface{}`
 
 GetResults returns the Results field if non-nil, zero value otherwise.
 
 ### GetResultsOk
 
-`func (o *PagedResultsMapStringObject) GetResultsOk() (*[]map[string]map[string]interface{}, bool)`
+`func (o *PagedResultsMapStringObject) GetResultsOk() (*[]map[string]interface{}, bool)`
 
 GetResultsOk returns a tuple with the Results field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResults
 
-`func (o *PagedResultsMapStringObject) SetResults(v []map[string]map[string]interface{})`
+`func (o *PagedResultsMapStringObject) SetResults(v []map[string]interface{})`
 
 SetResults sets Results field to given value.
 

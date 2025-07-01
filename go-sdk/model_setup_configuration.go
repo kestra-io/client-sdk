@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SetupConfiguration type satisfies the MappedNullable interface at compile time
@@ -19,20 +20,25 @@ var _ MappedNullable = &SetupConfiguration{}
 
 // SetupConfiguration struct for SetupConfiguration
 type SetupConfiguration struct {
-	Done           *bool   `json:"done,omitempty"`
-	RepositoryType *string `json:"repositoryType,omitempty"`
-	QueueType      *string `json:"queueType,omitempty"`
-	StorageType    *string `json:"storageType,omitempty"`
-	SecretType     *string `json:"secretType,omitempty"`
-	PasswordRegexp *string `json:"passwordRegexp,omitempty"`
+	Done                 bool    `json:"done"`
+	RepositoryType       *string `json:"repositoryType,omitempty"`
+	QueueType            *string `json:"queueType,omitempty"`
+	StorageType          *string `json:"storageType,omitempty"`
+	SecretType           *string `json:"secretType,omitempty"`
+	PasswordRegexp       string  `json:"passwordRegexp"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SetupConfiguration SetupConfiguration
 
 // NewSetupConfiguration instantiates a new SetupConfiguration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSetupConfiguration() *SetupConfiguration {
+func NewSetupConfiguration(done bool, passwordRegexp string) *SetupConfiguration {
 	this := SetupConfiguration{}
+	this.Done = done
+	this.PasswordRegexp = passwordRegexp
 	return &this
 }
 
@@ -44,36 +50,28 @@ func NewSetupConfigurationWithDefaults() *SetupConfiguration {
 	return &this
 }
 
-// GetDone returns the Done field value if set, zero value otherwise.
+// GetDone returns the Done field value
 func (o *SetupConfiguration) GetDone() bool {
-	if o == nil || IsNil(o.Done) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Done
+
+	return o.Done
 }
 
-// GetDoneOk returns a tuple with the Done field value if set, nil otherwise
+// GetDoneOk returns a tuple with the Done field value
 // and a boolean to check if the value has been set.
 func (o *SetupConfiguration) GetDoneOk() (*bool, bool) {
-	if o == nil || IsNil(o.Done) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Done, true
+	return &o.Done, true
 }
 
-// HasDone returns a boolean if a field has been set.
-func (o *SetupConfiguration) HasDone() bool {
-	if o != nil && !IsNil(o.Done) {
-		return true
-	}
-
-	return false
-}
-
-// SetDone gets a reference to the given bool and assigns it to the Done field.
+// SetDone sets field value
 func (o *SetupConfiguration) SetDone(v bool) {
-	o.Done = &v
+	o.Done = v
 }
 
 // GetRepositoryType returns the RepositoryType field value if set, zero value otherwise.
@@ -204,36 +202,28 @@ func (o *SetupConfiguration) SetSecretType(v string) {
 	o.SecretType = &v
 }
 
-// GetPasswordRegexp returns the PasswordRegexp field value if set, zero value otherwise.
+// GetPasswordRegexp returns the PasswordRegexp field value
 func (o *SetupConfiguration) GetPasswordRegexp() string {
-	if o == nil || IsNil(o.PasswordRegexp) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PasswordRegexp
+
+	return o.PasswordRegexp
 }
 
-// GetPasswordRegexpOk returns a tuple with the PasswordRegexp field value if set, nil otherwise
+// GetPasswordRegexpOk returns a tuple with the PasswordRegexp field value
 // and a boolean to check if the value has been set.
 func (o *SetupConfiguration) GetPasswordRegexpOk() (*string, bool) {
-	if o == nil || IsNil(o.PasswordRegexp) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PasswordRegexp, true
+	return &o.PasswordRegexp, true
 }
 
-// HasPasswordRegexp returns a boolean if a field has been set.
-func (o *SetupConfiguration) HasPasswordRegexp() bool {
-	if o != nil && !IsNil(o.PasswordRegexp) {
-		return true
-	}
-
-	return false
-}
-
-// SetPasswordRegexp gets a reference to the given string and assigns it to the PasswordRegexp field.
+// SetPasswordRegexp sets field value
 func (o *SetupConfiguration) SetPasswordRegexp(v string) {
-	o.PasswordRegexp = &v
+	o.PasswordRegexp = v
 }
 
 func (o SetupConfiguration) MarshalJSON() ([]byte, error) {
@@ -246,9 +236,7 @@ func (o SetupConfiguration) MarshalJSON() ([]byte, error) {
 
 func (o SetupConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Done) {
-		toSerialize["done"] = o.Done
-	}
+	toSerialize["done"] = o.Done
 	if !IsNil(o.RepositoryType) {
 		toSerialize["repositoryType"] = o.RepositoryType
 	}
@@ -261,10 +249,61 @@ func (o SetupConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecretType) {
 		toSerialize["secretType"] = o.SecretType
 	}
-	if !IsNil(o.PasswordRegexp) {
-		toSerialize["passwordRegexp"] = o.PasswordRegexp
+	toSerialize["passwordRegexp"] = o.PasswordRegexp
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *SetupConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"done",
+		"passwordRegexp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSetupConfiguration := _SetupConfiguration{}
+
+	err = json.Unmarshal(data, &varSetupConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SetupConfiguration(varSetupConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "done")
+		delete(additionalProperties, "repositoryType")
+		delete(additionalProperties, "queueType")
+		delete(additionalProperties, "storageType")
+		delete(additionalProperties, "secretType")
+		delete(additionalProperties, "passwordRegexp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSetupConfiguration struct {

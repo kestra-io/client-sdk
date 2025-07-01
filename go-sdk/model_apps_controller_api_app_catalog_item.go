@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppsControllerApiAppCatalogItem type satisfies the MappedNullable interface at compile time
@@ -19,19 +20,27 @@ var _ MappedNullable = &AppsControllerApiAppCatalogItem{}
 
 // AppsControllerApiAppCatalogItem struct for AppsControllerApiAppCatalogItem
 type AppsControllerApiAppCatalogItem struct {
-	Uid         *string  `json:"uid,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	Type        *string  `json:"type,omitempty"`
-	Tags        []string `json:"tags,omitempty"`
+	Uid                  string   `json:"uid"`
+	Name                 string   `json:"name"`
+	Description          string   `json:"description"`
+	Type                 string   `json:"type"`
+	Tags                 []string `json:"tags"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AppsControllerApiAppCatalogItem AppsControllerApiAppCatalogItem
 
 // NewAppsControllerApiAppCatalogItem instantiates a new AppsControllerApiAppCatalogItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppsControllerApiAppCatalogItem() *AppsControllerApiAppCatalogItem {
+func NewAppsControllerApiAppCatalogItem(uid string, name string, description string, type_ string, tags []string) *AppsControllerApiAppCatalogItem {
 	this := AppsControllerApiAppCatalogItem{}
+	this.Uid = uid
+	this.Name = name
+	this.Description = description
+	this.Type = type_
+	this.Tags = tags
 	return &this
 }
 
@@ -43,162 +52,122 @@ func NewAppsControllerApiAppCatalogItemWithDefaults() *AppsControllerApiAppCatal
 	return &this
 }
 
-// GetUid returns the Uid field value if set, zero value otherwise.
+// GetUid returns the Uid field value
 func (o *AppsControllerApiAppCatalogItem) GetUid() string {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Uid
+
+	return o.Uid
 }
 
-// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
+// GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppCatalogItem) GetUidOk() (*string, bool) {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Uid, true
+	return &o.Uid, true
 }
 
-// HasUid returns a boolean if a field has been set.
-func (o *AppsControllerApiAppCatalogItem) HasUid() bool {
-	if o != nil && !IsNil(o.Uid) {
-		return true
-	}
-
-	return false
-}
-
-// SetUid gets a reference to the given string and assigns it to the Uid field.
+// SetUid sets field value
 func (o *AppsControllerApiAppCatalogItem) SetUid(v string) {
-	o.Uid = &v
+	o.Uid = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *AppsControllerApiAppCatalogItem) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppCatalogItem) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AppsControllerApiAppCatalogItem) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *AppsControllerApiAppCatalogItem) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *AppsControllerApiAppCatalogItem) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppCatalogItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AppsControllerApiAppCatalogItem) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *AppsControllerApiAppCatalogItem) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *AppsControllerApiAppCatalogItem) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppCatalogItem) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *AppsControllerApiAppCatalogItem) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *AppsControllerApiAppCatalogItem) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value
 func (o *AppsControllerApiAppCatalogItem) GetTags() []string {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiAppCatalogItem) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *AppsControllerApiAppCatalogItem) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
+// SetTags sets field value
 func (o *AppsControllerApiAppCatalogItem) SetTags(v []string) {
 	o.Tags = v
 }
@@ -213,22 +182,67 @@ func (o AppsControllerApiAppCatalogItem) MarshalJSON() ([]byte, error) {
 
 func (o AppsControllerApiAppCatalogItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Uid) {
-		toSerialize["uid"] = o.Uid
+	toSerialize["uid"] = o.Uid
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["type"] = o.Type
+	toSerialize["tags"] = o.Tags
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
+
 	return toSerialize, nil
+}
+
+func (o *AppsControllerApiAppCatalogItem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"name",
+		"description",
+		"type",
+		"tags",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppsControllerApiAppCatalogItem := _AppsControllerApiAppCatalogItem{}
+
+	err = json.Unmarshal(data, &varAppsControllerApiAppCatalogItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppsControllerApiAppCatalogItem(varAppsControllerApiAppCatalogItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAppsControllerApiAppCatalogItem struct {

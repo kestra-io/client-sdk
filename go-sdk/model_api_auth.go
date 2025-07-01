@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ApiAuth type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,23 @@ var _ MappedNullable = &ApiAuth{}
 
 // ApiAuth struct for ApiAuth
 type ApiAuth struct {
-	Uid  *string `json:"uid,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Uid                  string `json:"uid"`
+	Type                 string `json:"type"`
+	Name                 string `json:"name"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApiAuth ApiAuth
 
 // NewApiAuth instantiates a new ApiAuth object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiAuth() *ApiAuth {
+func NewApiAuth(uid string, type_ string, name string) *ApiAuth {
 	this := ApiAuth{}
+	this.Uid = uid
+	this.Type = type_
+	this.Name = name
 	return &this
 }
 
@@ -41,100 +48,76 @@ func NewApiAuthWithDefaults() *ApiAuth {
 	return &this
 }
 
-// GetUid returns the Uid field value if set, zero value otherwise.
+// GetUid returns the Uid field value
 func (o *ApiAuth) GetUid() string {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Uid
+
+	return o.Uid
 }
 
-// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
+// GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetUidOk() (*string, bool) {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Uid, true
+	return &o.Uid, true
 }
 
-// HasUid returns a boolean if a field has been set.
-func (o *ApiAuth) HasUid() bool {
-	if o != nil && !IsNil(o.Uid) {
-		return true
-	}
-
-	return false
-}
-
-// SetUid gets a reference to the given string and assigns it to the Uid field.
+// SetUid sets field value
 func (o *ApiAuth) SetUid(v string) {
-	o.Uid = &v
+	o.Uid = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *ApiAuth) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *ApiAuth) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *ApiAuth) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *ApiAuth) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *ApiAuth) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *ApiAuth) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 func (o ApiAuth) MarshalJSON() ([]byte, error) {
@@ -147,16 +130,61 @@ func (o ApiAuth) MarshalJSON() ([]byte, error) {
 
 func (o ApiAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Uid) {
-		toSerialize["uid"] = o.Uid
+	toSerialize["uid"] = o.Uid
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ApiAuth) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"type",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiAuth := _ApiAuth{}
+
+	err = json.Unmarshal(data, &varApiAuth)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiAuth(varApiAuth)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApiAuth struct {

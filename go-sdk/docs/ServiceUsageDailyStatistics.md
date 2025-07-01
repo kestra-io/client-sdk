@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Date** | Pointer to **string** |  | [optional] 
-**Min** | Pointer to **int64** |  | [optional] 
-**Max** | Pointer to **int64** |  | [optional] 
-**Avg** | Pointer to **int64** |  | [optional] 
+**Date** | **string** |  | 
+**Min** | **int64** |  | 
+**Max** | **int64** |  | 
+**Avg** | **int64** |  | 
 
 ## Methods
 
 ### NewServiceUsageDailyStatistics
 
-`func NewServiceUsageDailyStatistics() *ServiceUsageDailyStatistics`
+`func NewServiceUsageDailyStatistics(date string, min int64, max int64, avg int64, ) *ServiceUsageDailyStatistics`
 
 NewServiceUsageDailyStatistics instantiates a new ServiceUsageDailyStatistics object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetDate sets Date field to given value.
 
-### HasDate
-
-`func (o *ServiceUsageDailyStatistics) HasDate() bool`
-
-HasDate returns a boolean if a field has been set.
 
 ### GetMin
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetMin sets Min field to given value.
 
-### HasMin
-
-`func (o *ServiceUsageDailyStatistics) HasMin() bool`
-
-HasMin returns a boolean if a field has been set.
 
 ### GetMax
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetMax sets Max field to given value.
 
-### HasMax
-
-`func (o *ServiceUsageDailyStatistics) HasMax() bool`
-
-HasMax returns a boolean if a field has been set.
 
 ### GetAvg
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetAvg sets Avg field to given value.
 
-### HasAvg
-
-`func (o *ServiceUsageDailyStatistics) HasAvg() bool`
-
-HasAvg returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

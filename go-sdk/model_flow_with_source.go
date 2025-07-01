@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,25 +25,27 @@ type FlowWithSource struct {
 	Revision  *int32        `json:"revision,omitempty"`
 	Inputs    []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-	Outputs   []Output                          `json:"outputs,omitempty"`
-	Disabled  bool                              `json:"disabled"`
-	Labels    *FlowWithSourceAllOfLabels        `json:"labels,omitempty"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
-	Deleted   bool                              `json:"deleted"`
-	Finally   []Task                            `json:"finally,omitempty"`
+	Outputs     []Output               `json:"outputs,omitempty"`
+	Disabled    bool                   `json:"disabled"`
+	Labels      map[string]interface{} `json:"labels,omitempty"`
+	Variables   map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup *WorkerGroup           `json:"workerGroup,omitempty"`
+	Deleted     bool                   `json:"deleted"`
+	Finally     []Task                 `json:"finally,omitempty"`
 	// Deprecated
 	TaskDefaults []PluginDefault `json:"taskDefaults,omitempty"`
 	Description  *string         `json:"description,omitempty"`
 	Tasks        []Task          `json:"tasks"`
 	Errors       []Task          `json:"errors,omitempty"`
 	// Deprecated
-	Listeners      []Listener             `json:"listeners,omitempty"`
-	AfterExecution []Task                 `json:"afterExecution,omitempty"`
-	Triggers       []AbstractTrigger      `json:"triggers,omitempty"`
-	PluginDefaults []PluginDefault        `json:"pluginDefaults,omitempty"`
-	Concurrency    *Concurrency           `json:"concurrency,omitempty"`
-	Retry          map[string]interface{} `json:"retry,omitempty"`
-	Sla            []SLA                  `json:"sla,omitempty"`
+	Listeners            []Listener             `json:"listeners,omitempty"`
+	AfterExecution       []Task                 `json:"afterExecution,omitempty"`
+	Triggers             []AbstractTrigger      `json:"triggers,omitempty"`
+	PluginDefaults       []PluginDefault        `json:"pluginDefaults,omitempty"`
+	Concurrency          *Concurrency           `json:"concurrency,omitempty"`
+	Retry                map[string]interface{} `json:"retry,omitempty"`
+	Sla                  []SLA                  `json:"sla,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FlowWithSource FlowWithSource
@@ -240,19 +241,19 @@ func (o *FlowWithSource) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *FlowWithSource) GetLabels() FlowWithSourceAllOfLabels {
+func (o *FlowWithSource) GetLabels() map[string]interface{} {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowWithSourceAllOfLabels
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetLabelsOk() (*FlowWithSourceAllOfLabels, bool) {
+func (o *FlowWithSource) GetLabelsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Labels) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.Labels, true
 }
@@ -266,15 +267,15 @@ func (o *FlowWithSource) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowWithSourceAllOfLabels and assigns it to the Labels field.
-func (o *FlowWithSource) SetLabels(v FlowWithSourceAllOfLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given map[string]interface{} and assigns it to the Labels field.
+func (o *FlowWithSource) SetLabels(v map[string]interface{}) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *FlowWithSource) GetVariables() map[string]map[string]interface{} {
+func (o *FlowWithSource) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -282,9 +283,9 @@ func (o *FlowWithSource) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *FlowWithSource) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -298,9 +299,41 @@ func (o *FlowWithSource) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *FlowWithSource) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *FlowWithSource) SetVariables(v map[string]interface{}) {
 	o.Variables = v
+}
+
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
+func (o *FlowWithSource) GetWorkerGroup() WorkerGroup {
+	if o == nil || IsNil(o.WorkerGroup) {
+		var ret WorkerGroup
+		return ret
+	}
+	return *o.WorkerGroup
+}
+
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowWithSource) GetWorkerGroupOk() (*WorkerGroup, bool) {
+	if o == nil || IsNil(o.WorkerGroup) {
+		return nil, false
+	}
+	return o.WorkerGroup, true
+}
+
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *FlowWithSource) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
+func (o *FlowWithSource) SetWorkerGroup(v WorkerGroup) {
+	o.WorkerGroup = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -737,6 +770,9 @@ func (o FlowWithSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
 	toSerialize["deleted"] = o.Deleted
 	if !IsNil(o.Finally) {
 		toSerialize["finally"] = o.Finally
@@ -772,6 +808,11 @@ func (o FlowWithSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Sla) {
 		toSerialize["sla"] = o.Sla
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -803,15 +844,41 @@ func (o *FlowWithSource) UnmarshalJSON(data []byte) (err error) {
 
 	varFlowWithSource := _FlowWithSource{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFlowWithSource)
+	err = json.Unmarshal(data, &varFlowWithSource)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FlowWithSource(varFlowWithSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "finally")
+		delete(additionalProperties, "taskDefaults")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "listeners")
+		delete(additionalProperties, "afterExecution")
+		delete(additionalProperties, "triggers")
+		delete(additionalProperties, "pluginDefaults")
+		delete(additionalProperties, "concurrency")
+		delete(additionalProperties, "retry")
+		delete(additionalProperties, "sla")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

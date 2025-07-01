@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InputType type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &InputType{}
 
 // InputType struct for InputType
 type InputType struct {
-	Type *string `json:"type,omitempty"`
-	Cls  *string `json:"cls,omitempty"`
+	Type                 string `json:"type"`
+	Cls                  string `json:"cls"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InputType InputType
 
 // NewInputType instantiates a new InputType object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInputType() *InputType {
+func NewInputType(type_ string, cls string) *InputType {
 	this := InputType{}
+	this.Type = type_
+	this.Cls = cls
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewInputTypeWithDefaults() *InputType {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *InputType) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *InputType) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *InputType) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *InputType) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetCls returns the Cls field value if set, zero value otherwise.
+// GetCls returns the Cls field value
 func (o *InputType) GetCls() string {
-	if o == nil || IsNil(o.Cls) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Cls
+
+	return o.Cls
 }
 
-// GetClsOk returns a tuple with the Cls field value if set, nil otherwise
+// GetClsOk returns a tuple with the Cls field value
 // and a boolean to check if the value has been set.
 func (o *InputType) GetClsOk() (*string, bool) {
-	if o == nil || IsNil(o.Cls) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Cls, true
+	return &o.Cls, true
 }
 
-// HasCls returns a boolean if a field has been set.
-func (o *InputType) HasCls() bool {
-	if o != nil && !IsNil(o.Cls) {
-		return true
-	}
-
-	return false
-}
-
-// SetCls gets a reference to the given string and assigns it to the Cls field.
+// SetCls sets field value
 func (o *InputType) SetCls(v string) {
-	o.Cls = &v
+	o.Cls = v
 }
 
 func (o InputType) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o InputType) MarshalJSON() ([]byte, error) {
 
 func (o InputType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
+	toSerialize["type"] = o.Type
+	toSerialize["cls"] = o.Cls
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Cls) {
-		toSerialize["cls"] = o.Cls
-	}
+
 	return toSerialize, nil
+}
+
+func (o *InputType) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"cls",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInputType := _InputType{}
+
+	err = json.Unmarshal(data, &varInputType)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InputType(varInputType)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "cls")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInputType struct {

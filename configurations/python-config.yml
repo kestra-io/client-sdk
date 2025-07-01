@@ -9,3 +9,4 @@ globalProperties:
 additionalProperties:
   packageName: kestra_api_client
   projectName: kestra_api
+  disallowAdditionalPropertiesIfNotPresent: false

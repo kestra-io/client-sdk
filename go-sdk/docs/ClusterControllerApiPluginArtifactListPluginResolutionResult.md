@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | Pointer to **int32** |  | [optional] 
-**Results** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Total** | **int32** |  | 
+**Results** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewClusterControllerApiPluginArtifactListPluginResolutionResult
 
-`func NewClusterControllerApiPluginArtifactListPluginResolutionResult() *ClusterControllerApiPluginArtifactListPluginResolutionResult`
+`func NewClusterControllerApiPluginArtifactListPluginResolutionResult(total int32, results []map[string]interface{}, ) *ClusterControllerApiPluginArtifactListPluginResolutionResult`
 
 NewClusterControllerApiPluginArtifactListPluginResolutionResult instantiates a new ClusterControllerApiPluginArtifactListPluginResolutionResult object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
-### HasTotal
-
-`func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) HasTotal() bool`
-
-HasTotal returns a boolean if a field has been set.
 
 ### GetResults
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
-### HasResults
-
-`func (o *ClusterControllerApiPluginArtifactListPluginResolutionResult) HasResults() bool`
-
-HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

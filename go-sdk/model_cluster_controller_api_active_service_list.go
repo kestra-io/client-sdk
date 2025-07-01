@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiActiveServiceList type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ClusterControllerApiActiveServiceList{}
 
 // ClusterControllerApiActiveServiceList struct for ClusterControllerApiActiveServiceList
 type ClusterControllerApiActiveServiceList struct {
-	Total    *int32                              `json:"total,omitempty"`
-	Services []ClusterControllerApiActiveService `json:"services,omitempty"`
+	Total                int32                               `json:"total"`
+	Services             []ClusterControllerApiActiveService `json:"services"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiActiveServiceList ClusterControllerApiActiveServiceList
 
 // NewClusterControllerApiActiveServiceList instantiates a new ClusterControllerApiActiveServiceList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiActiveServiceList() *ClusterControllerApiActiveServiceList {
+func NewClusterControllerApiActiveServiceList(total int32, services []ClusterControllerApiActiveService) *ClusterControllerApiActiveServiceList {
 	this := ClusterControllerApiActiveServiceList{}
+	this.Total = total
+	this.Services = services
 	return &this
 }
 
@@ -40,66 +46,50 @@ func NewClusterControllerApiActiveServiceListWithDefaults() *ClusterControllerAp
 	return &this
 }
 
-// GetTotal returns the Total field value if set, zero value otherwise.
+// GetTotal returns the Total field value
 func (o *ClusterControllerApiActiveServiceList) GetTotal() int32 {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Total
+
+	return o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiActiveServiceList) GetTotalOk() (*int32, bool) {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.Total, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *ClusterControllerApiActiveServiceList) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+// SetTotal sets field value
 func (o *ClusterControllerApiActiveServiceList) SetTotal(v int32) {
-	o.Total = &v
+	o.Total = v
 }
 
-// GetServices returns the Services field value if set, zero value otherwise.
+// GetServices returns the Services field value
 func (o *ClusterControllerApiActiveServiceList) GetServices() []ClusterControllerApiActiveService {
-	if o == nil || IsNil(o.Services) {
+	if o == nil {
 		var ret []ClusterControllerApiActiveService
 		return ret
 	}
+
 	return o.Services
 }
 
-// GetServicesOk returns a tuple with the Services field value if set, nil otherwise
+// GetServicesOk returns a tuple with the Services field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiActiveServiceList) GetServicesOk() ([]ClusterControllerApiActiveService, bool) {
-	if o == nil || IsNil(o.Services) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Services, true
 }
 
-// HasServices returns a boolean if a field has been set.
-func (o *ClusterControllerApiActiveServiceList) HasServices() bool {
-	if o != nil && !IsNil(o.Services) {
-		return true
-	}
-
-	return false
-}
-
-// SetServices gets a reference to the given []ClusterControllerApiActiveService and assigns it to the Services field.
+// SetServices sets field value
 func (o *ClusterControllerApiActiveServiceList) SetServices(v []ClusterControllerApiActiveService) {
 	o.Services = v
 }
@@ -114,13 +104,58 @@ func (o ClusterControllerApiActiveServiceList) MarshalJSON() ([]byte, error) {
 
 func (o ClusterControllerApiActiveServiceList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
+	toSerialize["total"] = o.Total
+	toSerialize["services"] = o.Services
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Services) {
-		toSerialize["services"] = o.Services
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiActiveServiceList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total",
+		"services",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiActiveServiceList := _ClusterControllerApiActiveServiceList{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiActiveServiceList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiActiveServiceList(varClusterControllerApiActiveServiceList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total")
+		delete(additionalProperties, "services")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiActiveServiceList struct {

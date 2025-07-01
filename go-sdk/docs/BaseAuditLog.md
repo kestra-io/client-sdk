@@ -9,15 +9,15 @@ Name | Type | Description | Notes
 **Detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **Date** | **time.Time** |  | 
 **UserId** | **string** |  | 
-**IpAddress** | Pointer to **string** |  | [optional] 
-**ImpersonatedBy** | Pointer to **string** |  | [optional] 
-**Deleted** | Pointer to **bool** |  | [optional] 
+**IpAddress** | **string** |  | 
+**ImpersonatedBy** | **string** |  | 
+**Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewBaseAuditLog
 
-`func NewBaseAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ) *BaseAuditLog`
+`func NewBaseAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ipAddress string, impersonatedBy string, deleted bool, ) *BaseAuditLog`
 
 NewBaseAuditLog instantiates a new BaseAuditLog object
 This constructor will assign default values to properties that have it defined,
@@ -151,11 +151,6 @@ and a boolean to check if the value has been set.
 
 SetIpAddress sets IpAddress field to given value.
 
-### HasIpAddress
-
-`func (o *BaseAuditLog) HasIpAddress() bool`
-
-HasIpAddress returns a boolean if a field has been set.
 
 ### GetImpersonatedBy
 
@@ -176,11 +171,6 @@ and a boolean to check if the value has been set.
 
 SetImpersonatedBy sets ImpersonatedBy field to given value.
 
-### HasImpersonatedBy
-
-`func (o *BaseAuditLog) HasImpersonatedBy() bool`
-
-HasImpersonatedBy returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -201,11 +191,6 @@ and a boolean to check if the value has been set.
 
 SetDeleted sets Deleted field to given value.
 
-### HasDeleted
-
-`func (o *BaseAuditLog) HasDeleted() bool`
-
-HasDeleted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

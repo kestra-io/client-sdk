@@ -4,10 +4,10 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBanner**](BannersAPI.md#CreateBanner) | **Post** /api/v1/banners | Create a new banner
-[**DeleteBanner**](BannersAPI.md#DeleteBanner) | **Delete** /api/v1/banners/{id} | Delete a banner
-[**SearchBanners**](BannersAPI.md#SearchBanners) | **Get** /api/v1/banners/search | Get banners
-[**UpdateBanner**](BannersAPI.md#UpdateBanner) | **Put** /api/v1/banners/{id} | Update a banner
+[**CreateBanner**](BannersAPI.md#CreateBanner) | **Post** /api/v1/banners | Create an announcement banner
+[**DeleteBanner**](BannersAPI.md#DeleteBanner) | **Delete** /api/v1/banners/{id} | Delete an announcement banner
+[**SearchBanners**](BannersAPI.md#SearchBanners) | **Get** /api/v1/banners/search | Retrieve all announcement banners
+[**UpdateBanner**](BannersAPI.md#UpdateBanner) | **Put** /api/v1/banners/{id} | Update an announcement banner
 
 
 
@@ -15,7 +15,9 @@ Method | HTTP request | Description
 
 > Banner CreateBanner(ctx).Banner(banner).Execute()
 
-Create a new banner
+Create an announcement banner
+
+
 
 ### Example
 
@@ -30,7 +32,7 @@ import (
 )
 
 func main() {
-	banner := *openapiclient.NewBanner() // Banner | The banner to create
+	banner := *openapiclient.NewBanner() // Banner | The announcement banner to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +57,7 @@ Other parameters are passed through a pointer to a apiCreateBannerRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **banner** | [**Banner**](Banner.md) | The banner to create | 
+ **banner** | [**Banner**](Banner.md) | The announcement banner to create | 
 
 ### Return type
 
@@ -79,7 +81,9 @@ Name | Type | Description  | Notes
 
 > DeleteBanner(ctx, id).Execute()
 
-Delete a banner
+Delete an announcement banner
+
+
 
 ### Example
 
@@ -145,7 +149,9 @@ Name | Type | Description  | Notes
 
 > []Banner SearchBanners(ctx).Execute()
 
-Get banners
+Retrieve all announcement banners
+
+
 
 ### Example
 
@@ -204,7 +210,9 @@ Other parameters are passed through a pointer to a apiSearchBannersRequest struc
 
 > Banner UpdateBanner(ctx, id).Banner(banner).Execute()
 
-Update a banner
+Update an announcement banner
+
+
 
 ### Example
 

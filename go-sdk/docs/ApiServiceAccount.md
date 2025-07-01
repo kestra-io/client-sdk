@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | the identifier of this service account. | [optional] 
+**Id** | **string** | the identifier of this service account. | 
 **Name** | **string** | the name of this service account. | 
-**Description** | Pointer to **string** | the description of this service account. | [optional] 
-**GroupList** | Pointer to [**[]AbstractUserGroupIdentifier**](AbstractUserGroupIdentifier.md) |  | [optional] 
-**IsSuperAdmin** | Pointer to **bool** |  | [optional] 
+**Description** | **string** | the description of this service account. | 
+**GroupList** | [**[]GroupIdentifier**](GroupIdentifier.md) |  | 
+**IsSuperAdmin** | **bool** |  | 
 
 ## Methods
 
 ### NewApiServiceAccount
 
-`func NewApiServiceAccount(name string, ) *ApiServiceAccount`
+`func NewApiServiceAccount(id string, name string, description string, groupList []GroupIdentifier, isSuperAdmin bool, ) *ApiServiceAccount`
 
 NewApiServiceAccount instantiates a new ApiServiceAccount object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ApiServiceAccount) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -93,36 +88,26 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *ApiServiceAccount) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetGroupList
 
-`func (o *ApiServiceAccount) GetGroupList() []AbstractUserGroupIdentifier`
+`func (o *ApiServiceAccount) GetGroupList() []GroupIdentifier`
 
 GetGroupList returns the GroupList field if non-nil, zero value otherwise.
 
 ### GetGroupListOk
 
-`func (o *ApiServiceAccount) GetGroupListOk() (*[]AbstractUserGroupIdentifier, bool)`
+`func (o *ApiServiceAccount) GetGroupListOk() (*[]GroupIdentifier, bool)`
 
 GetGroupListOk returns a tuple with the GroupList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupList
 
-`func (o *ApiServiceAccount) SetGroupList(v []AbstractUserGroupIdentifier)`
+`func (o *ApiServiceAccount) SetGroupList(v []GroupIdentifier)`
 
 SetGroupList sets GroupList field to given value.
 
-### HasGroupList
-
-`func (o *ApiServiceAccount) HasGroupList() bool`
-
-HasGroupList returns a boolean if a field has been set.
 
 ### GetIsSuperAdmin
 
@@ -143,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetIsSuperAdmin sets IsSuperAdmin field to given value.
 
-### HasIsSuperAdmin
-
-`func (o *ApiServiceAccount) HasIsSuperAdmin() bool`
-
-HasIsSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

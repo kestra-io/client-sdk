@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Meta** | [**Meta**](Meta.md) |  | 
 **Id** | Pointer to **string** |  | [optional] 
 **ExternalId** | Pointer to **string** |  | [optional] 
-**ResourceType** | Pointer to **string** |  | [optional] 
+**ResourceType** | **string** |  | 
 **PrimaryEmailAddress** | Pointer to [**NullableEmail**](Email.md) |  | [optional] 
 **Active** | Pointer to **bool** |  | [optional] 
 **Emails** | Pointer to [**[]Email**](Email.md) |  | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewScimUser
 
-`func NewScimUser(meta Meta, ) *ScimUser`
+`func NewScimUser(meta Meta, resourceType string, ) *ScimUser`
 
 NewScimUser instantiates a new ScimUser object
 This constructor will assign default values to properties that have it defined,
@@ -201,11 +201,6 @@ and a boolean to check if the value has been set.
 
 SetResourceType sets ResourceType field to given value.
 
-### HasResourceType
-
-`func (o *ScimUser) HasResourceType() bool`
-
-HasResourceType returns a boolean if a field has been set.
 
 ### GetPrimaryEmailAddress
 

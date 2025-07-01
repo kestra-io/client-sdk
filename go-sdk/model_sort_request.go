@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &SortRequest{}
 
 // SortRequest struct for SortRequest
 type SortRequest struct {
-	SortBy    *AttributeReference `json:"sortBy,omitempty"`
-	SortOrder *SortOrder          `json:"sortOrder,omitempty"`
+	SortBy               *AttributeReference `json:"sortBy,omitempty"`
+	SortOrder            *SortOrder          `json:"sortOrder,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SortRequest SortRequest
 
 // NewSortRequest instantiates a new SortRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o SortRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SortOrder) {
 		toSerialize["sortOrder"] = o.SortOrder
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SortRequest) UnmarshalJSON(data []byte) (err error) {
+	varSortRequest := _SortRequest{}
+
+	err = json.Unmarshal(data, &varSortRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SortRequest(varSortRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sortBy")
+		delete(additionalProperties, "sortOrder")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSortRequest struct {

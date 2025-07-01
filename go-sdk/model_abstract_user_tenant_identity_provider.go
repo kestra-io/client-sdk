@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AbstractUserTenantIdentityProvider type satisfies the MappedNullable interface at compile time
@@ -19,19 +20,26 @@ var _ MappedNullable = &AbstractUserTenantIdentityProvider{}
 
 // AbstractUserTenantIdentityProvider struct for AbstractUserTenantIdentityProvider
 type AbstractUserTenantIdentityProvider struct {
-	Attributes              map[string]map[string]interface{} `json:"attributes,omitempty"`
-	ExternalId              *string                           `json:"externalId,omitempty"`
-	SecurityIntegrationId   *string                           `json:"securityIntegrationId,omitempty"`
-	SecurityIntegrationName *string                           `json:"securityIntegrationName,omitempty"`
-	TenantId                NullableString                    `json:"tenantId,omitempty"`
+	Attributes              map[string]interface{} `json:"attributes"`
+	ExternalId              string                 `json:"externalId"`
+	SecurityIntegrationId   string                 `json:"securityIntegrationId"`
+	SecurityIntegrationName string                 `json:"securityIntegrationName"`
+	TenantId                NullableString         `json:"tenantId,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _AbstractUserTenantIdentityProvider AbstractUserTenantIdentityProvider
 
 // NewAbstractUserTenantIdentityProvider instantiates a new AbstractUserTenantIdentityProvider object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAbstractUserTenantIdentityProvider() *AbstractUserTenantIdentityProvider {
+func NewAbstractUserTenantIdentityProvider(attributes map[string]interface{}, externalId string, securityIntegrationId string, securityIntegrationName string) *AbstractUserTenantIdentityProvider {
 	this := AbstractUserTenantIdentityProvider{}
+	this.Attributes = attributes
+	this.ExternalId = externalId
+	this.SecurityIntegrationId = securityIntegrationId
+	this.SecurityIntegrationName = securityIntegrationName
 	return &this
 }
 
@@ -43,132 +51,100 @@ func NewAbstractUserTenantIdentityProviderWithDefaults() *AbstractUserTenantIden
 	return &this
 }
 
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *AbstractUserTenantIdentityProvider) GetAttributes() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Attributes) {
-		var ret map[string]map[string]interface{}
+// GetAttributes returns the Attributes field value
+func (o *AbstractUserTenantIdentityProvider) GetAttributes() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Attributes
 }
 
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// GetAttributesOk returns a tuple with the Attributes field value
 // and a boolean to check if the value has been set.
-func (o *AbstractUserTenantIdentityProvider) GetAttributesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return map[string]map[string]interface{}{}, false
+func (o *AbstractUserTenantIdentityProvider) GetAttributesOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
 	return o.Attributes, true
 }
 
-// HasAttributes returns a boolean if a field has been set.
-func (o *AbstractUserTenantIdentityProvider) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given map[string]map[string]interface{} and assigns it to the Attributes field.
-func (o *AbstractUserTenantIdentityProvider) SetAttributes(v map[string]map[string]interface{}) {
+// SetAttributes sets field value
+func (o *AbstractUserTenantIdentityProvider) SetAttributes(v map[string]interface{}) {
 	o.Attributes = v
 }
 
-// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+// GetExternalId returns the ExternalId field value
 func (o *AbstractUserTenantIdentityProvider) GetExternalId() string {
-	if o == nil || IsNil(o.ExternalId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalId
+
+	return o.ExternalId
 }
 
-// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// GetExternalIdOk returns a tuple with the ExternalId field value
 // and a boolean to check if the value has been set.
 func (o *AbstractUserTenantIdentityProvider) GetExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalId, true
+	return &o.ExternalId, true
 }
 
-// HasExternalId returns a boolean if a field has been set.
-func (o *AbstractUserTenantIdentityProvider) HasExternalId() bool {
-	if o != nil && !IsNil(o.ExternalId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+// SetExternalId sets field value
 func (o *AbstractUserTenantIdentityProvider) SetExternalId(v string) {
-	o.ExternalId = &v
+	o.ExternalId = v
 }
 
-// GetSecurityIntegrationId returns the SecurityIntegrationId field value if set, zero value otherwise.
+// GetSecurityIntegrationId returns the SecurityIntegrationId field value
 func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationId() string {
-	if o == nil || IsNil(o.SecurityIntegrationId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SecurityIntegrationId
+
+	return o.SecurityIntegrationId
 }
 
-// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value if set, nil otherwise
+// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value
 // and a boolean to check if the value has been set.
 func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SecurityIntegrationId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SecurityIntegrationId, true
+	return &o.SecurityIntegrationId, true
 }
 
-// HasSecurityIntegrationId returns a boolean if a field has been set.
-func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationId() bool {
-	if o != nil && !IsNil(o.SecurityIntegrationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecurityIntegrationId gets a reference to the given string and assigns it to the SecurityIntegrationId field.
+// SetSecurityIntegrationId sets field value
 func (o *AbstractUserTenantIdentityProvider) SetSecurityIntegrationId(v string) {
-	o.SecurityIntegrationId = &v
+	o.SecurityIntegrationId = v
 }
 
-// GetSecurityIntegrationName returns the SecurityIntegrationName field value if set, zero value otherwise.
+// GetSecurityIntegrationName returns the SecurityIntegrationName field value
 func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationName() string {
-	if o == nil || IsNil(o.SecurityIntegrationName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SecurityIntegrationName
+
+	return o.SecurityIntegrationName
 }
 
-// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value if set, nil otherwise
+// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value
 // and a boolean to check if the value has been set.
 func (o *AbstractUserTenantIdentityProvider) GetSecurityIntegrationNameOk() (*string, bool) {
-	if o == nil || IsNil(o.SecurityIntegrationName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SecurityIntegrationName, true
+	return &o.SecurityIntegrationName, true
 }
 
-// HasSecurityIntegrationName returns a boolean if a field has been set.
-func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationName() bool {
-	if o != nil && !IsNil(o.SecurityIntegrationName) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecurityIntegrationName gets a reference to the given string and assigns it to the SecurityIntegrationName field.
+// SetSecurityIntegrationName sets field value
 func (o *AbstractUserTenantIdentityProvider) SetSecurityIntegrationName(v string) {
-	o.SecurityIntegrationName = &v
+	o.SecurityIntegrationName = v
 }
 
 // GetTenantId returns the TenantId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -224,22 +200,68 @@ func (o AbstractUserTenantIdentityProvider) MarshalJSON() ([]byte, error) {
 
 func (o AbstractUserTenantIdentityProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
-	}
-	if !IsNil(o.ExternalId) {
-		toSerialize["externalId"] = o.ExternalId
-	}
-	if !IsNil(o.SecurityIntegrationId) {
-		toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
-	}
-	if !IsNil(o.SecurityIntegrationName) {
-		toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
-	}
+	toSerialize["attributes"] = o.Attributes
+	toSerialize["externalId"] = o.ExternalId
+	toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
+	toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
 	if o.TenantId.IsSet() {
 		toSerialize["tenantId"] = o.TenantId.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AbstractUserTenantIdentityProvider) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"attributes",
+		"externalId",
+		"securityIntegrationId",
+		"securityIntegrationName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAbstractUserTenantIdentityProvider := _AbstractUserTenantIdentityProvider{}
+
+	err = json.Unmarshal(data, &varAbstractUserTenantIdentityProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractUserTenantIdentityProvider(varAbstractUserTenantIdentityProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "securityIntegrationId")
+		delete(additionalProperties, "securityIntegrationName")
+		delete(additionalProperties, "tenantId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAbstractUserTenantIdentityProvider struct {

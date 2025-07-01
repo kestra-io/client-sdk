@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,20 +20,20 @@ var _ MappedNullable = &ApiUser{}
 
 // ApiUser struct for ApiUser
 type ApiUser struct {
-	Type         UserType                             `json:"type"`
-	GroupList    []AbstractUserGroupIdentifier        `json:"groupList,omitempty"`
-	Groups       []map[string]interface{}             `json:"groups,omitempty"`
-	Username     string                               `json:"username"`
-	Email        string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&â€™*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
-	SuperAdmin   *bool                                `json:"superAdmin,omitempty"`
-	Id           *string                              `json:"id,omitempty"`
-	Name         *string                              `json:"name,omitempty"`
-	Description  *string                              `json:"description,omitempty"`
-	FirstName    *string                              `json:"firstName,omitempty"`
-	LastName     *string                              `json:"lastName,omitempty"`
-	Providers    []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
-	IsSuperAdmin *bool                                `json:"isSuperAdmin,omitempty"`
-	Auths        []ApiAuth                            `json:"auths,omitempty"`
+	Type                 UserType                             `json:"type"`
+	GroupList            []GroupIdentifier                    `json:"groupList,omitempty"`
+	Groups               []map[string]interface{}             `json:"groups,omitempty"`
+	Username             string                               `json:"username"`
+	Email                string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	SuperAdmin           *bool                                `json:"superAdmin,omitempty"`
+	Id                   *string                              `json:"id,omitempty"`
+	Name                 *string                              `json:"name,omitempty"`
+	Description          *string                              `json:"description,omitempty"`
+	FirstName            *string                              `json:"firstName,omitempty"`
+	LastName             *string                              `json:"lastName,omitempty"`
+	Providers            []AbstractUserTenantIdentityProvider `json:"providers,omitempty"`
+	Auths                []ApiAuth                            `json:"auths,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ApiUser ApiUser
@@ -84,9 +83,9 @@ func (o *ApiUser) SetType(v UserType) {
 }
 
 // GetGroupList returns the GroupList field value if set, zero value otherwise.
-func (o *ApiUser) GetGroupList() []AbstractUserGroupIdentifier {
+func (o *ApiUser) GetGroupList() []GroupIdentifier {
 	if o == nil || IsNil(o.GroupList) {
-		var ret []AbstractUserGroupIdentifier
+		var ret []GroupIdentifier
 		return ret
 	}
 	return o.GroupList
@@ -94,7 +93,7 @@ func (o *ApiUser) GetGroupList() []AbstractUserGroupIdentifier {
 
 // GetGroupListOk returns a tuple with the GroupList field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiUser) GetGroupListOk() ([]AbstractUserGroupIdentifier, bool) {
+func (o *ApiUser) GetGroupListOk() ([]GroupIdentifier, bool) {
 	if o == nil || IsNil(o.GroupList) {
 		return nil, false
 	}
@@ -110,8 +109,8 @@ func (o *ApiUser) HasGroupList() bool {
 	return false
 }
 
-// SetGroupList gets a reference to the given []AbstractUserGroupIdentifier and assigns it to the GroupList field.
-func (o *ApiUser) SetGroupList(v []AbstractUserGroupIdentifier) {
+// SetGroupList gets a reference to the given []GroupIdentifier and assigns it to the GroupList field.
+func (o *ApiUser) SetGroupList(v []GroupIdentifier) {
 	o.GroupList = v
 }
 
@@ -419,38 +418,6 @@ func (o *ApiUser) SetProviders(v []AbstractUserTenantIdentityProvider) {
 	o.Providers = v
 }
 
-// GetIsSuperAdmin returns the IsSuperAdmin field value if set, zero value otherwise.
-func (o *ApiUser) GetIsSuperAdmin() bool {
-	if o == nil || IsNil(o.IsSuperAdmin) {
-		var ret bool
-		return ret
-	}
-	return *o.IsSuperAdmin
-}
-
-// GetIsSuperAdminOk returns a tuple with the IsSuperAdmin field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiUser) GetIsSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsSuperAdmin) {
-		return nil, false
-	}
-	return o.IsSuperAdmin, true
-}
-
-// HasIsSuperAdmin returns a boolean if a field has been set.
-func (o *ApiUser) HasIsSuperAdmin() bool {
-	if o != nil && !IsNil(o.IsSuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsSuperAdmin gets a reference to the given bool and assigns it to the IsSuperAdmin field.
-func (o *ApiUser) SetIsSuperAdmin(v bool) {
-	o.IsSuperAdmin = &v
-}
-
 // GetAuths returns the Auths field value if set, zero value otherwise.
 func (o *ApiUser) GetAuths() []ApiAuth {
 	if o == nil || IsNil(o.Auths) {
@@ -523,12 +490,14 @@ func (o ApiUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Providers) {
 		toSerialize["providers"] = o.Providers
 	}
-	if !IsNil(o.IsSuperAdmin) {
-		toSerialize["isSuperAdmin"] = o.IsSuperAdmin
-	}
 	if !IsNil(o.Auths) {
 		toSerialize["auths"] = o.Auths
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -558,15 +527,32 @@ func (o *ApiUser) UnmarshalJSON(data []byte) (err error) {
 
 	varApiUser := _ApiUser{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varApiUser)
+	err = json.Unmarshal(data, &varApiUser)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ApiUser(varApiUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "groupList")
+		delete(additionalProperties, "groups")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "superAdmin")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "providers")
+		delete(additionalProperties, "auths")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

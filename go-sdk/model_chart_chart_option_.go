@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,9 +20,10 @@ var _ MappedNullable = &ChartChartOption{}
 
 // ChartChartOption struct for ChartChartOption
 type ChartChartOption struct {
-	Id           string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type         string                 `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
-	ChartOptions map[string]interface{} `json:"chartOptions,omitempty"`
+	Id                   string      `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type                 string      `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	ChartOptions         interface{} `json:"chartOptions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ChartChartOption ChartChartOption
@@ -95,10 +95,10 @@ func (o *ChartChartOption) SetType(v string) {
 	o.Type = v
 }
 
-// GetChartOptions returns the ChartOptions field value if set, zero value otherwise.
-func (o *ChartChartOption) GetChartOptions() map[string]interface{} {
-	if o == nil || IsNil(o.ChartOptions) {
-		var ret map[string]interface{}
+// GetChartOptions returns the ChartOptions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ChartChartOption) GetChartOptions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ChartOptions
@@ -106,11 +106,12 @@ func (o *ChartChartOption) GetChartOptions() map[string]interface{} {
 
 // GetChartOptionsOk returns a tuple with the ChartOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChartChartOption) GetChartOptionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ChartChartOption) GetChartOptionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ChartOptions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ChartOptions, true
+	return &o.ChartOptions, true
 }
 
 // HasChartOptions returns a boolean if a field has been set.
@@ -122,8 +123,8 @@ func (o *ChartChartOption) HasChartOptions() bool {
 	return false
 }
 
-// SetChartOptions gets a reference to the given map[string]interface{} and assigns it to the ChartOptions field.
-func (o *ChartChartOption) SetChartOptions(v map[string]interface{}) {
+// SetChartOptions gets a reference to the given interface{} and assigns it to the ChartOptions field.
+func (o *ChartChartOption) SetChartOptions(v interface{}) {
 	o.ChartOptions = v
 }
 
@@ -139,9 +140,14 @@ func (o ChartChartOption) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
-	if !IsNil(o.ChartOptions) {
+	if o.ChartOptions != nil {
 		toSerialize["chartOptions"] = o.ChartOptions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -170,15 +176,22 @@ func (o *ChartChartOption) UnmarshalJSON(data []byte) (err error) {
 
 	varChartChartOption := _ChartChartOption{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varChartChartOption)
+	err = json.Unmarshal(data, &varChartChartOption)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ChartChartOption(varChartChartOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "chartOptions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

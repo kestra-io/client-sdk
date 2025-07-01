@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -38,6 +37,7 @@ type Assertion struct {
 	NotIn                *string `json:"notIn,omitempty"`
 	IsNull               *string `json:"isNull,omitempty"`
 	IsNotNull            *string `json:"isNotNull,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Assertion Assertion
@@ -655,6 +655,11 @@ func (o Assertion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsNotNull) {
 		toSerialize["isNotNull"] = o.IsNotNull
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -682,15 +687,36 @@ func (o *Assertion) UnmarshalJSON(data []byte) (err error) {
 
 	varAssertion := _Assertion{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAssertion)
+	err = json.Unmarshal(data, &varAssertion)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Assertion(varAssertion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "taskId")
+		delete(additionalProperties, "errorMessage")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "endsWith")
+		delete(additionalProperties, "startsWith")
+		delete(additionalProperties, "contains")
+		delete(additionalProperties, "equalTo")
+		delete(additionalProperties, "notEqualTo")
+		delete(additionalProperties, "greaterThan")
+		delete(additionalProperties, "greaterThanOrEqualTo")
+		delete(additionalProperties, "lessThan")
+		delete(additionalProperties, "lessThanOrEqualTo")
+		delete(additionalProperties, "in")
+		delete(additionalProperties, "notIn")
+		delete(additionalProperties, "isNull")
+		delete(additionalProperties, "isNotNull")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

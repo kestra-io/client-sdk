@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,11 +20,12 @@ var _ MappedNullable = &DailyExecutionStatisticsDuration{}
 
 // DailyExecutionStatisticsDuration struct for DailyExecutionStatisticsDuration
 type DailyExecutionStatisticsDuration struct {
-	Min   string `json:"min"`
-	Avg   string `json:"avg"`
-	Max   string `json:"max"`
-	Sum   string `json:"sum"`
-	Count int64  `json:"count"`
+	Min                  string `json:"min"`
+	Avg                  string `json:"avg"`
+	Max                  string `json:"max"`
+	Sum                  string `json:"sum"`
+	Count                int64  `json:"count"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DailyExecutionStatisticsDuration DailyExecutionStatisticsDuration
@@ -187,6 +187,11 @@ func (o DailyExecutionStatisticsDuration) ToMap() (map[string]interface{}, error
 	toSerialize["max"] = o.Max
 	toSerialize["sum"] = o.Sum
 	toSerialize["count"] = o.Count
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -218,15 +223,24 @@ func (o *DailyExecutionStatisticsDuration) UnmarshalJSON(data []byte) (err error
 
 	varDailyExecutionStatisticsDuration := _DailyExecutionStatisticsDuration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDailyExecutionStatisticsDuration)
+	err = json.Unmarshal(data, &varDailyExecutionStatisticsDuration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DailyExecutionStatisticsDuration(varDailyExecutionStatisticsDuration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "min")
+		delete(additionalProperties, "avg")
+		delete(additionalProperties, "max")
+		delete(additionalProperties, "sum")
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

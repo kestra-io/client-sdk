@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**IncludedTasks** | Pointer to **[]string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**PublishedAt** | Pointer to **time.Time** |  | [optional] 
+**Id** | **string** |  | 
+**Title** | **string** |  | 
+**Description** | **string** |  | 
+**IncludedTasks** | **[]string** |  | 
+**Tags** | **[]string** |  | 
+**PublishedAt** | **time.Time** |  | 
 **Source** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to [**BlueprintControllerKind**](BlueprintControllerKind.md) |  | [optional] 
 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewBlueprintControllerApiBlueprintItemWithSource
 
-`func NewBlueprintControllerApiBlueprintItemWithSource() *BlueprintControllerApiBlueprintItemWithSource`
+`func NewBlueprintControllerApiBlueprintItemWithSource(id string, title string, description string, includedTasks []string, tags []string, publishedAt time.Time, ) *BlueprintControllerApiBlueprintItemWithSource`
 
 NewBlueprintControllerApiBlueprintItemWithSource instantiates a new BlueprintControllerApiBlueprintItemWithSource object
 This constructor will assign default values to properties that have it defined,
@@ -51,11 +51,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -76,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
-### HasTitle
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasTitle() bool`
-
-HasTitle returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -101,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetIncludedTasks
 
@@ -126,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetIncludedTasks sets IncludedTasks field to given value.
 
-### HasIncludedTasks
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasIncludedTasks() bool`
-
-HasIncludedTasks returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -151,11 +131,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetPublishedAt
 
@@ -176,11 +151,6 @@ and a boolean to check if the value has been set.
 
 SetPublishedAt sets PublishedAt field to given value.
 
-### HasPublishedAt
-
-`func (o *BlueprintControllerApiBlueprintItemWithSource) HasPublishedAt() bool`
-
-HasPublishedAt returns a boolean if a field has been set.
 
 ### GetSource
 

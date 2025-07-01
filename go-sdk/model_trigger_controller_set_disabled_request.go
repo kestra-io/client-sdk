@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the TriggerControllerSetDisabledRequest type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &TriggerControllerSetDisabledRequest{}
 
 // TriggerControllerSetDisabledRequest struct for TriggerControllerSetDisabledRequest
 type TriggerControllerSetDisabledRequest struct {
-	Triggers []Trigger `json:"triggers,omitempty"`
-	Disabled *bool     `json:"disabled,omitempty"`
+	Triggers             []Trigger `json:"triggers"`
+	Disabled             bool      `json:"disabled"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TriggerControllerSetDisabledRequest TriggerControllerSetDisabledRequest
 
 // NewTriggerControllerSetDisabledRequest instantiates a new TriggerControllerSetDisabledRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTriggerControllerSetDisabledRequest() *TriggerControllerSetDisabledRequest {
+func NewTriggerControllerSetDisabledRequest(triggers []Trigger, disabled bool) *TriggerControllerSetDisabledRequest {
 	this := TriggerControllerSetDisabledRequest{}
+	this.Triggers = triggers
+	this.Disabled = disabled
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewTriggerControllerSetDisabledRequestWithDefaults() *TriggerControllerSetD
 	return &this
 }
 
-// GetTriggers returns the Triggers field value if set, zero value otherwise.
+// GetTriggers returns the Triggers field value
 func (o *TriggerControllerSetDisabledRequest) GetTriggers() []Trigger {
-	if o == nil || IsNil(o.Triggers) {
+	if o == nil {
 		var ret []Trigger
 		return ret
 	}
+
 	return o.Triggers
 }
 
-// GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
+// GetTriggersOk returns a tuple with the Triggers field value
 // and a boolean to check if the value has been set.
 func (o *TriggerControllerSetDisabledRequest) GetTriggersOk() ([]Trigger, bool) {
-	if o == nil || IsNil(o.Triggers) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Triggers, true
 }
 
-// HasTriggers returns a boolean if a field has been set.
-func (o *TriggerControllerSetDisabledRequest) HasTriggers() bool {
-	if o != nil && !IsNil(o.Triggers) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggers gets a reference to the given []Trigger and assigns it to the Triggers field.
+// SetTriggers sets field value
 func (o *TriggerControllerSetDisabledRequest) SetTriggers(v []Trigger) {
 	o.Triggers = v
 }
 
-// GetDisabled returns the Disabled field value if set, zero value otherwise.
+// GetDisabled returns the Disabled field value
 func (o *TriggerControllerSetDisabledRequest) GetDisabled() bool {
-	if o == nil || IsNil(o.Disabled) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Disabled
+
+	return o.Disabled
 }
 
-// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// GetDisabledOk returns a tuple with the Disabled field value
 // and a boolean to check if the value has been set.
 func (o *TriggerControllerSetDisabledRequest) GetDisabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.Disabled) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Disabled, true
+	return &o.Disabled, true
 }
 
-// HasDisabled returns a boolean if a field has been set.
-func (o *TriggerControllerSetDisabledRequest) HasDisabled() bool {
-	if o != nil && !IsNil(o.Disabled) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+// SetDisabled sets field value
 func (o *TriggerControllerSetDisabledRequest) SetDisabled(v bool) {
-	o.Disabled = &v
+	o.Disabled = v
 }
 
 func (o TriggerControllerSetDisabledRequest) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o TriggerControllerSetDisabledRequest) MarshalJSON() ([]byte, error) {
 
 func (o TriggerControllerSetDisabledRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Triggers) {
-		toSerialize["triggers"] = o.Triggers
+	toSerialize["triggers"] = o.Triggers
+	toSerialize["disabled"] = o.Disabled
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Disabled) {
-		toSerialize["disabled"] = o.Disabled
-	}
+
 	return toSerialize, nil
+}
+
+func (o *TriggerControllerSetDisabledRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"triggers",
+		"disabled",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTriggerControllerSetDisabledRequest := _TriggerControllerSetDisabledRequest{}
+
+	err = json.Unmarshal(data, &varTriggerControllerSetDisabledRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TriggerControllerSetDisabledRequest(varTriggerControllerSetDisabledRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "triggers")
+		delete(additionalProperties, "disabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTriggerControllerSetDisabledRequest struct {

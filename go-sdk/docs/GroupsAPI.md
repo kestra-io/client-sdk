@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddUserToGroup**](GroupsAPI.md#AddUserToGroup) | **Put** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a group for a user
-[**AddUserToGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#AddUserToGroupWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Add a group for a user
-[**AddUserToGroupasSuperAdmin**](GroupsAPI.md#AddUserToGroupasSuperAdmin) | **Put** /api/v1/tenants/groups/{id}/members/{userId} | Add a group for a user
+[**AddUserToGroup**](GroupsAPI.md#AddUserToGroup) | **Put** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group
+[**AddUserToGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#AddUserToGroupWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Add a user to a group
+[**AddUserToGroupasSuperAdmin**](GroupsAPI.md#AddUserToGroupasSuperAdmin) | **Put** /api/v1/tenants/groups/{id}/members/{userId} | Add a user to a group
 [**AutocompleteGroups**](GroupsAPI.md#AutocompleteGroups) | **Post** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete
 [**AutocompleteGroupsWithResourceTenantasSuperAdmin**](GroupsAPI.md#AutocompleteGroupsWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/groups/autocomplete | List groups for autocomplete
 [**AutocompleteGroupsasSuperAdmin**](GroupsAPI.md#AutocompleteGroupsasSuperAdmin) | **Post** /api/v1/tenants/groups/autocomplete | List groups for autocomplete
@@ -16,12 +16,12 @@ Method | HTTP request | Description
 [**DeleteGroup**](GroupsAPI.md#DeleteGroup) | **Delete** /api/v1/{tenant}/groups/{id} | Delete a group
 [**DeleteGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#DeleteGroupWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/groups/{id} | Delete a group
 [**DeleteGroupasSuperAdmin**](GroupsAPI.md#DeleteGroupasSuperAdmin) | **Delete** /api/v1/tenants/groups/{id} | Delete a group
-[**DeleteUserFromGroup**](GroupsAPI.md#DeleteUserFromGroup) | **Delete** /api/v1/{tenant}/groups/{id}/members/{userId} | Delete a group for a user
-[**DeleteUserFromGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#DeleteUserFromGroupWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Delete a group for a user
-[**DeleteUserFromGroupasSuperAdmin**](GroupsAPI.md#DeleteUserFromGroupasSuperAdmin) | **Delete** /api/v1/tenants/groups/{id}/members/{userId} | Delete a group for a user
-[**GetGroup**](GroupsAPI.md#GetGroup) | **Get** /api/v1/{tenant}/groups/{id} | Get a group
-[**GetGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#GetGroupWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/groups/{id} | Get a group
-[**GetGroupasSuperAdmin**](GroupsAPI.md#GetGroupasSuperAdmin) | **Get** /api/v1/tenants/groups/{id} | Get a group
+[**DeleteUserFromGroup**](GroupsAPI.md#DeleteUserFromGroup) | **Delete** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
+[**DeleteUserFromGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#DeleteUserFromGroupWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Remove a user from a group
+[**DeleteUserFromGroupasSuperAdmin**](GroupsAPI.md#DeleteUserFromGroupasSuperAdmin) | **Delete** /api/v1/tenants/groups/{id}/members/{userId} | Remove a user from a group
+[**GetGroup**](GroupsAPI.md#GetGroup) | **Get** /api/v1/{tenant}/groups/{id} | Retrieve a group
+[**GetGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#GetGroupWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/groups/{id} | Retrieve a group
+[**GetGroupasSuperAdmin**](GroupsAPI.md#GetGroupasSuperAdmin) | **Get** /api/v1/tenants/groups/{id} | Retrieve a group
 [**ListGroupIds**](GroupsAPI.md#ListGroupIds) | **Post** /api/v1/{tenant}/groups/ids | List groups by ids
 [**ListGroupIdsWithResourceTenantasSuperAdmin**](GroupsAPI.md#ListGroupIdsWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/groups/ids | List groups by ids
 [**ListGroupIdsasSuperAdmin**](GroupsAPI.md#ListGroupIdsasSuperAdmin) | **Post** /api/v1/tenants/groups/ids | List groups by ids
@@ -31,9 +31,9 @@ Method | HTTP request | Description
 [**SearchGroups**](GroupsAPI.md#SearchGroups) | **Get** /api/v1/{tenant}/groups/search | Search for groups
 [**SearchGroupsWithResourceTenantasSuperAdmin**](GroupsAPI.md#SearchGroupsWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/groups/search | Search for groups
 [**SearchGroupsasSuperAdmin**](GroupsAPI.md#SearchGroupsasSuperAdmin) | **Get** /api/v1/tenants/groups/search | Search for groups
-[**SetUserMembershipForGroup**](GroupsAPI.md#SetUserMembershipForGroup) | **Put** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
-[**SetUserMembershipForGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#SetUserMembershipForGroupWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
-[**SetUserMembershipForGroupasSuperAdmin**](GroupsAPI.md#SetUserMembershipForGroupasSuperAdmin) | **Put** /api/v1/tenants/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
+[**SetUserMembershipForGroup**](GroupsAPI.md#SetUserMembershipForGroup) | **Put** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
+[**SetUserMembershipForGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#SetUserMembershipForGroupWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
+[**SetUserMembershipForGroupasSuperAdmin**](GroupsAPI.md#SetUserMembershipForGroupasSuperAdmin) | **Put** /api/v1/tenants/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
 [**UpdateGroup**](GroupsAPI.md#UpdateGroup) | **Put** /api/v1/{tenant}/groups/{id} | Update a group
 [**UpdateGroupWithResourceTenantasSuperAdmin**](GroupsAPI.md#UpdateGroupWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/groups/{id} | Update a group
 [**UpdateGroupasSuperAdmin**](GroupsAPI.md#UpdateGroupasSuperAdmin) | **Put** /api/v1/tenants/groups/{id} | Update a group
@@ -44,7 +44,9 @@ Method | HTTP request | Description
 
 > ApiUser AddUserToGroup(ctx, id, userId, tenant).Execute()
 
-Add a group for a user
+Add a user to a group
+
+
 
 ### Example
 
@@ -59,8 +61,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to add to the group
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -81,8 +83,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to add to the group | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -118,7 +120,9 @@ Name | Type | Description  | Notes
 
 > ApiUser AddUserToGroupWithResourceTenantasSuperAdmin(ctx, id, userId, resourceTenant).Execute()
 
-Add a group for a user
+Add a user to a group
+
+
 
 ### Example
 
@@ -133,8 +137,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to add to the group
 	resourceTenant := "resourceTenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -155,8 +159,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to add to the group | 
 **resourceTenant** | **string** |  | 
 
 ### Other Parameters
@@ -192,7 +196,9 @@ Name | Type | Description  | Notes
 
 > ApiUser AddUserToGroupasSuperAdmin(ctx, id, userId).Execute()
 
-Add a group for a user
+Add a user to a group
+
+
 
 ### Example
 
@@ -207,8 +213,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to add to the group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -228,8 +234,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to add to the group | 
 
 ### Other Parameters
 
@@ -465,7 +471,7 @@ Name | Type | Description  | Notes
 
 ## CreateGroup
 
-> Group CreateGroup(ctx, tenant).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+> Group CreateGroup(ctx, tenant).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 
 Create a group
 
@@ -483,11 +489,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	abstractGroupControllerGroupWithMembers := *openapiclient.NewAbstractGroupControllerGroupWithMembers("Name_example", false) // AbstractGroupControllerGroupWithMembers | The group
+	abstractGroupControllerApiCreateGroupRequest := *openapiclient.NewAbstractGroupControllerApiCreateGroupRequest("Name_example", "Description_example", []string{"MembersId_example"}) // AbstractGroupControllerApiCreateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.CreateGroup(context.Background(), tenant).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+	resp, r, err := apiClient.GroupsAPI.CreateGroup(context.Background(), tenant).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.CreateGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -513,7 +519,7 @@ Other parameters are passed through a pointer to a apiCreateGroupRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md) | The group | 
+ **abstractGroupControllerApiCreateGroupRequest** | [**AbstractGroupControllerApiCreateGroupRequest**](AbstractGroupControllerApiCreateGroupRequest.md) | The group | 
 
 ### Return type
 
@@ -535,7 +541,7 @@ Name | Type | Description  | Notes
 
 ## CreateGroupWithResourceTenantasSuperAdmin
 
-> Group CreateGroupWithResourceTenantasSuperAdmin(ctx, resourceTenant).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+> Group CreateGroupWithResourceTenantasSuperAdmin(ctx, resourceTenant).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 
 Create a group
 
@@ -553,11 +559,11 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	abstractGroupControllerGroupWithMembers := *openapiclient.NewAbstractGroupControllerGroupWithMembers("Name_example", false) // AbstractGroupControllerGroupWithMembers | The group
+	abstractGroupControllerApiCreateGroupRequest := *openapiclient.NewAbstractGroupControllerApiCreateGroupRequest("Name_example", "Description_example", []string{"MembersId_example"}) // AbstractGroupControllerApiCreateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.CreateGroupWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+	resp, r, err := apiClient.GroupsAPI.CreateGroupWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.CreateGroupWithResourceTenantasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -583,7 +589,7 @@ Other parameters are passed through a pointer to a apiCreateGroupWithResourceTen
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md) | The group | 
+ **abstractGroupControllerApiCreateGroupRequest** | [**AbstractGroupControllerApiCreateGroupRequest**](AbstractGroupControllerApiCreateGroupRequest.md) | The group | 
 
 ### Return type
 
@@ -605,7 +611,7 @@ Name | Type | Description  | Notes
 
 ## CreateGroupasSuperAdmin
 
-> Group CreateGroupasSuperAdmin(ctx).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+> Group CreateGroupasSuperAdmin(ctx).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 
 Create a group
 
@@ -622,11 +628,11 @@ import (
 )
 
 func main() {
-	abstractGroupControllerGroupWithMembers := *openapiclient.NewAbstractGroupControllerGroupWithMembers("Name_example", false) // AbstractGroupControllerGroupWithMembers | The group
+	abstractGroupControllerApiCreateGroupRequest := *openapiclient.NewAbstractGroupControllerApiCreateGroupRequest("Name_example", "Description_example", []string{"MembersId_example"}) // AbstractGroupControllerApiCreateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.CreateGroupasSuperAdmin(context.Background()).AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers).Execute()
+	resp, r, err := apiClient.GroupsAPI.CreateGroupasSuperAdmin(context.Background()).AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.CreateGroupasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -647,7 +653,7 @@ Other parameters are passed through a pointer to a apiCreateGroupasSuperAdminReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md) | The group | 
+ **abstractGroupControllerApiCreateGroupRequest** | [**AbstractGroupControllerApiCreateGroupRequest**](AbstractGroupControllerApiCreateGroupRequest.md) | The group | 
 
 ### Return type
 
@@ -875,7 +881,9 @@ Name | Type | Description  | Notes
 
 > ApiUser DeleteUserFromGroup(ctx, id, userId, tenant).Execute()
 
-Delete a group for a user
+Remove a user from a group
+
+
 
 ### Example
 
@@ -890,8 +898,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to remove from the group
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -912,8 +920,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to remove from the group | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -949,7 +957,9 @@ Name | Type | Description  | Notes
 
 > ApiUser DeleteUserFromGroupWithResourceTenantasSuperAdmin(ctx, id, userId, resourceTenant).Execute()
 
-Delete a group for a user
+Remove a user from a group
+
+
 
 ### Example
 
@@ -964,8 +974,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to remove from the group
 	resourceTenant := "resourceTenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -986,8 +996,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to remove from the group | 
 **resourceTenant** | **string** |  | 
 
 ### Other Parameters
@@ -1023,7 +1033,9 @@ Name | Type | Description  | Notes
 
 > ApiUser DeleteUserFromGroupasSuperAdmin(ctx, id, userId).Execute()
 
-Delete a group for a user
+Remove a user from a group
+
+
 
 ### Example
 
@@ -1038,8 +1050,8 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user to remove from the group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1059,8 +1071,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user to remove from the group | 
 
 ### Other Parameters
 
@@ -1094,7 +1106,9 @@ Name | Type | Description  | Notes
 
 > Group GetGroup(ctx, id, tenant).Execute()
 
-Get a group
+Retrieve a group
+
+
 
 ### Example
 
@@ -1165,7 +1179,9 @@ Name | Type | Description  | Notes
 
 > Group GetGroupWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
 
-Get a group
+Retrieve a group
+
+
 
 ### Example
 
@@ -1236,7 +1252,9 @@ Name | Type | Description  | Notes
 
 > Group GetGroupasSuperAdmin(ctx, id).Execute()
 
-Get a group
+Retrieve a group
+
+
 
 ### Example
 
@@ -1320,7 +1338,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1390,7 +1408,7 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1459,7 +1477,7 @@ import (
 )
 
 func main() {
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1964,7 +1982,7 @@ Name | Type | Description  | Notes
 
 > ApiUser SetUserMembershipForGroup(ctx, id, userId, tenant).Membership(membership).Execute()
 
-Set the membership type of a user in a group
+Update a user's membership type in a group
 
 
 
@@ -1981,9 +1999,9 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
-	membership := openapiclient.AbstractUser.GroupIdentifier.Membership("OWNER") // AbstractUserGroupIdentifierMembership | The membership type
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user whose membership is being updated
+	membership := openapiclient.GroupIdentifier.Membership("OWNER") // GroupIdentifierMembership | The new membership type to assign to the user.
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -2004,8 +2022,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user whose membership is being updated | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2017,7 +2035,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **membership** | [**AbstractUserGroupIdentifierMembership**](AbstractUserGroupIdentifierMembership.md) | The membership type | 
+ **membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) | The new membership type to assign to the user. | 
 
 
 ### Return type
@@ -2042,7 +2060,7 @@ Name | Type | Description  | Notes
 
 > ApiUser SetUserMembershipForGroupWithResourceTenantasSuperAdmin(ctx, id, userId, resourceTenant).Membership(membership).Execute()
 
-Set the membership type of a user in a group
+Update a user's membership type in a group
 
 
 
@@ -2059,9 +2077,9 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
-	membership := openapiclient.AbstractUser.GroupIdentifier.Membership("OWNER") // AbstractUserGroupIdentifierMembership | The membership type
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user whose membership is being updated
+	membership := openapiclient.GroupIdentifier.Membership("OWNER") // GroupIdentifierMembership | The new membership type to assign to the user.
 	resourceTenant := "resourceTenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -2082,8 +2100,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user whose membership is being updated | 
 **resourceTenant** | **string** |  | 
 
 ### Other Parameters
@@ -2095,7 +2113,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **membership** | [**AbstractUserGroupIdentifierMembership**](AbstractUserGroupIdentifierMembership.md) | The membership type | 
+ **membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) | The new membership type to assign to the user. | 
 
 
 ### Return type
@@ -2120,7 +2138,7 @@ Name | Type | Description  | Notes
 
 > ApiUser SetUserMembershipForGroupasSuperAdmin(ctx, id, userId).Membership(membership).Execute()
 
-Set the membership type of a user in a group
+Update a user's membership type in a group
 
 
 
@@ -2137,9 +2155,9 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The group id
-	userId := "userId_example" // string | The user id
-	membership := openapiclient.AbstractUser.GroupIdentifier.Membership("OWNER") // AbstractUserGroupIdentifierMembership | The membership type
+	id := "id_example" // string | The ID of the group
+	userId := "userId_example" // string | The ID of the user whose membership is being updated
+	membership := openapiclient.GroupIdentifier.Membership("OWNER") // GroupIdentifierMembership | The new membership type to assign to the user.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2159,8 +2177,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The group id | 
-**userId** | **string** | The user id | 
+**id** | **string** | The ID of the group | 
+**userId** | **string** | The ID of the user whose membership is being updated | 
 
 ### Other Parameters
 
@@ -2171,7 +2189,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **membership** | [**AbstractUserGroupIdentifierMembership**](AbstractUserGroupIdentifierMembership.md) | The membership type | 
+ **membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) | The new membership type to assign to the user. | 
 
 ### Return type
 
@@ -2193,7 +2211,7 @@ Name | Type | Description  | Notes
 
 ## UpdateGroup
 
-> Group UpdateGroup(ctx, id, tenant).Group(group).Execute()
+> Group UpdateGroup(ctx, id, tenant).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 
 Update a group
 
@@ -2212,11 +2230,11 @@ import (
 func main() {
 	id := "id_example" // string | The group id
 	tenant := "tenant_example" // string | 
-	group := *openapiclient.NewGroup("Name_example", false) // Group | The group
+	abstractGroupControllerApiUpdateGroupRequest := *openapiclient.NewAbstractGroupControllerApiUpdateGroupRequest("Name_example", "Description_example") // AbstractGroupControllerApiUpdateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.UpdateGroup(context.Background(), id, tenant).Group(group).Execute()
+	resp, r, err := apiClient.GroupsAPI.UpdateGroup(context.Background(), id, tenant).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.UpdateGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2244,7 +2262,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **group** | [**Group**](Group.md) | The group | 
+ **abstractGroupControllerApiUpdateGroupRequest** | [**AbstractGroupControllerApiUpdateGroupRequest**](AbstractGroupControllerApiUpdateGroupRequest.md) | The group | 
 
 ### Return type
 
@@ -2266,7 +2284,7 @@ Name | Type | Description  | Notes
 
 ## UpdateGroupWithResourceTenantasSuperAdmin
 
-> Group UpdateGroupWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Group(group).Execute()
+> Group UpdateGroupWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 
 Update a group
 
@@ -2285,11 +2303,11 @@ import (
 func main() {
 	id := "id_example" // string | The group id
 	resourceTenant := "resourceTenant_example" // string | 
-	group := *openapiclient.NewGroup("Name_example", false) // Group | The group
+	abstractGroupControllerApiUpdateGroupRequest := *openapiclient.NewAbstractGroupControllerApiUpdateGroupRequest("Name_example", "Description_example") // AbstractGroupControllerApiUpdateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.UpdateGroupWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).Group(group).Execute()
+	resp, r, err := apiClient.GroupsAPI.UpdateGroupWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.UpdateGroupWithResourceTenantasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2317,7 +2335,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **group** | [**Group**](Group.md) | The group | 
+ **abstractGroupControllerApiUpdateGroupRequest** | [**AbstractGroupControllerApiUpdateGroupRequest**](AbstractGroupControllerApiUpdateGroupRequest.md) | The group | 
 
 ### Return type
 
@@ -2339,7 +2357,7 @@ Name | Type | Description  | Notes
 
 ## UpdateGroupasSuperAdmin
 
-> Group UpdateGroupasSuperAdmin(ctx, id).Group(group).Execute()
+> Group UpdateGroupasSuperAdmin(ctx, id).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 
 Update a group
 
@@ -2357,11 +2375,11 @@ import (
 
 func main() {
 	id := "id_example" // string | The group id
-	group := *openapiclient.NewGroup("Name_example", false) // Group | The group
+	abstractGroupControllerApiUpdateGroupRequest := *openapiclient.NewAbstractGroupControllerApiUpdateGroupRequest("Name_example", "Description_example") // AbstractGroupControllerApiUpdateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupsAPI.UpdateGroupasSuperAdmin(context.Background(), id).Group(group).Execute()
+	resp, r, err := apiClient.GroupsAPI.UpdateGroupasSuperAdmin(context.Background(), id).AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupsAPI.UpdateGroupasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2387,7 +2405,7 @@ Other parameters are passed through a pointer to a apiUpdateGroupasSuperAdminReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **group** | [**Group**](Group.md) | The group | 
+ **abstractGroupControllerApiUpdateGroupRequest** | [**AbstractGroupControllerApiUpdateGroupRequest**](AbstractGroupControllerApiUpdateGroupRequest.md) | The group | 
 
 ### Return type
 

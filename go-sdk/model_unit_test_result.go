@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,14 +20,15 @@ var _ MappedNullable = &UnitTestResult{}
 
 // UnitTestResult struct for UnitTestResult
 type UnitTestResult struct {
-	TestId           string              `json:"testId"`
-	TestType         string              `json:"testType"`
-	ExecutionId      string              `json:"executionId"`
-	Url              string              `json:"url"`
-	State            TestState           `json:"state"`
-	AssertionResults []AssertionResult   `json:"assertionResults"`
-	Errors           []AssertionRunError `json:"errors"`
-	Fixtures         *Fixtures           `json:"fixtures,omitempty"`
+	TestId               string              `json:"testId"`
+	TestType             string              `json:"testType"`
+	ExecutionId          string              `json:"executionId"`
+	Url                  string              `json:"url"`
+	State                TestState           `json:"state"`
+	AssertionResults     []AssertionResult   `json:"assertionResults"`
+	Errors               []AssertionRunError `json:"errors"`
+	Fixtures             Fixtures            `json:"fixtures"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UnitTestResult UnitTestResult
@@ -37,7 +37,7 @@ type _UnitTestResult UnitTestResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnitTestResult(testId string, testType string, executionId string, url string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError) *UnitTestResult {
+func NewUnitTestResult(testId string, testType string, executionId string, url string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError, fixtures Fixtures) *UnitTestResult {
 	this := UnitTestResult{}
 	this.TestId = testId
 	this.TestType = testType
@@ -46,6 +46,7 @@ func NewUnitTestResult(testId string, testType string, executionId string, url s
 	this.State = state
 	this.AssertionResults = assertionResults
 	this.Errors = errors
+	this.Fixtures = fixtures
 	return &this
 }
 
@@ -225,36 +226,28 @@ func (o *UnitTestResult) SetErrors(v []AssertionRunError) {
 	o.Errors = v
 }
 
-// GetFixtures returns the Fixtures field value if set, zero value otherwise.
+// GetFixtures returns the Fixtures field value
 func (o *UnitTestResult) GetFixtures() Fixtures {
-	if o == nil || IsNil(o.Fixtures) {
+	if o == nil {
 		var ret Fixtures
 		return ret
 	}
-	return *o.Fixtures
+
+	return o.Fixtures
 }
 
-// GetFixturesOk returns a tuple with the Fixtures field value if set, nil otherwise
+// GetFixturesOk returns a tuple with the Fixtures field value
 // and a boolean to check if the value has been set.
 func (o *UnitTestResult) GetFixturesOk() (*Fixtures, bool) {
-	if o == nil || IsNil(o.Fixtures) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Fixtures, true
+	return &o.Fixtures, true
 }
 
-// HasFixtures returns a boolean if a field has been set.
-func (o *UnitTestResult) HasFixtures() bool {
-	if o != nil && !IsNil(o.Fixtures) {
-		return true
-	}
-
-	return false
-}
-
-// SetFixtures gets a reference to the given Fixtures and assigns it to the Fixtures field.
+// SetFixtures sets field value
 func (o *UnitTestResult) SetFixtures(v Fixtures) {
-	o.Fixtures = &v
+	o.Fixtures = v
 }
 
 func (o UnitTestResult) MarshalJSON() ([]byte, error) {
@@ -274,9 +267,12 @@ func (o UnitTestResult) ToMap() (map[string]interface{}, error) {
 	toSerialize["state"] = o.State
 	toSerialize["assertionResults"] = o.AssertionResults
 	toSerialize["errors"] = o.Errors
-	if !IsNil(o.Fixtures) {
-		toSerialize["fixtures"] = o.Fixtures
+	toSerialize["fixtures"] = o.Fixtures
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
 }
 
@@ -292,6 +288,7 @@ func (o *UnitTestResult) UnmarshalJSON(data []byte) (err error) {
 		"state",
 		"assertionResults",
 		"errors",
+		"fixtures",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -310,15 +307,27 @@ func (o *UnitTestResult) UnmarshalJSON(data []byte) (err error) {
 
 	varUnitTestResult := _UnitTestResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUnitTestResult)
+	err = json.Unmarshal(data, &varUnitTestResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UnitTestResult(varUnitTestResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "testId")
+		delete(additionalProperties, "testType")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "assertionResults")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "fixtures")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

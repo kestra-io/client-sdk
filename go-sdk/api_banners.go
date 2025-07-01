@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -28,7 +28,7 @@ type ApiCreateBannerRequest struct {
 	banner     *Banner
 }
 
-// The banner to create
+// The announcement banner to create
 func (r ApiCreateBannerRequest) Banner(banner Banner) ApiCreateBannerRequest {
 	r.banner = &banner
 	return r
@@ -39,7 +39,9 @@ func (r ApiCreateBannerRequest) Execute() (*Banner, *http.Response, error) {
 }
 
 /*
-CreateBanner Create a new banner
+CreateBanner Create an announcement banner
+
+Superadmin-only. Creates a global announcement banner visible to all tenants.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateBannerRequest
@@ -143,7 +145,9 @@ func (r ApiDeleteBannerRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteBanner Delete a banner
+DeleteBanner Delete an announcement banner
+
+Superadmin-only. Deletes a global announcement banner by its ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The banner id
@@ -232,7 +236,9 @@ func (r ApiSearchBannersRequest) Execute() ([]Banner, *http.Response, error) {
 }
 
 /*
-SearchBanners Get banners
+SearchBanners Retrieve all announcement banners
+
+Superadmin-only. Returns all global announcement banners.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSearchBannersRequest
@@ -338,7 +344,9 @@ func (r ApiUpdateBannerRequest) Execute() (*Banner, *http.Response, error) {
 }
 
 /*
-UpdateBanner Update a banner
+UpdateBanner Update an announcement banner
+
+Superadmin-only. Updates a global announcement banner by its ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The banner id

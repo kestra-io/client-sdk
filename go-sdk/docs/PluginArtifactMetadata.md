@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uri** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Size** | Pointer to **int64** |  | [optional] 
-**LastModifiedTime** | Pointer to **int64** |  | [optional] 
-**CreationTime** | Pointer to **int64** |  | [optional] 
+**Uri** | **string** |  | 
+**Name** | **string** |  | 
+**Size** | **int64** |  | 
+**LastModifiedTime** | **int64** |  | 
+**CreationTime** | **int64** |  | 
 
 ## Methods
 
 ### NewPluginArtifactMetadata
 
-`func NewPluginArtifactMetadata() *PluginArtifactMetadata`
+`func NewPluginArtifactMetadata(uri string, name string, size int64, lastModifiedTime int64, creationTime int64, ) *PluginArtifactMetadata`
 
 NewPluginArtifactMetadata instantiates a new PluginArtifactMetadata object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetUri sets Uri field to given value.
 
-### HasUri
-
-`func (o *PluginArtifactMetadata) HasUri() bool`
-
-HasUri returns a boolean if a field has been set.
 
 ### GetName
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *PluginArtifactMetadata) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetSize
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetSize sets Size field to given value.
 
-### HasSize
-
-`func (o *PluginArtifactMetadata) HasSize() bool`
-
-HasSize returns a boolean if a field has been set.
 
 ### GetLastModifiedTime
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetLastModifiedTime sets LastModifiedTime field to given value.
 
-### HasLastModifiedTime
-
-`func (o *PluginArtifactMetadata) HasLastModifiedTime() bool`
-
-HasLastModifiedTime returns a boolean if a field has been set.
 
 ### GetCreationTime
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetCreationTime sets CreationTime field to given value.
 
-### HasCreationTime
-
-`func (o *PluginArtifactMetadata) HasCreationTime() bool`
-
-HasCreationTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

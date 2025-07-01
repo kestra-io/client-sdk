@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**User** | Pointer to [**ApiUser**](ApiUser.md) |  | [optional] 
-**Roles** | Pointer to [**[]AclServiceNamespaceRole**](AclServiceNamespaceRole.md) |  | [optional] 
-**Tenants** | Pointer to [**[]ApiTenant**](ApiTenant.md) |  | [optional] 
+**User** | [**ApiUser**](ApiUser.md) |  | 
+**Roles** | [**[]AclServiceNamespaceRole**](AclServiceNamespaceRole.md) |  | 
+**Tenants** | [**[]ApiTenant**](ApiTenant.md) |  | 
 
 ## Methods
 
 ### NewMeControllerMe
 
-`func NewMeControllerMe() *MeControllerMe`
+`func NewMeControllerMe(user ApiUser, roles []AclServiceNamespaceRole, tenants []ApiTenant, ) *MeControllerMe`
 
 NewMeControllerMe instantiates a new MeControllerMe object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetUser sets User field to given value.
 
-### HasUser
-
-`func (o *MeControllerMe) HasUser() bool`
-
-HasUser returns a boolean if a field has been set.
 
 ### GetRoles
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetRoles sets Roles field to given value.
 
-### HasRoles
-
-`func (o *MeControllerMe) HasRoles() bool`
-
-HasRoles returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
-### HasTenants
-
-`func (o *MeControllerMe) HasTenants() bool`
-
-HasTenants returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

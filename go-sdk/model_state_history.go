@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -22,8 +21,9 @@ var _ MappedNullable = &StateHistory{}
 
 // StateHistory struct for StateHistory
 type StateHistory struct {
-	State StateType `json:"state"`
-	Date  time.Time `json:"date"`
+	State                StateType `json:"state"`
+	Date                 time.Time `json:"date"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _StateHistory StateHistory
@@ -107,6 +107,11 @@ func (o StateHistory) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["state"] = o.State
 	toSerialize["date"] = o.Date
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *StateHistory) UnmarshalJSON(data []byte) (err error) {
 
 	varStateHistory := _StateHistory{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varStateHistory)
+	err = json.Unmarshal(data, &varStateHistory)
 
 	if err != nil {
 		return err
 	}
 
 	*o = StateHistory(varStateHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "date")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

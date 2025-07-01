@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutionControllerApiValidateExecutionInputsResponse type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,23 @@ var _ MappedNullable = &ExecutionControllerApiValidateExecutionInputsResponse{}
 
 // ExecutionControllerApiValidateExecutionInputsResponse struct for ExecutionControllerApiValidateExecutionInputsResponse
 type ExecutionControllerApiValidateExecutionInputsResponse struct {
-	Id        *string                                                                 `json:"id,omitempty"`
-	Namespace *string                                                                 `json:"namespace,omitempty"`
-	Inputs    []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue `json:"inputs,omitempty"`
+	Id                   string                                                                  `json:"id"`
+	Namespace            string                                                                  `json:"namespace"`
+	Inputs               []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue `json:"inputs"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ExecutionControllerApiValidateExecutionInputsResponse ExecutionControllerApiValidateExecutionInputsResponse
 
 // NewExecutionControllerApiValidateExecutionInputsResponse instantiates a new ExecutionControllerApiValidateExecutionInputsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerApiValidateExecutionInputsResponse() *ExecutionControllerApiValidateExecutionInputsResponse {
+func NewExecutionControllerApiValidateExecutionInputsResponse(id string, namespace string, inputs []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) *ExecutionControllerApiValidateExecutionInputsResponse {
 	this := ExecutionControllerApiValidateExecutionInputsResponse{}
+	this.Id = id
+	this.Namespace = namespace
+	this.Inputs = inputs
 	return &this
 }
 
@@ -41,98 +48,74 @@ func NewExecutionControllerApiValidateExecutionInputsResponseWithDefaults() *Exe
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
-// GetInputs returns the Inputs field value if set, zero value otherwise.
+// GetInputs returns the Inputs field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetInputs() []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
-	if o == nil || IsNil(o.Inputs) {
+	if o == nil {
 		var ret []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
 		return ret
 	}
+
 	return o.Inputs
 }
 
-// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) GetInputsOk() ([]ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue, bool) {
-	if o == nil || IsNil(o.Inputs) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Inputs, true
 }
 
-// HasInputs returns a boolean if a field has been set.
-func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasInputs() bool {
-	if o != nil && !IsNil(o.Inputs) {
-		return true
-	}
-
-	return false
-}
-
-// SetInputs gets a reference to the given []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue and assigns it to the Inputs field.
+// SetInputs sets field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponse) SetInputs(v []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) {
 	o.Inputs = v
 }
@@ -147,16 +130,61 @@ func (o ExecutionControllerApiValidateExecutionInputsResponse) MarshalJSON() ([]
 
 func (o ExecutionControllerApiValidateExecutionInputsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize["id"] = o.Id
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["inputs"] = o.Inputs
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.Inputs) {
-		toSerialize["inputs"] = o.Inputs
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ExecutionControllerApiValidateExecutionInputsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"namespace",
+		"inputs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExecutionControllerApiValidateExecutionInputsResponse := _ExecutionControllerApiValidateExecutionInputsResponse{}
+
+	err = json.Unmarshal(data, &varExecutionControllerApiValidateExecutionInputsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutionControllerApiValidateExecutionInputsResponse(varExecutionControllerApiValidateExecutionInputsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "inputs")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableExecutionControllerApiValidateExecutionInputsResponse struct {

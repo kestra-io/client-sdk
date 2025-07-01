@@ -10,8 +10,9 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**FlowForExecutionAllOfLabels**](FlowForExecutionAllOfLabels.md) |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Labels** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
+**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
 **Tasks** | [**[]TaskForExecution**](TaskForExecution.md) |  | 
 **Errors** | Pointer to [**[]TaskForExecution**](TaskForExecution.md) |  | [optional] 
@@ -175,20 +176,20 @@ SetDisabled sets Disabled field to given value.
 
 ### GetLabels
 
-`func (o *FlowForExecution) GetLabels() FlowForExecutionAllOfLabels`
+`func (o *FlowForExecution) GetLabels() map[string]interface{}`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *FlowForExecution) GetLabelsOk() (*FlowForExecutionAllOfLabels, bool)`
+`func (o *FlowForExecution) GetLabelsOk() (*map[string]interface{}, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *FlowForExecution) SetLabels(v FlowForExecutionAllOfLabels)`
+`func (o *FlowForExecution) SetLabels(v map[string]interface{})`
 
 SetLabels sets Labels field to given value.
 
@@ -200,20 +201,20 @@ HasLabels returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *FlowForExecution) GetVariables() map[string]map[string]interface{}`
+`func (o *FlowForExecution) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *FlowForExecution) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *FlowForExecution) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *FlowForExecution) SetVariables(v map[string]map[string]interface{})`
+`func (o *FlowForExecution) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
@@ -222,6 +223,31 @@ SetVariables sets Variables field to given value.
 `func (o *FlowForExecution) HasVariables() bool`
 
 HasVariables returns a boolean if a field has been set.
+
+### GetWorkerGroup
+
+`func (o *FlowForExecution) GetWorkerGroup() WorkerGroup`
+
+GetWorkerGroup returns the WorkerGroup field if non-nil, zero value otherwise.
+
+### GetWorkerGroupOk
+
+`func (o *FlowForExecution) GetWorkerGroupOk() (*WorkerGroup, bool)`
+
+GetWorkerGroupOk returns a tuple with the WorkerGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkerGroup
+
+`func (o *FlowForExecution) SetWorkerGroup(v WorkerGroup)`
+
+SetWorkerGroup sets WorkerGroup field to given value.
+
+### HasWorkerGroup
+
+`func (o *FlowForExecution) HasWorkerGroup() bool`
+
+HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetDeleted
 

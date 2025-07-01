@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -35,7 +35,11 @@ type MiscControllerConfiguration struct {
 	SystemNamespace           *string                    `json:"systemNamespace,omitempty"`
 	HiddenLabelsPrefixes      []string                   `json:"hiddenLabelsPrefixes,omitempty"`
 	ResourceToFilters         []QueryFilterResourceField `json:"resourceToFilters,omitempty"`
+	IsAiEnabled               *bool                      `json:"isAiEnabled,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
+
+type _MiscControllerConfiguration MiscControllerConfiguration
 
 // NewMiscControllerConfiguration instantiates a new MiscControllerConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -534,6 +538,38 @@ func (o *MiscControllerConfiguration) SetResourceToFilters(v []QueryFilterResour
 	o.ResourceToFilters = v
 }
 
+// GetIsAiEnabled returns the IsAiEnabled field value if set, zero value otherwise.
+func (o *MiscControllerConfiguration) GetIsAiEnabled() bool {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAiEnabled
+}
+
+// GetIsAiEnabledOk returns a tuple with the IsAiEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerConfiguration) GetIsAiEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAiEnabled) {
+		return nil, false
+	}
+	return o.IsAiEnabled, true
+}
+
+// HasIsAiEnabled returns a boolean if a field has been set.
+func (o *MiscControllerConfiguration) HasIsAiEnabled() bool {
+	if o != nil && !IsNil(o.IsAiEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAiEnabled gets a reference to the given bool and assigns it to the IsAiEnabled field.
+func (o *MiscControllerConfiguration) SetIsAiEnabled(v bool) {
+	o.IsAiEnabled = &v
+}
+
 func (o MiscControllerConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -589,7 +625,51 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceToFilters) {
 		toSerialize["resourceToFilters"] = o.ResourceToFilters
 	}
+	if !IsNil(o.IsAiEnabled) {
+		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MiscControllerConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varMiscControllerConfiguration := _MiscControllerConfiguration{}
+
+	err = json.Unmarshal(data, &varMiscControllerConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerConfiguration(varMiscControllerConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "commitId")
+		delete(additionalProperties, "commitDate")
+		delete(additionalProperties, "isCustomDashboardsEnabled")
+		delete(additionalProperties, "isTaskRunEnabled")
+		delete(additionalProperties, "isAnonymousUsageEnabled")
+		delete(additionalProperties, "isTemplateEnabled")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "preview")
+		delete(additionalProperties, "isBasicAuthEnabled")
+		delete(additionalProperties, "systemNamespace")
+		delete(additionalProperties, "hiddenLabelsPrefixes")
+		delete(additionalProperties, "resourceToFilters")
+		delete(additionalProperties, "isAiEnabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMiscControllerConfiguration struct {

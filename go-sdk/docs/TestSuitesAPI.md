@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTestSuite**](TestSuitesAPI.md#CreateTestSuite) | **Post** /api/v1/{tenant}/tests | Create a TestSuite from yaml source
-[**DeleteTestSuite**](TestSuitesAPI.md#DeleteTestSuite) | **Delete** /api/v1/{tenant}/tests/{namespace}/{id} | 
-[**GetTestSuite**](TestSuitesAPI.md#GetTestSuite) | **Get** /api/v1/{tenant}/tests/{namespace}/{id} | 
-[**RunTestSuite**](TestSuitesAPI.md#RunTestSuite) | **Post** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full TestSuite
-[**SearchTestSuites**](TestSuitesAPI.md#SearchTestSuites) | **Get** /api/v1/{tenant}/tests/search | 
-[**UpdateTestSuite**](TestSuitesAPI.md#UpdateTestSuite) | **Put** /api/v1/{tenant}/tests/{namespace}/{id} | 
-[**ValidateTestSuite**](TestSuitesAPI.md#ValidateTestSuite) | **Post** /api/v1/{tenant}/tests/validate | Validate a TestSuite
+[**CreateTestSuite**](TestSuitesAPI.md#CreateTestSuite) | **Post** /api/v1/{tenant}/tests | Create a test from YAML source
+[**DeleteTestSuite**](TestSuitesAPI.md#DeleteTestSuite) | **Delete** /api/v1/{tenant}/tests/{namespace}/{id} | Delete a test
+[**GetTestSuite**](TestSuitesAPI.md#GetTestSuite) | **Get** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
+[**RunTestSuite**](TestSuitesAPI.md#RunTestSuite) | **Post** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+[**SearchTestSuites**](TestSuitesAPI.md#SearchTestSuites) | **Get** /api/v1/{tenant}/tests/search | Search for tests
+[**UpdateTestSuite**](TestSuitesAPI.md#UpdateTestSuite) | **Put** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
+[**ValidateTestSuite**](TestSuitesAPI.md#ValidateTestSuite) | **Post** /api/v1/{tenant}/tests/validate | Validate a test
 
 
 
@@ -18,7 +18,9 @@ Method | HTTP request | Description
 
 > TestSuite CreateTestSuite(ctx, tenant).Body(body).Execute()
 
-Create a TestSuite from yaml source
+Create a test from YAML source
+
+
 
 ### Example
 
@@ -87,6 +89,8 @@ No authorization required
 ## DeleteTestSuite
 
 > map[string]interface{} DeleteTestSuite(ctx, namespace, id, tenant).Execute()
+
+Delete a test
 
 
 
@@ -162,6 +166,8 @@ No authorization required
 
 > TestSuite GetTestSuite(ctx, namespace, id, tenant).Execute()
 
+Retrieve a test
+
 
 
 ### Example
@@ -236,7 +242,9 @@ No authorization required
 
 > []TestSuiteRunResult RunTestSuite(ctx, namespace, id, tenant).Execute()
 
-Run a full TestSuite
+Run a full test
+
+
 
 ### Example
 
@@ -309,6 +317,8 @@ No authorization required
 ## SearchTestSuites
 
 > PagedResultsTestSuite SearchTestSuites(ctx, tenant).Page(page).Size(size).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+
+Search for tests
 
 
 
@@ -388,6 +398,8 @@ No authorization required
 
 > TestSuite UpdateTestSuite(ctx, namespace, id, tenant).Body(body).Execute()
 
+Update a test from YAML source
+
 
 
 ### Example
@@ -464,7 +476,9 @@ No authorization required
 
 > ValidateConstraintViolation ValidateTestSuite(ctx, tenant).Body(body).Execute()
 
-Validate a TestSuite
+Validate a test
+
+
 
 ### Example
 

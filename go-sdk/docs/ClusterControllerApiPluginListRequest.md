@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Plugins** | Pointer to **[]string** |  | [optional] 
+**Plugins** | **[]string** |  | 
 
 ## Methods
 
 ### NewClusterControllerApiPluginListRequest
 
-`func NewClusterControllerApiPluginListRequest() *ClusterControllerApiPluginListRequest`
+`func NewClusterControllerApiPluginListRequest(plugins []string, ) *ClusterControllerApiPluginListRequest`
 
 NewClusterControllerApiPluginListRequest instantiates a new ClusterControllerApiPluginListRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetPlugins sets Plugins field to given value.
 
-### HasPlugins
-
-`func (o *ClusterControllerApiPluginListRequest) HasPlugins() bool`
-
-HasPlugins returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

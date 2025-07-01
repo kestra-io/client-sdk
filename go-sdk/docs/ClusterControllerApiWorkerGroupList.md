@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**WorkerGroups** | Pointer to [**[]ClusterControllerApiWorkerGroupItem**](ClusterControllerApiWorkerGroupItem.md) | The list of worker groups. | [optional] 
+**WorkerGroups** | [**[]ClusterControllerApiWorkerGroupItem**](ClusterControllerApiWorkerGroupItem.md) | The list of worker groups. | 
 
 ## Methods
 
 ### NewClusterControllerApiWorkerGroupList
 
-`func NewClusterControllerApiWorkerGroupList() *ClusterControllerApiWorkerGroupList`
+`func NewClusterControllerApiWorkerGroupList(workerGroups []ClusterControllerApiWorkerGroupItem, ) *ClusterControllerApiWorkerGroupList`
 
 NewClusterControllerApiWorkerGroupList instantiates a new ClusterControllerApiWorkerGroupList object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroups sets WorkerGroups field to given value.
 
-### HasWorkerGroups
-
-`func (o *ClusterControllerApiWorkerGroupList) HasWorkerGroups() bool`
-
-HasWorkerGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

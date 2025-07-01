@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AclServiceNamespaceRole type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &AclServiceNamespaceRole{}
 
 // AclServiceNamespaceRole struct for AclServiceNamespaceRole
 type AclServiceNamespaceRole struct {
-	Role        *Role   `json:"role,omitempty"`
-	NamespaceId *string `json:"namespaceId,omitempty"`
+	Role                 Role   `json:"role"`
+	NamespaceId          string `json:"namespaceId"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AclServiceNamespaceRole AclServiceNamespaceRole
 
 // NewAclServiceNamespaceRole instantiates a new AclServiceNamespaceRole object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAclServiceNamespaceRole() *AclServiceNamespaceRole {
+func NewAclServiceNamespaceRole(role Role, namespaceId string) *AclServiceNamespaceRole {
 	this := AclServiceNamespaceRole{}
+	this.Role = role
+	this.NamespaceId = namespaceId
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewAclServiceNamespaceRoleWithDefaults() *AclServiceNamespaceRole {
 	return &this
 }
 
-// GetRole returns the Role field value if set, zero value otherwise.
+// GetRole returns the Role field value
 func (o *AclServiceNamespaceRole) GetRole() Role {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		var ret Role
 		return ret
 	}
-	return *o.Role
+
+	return o.Role
 }
 
-// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// GetRoleOk returns a tuple with the Role field value
 // and a boolean to check if the value has been set.
 func (o *AclServiceNamespaceRole) GetRoleOk() (*Role, bool) {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Role, true
+	return &o.Role, true
 }
 
-// HasRole returns a boolean if a field has been set.
-func (o *AclServiceNamespaceRole) HasRole() bool {
-	if o != nil && !IsNil(o.Role) {
-		return true
-	}
-
-	return false
-}
-
-// SetRole gets a reference to the given Role and assigns it to the Role field.
+// SetRole sets field value
 func (o *AclServiceNamespaceRole) SetRole(v Role) {
-	o.Role = &v
+	o.Role = v
 }
 
-// GetNamespaceId returns the NamespaceId field value if set, zero value otherwise.
+// GetNamespaceId returns the NamespaceId field value
 func (o *AclServiceNamespaceRole) GetNamespaceId() string {
-	if o == nil || IsNil(o.NamespaceId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.NamespaceId
+
+	return o.NamespaceId
 }
 
-// GetNamespaceIdOk returns a tuple with the NamespaceId field value if set, nil otherwise
+// GetNamespaceIdOk returns a tuple with the NamespaceId field value
 // and a boolean to check if the value has been set.
 func (o *AclServiceNamespaceRole) GetNamespaceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.NamespaceId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.NamespaceId, true
+	return &o.NamespaceId, true
 }
 
-// HasNamespaceId returns a boolean if a field has been set.
-func (o *AclServiceNamespaceRole) HasNamespaceId() bool {
-	if o != nil && !IsNil(o.NamespaceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespaceId gets a reference to the given string and assigns it to the NamespaceId field.
+// SetNamespaceId sets field value
 func (o *AclServiceNamespaceRole) SetNamespaceId(v string) {
-	o.NamespaceId = &v
+	o.NamespaceId = v
 }
 
 func (o AclServiceNamespaceRole) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o AclServiceNamespaceRole) MarshalJSON() ([]byte, error) {
 
 func (o AclServiceNamespaceRole) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Role) {
-		toSerialize["role"] = o.Role
+	toSerialize["role"] = o.Role
+	toSerialize["namespaceId"] = o.NamespaceId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.NamespaceId) {
-		toSerialize["namespaceId"] = o.NamespaceId
-	}
+
 	return toSerialize, nil
+}
+
+func (o *AclServiceNamespaceRole) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"role",
+		"namespaceId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAclServiceNamespaceRole := _AclServiceNamespaceRole{}
+
+	err = json.Unmarshal(data, &varAclServiceNamespaceRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AclServiceNamespaceRole(varAclServiceNamespaceRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "namespaceId")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAclServiceNamespaceRole struct {

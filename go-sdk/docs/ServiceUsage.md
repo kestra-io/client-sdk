@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DailyStatistics** | Pointer to [**[]ServiceUsageDailyServiceStatistics**](ServiceUsageDailyServiceStatistics.md) |  | [optional] 
+**DailyStatistics** | [**[]ServiceUsageDailyServiceStatistics**](ServiceUsageDailyServiceStatistics.md) |  | 
 
 ## Methods
 
 ### NewServiceUsage
 
-`func NewServiceUsage() *ServiceUsage`
+`func NewServiceUsage(dailyStatistics []ServiceUsageDailyServiceStatistics, ) *ServiceUsage`
 
 NewServiceUsage instantiates a new ServiceUsage object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetDailyStatistics sets DailyStatistics field to given value.
 
-### HasDailyStatistics
-
-`func (o *ServiceUsage) HasDailyStatistics() bool`
-
-HasDailyStatistics returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

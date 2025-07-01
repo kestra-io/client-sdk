@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -23,19 +24,19 @@ import (
 type BindingsAPIService service
 
 type ApiBulkCreateBindingRequest struct {
-	ctx        context.Context
-	ApiService *BindingsAPIService
-	tenant     string
-	binding    *[]Binding
+	ctx                                              context.Context
+	ApiService                                       *BindingsAPIService
+	tenant                                           string
+	abstractBindingControllerApiCreateBindingRequest *[]AbstractBindingControllerApiCreateBindingRequest
 }
 
 // The bindings
-func (r ApiBulkCreateBindingRequest) Binding(binding []Binding) ApiBulkCreateBindingRequest {
-	r.binding = &binding
+func (r ApiBulkCreateBindingRequest) AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest []AbstractBindingControllerApiCreateBindingRequest) ApiBulkCreateBindingRequest {
+	r.abstractBindingControllerApiCreateBindingRequest = &abstractBindingControllerApiCreateBindingRequest
 	return r
 }
 
-func (r ApiBulkCreateBindingRequest) Execute() ([]AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiBulkCreateBindingRequest) Execute() ([]AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.BulkCreateBindingExecute(r)
 }
 
@@ -56,13 +57,13 @@ func (a *BindingsAPIService) BulkCreateBinding(ctx context.Context, tenant strin
 
 // Execute executes the request
 //
-//	@return []AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) BulkCreateBindingExecute(r ApiBulkCreateBindingRequest) ([]AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return []AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) BulkCreateBindingExecute(r ApiBulkCreateBindingRequest) ([]AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []AbstractBindingControllerBindingDetail
+		localVarReturnValue []AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.BulkCreateBinding")
@@ -76,8 +77,8 @@ func (a *BindingsAPIService) BulkCreateBindingExecute(r ApiBulkCreateBindingRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.binding == nil {
-		return localVarReturnValue, nil, reportError("binding is required and must be specified")
+	if r.abstractBindingControllerApiCreateBindingRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractBindingControllerApiCreateBindingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -98,7 +99,7 @@ func (a *BindingsAPIService) BulkCreateBindingExecute(r ApiBulkCreateBindingRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.binding
+	localVarPostBody = r.abstractBindingControllerApiCreateBindingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -137,19 +138,19 @@ func (a *BindingsAPIService) BulkCreateBindingExecute(r ApiBulkCreateBindingRequ
 }
 
 type ApiBulkCreateBindingapsSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *BindingsAPIService
-	resourceTenant string
-	binding        *[]Binding
+	ctx                                              context.Context
+	ApiService                                       *BindingsAPIService
+	resourceTenant                                   string
+	abstractBindingControllerApiCreateBindingRequest *[]AbstractBindingControllerApiCreateBindingRequest
 }
 
 // The bindings
-func (r ApiBulkCreateBindingapsSuperAdminRequest) Binding(binding []Binding) ApiBulkCreateBindingapsSuperAdminRequest {
-	r.binding = &binding
+func (r ApiBulkCreateBindingapsSuperAdminRequest) AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest []AbstractBindingControllerApiCreateBindingRequest) ApiBulkCreateBindingapsSuperAdminRequest {
+	r.abstractBindingControllerApiCreateBindingRequest = &abstractBindingControllerApiCreateBindingRequest
 	return r
 }
 
-func (r ApiBulkCreateBindingapsSuperAdminRequest) Execute() ([]AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiBulkCreateBindingapsSuperAdminRequest) Execute() ([]AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.BulkCreateBindingapsSuperAdminExecute(r)
 }
 
@@ -170,13 +171,13 @@ func (a *BindingsAPIService) BulkCreateBindingapsSuperAdmin(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return []AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) BulkCreateBindingapsSuperAdminExecute(r ApiBulkCreateBindingapsSuperAdminRequest) ([]AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return []AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) BulkCreateBindingapsSuperAdminExecute(r ApiBulkCreateBindingapsSuperAdminRequest) ([]AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []AbstractBindingControllerBindingDetail
+		localVarReturnValue []AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.BulkCreateBindingapsSuperAdmin")
@@ -190,8 +191,8 @@ func (a *BindingsAPIService) BulkCreateBindingapsSuperAdminExecute(r ApiBulkCrea
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.binding == nil {
-		return localVarReturnValue, nil, reportError("binding is required and must be specified")
+	if r.abstractBindingControllerApiCreateBindingRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractBindingControllerApiCreateBindingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -212,7 +213,7 @@ func (a *BindingsAPIService) BulkCreateBindingapsSuperAdminExecute(r ApiBulkCrea
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.binding
+	localVarPostBody = r.abstractBindingControllerApiCreateBindingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -251,19 +252,19 @@ func (a *BindingsAPIService) BulkCreateBindingapsSuperAdminExecute(r ApiBulkCrea
 }
 
 type ApiCreateBindingRequest struct {
-	ctx        context.Context
-	ApiService *BindingsAPIService
-	tenant     string
-	binding    *Binding
+	ctx                                              context.Context
+	ApiService                                       *BindingsAPIService
+	tenant                                           string
+	abstractBindingControllerApiCreateBindingRequest *AbstractBindingControllerApiCreateBindingRequest
 }
 
 // The binding
-func (r ApiCreateBindingRequest) Binding(binding Binding) ApiCreateBindingRequest {
-	r.binding = &binding
+func (r ApiCreateBindingRequest) AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest AbstractBindingControllerApiCreateBindingRequest) ApiCreateBindingRequest {
+	r.abstractBindingControllerApiCreateBindingRequest = &abstractBindingControllerApiCreateBindingRequest
 	return r
 }
 
-func (r ApiCreateBindingRequest) Execute() (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiCreateBindingRequest) Execute() (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.CreateBindingExecute(r)
 }
 
@@ -284,13 +285,13 @@ func (a *BindingsAPIService) CreateBinding(ctx context.Context, tenant string) A
 
 // Execute executes the request
 //
-//	@return AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) CreateBindingExecute(r ApiCreateBindingRequest) (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) CreateBindingExecute(r ApiCreateBindingRequest) (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AbstractBindingControllerBindingDetail
+		localVarReturnValue *AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.CreateBinding")
@@ -304,8 +305,8 @@ func (a *BindingsAPIService) CreateBindingExecute(r ApiCreateBindingRequest) (*A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.binding == nil {
-		return localVarReturnValue, nil, reportError("binding is required and must be specified")
+	if r.abstractBindingControllerApiCreateBindingRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractBindingControllerApiCreateBindingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -326,7 +327,7 @@ func (a *BindingsAPIService) CreateBindingExecute(r ApiCreateBindingRequest) (*A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.binding
+	localVarPostBody = r.abstractBindingControllerApiCreateBindingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -365,19 +366,19 @@ func (a *BindingsAPIService) CreateBindingExecute(r ApiCreateBindingRequest) (*A
 }
 
 type ApiCreateBindingapsSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *BindingsAPIService
-	resourceTenant string
-	binding        *Binding
+	ctx                                              context.Context
+	ApiService                                       *BindingsAPIService
+	resourceTenant                                   string
+	abstractBindingControllerApiCreateBindingRequest *AbstractBindingControllerApiCreateBindingRequest
 }
 
 // The binding
-func (r ApiCreateBindingapsSuperAdminRequest) Binding(binding Binding) ApiCreateBindingapsSuperAdminRequest {
-	r.binding = &binding
+func (r ApiCreateBindingapsSuperAdminRequest) AbstractBindingControllerApiCreateBindingRequest(abstractBindingControllerApiCreateBindingRequest AbstractBindingControllerApiCreateBindingRequest) ApiCreateBindingapsSuperAdminRequest {
+	r.abstractBindingControllerApiCreateBindingRequest = &abstractBindingControllerApiCreateBindingRequest
 	return r
 }
 
-func (r ApiCreateBindingapsSuperAdminRequest) Execute() (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiCreateBindingapsSuperAdminRequest) Execute() (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.CreateBindingapsSuperAdminExecute(r)
 }
 
@@ -398,13 +399,13 @@ func (a *BindingsAPIService) CreateBindingapsSuperAdmin(ctx context.Context, res
 
 // Execute executes the request
 //
-//	@return AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) CreateBindingapsSuperAdminExecute(r ApiCreateBindingapsSuperAdminRequest) (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) CreateBindingapsSuperAdminExecute(r ApiCreateBindingapsSuperAdminRequest) (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AbstractBindingControllerBindingDetail
+		localVarReturnValue *AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.CreateBindingapsSuperAdmin")
@@ -418,8 +419,8 @@ func (a *BindingsAPIService) CreateBindingapsSuperAdminExecute(r ApiCreateBindin
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.binding == nil {
-		return localVarReturnValue, nil, reportError("binding is required and must be specified")
+	if r.abstractBindingControllerApiCreateBindingRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractBindingControllerApiCreateBindingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -440,7 +441,7 @@ func (a *BindingsAPIService) CreateBindingapsSuperAdminExecute(r ApiCreateBindin
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.binding
+	localVarPostBody = r.abstractBindingControllerApiCreateBindingRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -673,12 +674,12 @@ type ApiGetBindingRequest struct {
 	tenant     string
 }
 
-func (r ApiGetBindingRequest) Execute() (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiGetBindingRequest) Execute() (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.GetBindingExecute(r)
 }
 
 /*
-GetBinding Get a binding
+GetBinding Retrieve a binding
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The binding id
@@ -696,13 +697,13 @@ func (a *BindingsAPIService) GetBinding(ctx context.Context, id string, tenant s
 
 // Execute executes the request
 //
-//	@return AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) GetBindingExecute(r ApiGetBindingRequest) (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) GetBindingExecute(r ApiGetBindingRequest) (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AbstractBindingControllerBindingDetail
+		localVarReturnValue *AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.GetBinding")
@@ -779,12 +780,12 @@ type ApiGetBindingapsSuperAdminRequest struct {
 	resourceTenant string
 }
 
-func (r ApiGetBindingapsSuperAdminRequest) Execute() (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiGetBindingapsSuperAdminRequest) Execute() (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.GetBindingapsSuperAdminExecute(r)
 }
 
 /*
-GetBindingapsSuperAdmin Get a binding
+GetBindingapsSuperAdmin Retrieve a binding
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The binding id
@@ -802,13 +803,13 @@ func (a *BindingsAPIService) GetBindingapsSuperAdmin(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return AbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) GetBindingapsSuperAdminExecute(r ApiGetBindingapsSuperAdminRequest) (*AbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return AbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) GetBindingapsSuperAdminExecute(r ApiGetBindingapsSuperAdminRequest) (*AbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AbstractBindingControllerBindingDetail
+		localVarReturnValue *AbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.GetBindingapsSuperAdmin")
@@ -933,7 +934,7 @@ func (r ApiSearchBindingsRequest) Namespace(namespace string) ApiSearchBindingsR
 	return r
 }
 
-func (r ApiSearchBindingsRequest) Execute() (*PagedResultsAbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiSearchBindingsRequest) Execute() (*PagedResultsAbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.SearchBindingsExecute(r)
 }
 
@@ -954,13 +955,13 @@ func (a *BindingsAPIService) SearchBindings(ctx context.Context, tenant string) 
 
 // Execute executes the request
 //
-//	@return PagedResultsAbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) SearchBindingsExecute(r ApiSearchBindingsRequest) (*PagedResultsAbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return PagedResultsAbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) SearchBindingsExecute(r ApiSearchBindingsRequest) (*PagedResultsAbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsAbstractBindingControllerBindingDetail
+		localVarReturnValue *PagedResultsAbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.SearchBindings")
@@ -987,7 +988,15 @@ func (a *BindingsAPIService) SearchBindingsExecute(r ApiSearchBindingsRequest) (
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
@@ -1107,7 +1116,7 @@ func (r ApiSearchBindingsapsSuperAdminRequest) Namespace(namespace string) ApiSe
 	return r
 }
 
-func (r ApiSearchBindingsapsSuperAdminRequest) Execute() (*PagedResultsAbstractBindingControllerBindingDetail, *http.Response, error) {
+func (r ApiSearchBindingsapsSuperAdminRequest) Execute() (*PagedResultsAbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	return r.ApiService.SearchBindingsapsSuperAdminExecute(r)
 }
 
@@ -1128,13 +1137,13 @@ func (a *BindingsAPIService) SearchBindingsapsSuperAdmin(ctx context.Context, re
 
 // Execute executes the request
 //
-//	@return PagedResultsAbstractBindingControllerBindingDetail
-func (a *BindingsAPIService) SearchBindingsapsSuperAdminExecute(r ApiSearchBindingsapsSuperAdminRequest) (*PagedResultsAbstractBindingControllerBindingDetail, *http.Response, error) {
+//	@return PagedResultsAbstractBindingControllerApiBindingDetail
+func (a *BindingsAPIService) SearchBindingsapsSuperAdminExecute(r ApiSearchBindingsapsSuperAdminRequest) (*PagedResultsAbstractBindingControllerApiBindingDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsAbstractBindingControllerBindingDetail
+		localVarReturnValue *PagedResultsAbstractBindingControllerApiBindingDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BindingsAPIService.SearchBindingsapsSuperAdmin")
@@ -1161,7 +1170,15 @@ func (a *BindingsAPIService) SearchBindingsapsSuperAdminExecute(r ApiSearchBindi
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")

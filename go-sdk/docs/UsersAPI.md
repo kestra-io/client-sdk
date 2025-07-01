@@ -31,23 +31,23 @@ Method | HTTP request | Description
 [**DeleteUser**](UsersAPI.md#DeleteUser) | **Delete** /api/v1/{tenant}/users/{id} | Delete a user
 [**DeleteUserWithResourceTenantasSuperAdmin**](UsersAPI.md#DeleteUserWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/users/{id} | Delete a user
 [**DeleteUserasSuperAdmin**](UsersAPI.md#DeleteUserasSuperAdmin) | **Delete** /api/v1/tenants/users/{id} | Delete a user
-[**FindAllForAllTenants**](UsersAPI.md#FindAllForAllTenants) | **Get** /api/v1/tenants/users/instance | Get all users in the instance across all tenantd
-[**FindAllForAllTenantsWithResourceTenant**](UsersAPI.md#FindAllForAllTenantsWithResourceTenant) | **Get** /api/v1/tenants/{resourceTenant}/users/instance | Get all users in the instance across all tenantd
-[**GetUser**](UsersAPI.md#GetUser) | **Get** /api/v1/{tenant}/users/{id} | Get a user
-[**GetUserWithResourceTenantasSuperAdmin**](UsersAPI.md#GetUserWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id} | Get a user
-[**GetUserasSuperAdmin**](UsersAPI.md#GetUserasSuperAdmin) | **Get** /api/v1/tenants/users/{id} | Get a user
+[**FindAllForAllTenants**](UsersAPI.md#FindAllForAllTenants) | **Get** /api/v1/tenants/users/instance | List all users in the instance
+[**FindAllForAllTenantsWithResourceTenant**](UsersAPI.md#FindAllForAllTenantsWithResourceTenant) | **Get** /api/v1/tenants/{resourceTenant}/users/instance | List all users in the instance
+[**GetUser**](UsersAPI.md#GetUser) | **Get** /api/v1/{tenant}/users/{id} | Retrieve a user
+[**GetUserWithResourceTenantasSuperAdmin**](UsersAPI.md#GetUserWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id} | Retrieve a user
+[**GetUserasSuperAdmin**](UsersAPI.md#GetUserasSuperAdmin) | **Get** /api/v1/tenants/users/{id} | Retrieve a user
 [**Impersonate**](UsersAPI.md#Impersonate) | **Post** /api/v1/tenants/users/{id}/impersonate | Impersonate a user
 [**ImpersonateWithResourceTenant**](UsersAPI.md#ImpersonateWithResourceTenant) | **Post** /api/v1/tenants/{resourceTenant}/users/{id}/impersonate | Impersonate a user
-[**ListApiTokens**](UsersAPI.md#ListApiTokens) | **Get** /api/v1/{tenant}/users/{id}/api-tokens | List all API Tokens for specific user
-[**ListApiTokensWithResourceTenantasSuperAdmin**](UsersAPI.md#ListApiTokensWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | List all API Tokens for specific user
-[**ListApiTokensasSuperAdmin**](UsersAPI.md#ListApiTokensasSuperAdmin) | **Get** /api/v1/tenants/users/{id}/api-tokens | List all API Tokens for specific user
+[**ListApiTokens**](UsersAPI.md#ListApiTokens) | **Get** /api/v1/{tenant}/users/{id}/api-tokens | List API tokens for a specific user
+[**ListApiTokensWithResourceTenantasSuperAdmin**](UsersAPI.md#ListApiTokensWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | List API tokens for a specific user
+[**ListApiTokensasSuperAdmin**](UsersAPI.md#ListApiTokensasSuperAdmin) | **Get** /api/v1/tenants/users/{id}/api-tokens | List API tokens for a specific user
 [**SearchUsers**](UsersAPI.md#SearchUsers) | **Get** /api/v1/{tenant}/users/search | Search for users
 [**SearchUsersWithResourceTenantasSuperAdmin**](UsersAPI.md#SearchUsersWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/search | Search for users
 [**SearchUsersasSuperAdmin**](UsersAPI.md#SearchUsersasSuperAdmin) | **Get** /api/v1/tenants/users/search | Search for users
-[**SetSuperAdmin**](UsersAPI.md#SetSuperAdmin) | **Put** /api/v1/tenants/users/{id}/set-superadmin | Update a user service account
-[**SetSuperAdminWithResourceTenant**](UsersAPI.md#SetSuperAdminWithResourceTenant) | **Put** /api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin | Update a user service account
-[**UpdateCurrentUserPassword**](UsersAPI.md#UpdateCurrentUserPassword) | **Put** /api/v1/me/password | Update login password for the current user.
-[**UpdateCurrentUserPasswordWithTenant**](UsersAPI.md#UpdateCurrentUserPasswordWithTenant) | **Put** /api/v1/{tenant}/me/password | Update login password for the current user.
+[**SetSuperAdmin**](UsersAPI.md#SetSuperAdmin) | **Put** /api/v1/tenants/users/{id}/set-superadmin | Update user superadmin status
+[**SetSuperAdminWithResourceTenant**](UsersAPI.md#SetSuperAdminWithResourceTenant) | **Put** /api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin | Update user superadmin status
+[**UpdateCurrentUserPassword**](UsersAPI.md#UpdateCurrentUserPassword) | **Put** /api/v1/me/password | Update authenticated user password
+[**UpdateCurrentUserPasswordWithTenant**](UsersAPI.md#UpdateCurrentUserPasswordWithTenant) | **Put** /api/v1/{tenant}/me/password | Update authenticated user password
 [**UpdateServiceAccount**](UsersAPI.md#UpdateServiceAccount) | **Put** /api/v1/{tenant}/users/service-accounts/{id} | Update a user service account
 [**UpdateServiceAccountWithResourceTenantasSuperAdmin**](UsersAPI.md#UpdateServiceAccountWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/users/service-accounts/{id} | Update a user service account
 [**UpdateServiceAccountasSuperAdmin**](UsersAPI.md#UpdateServiceAccountasSuperAdmin) | **Put** /api/v1/tenants/users/service-accounts/{id} | Update a user service account
@@ -282,7 +282,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "MaxAge_example") // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -355,7 +355,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	resourceTenant := "resourceTenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "MaxAge_example") // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -427,7 +427,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "MaxAge_example") // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -497,7 +497,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The service account
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -567,7 +567,7 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The service account
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -636,7 +636,7 @@ import (
 )
 
 func main() {
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The service account
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -753,7 +753,7 @@ Name | Type | Description  | Notes
 
 ## CreateUserBasicAuth
 
-> ApiUser CreateUserBasicAuth(ctx, id, tenant).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+> ApiUser CreateUserBasicAuth(ctx, id, tenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 
 Create a basic auth password for a standard user
 
@@ -772,11 +772,11 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	abstractUserControllerPasswordRequest := *openapiclient.NewAbstractUserControllerPasswordRequest() // AbstractUserControllerPasswordRequest | The password
+	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuth(context.Background(), id, tenant).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuth(context.Background(), id, tenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuth``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -804,7 +804,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md) | The password | 
+ **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
 
 ### Return type
 
@@ -826,7 +826,7 @@ Name | Type | Description  | Notes
 
 ## CreateUserBasicAuthWithResourceTenantasSuperAdmin
 
-> ApiUser CreateUserBasicAuthWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+> ApiUser CreateUserBasicAuthWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 
 Create a basic auth password for a standard user
 
@@ -845,11 +845,11 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	resourceTenant := "resourceTenant_example" // string | 
-	abstractUserControllerPasswordRequest := *openapiclient.NewAbstractUserControllerPasswordRequest() // AbstractUserControllerPasswordRequest | The password
+	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -877,7 +877,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md) | The password | 
+ **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
 
 ### Return type
 
@@ -899,7 +899,7 @@ Name | Type | Description  | Notes
 
 ## CreateUserBasicAuthasSuperAdmin
 
-> ApiUser CreateUserBasicAuthasSuperAdmin(ctx, id).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+> ApiUser CreateUserBasicAuthasSuperAdmin(ctx, id).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 
 Create a basic auth password for a standard user
 
@@ -917,11 +917,11 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	abstractUserControllerPasswordRequest := *openapiclient.NewAbstractUserControllerPasswordRequest() // AbstractUserControllerPasswordRequest | The password
+	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthasSuperAdmin(context.Background(), id).AbstractUserControllerPasswordRequest(abstractUserControllerPasswordRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthasSuperAdmin(context.Background(), id).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuthasSuperAdmin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -947,7 +947,7 @@ Other parameters are passed through a pointer to a apiCreateUserBasicAuthasSuper
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md) | The password | 
+ **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
 
 ### Return type
 
@@ -1955,9 +1955,11 @@ Name | Type | Description  | Notes
 
 ## FindAllForAllTenants
 
-> PagedResultsApiUser FindAllForAllTenants(ctx).Page(page).Size(size).Sort(sort).Q(q).Type_(type_).Execute()
+> PagedResultsApiUser FindAllForAllTenants(ctx).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
 
-Get all users in the instance across all tenantd
+List all users in the instance
+
+
 
 ### Example
 
@@ -1974,13 +1976,13 @@ import (
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	q := "q_example" // string | A string filter (optional)
 	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.FindAllForAllTenants(context.Background()).Page(page).Size(size).Sort(sort).Q(q).Type_(type_).Execute()
+	resp, r, err := apiClient.UsersAPI.FindAllForAllTenants(context.Background()).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.FindAllForAllTenants``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2003,9 +2005,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
- **sort** | **[]string** | The sort of current page | 
  **q** | **string** | A string filter | 
  **type_** | [**UserType**](UserType.md) | The type of user | 
+ **sort** | **[]string** | The sort of current page | 
 
 ### Return type
 
@@ -2027,9 +2029,11 @@ Name | Type | Description  | Notes
 
 ## FindAllForAllTenantsWithResourceTenant
 
-> PagedResultsApiUser FindAllForAllTenantsWithResourceTenant(ctx, resourceTenant).Page(page).Size(size).Sort(sort).Q(q).Type_(type_).Execute()
+> PagedResultsApiUser FindAllForAllTenantsWithResourceTenant(ctx, resourceTenant).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
 
-Get all users in the instance across all tenantd
+List all users in the instance
+
+
 
 ### Example
 
@@ -2045,15 +2049,15 @@ import (
 
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	resourceTenant := "resourceTenant_example" // string | 
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	size := int32(56) // int32 | The current page size (default to 10)
 	q := "q_example" // string | A string filter (optional)
 	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.FindAllForAllTenantsWithResourceTenant(context.Background(), resourceTenant).Page(page).Size(size).Sort(sort).Q(q).Type_(type_).Execute()
+	resp, r, err := apiClient.UsersAPI.FindAllForAllTenantsWithResourceTenant(context.Background(), resourceTenant).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.FindAllForAllTenantsWithResourceTenant``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2079,11 +2083,11 @@ Other parameters are passed through a pointer to a apiFindAllForAllTenantsWithRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
- **sort** | **[]string** | The sort of current page | 
+ **size** | **int32** | The current page size | [default to 10]
  **q** | **string** | A string filter | 
  **type_** | [**UserType**](UserType.md) | The type of user | 
+ **sort** | **[]string** | The sort of current page | 
 
 ### Return type
 
@@ -2107,7 +2111,7 @@ Name | Type | Description  | Notes
 
 > ApiUser GetUser(ctx, id, tenant).Execute()
 
-Get a user
+Retrieve a user
 
 ### Example
 
@@ -2178,7 +2182,7 @@ Name | Type | Description  | Notes
 
 > ApiUser GetUserWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
 
-Get a user
+Retrieve a user
 
 ### Example
 
@@ -2249,7 +2253,7 @@ Name | Type | Description  | Notes
 
 > ApiUser GetUserasSuperAdmin(ctx, id).Execute()
 
-Get a user
+Retrieve a user
 
 ### Example
 
@@ -2319,6 +2323,8 @@ Name | Type | Description  | Notes
 
 Impersonate a user
 
+
+
 ### Example
 
 ```go
@@ -2386,6 +2392,8 @@ Name | Type | Description  | Notes
 > map[string]interface{} ImpersonateWithResourceTenant(ctx, resourceTenant, id).Execute()
 
 Impersonate a user
+
+
 
 ### Example
 
@@ -2456,7 +2464,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} ListApiTokens(ctx, id, tenant).Execute()
 
-List all API Tokens for specific user
+List API tokens for a specific user
 
 ### Example
 
@@ -2527,7 +2535,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} ListApiTokensWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
 
-List all API Tokens for specific user
+List API tokens for a specific user
 
 ### Example
 
@@ -2598,7 +2606,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} ListApiTokensasSuperAdmin(ctx, id).Execute()
 
-List all API Tokens for specific user
+List API tokens for a specific user
 
 ### Example
 
@@ -2894,7 +2902,9 @@ Name | Type | Description  | Notes
 
 > ApiUser SetSuperAdmin(ctx, id).Body(body).Execute()
 
-Update a user service account
+Update user superadmin status
+
+
 
 ### Example
 
@@ -2964,7 +2974,9 @@ Name | Type | Description  | Notes
 
 > ApiUser SetSuperAdminWithResourceTenant(ctx, resourceTenant, id).Body(body).Execute()
 
-Update a user service account
+Update user superadmin status
+
+
 
 ### Example
 
@@ -3035,9 +3047,11 @@ Name | Type | Description  | Notes
 
 ## UpdateCurrentUserPassword
 
-> map[string]interface{} UpdateCurrentUserPassword(ctx).MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest).Execute()
+> map[string]interface{} UpdateCurrentUserPassword(ctx).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
 
-Update login password for the current user.
+Update authenticated user password
+
+
 
 ### Example
 
@@ -3052,11 +3066,11 @@ import (
 )
 
 func main() {
-	meControllerUpdatePasswordRequest := *openapiclient.NewMeControllerUpdatePasswordRequest() // MeControllerUpdatePasswordRequest | 
+	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest("OldPassword_example", "NewPassword_example") // MeControllerApiUpdatePasswordRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateCurrentUserPassword(context.Background()).MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.UpdateCurrentUserPassword(context.Background()).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateCurrentUserPassword``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3077,7 +3091,7 @@ Other parameters are passed through a pointer to a apiUpdateCurrentUserPasswordR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **meControllerUpdatePasswordRequest** | [**MeControllerUpdatePasswordRequest**](MeControllerUpdatePasswordRequest.md) |  | 
+ **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md) |  | 
 
 ### Return type
 
@@ -3099,9 +3113,11 @@ Name | Type | Description  | Notes
 
 ## UpdateCurrentUserPasswordWithTenant
 
-> map[string]interface{} UpdateCurrentUserPasswordWithTenant(ctx, tenant).MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest).Execute()
+> map[string]interface{} UpdateCurrentUserPasswordWithTenant(ctx, tenant).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
 
-Update login password for the current user.
+Update authenticated user password
+
+
 
 ### Example
 
@@ -3117,11 +3133,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	meControllerUpdatePasswordRequest := *openapiclient.NewMeControllerUpdatePasswordRequest() // MeControllerUpdatePasswordRequest | 
+	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest("OldPassword_example", "NewPassword_example") // MeControllerApiUpdatePasswordRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateCurrentUserPasswordWithTenant(context.Background(), tenant).MeControllerUpdatePasswordRequest(meControllerUpdatePasswordRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.UpdateCurrentUserPasswordWithTenant(context.Background(), tenant).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateCurrentUserPasswordWithTenant``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3147,7 +3163,7 @@ Other parameters are passed through a pointer to a apiUpdateCurrentUserPasswordW
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **meControllerUpdatePasswordRequest** | [**MeControllerUpdatePasswordRequest**](MeControllerUpdatePasswordRequest.md) |  | 
+ **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md) |  | 
 
 ### Return type
 
@@ -3188,7 +3204,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The user
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3261,7 +3277,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	resourceTenant := "resourceTenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The user
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3333,7 +3349,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Name_example") // ApiServiceAccount | The user
+	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

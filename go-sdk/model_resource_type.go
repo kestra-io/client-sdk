@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,18 +20,19 @@ var _ MappedNullable = &ResourceType{}
 
 // ResourceType struct for ResourceType
 type ResourceType struct {
-	Schemas          []string                                   `json:"schemas,omitempty"`
-	BaseUrn          *string                                    `json:"baseUrn,omitempty"`
-	Extensions       *map[string]ScimExtension                  `json:"extensions,omitempty"`
-	Meta             Meta                                       `json:"meta"`
-	Id               *string                                    `json:"id,omitempty"`
-	ExternalId       *string                                    `json:"externalId,omitempty"`
-	ResourceType     *string                                    `json:"resourceType,omitempty"`
-	Name             *string                                    `json:"name,omitempty"`
-	Description      *string                                    `json:"description,omitempty"`
-	Endpoint         *string                                    `json:"endpoint,omitempty"`
-	SchemaUrn        *string                                    `json:"schemaUrn,omitempty"`
-	SchemaExtensions []ResourceTypeSchemaExtensionConfiguration `json:"schemaExtensions,omitempty"`
+	Schemas              []string                                   `json:"schemas,omitempty"`
+	BaseUrn              *string                                    `json:"baseUrn,omitempty"`
+	Extensions           *map[string]ScimExtension                  `json:"extensions,omitempty"`
+	Meta                 Meta                                       `json:"meta"`
+	Id                   *string                                    `json:"id,omitempty"`
+	ExternalId           *string                                    `json:"externalId,omitempty"`
+	ResourceType         string                                     `json:"resourceType"`
+	Name                 *string                                    `json:"name,omitempty"`
+	Description          *string                                    `json:"description,omitempty"`
+	Endpoint             *string                                    `json:"endpoint,omitempty"`
+	SchemaUrn            *string                                    `json:"schemaUrn,omitempty"`
+	SchemaExtensions     []ResourceTypeSchemaExtensionConfiguration `json:"schemaExtensions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ResourceType ResourceType
@@ -41,9 +41,10 @@ type _ResourceType ResourceType
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceType(meta Meta) *ResourceType {
+func NewResourceType(meta Meta, resourceType string) *ResourceType {
 	this := ResourceType{}
 	this.Meta = meta
+	this.ResourceType = resourceType
 	return &this
 }
 
@@ -239,36 +240,28 @@ func (o *ResourceType) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+// GetResourceType returns the ResourceType field value
 func (o *ResourceType) GetResourceType() string {
-	if o == nil || IsNil(o.ResourceType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ResourceType
+
+	return o.ResourceType
 }
 
-// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// GetResourceTypeOk returns a tuple with the ResourceType field value
 // and a boolean to check if the value has been set.
 func (o *ResourceType) GetResourceTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.ResourceType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ResourceType, true
+	return &o.ResourceType, true
 }
 
-// HasResourceType returns a boolean if a field has been set.
-func (o *ResourceType) HasResourceType() bool {
-	if o != nil && !IsNil(o.ResourceType) {
-		return true
-	}
-
-	return false
-}
-
-// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+// SetResourceType sets field value
 func (o *ResourceType) SetResourceType(v string) {
-	o.ResourceType = &v
+	o.ResourceType = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -457,9 +450,7 @@ func (o ResourceType) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if !IsNil(o.ResourceType) {
-		toSerialize["resourceType"] = o.ResourceType
-	}
+	toSerialize["resourceType"] = o.ResourceType
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
@@ -475,6 +466,11 @@ func (o ResourceType) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SchemaExtensions) {
 		toSerialize["schemaExtensions"] = o.SchemaExtensions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -484,6 +480,7 @@ func (o *ResourceType) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"meta",
+		"resourceType",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -502,15 +499,31 @@ func (o *ResourceType) UnmarshalJSON(data []byte) (err error) {
 
 	varResourceType := _ResourceType{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varResourceType)
+	err = json.Unmarshal(data, &varResourceType)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ResourceType(varResourceType)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "baseUrn")
+		delete(additionalProperties, "extensions")
+		delete(additionalProperties, "meta")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "endpoint")
+		delete(additionalProperties, "schemaUrn")
+		delete(additionalProperties, "schemaExtensions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

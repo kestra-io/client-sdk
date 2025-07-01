@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServerInstance type satisfies the MappedNullable interface at compile time
@@ -19,20 +20,29 @@ var _ MappedNullable = &ServerInstance{}
 
 // ServerInstance struct for ServerInstance
 type ServerInstance struct {
-	Id       *string                           `json:"id,omitempty"`
-	Type     *ServerInstanceType               `json:"type,omitempty"`
-	Version  *string                           `json:"version,omitempty"`
-	Hostname *string                           `json:"hostname,omitempty"`
-	Props    map[string]map[string]interface{} `json:"props,omitempty"`
-	Metrics  []Metric                          `json:"metrics,omitempty"`
+	Id                   string                 `json:"id"`
+	Type                 ServerInstanceType     `json:"type"`
+	Version              string                 `json:"version"`
+	Hostname             string                 `json:"hostname"`
+	Props                map[string]interface{} `json:"props"`
+	Metrics              []Metric               `json:"metrics"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServerInstance ServerInstance
 
 // NewServerInstance instantiates a new ServerInstance object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerInstance() *ServerInstance {
+func NewServerInstance(id string, type_ ServerInstanceType, version string, hostname string, props map[string]interface{}, metrics []Metric) *ServerInstance {
 	this := ServerInstance{}
+	this.Id = id
+	this.Type = type_
+	this.Version = version
+	this.Hostname = hostname
+	this.Props = props
+	this.Metrics = metrics
 	return &this
 }
 
@@ -44,194 +54,146 @@ func NewServerInstanceWithDefaults() *ServerInstance {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *ServerInstance) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ServerInstance) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *ServerInstance) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *ServerInstance) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *ServerInstance) GetType() ServerInstanceType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret ServerInstanceType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ServerInstance) GetTypeOk() (*ServerInstanceType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *ServerInstance) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given ServerInstanceType and assigns it to the Type field.
+// SetType sets field value
 func (o *ServerInstance) SetType(v ServerInstanceType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *ServerInstance) GetVersion() string {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ServerInstance) GetVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *ServerInstance) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
+// SetVersion sets field value
 func (o *ServerInstance) SetVersion(v string) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetHostname returns the Hostname field value if set, zero value otherwise.
+// GetHostname returns the Hostname field value
 func (o *ServerInstance) GetHostname() string {
-	if o == nil || IsNil(o.Hostname) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Hostname
+
+	return o.Hostname
 }
 
-// GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
+// GetHostnameOk returns a tuple with the Hostname field value
 // and a boolean to check if the value has been set.
 func (o *ServerInstance) GetHostnameOk() (*string, bool) {
-	if o == nil || IsNil(o.Hostname) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Hostname, true
+	return &o.Hostname, true
 }
 
-// HasHostname returns a boolean if a field has been set.
-func (o *ServerInstance) HasHostname() bool {
-	if o != nil && !IsNil(o.Hostname) {
-		return true
-	}
-
-	return false
-}
-
-// SetHostname gets a reference to the given string and assigns it to the Hostname field.
+// SetHostname sets field value
 func (o *ServerInstance) SetHostname(v string) {
-	o.Hostname = &v
+	o.Hostname = v
 }
 
-// GetProps returns the Props field value if set, zero value otherwise.
-func (o *ServerInstance) GetProps() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Props) {
-		var ret map[string]map[string]interface{}
+// GetProps returns the Props field value
+func (o *ServerInstance) GetProps() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Props
 }
 
-// GetPropsOk returns a tuple with the Props field value if set, nil otherwise
+// GetPropsOk returns a tuple with the Props field value
 // and a boolean to check if the value has been set.
-func (o *ServerInstance) GetPropsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Props) {
-		return map[string]map[string]interface{}{}, false
+func (o *ServerInstance) GetPropsOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
 	return o.Props, true
 }
 
-// HasProps returns a boolean if a field has been set.
-func (o *ServerInstance) HasProps() bool {
-	if o != nil && !IsNil(o.Props) {
-		return true
-	}
-
-	return false
-}
-
-// SetProps gets a reference to the given map[string]map[string]interface{} and assigns it to the Props field.
-func (o *ServerInstance) SetProps(v map[string]map[string]interface{}) {
+// SetProps sets field value
+func (o *ServerInstance) SetProps(v map[string]interface{}) {
 	o.Props = v
 }
 
-// GetMetrics returns the Metrics field value if set, zero value otherwise.
+// GetMetrics returns the Metrics field value
 func (o *ServerInstance) GetMetrics() []Metric {
-	if o == nil || IsNil(o.Metrics) {
+	if o == nil {
 		var ret []Metric
 		return ret
 	}
+
 	return o.Metrics
 }
 
-// GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
+// GetMetricsOk returns a tuple with the Metrics field value
 // and a boolean to check if the value has been set.
 func (o *ServerInstance) GetMetricsOk() ([]Metric, bool) {
-	if o == nil || IsNil(o.Metrics) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Metrics, true
 }
 
-// HasMetrics returns a boolean if a field has been set.
-func (o *ServerInstance) HasMetrics() bool {
-	if o != nil && !IsNil(o.Metrics) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetrics gets a reference to the given []Metric and assigns it to the Metrics field.
+// SetMetrics sets field value
 func (o *ServerInstance) SetMetrics(v []Metric) {
 	o.Metrics = v
 }
@@ -246,25 +208,70 @@ func (o ServerInstance) MarshalJSON() ([]byte, error) {
 
 func (o ServerInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["version"] = o.Version
+	toSerialize["hostname"] = o.Hostname
+	toSerialize["props"] = o.Props
+	toSerialize["metrics"] = o.Metrics
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.Hostname) {
-		toSerialize["hostname"] = o.Hostname
-	}
-	if !IsNil(o.Props) {
-		toSerialize["props"] = o.Props
-	}
-	if !IsNil(o.Metrics) {
-		toSerialize["metrics"] = o.Metrics
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ServerInstance) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"version",
+		"hostname",
+		"props",
+		"metrics",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServerInstance := _ServerInstance{}
+
+	err = json.Unmarshal(data, &varServerInstance)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServerInstance(varServerInstance)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "hostname")
+		delete(additionalProperties, "props")
+		delete(additionalProperties, "metrics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServerInstance struct {

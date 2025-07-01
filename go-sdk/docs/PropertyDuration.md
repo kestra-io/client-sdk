@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expression** | Pointer to **string** |  | [optional] 
+**Expression** | **string** |  | 
 **Value** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPropertyDuration
 
-`func NewPropertyDuration() *PropertyDuration`
+`func NewPropertyDuration(expression string, ) *PropertyDuration`
 
 NewPropertyDuration instantiates a new PropertyDuration object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetExpression sets Expression field to given value.
 
-### HasExpression
-
-`func (o *PropertyDuration) HasExpression() bool`
-
-HasExpression returns a boolean if a field has been set.
 
 ### GetValue
 

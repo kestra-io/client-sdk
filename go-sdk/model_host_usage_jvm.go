@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &HostUsageJvm{}
 
 // HostUsageJvm struct for HostUsageJvm
 type HostUsageJvm struct {
-	Name    *string `json:"name,omitempty"`
-	Vendor  *string `json:"vendor,omitempty"`
-	Version *string `json:"version,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Vendor               *string `json:"vendor,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _HostUsageJvm HostUsageJvm
 
 // NewHostUsageJvm instantiates a new HostUsageJvm object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o HostUsageJvm) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *HostUsageJvm) UnmarshalJSON(data []byte) (err error) {
+	varHostUsageJvm := _HostUsageJvm{}
+
+	err = json.Unmarshal(data, &varHostUsageJvm)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HostUsageJvm(varHostUsageJvm)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "vendor")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableHostUsageJvm struct {

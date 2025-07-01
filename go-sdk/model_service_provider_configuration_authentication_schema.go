@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,12 +19,15 @@ var _ MappedNullable = &ServiceProviderConfigurationAuthenticationSchema{}
 
 // ServiceProviderConfigurationAuthenticationSchema struct for ServiceProviderConfigurationAuthenticationSchema
 type ServiceProviderConfigurationAuthenticationSchema struct {
-	Type             *ServiceProviderConfigurationAuthenticationSchemaType `json:"type,omitempty"`
-	Name             *string                                               `json:"name,omitempty"`
-	Description      *string                                               `json:"description,omitempty"`
-	SpecUri          *string                                               `json:"specUri,omitempty"`
-	DocumentationUri *string                                               `json:"documentationUri,omitempty"`
+	Type                 *ServiceProviderConfigurationAuthenticationSchemaType `json:"type,omitempty"`
+	Name                 *string                                               `json:"name,omitempty"`
+	Description          *string                                               `json:"description,omitempty"`
+	SpecUri              *string                                               `json:"specUri,omitempty"`
+	DocumentationUri     *string                                               `json:"documentationUri,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceProviderConfigurationAuthenticationSchema ServiceProviderConfigurationAuthenticationSchema
 
 // NewServiceProviderConfigurationAuthenticationSchema instantiates a new ServiceProviderConfigurationAuthenticationSchema object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o ServiceProviderConfigurationAuthenticationSchema) ToMap() (map[string]in
 	if !IsNil(o.DocumentationUri) {
 		toSerialize["documentationUri"] = o.DocumentationUri
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfigurationAuthenticationSchema) UnmarshalJSON(data []byte) (err error) {
+	varServiceProviderConfigurationAuthenticationSchema := _ServiceProviderConfigurationAuthenticationSchema{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfigurationAuthenticationSchema)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfigurationAuthenticationSchema(varServiceProviderConfigurationAuthenticationSchema)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "specUri")
+		delete(additionalProperties, "documentationUri")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceProviderConfigurationAuthenticationSchema struct {

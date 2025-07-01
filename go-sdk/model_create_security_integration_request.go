@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,8 +23,9 @@ type CreateSecurityIntegrationRequest struct {
 	// The name of security integration.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// The description of security integration.
-	Description string                  `json:"description"`
-	Type        SecurityIntegrationType `json:"type"`
+	Description          string                  `json:"description"`
+	Type                 SecurityIntegrationType `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateSecurityIntegrationRequest CreateSecurityIntegrationRequest
@@ -135,6 +135,11 @@ func (o CreateSecurityIntegrationRequest) ToMap() (map[string]interface{}, error
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -164,15 +169,22 @@ func (o *CreateSecurityIntegrationRequest) UnmarshalJSON(data []byte) (err error
 
 	varCreateSecurityIntegrationRequest := _CreateSecurityIntegrationRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateSecurityIntegrationRequest)
+	err = json.Unmarshal(data, &varCreateSecurityIntegrationRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateSecurityIntegrationRequest(varCreateSecurityIntegrationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,17 +19,20 @@ var _ MappedNullable = &SearchRequest{}
 
 // SearchRequest struct for SearchRequest
 type SearchRequest struct {
-	Schemas            []string             `json:"schemas,omitempty"`
-	PageRequest        *PageRequest         `json:"pageRequest,omitempty"`
-	SortRequest        *SortRequest         `json:"sortRequest,omitempty"`
-	Attributes         []AttributeReference `json:"attributes,omitempty"`
-	ExcludedAttributes []AttributeReference `json:"excludedAttributes,omitempty"`
-	Filter             *Filter              `json:"filter,omitempty"`
-	SortBy             *AttributeReference  `json:"sortBy,omitempty"`
-	SortOrder          *SortOrder           `json:"sortOrder,omitempty"`
-	StartIndex         *int32               `json:"startIndex,omitempty"`
-	Count              *int32               `json:"count,omitempty"`
+	Schemas              []string             `json:"schemas,omitempty"`
+	PageRequest          *PageRequest         `json:"pageRequest,omitempty"`
+	SortRequest          *SortRequest         `json:"sortRequest,omitempty"`
+	Attributes           []AttributeReference `json:"attributes,omitempty"`
+	ExcludedAttributes   []AttributeReference `json:"excludedAttributes,omitempty"`
+	Filter               *Filter              `json:"filter,omitempty"`
+	SortBy               *AttributeReference  `json:"sortBy,omitempty"`
+	SortOrder            *SortOrder           `json:"sortOrder,omitempty"`
+	StartIndex           *int32               `json:"startIndex,omitempty"`
+	Count                *int32               `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SearchRequest SearchRequest
 
 // NewSearchRequest instantiates a new SearchRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -408,7 +411,42 @@ func (o SearchRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SearchRequest) UnmarshalJSON(data []byte) (err error) {
+	varSearchRequest := _SearchRequest{}
+
+	err = json.Unmarshal(data, &varSearchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SearchRequest(varSearchRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "pageRequest")
+		delete(additionalProperties, "sortRequest")
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "excludedAttributes")
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "sortBy")
+		delete(additionalProperties, "sortOrder")
+		delete(additionalProperties, "startIndex")
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSearchRequest struct {

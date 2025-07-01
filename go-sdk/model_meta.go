@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -20,12 +20,15 @@ var _ MappedNullable = &Meta{}
 
 // Meta struct for Meta
 type Meta struct {
-	ResourceType *string    `json:"resourceType,omitempty"`
-	Created      *time.Time `json:"created,omitempty"`
-	LastModified *time.Time `json:"lastModified,omitempty"`
-	Location     *string    `json:"location,omitempty"`
-	Version      *string    `json:"version,omitempty"`
+	ResourceType         *string    `json:"resourceType,omitempty"`
+	Created              *time.Time `json:"created,omitempty"`
+	LastModified         *time.Time `json:"lastModified,omitempty"`
+	Location             *string    `json:"location,omitempty"`
+	Version              *string    `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Meta Meta
 
 // NewMeta instantiates a new Meta object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o Meta) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Meta) UnmarshalJSON(data []byte) (err error) {
+	varMeta := _Meta{}
+
+	err = json.Unmarshal(data, &varMeta)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Meta(varMeta)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "lastModified")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMeta struct {

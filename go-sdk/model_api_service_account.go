@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,13 +21,14 @@ var _ MappedNullable = &ApiServiceAccount{}
 // ApiServiceAccount A User Service Account.
 type ApiServiceAccount struct {
 	// the identifier of this service account.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	// the name of this service account.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// the description of this service account.
-	Description  *string                       `json:"description,omitempty"`
-	GroupList    []AbstractUserGroupIdentifier `json:"groupList,omitempty"`
-	IsSuperAdmin *bool                         `json:"isSuperAdmin,omitempty"`
+	Description          string            `json:"description"`
+	GroupList            []GroupIdentifier `json:"groupList"`
+	IsSuperAdmin         bool              `json:"isSuperAdmin"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ApiServiceAccount ApiServiceAccount
@@ -37,9 +37,13 @@ type _ApiServiceAccount ApiServiceAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiServiceAccount(name string) *ApiServiceAccount {
+func NewApiServiceAccount(id string, name string, description string, groupList []GroupIdentifier, isSuperAdmin bool) *ApiServiceAccount {
 	this := ApiServiceAccount{}
+	this.Id = id
 	this.Name = name
+	this.Description = description
+	this.GroupList = groupList
+	this.IsSuperAdmin = isSuperAdmin
 	return &this
 }
 
@@ -51,36 +55,28 @@ func NewApiServiceAccountWithDefaults() *ApiServiceAccount {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *ApiServiceAccount) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ApiServiceAccount) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *ApiServiceAccount) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *ApiServiceAccount) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -107,100 +103,76 @@ func (o *ApiServiceAccount) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *ApiServiceAccount) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *ApiServiceAccount) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *ApiServiceAccount) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *ApiServiceAccount) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetGroupList returns the GroupList field value if set, zero value otherwise.
-func (o *ApiServiceAccount) GetGroupList() []AbstractUserGroupIdentifier {
-	if o == nil || IsNil(o.GroupList) {
-		var ret []AbstractUserGroupIdentifier
+// GetGroupList returns the GroupList field value
+func (o *ApiServiceAccount) GetGroupList() []GroupIdentifier {
+	if o == nil {
+		var ret []GroupIdentifier
 		return ret
 	}
+
 	return o.GroupList
 }
 
-// GetGroupListOk returns a tuple with the GroupList field value if set, nil otherwise
+// GetGroupListOk returns a tuple with the GroupList field value
 // and a boolean to check if the value has been set.
-func (o *ApiServiceAccount) GetGroupListOk() ([]AbstractUserGroupIdentifier, bool) {
-	if o == nil || IsNil(o.GroupList) {
+func (o *ApiServiceAccount) GetGroupListOk() ([]GroupIdentifier, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return o.GroupList, true
 }
 
-// HasGroupList returns a boolean if a field has been set.
-func (o *ApiServiceAccount) HasGroupList() bool {
-	if o != nil && !IsNil(o.GroupList) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroupList gets a reference to the given []AbstractUserGroupIdentifier and assigns it to the GroupList field.
-func (o *ApiServiceAccount) SetGroupList(v []AbstractUserGroupIdentifier) {
+// SetGroupList sets field value
+func (o *ApiServiceAccount) SetGroupList(v []GroupIdentifier) {
 	o.GroupList = v
 }
 
-// GetIsSuperAdmin returns the IsSuperAdmin field value if set, zero value otherwise.
+// GetIsSuperAdmin returns the IsSuperAdmin field value
 func (o *ApiServiceAccount) GetIsSuperAdmin() bool {
-	if o == nil || IsNil(o.IsSuperAdmin) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IsSuperAdmin
+
+	return o.IsSuperAdmin
 }
 
-// GetIsSuperAdminOk returns a tuple with the IsSuperAdmin field value if set, nil otherwise
+// GetIsSuperAdminOk returns a tuple with the IsSuperAdmin field value
 // and a boolean to check if the value has been set.
 func (o *ApiServiceAccount) GetIsSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsSuperAdmin) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsSuperAdmin, true
+	return &o.IsSuperAdmin, true
 }
 
-// HasIsSuperAdmin returns a boolean if a field has been set.
-func (o *ApiServiceAccount) HasIsSuperAdmin() bool {
-	if o != nil && !IsNil(o.IsSuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsSuperAdmin gets a reference to the given bool and assigns it to the IsSuperAdmin field.
+// SetIsSuperAdmin sets field value
 func (o *ApiServiceAccount) SetIsSuperAdmin(v bool) {
-	o.IsSuperAdmin = &v
+	o.IsSuperAdmin = v
 }
 
 func (o ApiServiceAccount) MarshalJSON() ([]byte, error) {
@@ -213,19 +185,16 @@ func (o ApiServiceAccount) MarshalJSON() ([]byte, error) {
 
 func (o ApiServiceAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize["description"] = o.Description
+	toSerialize["groupList"] = o.GroupList
+	toSerialize["isSuperAdmin"] = o.IsSuperAdmin
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.GroupList) {
-		toSerialize["groupList"] = o.GroupList
-	}
-	if !IsNil(o.IsSuperAdmin) {
-		toSerialize["isSuperAdmin"] = o.IsSuperAdmin
-	}
+
 	return toSerialize, nil
 }
 
@@ -234,7 +203,11 @@ func (o *ApiServiceAccount) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"name",
+		"description",
+		"groupList",
+		"isSuperAdmin",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -253,15 +226,24 @@ func (o *ApiServiceAccount) UnmarshalJSON(data []byte) (err error) {
 
 	varApiServiceAccount := _ApiServiceAccount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varApiServiceAccount)
+	err = json.Unmarshal(data, &varApiServiceAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ApiServiceAccount(varApiServiceAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "groupList")
+		delete(additionalProperties, "isSuperAdmin")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

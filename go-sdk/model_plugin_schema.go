@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &PluginSchema{}
 
 // PluginSchema struct for PluginSchema
 type PluginSchema struct {
-	Properties  map[string]map[string]interface{} `json:"properties,omitempty"`
-	Outputs     map[string]map[string]interface{} `json:"outputs,omitempty"`
-	Definitions map[string]map[string]interface{} `json:"definitions,omitempty"`
+	Properties           map[string]interface{} `json:"properties,omitempty"`
+	Outputs              map[string]interface{} `json:"outputs,omitempty"`
+	Definitions          map[string]interface{} `json:"definitions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PluginSchema PluginSchema
 
 // NewPluginSchema instantiates a new PluginSchema object
 // This constructor will assign default values to properties that have it defined,
@@ -42,9 +45,9 @@ func NewPluginSchemaWithDefaults() *PluginSchema {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *PluginSchema) GetProperties() map[string]map[string]interface{} {
+func (o *PluginSchema) GetProperties() map[string]interface{} {
 	if o == nil || IsNil(o.Properties) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Properties
@@ -52,9 +55,9 @@ func (o *PluginSchema) GetProperties() map[string]map[string]interface{} {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginSchema) GetPropertiesOk() (map[string]map[string]interface{}, bool) {
+func (o *PluginSchema) GetPropertiesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Properties, true
 }
@@ -68,15 +71,15 @@ func (o *PluginSchema) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]map[string]interface{} and assigns it to the Properties field.
-func (o *PluginSchema) SetProperties(v map[string]map[string]interface{}) {
+// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
+func (o *PluginSchema) SetProperties(v map[string]interface{}) {
 	o.Properties = v
 }
 
 // GetOutputs returns the Outputs field value if set, zero value otherwise.
-func (o *PluginSchema) GetOutputs() map[string]map[string]interface{} {
+func (o *PluginSchema) GetOutputs() map[string]interface{} {
 	if o == nil || IsNil(o.Outputs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Outputs
@@ -84,9 +87,9 @@ func (o *PluginSchema) GetOutputs() map[string]map[string]interface{} {
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginSchema) GetOutputsOk() (map[string]map[string]interface{}, bool) {
+func (o *PluginSchema) GetOutputsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Outputs) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Outputs, true
 }
@@ -100,15 +103,15 @@ func (o *PluginSchema) HasOutputs() bool {
 	return false
 }
 
-// SetOutputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Outputs field.
-func (o *PluginSchema) SetOutputs(v map[string]map[string]interface{}) {
+// SetOutputs gets a reference to the given map[string]interface{} and assigns it to the Outputs field.
+func (o *PluginSchema) SetOutputs(v map[string]interface{}) {
 	o.Outputs = v
 }
 
 // GetDefinitions returns the Definitions field value if set, zero value otherwise.
-func (o *PluginSchema) GetDefinitions() map[string]map[string]interface{} {
+func (o *PluginSchema) GetDefinitions() map[string]interface{} {
 	if o == nil || IsNil(o.Definitions) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Definitions
@@ -116,9 +119,9 @@ func (o *PluginSchema) GetDefinitions() map[string]map[string]interface{} {
 
 // GetDefinitionsOk returns a tuple with the Definitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginSchema) GetDefinitionsOk() (map[string]map[string]interface{}, bool) {
+func (o *PluginSchema) GetDefinitionsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Definitions) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Definitions, true
 }
@@ -132,8 +135,8 @@ func (o *PluginSchema) HasDefinitions() bool {
 	return false
 }
 
-// SetDefinitions gets a reference to the given map[string]map[string]interface{} and assigns it to the Definitions field.
-func (o *PluginSchema) SetDefinitions(v map[string]map[string]interface{}) {
+// SetDefinitions gets a reference to the given map[string]interface{} and assigns it to the Definitions field.
+func (o *PluginSchema) SetDefinitions(v map[string]interface{}) {
 	o.Definitions = v
 }
 
@@ -156,7 +159,35 @@ func (o PluginSchema) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Definitions) {
 		toSerialize["definitions"] = o.Definitions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PluginSchema) UnmarshalJSON(data []byte) (err error) {
+	varPluginSchema := _PluginSchema{}
+
+	err = json.Unmarshal(data, &varPluginSchema)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginSchema(varPluginSchema)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "definitions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePluginSchema struct {

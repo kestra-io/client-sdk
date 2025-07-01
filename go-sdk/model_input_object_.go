@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,14 +21,15 @@ var _ MappedNullable = &InputObject{}
 // InputObject struct for InputObject
 type InputObject struct {
 	// Deprecated
-	Name        *string                `json:"name,omitempty"`
-	Id          string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
-	Type        Type                   `json:"type"`
-	Description *string                `json:"description,omitempty"`
-	DependsOn   *DependsOn             `json:"dependsOn,omitempty"`
-	Required    *bool                  `json:"required,omitempty"`
-	Defaults    map[string]interface{} `json:"defaults,omitempty"`
-	DisplayName *string                `json:"displayName,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Type                 Type                   `json:"type"`
+	Description          *string                `json:"description,omitempty"`
+	DependsOn            *DependsOn             `json:"dependsOn,omitempty"`
+	Required             *bool                  `json:"required,omitempty"`
+	Defaults             map[string]interface{} `json:"defaults,omitempty"`
+	DisplayName          *string                `json:"displayName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _InputObject InputObject
@@ -326,6 +326,11 @@ func (o InputObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -354,15 +359,27 @@ func (o *InputObject) UnmarshalJSON(data []byte) (err error) {
 
 	varInputObject := _InputObject{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varInputObject)
+	err = json.Unmarshal(data, &varInputObject)
 
 	if err != nil {
 		return err
 	}
 
 	*o = InputObject(varInputObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "dependsOn")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "defaults")
+		delete(additionalProperties, "displayName")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

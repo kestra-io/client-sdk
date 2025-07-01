@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IdentityProvider type satisfies the MappedNullable interface at compile time
@@ -19,18 +20,25 @@ var _ MappedNullable = &IdentityProvider{}
 
 // IdentityProvider struct for IdentityProvider
 type IdentityProvider struct {
-	Attributes              map[string]map[string]interface{} `json:"attributes,omitempty"`
-	ExternalId              *string                           `json:"externalId,omitempty"`
-	SecurityIntegrationId   *string                           `json:"securityIntegrationId,omitempty"`
-	SecurityIntegrationName *string                           `json:"securityIntegrationName,omitempty"`
+	Attributes              map[string]interface{} `json:"attributes"`
+	ExternalId              string                 `json:"externalId"`
+	SecurityIntegrationId   string                 `json:"securityIntegrationId"`
+	SecurityIntegrationName string                 `json:"securityIntegrationName"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _IdentityProvider IdentityProvider
 
 // NewIdentityProvider instantiates a new IdentityProvider object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIdentityProvider() *IdentityProvider {
+func NewIdentityProvider(attributes map[string]interface{}, externalId string, securityIntegrationId string, securityIntegrationName string) *IdentityProvider {
 	this := IdentityProvider{}
+	this.Attributes = attributes
+	this.ExternalId = externalId
+	this.SecurityIntegrationId = securityIntegrationId
+	this.SecurityIntegrationName = securityIntegrationName
 	return &this
 }
 
@@ -42,132 +50,100 @@ func NewIdentityProviderWithDefaults() *IdentityProvider {
 	return &this
 }
 
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *IdentityProvider) GetAttributes() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Attributes) {
-		var ret map[string]map[string]interface{}
+// GetAttributes returns the Attributes field value
+func (o *IdentityProvider) GetAttributes() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Attributes
 }
 
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// GetAttributesOk returns a tuple with the Attributes field value
 // and a boolean to check if the value has been set.
-func (o *IdentityProvider) GetAttributesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return map[string]map[string]interface{}{}, false
+func (o *IdentityProvider) GetAttributesOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
 	return o.Attributes, true
 }
 
-// HasAttributes returns a boolean if a field has been set.
-func (o *IdentityProvider) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given map[string]map[string]interface{} and assigns it to the Attributes field.
-func (o *IdentityProvider) SetAttributes(v map[string]map[string]interface{}) {
+// SetAttributes sets field value
+func (o *IdentityProvider) SetAttributes(v map[string]interface{}) {
 	o.Attributes = v
 }
 
-// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+// GetExternalId returns the ExternalId field value
 func (o *IdentityProvider) GetExternalId() string {
-	if o == nil || IsNil(o.ExternalId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalId
+
+	return o.ExternalId
 }
 
-// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// GetExternalIdOk returns a tuple with the ExternalId field value
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetExternalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalId, true
+	return &o.ExternalId, true
 }
 
-// HasExternalId returns a boolean if a field has been set.
-func (o *IdentityProvider) HasExternalId() bool {
-	if o != nil && !IsNil(o.ExternalId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+// SetExternalId sets field value
 func (o *IdentityProvider) SetExternalId(v string) {
-	o.ExternalId = &v
+	o.ExternalId = v
 }
 
-// GetSecurityIntegrationId returns the SecurityIntegrationId field value if set, zero value otherwise.
+// GetSecurityIntegrationId returns the SecurityIntegrationId field value
 func (o *IdentityProvider) GetSecurityIntegrationId() string {
-	if o == nil || IsNil(o.SecurityIntegrationId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SecurityIntegrationId
+
+	return o.SecurityIntegrationId
 }
 
-// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value if set, nil otherwise
+// GetSecurityIntegrationIdOk returns a tuple with the SecurityIntegrationId field value
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetSecurityIntegrationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SecurityIntegrationId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SecurityIntegrationId, true
+	return &o.SecurityIntegrationId, true
 }
 
-// HasSecurityIntegrationId returns a boolean if a field has been set.
-func (o *IdentityProvider) HasSecurityIntegrationId() bool {
-	if o != nil && !IsNil(o.SecurityIntegrationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecurityIntegrationId gets a reference to the given string and assigns it to the SecurityIntegrationId field.
+// SetSecurityIntegrationId sets field value
 func (o *IdentityProvider) SetSecurityIntegrationId(v string) {
-	o.SecurityIntegrationId = &v
+	o.SecurityIntegrationId = v
 }
 
-// GetSecurityIntegrationName returns the SecurityIntegrationName field value if set, zero value otherwise.
+// GetSecurityIntegrationName returns the SecurityIntegrationName field value
 func (o *IdentityProvider) GetSecurityIntegrationName() string {
-	if o == nil || IsNil(o.SecurityIntegrationName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SecurityIntegrationName
+
+	return o.SecurityIntegrationName
 }
 
-// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value if set, nil otherwise
+// GetSecurityIntegrationNameOk returns a tuple with the SecurityIntegrationName field value
 // and a boolean to check if the value has been set.
 func (o *IdentityProvider) GetSecurityIntegrationNameOk() (*string, bool) {
-	if o == nil || IsNil(o.SecurityIntegrationName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SecurityIntegrationName, true
+	return &o.SecurityIntegrationName, true
 }
 
-// HasSecurityIntegrationName returns a boolean if a field has been set.
-func (o *IdentityProvider) HasSecurityIntegrationName() bool {
-	if o != nil && !IsNil(o.SecurityIntegrationName) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecurityIntegrationName gets a reference to the given string and assigns it to the SecurityIntegrationName field.
+// SetSecurityIntegrationName sets field value
 func (o *IdentityProvider) SetSecurityIntegrationName(v string) {
-	o.SecurityIntegrationName = &v
+	o.SecurityIntegrationName = v
 }
 
 func (o IdentityProvider) MarshalJSON() ([]byte, error) {
@@ -180,19 +156,64 @@ func (o IdentityProvider) MarshalJSON() ([]byte, error) {
 
 func (o IdentityProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
+	toSerialize["attributes"] = o.Attributes
+	toSerialize["externalId"] = o.ExternalId
+	toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
+	toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.ExternalId) {
-		toSerialize["externalId"] = o.ExternalId
-	}
-	if !IsNil(o.SecurityIntegrationId) {
-		toSerialize["securityIntegrationId"] = o.SecurityIntegrationId
-	}
-	if !IsNil(o.SecurityIntegrationName) {
-		toSerialize["securityIntegrationName"] = o.SecurityIntegrationName
-	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityProvider) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"attributes",
+		"externalId",
+		"securityIntegrationId",
+		"securityIntegrationName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIdentityProvider := _IdentityProvider{}
+
+	err = json.Unmarshal(data, &varIdentityProvider)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityProvider(varIdentityProvider)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "securityIntegrationId")
+		delete(additionalProperties, "securityIntegrationName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityProvider struct {

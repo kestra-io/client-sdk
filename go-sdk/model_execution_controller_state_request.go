@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutionControllerStateRequest type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ExecutionControllerStateRequest{}
 
 // ExecutionControllerStateRequest struct for ExecutionControllerStateRequest
 type ExecutionControllerStateRequest struct {
-	TaskRunId *string    `json:"taskRunId,omitempty"`
-	State     *StateType `json:"state,omitempty"`
+	TaskRunId            string    `json:"taskRunId"`
+	State                StateType `json:"state"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ExecutionControllerStateRequest ExecutionControllerStateRequest
 
 // NewExecutionControllerStateRequest instantiates a new ExecutionControllerStateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerStateRequest() *ExecutionControllerStateRequest {
+func NewExecutionControllerStateRequest(taskRunId string, state StateType) *ExecutionControllerStateRequest {
 	this := ExecutionControllerStateRequest{}
+	this.TaskRunId = taskRunId
+	this.State = state
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewExecutionControllerStateRequestWithDefaults() *ExecutionControllerStateR
 	return &this
 }
 
-// GetTaskRunId returns the TaskRunId field value if set, zero value otherwise.
+// GetTaskRunId returns the TaskRunId field value
 func (o *ExecutionControllerStateRequest) GetTaskRunId() string {
-	if o == nil || IsNil(o.TaskRunId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TaskRunId
+
+	return o.TaskRunId
 }
 
-// GetTaskRunIdOk returns a tuple with the TaskRunId field value if set, nil otherwise
+// GetTaskRunIdOk returns a tuple with the TaskRunId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerStateRequest) GetTaskRunIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TaskRunId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TaskRunId, true
+	return &o.TaskRunId, true
 }
 
-// HasTaskRunId returns a boolean if a field has been set.
-func (o *ExecutionControllerStateRequest) HasTaskRunId() bool {
-	if o != nil && !IsNil(o.TaskRunId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTaskRunId gets a reference to the given string and assigns it to the TaskRunId field.
+// SetTaskRunId sets field value
 func (o *ExecutionControllerStateRequest) SetTaskRunId(v string) {
-	o.TaskRunId = &v
+	o.TaskRunId = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *ExecutionControllerStateRequest) GetState() StateType {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret StateType
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerStateRequest) GetStateOk() (*StateType, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *ExecutionControllerStateRequest) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given StateType and assigns it to the State field.
+// SetState sets field value
 func (o *ExecutionControllerStateRequest) SetState(v StateType) {
-	o.State = &v
+	o.State = v
 }
 
 func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionControllerStateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.TaskRunId) {
-		toSerialize["taskRunId"] = o.TaskRunId
+	toSerialize["taskRunId"] = o.TaskRunId
+	toSerialize["state"] = o.State
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ExecutionControllerStateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"taskRunId",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExecutionControllerStateRequest := _ExecutionControllerStateRequest{}
+
+	err = json.Unmarshal(data, &varExecutionControllerStateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExecutionControllerStateRequest(varExecutionControllerStateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "taskRunId")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableExecutionControllerStateRequest struct {

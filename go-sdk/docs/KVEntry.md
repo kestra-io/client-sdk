@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**CreationDate** | Pointer to **time.Time** |  | [optional] 
-**UpdateDate** | Pointer to **time.Time** |  | [optional] 
-**ExpirationDate** | Pointer to **time.Time** |  | [optional] 
+**Key** | **string** |  | 
+**CreationDate** | **time.Time** |  | 
+**UpdateDate** | **time.Time** |  | 
+**ExpirationDate** | **time.Time** |  | 
 
 ## Methods
 
 ### NewKVEntry
 
-`func NewKVEntry() *KVEntry`
+`func NewKVEntry(key string, creationDate time.Time, updateDate time.Time, expirationDate time.Time, ) *KVEntry`
 
 NewKVEntry instantiates a new KVEntry object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *KVEntry) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
-### HasCreationDate
-
-`func (o *KVEntry) HasCreationDate() bool`
-
-HasCreationDate returns a boolean if a field has been set.
 
 ### GetUpdateDate
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetUpdateDate sets UpdateDate field to given value.
 
-### HasUpdateDate
-
-`func (o *KVEntry) HasUpdateDate() bool`
-
-HasUpdateDate returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetExpirationDate sets ExpirationDate field to given value.
 
-### HasExpirationDate
-
-`func (o *KVEntry) HasExpirationDate() bool`
-
-HasExpirationDate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,11 +20,12 @@ var _ MappedNullable = &Dashboard{}
 
 // Dashboard struct for Dashboard
 type Dashboard struct {
-	Title       string             `json:"title"`
-	Description *string            `json:"description,omitempty"`
-	TimeWindow  *TimeWindow        `json:"timeWindow,omitempty"`
-	Charts      []ChartChartOption `json:"charts,omitempty"`
-	SourceCode  *string            `json:"sourceCode,omitempty"`
+	Title                string             `json:"title"`
+	Description          *string            `json:"description,omitempty"`
+	TimeWindow           *TimeWindow        `json:"timeWindow,omitempty"`
+	Charts               []ChartChartOption `json:"charts,omitempty"`
+	SourceCode           *string            `json:"sourceCode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Dashboard Dashboard
@@ -223,6 +223,11 @@ func (o Dashboard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SourceCode) {
 		toSerialize["sourceCode"] = o.SourceCode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -250,15 +255,24 @@ func (o *Dashboard) UnmarshalJSON(data []byte) (err error) {
 
 	varDashboard := _Dashboard{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDashboard)
+	err = json.Unmarshal(data, &varDashboard)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Dashboard(varDashboard)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "timeWindow")
+		delete(additionalProperties, "charts")
+		delete(additionalProperties, "sourceCode")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

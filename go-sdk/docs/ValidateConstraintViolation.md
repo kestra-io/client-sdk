@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Flow** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
+**Flow** | **string** |  | 
+**Namespace** | **string** |  | 
 **Index** | **int32** |  | 
-**Constraints** | Pointer to **string** |  | [optional] 
-**Outdated** | Pointer to **bool** |  | [optional] 
-**DeprecationPaths** | Pointer to **[]string** |  | [optional] 
-**Warnings** | Pointer to **[]string** |  | [optional] 
-**Infos** | Pointer to **[]string** |  | [optional] 
+**Constraints** | **string** |  | 
+**Outdated** | **bool** |  | 
+**DeprecationPaths** | **[]string** |  | 
+**Warnings** | **[]string** |  | 
+**Infos** | **[]string** |  | 
 
 ## Methods
 
 ### NewValidateConstraintViolation
 
-`func NewValidateConstraintViolation(index int32, ) *ValidateConstraintViolation`
+`func NewValidateConstraintViolation(flow string, namespace string, index int32, constraints string, outdated bool, deprecationPaths []string, warnings []string, infos []string, ) *ValidateConstraintViolation`
 
 NewValidateConstraintViolation instantiates a new ValidateConstraintViolation object
 This constructor will assign default values to properties that have it defined,
@@ -51,11 +51,6 @@ and a boolean to check if the value has been set.
 
 SetFlow sets Flow field to given value.
 
-### HasFlow
-
-`func (o *ValidateConstraintViolation) HasFlow() bool`
-
-HasFlow returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -76,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ValidateConstraintViolation) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetIndex
 
@@ -121,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetConstraints sets Constraints field to given value.
 
-### HasConstraints
-
-`func (o *ValidateConstraintViolation) HasConstraints() bool`
-
-HasConstraints returns a boolean if a field has been set.
 
 ### GetOutdated
 
@@ -146,11 +131,6 @@ and a boolean to check if the value has been set.
 
 SetOutdated sets Outdated field to given value.
 
-### HasOutdated
-
-`func (o *ValidateConstraintViolation) HasOutdated() bool`
-
-HasOutdated returns a boolean if a field has been set.
 
 ### GetDeprecationPaths
 
@@ -171,11 +151,6 @@ and a boolean to check if the value has been set.
 
 SetDeprecationPaths sets DeprecationPaths field to given value.
 
-### HasDeprecationPaths
-
-`func (o *ValidateConstraintViolation) HasDeprecationPaths() bool`
-
-HasDeprecationPaths returns a boolean if a field has been set.
 
 ### GetWarnings
 
@@ -196,11 +171,6 @@ and a boolean to check if the value has been set.
 
 SetWarnings sets Warnings field to given value.
 
-### HasWarnings
-
-`func (o *ValidateConstraintViolation) HasWarnings() bool`
-
-HasWarnings returns a boolean if a field has been set.
 
 ### GetInfos
 
@@ -221,11 +191,6 @@ and a boolean to check if the value has been set.
 
 SetInfos sets Infos field to given value.
 
-### HasInfos
-
-`func (o *ValidateConstraintViolation) HasInfos() bool`
-
-HasInfos returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

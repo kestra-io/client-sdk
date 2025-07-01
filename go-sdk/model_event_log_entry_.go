@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,12 +19,15 @@ var _ MappedNullable = &EventLogEntry{}
 
 // EventLogEntry struct for EventLogEntry
 type EventLogEntry struct {
-	Data    *LogEntry `json:"data,omitempty"`
-	Id      *string   `json:"id,omitempty"`
-	Name    *string   `json:"name,omitempty"`
-	Comment *string   `json:"comment,omitempty"`
-	Retry   *string   `json:"retry,omitempty"`
+	Data                 *LogEntry `json:"data,omitempty"`
+	Id                   *string   `json:"id,omitempty"`
+	Name                 *string   `json:"name,omitempty"`
+	Comment              *string   `json:"comment,omitempty"`
+	Retry                *string   `json:"retry,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventLogEntry EventLogEntry
 
 // NewEventLogEntry instantiates a new EventLogEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -228,7 +231,37 @@ func (o EventLogEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Retry) {
 		toSerialize["retry"] = o.Retry
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventLogEntry) UnmarshalJSON(data []byte) (err error) {
+	varEventLogEntry := _EventLogEntry{}
+
+	err = json.Unmarshal(data, &varEventLogEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventLogEntry(varEventLogEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "comment")
+		delete(additionalProperties, "retry")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventLogEntry struct {

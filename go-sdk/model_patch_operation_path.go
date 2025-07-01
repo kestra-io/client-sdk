@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PatchOperationPath type satisfies the MappedNullable interface at compile time
@@ -19,15 +20,19 @@ var _ MappedNullable = &PatchOperationPath{}
 
 // PatchOperationPath struct for PatchOperationPath
 type PatchOperationPath struct {
-	ValuePathExpression *ValuePathExpression `json:"valuePathExpression,omitempty"`
+	ValuePathExpression  ValuePathExpression `json:"valuePathExpression"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PatchOperationPath PatchOperationPath
 
 // NewPatchOperationPath instantiates a new PatchOperationPath object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchOperationPath() *PatchOperationPath {
+func NewPatchOperationPath(valuePathExpression ValuePathExpression) *PatchOperationPath {
 	this := PatchOperationPath{}
+	this.ValuePathExpression = valuePathExpression
 	return &this
 }
 
@@ -39,36 +44,28 @@ func NewPatchOperationPathWithDefaults() *PatchOperationPath {
 	return &this
 }
 
-// GetValuePathExpression returns the ValuePathExpression field value if set, zero value otherwise.
+// GetValuePathExpression returns the ValuePathExpression field value
 func (o *PatchOperationPath) GetValuePathExpression() ValuePathExpression {
-	if o == nil || IsNil(o.ValuePathExpression) {
+	if o == nil {
 		var ret ValuePathExpression
 		return ret
 	}
-	return *o.ValuePathExpression
+
+	return o.ValuePathExpression
 }
 
-// GetValuePathExpressionOk returns a tuple with the ValuePathExpression field value if set, nil otherwise
+// GetValuePathExpressionOk returns a tuple with the ValuePathExpression field value
 // and a boolean to check if the value has been set.
 func (o *PatchOperationPath) GetValuePathExpressionOk() (*ValuePathExpression, bool) {
-	if o == nil || IsNil(o.ValuePathExpression) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ValuePathExpression, true
+	return &o.ValuePathExpression, true
 }
 
-// HasValuePathExpression returns a boolean if a field has been set.
-func (o *PatchOperationPath) HasValuePathExpression() bool {
-	if o != nil && !IsNil(o.ValuePathExpression) {
-		return true
-	}
-
-	return false
-}
-
-// SetValuePathExpression gets a reference to the given ValuePathExpression and assigns it to the ValuePathExpression field.
+// SetValuePathExpression sets field value
 func (o *PatchOperationPath) SetValuePathExpression(v ValuePathExpression) {
-	o.ValuePathExpression = &v
+	o.ValuePathExpression = v
 }
 
 func (o PatchOperationPath) MarshalJSON() ([]byte, error) {
@@ -81,10 +78,55 @@ func (o PatchOperationPath) MarshalJSON() ([]byte, error) {
 
 func (o PatchOperationPath) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ValuePathExpression) {
-		toSerialize["valuePathExpression"] = o.ValuePathExpression
+	toSerialize["valuePathExpression"] = o.ValuePathExpression
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *PatchOperationPath) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"valuePathExpression",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPatchOperationPath := _PatchOperationPath{}
+
+	err = json.Unmarshal(data, &varPatchOperationPath)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchOperationPath(varPatchOperationPath)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "valuePathExpression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePatchOperationPath struct {

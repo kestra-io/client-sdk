@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uid** | **string** |  | 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Namespace** | **string** |  | 
+**Id** | **string** |  | 
 
 ## Methods
 
 ### NewFlowNode
 
-`func NewFlowNode(uid string, ) *FlowNode`
+`func NewFlowNode(uid string, namespace string, id string, ) *FlowNode`
 
 NewFlowNode instantiates a new FlowNode object
 This constructor will assign default values to properties that have it defined,
@@ -66,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *FlowNode) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetId
 
@@ -91,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *FlowNode) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

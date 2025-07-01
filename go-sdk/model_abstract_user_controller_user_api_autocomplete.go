@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &AbstractUserControllerUserApiAutocomplete{}
 
 // AbstractUserControllerUserApiAutocomplete struct for AbstractUserControllerUserApiAutocomplete
 type AbstractUserControllerUserApiAutocomplete struct {
-	Q        NullableString `json:"q,omitempty"`
-	Ids      []string       `json:"ids,omitempty"`
-	Username NullableString `json:"username,omitempty"`
+	Q                    NullableString `json:"q,omitempty"`
+	Ids                  []string       `json:"ids,omitempty"`
+	Username             NullableString `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AbstractUserControllerUserApiAutocomplete AbstractUserControllerUserApiAutocomplete
 
 // NewAbstractUserControllerUserApiAutocomplete instantiates a new AbstractUserControllerUserApiAutocomplete object
 // This constructor will assign default values to properties that have it defined,
@@ -179,7 +182,35 @@ func (o AbstractUserControllerUserApiAutocomplete) ToMap() (map[string]interface
 	if o.Username.IsSet() {
 		toSerialize["username"] = o.Username.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AbstractUserControllerUserApiAutocomplete) UnmarshalJSON(data []byte) (err error) {
+	varAbstractUserControllerUserApiAutocomplete := _AbstractUserControllerUserApiAutocomplete{}
+
+	err = json.Unmarshal(data, &varAbstractUserControllerUserApiAutocomplete)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AbstractUserControllerUserApiAutocomplete(varAbstractUserControllerUserApiAutocomplete)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "q")
+		delete(additionalProperties, "ids")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAbstractUserControllerUserApiAutocomplete struct {

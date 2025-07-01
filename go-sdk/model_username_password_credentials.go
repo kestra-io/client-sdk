@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,10 +20,11 @@ var _ MappedNullable = &UsernamePasswordCredentials{}
 
 // UsernamePasswordCredentials struct for UsernamePasswordCredentials
 type UsernamePasswordCredentials struct {
-	Username string         `json:"username"`
-	Password string         `json:"password"`
-	Identity NullableString `json:"identity,omitempty"`
-	Secret   NullableString `json:"secret,omitempty"`
+	Username             string         `json:"username"`
+	Password             string         `json:"password"`
+	Identity             NullableString `json:"identity,omitempty"`
+	Secret               NullableString `json:"secret,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsernamePasswordCredentials UsernamePasswordCredentials
@@ -200,6 +200,11 @@ func (o UsernamePasswordCredentials) ToMap() (map[string]interface{}, error) {
 	if o.Secret.IsSet() {
 		toSerialize["secret"] = o.Secret.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -228,15 +233,23 @@ func (o *UsernamePasswordCredentials) UnmarshalJSON(data []byte) (err error) {
 
 	varUsernamePasswordCredentials := _UsernamePasswordCredentials{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsernamePasswordCredentials)
+	err = json.Unmarshal(data, &varUsernamePasswordCredentials)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsernamePasswordCredentials(varUsernamePasswordCredentials)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "identity")
+		delete(additionalProperties, "secret")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

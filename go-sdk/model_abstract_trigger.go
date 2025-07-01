@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,18 +21,19 @@ var _ MappedNullable = &AbstractTrigger{}
 // AbstractTrigger struct for AbstractTrigger
 type AbstractTrigger struct {
 	// Deprecated
-	MinLogLevel *Level                                `json:"minLogLevel,omitempty"`
-	Id          string                                `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type        string                                `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
-	Version     *string                               `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
-	Description *string                               `json:"description,omitempty"`
-	Conditions  []Condition                           `json:"conditions,omitempty"`
-	Disabled    bool                                  `json:"disabled"`
-	WorkerGroup *WorkerGroup                          `json:"workerGroup,omitempty"`
-	LogLevel    *Level                                `json:"logLevel,omitempty"`
-	Labels      *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
-	StopAfter   []StateType                           `json:"stopAfter,omitempty"`
-	LogToFile   *bool                                 `json:"logToFile,omitempty"`
+	MinLogLevel          *Level                                `json:"minLogLevel,omitempty"`
+	Id                   string                                `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type                 string                                `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Version              *string                               `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
+	Description          *string                               `json:"description,omitempty"`
+	Conditions           []Condition                           `json:"conditions,omitempty"`
+	Disabled             bool                                  `json:"disabled"`
+	WorkerGroup          *WorkerGroup                          `json:"workerGroup,omitempty"`
+	LogLevel             *Level                                `json:"logLevel,omitempty"`
+	Labels               *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
+	StopAfter            []StateType                           `json:"stopAfter,omitempty"`
+	LogToFile            *bool                                 `json:"logToFile,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AbstractTrigger AbstractTrigger
@@ -461,6 +461,11 @@ func (o AbstractTrigger) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LogToFile) {
 		toSerialize["logToFile"] = o.LogToFile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -490,15 +495,31 @@ func (o *AbstractTrigger) UnmarshalJSON(data []byte) (err error) {
 
 	varAbstractTrigger := _AbstractTrigger{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAbstractTrigger)
+	err = json.Unmarshal(data, &varAbstractTrigger)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AbstractTrigger(varAbstractTrigger)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "minLogLevel")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "logLevel")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "stopAfter")
+		delete(additionalProperties, "logToFile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

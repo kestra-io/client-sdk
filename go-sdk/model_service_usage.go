@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ServiceUsage type satisfies the MappedNullable interface at compile time
@@ -19,15 +20,19 @@ var _ MappedNullable = &ServiceUsage{}
 
 // ServiceUsage struct for ServiceUsage
 type ServiceUsage struct {
-	DailyStatistics []ServiceUsageDailyServiceStatistics `json:"dailyStatistics,omitempty"`
+	DailyStatistics      []ServiceUsageDailyServiceStatistics `json:"dailyStatistics"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceUsage ServiceUsage
 
 // NewServiceUsage instantiates a new ServiceUsage object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceUsage() *ServiceUsage {
+func NewServiceUsage(dailyStatistics []ServiceUsageDailyServiceStatistics) *ServiceUsage {
 	this := ServiceUsage{}
+	this.DailyStatistics = dailyStatistics
 	return &this
 }
 
@@ -39,34 +44,26 @@ func NewServiceUsageWithDefaults() *ServiceUsage {
 	return &this
 }
 
-// GetDailyStatistics returns the DailyStatistics field value if set, zero value otherwise.
+// GetDailyStatistics returns the DailyStatistics field value
 func (o *ServiceUsage) GetDailyStatistics() []ServiceUsageDailyServiceStatistics {
-	if o == nil || IsNil(o.DailyStatistics) {
+	if o == nil {
 		var ret []ServiceUsageDailyServiceStatistics
 		return ret
 	}
+
 	return o.DailyStatistics
 }
 
-// GetDailyStatisticsOk returns a tuple with the DailyStatistics field value if set, nil otherwise
+// GetDailyStatisticsOk returns a tuple with the DailyStatistics field value
 // and a boolean to check if the value has been set.
 func (o *ServiceUsage) GetDailyStatisticsOk() ([]ServiceUsageDailyServiceStatistics, bool) {
-	if o == nil || IsNil(o.DailyStatistics) {
+	if o == nil {
 		return nil, false
 	}
 	return o.DailyStatistics, true
 }
 
-// HasDailyStatistics returns a boolean if a field has been set.
-func (o *ServiceUsage) HasDailyStatistics() bool {
-	if o != nil && !IsNil(o.DailyStatistics) {
-		return true
-	}
-
-	return false
-}
-
-// SetDailyStatistics gets a reference to the given []ServiceUsageDailyServiceStatistics and assigns it to the DailyStatistics field.
+// SetDailyStatistics sets field value
 func (o *ServiceUsage) SetDailyStatistics(v []ServiceUsageDailyServiceStatistics) {
 	o.DailyStatistics = v
 }
@@ -81,10 +78,55 @@ func (o ServiceUsage) MarshalJSON() ([]byte, error) {
 
 func (o ServiceUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DailyStatistics) {
-		toSerialize["dailyStatistics"] = o.DailyStatistics
+	toSerialize["dailyStatistics"] = o.DailyStatistics
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceUsage) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"dailyStatistics",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceUsage := _ServiceUsage{}
+
+	err = json.Unmarshal(data, &varServiceUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceUsage(varServiceUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dailyStatistics")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceUsage struct {

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FlowGraphEdge type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,23 @@ var _ MappedNullable = &FlowGraphEdge{}
 
 // FlowGraphEdge struct for FlowGraphEdge
 type FlowGraphEdge struct {
-	Source   *string   `json:"source,omitempty"`
-	Target   *string   `json:"target,omitempty"`
-	Relation *Relation `json:"relation,omitempty"`
+	Source               string   `json:"source"`
+	Target               string   `json:"target"`
+	Relation             Relation `json:"relation"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FlowGraphEdge FlowGraphEdge
 
 // NewFlowGraphEdge instantiates a new FlowGraphEdge object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowGraphEdge() *FlowGraphEdge {
+func NewFlowGraphEdge(source string, target string, relation Relation) *FlowGraphEdge {
 	this := FlowGraphEdge{}
+	this.Source = source
+	this.Target = target
+	this.Relation = relation
 	return &this
 }
 
@@ -41,100 +48,76 @@ func NewFlowGraphEdgeWithDefaults() *FlowGraphEdge {
 	return &this
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *FlowGraphEdge) GetSource() string {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Source
+
+	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *FlowGraphEdge) GetSourceOk() (*string, bool) {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Source, true
+	return &o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *FlowGraphEdge) HasSource() bool {
-	if o != nil && !IsNil(o.Source) {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given string and assigns it to the Source field.
+// SetSource sets field value
 func (o *FlowGraphEdge) SetSource(v string) {
-	o.Source = &v
+	o.Source = v
 }
 
-// GetTarget returns the Target field value if set, zero value otherwise.
+// GetTarget returns the Target field value
 func (o *FlowGraphEdge) GetTarget() string {
-	if o == nil || IsNil(o.Target) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Target
+
+	return o.Target
 }
 
-// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
+// GetTargetOk returns a tuple with the Target field value
 // and a boolean to check if the value has been set.
 func (o *FlowGraphEdge) GetTargetOk() (*string, bool) {
-	if o == nil || IsNil(o.Target) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Target, true
+	return &o.Target, true
 }
 
-// HasTarget returns a boolean if a field has been set.
-func (o *FlowGraphEdge) HasTarget() bool {
-	if o != nil && !IsNil(o.Target) {
-		return true
-	}
-
-	return false
-}
-
-// SetTarget gets a reference to the given string and assigns it to the Target field.
+// SetTarget sets field value
 func (o *FlowGraphEdge) SetTarget(v string) {
-	o.Target = &v
+	o.Target = v
 }
 
-// GetRelation returns the Relation field value if set, zero value otherwise.
+// GetRelation returns the Relation field value
 func (o *FlowGraphEdge) GetRelation() Relation {
-	if o == nil || IsNil(o.Relation) {
+	if o == nil {
 		var ret Relation
 		return ret
 	}
-	return *o.Relation
+
+	return o.Relation
 }
 
-// GetRelationOk returns a tuple with the Relation field value if set, nil otherwise
+// GetRelationOk returns a tuple with the Relation field value
 // and a boolean to check if the value has been set.
 func (o *FlowGraphEdge) GetRelationOk() (*Relation, bool) {
-	if o == nil || IsNil(o.Relation) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Relation, true
+	return &o.Relation, true
 }
 
-// HasRelation returns a boolean if a field has been set.
-func (o *FlowGraphEdge) HasRelation() bool {
-	if o != nil && !IsNil(o.Relation) {
-		return true
-	}
-
-	return false
-}
-
-// SetRelation gets a reference to the given Relation and assigns it to the Relation field.
+// SetRelation sets field value
 func (o *FlowGraphEdge) SetRelation(v Relation) {
-	o.Relation = &v
+	o.Relation = v
 }
 
 func (o FlowGraphEdge) MarshalJSON() ([]byte, error) {
@@ -147,16 +130,61 @@ func (o FlowGraphEdge) MarshalJSON() ([]byte, error) {
 
 func (o FlowGraphEdge) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Source) {
-		toSerialize["source"] = o.Source
+	toSerialize["source"] = o.Source
+	toSerialize["target"] = o.Target
+	toSerialize["relation"] = o.Relation
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Target) {
-		toSerialize["target"] = o.Target
-	}
-	if !IsNil(o.Relation) {
-		toSerialize["relation"] = o.Relation
-	}
+
 	return toSerialize, nil
+}
+
+func (o *FlowGraphEdge) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"source",
+		"target",
+		"relation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFlowGraphEdge := _FlowGraphEdge{}
+
+	err = json.Unmarshal(data, &varFlowGraphEdge)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowGraphEdge(varFlowGraphEdge)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "relation")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFlowGraphEdge struct {

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiWorkerGroupList type satisfies the MappedNullable interface at compile time
@@ -20,15 +21,19 @@ var _ MappedNullable = &ClusterControllerApiWorkerGroupList{}
 // ClusterControllerApiWorkerGroupList ApiWorkerGroupList.
 type ClusterControllerApiWorkerGroupList struct {
 	// The list of worker groups.
-	WorkerGroups []ClusterControllerApiWorkerGroupItem `json:"workerGroups,omitempty"`
+	WorkerGroups         []ClusterControllerApiWorkerGroupItem `json:"workerGroups"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiWorkerGroupList ClusterControllerApiWorkerGroupList
 
 // NewClusterControllerApiWorkerGroupList instantiates a new ClusterControllerApiWorkerGroupList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiWorkerGroupList() *ClusterControllerApiWorkerGroupList {
+func NewClusterControllerApiWorkerGroupList(workerGroups []ClusterControllerApiWorkerGroupItem) *ClusterControllerApiWorkerGroupList {
 	this := ClusterControllerApiWorkerGroupList{}
+	this.WorkerGroups = workerGroups
 	return &this
 }
 
@@ -40,34 +45,26 @@ func NewClusterControllerApiWorkerGroupListWithDefaults() *ClusterControllerApiW
 	return &this
 }
 
-// GetWorkerGroups returns the WorkerGroups field value if set, zero value otherwise.
+// GetWorkerGroups returns the WorkerGroups field value
 func (o *ClusterControllerApiWorkerGroupList) GetWorkerGroups() []ClusterControllerApiWorkerGroupItem {
-	if o == nil || IsNil(o.WorkerGroups) {
+	if o == nil {
 		var ret []ClusterControllerApiWorkerGroupItem
 		return ret
 	}
+
 	return o.WorkerGroups
 }
 
-// GetWorkerGroupsOk returns a tuple with the WorkerGroups field value if set, nil otherwise
+// GetWorkerGroupsOk returns a tuple with the WorkerGroups field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiWorkerGroupList) GetWorkerGroupsOk() ([]ClusterControllerApiWorkerGroupItem, bool) {
-	if o == nil || IsNil(o.WorkerGroups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.WorkerGroups, true
 }
 
-// HasWorkerGroups returns a boolean if a field has been set.
-func (o *ClusterControllerApiWorkerGroupList) HasWorkerGroups() bool {
-	if o != nil && !IsNil(o.WorkerGroups) {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkerGroups gets a reference to the given []ClusterControllerApiWorkerGroupItem and assigns it to the WorkerGroups field.
+// SetWorkerGroups sets field value
 func (o *ClusterControllerApiWorkerGroupList) SetWorkerGroups(v []ClusterControllerApiWorkerGroupItem) {
 	o.WorkerGroups = v
 }
@@ -82,10 +79,55 @@ func (o ClusterControllerApiWorkerGroupList) MarshalJSON() ([]byte, error) {
 
 func (o ClusterControllerApiWorkerGroupList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.WorkerGroups) {
-		toSerialize["workerGroups"] = o.WorkerGroups
+	toSerialize["workerGroups"] = o.WorkerGroups
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiWorkerGroupList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"workerGroups",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiWorkerGroupList := _ClusterControllerApiWorkerGroupList{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiWorkerGroupList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiWorkerGroupList(varClusterControllerApiWorkerGroupList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "workerGroups")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiWorkerGroupList struct {

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,12 +20,13 @@ var _ MappedNullable = &Binding{}
 
 // Binding struct for Binding
 type Binding struct {
-	Id          *string     `json:"id,omitempty"`
-	Type        BindingType `json:"type"`
-	ExternalId  string      `json:"externalId"`
-	RoleId      string      `json:"roleId"`
-	NamespaceId *string     `json:"namespaceId,omitempty"`
-	Deleted     bool        `json:"deleted"`
+	Id                   string      `json:"id"`
+	Type                 BindingType `json:"type"`
+	ExternalId           string      `json:"externalId"`
+	RoleId               string      `json:"roleId"`
+	NamespaceId          string      `json:"namespaceId"`
+	Deleted              bool        `json:"deleted"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Binding Binding
@@ -35,11 +35,13 @@ type _Binding Binding
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBinding(type_ BindingType, externalId string, roleId string, deleted bool) *Binding {
+func NewBinding(id string, type_ BindingType, externalId string, roleId string, namespaceId string, deleted bool) *Binding {
 	this := Binding{}
+	this.Id = id
 	this.Type = type_
 	this.ExternalId = externalId
 	this.RoleId = roleId
+	this.NamespaceId = namespaceId
 	this.Deleted = deleted
 	return &this
 }
@@ -52,36 +54,28 @@ func NewBindingWithDefaults() *Binding {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *Binding) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Binding) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *Binding) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *Binding) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetType returns the Type field value
@@ -156,36 +150,28 @@ func (o *Binding) SetRoleId(v string) {
 	o.RoleId = v
 }
 
-// GetNamespaceId returns the NamespaceId field value if set, zero value otherwise.
+// GetNamespaceId returns the NamespaceId field value
 func (o *Binding) GetNamespaceId() string {
-	if o == nil || IsNil(o.NamespaceId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.NamespaceId
+
+	return o.NamespaceId
 }
 
-// GetNamespaceIdOk returns a tuple with the NamespaceId field value if set, nil otherwise
+// GetNamespaceIdOk returns a tuple with the NamespaceId field value
 // and a boolean to check if the value has been set.
 func (o *Binding) GetNamespaceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.NamespaceId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.NamespaceId, true
+	return &o.NamespaceId, true
 }
 
-// HasNamespaceId returns a boolean if a field has been set.
-func (o *Binding) HasNamespaceId() bool {
-	if o != nil && !IsNil(o.NamespaceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespaceId gets a reference to the given string and assigns it to the NamespaceId field.
+// SetNamespaceId sets field value
 func (o *Binding) SetNamespaceId(v string) {
-	o.NamespaceId = &v
+	o.NamespaceId = v
 }
 
 // GetDeleted returns the Deleted field value
@@ -222,16 +208,17 @@ func (o Binding) MarshalJSON() ([]byte, error) {
 
 func (o Binding) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
 	toSerialize["externalId"] = o.ExternalId
 	toSerialize["roleId"] = o.RoleId
-	if !IsNil(o.NamespaceId) {
-		toSerialize["namespaceId"] = o.NamespaceId
-	}
+	toSerialize["namespaceId"] = o.NamespaceId
 	toSerialize["deleted"] = o.Deleted
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -240,9 +227,11 @@ func (o *Binding) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"type",
 		"externalId",
 		"roleId",
+		"namespaceId",
 		"deleted",
 	}
 
@@ -262,15 +251,25 @@ func (o *Binding) UnmarshalJSON(data []byte) (err error) {
 
 	varBinding := _Binding{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBinding)
+	err = json.Unmarshal(data, &varBinding)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Binding(varBinding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "roleId")
+		delete(additionalProperties, "namespaceId")
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

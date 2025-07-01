@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,18 +21,25 @@ var _ MappedNullable = &ServiceInstanceTimestampedEvent{}
 
 // ServiceInstanceTimestampedEvent struct for ServiceInstanceTimestampedEvent
 type ServiceInstanceTimestampedEvent struct {
-	Ts    *time.Time           `json:"ts,omitempty"`
-	Value *string              `json:"value,omitempty"`
-	Type  *string              `json:"type,omitempty"`
-	State *ServiceServiceState `json:"state,omitempty"`
+	Ts                   time.Time           `json:"ts"`
+	Value                string              `json:"value"`
+	Type                 string              `json:"type"`
+	State                ServiceServiceState `json:"state"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceInstanceTimestampedEvent ServiceInstanceTimestampedEvent
 
 // NewServiceInstanceTimestampedEvent instantiates a new ServiceInstanceTimestampedEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceInstanceTimestampedEvent() *ServiceInstanceTimestampedEvent {
+func NewServiceInstanceTimestampedEvent(ts time.Time, value string, type_ string, state ServiceServiceState) *ServiceInstanceTimestampedEvent {
 	this := ServiceInstanceTimestampedEvent{}
+	this.Ts = ts
+	this.Value = value
+	this.Type = type_
+	this.State = state
 	return &this
 }
 
@@ -43,132 +51,100 @@ func NewServiceInstanceTimestampedEventWithDefaults() *ServiceInstanceTimestampe
 	return &this
 }
 
-// GetTs returns the Ts field value if set, zero value otherwise.
+// GetTs returns the Ts field value
 func (o *ServiceInstanceTimestampedEvent) GetTs() time.Time {
-	if o == nil || IsNil(o.Ts) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.Ts
+
+	return o.Ts
 }
 
-// GetTsOk returns a tuple with the Ts field value if set, nil otherwise
+// GetTsOk returns a tuple with the Ts field value
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceTimestampedEvent) GetTsOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Ts) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Ts, true
+	return &o.Ts, true
 }
 
-// HasTs returns a boolean if a field has been set.
-func (o *ServiceInstanceTimestampedEvent) HasTs() bool {
-	if o != nil && !IsNil(o.Ts) {
-		return true
-	}
-
-	return false
-}
-
-// SetTs gets a reference to the given time.Time and assigns it to the Ts field.
+// SetTs sets field value
 func (o *ServiceInstanceTimestampedEvent) SetTs(v time.Time) {
-	o.Ts = &v
+	o.Ts = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value
 func (o *ServiceInstanceTimestampedEvent) GetValue() string {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Value
+
+	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceTimestampedEvent) GetValueOk() (*string, bool) {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *ServiceInstanceTimestampedEvent) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
+// SetValue sets field value
 func (o *ServiceInstanceTimestampedEvent) SetValue(v string) {
-	o.Value = &v
+	o.Value = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *ServiceInstanceTimestampedEvent) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceTimestampedEvent) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *ServiceInstanceTimestampedEvent) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *ServiceInstanceTimestampedEvent) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *ServiceInstanceTimestampedEvent) GetState() ServiceServiceState {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret ServiceServiceState
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceTimestampedEvent) GetStateOk() (*ServiceServiceState, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *ServiceInstanceTimestampedEvent) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given ServiceServiceState and assigns it to the State field.
+// SetState sets field value
 func (o *ServiceInstanceTimestampedEvent) SetState(v ServiceServiceState) {
-	o.State = &v
+	o.State = v
 }
 
 func (o ServiceInstanceTimestampedEvent) MarshalJSON() ([]byte, error) {
@@ -181,19 +157,64 @@ func (o ServiceInstanceTimestampedEvent) MarshalJSON() ([]byte, error) {
 
 func (o ServiceInstanceTimestampedEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Ts) {
-		toSerialize["ts"] = o.Ts
+	toSerialize["ts"] = o.Ts
+	toSerialize["value"] = o.Value
+	toSerialize["type"] = o.Type
+	toSerialize["state"] = o.State
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceInstanceTimestampedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ts",
+		"value",
+		"type",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varServiceInstanceTimestampedEvent := _ServiceInstanceTimestampedEvent{}
+
+	err = json.Unmarshal(data, &varServiceInstanceTimestampedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceInstanceTimestampedEvent(varServiceInstanceTimestampedEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ts")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceInstanceTimestampedEvent struct {

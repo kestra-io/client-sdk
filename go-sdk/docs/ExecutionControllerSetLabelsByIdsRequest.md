@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExecutionsId** | Pointer to **[]string** |  | [optional] 
-**ExecutionLabels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
+**ExecutionsId** | **[]string** |  | 
+**ExecutionLabels** | [**[]Label**](Label.md) |  | 
 
 ## Methods
 
 ### NewExecutionControllerSetLabelsByIdsRequest
 
-`func NewExecutionControllerSetLabelsByIdsRequest() *ExecutionControllerSetLabelsByIdsRequest`
+`func NewExecutionControllerSetLabelsByIdsRequest(executionsId []string, executionLabels []Label, ) *ExecutionControllerSetLabelsByIdsRequest`
 
 NewExecutionControllerSetLabelsByIdsRequest instantiates a new ExecutionControllerSetLabelsByIdsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetExecutionsId sets ExecutionsId field to given value.
 
-### HasExecutionsId
-
-`func (o *ExecutionControllerSetLabelsByIdsRequest) HasExecutionsId() bool`
-
-HasExecutionsId returns a boolean if a field has been set.
 
 ### GetExecutionLabels
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetExecutionLabels sets ExecutionLabels field to given value.
 
-### HasExecutionLabels
-
-`func (o *ExecutionControllerSetLabelsByIdsRequest) HasExecutionLabels() bool`
-
-HasExecutionLabels returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

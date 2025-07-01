@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -22,9 +21,10 @@ var _ MappedNullable = &MetricAggregation{}
 
 // MetricAggregation struct for MetricAggregation
 type MetricAggregation struct {
-	Name  string    `json:"name"`
-	Value *float64  `json:"value,omitempty"`
-	Date  time.Time `json:"date"`
+	Name                 string    `json:"name"`
+	Value                float64   `json:"value"`
+	Date                 time.Time `json:"date"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MetricAggregation MetricAggregation
@@ -33,9 +33,10 @@ type _MetricAggregation MetricAggregation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricAggregation(name string, date time.Time) *MetricAggregation {
+func NewMetricAggregation(name string, value float64, date time.Time) *MetricAggregation {
 	this := MetricAggregation{}
 	this.Name = name
+	this.Value = value
 	this.Date = date
 	return &this
 }
@@ -72,36 +73,28 @@ func (o *MetricAggregation) SetName(v string) {
 	o.Name = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value
 func (o *MetricAggregation) GetValue() float64 {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		var ret float64
 		return ret
 	}
-	return *o.Value
+
+	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *MetricAggregation) GetValueOk() (*float64, bool) {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *MetricAggregation) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given float64 and assigns it to the Value field.
+// SetValue sets field value
 func (o *MetricAggregation) SetValue(v float64) {
-	o.Value = &v
+	o.Value = v
 }
 
 // GetDate returns the Date field value
@@ -139,10 +132,13 @@ func (o MetricAggregation) MarshalJSON() ([]byte, error) {
 func (o MetricAggregation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["value"] = o.Value
 	toSerialize["date"] = o.Date
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -152,6 +148,7 @@ func (o *MetricAggregation) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"name",
+		"value",
 		"date",
 	}
 
@@ -171,15 +168,22 @@ func (o *MetricAggregation) UnmarshalJSON(data []byte) (err error) {
 
 	varMetricAggregation := _MetricAggregation{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMetricAggregation)
+	err = json.Unmarshal(data, &varMetricAggregation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MetricAggregation(varMetricAggregation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "date")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

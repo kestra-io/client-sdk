@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,11 +19,14 @@ var _ MappedNullable = &Fixtures{}
 
 // Fixtures struct for Fixtures
 type Fixtures struct {
-	Inputs  map[string]map[string]interface{} `json:"inputs,omitempty"`
-	Files   *map[string]string                `json:"files,omitempty"`
-	Tasks   []TaskFixture                     `json:"tasks,omitempty"`
-	Trigger *TriggerFixture                   `json:"trigger,omitempty"`
+	Inputs               map[string]interface{} `json:"inputs,omitempty"`
+	Files                *map[string]string     `json:"files,omitempty"`
+	Tasks                []TaskFixture          `json:"tasks,omitempty"`
+	Trigger              *TriggerFixture        `json:"trigger,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Fixtures Fixtures
 
 // NewFixtures instantiates a new Fixtures object
 // This constructor will assign default values to properties that have it defined,
@@ -43,9 +46,9 @@ func NewFixturesWithDefaults() *Fixtures {
 }
 
 // GetInputs returns the Inputs field value if set, zero value otherwise.
-func (o *Fixtures) GetInputs() map[string]map[string]interface{} {
+func (o *Fixtures) GetInputs() map[string]interface{} {
 	if o == nil || IsNil(o.Inputs) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Inputs
@@ -53,9 +56,9 @@ func (o *Fixtures) GetInputs() map[string]map[string]interface{} {
 
 // GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fixtures) GetInputsOk() (map[string]map[string]interface{}, bool) {
+func (o *Fixtures) GetInputsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Inputs) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Inputs, true
 }
@@ -69,8 +72,8 @@ func (o *Fixtures) HasInputs() bool {
 	return false
 }
 
-// SetInputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Inputs field.
-func (o *Fixtures) SetInputs(v map[string]map[string]interface{}) {
+// SetInputs gets a reference to the given map[string]interface{} and assigns it to the Inputs field.
+func (o *Fixtures) SetInputs(v map[string]interface{}) {
 	o.Inputs = v
 }
 
@@ -192,7 +195,36 @@ func (o Fixtures) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Trigger) {
 		toSerialize["trigger"] = o.Trigger
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Fixtures) UnmarshalJSON(data []byte) (err error) {
+	varFixtures := _Fixtures{}
+
+	err = json.Unmarshal(data, &varFixtures)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Fixtures(varFixtures)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "files")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "trigger")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFixtures struct {

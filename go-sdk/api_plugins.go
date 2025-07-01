@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 )
 
@@ -26,7 +27,6 @@ type PluginsAPIService service
 type ApiGetAllInputTypesRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
-	tenant     string
 }
 
 func (r ApiGetAllInputTypesRequest) Execute() ([]InputType, *http.Response, error) {
@@ -37,14 +37,12 @@ func (r ApiGetAllInputTypesRequest) Execute() ([]InputType, *http.Response, erro
 GetAllInputTypes Get all types for an inputs
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
 	@return ApiGetAllInputTypesRequest
 */
-func (a *PluginsAPIService) GetAllInputTypes(ctx context.Context, tenant string) ApiGetAllInputTypesRequest {
+func (a *PluginsAPIService) GetAllInputTypes(ctx context.Context) ApiGetAllInputTypesRequest {
 	return ApiGetAllInputTypesRequest{
 		ApiService: a,
 		ctx:        ctx,
-		tenant:     tenant,
 	}
 }
 
@@ -64,8 +62,7 @@ func (a *PluginsAPIService) GetAllInputTypesExecute(r ApiGetAllInputTypesRequest
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/inputs"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath := localBasePath + "/api/v1/plugins/inputs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -129,7 +126,6 @@ type ApiGetPluginBySubgroupsRequest struct {
 	ctx               context.Context
 	ApiService        *PluginsAPIService
 	includeDeprecated *bool
-	tenant            string
 }
 
 // Whether to include deprecated plugins
@@ -146,14 +142,12 @@ func (r ApiGetPluginBySubgroupsRequest) Execute() ([]Plugin, *http.Response, err
 GetPluginBySubgroups Get plugins group by subgroups
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
 	@return ApiGetPluginBySubgroupsRequest
 */
-func (a *PluginsAPIService) GetPluginBySubgroups(ctx context.Context, tenant string) ApiGetPluginBySubgroupsRequest {
+func (a *PluginsAPIService) GetPluginBySubgroups(ctx context.Context) ApiGetPluginBySubgroupsRequest {
 	return ApiGetPluginBySubgroupsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		tenant:     tenant,
 	}
 }
 
@@ -173,8 +167,7 @@ func (a *PluginsAPIService) GetPluginBySubgroupsExecute(r ApiGetPluginBySubgroup
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/groups/subgroups"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath := localBasePath + "/api/v1/plugins/groups/subgroups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -243,7 +236,6 @@ type ApiGetPluginDocumentationRequest struct {
 	ApiService *PluginsAPIService
 	cls        string
 	all        *bool
-	tenant     string
 }
 
 // Include all the properties
@@ -261,15 +253,13 @@ GetPluginDocumentation Get plugin documentation
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param cls The plugin full class name
-	@param tenant
 	@return ApiGetPluginDocumentationRequest
 */
-func (a *PluginsAPIService) GetPluginDocumentation(ctx context.Context, cls string, tenant string) ApiGetPluginDocumentationRequest {
+func (a *PluginsAPIService) GetPluginDocumentation(ctx context.Context, cls string) ApiGetPluginDocumentationRequest {
 	return ApiGetPluginDocumentationRequest{
 		ApiService: a,
 		ctx:        ctx,
 		cls:        cls,
-		tenant:     tenant,
 	}
 }
 
@@ -289,9 +279,8 @@ func (a *PluginsAPIService) GetPluginDocumentationExecute(r ApiGetPluginDocument
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/{cls}"
+	localVarPath := localBasePath + "/api/v1/plugins/{cls}"
 	localVarPath = strings.Replace(localVarPath, "{"+"cls"+"}", url.PathEscape(parameterValueToString(r.cls, "cls")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -361,7 +350,6 @@ type ApiGetPluginDocumentationFromVersionRequest struct {
 	cls        string
 	version    string
 	all        *bool
-	tenant     string
 }
 
 // Include all the properties
@@ -380,16 +368,14 @@ GetPluginDocumentationFromVersion Get plugin documentation
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param cls The plugin type
 	@param version The plugin version
-	@param tenant
 	@return ApiGetPluginDocumentationFromVersionRequest
 */
-func (a *PluginsAPIService) GetPluginDocumentationFromVersion(ctx context.Context, cls string, version string, tenant string) ApiGetPluginDocumentationFromVersionRequest {
+func (a *PluginsAPIService) GetPluginDocumentationFromVersion(ctx context.Context, cls string, version string) ApiGetPluginDocumentationFromVersionRequest {
 	return ApiGetPluginDocumentationFromVersionRequest{
 		ApiService: a,
 		ctx:        ctx,
 		cls:        cls,
 		version:    version,
-		tenant:     tenant,
 	}
 }
 
@@ -409,10 +395,9 @@ func (a *PluginsAPIService) GetPluginDocumentationFromVersionExecute(r ApiGetPlu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/{cls}/versions/{version}"
+	localVarPath := localBasePath + "/api/v1/plugins/{cls}/versions/{version}"
 	localVarPath = strings.Replace(localVarPath, "{"+"cls"+"}", url.PathEscape(parameterValueToString(r.cls, "cls")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterValueToString(r.version, "version")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -479,7 +464,6 @@ func (a *PluginsAPIService) GetPluginDocumentationFromVersionExecute(r ApiGetPlu
 type ApiGetPluginGroupIconsRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
-	tenant     string
 }
 
 func (r ApiGetPluginGroupIconsRequest) Execute() (*map[string]PluginIcon, *http.Response, error) {
@@ -490,14 +474,12 @@ func (r ApiGetPluginGroupIconsRequest) Execute() (*map[string]PluginIcon, *http.
 GetPluginGroupIcons Get plugins icons
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
 	@return ApiGetPluginGroupIconsRequest
 */
-func (a *PluginsAPIService) GetPluginGroupIcons(ctx context.Context, tenant string) ApiGetPluginGroupIconsRequest {
+func (a *PluginsAPIService) GetPluginGroupIcons(ctx context.Context) ApiGetPluginGroupIconsRequest {
 	return ApiGetPluginGroupIconsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		tenant:     tenant,
 	}
 }
 
@@ -517,8 +499,7 @@ func (a *PluginsAPIService) GetPluginGroupIconsExecute(r ApiGetPluginGroupIconsR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/icons/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath := localBasePath + "/api/v1/plugins/icons/groups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -581,7 +562,6 @@ func (a *PluginsAPIService) GetPluginGroupIconsExecute(r ApiGetPluginGroupIconsR
 type ApiGetPluginIconsRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
-	tenant     string
 }
 
 func (r ApiGetPluginIconsRequest) Execute() (*map[string]PluginIcon, *http.Response, error) {
@@ -592,14 +572,12 @@ func (r ApiGetPluginIconsRequest) Execute() (*map[string]PluginIcon, *http.Respo
 GetPluginIcons Get plugins icons
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
 	@return ApiGetPluginIconsRequest
 */
-func (a *PluginsAPIService) GetPluginIcons(ctx context.Context, tenant string) ApiGetPluginIconsRequest {
+func (a *PluginsAPIService) GetPluginIcons(ctx context.Context) ApiGetPluginIconsRequest {
 	return ApiGetPluginIconsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		tenant:     tenant,
 	}
 }
 
@@ -619,8 +597,7 @@ func (a *PluginsAPIService) GetPluginIconsExecute(r ApiGetPluginIconsRequest) (*
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/icons"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath := localBasePath + "/api/v1/plugins/icons"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -684,7 +661,6 @@ type ApiGetPluginVersionsRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
 	cls        string
-	tenant     string
 }
 
 func (r ApiGetPluginVersionsRequest) Execute() (*PluginControllerApiPluginVersions, *http.Response, error) {
@@ -696,15 +672,13 @@ GetPluginVersions Get all versions for a plugin
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param cls The plugin type
-	@param tenant
 	@return ApiGetPluginVersionsRequest
 */
-func (a *PluginsAPIService) GetPluginVersions(ctx context.Context, cls string, tenant string) ApiGetPluginVersionsRequest {
+func (a *PluginsAPIService) GetPluginVersions(ctx context.Context, cls string) ApiGetPluginVersionsRequest {
 	return ApiGetPluginVersionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		cls:        cls,
-		tenant:     tenant,
 	}
 }
 
@@ -724,9 +698,8 @@ func (a *PluginsAPIService) GetPluginVersionsExecute(r ApiGetPluginVersionsReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/{cls}/versions"
+	localVarPath := localBasePath + "/api/v1/plugins/{cls}/versions"
 	localVarPath = strings.Replace(localVarPath, "{"+"cls"+"}", url.PathEscape(parameterValueToString(r.cls, "cls")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -790,7 +763,6 @@ type ApiGetSchemaFromInputTypeRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
 	type_      Type
-	tenant     string
 }
 
 func (r ApiGetSchemaFromInputTypeRequest) Execute() (*DocumentationWithSchema, *http.Response, error) {
@@ -804,15 +776,13 @@ The schema will be output as [http://json-schema.org/draft-07/schema](Json Schem
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param type_ The schema needed
-	@param tenant
 	@return ApiGetSchemaFromInputTypeRequest
 */
-func (a *PluginsAPIService) GetSchemaFromInputType(ctx context.Context, type_ Type, tenant string) ApiGetSchemaFromInputTypeRequest {
+func (a *PluginsAPIService) GetSchemaFromInputType(ctx context.Context, type_ Type) ApiGetSchemaFromInputTypeRequest {
 	return ApiGetSchemaFromInputTypeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		type_:      type_,
-		tenant:     tenant,
 	}
 }
 
@@ -832,9 +802,8 @@ func (a *PluginsAPIService) GetSchemaFromInputTypeExecute(r ApiGetSchemaFromInpu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/inputs/{type}"
+	localVarPath := localBasePath + "/api/v1/plugins/inputs/{type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -899,7 +868,6 @@ type ApiGetSchemasFromTypeRequest struct {
 	ApiService *PluginsAPIService
 	type_      SchemaType
 	arrayOf    *bool
-	tenant     string
 }
 
 // If schema should be an array of requested type
@@ -908,7 +876,7 @@ func (r ApiGetSchemasFromTypeRequest) ArrayOf(arrayOf bool) ApiGetSchemasFromTyp
 	return r
 }
 
-func (r ApiGetSchemasFromTypeRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r ApiGetSchemasFromTypeRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetSchemasFromTypeExecute(r)
 }
 
@@ -919,27 +887,25 @@ The schema will be output as [http://json-schema.org/draft-07/schema](Json Schem
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param type_ The schema needed
-	@param tenant
 	@return ApiGetSchemasFromTypeRequest
 */
-func (a *PluginsAPIService) GetSchemasFromType(ctx context.Context, type_ SchemaType, tenant string) ApiGetSchemasFromTypeRequest {
+func (a *PluginsAPIService) GetSchemasFromType(ctx context.Context, type_ SchemaType) ApiGetSchemasFromTypeRequest {
 	return ApiGetSchemasFromTypeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		type_:      type_,
-		tenant:     tenant,
 	}
 }
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *PluginsAPIService) GetSchemasFromTypeExecute(r ApiGetSchemasFromTypeRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *PluginsAPIService) GetSchemasFromTypeExecute(r ApiGetSchemasFromTypeRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.GetSchemasFromType")
@@ -947,9 +913,8 @@ func (a *PluginsAPIService) GetSchemasFromTypeExecute(r ApiGetSchemasFromTypeReq
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins/schemas/{type}"
+	localVarPath := localBasePath + "/api/v1/plugins/schemas/{type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1025,7 +990,9 @@ func (r ApiGetVersionedPluginDetailsRequest) Execute() (*ClusterControllerApiPlu
 }
 
 /*
-GetVersionedPluginDetails Get details about a Kestra's plugin artifact.
+GetVersionedPluginDetails Retrieve details of a plugin artifact
+
+Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
@@ -1132,7 +1099,9 @@ func (r ApiGetVersionedPluginDetailsFromVersionRequest) Execute() (*ClusterContr
 }
 
 /*
-GetVersionedPluginDetailsFromVersion Get details about a specific Kestra's plugin artifact version.
+GetVersionedPluginDetailsFromVersion Retrieve details of a specific plugin artifact version
+
+Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId
@@ -1246,7 +1215,9 @@ func (r ApiInstallVersionedPluginsRequest) Execute() (*ClusterControllerApiPlugi
 }
 
 /*
-InstallVersionedPlugins Install a specific Kestra's plugin artifact
+InstallVersionedPlugins Install specified plugin artifacts
+
+Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiInstallVersionedPluginsRequest
@@ -1349,7 +1320,9 @@ func (r ApiListAvailableVersionedPluginsRequest) Execute() (map[string]interface
 }
 
 /*
-ListAvailableVersionedPlugins Get the list of available Kestra's plugin artifact.
+ListAvailableVersionedPlugins List available plugin artifacts
+
+Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListAvailableVersionedPluginsRequest
@@ -1440,7 +1413,6 @@ func (a *PluginsAPIService) ListAvailableVersionedPluginsExecute(r ApiListAvaila
 type ApiListPluginsRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
-	tenant     string
 }
 
 func (r ApiListPluginsRequest) Execute() ([]Plugin, *http.Response, error) {
@@ -1451,14 +1423,12 @@ func (r ApiListPluginsRequest) Execute() ([]Plugin, *http.Response, error) {
 ListPlugins Get list of plugins
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
 	@return ApiListPluginsRequest
 */
-func (a *PluginsAPIService) ListPlugins(ctx context.Context, tenant string) ApiListPluginsRequest {
+func (a *PluginsAPIService) ListPlugins(ctx context.Context) ApiListPluginsRequest {
 	return ApiListPluginsRequest{
 		ApiService: a,
 		ctx:        ctx,
-		tenant:     tenant,
 	}
 }
 
@@ -1478,8 +1448,7 @@ func (a *PluginsAPIService) ListPluginsExecute(r ApiListPluginsRequest) ([]Plugi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/{tenant}/plugins"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+	localVarPath := localBasePath + "/api/v1/plugins"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1577,7 +1546,9 @@ func (r ApiListVersionedPluginRequest) Execute() (*PagedResultsClusterController
 }
 
 /*
-ListVersionedPlugin Get the list of installed Kestra's plugin artifact.
+ListVersionedPlugin List installed plugin artifacts
+
+Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListVersionedPluginRequest
@@ -1620,7 +1591,15 @@ func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginR
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -1696,7 +1675,9 @@ func (r ApiResolveVersionedPluginsRequest) Execute() (*ClusterControllerApiPlugi
 }
 
 /*
-ResolveVersionedPlugins Resolve a specific Kestra's plugin artifact
+ResolveVersionedPlugins Resolve versions for specified plugin artifacts
+
+Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiResolveVersionedPluginsRequest
@@ -1806,7 +1787,9 @@ func (r ApiUninstallVersionedPluginsRequest) Execute() (*ClusterControllerApiPlu
 }
 
 /*
-UninstallVersionedPlugins Uninstall Kestra's plugin artifacts
+UninstallVersionedPlugins Uninstall plugin artifacts
+
+Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiUninstallVersionedPluginsRequest
@@ -1900,13 +1883,19 @@ func (a *PluginsAPIService) UninstallVersionedPluginsExecute(r ApiUninstallVersi
 }
 
 type ApiUploadVersionedPluginsRequest struct {
-	ctx        context.Context
-	ApiService *PluginsAPIService
-	file       *os.File
+	ctx                            context.Context
+	ApiService                     *PluginsAPIService
+	file                           *os.File
+	forceInstallOnExistingVersions *bool
 }
 
 func (r ApiUploadVersionedPluginsRequest) File(file *os.File) ApiUploadVersionedPluginsRequest {
 	r.file = file
+	return r
+}
+
+func (r ApiUploadVersionedPluginsRequest) ForceInstallOnExistingVersions(forceInstallOnExistingVersions bool) ApiUploadVersionedPluginsRequest {
+	r.forceInstallOnExistingVersions = &forceInstallOnExistingVersions
 	return r
 }
 
@@ -1915,7 +1904,9 @@ func (r ApiUploadVersionedPluginsRequest) Execute() (*PluginArtifact, *http.Resp
 }
 
 /*
-UploadVersionedPlugins Upload a Kestra's plugin artifact
+UploadVersionedPlugins Upload a plugin artifact JAR file
+
+Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiUploadVersionedPluginsRequest
@@ -1948,6 +1939,9 @@ func (a *PluginsAPIService) UploadVersionedPluginsExecute(r ApiUploadVersionedPl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.file == nil {
+		return localVarReturnValue, nil, reportError("file is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -1980,6 +1974,9 @@ func (a *PluginsAPIService) UploadVersionedPluginsExecute(r ApiUploadVersionedPl
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
 		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
+	}
+	if r.forceInstallOnExistingVersions != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "forceInstallOnExistingVersions", r.forceInstallOnExistingVersions, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {

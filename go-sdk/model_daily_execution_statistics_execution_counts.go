@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,21 +19,24 @@ var _ MappedNullable = &DailyExecutionStatisticsExecutionCounts{}
 
 // DailyExecutionStatisticsExecutionCounts struct for DailyExecutionStatisticsExecutionCounts
 type DailyExecutionStatisticsExecutionCounts struct {
-	CREATED   *int64 `json:"CREATED,omitempty"`
-	RUNNING   *int64 `json:"RUNNING,omitempty"`
-	PAUSED    *int64 `json:"PAUSED,omitempty"`
-	RESTARTED *int64 `json:"RESTARTED,omitempty"`
-	KILLING   *int64 `json:"KILLING,omitempty"`
-	SUCCESS   *int64 `json:"SUCCESS,omitempty"`
-	WARNING   *int64 `json:"WARNING,omitempty"`
-	FAILED    *int64 `json:"FAILED,omitempty"`
-	KILLED    *int64 `json:"KILLED,omitempty"`
-	CANCELLED *int64 `json:"CANCELLED,omitempty"`
-	QUEUED    *int64 `json:"QUEUED,omitempty"`
-	RETRYING  *int64 `json:"RETRYING,omitempty"`
-	RETRIED   *int64 `json:"RETRIED,omitempty"`
-	SKIPPED   *int64 `json:"SKIPPED,omitempty"`
+	CREATED              *int64 `json:"CREATED,omitempty"`
+	RUNNING              *int64 `json:"RUNNING,omitempty"`
+	PAUSED               *int64 `json:"PAUSED,omitempty"`
+	RESTARTED            *int64 `json:"RESTARTED,omitempty"`
+	KILLING              *int64 `json:"KILLING,omitempty"`
+	SUCCESS              *int64 `json:"SUCCESS,omitempty"`
+	WARNING              *int64 `json:"WARNING,omitempty"`
+	FAILED               *int64 `json:"FAILED,omitempty"`
+	KILLED               *int64 `json:"KILLED,omitempty"`
+	CANCELLED            *int64 `json:"CANCELLED,omitempty"`
+	QUEUED               *int64 `json:"QUEUED,omitempty"`
+	RETRYING             *int64 `json:"RETRYING,omitempty"`
+	RETRIED              *int64 `json:"RETRIED,omitempty"`
+	SKIPPED              *int64 `json:"SKIPPED,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DailyExecutionStatisticsExecutionCounts DailyExecutionStatisticsExecutionCounts
 
 // NewDailyExecutionStatisticsExecutionCounts instantiates a new DailyExecutionStatisticsExecutionCounts object
 // This constructor will assign default values to properties that have it defined,
@@ -552,7 +555,46 @@ func (o DailyExecutionStatisticsExecutionCounts) ToMap() (map[string]interface{}
 	if !IsNil(o.SKIPPED) {
 		toSerialize["SKIPPED"] = o.SKIPPED
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DailyExecutionStatisticsExecutionCounts) UnmarshalJSON(data []byte) (err error) {
+	varDailyExecutionStatisticsExecutionCounts := _DailyExecutionStatisticsExecutionCounts{}
+
+	err = json.Unmarshal(data, &varDailyExecutionStatisticsExecutionCounts)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DailyExecutionStatisticsExecutionCounts(varDailyExecutionStatisticsExecutionCounts)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "CREATED")
+		delete(additionalProperties, "RUNNING")
+		delete(additionalProperties, "PAUSED")
+		delete(additionalProperties, "RESTARTED")
+		delete(additionalProperties, "KILLING")
+		delete(additionalProperties, "SUCCESS")
+		delete(additionalProperties, "WARNING")
+		delete(additionalProperties, "FAILED")
+		delete(additionalProperties, "KILLED")
+		delete(additionalProperties, "CANCELLED")
+		delete(additionalProperties, "QUEUED")
+		delete(additionalProperties, "RETRYING")
+		delete(additionalProperties, "RETRIED")
+		delete(additionalProperties, "SKIPPED")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDailyExecutionStatisticsExecutionCounts struct {

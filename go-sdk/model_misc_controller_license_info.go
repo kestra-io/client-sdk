@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,17 +21,23 @@ var _ MappedNullable = &MiscControllerLicenseInfo{}
 
 // MiscControllerLicenseInfo struct for MiscControllerLicenseInfo
 type MiscControllerLicenseInfo struct {
-	Type    *string    `json:"type,omitempty"`
-	Expiry  *time.Time `json:"expiry,omitempty"`
-	Expired *bool      `json:"expired,omitempty"`
+	Type                 string    `json:"type"`
+	Expiry               time.Time `json:"expiry"`
+	Expired              bool      `json:"expired"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MiscControllerLicenseInfo MiscControllerLicenseInfo
 
 // NewMiscControllerLicenseInfo instantiates a new MiscControllerLicenseInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerLicenseInfo() *MiscControllerLicenseInfo {
+func NewMiscControllerLicenseInfo(type_ string, expiry time.Time, expired bool) *MiscControllerLicenseInfo {
 	this := MiscControllerLicenseInfo{}
+	this.Type = type_
+	this.Expiry = expiry
+	this.Expired = expired
 	return &this
 }
 
@@ -42,100 +49,76 @@ func NewMiscControllerLicenseInfoWithDefaults() *MiscControllerLicenseInfo {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *MiscControllerLicenseInfo) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerLicenseInfo) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *MiscControllerLicenseInfo) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *MiscControllerLicenseInfo) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetExpiry returns the Expiry field value if set, zero value otherwise.
+// GetExpiry returns the Expiry field value
 func (o *MiscControllerLicenseInfo) GetExpiry() time.Time {
-	if o == nil || IsNil(o.Expiry) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.Expiry
+
+	return o.Expiry
 }
 
-// GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
+// GetExpiryOk returns a tuple with the Expiry field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerLicenseInfo) GetExpiryOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Expiry) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Expiry, true
+	return &o.Expiry, true
 }
 
-// HasExpiry returns a boolean if a field has been set.
-func (o *MiscControllerLicenseInfo) HasExpiry() bool {
-	if o != nil && !IsNil(o.Expiry) {
-		return true
-	}
-
-	return false
-}
-
-// SetExpiry gets a reference to the given time.Time and assigns it to the Expiry field.
+// SetExpiry sets field value
 func (o *MiscControllerLicenseInfo) SetExpiry(v time.Time) {
-	o.Expiry = &v
+	o.Expiry = v
 }
 
-// GetExpired returns the Expired field value if set, zero value otherwise.
+// GetExpired returns the Expired field value
 func (o *MiscControllerLicenseInfo) GetExpired() bool {
-	if o == nil || IsNil(o.Expired) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Expired
+
+	return o.Expired
 }
 
-// GetExpiredOk returns a tuple with the Expired field value if set, nil otherwise
+// GetExpiredOk returns a tuple with the Expired field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerLicenseInfo) GetExpiredOk() (*bool, bool) {
-	if o == nil || IsNil(o.Expired) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Expired, true
+	return &o.Expired, true
 }
 
-// HasExpired returns a boolean if a field has been set.
-func (o *MiscControllerLicenseInfo) HasExpired() bool {
-	if o != nil && !IsNil(o.Expired) {
-		return true
-	}
-
-	return false
-}
-
-// SetExpired gets a reference to the given bool and assigns it to the Expired field.
+// SetExpired sets field value
 func (o *MiscControllerLicenseInfo) SetExpired(v bool) {
-	o.Expired = &v
+	o.Expired = v
 }
 
 func (o MiscControllerLicenseInfo) MarshalJSON() ([]byte, error) {
@@ -148,16 +131,61 @@ func (o MiscControllerLicenseInfo) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerLicenseInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
+	toSerialize["type"] = o.Type
+	toSerialize["expiry"] = o.Expiry
+	toSerialize["expired"] = o.Expired
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Expiry) {
-		toSerialize["expiry"] = o.Expiry
-	}
-	if !IsNil(o.Expired) {
-		toSerialize["expired"] = o.Expired
-	}
+
 	return toSerialize, nil
+}
+
+func (o *MiscControllerLicenseInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"expiry",
+		"expired",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMiscControllerLicenseInfo := _MiscControllerLicenseInfo{}
+
+	err = json.Unmarshal(data, &varMiscControllerLicenseInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MiscControllerLicenseInfo(varMiscControllerLicenseInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "expiry")
+		delete(additionalProperties, "expired")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMiscControllerLicenseInfo struct {

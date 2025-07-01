@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,20 +19,24 @@ var _ MappedNullable = &FlowInterface{}
 
 // FlowInterface struct for FlowInterface
 type FlowInterface struct {
-	Id          *string                           `json:"id,omitempty"`
-	Namespace   *string                           `json:"namespace,omitempty"`
-	Revision    *int32                            `json:"revision,omitempty"`
-	TenantId    *string                           `json:"tenantId,omitempty"`
-	Deleted     *bool                             `json:"deleted,omitempty"`
-	Disabled    *bool                             `json:"disabled,omitempty"`
-	Labels      []Label                           `json:"labels,omitempty"`
-	Inputs      []InputObject                     `json:"inputs,omitempty"`
-	Outputs     []Output                          `json:"outputs,omitempty"`
-	Variables   map[string]map[string]interface{} `json:"variables,omitempty"`
-	Concurrency *Concurrency                      `json:"concurrency,omitempty"`
-	Sla         []SLA                             `json:"sla,omitempty"`
-	Source      *string                           `json:"source,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Namespace            *string                `json:"namespace,omitempty"`
+	Revision             *int32                 `json:"revision,omitempty"`
+	TenantId             *string                `json:"tenantId,omitempty"`
+	Deleted              *bool                  `json:"deleted,omitempty"`
+	Disabled             *bool                  `json:"disabled,omitempty"`
+	Labels               []Label                `json:"labels,omitempty"`
+	Inputs               []InputObject          `json:"inputs,omitempty"`
+	Outputs              []Output               `json:"outputs,omitempty"`
+	Variables            map[string]interface{} `json:"variables,omitempty"`
+	WorkerGroup          *WorkerGroup           `json:"workerGroup,omitempty"`
+	Concurrency          *Concurrency           `json:"concurrency,omitempty"`
+	Sla                  []SLA                  `json:"sla,omitempty"`
+	Source               *string                `json:"source,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FlowInterface FlowInterface
 
 // NewFlowInterface instantiates a new FlowInterface object
 // This constructor will assign default values to properties that have it defined,
@@ -340,9 +344,9 @@ func (o *FlowInterface) SetOutputs(v []Output) {
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *FlowInterface) GetVariables() map[string]map[string]interface{} {
+func (o *FlowInterface) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -350,9 +354,9 @@ func (o *FlowInterface) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowInterface) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *FlowInterface) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -366,9 +370,41 @@ func (o *FlowInterface) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *FlowInterface) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *FlowInterface) SetVariables(v map[string]interface{}) {
 	o.Variables = v
+}
+
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
+func (o *FlowInterface) GetWorkerGroup() WorkerGroup {
+	if o == nil || IsNil(o.WorkerGroup) {
+		var ret WorkerGroup
+		return ret
+	}
+	return *o.WorkerGroup
+}
+
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowInterface) GetWorkerGroupOk() (*WorkerGroup, bool) {
+	if o == nil || IsNil(o.WorkerGroup) {
+		return nil, false
+	}
+	return o.WorkerGroup, true
+}
+
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *FlowInterface) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
+func (o *FlowInterface) SetWorkerGroup(v WorkerGroup) {
+	o.WorkerGroup = &v
 }
 
 // GetConcurrency returns the Concurrency field value if set, zero value otherwise.
@@ -507,6 +543,9 @@ func (o FlowInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
 	if !IsNil(o.Concurrency) {
 		toSerialize["concurrency"] = o.Concurrency
 	}
@@ -516,7 +555,46 @@ func (o FlowInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FlowInterface) UnmarshalJSON(data []byte) (err error) {
+	varFlowInterface := _FlowInterface{}
+
+	err = json.Unmarshal(data, &varFlowInterface)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FlowInterface(varFlowInterface)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "inputs")
+		delete(additionalProperties, "outputs")
+		delete(additionalProperties, "variables")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "concurrency")
+		delete(additionalProperties, "sla")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFlowInterface struct {

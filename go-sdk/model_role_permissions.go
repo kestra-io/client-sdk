@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,30 +19,33 @@ var _ MappedNullable = &RolePermissions{}
 
 // RolePermissions struct for RolePermissions
 type RolePermissions struct {
-	FLOW           []string `json:"FLOW,omitempty"`
-	BLUEPRINT      []string `json:"BLUEPRINT,omitempty"`
-	TEMPLATE       []string `json:"TEMPLATE,omitempty"`
-	NAMESPACE      []string `json:"NAMESPACE,omitempty"`
-	EXECUTION      []string `json:"EXECUTION,omitempty"`
-	USER           []string `json:"USER,omitempty"`
-	GROUP          []string `json:"GROUP,omitempty"`
-	ROLE           []string `json:"ROLE,omitempty"`
-	BINDING        []string `json:"BINDING,omitempty"`
-	AUDITLOG       []string `json:"AUDITLOG,omitempty"`
-	SECRET         []string `json:"SECRET,omitempty"`
-	KVSTORE        []string `json:"KVSTORE,omitempty"`
-	IMPERSONATE    []string `json:"IMPERSONATE,omitempty"`
-	SETTING        []string `json:"SETTING,omitempty"`
-	INFRASTRUCTURE []string `json:"INFRASTRUCTURE,omitempty"`
-	APP            []string `json:"APP,omitempty"`
-	APPEXECUTION   []string `json:"APPEXECUTION,omitempty"`
-	TEST           []string `json:"TEST,omitempty"`
-	ME             []string `json:"ME,omitempty"`
-	APITOKEN       []string `json:"APITOKEN,omitempty"`
-	DASHBOARD      []string `json:"DASHBOARD,omitempty"`
-	TENANT         []string `json:"TENANT,omitempty"`
-	UNKNOWN        []string `json:"UNKNOWN,omitempty"`
+	FLOW                 []string `json:"FLOW,omitempty"`
+	BLUEPRINT            []string `json:"BLUEPRINT,omitempty"`
+	TEMPLATE             []string `json:"TEMPLATE,omitempty"`
+	NAMESPACE            []string `json:"NAMESPACE,omitempty"`
+	EXECUTION            []string `json:"EXECUTION,omitempty"`
+	USER                 []string `json:"USER,omitempty"`
+	GROUP                []string `json:"GROUP,omitempty"`
+	ROLE                 []string `json:"ROLE,omitempty"`
+	BINDING              []string `json:"BINDING,omitempty"`
+	AUDITLOG             []string `json:"AUDITLOG,omitempty"`
+	SECRET               []string `json:"SECRET,omitempty"`
+	KVSTORE              []string `json:"KVSTORE,omitempty"`
+	IMPERSONATE          []string `json:"IMPERSONATE,omitempty"`
+	SETTING              []string `json:"SETTING,omitempty"`
+	INFRASTRUCTURE       []string `json:"INFRASTRUCTURE,omitempty"`
+	APP                  []string `json:"APP,omitempty"`
+	APPEXECUTION         []string `json:"APPEXECUTION,omitempty"`
+	TEST                 []string `json:"TEST,omitempty"`
+	ME                   []string `json:"ME,omitempty"`
+	APITOKEN             []string `json:"APITOKEN,omitempty"`
+	DASHBOARD            []string `json:"DASHBOARD,omitempty"`
+	TENANT               []string `json:"TENANT,omitempty"`
+	UNKNOWN              []string `json:"UNKNOWN,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RolePermissions RolePermissions
 
 // NewRolePermissions instantiates a new RolePermissions object
 // This constructor will assign default values to properties that have it defined,
@@ -876,7 +879,55 @@ func (o RolePermissions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UNKNOWN) {
 		toSerialize["UNKNOWN"] = o.UNKNOWN
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RolePermissions) UnmarshalJSON(data []byte) (err error) {
+	varRolePermissions := _RolePermissions{}
+
+	err = json.Unmarshal(data, &varRolePermissions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RolePermissions(varRolePermissions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "FLOW")
+		delete(additionalProperties, "BLUEPRINT")
+		delete(additionalProperties, "TEMPLATE")
+		delete(additionalProperties, "NAMESPACE")
+		delete(additionalProperties, "EXECUTION")
+		delete(additionalProperties, "USER")
+		delete(additionalProperties, "GROUP")
+		delete(additionalProperties, "ROLE")
+		delete(additionalProperties, "BINDING")
+		delete(additionalProperties, "AUDITLOG")
+		delete(additionalProperties, "SECRET")
+		delete(additionalProperties, "KVSTORE")
+		delete(additionalProperties, "IMPERSONATE")
+		delete(additionalProperties, "SETTING")
+		delete(additionalProperties, "INFRASTRUCTURE")
+		delete(additionalProperties, "APP")
+		delete(additionalProperties, "APPEXECUTION")
+		delete(additionalProperties, "TEST")
+		delete(additionalProperties, "ME")
+		delete(additionalProperties, "APITOKEN")
+		delete(additionalProperties, "DASHBOARD")
+		delete(additionalProperties, "TENANT")
+		delete(additionalProperties, "UNKNOWN")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRolePermissions struct {

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,10 +21,11 @@ var _ MappedNullable = &TaskRunAttempt{}
 // TaskRunAttempt struct for TaskRunAttempt
 type TaskRunAttempt struct {
 	// Deprecated
-	Metrics  []AbstractMetricEntryObject `json:"metrics,omitempty"`
-	State    State                       `json:"state"`
-	WorkerId NullableString              `json:"workerId,omitempty"`
-	LogFile  NullableString              `json:"logFile,omitempty"`
+	Metrics              []AbstractMetricEntryObject `json:"metrics,omitempty"`
+	State                State                       `json:"state"`
+	WorkerId             NullableString              `json:"workerId,omitempty"`
+	LogFile              NullableString              `json:"logFile,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TaskRunAttempt TaskRunAttempt
@@ -213,6 +213,11 @@ func (o TaskRunAttempt) ToMap() (map[string]interface{}, error) {
 	if o.LogFile.IsSet() {
 		toSerialize["logFile"] = o.LogFile.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -240,15 +245,23 @@ func (o *TaskRunAttempt) UnmarshalJSON(data []byte) (err error) {
 
 	varTaskRunAttempt := _TaskRunAttempt{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTaskRunAttempt)
+	err = json.Unmarshal(data, &varTaskRunAttempt)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TaskRunAttempt(varTaskRunAttempt)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metrics")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "workerId")
+		delete(additionalProperties, "logFile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

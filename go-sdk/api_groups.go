@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -35,11 +36,13 @@ func (r ApiAddUserToGroupRequest) Execute() (*ApiUser, *http.Response, error) {
 }
 
 /*
-AddUserToGroup Add a group for a user
+AddUserToGroup Add a user to a group
+
+Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to add to the group
 	@param tenant
 	@return ApiAddUserToGroupRequest
 */
@@ -145,11 +148,13 @@ func (r ApiAddUserToGroupWithResourceTenantasSuperAdminRequest) Execute() (*ApiU
 }
 
 /*
-AddUserToGroupWithResourceTenantasSuperAdmin Add a group for a user
+AddUserToGroupWithResourceTenantasSuperAdmin Add a user to a group
+
+Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to add to the group
 	@param resourceTenant
 	@return ApiAddUserToGroupWithResourceTenantasSuperAdminRequest
 */
@@ -254,11 +259,13 @@ func (r ApiAddUserToGroupasSuperAdminRequest) Execute() (*ApiUser, *http.Respons
 }
 
 /*
-AddUserToGroupasSuperAdmin Add a group for a user
+AddUserToGroupasSuperAdmin Add a user to a group
+
+Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to add to the group
 	@return ApiAddUserToGroupasSuperAdminRequest
 */
 func (a *GroupsAPIService) AddUserToGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiAddUserToGroupasSuperAdminRequest {
@@ -687,15 +694,15 @@ func (a *GroupsAPIService) AutocompleteGroupsasSuperAdminExecute(r ApiAutocomple
 }
 
 type ApiCreateGroupRequest struct {
-	ctx                                     context.Context
-	ApiService                              *GroupsAPIService
-	tenant                                  string
-	abstractGroupControllerGroupWithMembers *AbstractGroupControllerGroupWithMembers
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	tenant                                       string
+	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
 }
 
 // The group
-func (r ApiCreateGroupRequest) AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers AbstractGroupControllerGroupWithMembers) ApiCreateGroupRequest {
-	r.abstractGroupControllerGroupWithMembers = &abstractGroupControllerGroupWithMembers
+func (r ApiCreateGroupRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupRequest {
+	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
 	return r
 }
 
@@ -740,8 +747,8 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerGroupWithMembers == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerGroupWithMembers is required and must be specified")
+	if r.abstractGroupControllerApiCreateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -762,7 +769,7 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractGroupControllerGroupWithMembers
+	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -801,15 +808,15 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, 
 }
 
 type ApiCreateGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx                                     context.Context
-	ApiService                              *GroupsAPIService
-	resourceTenant                          string
-	abstractGroupControllerGroupWithMembers *AbstractGroupControllerGroupWithMembers
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	resourceTenant                               string
+	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
 }
 
 // The group
-func (r ApiCreateGroupWithResourceTenantasSuperAdminRequest) AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers AbstractGroupControllerGroupWithMembers) ApiCreateGroupWithResourceTenantasSuperAdminRequest {
-	r.abstractGroupControllerGroupWithMembers = &abstractGroupControllerGroupWithMembers
+func (r ApiCreateGroupWithResourceTenantasSuperAdminRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupWithResourceTenantasSuperAdminRequest {
+	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
 	return r
 }
 
@@ -854,8 +861,8 @@ func (a *GroupsAPIService) CreateGroupWithResourceTenantasSuperAdminExecute(r Ap
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerGroupWithMembers == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerGroupWithMembers is required and must be specified")
+	if r.abstractGroupControllerApiCreateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -876,7 +883,7 @@ func (a *GroupsAPIService) CreateGroupWithResourceTenantasSuperAdminExecute(r Ap
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractGroupControllerGroupWithMembers
+	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -915,14 +922,14 @@ func (a *GroupsAPIService) CreateGroupWithResourceTenantasSuperAdminExecute(r Ap
 }
 
 type ApiCreateGroupasSuperAdminRequest struct {
-	ctx                                     context.Context
-	ApiService                              *GroupsAPIService
-	abstractGroupControllerGroupWithMembers *AbstractGroupControllerGroupWithMembers
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
 }
 
 // The group
-func (r ApiCreateGroupasSuperAdminRequest) AbstractGroupControllerGroupWithMembers(abstractGroupControllerGroupWithMembers AbstractGroupControllerGroupWithMembers) ApiCreateGroupasSuperAdminRequest {
-	r.abstractGroupControllerGroupWithMembers = &abstractGroupControllerGroupWithMembers
+func (r ApiCreateGroupasSuperAdminRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupasSuperAdminRequest {
+	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
 	return r
 }
 
@@ -964,8 +971,8 @@ func (a *GroupsAPIService) CreateGroupasSuperAdminExecute(r ApiCreateGroupasSupe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerGroupWithMembers == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerGroupWithMembers is required and must be specified")
+	if r.abstractGroupControllerApiCreateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -986,7 +993,7 @@ func (a *GroupsAPIService) CreateGroupasSuperAdminExecute(r ApiCreateGroupasSupe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractGroupControllerGroupWithMembers
+	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1315,11 +1322,13 @@ func (r ApiDeleteUserFromGroupRequest) Execute() (*ApiUser, *http.Response, erro
 }
 
 /*
-DeleteUserFromGroup Delete a group for a user
+DeleteUserFromGroup Remove a user from a group
+
+Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to remove from the group
 	@param tenant
 	@return ApiDeleteUserFromGroupRequest
 */
@@ -1425,11 +1434,13 @@ func (r ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest) Execute() (
 }
 
 /*
-DeleteUserFromGroupWithResourceTenantasSuperAdmin Delete a group for a user
+DeleteUserFromGroupWithResourceTenantasSuperAdmin Remove a user from a group
+
+Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to remove from the group
 	@param resourceTenant
 	@return ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest
 */
@@ -1534,11 +1545,13 @@ func (r ApiDeleteUserFromGroupasSuperAdminRequest) Execute() (*ApiUser, *http.Re
 }
 
 /*
-DeleteUserFromGroupasSuperAdmin Delete a group for a user
+DeleteUserFromGroupasSuperAdmin Remove a user from a group
+
+Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user to remove from the group
 	@return ApiDeleteUserFromGroupasSuperAdminRequest
 */
 func (a *GroupsAPIService) DeleteUserFromGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiDeleteUserFromGroupasSuperAdminRequest {
@@ -1640,7 +1653,9 @@ func (r ApiGetGroupRequest) Execute() (*Group, *http.Response, error) {
 }
 
 /*
-GetGroup Get a group
+GetGroup Retrieve a group
+
+Retrieves details of a specific group by its ID within the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The group id
@@ -1746,7 +1761,9 @@ func (r ApiGetGroupWithResourceTenantasSuperAdminRequest) Execute() (*Group, *ht
 }
 
 /*
-GetGroupWithResourceTenantasSuperAdmin Get a group
+GetGroupWithResourceTenantasSuperAdmin Retrieve a group
+
+Retrieves details of a specific group by its ID within the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The group id
@@ -1851,7 +1868,9 @@ func (r ApiGetGroupasSuperAdminRequest) Execute() (*Group, *http.Response, error
 }
 
 /*
-GetGroupasSuperAdmin Get a group
+GetGroupasSuperAdmin Retrieve a group
+
+Retrieves details of a specific group by its ID within the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The group id
@@ -2372,7 +2391,15 @@ func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2520,7 +2547,15 @@ func (a *GroupsAPIService) SearchGroupMembersWithResourceTenantasSuperAdminExecu
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2664,7 +2699,15 @@ func (a *GroupsAPIService) SearchGroupMembersasSuperAdminExecute(r ApiSearchGrou
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2808,7 +2851,15 @@ func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*Paged
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2952,7 +3003,15 @@ func (a *GroupsAPIService) SearchGroupsWithResourceTenantasSuperAdminExecute(r A
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3092,7 +3151,15 @@ func (a *GroupsAPIService) SearchGroupsasSuperAdminExecute(r ApiSearchGroupsasSu
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3153,12 +3220,12 @@ type ApiSetUserMembershipForGroupRequest struct {
 	ApiService *GroupsAPIService
 	id         string
 	userId     string
-	membership *AbstractUserGroupIdentifierMembership
+	membership *GroupIdentifierMembership
 	tenant     string
 }
 
-// The membership type
-func (r ApiSetUserMembershipForGroupRequest) Membership(membership AbstractUserGroupIdentifierMembership) ApiSetUserMembershipForGroupRequest {
+// The new membership type to assign to the user.
+func (r ApiSetUserMembershipForGroupRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupRequest {
 	r.membership = &membership
 	return r
 }
@@ -3168,13 +3235,13 @@ func (r ApiSetUserMembershipForGroupRequest) Execute() (*ApiUser, *http.Response
 }
 
 /*
-SetUserMembershipForGroup Set the membership type of a user in a group
+SetUserMembershipForGroup Update a user's membership type in a group
 
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user whose membership is being updated
 	@param tenant
 	@return ApiSetUserMembershipForGroupRequest
 */
@@ -3276,12 +3343,12 @@ type ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest struct {
 	ApiService     *GroupsAPIService
 	id             string
 	userId         string
-	membership     *AbstractUserGroupIdentifierMembership
+	membership     *GroupIdentifierMembership
 	resourceTenant string
 }
 
-// The membership type
-func (r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) Membership(membership AbstractUserGroupIdentifierMembership) ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest {
+// The new membership type to assign to the user.
+func (r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest {
 	r.membership = &membership
 	return r
 }
@@ -3291,13 +3358,13 @@ func (r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) Execu
 }
 
 /*
-SetUserMembershipForGroupWithResourceTenantasSuperAdmin Set the membership type of a user in a group
+SetUserMembershipForGroupWithResourceTenantasSuperAdmin Update a user's membership type in a group
 
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user whose membership is being updated
 	@param resourceTenant
 	@return ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest
 */
@@ -3399,11 +3466,11 @@ type ApiSetUserMembershipForGroupasSuperAdminRequest struct {
 	ApiService *GroupsAPIService
 	id         string
 	userId     string
-	membership *AbstractUserGroupIdentifierMembership
+	membership *GroupIdentifierMembership
 }
 
-// The membership type
-func (r ApiSetUserMembershipForGroupasSuperAdminRequest) Membership(membership AbstractUserGroupIdentifierMembership) ApiSetUserMembershipForGroupasSuperAdminRequest {
+// The new membership type to assign to the user.
+func (r ApiSetUserMembershipForGroupasSuperAdminRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupasSuperAdminRequest {
 	r.membership = &membership
 	return r
 }
@@ -3413,13 +3480,13 @@ func (r ApiSetUserMembershipForGroupasSuperAdminRequest) Execute() (*ApiUser, *h
 }
 
 /*
-SetUserMembershipForGroupasSuperAdmin Set the membership type of a user in a group
+SetUserMembershipForGroupasSuperAdmin Update a user's membership type in a group
 
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param userId The user id
+	@param id The ID of the group
+	@param userId The ID of the user whose membership is being updated
 	@return ApiSetUserMembershipForGroupasSuperAdminRequest
 */
 func (a *GroupsAPIService) SetUserMembershipForGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiSetUserMembershipForGroupasSuperAdminRequest {
@@ -3514,16 +3581,16 @@ func (a *GroupsAPIService) SetUserMembershipForGroupasSuperAdminExecute(r ApiSet
 }
 
 type ApiUpdateGroupRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	tenant     string
-	group      *Group
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	id                                           string
+	tenant                                       string
+	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
 }
 
 // The group
-func (r ApiUpdateGroupRequest) Group(group Group) ApiUpdateGroupRequest {
-	r.group = &group
+func (r ApiUpdateGroupRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupRequest {
+	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
 	return r
 }
 
@@ -3571,8 +3638,8 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.group == nil {
-		return localVarReturnValue, nil, reportError("group is required and must be specified")
+	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3593,7 +3660,7 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.group
+	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3632,16 +3699,16 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, 
 }
 
 type ApiUpdateGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	resourceTenant string
-	group          *Group
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	id                                           string
+	resourceTenant                               string
+	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
 }
 
 // The group
-func (r ApiUpdateGroupWithResourceTenantasSuperAdminRequest) Group(group Group) ApiUpdateGroupWithResourceTenantasSuperAdminRequest {
-	r.group = &group
+func (r ApiUpdateGroupWithResourceTenantasSuperAdminRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupWithResourceTenantasSuperAdminRequest {
+	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
 	return r
 }
 
@@ -3689,8 +3756,8 @@ func (a *GroupsAPIService) UpdateGroupWithResourceTenantasSuperAdminExecute(r Ap
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.group == nil {
-		return localVarReturnValue, nil, reportError("group is required and must be specified")
+	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3711,7 +3778,7 @@ func (a *GroupsAPIService) UpdateGroupWithResourceTenantasSuperAdminExecute(r Ap
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.group
+	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3750,15 +3817,15 @@ func (a *GroupsAPIService) UpdateGroupWithResourceTenantasSuperAdminExecute(r Ap
 }
 
 type ApiUpdateGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	group      *Group
+	ctx                                          context.Context
+	ApiService                                   *GroupsAPIService
+	id                                           string
+	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
 }
 
 // The group
-func (r ApiUpdateGroupasSuperAdminRequest) Group(group Group) ApiUpdateGroupasSuperAdminRequest {
-	r.group = &group
+func (r ApiUpdateGroupasSuperAdminRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupasSuperAdminRequest {
+	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
 	return r
 }
 
@@ -3803,8 +3870,8 @@ func (a *GroupsAPIService) UpdateGroupasSuperAdminExecute(r ApiUpdateGroupasSupe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.group == nil {
-		return localVarReturnValue, nil, reportError("group is required and must be specified")
+	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3825,7 +3892,7 @@ func (a *GroupsAPIService) UpdateGroupasSuperAdminExecute(r ApiUpdateGroupasSupe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.group
+	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

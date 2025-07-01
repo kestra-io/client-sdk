@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -20,14 +20,17 @@ var _ MappedNullable = &GlobalFilter{}
 
 // GlobalFilter struct for GlobalFilter
 type GlobalFilter struct {
-	StartDate  *time.Time         `json:"startDate,omitempty"`
-	EndDate    *time.Time         `json:"endDate,omitempty"`
-	PageSize   *int32             `json:"pageSize,omitempty"`
-	PageNumber *int32             `json:"pageNumber,omitempty"`
-	Namespace  *string            `json:"namespace,omitempty"`
-	Labels     *map[string]string `json:"labels,omitempty"`
-	Filters    []QueryFilter      `json:"filters,omitempty"`
+	StartDate            *time.Time         `json:"startDate,omitempty"`
+	EndDate              *time.Time         `json:"endDate,omitempty"`
+	PageSize             *int32             `json:"pageSize,omitempty"`
+	PageNumber           *int32             `json:"pageNumber,omitempty"`
+	Namespace            *string            `json:"namespace,omitempty"`
+	Labels               *map[string]string `json:"labels,omitempty"`
+	Filters              []QueryFilter      `json:"filters,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GlobalFilter GlobalFilter
 
 // NewGlobalFilter instantiates a new GlobalFilter object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o GlobalFilter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filters) {
 		toSerialize["filters"] = o.Filters
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GlobalFilter) UnmarshalJSON(data []byte) (err error) {
+	varGlobalFilter := _GlobalFilter{}
+
+	err = json.Unmarshal(data, &varGlobalFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GlobalFilter(varGlobalFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "startDate")
+		delete(additionalProperties, "endDate")
+		delete(additionalProperties, "pageSize")
+		delete(additionalProperties, "pageNumber")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "filters")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGlobalFilter struct {

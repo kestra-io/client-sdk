@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,9 +20,10 @@ var _ MappedNullable = &AuthControllerInvitationUserRequest{}
 
 // AuthControllerInvitationUserRequest struct for AuthControllerInvitationUserRequest
 type AuthControllerInvitationUserRequest struct {
-	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
-	Password  string `json:"password"`
+	FirstName            string `json:"firstName"`
+	LastName             string `json:"lastName"`
+	Password             string `json:"password"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AuthControllerInvitationUserRequest AuthControllerInvitationUserRequest
@@ -133,6 +133,11 @@ func (o AuthControllerInvitationUserRequest) ToMap() (map[string]interface{}, er
 	toSerialize["firstName"] = o.FirstName
 	toSerialize["lastName"] = o.LastName
 	toSerialize["password"] = o.Password
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -162,15 +167,22 @@ func (o *AuthControllerInvitationUserRequest) UnmarshalJSON(data []byte) (err er
 
 	varAuthControllerInvitationUserRequest := _AuthControllerInvitationUserRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAuthControllerInvitationUserRequest)
+	err = json.Unmarshal(data, &varAuthControllerInvitationUserRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AuthControllerInvitationUserRequest(varAuthControllerInvitationUserRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "password")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

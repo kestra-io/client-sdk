@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -25,7 +25,10 @@ type AttributeReference struct {
 	Urn                         *string `json:"urn,omitempty"`
 	AttributeName               *string `json:"attributeName,omitempty"`
 	SubAttributeName            *string `json:"subAttributeName,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
+
+type _AttributeReference AttributeReference
 
 // NewAttributeReference instantiates a new AttributeReference object
 // This constructor will assign default values to properties that have it defined,
@@ -264,7 +267,38 @@ func (o AttributeReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubAttributeName) {
 		toSerialize["subAttributeName"] = o.SubAttributeName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AttributeReference) UnmarshalJSON(data []byte) (err error) {
+	varAttributeReference := _AttributeReference{}
+
+	err = json.Unmarshal(data, &varAttributeReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AttributeReference(varAttributeReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fullAttributeName")
+		delete(additionalProperties, "fullyQualifiedAttributeName")
+		delete(additionalProperties, "attributeBase")
+		delete(additionalProperties, "urn")
+		delete(additionalProperties, "attributeName")
+		delete(additionalProperties, "subAttributeName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAttributeReference struct {

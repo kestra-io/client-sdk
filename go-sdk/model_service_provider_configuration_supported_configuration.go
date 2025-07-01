@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &ServiceProviderConfigurationSupportedConfiguration{}
 
 // ServiceProviderConfigurationSupportedConfiguration struct for ServiceProviderConfigurationSupportedConfiguration
 type ServiceProviderConfigurationSupportedConfiguration struct {
-	Supported *bool `json:"supported,omitempty"`
+	Supported            *bool `json:"supported,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceProviderConfigurationSupportedConfiguration ServiceProviderConfigurationSupportedConfiguration
 
 // NewServiceProviderConfigurationSupportedConfiguration instantiates a new ServiceProviderConfigurationSupportedConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o ServiceProviderConfigurationSupportedConfiguration) ToMap() (map[string]
 	if !IsNil(o.Supported) {
 		toSerialize["supported"] = o.Supported
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceProviderConfigurationSupportedConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varServiceProviderConfigurationSupportedConfiguration := _ServiceProviderConfigurationSupportedConfiguration{}
+
+	err = json.Unmarshal(data, &varServiceProviderConfigurationSupportedConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceProviderConfigurationSupportedConfiguration(varServiceProviderConfigurationSupportedConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "supported")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceProviderConfigurationSupportedConfiguration struct {

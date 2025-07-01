@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,20 +21,29 @@ var _ MappedNullable = &BlueprintControllerApiBlueprintItem{}
 
 // BlueprintControllerApiBlueprintItem struct for BlueprintControllerApiBlueprintItem
 type BlueprintControllerApiBlueprintItem struct {
-	Id            *string    `json:"id,omitempty"`
-	Title         *string    `json:"title,omitempty"`
-	Description   *string    `json:"description,omitempty"`
-	IncludedTasks []string   `json:"includedTasks,omitempty"`
-	Tags          []string   `json:"tags,omitempty"`
-	PublishedAt   *time.Time `json:"publishedAt,omitempty"`
+	Id                   string    `json:"id"`
+	Title                string    `json:"title"`
+	Description          string    `json:"description"`
+	IncludedTasks        []string  `json:"includedTasks"`
+	Tags                 []string  `json:"tags"`
+	PublishedAt          time.Time `json:"publishedAt"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BlueprintControllerApiBlueprintItem BlueprintControllerApiBlueprintItem
 
 // NewBlueprintControllerApiBlueprintItem instantiates a new BlueprintControllerApiBlueprintItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlueprintControllerApiBlueprintItem() *BlueprintControllerApiBlueprintItem {
+func NewBlueprintControllerApiBlueprintItem(id string, title string, description string, includedTasks []string, tags []string, publishedAt time.Time) *BlueprintControllerApiBlueprintItem {
 	this := BlueprintControllerApiBlueprintItem{}
+	this.Id = id
+	this.Title = title
+	this.Description = description
+	this.IncludedTasks = includedTasks
+	this.Tags = tags
+	this.PublishedAt = publishedAt
 	return &this
 }
 
@@ -45,196 +55,148 @@ func NewBlueprintControllerApiBlueprintItemWithDefaults() *BlueprintControllerAp
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *BlueprintControllerApiBlueprintItem) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetTitle returns the Title field value if set, zero value otherwise.
+// GetTitle returns the Title field value
 func (o *BlueprintControllerApiBlueprintItem) GetTitle() string {
-	if o == nil || IsNil(o.Title) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Title
+
+	return o.Title
 }
 
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// GetTitleOk returns a tuple with the Title field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetTitleOk() (*string, bool) {
-	if o == nil || IsNil(o.Title) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Title, true
+	return &o.Title, true
 }
 
-// HasTitle returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasTitle() bool {
-	if o != nil && !IsNil(o.Title) {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle gets a reference to the given string and assigns it to the Title field.
+// SetTitle sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetTitle(v string) {
-	o.Title = &v
+	o.Title = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *BlueprintControllerApiBlueprintItem) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetIncludedTasks returns the IncludedTasks field value if set, zero value otherwise.
+// GetIncludedTasks returns the IncludedTasks field value
 func (o *BlueprintControllerApiBlueprintItem) GetIncludedTasks() []string {
-	if o == nil || IsNil(o.IncludedTasks) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.IncludedTasks
 }
 
-// GetIncludedTasksOk returns a tuple with the IncludedTasks field value if set, nil otherwise
+// GetIncludedTasksOk returns a tuple with the IncludedTasks field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetIncludedTasksOk() ([]string, bool) {
-	if o == nil || IsNil(o.IncludedTasks) {
+	if o == nil {
 		return nil, false
 	}
 	return o.IncludedTasks, true
 }
 
-// HasIncludedTasks returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasIncludedTasks() bool {
-	if o != nil && !IsNil(o.IncludedTasks) {
-		return true
-	}
-
-	return false
-}
-
-// SetIncludedTasks gets a reference to the given []string and assigns it to the IncludedTasks field.
+// SetIncludedTasks sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetIncludedTasks(v []string) {
 	o.IncludedTasks = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value
 func (o *BlueprintControllerApiBlueprintItem) GetTags() []string {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetTagsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
+// SetTags sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetTags(v []string) {
 	o.Tags = v
 }
 
-// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
+// GetPublishedAt returns the PublishedAt field value
 func (o *BlueprintControllerApiBlueprintItem) GetPublishedAt() time.Time {
-	if o == nil || IsNil(o.PublishedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.PublishedAt
+
+	return o.PublishedAt
 }
 
-// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
+// GetPublishedAtOk returns a tuple with the PublishedAt field value
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintItem) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.PublishedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PublishedAt, true
+	return &o.PublishedAt, true
 }
 
-// HasPublishedAt returns a boolean if a field has been set.
-func (o *BlueprintControllerApiBlueprintItem) HasPublishedAt() bool {
-	if o != nil && !IsNil(o.PublishedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
+// SetPublishedAt sets field value
 func (o *BlueprintControllerApiBlueprintItem) SetPublishedAt(v time.Time) {
-	o.PublishedAt = &v
+	o.PublishedAt = v
 }
 
 func (o BlueprintControllerApiBlueprintItem) MarshalJSON() ([]byte, error) {
@@ -247,25 +209,70 @@ func (o BlueprintControllerApiBlueprintItem) MarshalJSON() ([]byte, error) {
 
 func (o BlueprintControllerApiBlueprintItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize["id"] = o.Id
+	toSerialize["title"] = o.Title
+	toSerialize["description"] = o.Description
+	toSerialize["includedTasks"] = o.IncludedTasks
+	toSerialize["tags"] = o.Tags
+	toSerialize["publishedAt"] = o.PublishedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Title) {
-		toSerialize["title"] = o.Title
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.IncludedTasks) {
-		toSerialize["includedTasks"] = o.IncludedTasks
-	}
-	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
-	if !IsNil(o.PublishedAt) {
-		toSerialize["publishedAt"] = o.PublishedAt
-	}
+
 	return toSerialize, nil
+}
+
+func (o *BlueprintControllerApiBlueprintItem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"title",
+		"description",
+		"includedTasks",
+		"tags",
+		"publishedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBlueprintControllerApiBlueprintItem := _BlueprintControllerApiBlueprintItem{}
+
+	err = json.Unmarshal(data, &varBlueprintControllerApiBlueprintItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BlueprintControllerApiBlueprintItem(varBlueprintControllerApiBlueprintItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "includedTasks")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "publishedAt")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBlueprintControllerApiBlueprintItem struct {

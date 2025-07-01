@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,19 +20,20 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	Id           string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type         string                 `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
-	Version      *string                `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
-	Description  *string                `json:"description,omitempty"`
-	Retry        map[string]interface{} `json:"retry,omitempty"`
-	Timeout      *string                `json:"timeout,omitempty"`
-	Disabled     *bool                  `json:"disabled,omitempty"`
-	WorkerGroup  *WorkerGroup           `json:"workerGroup,omitempty"`
-	LogLevel     *Level                 `json:"logLevel,omitempty"`
-	AllowFailure *bool                  `json:"allowFailure,omitempty"`
-	LogToFile    *bool                  `json:"logToFile,omitempty"`
-	RunIf        *string                `json:"runIf,omitempty"`
-	AllowWarning *bool                  `json:"allowWarning,omitempty"`
+	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type                 string                 `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Version              *string                `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
+	Description          *string                `json:"description,omitempty"`
+	Retry                map[string]interface{} `json:"retry,omitempty"`
+	Timeout              *string                `json:"timeout,omitempty"`
+	Disabled             *bool                  `json:"disabled,omitempty"`
+	WorkerGroup          *WorkerGroup           `json:"workerGroup,omitempty"`
+	LogLevel             *Level                 `json:"logLevel,omitempty"`
+	AllowFailure         *bool                  `json:"allowFailure,omitempty"`
+	LogToFile            *bool                  `json:"logToFile,omitempty"`
+	RunIf                *string                `json:"runIf,omitempty"`
+	AllowWarning         *bool                  `json:"allowWarning,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Task Task
@@ -502,6 +502,11 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AllowWarning) {
 		toSerialize["allowWarning"] = o.AllowWarning
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -530,15 +535,32 @@ func (o *Task) UnmarshalJSON(data []byte) (err error) {
 
 	varTask := _Task{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTask)
+	err = json.Unmarshal(data, &varTask)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Task(varTask)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "retry")
+		delete(additionalProperties, "timeout")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "workerGroup")
+		delete(additionalProperties, "logLevel")
+		delete(additionalProperties, "allowFailure")
+		delete(additionalProperties, "logToFile")
+		delete(additionalProperties, "runIf")
+		delete(additionalProperties, "allowWarning")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

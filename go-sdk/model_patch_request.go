@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &PatchRequest{}
 
 // PatchRequest struct for PatchRequest
 type PatchRequest struct {
-	Schemas            []string         `json:"schemas,omitempty"`
-	PatchOperationList []PatchOperation `json:"patchOperationList,omitempty"`
+	Schemas              []string         `json:"schemas,omitempty"`
+	PatchOperationList   []PatchOperation `json:"patchOperationList,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PatchRequest PatchRequest
 
 // NewPatchRequest instantiates a new PatchRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o PatchRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PatchOperationList) {
 		toSerialize["patchOperationList"] = o.PatchOperationList
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PatchRequest) UnmarshalJSON(data []byte) (err error) {
+	varPatchRequest := _PatchRequest{}
+
+	err = json.Unmarshal(data, &varPatchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchRequest(varPatchRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		delete(additionalProperties, "patchOperationList")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePatchRequest struct {

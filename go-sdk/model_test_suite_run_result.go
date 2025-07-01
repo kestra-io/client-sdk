@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the TestSuiteRunResult type satisfies the MappedNullable interface at compile time
@@ -19,20 +20,29 @@ var _ MappedNullable = &TestSuiteRunResult{}
 
 // TestSuiteRunResult struct for TestSuiteRunResult
 type TestSuiteRunResult struct {
-	Id          *string          `json:"id,omitempty"`
-	TestSuiteId *string          `json:"testSuiteId,omitempty"`
-	Namespace   *string          `json:"namespace,omitempty"`
-	FlowId      *string          `json:"flowId,omitempty"`
-	State       *TestState       `json:"state,omitempty"`
-	Results     []UnitTestResult `json:"results,omitempty"`
+	Id                   string           `json:"id"`
+	TestSuiteId          string           `json:"testSuiteId"`
+	Namespace            string           `json:"namespace"`
+	FlowId               string           `json:"flowId"`
+	State                TestState        `json:"state"`
+	Results              []UnitTestResult `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TestSuiteRunResult TestSuiteRunResult
 
 // NewTestSuiteRunResult instantiates a new TestSuiteRunResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteRunResult() *TestSuiteRunResult {
+func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, results []UnitTestResult) *TestSuiteRunResult {
 	this := TestSuiteRunResult{}
+	this.Id = id
+	this.TestSuiteId = testSuiteId
+	this.Namespace = namespace
+	this.FlowId = flowId
+	this.State = state
+	this.Results = results
 	return &this
 }
 
@@ -44,194 +54,146 @@ func NewTestSuiteRunResultWithDefaults() *TestSuiteRunResult {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *TestSuiteRunResult) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *TestSuiteRunResult) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetTestSuiteId returns the TestSuiteId field value if set, zero value otherwise.
+// GetTestSuiteId returns the TestSuiteId field value
 func (o *TestSuiteRunResult) GetTestSuiteId() string {
-	if o == nil || IsNil(o.TestSuiteId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TestSuiteId
+
+	return o.TestSuiteId
 }
 
-// GetTestSuiteIdOk returns a tuple with the TestSuiteId field value if set, nil otherwise
+// GetTestSuiteIdOk returns a tuple with the TestSuiteId field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetTestSuiteIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TestSuiteId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TestSuiteId, true
+	return &o.TestSuiteId, true
 }
 
-// HasTestSuiteId returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasTestSuiteId() bool {
-	if o != nil && !IsNil(o.TestSuiteId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTestSuiteId gets a reference to the given string and assigns it to the TestSuiteId field.
+// SetTestSuiteId sets field value
 func (o *TestSuiteRunResult) SetTestSuiteId(v string) {
-	o.TestSuiteId = &v
+	o.TestSuiteId = v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *TestSuiteRunResult) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *TestSuiteRunResult) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// GetFlowId returns the FlowId field value
 func (o *TestSuiteRunResult) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+
+	return o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// GetFlowIdOk returns a tuple with the FlowId field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return &o.FlowId, true
 }
 
-// HasFlowId returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId sets field value
 func (o *TestSuiteRunResult) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *TestSuiteRunResult) GetState() TestState {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret TestState
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetStateOk() (*TestState, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given TestState and assigns it to the State field.
+// SetState sets field value
 func (o *TestSuiteRunResult) SetState(v TestState) {
-	o.State = &v
+	o.State = v
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value
 func (o *TestSuiteRunResult) GetResults() []UnitTestResult {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		var ret []UnitTestResult
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetResultsOk() ([]UnitTestResult, bool) {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasResults() bool {
-	if o != nil && !IsNil(o.Results) {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []UnitTestResult and assigns it to the Results field.
+// SetResults sets field value
 func (o *TestSuiteRunResult) SetResults(v []UnitTestResult) {
 	o.Results = v
 }
@@ -246,25 +208,70 @@ func (o TestSuiteRunResult) MarshalJSON() ([]byte, error) {
 
 func (o TestSuiteRunResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize["id"] = o.Id
+	toSerialize["testSuiteId"] = o.TestSuiteId
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	toSerialize["state"] = o.State
+	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.TestSuiteId) {
-		toSerialize["testSuiteId"] = o.TestSuiteId
-	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
-	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
-	if !IsNil(o.Results) {
-		toSerialize["results"] = o.Results
-	}
+
 	return toSerialize, nil
+}
+
+func (o *TestSuiteRunResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"testSuiteId",
+		"namespace",
+		"flowId",
+		"state",
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTestSuiteRunResult := _TestSuiteRunResult{}
+
+	err = json.Unmarshal(data, &varTestSuiteRunResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TestSuiteRunResult(varTestSuiteRunResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "testSuiteId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTestSuiteRunResult struct {

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &BaseResourceScimResource{}
 
 // BaseResourceScimResource struct for BaseResourceScimResource
 type BaseResourceScimResource struct {
-	Schemas []string `json:"schemas,omitempty"`
+	Schemas              []string `json:"schemas,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BaseResourceScimResource BaseResourceScimResource
 
 // NewBaseResourceScimResource instantiates a new BaseResourceScimResource object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o BaseResourceScimResource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Schemas) {
 		toSerialize["schemas"] = o.Schemas
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BaseResourceScimResource) UnmarshalJSON(data []byte) (err error) {
+	varBaseResourceScimResource := _BaseResourceScimResource{}
+
+	err = json.Unmarshal(data, &varBaseResourceScimResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BaseResourceScimResource(varBaseResourceScimResource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemas")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBaseResourceScimResource struct {

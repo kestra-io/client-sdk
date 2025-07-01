@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppResponseUILayout type satisfies the MappedNullable interface at compile time
@@ -19,15 +20,19 @@ var _ MappedNullable = &AppResponseUILayout{}
 
 // AppResponseUILayout struct for AppResponseUILayout
 type AppResponseUILayout struct {
-	Blocks []map[string]interface{} `json:"blocks,omitempty"`
+	Blocks               []map[string]interface{} `json:"blocks"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AppResponseUILayout AppResponseUILayout
 
 // NewAppResponseUILayout instantiates a new AppResponseUILayout object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppResponseUILayout() *AppResponseUILayout {
+func NewAppResponseUILayout(blocks []map[string]interface{}) *AppResponseUILayout {
 	this := AppResponseUILayout{}
+	this.Blocks = blocks
 	return &this
 }
 
@@ -39,34 +44,26 @@ func NewAppResponseUILayoutWithDefaults() *AppResponseUILayout {
 	return &this
 }
 
-// GetBlocks returns the Blocks field value if set, zero value otherwise.
+// GetBlocks returns the Blocks field value
 func (o *AppResponseUILayout) GetBlocks() []map[string]interface{} {
-	if o == nil || IsNil(o.Blocks) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.Blocks
 }
 
-// GetBlocksOk returns a tuple with the Blocks field value if set, nil otherwise
+// GetBlocksOk returns a tuple with the Blocks field value
 // and a boolean to check if the value has been set.
 func (o *AppResponseUILayout) GetBlocksOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Blocks) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Blocks, true
 }
 
-// HasBlocks returns a boolean if a field has been set.
-func (o *AppResponseUILayout) HasBlocks() bool {
-	if o != nil && !IsNil(o.Blocks) {
-		return true
-	}
-
-	return false
-}
-
-// SetBlocks gets a reference to the given []map[string]interface{} and assigns it to the Blocks field.
+// SetBlocks sets field value
 func (o *AppResponseUILayout) SetBlocks(v []map[string]interface{}) {
 	o.Blocks = v
 }
@@ -81,10 +78,55 @@ func (o AppResponseUILayout) MarshalJSON() ([]byte, error) {
 
 func (o AppResponseUILayout) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Blocks) {
-		toSerialize["blocks"] = o.Blocks
+	toSerialize["blocks"] = o.Blocks
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
+}
+
+func (o *AppResponseUILayout) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"blocks",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAppResponseUILayout := _AppResponseUILayout{}
+
+	err = json.Unmarshal(data, &varAppResponseUILayout)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AppResponseUILayout(varAppResponseUILayout)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "blocks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAppResponseUILayout struct {

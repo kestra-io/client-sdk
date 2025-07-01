@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &ServerConfig{}
 type ServerConfig struct {
 	WorkerTaskRestartStrategy NullableWorkerTaskRestartStrategy `json:"workerTaskRestartStrategy,omitempty"`
 	TerminationGracePeriod    string                            `json:"terminationGracePeriod"`
-	Liveness                  *ServerConfigLiveness             `json:"liveness,omitempty"`
+	Liveness                  ServerConfigLiveness              `json:"liveness"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _ServerConfig ServerConfig
@@ -32,9 +32,10 @@ type _ServerConfig ServerConfig
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerConfig(terminationGracePeriod string) *ServerConfig {
+func NewServerConfig(terminationGracePeriod string, liveness ServerConfigLiveness) *ServerConfig {
 	this := ServerConfig{}
 	this.TerminationGracePeriod = terminationGracePeriod
+	this.Liveness = liveness
 	return &this
 }
 
@@ -115,36 +116,28 @@ func (o *ServerConfig) SetTerminationGracePeriod(v string) {
 	o.TerminationGracePeriod = v
 }
 
-// GetLiveness returns the Liveness field value if set, zero value otherwise.
+// GetLiveness returns the Liveness field value
 func (o *ServerConfig) GetLiveness() ServerConfigLiveness {
-	if o == nil || IsNil(o.Liveness) {
+	if o == nil {
 		var ret ServerConfigLiveness
 		return ret
 	}
-	return *o.Liveness
+
+	return o.Liveness
 }
 
-// GetLivenessOk returns a tuple with the Liveness field value if set, nil otherwise
+// GetLivenessOk returns a tuple with the Liveness field value
 // and a boolean to check if the value has been set.
 func (o *ServerConfig) GetLivenessOk() (*ServerConfigLiveness, bool) {
-	if o == nil || IsNil(o.Liveness) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Liveness, true
+	return &o.Liveness, true
 }
 
-// HasLiveness returns a boolean if a field has been set.
-func (o *ServerConfig) HasLiveness() bool {
-	if o != nil && !IsNil(o.Liveness) {
-		return true
-	}
-
-	return false
-}
-
-// SetLiveness gets a reference to the given ServerConfigLiveness and assigns it to the Liveness field.
+// SetLiveness sets field value
 func (o *ServerConfig) SetLiveness(v ServerConfigLiveness) {
-	o.Liveness = &v
+	o.Liveness = v
 }
 
 func (o ServerConfig) MarshalJSON() ([]byte, error) {
@@ -161,9 +154,12 @@ func (o ServerConfig) ToMap() (map[string]interface{}, error) {
 		toSerialize["workerTaskRestartStrategy"] = o.WorkerTaskRestartStrategy.Get()
 	}
 	toSerialize["terminationGracePeriod"] = o.TerminationGracePeriod
-	if !IsNil(o.Liveness) {
-		toSerialize["liveness"] = o.Liveness
+	toSerialize["liveness"] = o.Liveness
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
 }
 
@@ -173,6 +169,7 @@ func (o *ServerConfig) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"terminationGracePeriod",
+		"liveness",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -191,15 +188,22 @@ func (o *ServerConfig) UnmarshalJSON(data []byte) (err error) {
 
 	varServerConfig := _ServerConfig{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varServerConfig)
+	err = json.Unmarshal(data, &varServerConfig)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ServerConfig(varServerConfig)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "workerTaskRestartStrategy")
+		delete(additionalProperties, "terminationGracePeriod")
+		delete(additionalProperties, "liveness")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -35,7 +35,10 @@ type SchemaAttribute struct {
 	ReferenceTypes          []string                   `json:"referenceTypes,omitempty"`
 	Accessor                map[string]interface{}     `json:"accessor,omitempty"`
 	ScimResourceIdReference *bool                      `json:"scimResourceIdReference,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
+
+type _SchemaAttribute SchemaAttribute
 
 // NewSchemaAttribute instantiates a new SchemaAttribute object
 // This constructor will assign default values to properties that have it defined,
@@ -624,7 +627,48 @@ func (o SchemaAttribute) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ScimResourceIdReference) {
 		toSerialize["scimResourceIdReference"] = o.ScimResourceIdReference
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SchemaAttribute) UnmarshalJSON(data []byte) (err error) {
+	varSchemaAttribute := _SchemaAttribute{}
+
+	err = json.Unmarshal(data, &varSchemaAttribute)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SchemaAttribute(varSchemaAttribute)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attributes")
+		delete(additionalProperties, "urn")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "subAttributes")
+		delete(additionalProperties, "multiValued")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "canonicalValues")
+		delete(additionalProperties, "caseExact")
+		delete(additionalProperties, "mutability")
+		delete(additionalProperties, "returned")
+		delete(additionalProperties, "uniqueness")
+		delete(additionalProperties, "referenceTypes")
+		delete(additionalProperties, "accessor")
+		delete(additionalProperties, "scimResourceIdReference")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSchemaAttribute struct {

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**UserType**](UserType.md) |  | 
-**GroupList** | Pointer to [**[]AbstractUserGroupIdentifier**](AbstractUserGroupIdentifier.md) |  | [optional] 
+**GroupList** | Pointer to [**[]GroupIdentifier**](GroupIdentifier.md) |  | [optional] 
 **Groups** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Username** | **string** |  | 
 **Email** | **string** |  | 
@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **FirstName** | Pointer to **string** |  | [optional] 
 **LastName** | Pointer to **string** |  | [optional] 
 **Providers** | Pointer to [**[]AbstractUserTenantIdentityProvider**](AbstractUserTenantIdentityProvider.md) |  | [optional] 
-**IsSuperAdmin** | Pointer to **bool** |  | [optional] 
 **Auths** | Pointer to [**[]ApiAuth**](ApiAuth.md) |  | [optional] 
 
 ## Methods
@@ -60,20 +59,20 @@ SetType sets Type field to given value.
 
 ### GetGroupList
 
-`func (o *ApiUser) GetGroupList() []AbstractUserGroupIdentifier`
+`func (o *ApiUser) GetGroupList() []GroupIdentifier`
 
 GetGroupList returns the GroupList field if non-nil, zero value otherwise.
 
 ### GetGroupListOk
 
-`func (o *ApiUser) GetGroupListOk() (*[]AbstractUserGroupIdentifier, bool)`
+`func (o *ApiUser) GetGroupListOk() (*[]GroupIdentifier, bool)`
 
 GetGroupListOk returns a tuple with the GroupList field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroupList
 
-`func (o *ApiUser) SetGroupList(v []AbstractUserGroupIdentifier)`
+`func (o *ApiUser) SetGroupList(v []GroupIdentifier)`
 
 SetGroupList sets GroupList field to given value.
 
@@ -322,31 +321,6 @@ SetProviders sets Providers field to given value.
 `func (o *ApiUser) HasProviders() bool`
 
 HasProviders returns a boolean if a field has been set.
-
-### GetIsSuperAdmin
-
-`func (o *ApiUser) GetIsSuperAdmin() bool`
-
-GetIsSuperAdmin returns the IsSuperAdmin field if non-nil, zero value otherwise.
-
-### GetIsSuperAdminOk
-
-`func (o *ApiUser) GetIsSuperAdminOk() (*bool, bool)`
-
-GetIsSuperAdminOk returns a tuple with the IsSuperAdmin field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsSuperAdmin
-
-`func (o *ApiUser) SetIsSuperAdmin(v bool)`
-
-SetIsSuperAdmin sets IsSuperAdmin field to given value.
-
-### HasIsSuperAdmin
-
-`func (o *ApiUser) HasIsSuperAdmin() bool`
-
-HasIsSuperAdmin returns a boolean if a field has been set.
 
 ### GetAuths
 

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -40,7 +40,9 @@ func (r ApiCreateSecurityIntegrationRequest) Execute() (map[string]interface{}, 
 }
 
 /*
-CreateSecurityIntegration Create a security integration.
+CreateSecurityIntegration Create a security integration
+
+Superadmin-only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -148,7 +150,9 @@ func (r ApiDeleteSecurityIntegrationRequest) Execute() (map[string]interface{}, 
 }
 
 /*
-DeleteSecurityIntegration Delete the security integration.
+DeleteSecurityIntegration Delete a security integration
+
+Superadmin-only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The ID of security integration
@@ -254,7 +258,9 @@ func (r ApiDisableSecurityIntegrationRequest) Execute() (map[string]interface{},
 }
 
 /*
-DisableSecurityIntegration Disable the security integration.
+DisableSecurityIntegration Disable a security integration
+
+Superadmin-only. Disables the specified integration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The ID of security integration
@@ -360,7 +366,9 @@ func (r ApiEnableSecurityIntegrationRequest) Execute() (map[string]interface{}, 
 }
 
 /*
-EnableSecurityIntegration Enable the security integration.
+EnableSecurityIntegration Enable a security integration
+
+Superadmin-only. Enables the specified integration.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The ID of security integration
@@ -466,7 +474,9 @@ func (r ApiGetSecurityIntegrationRequest) Execute() (map[string]interface{}, *ht
 }
 
 /*
-GetSecurityIntegration Get a security integration.
+GetSecurityIntegration Retrieve a security integration
+
+Superadmin-only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The ID of security integration
@@ -571,7 +581,9 @@ func (r ApiListSecurityIntegrationsRequest) Execute() (map[string]interface{}, *
 }
 
 /*
-ListSecurityIntegrations List all security integrations.
+ListSecurityIntegrations List all security integrations
+
+Superadmin-only.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant

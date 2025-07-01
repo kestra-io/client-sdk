@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &DeletedInterface{}
 
 // DeletedInterface struct for DeletedInterface
 type DeletedInterface struct {
-	Deleted *bool `json:"deleted,omitempty"`
+	Deleted              *bool `json:"deleted,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeletedInterface DeletedInterface
 
 // NewDeletedInterface instantiates a new DeletedInterface object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o DeletedInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeletedInterface) UnmarshalJSON(data []byte) (err error) {
+	varDeletedInterface := _DeletedInterface{}
+
+	err = json.Unmarshal(data, &varDeletedInterface)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeletedInterface(varDeletedInterface)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deleted")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeletedInterface struct {

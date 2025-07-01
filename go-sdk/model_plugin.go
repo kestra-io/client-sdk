@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,32 +19,35 @@ var _ MappedNullable = &Plugin{}
 
 // Plugin struct for Plugin
 type Plugin struct {
-	Name              *string                        `json:"name,omitempty"`
-	Title             *string                        `json:"title,omitempty"`
-	Description       *string                        `json:"description,omitempty"`
-	License           *string                        `json:"license,omitempty"`
-	LongDescription   *string                        `json:"longDescription,omitempty"`
-	Group             *string                        `json:"group,omitempty"`
-	Version           *string                        `json:"version,omitempty"`
-	Manifest          *map[string]string             `json:"manifest,omitempty"`
-	Tasks             []string                       `json:"tasks,omitempty"`
-	Triggers          []string                       `json:"triggers,omitempty"`
-	Conditions        []string                       `json:"conditions,omitempty"`
-	Controllers       []string                       `json:"controllers,omitempty"`
-	Storages          []string                       `json:"storages,omitempty"`
-	Secrets           []string                       `json:"secrets,omitempty"`
-	TaskRunners       []string                       `json:"taskRunners,omitempty"`
-	Guides            []string                       `json:"guides,omitempty"`
-	Aliases           []string                       `json:"aliases,omitempty"`
-	Apps              []string                       `json:"apps,omitempty"`
-	AppBlocks         []string                       `json:"appBlocks,omitempty"`
-	Charts            []string                       `json:"charts,omitempty"`
-	DataFilters       []string                       `json:"dataFilters,omitempty"`
-	LogExporters      []string                       `json:"logExporters,omitempty"`
-	AdditionalPlugins []string                       `json:"additionalPlugins,omitempty"`
-	Categories        []PluginSubGroupPluginCategory `json:"categories,omitempty"`
-	SubGroup          *string                        `json:"subGroup,omitempty"`
+	Name                 *string                        `json:"name,omitempty"`
+	Title                *string                        `json:"title,omitempty"`
+	Description          *string                        `json:"description,omitempty"`
+	License              *string                        `json:"license,omitempty"`
+	LongDescription      *string                        `json:"longDescription,omitempty"`
+	Group                *string                        `json:"group,omitempty"`
+	Version              *string                        `json:"version,omitempty"`
+	Manifest             *map[string]string             `json:"manifest,omitempty"`
+	Tasks                []string                       `json:"tasks,omitempty"`
+	Triggers             []string                       `json:"triggers,omitempty"`
+	Conditions           []string                       `json:"conditions,omitempty"`
+	Controllers          []string                       `json:"controllers,omitempty"`
+	Storages             []string                       `json:"storages,omitempty"`
+	Secrets              []string                       `json:"secrets,omitempty"`
+	TaskRunners          []string                       `json:"taskRunners,omitempty"`
+	Guides               []string                       `json:"guides,omitempty"`
+	Aliases              []string                       `json:"aliases,omitempty"`
+	Apps                 []string                       `json:"apps,omitempty"`
+	AppBlocks            []string                       `json:"appBlocks,omitempty"`
+	Charts               []string                       `json:"charts,omitempty"`
+	DataFilters          []string                       `json:"dataFilters,omitempty"`
+	LogExporters         []string                       `json:"logExporters,omitempty"`
+	AdditionalPlugins    []string                       `json:"additionalPlugins,omitempty"`
+	Categories           []PluginSubGroupPluginCategory `json:"categories,omitempty"`
+	SubGroup             *string                        `json:"subGroup,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Plugin Plugin
 
 // NewPlugin instantiates a new Plugin object
 // This constructor will assign default values to properties that have it defined,
@@ -948,7 +951,57 @@ func (o Plugin) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubGroup) {
 		toSerialize["subGroup"] = o.SubGroup
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Plugin) UnmarshalJSON(data []byte) (err error) {
+	varPlugin := _Plugin{}
+
+	err = json.Unmarshal(data, &varPlugin)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Plugin(varPlugin)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "license")
+		delete(additionalProperties, "longDescription")
+		delete(additionalProperties, "group")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "manifest")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "triggers")
+		delete(additionalProperties, "conditions")
+		delete(additionalProperties, "controllers")
+		delete(additionalProperties, "storages")
+		delete(additionalProperties, "secrets")
+		delete(additionalProperties, "taskRunners")
+		delete(additionalProperties, "guides")
+		delete(additionalProperties, "aliases")
+		delete(additionalProperties, "apps")
+		delete(additionalProperties, "appBlocks")
+		delete(additionalProperties, "charts")
+		delete(additionalProperties, "dataFilters")
+		delete(additionalProperties, "logExporters")
+		delete(additionalProperties, "additionalPlugins")
+		delete(additionalProperties, "categories")
+		delete(additionalProperties, "subGroup")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePlugin struct {

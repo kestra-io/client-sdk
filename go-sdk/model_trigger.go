@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -22,19 +21,20 @@ var _ MappedNullable = &Trigger{}
 
 // Trigger struct for Trigger
 type Trigger struct {
-	Disabled            *bool            `json:"disabled,omitempty"`
-	TenantId            *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
-	Namespace           string           `json:"namespace"`
-	FlowId              string           `json:"flowId"`
-	TriggerId           string           `json:"triggerId"`
-	Date                time.Time        `json:"date"`
-	NextExecutionDate   NullableTime     `json:"nextExecutionDate,omitempty"`
-	Backfill            NullableBackfill `json:"backfill,omitempty"`
-	StopAfter           []StateType      `json:"stopAfter,omitempty"`
-	ExecutionId         NullableString   `json:"executionId,omitempty"`
-	UpdatedDate         NullableTime     `json:"updatedDate,omitempty"`
-	EvaluateRunningDate NullableTime     `json:"evaluateRunningDate,omitempty"`
-	WorkerId            NullableString   `json:"workerId,omitempty"`
+	Disabled             *bool            `json:"disabled,omitempty"`
+	TenantId             *string          `json:"tenantId,omitempty" validate:"regexp=^[a-z0-9][a-z0-9_-]"`
+	Namespace            string           `json:"namespace"`
+	FlowId               string           `json:"flowId"`
+	TriggerId            string           `json:"triggerId"`
+	Date                 time.Time        `json:"date"`
+	NextExecutionDate    NullableTime     `json:"nextExecutionDate,omitempty"`
+	Backfill             NullableBackfill `json:"backfill,omitempty"`
+	StopAfter            []StateType      `json:"stopAfter,omitempty"`
+	ExecutionId          NullableString   `json:"executionId,omitempty"`
+	UpdatedDate          NullableTime     `json:"updatedDate,omitempty"`
+	EvaluateRunningDate  NullableTime     `json:"evaluateRunningDate,omitempty"`
+	WorkerId             NullableString   `json:"workerId,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Trigger Trigger
@@ -552,6 +552,11 @@ func (o Trigger) ToMap() (map[string]interface{}, error) {
 	if o.WorkerId.IsSet() {
 		toSerialize["workerId"] = o.WorkerId.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -582,15 +587,32 @@ func (o *Trigger) UnmarshalJSON(data []byte) (err error) {
 
 	varTrigger := _Trigger{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTrigger)
+	err = json.Unmarshal(data, &varTrigger)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Trigger(varTrigger)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "tenantId")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		delete(additionalProperties, "triggerId")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "nextExecutionDate")
+		delete(additionalProperties, "backfill")
+		delete(additionalProperties, "stopAfter")
+		delete(additionalProperties, "executionId")
+		delete(additionalProperties, "updatedDate")
+		delete(additionalProperties, "evaluateRunningDate")
+		delete(additionalProperties, "workerId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

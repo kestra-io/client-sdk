@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the KVControllerTypedValue type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &KVControllerTypedValue{}
 
 // KVControllerTypedValue struct for KVControllerTypedValue
 type KVControllerTypedValue struct {
-	Type  *KVType                `json:"type,omitempty"`
-	Value map[string]interface{} `json:"value,omitempty"`
+	Type                 KVType      `json:"type"`
+	Value                interface{} `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _KVControllerTypedValue KVControllerTypedValue
 
 // NewKVControllerTypedValue instantiates a new KVControllerTypedValue object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKVControllerTypedValue() *KVControllerTypedValue {
+func NewKVControllerTypedValue(type_ KVType, value interface{}) *KVControllerTypedValue {
 	this := KVControllerTypedValue{}
+	this.Type = type_
+	this.Value = value
 	return &this
 }
 
@@ -40,67 +46,53 @@ func NewKVControllerTypedValueWithDefaults() *KVControllerTypedValue {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *KVControllerTypedValue) GetType() KVType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret KVType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *KVControllerTypedValue) GetTypeOk() (*KVType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *KVControllerTypedValue) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given KVType and assigns it to the Type field.
+// SetType sets field value
 func (o *KVControllerTypedValue) SetType(v KVType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *KVControllerTypedValue) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+// GetValue returns the Value field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *KVControllerTypedValue) GetValue() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
+
 	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *KVControllerTypedValue) GetValueOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *KVControllerTypedValue) GetValueOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *KVControllerTypedValue) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *KVControllerTypedValue) SetValue(v map[string]interface{}) {
+// SetValue sets field value
+func (o *KVControllerTypedValue) SetValue(v interface{}) {
 	o.Value = v
 }
 
@@ -114,13 +106,60 @@ func (o KVControllerTypedValue) MarshalJSON() ([]byte, error) {
 
 func (o KVControllerTypedValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Value) {
+	toSerialize["type"] = o.Type
+	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *KVControllerTypedValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKVControllerTypedValue := _KVControllerTypedValue{}
+
+	err = json.Unmarshal(data, &varKVControllerTypedValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KVControllerTypedValue(varKVControllerTypedValue)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableKVControllerTypedValue struct {

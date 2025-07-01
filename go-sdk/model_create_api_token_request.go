@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,10 +20,11 @@ var _ MappedNullable = &CreateApiTokenRequest{}
 
 // CreateApiTokenRequest struct for CreateApiTokenRequest
 type CreateApiTokenRequest struct {
-	Name        string  `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
-	Description *string `json:"description,omitempty"`
-	MaxAge      string  `json:"maxAge"`
-	Extended    *bool   `json:"extended,omitempty"`
+	Name                 string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
+	Description          string `json:"description"`
+	MaxAge               string `json:"maxAge"`
+	Extended             bool   `json:"extended"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateApiTokenRequest CreateApiTokenRequest
@@ -33,10 +33,12 @@ type _CreateApiTokenRequest CreateApiTokenRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateApiTokenRequest(name string, maxAge string) *CreateApiTokenRequest {
+func NewCreateApiTokenRequest(name string, description string, maxAge string, extended bool) *CreateApiTokenRequest {
 	this := CreateApiTokenRequest{}
 	this.Name = name
+	this.Description = description
 	this.MaxAge = maxAge
+	this.Extended = extended
 	return &this
 }
 
@@ -72,36 +74,28 @@ func (o *CreateApiTokenRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *CreateApiTokenRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiTokenRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *CreateApiTokenRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *CreateApiTokenRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
 // GetMaxAge returns the MaxAge field value
@@ -128,36 +122,28 @@ func (o *CreateApiTokenRequest) SetMaxAge(v string) {
 	o.MaxAge = v
 }
 
-// GetExtended returns the Extended field value if set, zero value otherwise.
+// GetExtended returns the Extended field value
 func (o *CreateApiTokenRequest) GetExtended() bool {
-	if o == nil || IsNil(o.Extended) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Extended
+
+	return o.Extended
 }
 
-// GetExtendedOk returns a tuple with the Extended field value if set, nil otherwise
+// GetExtendedOk returns a tuple with the Extended field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiTokenRequest) GetExtendedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Extended) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Extended, true
+	return &o.Extended, true
 }
 
-// HasExtended returns a boolean if a field has been set.
-func (o *CreateApiTokenRequest) HasExtended() bool {
-	if o != nil && !IsNil(o.Extended) {
-		return true
-	}
-
-	return false
-}
-
-// SetExtended gets a reference to the given bool and assigns it to the Extended field.
+// SetExtended sets field value
 func (o *CreateApiTokenRequest) SetExtended(v bool) {
-	o.Extended = &v
+	o.Extended = v
 }
 
 func (o CreateApiTokenRequest) MarshalJSON() ([]byte, error) {
@@ -171,13 +157,14 @@ func (o CreateApiTokenRequest) MarshalJSON() ([]byte, error) {
 func (o CreateApiTokenRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
+	toSerialize["description"] = o.Description
 	toSerialize["maxAge"] = o.MaxAge
-	if !IsNil(o.Extended) {
-		toSerialize["extended"] = o.Extended
+	toSerialize["extended"] = o.Extended
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
 }
 
@@ -187,7 +174,9 @@ func (o *CreateApiTokenRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"name",
+		"description",
 		"maxAge",
+		"extended",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -206,15 +195,23 @@ func (o *CreateApiTokenRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateApiTokenRequest := _CreateApiTokenRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateApiTokenRequest)
+	err = json.Unmarshal(data, &varCreateApiTokenRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateApiTokenRequest(varCreateApiTokenRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "maxAge")
+		delete(additionalProperties, "extended")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ClusterControllerApiPluginVersionsApiPluginVersionAndMet
 
 // ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata struct for ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata
 type ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata struct {
-	Version  *string                 `json:"version,omitempty"`
-	Metadata *PluginArtifactMetadata `json:"metadata,omitempty"`
+	Version              string                 `json:"version"`
+	Metadata             PluginArtifactMetadata `json:"metadata"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata
 
 // NewClusterControllerApiPluginVersionsApiPluginVersionAndMetadata instantiates a new ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiPluginVersionsApiPluginVersionAndMetadata() *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata {
+func NewClusterControllerApiPluginVersionsApiPluginVersionAndMetadata(version string, metadata PluginArtifactMetadata) *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata {
 	this := ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata{}
+	this.Version = version
+	this.Metadata = metadata
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewClusterControllerApiPluginVersionsApiPluginVersionAndMetadataWithDefault
 	return &this
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) GetVersion() string {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) GetVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
+// SetVersion sets field value
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) SetVersion(v string) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) GetMetadata() PluginArtifactMetadata {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret PluginArtifactMetadata
 		return ret
 	}
-	return *o.Metadata
+
+	return o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) GetMetadataOk() (*PluginArtifactMetadata, bool) {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
-// HasMetadata returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given PluginArtifactMetadata and assigns it to the Metadata field.
+// SetMetadata sets field value
 func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) SetMetadata(v PluginArtifactMetadata) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) MarshalJS
 
 func (o ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
+	toSerialize["version"] = o.Version
+	toSerialize["metadata"] = o.Metadata
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"version",
+		"metadata",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiPluginVersionsApiPluginVersionAndMetadata := _ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiPluginVersionsApiPluginVersionAndMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiPluginVersionsApiPluginVersionAndMetadata(varClusterControllerApiPluginVersionsApiPluginVersionAndMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiPluginVersionsApiPluginVersionAndMetadata struct {

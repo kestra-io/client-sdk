@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,8 +20,9 @@ var _ MappedNullable = &MetricAggregations{}
 
 // MetricAggregations struct for MetricAggregations
 type MetricAggregations struct {
-	GroupBy      string              `json:"groupBy"`
-	Aggregations []MetricAggregation `json:"aggregations"`
+	GroupBy              string              `json:"groupBy"`
+	Aggregations         []MetricAggregation `json:"aggregations"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MetricAggregations MetricAggregations
@@ -106,6 +106,11 @@ func (o MetricAggregations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["groupBy"] = o.GroupBy
 	toSerialize["aggregations"] = o.Aggregations
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,15 +139,21 @@ func (o *MetricAggregations) UnmarshalJSON(data []byte) (err error) {
 
 	varMetricAggregations := _MetricAggregations{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMetricAggregations)
+	err = json.Unmarshal(data, &varMetricAggregations)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MetricAggregations(varMetricAggregations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "groupBy")
+		delete(additionalProperties, "aggregations")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

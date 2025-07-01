@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -40,7 +41,9 @@ func (r ApiCreateTestSuiteRequest) Execute() (*TestSuite, *http.Response, error)
 }
 
 /*
-CreateTestSuite Create a TestSuite from yaml source
+CreateTestSuite Create a test from YAML source
+
+Creates a new test from a YAML definition. Requires TEST permission with the CREATE action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -149,7 +152,9 @@ func (r ApiDeleteTestSuiteRequest) Execute() (map[string]interface{}, *http.Resp
 }
 
 /*
-DeleteTestSuite Method for DeleteTestSuite
+DeleteTestSuite Delete a test
+
+Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The TestSuite namespace
@@ -259,7 +264,9 @@ func (r ApiGetTestSuiteRequest) Execute() (*TestSuite, *http.Response, error) {
 }
 
 /*
-GetTestSuite Method for GetTestSuite
+GetTestSuite Retrieve a test
+
+Retrieves a test by namespace and ID. Requires TEST permission with the READ action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The TestSuite namespace
@@ -369,7 +376,9 @@ func (r ApiRunTestSuiteRequest) Execute() ([]TestSuiteRunResult, *http.Response,
 }
 
 /*
-RunTestSuite Run a full TestSuite
+RunTestSuite Run a full test
+
+Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The TestSuite namespace
@@ -512,7 +521,9 @@ func (r ApiSearchTestSuitesRequest) Execute() (*PagedResultsTestSuite, *http.Res
 }
 
 /*
-SearchTestSuites Method for SearchTestSuites
+SearchTestSuites Search for tests
+
+Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -564,7 +575,15 @@ func (a *TestSuitesAPIService) SearchTestSuitesExecute(r ApiSearchTestSuitesRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
+		}
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -646,7 +665,9 @@ func (r ApiUpdateTestSuiteRequest) Execute() (*TestSuite, *http.Response, error)
 }
 
 /*
-UpdateTestSuite Method for UpdateTestSuite
+UpdateTestSuite Update a test from YAML source
+
+Updates an existing test with a new YAML definition. Requires TEST permission with the UPDATE action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The TestSuite namespace
@@ -766,7 +787,9 @@ func (r ApiValidateTestSuiteRequest) Execute() (*ValidateConstraintViolation, *h
 }
 
 /*
-ValidateTestSuite Validate a TestSuite
+ValidateTestSuite Validate a test
+
+Validates a test YAML definition without persisting it. Returns constraint violations if any. Requires TEST permission with the READ action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant

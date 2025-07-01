@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MeControllerUserDetailsRequest type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,23 @@ var _ MappedNullable = &MeControllerUserDetailsRequest{}
 
 // MeControllerUserDetailsRequest struct for MeControllerUserDetailsRequest
 type MeControllerUserDetailsRequest struct {
-	FirstName *string `json:"firstName,omitempty"`
-	LastName  *string `json:"lastName,omitempty"`
-	Email     *string `json:"email,omitempty"`
+	FirstName            string `json:"firstName"`
+	LastName             string `json:"lastName"`
+	Email                string `json:"email"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MeControllerUserDetailsRequest MeControllerUserDetailsRequest
 
 // NewMeControllerUserDetailsRequest instantiates a new MeControllerUserDetailsRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeControllerUserDetailsRequest() *MeControllerUserDetailsRequest {
+func NewMeControllerUserDetailsRequest(firstName string, lastName string, email string) *MeControllerUserDetailsRequest {
 	this := MeControllerUserDetailsRequest{}
+	this.FirstName = firstName
+	this.LastName = lastName
+	this.Email = email
 	return &this
 }
 
@@ -41,100 +48,76 @@ func NewMeControllerUserDetailsRequestWithDefaults() *MeControllerUserDetailsReq
 	return &this
 }
 
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
+// GetFirstName returns the FirstName field value
 func (o *MeControllerUserDetailsRequest) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FirstName
+
+	return o.FirstName
 }
 
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// GetFirstNameOk returns a tuple with the FirstName field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerUserDetailsRequest) GetFirstNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FirstName, true
+	return &o.FirstName, true
 }
 
-// HasFirstName returns a boolean if a field has been set.
-func (o *MeControllerUserDetailsRequest) HasFirstName() bool {
-	if o != nil && !IsNil(o.FirstName) {
-		return true
-	}
-
-	return false
-}
-
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+// SetFirstName sets field value
 func (o *MeControllerUserDetailsRequest) SetFirstName(v string) {
-	o.FirstName = &v
+	o.FirstName = v
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise.
+// GetLastName returns the LastName field value
 func (o *MeControllerUserDetailsRequest) GetLastName() string {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LastName
+
+	return o.LastName
 }
 
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// GetLastNameOk returns a tuple with the LastName field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerUserDetailsRequest) GetLastNameOk() (*string, bool) {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastName, true
+	return &o.LastName, true
 }
 
-// HasLastName returns a boolean if a field has been set.
-func (o *MeControllerUserDetailsRequest) HasLastName() bool {
-	if o != nil && !IsNil(o.LastName) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
+// SetLastName sets field value
 func (o *MeControllerUserDetailsRequest) SetLastName(v string) {
-	o.LastName = &v
+	o.LastName = v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
+// GetEmail returns the Email field value
 func (o *MeControllerUserDetailsRequest) GetEmail() string {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Email
+
+	return o.Email
 }
 
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerUserDetailsRequest) GetEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Email, true
+	return &o.Email, true
 }
 
-// HasEmail returns a boolean if a field has been set.
-func (o *MeControllerUserDetailsRequest) HasEmail() bool {
-	if o != nil && !IsNil(o.Email) {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
+// SetEmail sets field value
 func (o *MeControllerUserDetailsRequest) SetEmail(v string) {
-	o.Email = &v
+	o.Email = v
 }
 
 func (o MeControllerUserDetailsRequest) MarshalJSON() ([]byte, error) {
@@ -147,16 +130,61 @@ func (o MeControllerUserDetailsRequest) MarshalJSON() ([]byte, error) {
 
 func (o MeControllerUserDetailsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.FirstName) {
-		toSerialize["firstName"] = o.FirstName
+	toSerialize["firstName"] = o.FirstName
+	toSerialize["lastName"] = o.LastName
+	toSerialize["email"] = o.Email
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.LastName) {
-		toSerialize["lastName"] = o.LastName
-	}
-	if !IsNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
+
 	return toSerialize, nil
+}
+
+func (o *MeControllerUserDetailsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"firstName",
+		"lastName",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMeControllerUserDetailsRequest := _MeControllerUserDetailsRequest{}
+
+	err = json.Unmarshal(data, &varMeControllerUserDetailsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MeControllerUserDetailsRequest(varMeControllerUserDetailsRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "email")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMeControllerUserDetailsRequest struct {

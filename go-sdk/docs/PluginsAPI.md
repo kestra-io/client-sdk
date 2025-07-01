@@ -4,30 +4,30 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllInputTypes**](PluginsAPI.md#GetAllInputTypes) | **Get** /api/v1/{tenant}/plugins/inputs | Get all types for an inputs
-[**GetPluginBySubgroups**](PluginsAPI.md#GetPluginBySubgroups) | **Get** /api/v1/{tenant}/plugins/groups/subgroups | Get plugins group by subgroups
-[**GetPluginDocumentation**](PluginsAPI.md#GetPluginDocumentation) | **Get** /api/v1/{tenant}/plugins/{cls} | Get plugin documentation
-[**GetPluginDocumentationFromVersion**](PluginsAPI.md#GetPluginDocumentationFromVersion) | **Get** /api/v1/{tenant}/plugins/{cls}/versions/{version} | Get plugin documentation
-[**GetPluginGroupIcons**](PluginsAPI.md#GetPluginGroupIcons) | **Get** /api/v1/{tenant}/plugins/icons/groups | Get plugins icons
-[**GetPluginIcons**](PluginsAPI.md#GetPluginIcons) | **Get** /api/v1/{tenant}/plugins/icons | Get plugins icons
-[**GetPluginVersions**](PluginsAPI.md#GetPluginVersions) | **Get** /api/v1/{tenant}/plugins/{cls}/versions | Get all versions for a plugin
-[**GetSchemaFromInputType**](PluginsAPI.md#GetSchemaFromInputType) | **Get** /api/v1/{tenant}/plugins/inputs/{type} | Get json schemas for an input type
-[**GetSchemasFromType**](PluginsAPI.md#GetSchemasFromType) | **Get** /api/v1/{tenant}/plugins/schemas/{type} | Get all json schemas for a type
-[**GetVersionedPluginDetails**](PluginsAPI.md#GetVersionedPluginDetails) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId} | Get details about a Kestra&#39;s plugin artifact.
-[**GetVersionedPluginDetailsFromVersion**](PluginsAPI.md#GetVersionedPluginDetailsFromVersion) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version} | Get details about a specific Kestra&#39;s plugin artifact version.
-[**InstallVersionedPlugins**](PluginsAPI.md#InstallVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/install | Install a specific Kestra&#39;s plugin artifact
-[**ListAvailableVersionedPlugins**](PluginsAPI.md#ListAvailableVersionedPlugins) | **Get** /api/v1/cluster/versioned-plugins/available | Get the list of available Kestra&#39;s plugin artifact.
-[**ListPlugins**](PluginsAPI.md#ListPlugins) | **Get** /api/v1/{tenant}/plugins | Get list of plugins
-[**ListVersionedPlugin**](PluginsAPI.md#ListVersionedPlugin) | **Get** /api/v1/cluster/versioned-plugins | Get the list of installed Kestra&#39;s plugin artifact.
-[**ResolveVersionedPlugins**](PluginsAPI.md#ResolveVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/resolve | Resolve a specific Kestra&#39;s plugin artifact
-[**UninstallVersionedPlugins**](PluginsAPI.md#UninstallVersionedPlugins) | **Delete** /api/v1/cluster/versioned-plugins/uninstall | Uninstall Kestra&#39;s plugin artifacts
-[**UploadVersionedPlugins**](PluginsAPI.md#UploadVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/upload | Upload a Kestra&#39;s plugin artifact
+[**GetAllInputTypes**](PluginsAPI.md#GetAllInputTypes) | **Get** /api/v1/plugins/inputs | Get all types for an inputs
+[**GetPluginBySubgroups**](PluginsAPI.md#GetPluginBySubgroups) | **Get** /api/v1/plugins/groups/subgroups | Get plugins group by subgroups
+[**GetPluginDocumentation**](PluginsAPI.md#GetPluginDocumentation) | **Get** /api/v1/plugins/{cls} | Get plugin documentation
+[**GetPluginDocumentationFromVersion**](PluginsAPI.md#GetPluginDocumentationFromVersion) | **Get** /api/v1/plugins/{cls}/versions/{version} | Get plugin documentation
+[**GetPluginGroupIcons**](PluginsAPI.md#GetPluginGroupIcons) | **Get** /api/v1/plugins/icons/groups | Get plugins icons
+[**GetPluginIcons**](PluginsAPI.md#GetPluginIcons) | **Get** /api/v1/plugins/icons | Get plugins icons
+[**GetPluginVersions**](PluginsAPI.md#GetPluginVersions) | **Get** /api/v1/plugins/{cls}/versions | Get all versions for a plugin
+[**GetSchemaFromInputType**](PluginsAPI.md#GetSchemaFromInputType) | **Get** /api/v1/plugins/inputs/{type} | Get json schemas for an input type
+[**GetSchemasFromType**](PluginsAPI.md#GetSchemasFromType) | **Get** /api/v1/plugins/schemas/{type} | Get all json schemas for a type
+[**GetVersionedPluginDetails**](PluginsAPI.md#GetVersionedPluginDetails) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId} | Retrieve details of a plugin artifact
+[**GetVersionedPluginDetailsFromVersion**](PluginsAPI.md#GetVersionedPluginDetailsFromVersion) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
+[**InstallVersionedPlugins**](PluginsAPI.md#InstallVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/install | Install specified plugin artifacts
+[**ListAvailableVersionedPlugins**](PluginsAPI.md#ListAvailableVersionedPlugins) | **Get** /api/v1/cluster/versioned-plugins/available | List available plugin artifacts
+[**ListPlugins**](PluginsAPI.md#ListPlugins) | **Get** /api/v1/plugins | Get list of plugins
+[**ListVersionedPlugin**](PluginsAPI.md#ListVersionedPlugin) | **Get** /api/v1/cluster/versioned-plugins | List installed plugin artifacts
+[**ResolveVersionedPlugins**](PluginsAPI.md#ResolveVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
+[**UninstallVersionedPlugins**](PluginsAPI.md#UninstallVersionedPlugins) | **Delete** /api/v1/cluster/versioned-plugins/uninstall | Uninstall plugin artifacts
+[**UploadVersionedPlugins**](PluginsAPI.md#UploadVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/upload | Upload a plugin artifact JAR file
 
 
 
 ## GetAllInputTypes
 
-> []InputType GetAllInputTypes(ctx, tenant).Execute()
+> []InputType GetAllInputTypes(ctx).Execute()
 
 Get all types for an inputs
 
@@ -44,11 +44,10 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetAllInputTypes(context.Background(), tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetAllInputTypes(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetAllInputTypes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,19 +59,11 @@ func main() {
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetAllInputTypesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -95,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginBySubgroups
 
-> []Plugin GetPluginBySubgroups(ctx, tenant).IncludeDeprecated(includeDeprecated).Execute()
+> []Plugin GetPluginBySubgroups(ctx).IncludeDeprecated(includeDeprecated).Execute()
 
 Get plugins group by subgroups
 
@@ -113,11 +104,10 @@ import (
 
 func main() {
 	includeDeprecated := true // bool | Whether to include deprecated plugins (default to true)
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginBySubgroups(context.Background(), tenant).IncludeDeprecated(includeDeprecated).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginBySubgroups(context.Background()).IncludeDeprecated(includeDeprecated).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginBySubgroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -130,10 +120,6 @@ func main() {
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -143,7 +129,6 @@ Other parameters are passed through a pointer to a apiGetPluginBySubgroupsReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **includeDeprecated** | **bool** | Whether to include deprecated plugins | [default to true]
-
 
 ### Return type
 
@@ -165,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginDocumentation
 
-> DocumentationWithSchema GetPluginDocumentation(ctx, cls, tenant).All(all).Execute()
+> DocumentationWithSchema GetPluginDocumentation(ctx, cls).All(all).Execute()
 
 Get plugin documentation
 
@@ -184,11 +169,10 @@ import (
 func main() {
 	cls := "cls_example" // string | The plugin full class name
 	all := true // bool | Include all the properties (default to false)
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginDocumentation(context.Background(), cls, tenant).All(all).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginDocumentation(context.Background(), cls).All(all).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginDocumentation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,7 +189,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **cls** | **string** | The plugin full class name | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -216,7 +199,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **all** | **bool** | Include all the properties | [default to false]
-
 
 ### Return type
 
@@ -238,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginDocumentationFromVersion
 
-> DocumentationWithSchema GetPluginDocumentationFromVersion(ctx, cls, version, tenant).All(all).Execute()
+> DocumentationWithSchema GetPluginDocumentationFromVersion(ctx, cls, version).All(all).Execute()
 
 Get plugin documentation
 
@@ -258,11 +240,10 @@ func main() {
 	cls := "cls_example" // string | The plugin type
 	version := "version_example" // string | The plugin version
 	all := true // bool | Include all the properties (default to false)
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginDocumentationFromVersion(context.Background(), cls, version, tenant).All(all).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginDocumentationFromVersion(context.Background(), cls, version).All(all).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginDocumentationFromVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -280,7 +261,6 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **cls** | **string** | The plugin type | 
 **version** | **string** | The plugin version | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -292,7 +272,6 @@ Name | Type | Description  | Notes
 
 
  **all** | **bool** | Include all the properties | [default to false]
-
 
 ### Return type
 
@@ -314,7 +293,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginGroupIcons
 
-> map[string]PluginIcon GetPluginGroupIcons(ctx, tenant).Execute()
+> map[string]PluginIcon GetPluginGroupIcons(ctx).Execute()
 
 Get plugins icons
 
@@ -331,11 +310,10 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginGroupIcons(context.Background(), tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginGroupIcons(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginGroupIcons``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -347,19 +325,11 @@ func main() {
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPluginGroupIconsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -382,7 +352,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginIcons
 
-> map[string]PluginIcon GetPluginIcons(ctx, tenant).Execute()
+> map[string]PluginIcon GetPluginIcons(ctx).Execute()
 
 Get plugins icons
 
@@ -399,11 +369,10 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginIcons(context.Background(), tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginIcons(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginIcons``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -415,19 +384,11 @@ func main() {
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPluginIconsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -450,7 +411,7 @@ Name | Type | Description  | Notes
 
 ## GetPluginVersions
 
-> PluginControllerApiPluginVersions GetPluginVersions(ctx, cls, tenant).Execute()
+> PluginControllerApiPluginVersions GetPluginVersions(ctx, cls).Execute()
 
 Get all versions for a plugin
 
@@ -468,11 +429,10 @@ import (
 
 func main() {
 	cls := "cls_example" // string | The plugin type
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginVersions(context.Background(), cls, tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginVersions(context.Background(), cls).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -489,7 +449,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **cls** | **string** | The plugin type | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -498,7 +457,6 @@ Other parameters are passed through a pointer to a apiGetPluginVersionsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -521,7 +479,7 @@ Name | Type | Description  | Notes
 
 ## GetSchemaFromInputType
 
-> DocumentationWithSchema GetSchemaFromInputType(ctx, type_, tenant).Execute()
+> DocumentationWithSchema GetSchemaFromInputType(ctx, type_).Execute()
 
 Get json schemas for an input type
 
@@ -541,11 +499,10 @@ import (
 
 func main() {
 	type_ := openapiclient.Type("STRING") // Type | The schema needed
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetSchemaFromInputType(context.Background(), type_, tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetSchemaFromInputType(context.Background(), type_).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetSchemaFromInputType``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -562,7 +519,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **type_** | [**Type**](.md) | The schema needed | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -571,7 +527,6 @@ Other parameters are passed through a pointer to a apiGetSchemaFromInputTypeRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type
@@ -594,7 +549,7 @@ Name | Type | Description  | Notes
 
 ## GetSchemasFromType
 
-> map[string]map[string]interface{} GetSchemasFromType(ctx, type_, tenant).ArrayOf(arrayOf).Execute()
+> map[string]interface{} GetSchemasFromType(ctx, type_).ArrayOf(arrayOf).Execute()
 
 Get all json schemas for a type
 
@@ -615,16 +570,15 @@ import (
 func main() {
 	type_ := openapiclient.SchemaType("FLOW") // SchemaType | The schema needed
 	arrayOf := true // bool | If schema should be an array of requested type (default to false)
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetSchemasFromType(context.Background(), type_, tenant).ArrayOf(arrayOf).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetSchemasFromType(context.Background(), type_).ArrayOf(arrayOf).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetSchemasFromType``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSchemasFromType`: map[string]map[string]interface{}
+	// response from `GetSchemasFromType`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetSchemasFromType`: %v\n", resp)
 }
 ```
@@ -636,7 +590,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **type_** | [**SchemaType**](.md) | The schema needed | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -648,10 +601,9 @@ Name | Type | Description  | Notes
 
  **arrayOf** | **bool** | If schema should be an array of requested type | [default to false]
 
-
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -671,7 +623,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiPluginVersions GetVersionedPluginDetails(ctx, groupId, artifactId).Execute()
 
-Get details about a Kestra's plugin artifact.
+Retrieve details of a plugin artifact
+
+
 
 ### Example
 
@@ -742,7 +696,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiPluginVersionDetails GetVersionedPluginDetailsFromVersion(ctx, groupId, artifactId, version).Execute()
 
-Get details about a specific Kestra's plugin artifact version.
+Retrieve details of a specific plugin artifact version
+
+
 
 ### Example
 
@@ -816,7 +772,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiPluginArtifactListPluginArtifact InstallVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
 
-Install a specific Kestra's plugin artifact
+Install specified plugin artifacts
+
+
 
 ### Example
 
@@ -831,7 +789,7 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest() // ClusterControllerApiPluginListRequest | List of plugins
+	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -880,7 +838,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} ListAvailableVersionedPlugins(ctx).Execute()
 
-Get the list of available Kestra's plugin artifact.
+List available plugin artifacts
+
+
 
 ### Example
 
@@ -937,7 +897,7 @@ Other parameters are passed through a pointer to a apiListAvailableVersionedPlug
 
 ## ListPlugins
 
-> []Plugin ListPlugins(ctx, tenant).Execute()
+> []Plugin ListPlugins(ctx).Execute()
 
 Get list of plugins
 
@@ -954,11 +914,10 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.ListPlugins(context.Background(), tenant).Execute()
+	resp, r, err := apiClient.PluginsAPI.ListPlugins(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.ListPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -970,19 +929,11 @@ func main() {
 
 ### Path Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListPluginsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -1007,7 +958,9 @@ Name | Type | Description  | Notes
 
 > PagedResultsClusterControllerApiPluginArtifact ListVersionedPlugin(ctx).Page(page).Size(size).Sort(sort).Q(q).Execute()
 
-Get the list of installed Kestra's plugin artifact.
+List installed plugin artifacts
+
+
 
 ### Example
 
@@ -1077,7 +1030,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiPluginArtifactListPluginResolutionResult ResolveVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
 
-Resolve a specific Kestra's plugin artifact
+Resolve versions for specified plugin artifacts
+
+
 
 ### Example
 
@@ -1092,7 +1047,7 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest() // ClusterControllerApiPluginListRequest | List of plugins
+	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1141,7 +1096,9 @@ Name | Type | Description  | Notes
 
 > ClusterControllerApiPluginArtifactListPluginArtifact UninstallVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
 
-Uninstall Kestra's plugin artifacts
+Uninstall plugin artifacts
+
+
 
 ### Example
 
@@ -1156,7 +1113,7 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest() // ClusterControllerApiPluginListRequest | List of plugins
+	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1203,9 +1160,11 @@ Name | Type | Description  | Notes
 
 ## UploadVersionedPlugins
 
-> PluginArtifact UploadVersionedPlugins(ctx).File(file).Execute()
+> PluginArtifact UploadVersionedPlugins(ctx).File(file).ForceInstallOnExistingVersions(forceInstallOnExistingVersions).Execute()
 
-Upload a Kestra's plugin artifact
+Upload a plugin artifact JAR file
+
+
 
 ### Example
 
@@ -1220,11 +1179,12 @@ import (
 )
 
 func main() {
-	file := os.NewFile(1234, "some_file") // *os.File |  (optional)
+	file := os.NewFile(1234, "some_file") // *os.File | 
+	forceInstallOnExistingVersions := true // bool |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.UploadVersionedPlugins(context.Background()).File(file).Execute()
+	resp, r, err := apiClient.PluginsAPI.UploadVersionedPlugins(context.Background()).File(file).ForceInstallOnExistingVersions(forceInstallOnExistingVersions).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.UploadVersionedPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1246,6 +1206,7 @@ Other parameters are passed through a pointer to a apiUploadVersionedPluginsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | ***os.File** |  | 
+ **forceInstallOnExistingVersions** | **bool** |  | 
 
 ### Return type
 

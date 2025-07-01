@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &BulkErrorResponse{}
 
 // BulkErrorResponse struct for BulkErrorResponse
 type BulkErrorResponse struct {
-	Message  *string                `json:"message,omitempty"`
-	Invalids map[string]interface{} `json:"invalids,omitempty"`
+	Message              *string     `json:"message,omitempty"`
+	Invalids             interface{} `json:"invalids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BulkErrorResponse BulkErrorResponse
 
 // NewBulkErrorResponse instantiates a new BulkErrorResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -72,10 +75,10 @@ func (o *BulkErrorResponse) SetMessage(v string) {
 	o.Message = &v
 }
 
-// GetInvalids returns the Invalids field value if set, zero value otherwise.
-func (o *BulkErrorResponse) GetInvalids() map[string]interface{} {
-	if o == nil || IsNil(o.Invalids) {
-		var ret map[string]interface{}
+// GetInvalids returns the Invalids field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BulkErrorResponse) GetInvalids() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Invalids
@@ -83,11 +86,12 @@ func (o *BulkErrorResponse) GetInvalids() map[string]interface{} {
 
 // GetInvalidsOk returns a tuple with the Invalids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BulkErrorResponse) GetInvalidsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BulkErrorResponse) GetInvalidsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Invalids) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Invalids, true
+	return &o.Invalids, true
 }
 
 // HasInvalids returns a boolean if a field has been set.
@@ -99,8 +103,8 @@ func (o *BulkErrorResponse) HasInvalids() bool {
 	return false
 }
 
-// SetInvalids gets a reference to the given map[string]interface{} and assigns it to the Invalids field.
-func (o *BulkErrorResponse) SetInvalids(v map[string]interface{}) {
+// SetInvalids gets a reference to the given interface{} and assigns it to the Invalids field.
+func (o *BulkErrorResponse) SetInvalids(v interface{}) {
 	o.Invalids = v
 }
 
@@ -117,10 +121,37 @@ func (o BulkErrorResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if !IsNil(o.Invalids) {
+	if o.Invalids != nil {
 		toSerialize["invalids"] = o.Invalids
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BulkErrorResponse) UnmarshalJSON(data []byte) (err error) {
+	varBulkErrorResponse := _BulkErrorResponse{}
+
+	err = json.Unmarshal(data, &varBulkErrorResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BulkErrorResponse(varBulkErrorResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "invalids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBulkErrorResponse struct {

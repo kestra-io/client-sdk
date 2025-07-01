@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AuditLogControllerAuditLogWithUser type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &AuditLogControllerAuditLogWithUser{}
 
 // AuditLogControllerAuditLogWithUser struct for AuditLogControllerAuditLogWithUser
 type AuditLogControllerAuditLogWithUser struct {
-	AuditLog *AuditLog `json:"auditLog,omitempty"`
-	User     *ApiUser  `json:"user,omitempty"`
+	AuditLog             AuditLog `json:"auditLog"`
+	User                 ApiUser  `json:"user"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AuditLogControllerAuditLogWithUser AuditLogControllerAuditLogWithUser
 
 // NewAuditLogControllerAuditLogWithUser instantiates a new AuditLogControllerAuditLogWithUser object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerAuditLogWithUser() *AuditLogControllerAuditLogWithUser {
+func NewAuditLogControllerAuditLogWithUser(auditLog AuditLog, user ApiUser) *AuditLogControllerAuditLogWithUser {
 	this := AuditLogControllerAuditLogWithUser{}
+	this.AuditLog = auditLog
+	this.User = user
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewAuditLogControllerAuditLogWithUserWithDefaults() *AuditLogControllerAudi
 	return &this
 }
 
-// GetAuditLog returns the AuditLog field value if set, zero value otherwise.
+// GetAuditLog returns the AuditLog field value
 func (o *AuditLogControllerAuditLogWithUser) GetAuditLog() AuditLog {
-	if o == nil || IsNil(o.AuditLog) {
+	if o == nil {
 		var ret AuditLog
 		return ret
 	}
-	return *o.AuditLog
+
+	return o.AuditLog
 }
 
-// GetAuditLogOk returns a tuple with the AuditLog field value if set, nil otherwise
+// GetAuditLogOk returns a tuple with the AuditLog field value
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogWithUser) GetAuditLogOk() (*AuditLog, bool) {
-	if o == nil || IsNil(o.AuditLog) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AuditLog, true
+	return &o.AuditLog, true
 }
 
-// HasAuditLog returns a boolean if a field has been set.
-func (o *AuditLogControllerAuditLogWithUser) HasAuditLog() bool {
-	if o != nil && !IsNil(o.AuditLog) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuditLog gets a reference to the given AuditLog and assigns it to the AuditLog field.
+// SetAuditLog sets field value
 func (o *AuditLogControllerAuditLogWithUser) SetAuditLog(v AuditLog) {
-	o.AuditLog = &v
+	o.AuditLog = v
 }
 
-// GetUser returns the User field value if set, zero value otherwise.
+// GetUser returns the User field value
 func (o *AuditLogControllerAuditLogWithUser) GetUser() ApiUser {
-	if o == nil || IsNil(o.User) {
+	if o == nil {
 		var ret ApiUser
 		return ret
 	}
-	return *o.User
+
+	return o.User
 }
 
-// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// GetUserOk returns a tuple with the User field value
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerAuditLogWithUser) GetUserOk() (*ApiUser, bool) {
-	if o == nil || IsNil(o.User) {
+	if o == nil {
 		return nil, false
 	}
-	return o.User, true
+	return &o.User, true
 }
 
-// HasUser returns a boolean if a field has been set.
-func (o *AuditLogControllerAuditLogWithUser) HasUser() bool {
-	if o != nil && !IsNil(o.User) {
-		return true
-	}
-
-	return false
-}
-
-// SetUser gets a reference to the given ApiUser and assigns it to the User field.
+// SetUser sets field value
 func (o *AuditLogControllerAuditLogWithUser) SetUser(v ApiUser) {
-	o.User = &v
+	o.User = v
 }
 
 func (o AuditLogControllerAuditLogWithUser) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o AuditLogControllerAuditLogWithUser) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerAuditLogWithUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AuditLog) {
-		toSerialize["auditLog"] = o.AuditLog
+	toSerialize["auditLog"] = o.AuditLog
+	toSerialize["user"] = o.User
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.User) {
-		toSerialize["user"] = o.User
-	}
+
 	return toSerialize, nil
+}
+
+func (o *AuditLogControllerAuditLogWithUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"auditLog",
+		"user",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuditLogControllerAuditLogWithUser := _AuditLogControllerAuditLogWithUser{}
+
+	err = json.Unmarshal(data, &varAuditLogControllerAuditLogWithUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuditLogControllerAuditLogWithUser(varAuditLogControllerAuditLogWithUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "auditLog")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAuditLogControllerAuditLogWithUser struct {

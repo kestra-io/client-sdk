@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,10 +19,13 @@ var _ MappedNullable = &PluginIcon{}
 
 // PluginIcon struct for PluginIcon
 type PluginIcon struct {
-	Name     *string `json:"name,omitempty"`
-	Icon     *string `json:"icon,omitempty"`
-	Flowable *bool   `json:"flowable,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Icon                 *string `json:"icon,omitempty"`
+	Flowable             *bool   `json:"flowable,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PluginIcon PluginIcon
 
 // NewPluginIcon instantiates a new PluginIcon object
 // This constructor will assign default values to properties that have it defined,
@@ -156,7 +159,35 @@ func (o PluginIcon) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Flowable) {
 		toSerialize["flowable"] = o.Flowable
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PluginIcon) UnmarshalJSON(data []byte) (err error) {
+	varPluginIcon := _PluginIcon{}
+
+	err = json.Unmarshal(data, &varPluginIcon)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PluginIcon(varPluginIcon)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "icon")
+		delete(additionalProperties, "flowable")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePluginIcon struct {

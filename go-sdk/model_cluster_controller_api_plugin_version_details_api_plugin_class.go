@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiPluginVersionDetailsApiPluginClass type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,21 @@ var _ MappedNullable = &ClusterControllerApiPluginVersionDetailsApiPluginClass{}
 
 // ClusterControllerApiPluginVersionDetailsApiPluginClass struct for ClusterControllerApiPluginVersionDetailsApiPluginClass
 type ClusterControllerApiPluginVersionDetailsApiPluginClass struct {
-	Name *string `json:"name,omitempty"`
-	Icon *string `json:"icon,omitempty"`
+	Name                 string `json:"name"`
+	Icon                 string `json:"icon"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiPluginVersionDetailsApiPluginClass ClusterControllerApiPluginVersionDetailsApiPluginClass
 
 // NewClusterControllerApiPluginVersionDetailsApiPluginClass instantiates a new ClusterControllerApiPluginVersionDetailsApiPluginClass object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiPluginVersionDetailsApiPluginClass() *ClusterControllerApiPluginVersionDetailsApiPluginClass {
+func NewClusterControllerApiPluginVersionDetailsApiPluginClass(name string, icon string) *ClusterControllerApiPluginVersionDetailsApiPluginClass {
 	this := ClusterControllerApiPluginVersionDetailsApiPluginClass{}
+	this.Name = name
+	this.Icon = icon
 	return &this
 }
 
@@ -40,68 +46,52 @@ func NewClusterControllerApiPluginVersionDetailsApiPluginClassWithDefaults() *Cl
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetIcon returns the Icon field value if set, zero value otherwise.
+// GetIcon returns the Icon field value
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) GetIcon() string {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Icon
+
+	return o.Icon
 }
 
-// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// GetIconOk returns a tuple with the Icon field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) GetIconOk() (*string, bool) {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Icon, true
+	return &o.Icon, true
 }
 
-// HasIcon returns a boolean if a field has been set.
-func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) HasIcon() bool {
-	if o != nil && !IsNil(o.Icon) {
-		return true
-	}
-
-	return false
-}
-
-// SetIcon gets a reference to the given string and assigns it to the Icon field.
+// SetIcon sets field value
 func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) SetIcon(v string) {
-	o.Icon = &v
+	o.Icon = v
 }
 
 func (o ClusterControllerApiPluginVersionDetailsApiPluginClass) MarshalJSON() ([]byte, error) {
@@ -114,13 +104,58 @@ func (o ClusterControllerApiPluginVersionDetailsApiPluginClass) MarshalJSON() ([
 
 func (o ClusterControllerApiPluginVersionDetailsApiPluginClass) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["name"] = o.Name
+	toSerialize["icon"] = o.Icon
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Icon) {
-		toSerialize["icon"] = o.Icon
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiPluginVersionDetailsApiPluginClass) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"icon",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiPluginVersionDetailsApiPluginClass := _ClusterControllerApiPluginVersionDetailsApiPluginClass{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiPluginVersionDetailsApiPluginClass)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiPluginVersionDetailsApiPluginClass(varClusterControllerApiPluginVersionDetailsApiPluginClass)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "icon")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiPluginVersionDetailsApiPluginClass struct {

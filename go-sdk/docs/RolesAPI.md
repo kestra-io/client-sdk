@@ -13,12 +13,12 @@ Method | HTTP request | Description
 [**DeleteRole**](RolesAPI.md#DeleteRole) | **Delete** /api/v1/{tenant}/roles/{id} | Delete a role
 [**DeleteRoleWithResourceTenantasSuperAdmin**](RolesAPI.md#DeleteRoleWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/roles/{id} | Delete a role
 [**DeleteRoleasSuperAdmin**](RolesAPI.md#DeleteRoleasSuperAdmin) | **Delete** /api/v1/tenants/roles/{id} | Delete a role
-[**GetRole**](RolesAPI.md#GetRole) | **Get** /api/v1/{tenant}/roles/{id} | Get a role
-[**GetRoleWithResourceTenantasSuperAdmin**](RolesAPI.md#GetRoleWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/roles/{id} | Get a role
-[**GetRoleasSuperAdmin**](RolesAPI.md#GetRoleasSuperAdmin) | **Get** /api/v1/tenants/roles/{id} | Get a role
-[**ListRolesFromGivenIds**](RolesAPI.md#ListRolesFromGivenIds) | **Post** /api/v1/{tenant}/roles/ids | 
-[**ListRolesFromGivenIdsWithResourceTenantasSuperAdmin**](RolesAPI.md#ListRolesFromGivenIdsWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/roles/ids | 
-[**ListRolesFromGivenIdsasSuperAdmin**](RolesAPI.md#ListRolesFromGivenIdsasSuperAdmin) | **Post** /api/v1/tenants/roles/ids | 
+[**GetRole**](RolesAPI.md#GetRole) | **Get** /api/v1/{tenant}/roles/{id} | Retrieve a role
+[**GetRoleWithResourceTenantasSuperAdmin**](RolesAPI.md#GetRoleWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/roles/{id} | Retrieve a role
+[**GetRoleasSuperAdmin**](RolesAPI.md#GetRoleasSuperAdmin) | **Get** /api/v1/tenants/roles/{id} | Retrieve a role
+[**ListRolesFromGivenIds**](RolesAPI.md#ListRolesFromGivenIds) | **Post** /api/v1/{tenant}/roles/ids | List roles by ids
+[**ListRolesFromGivenIdsWithResourceTenantasSuperAdmin**](RolesAPI.md#ListRolesFromGivenIdsWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/roles/ids | List roles by ids
+[**ListRolesFromGivenIdsasSuperAdmin**](RolesAPI.md#ListRolesFromGivenIdsasSuperAdmin) | **Post** /api/v1/tenants/roles/ids | List roles by ids
 [**SearchRoles**](RolesAPI.md#SearchRoles) | **Get** /api/v1/{tenant}/roles/search | Search for roles
 [**SearchRolesWithResourceTenantasSuperAdmin**](RolesAPI.md#SearchRolesWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/roles/search | Search for roles
 [**SearchRolesasSuperAdmin**](RolesAPI.md#SearchRolesasSuperAdmin) | **Get** /api/v1/tenants/roles/search | Search for roles
@@ -252,7 +252,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -322,7 +322,7 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -391,7 +391,7 @@ import (
 )
 
 func main() {
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -644,7 +644,7 @@ Name | Type | Description  | Notes
 
 > Role GetRole(ctx, id, tenant).Execute()
 
-Get a role
+Retrieve a role
 
 ### Example
 
@@ -715,7 +715,7 @@ Name | Type | Description  | Notes
 
 > Role GetRoleWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
 
-Get a role
+Retrieve a role
 
 ### Example
 
@@ -786,7 +786,7 @@ Name | Type | Description  | Notes
 
 > Role GetRoleasSuperAdmin(ctx, id).Execute()
 
-Get a role
+Retrieve a role
 
 ### Example
 
@@ -854,9 +854,7 @@ Name | Type | Description  | Notes
 
 > []Role ListRolesFromGivenIds(ctx, tenant).ApiIds(apiIds).Execute()
 
-
-
-
+List roles by ids
 
 ### Example
 
@@ -872,7 +870,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -926,9 +924,7 @@ Name | Type | Description  | Notes
 
 > []Role ListRolesFromGivenIdsWithResourceTenantasSuperAdmin(ctx, resourceTenant).ApiIds(apiIds).Execute()
 
-
-
-
+List roles by ids
 
 ### Example
 
@@ -944,7 +940,7 @@ import (
 
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -998,9 +994,7 @@ Name | Type | Description  | Notes
 
 > []Role ListRolesFromGivenIdsasSuperAdmin(ctx).ApiIds(apiIds).Execute()
 
-
-
-
+List roles by ids
 
 ### Example
 
@@ -1015,7 +1009,7 @@ import (
 )
 
 func main() {
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1303,7 +1297,7 @@ import (
 func main() {
 	id := "id_example" // string | The role id
 	tenant := "tenant_example" // string | 
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1376,7 +1370,7 @@ import (
 func main() {
 	id := "id_example" // string | The role id
 	resourceTenant := "resourceTenant_example" // string | 
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1448,7 +1442,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The role id
-	role := *openapiclient.NewRole(false, "Name_example", false) // Role | 
+	role := *openapiclient.NewRole(false, "Id_example", "Name_example", "Description_example", *openapiclient.NewRolePermissions(), false, false) // Role | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

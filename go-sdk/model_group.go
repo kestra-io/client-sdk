@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,11 +20,12 @@ var _ MappedNullable = &Group{}
 
 // Group struct for Group
 type Group struct {
-	Id          *string           `json:"id,omitempty"`
-	Name        string            `json:"name"`
-	Description *string           `json:"description,omitempty"`
-	Deleted     bool              `json:"deleted"`
-	Provider    *IdentityProvider `json:"provider,omitempty"`
+	Id                   string           `json:"id"`
+	Name                 string           `json:"name"`
+	Description          string           `json:"description"`
+	Deleted              bool             `json:"deleted"`
+	Provider             IdentityProvider `json:"provider"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Group Group
@@ -34,10 +34,13 @@ type _Group Group
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroup(name string, deleted bool) *Group {
+func NewGroup(id string, name string, description string, deleted bool, provider IdentityProvider) *Group {
 	this := Group{}
+	this.Id = id
 	this.Name = name
+	this.Description = description
 	this.Deleted = deleted
+	this.Provider = provider
 	return &this
 }
 
@@ -49,36 +52,28 @@ func NewGroupWithDefaults() *Group {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *Group) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Group) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *Group) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *Group) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -105,36 +100,28 @@ func (o *Group) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *Group) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *Group) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *Group) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *Group) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
 // GetDeleted returns the Deleted field value
@@ -161,36 +148,28 @@ func (o *Group) SetDeleted(v bool) {
 	o.Deleted = v
 }
 
-// GetProvider returns the Provider field value if set, zero value otherwise.
+// GetProvider returns the Provider field value
 func (o *Group) GetProvider() IdentityProvider {
-	if o == nil || IsNil(o.Provider) {
+	if o == nil {
 		var ret IdentityProvider
 		return ret
 	}
-	return *o.Provider
+
+	return o.Provider
 }
 
-// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// GetProviderOk returns a tuple with the Provider field value
 // and a boolean to check if the value has been set.
 func (o *Group) GetProviderOk() (*IdentityProvider, bool) {
-	if o == nil || IsNil(o.Provider) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Provider, true
+	return &o.Provider, true
 }
 
-// HasProvider returns a boolean if a field has been set.
-func (o *Group) HasProvider() bool {
-	if o != nil && !IsNil(o.Provider) {
-		return true
-	}
-
-	return false
-}
-
-// SetProvider gets a reference to the given IdentityProvider and assigns it to the Provider field.
+// SetProvider sets field value
 func (o *Group) SetProvider(v IdentityProvider) {
-	o.Provider = &v
+	o.Provider = v
 }
 
 func (o Group) MarshalJSON() ([]byte, error) {
@@ -203,17 +182,16 @@ func (o Group) MarshalJSON() ([]byte, error) {
 
 func (o Group) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
+	toSerialize["description"] = o.Description
 	toSerialize["deleted"] = o.Deleted
-	if !IsNil(o.Provider) {
-		toSerialize["provider"] = o.Provider
+	toSerialize["provider"] = o.Provider
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
 }
 
@@ -222,8 +200,11 @@ func (o *Group) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"name",
+		"description",
 		"deleted",
+		"provider",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -242,15 +223,24 @@ func (o *Group) UnmarshalJSON(data []byte) (err error) {
 
 	varGroup := _Group{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGroup)
+	err = json.Unmarshal(data, &varGroup)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Group(varGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "provider")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Permission** | Pointer to [**Permission**](Permission.md) |  | [optional] 
-**Type** | Pointer to [**NullableCrudEventType**](CrudEventType.md) |  | [optional] 
-**Detail** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Permission** | [**Permission**](Permission.md) |  | 
+**Type** | [**NullableCrudEventType**](CrudEventType.md) |  | 
+**Detail** | **map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewAuditLogControllerFindRequest
 
-`func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest`
+`func NewAuditLogControllerFindRequest(permission Permission, type_ NullableCrudEventType, detail map[string]interface{}, ) *AuditLogControllerFindRequest`
 
 NewAuditLogControllerFindRequest instantiates a new AuditLogControllerFindRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetPermission sets Permission field to given value.
 
-### HasPermission
-
-`func (o *AuditLogControllerFindRequest) HasPermission() bool`
-
-HasPermission returns a boolean if a field has been set.
 
 ### GetType
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *AuditLogControllerFindRequest) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### SetTypeNil
 
@@ -89,28 +79,23 @@ HasType returns a boolean if a field has been set.
 UnsetType ensures that no value is present for Type, not even an explicit nil
 ### GetDetail
 
-`func (o *AuditLogControllerFindRequest) GetDetail() map[string]map[string]interface{}`
+`func (o *AuditLogControllerFindRequest) GetDetail() map[string]interface{}`
 
 GetDetail returns the Detail field if non-nil, zero value otherwise.
 
 ### GetDetailOk
 
-`func (o *AuditLogControllerFindRequest) GetDetailOk() (*map[string]map[string]interface{}, bool)`
+`func (o *AuditLogControllerFindRequest) GetDetailOk() (*map[string]interface{}, bool)`
 
 GetDetailOk returns a tuple with the Detail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetail
 
-`func (o *AuditLogControllerFindRequest) SetDetail(v map[string]map[string]interface{})`
+`func (o *AuditLogControllerFindRequest) SetDetail(v map[string]interface{})`
 
 SetDetail sets Detail field to given value.
 
-### HasDetail
-
-`func (o *AuditLogControllerFindRequest) HasDetail() bool`
-
-HasDetail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

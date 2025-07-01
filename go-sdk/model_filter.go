@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Filter type satisfies the MappedNullable interface at compile time
@@ -19,16 +20,20 @@ var _ MappedNullable = &Filter{}
 
 // Filter struct for Filter
 type Filter struct {
-	Filter     *string                `json:"filter,omitempty"`
-	Expression map[string]interface{} `json:"expression,omitempty"`
+	Filter               string                 `json:"filter"`
+	Expression           map[string]interface{} `json:"expression,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Filter Filter
 
 // NewFilter instantiates a new Filter object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFilter() *Filter {
+func NewFilter(filter string) *Filter {
 	this := Filter{}
+	this.Filter = filter
 	return &this
 }
 
@@ -40,36 +45,28 @@ func NewFilterWithDefaults() *Filter {
 	return &this
 }
 
-// GetFilter returns the Filter field value if set, zero value otherwise.
+// GetFilter returns the Filter field value
 func (o *Filter) GetFilter() string {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Filter
+
+	return o.Filter
 }
 
-// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// GetFilterOk returns a tuple with the Filter field value
 // and a boolean to check if the value has been set.
 func (o *Filter) GetFilterOk() (*string, bool) {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Filter, true
+	return &o.Filter, true
 }
 
-// HasFilter returns a boolean if a field has been set.
-func (o *Filter) HasFilter() bool {
-	if o != nil && !IsNil(o.Filter) {
-		return true
-	}
-
-	return false
-}
-
-// SetFilter gets a reference to the given string and assigns it to the Filter field.
+// SetFilter sets field value
 func (o *Filter) SetFilter(v string) {
-	o.Filter = &v
+	o.Filter = v
 }
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
@@ -114,13 +111,59 @@ func (o Filter) MarshalJSON() ([]byte, error) {
 
 func (o Filter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Filter) {
-		toSerialize["filter"] = o.Filter
-	}
+	toSerialize["filter"] = o.Filter
 	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Filter) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"filter",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFilter := _Filter{}
+
+	err = json.Unmarshal(data, &varFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Filter(varFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filter")
+		delete(additionalProperties, "expression")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFilter struct {

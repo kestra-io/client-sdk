@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,8 +19,11 @@ var _ MappedNullable = &TenantUsage{}
 
 // TenantUsage struct for TenantUsage
 type TenantUsage struct {
-	Count *int64 `json:"count,omitempty"`
+	Count                *int64 `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TenantUsage TenantUsage
 
 // NewTenantUsage instantiates a new TenantUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -84,7 +87,33 @@ func (o TenantUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TenantUsage) UnmarshalJSON(data []byte) (err error) {
+	varTenantUsage := _TenantUsage{}
+
+	err = json.Unmarshal(data, &varTenantUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TenantUsage(varTenantUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTenantUsage struct {

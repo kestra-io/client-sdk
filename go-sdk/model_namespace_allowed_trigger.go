@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,8 +20,9 @@ var _ MappedNullable = &NamespaceAllowedTrigger{}
 
 // NamespaceAllowedTrigger struct for NamespaceAllowedTrigger
 type NamespaceAllowedTrigger struct {
-	Namespace string  `json:"namespace"`
-	FlowId    *string `json:"flowId,omitempty"`
+	Namespace            string `json:"namespace"`
+	FlowId               string `json:"flowId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NamespaceAllowedTrigger NamespaceAllowedTrigger
@@ -31,9 +31,10 @@ type _NamespaceAllowedTrigger NamespaceAllowedTrigger
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNamespaceAllowedTrigger(namespace string) *NamespaceAllowedTrigger {
+func NewNamespaceAllowedTrigger(namespace string, flowId string) *NamespaceAllowedTrigger {
 	this := NamespaceAllowedTrigger{}
 	this.Namespace = namespace
+	this.FlowId = flowId
 	return &this
 }
 
@@ -69,36 +70,28 @@ func (o *NamespaceAllowedTrigger) SetNamespace(v string) {
 	o.Namespace = v
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// GetFlowId returns the FlowId field value
 func (o *NamespaceAllowedTrigger) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+
+	return o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// GetFlowIdOk returns a tuple with the FlowId field value
 // and a boolean to check if the value has been set.
 func (o *NamespaceAllowedTrigger) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return &o.FlowId, true
 }
 
-// HasFlowId returns a boolean if a field has been set.
-func (o *NamespaceAllowedTrigger) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId sets field value
 func (o *NamespaceAllowedTrigger) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId = v
 }
 
 func (o NamespaceAllowedTrigger) MarshalJSON() ([]byte, error) {
@@ -112,9 +105,12 @@ func (o NamespaceAllowedTrigger) MarshalJSON() ([]byte, error) {
 func (o NamespaceAllowedTrigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["namespace"] = o.Namespace
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
+	toSerialize["flowId"] = o.FlowId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
+
 	return toSerialize, nil
 }
 
@@ -124,6 +120,7 @@ func (o *NamespaceAllowedTrigger) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"namespace",
+		"flowId",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -142,15 +139,21 @@ func (o *NamespaceAllowedTrigger) UnmarshalJSON(data []byte) (err error) {
 
 	varNamespaceAllowedTrigger := _NamespaceAllowedTrigger{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNamespaceAllowedTrigger)
+	err = json.Unmarshal(data, &varNamespaceAllowedTrigger)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NamespaceAllowedTrigger(varNamespaceAllowedTrigger)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "flowId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

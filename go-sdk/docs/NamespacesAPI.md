@@ -8,10 +8,10 @@ Method | HTTP request | Description
 [**AutocompleteNamespacesWithResourceTenantasSuperAdmin**](NamespacesAPI.md#AutocompleteNamespacesWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
 [**AutocompleteNamespacesasSuperAdmin**](NamespacesAPI.md#AutocompleteNamespacesasSuperAdmin) | **Post** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 [**CreateNamespace**](NamespacesAPI.md#CreateNamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
-[**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a flow
+[**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**DeleteSecret**](NamespacesAPI.md#DeleteSecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**GetInheritedSecrets**](NamespacesAPI.md#GetInheritedSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**GetNamespace**](NamespacesAPI.md#GetNamespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Get a namespace
+[**GetNamespace**](NamespacesAPI.md#GetNamespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
 [**InheritedPluginDefaults**](NamespacesAPI.md#InheritedPluginDefaults) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**InheritedVariables**](NamespacesAPI.md#InheritedVariables) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**ListNamespaceSecrets**](NamespacesAPI.md#ListNamespaceSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -28,6 +28,8 @@ Method | HTTP request | Description
 
 List namespaces for autocomplete
 
+
+
 ### Example
 
 ```go
@@ -43,7 +45,7 @@ import (
 func main() {
 	tenant := "tenant_example" // string | 
 	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds() // ApiIds |  (optional)
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -100,6 +102,8 @@ Name | Type | Description  | Notes
 
 List namespaces for autocomplete
 
+
+
 ### Example
 
 ```go
@@ -115,7 +119,7 @@ import (
 func main() {
 	resourceTenant := "resourceTenant_example" // string | 
 	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds() // ApiIds |  (optional)
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -172,6 +176,8 @@ Name | Type | Description  | Notes
 
 List namespaces for autocomplete
 
+
+
 ### Example
 
 ```go
@@ -186,7 +192,7 @@ import (
 
 func main() {
 	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds() // ApiIds |  (optional)
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -252,7 +258,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]interface{}{"key": interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]interface{}{"key": interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -306,7 +312,7 @@ Name | Type | Description  | Notes
 
 > DeleteNamespace(ctx, id, tenant).Execute()
 
-Delete a flow
+Delete a namespace
 
 ### Example
 
@@ -520,7 +526,7 @@ Name | Type | Description  | Notes
 
 > Namespace GetNamespace(ctx, id, tenant).Execute()
 
-Get a namespace
+Retrieve namespace details
 
 ### Example
 
@@ -660,7 +666,7 @@ Name | Type | Description  | Notes
 
 ## InheritedVariables
 
-> map[string]map[string]interface{} InheritedVariables(ctx, id, tenant).Execute()
+> map[string]interface{} InheritedVariables(ctx, id, tenant).Execute()
 
 List inherited variables
 
@@ -687,7 +693,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.InheritedVariables``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `InheritedVariables`: map[string]map[string]interface{}
+	// response from `InheritedVariables`: map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.InheritedVariables`: %v\n", resp)
 }
 ```
@@ -713,7 +719,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]map[string]interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -751,7 +757,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
@@ -905,7 +911,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	apiSecretValue := *openapiclient.NewApiSecretValue("Key_example", "Value_example") // ApiSecretValue | 
+	apiSecretValue := *openapiclient.NewApiSecretValue([]openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example", "Value_example", "Description_example") // ApiSecretValue | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1056,7 +1062,7 @@ import (
 func main() {
 	id := "id_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]interface{}{"key": interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]interface{}{"key": interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

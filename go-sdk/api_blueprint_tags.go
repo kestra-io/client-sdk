@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -41,6 +41,8 @@ func (r ApiInternalBlueprintTagsRequest) Execute() ([]string, *http.Response, er
 
 /*
 InternalBlueprintTags List all internal blueprint tags
+
+Lists all tags used by internal (custom) blueprints for the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -154,6 +156,8 @@ func (r ApiListBlueprintTagsRequest) Execute() ([]BlueprintControllerApiBlueprin
 
 /*
 ListBlueprintTags List blueprint tags matching the filter
+
+Lists tags for community blueprints of the specified kind, optionally filtered by query.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param kind The blueprint kind

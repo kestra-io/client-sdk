@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateApiTokenForCurrentUser**](AuthsAPI.md#CreateApiTokenForCurrentUser) | **Post** /api/v1/me/api-tokens | Create new API Token for authenticated user
-[**CreateApiTokenForCurrentUserWithTenant**](AuthsAPI.md#CreateApiTokenForCurrentUserWithTenant) | **Post** /api/v1/{tenant}/me/api-tokens | Create new API Token for authenticated user
-[**DeleteApiTokenForCurrentUser**](AuthsAPI.md#DeleteApiTokenForCurrentUser) | **Delete** /api/v1/me/api-tokens/{tokenId} | Delete an API Token for authenticated user
-[**DeleteApiTokenForCurrentUserWithTenant**](AuthsAPI.md#DeleteApiTokenForCurrentUserWithTenant) | **Delete** /api/v1/{tenant}/me/api-tokens/{tokenId} | Delete an API Token for authenticated user
-[**GetCurrentUser**](AuthsAPI.md#GetCurrentUser) | **Get** /api/v1/me | Get current user
-[**GetCurrentUserWithTenant**](AuthsAPI.md#GetCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me | Get current user
-[**Index**](AuthsAPI.md#Index) | **Get** /api/v1/auths | Get list of authentication methods
-[**ListApiTokensForCurrentUser**](AuthsAPI.md#ListApiTokensForCurrentUser) | **Get** /api/v1/me/api-tokens | List all API Tokens for the authenticated user
-[**ListApiTokensForCurrentUserWithTenant**](AuthsAPI.md#ListApiTokensForCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me/api-tokens | List all API Tokens for the authenticated user
-[**PatchCurrentUser**](AuthsAPI.md#PatchCurrentUser) | **Patch** /api/v1/me | Updates details for the current user. Returns user&#39;s updated information upon success.
-[**PatchCurrentUserWithTenant**](AuthsAPI.md#PatchCurrentUserWithTenant) | **Patch** /api/v1/{tenant}/me | Updates details for the current user. Returns user&#39;s updated information upon success.
+[**CreateApiTokenForCurrentUser**](AuthsAPI.md#CreateApiTokenForCurrentUser) | **Post** /api/v1/me/api-tokens | Create API token for the authenticated user
+[**CreateApiTokenForCurrentUserWithTenant**](AuthsAPI.md#CreateApiTokenForCurrentUserWithTenant) | **Post** /api/v1/{tenant}/me/api-tokens | Create API token for the authenticated user
+[**DeleteApiTokenForCurrentUser**](AuthsAPI.md#DeleteApiTokenForCurrentUser) | **Delete** /api/v1/me/api-tokens/{tokenId} | Delete API token for the authenticated user
+[**DeleteApiTokenForCurrentUserWithTenant**](AuthsAPI.md#DeleteApiTokenForCurrentUserWithTenant) | **Delete** /api/v1/{tenant}/me/api-tokens/{tokenId} | Delete API token for the authenticated user
+[**GetCurrentUser**](AuthsAPI.md#GetCurrentUser) | **Get** /api/v1/me | Get details about the authenticated user
+[**GetCurrentUserWithTenant**](AuthsAPI.md#GetCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me | Get details about the authenticated user
+[**Index**](AuthsAPI.md#Index) | **Get** /api/v1/auths | Retrieve list of authentication methods
+[**ListApiTokensForCurrentUser**](AuthsAPI.md#ListApiTokensForCurrentUser) | **Get** /api/v1/me/api-tokens | List API tokens for authenticated user
+[**ListApiTokensForCurrentUserWithTenant**](AuthsAPI.md#ListApiTokensForCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me/api-tokens | List API tokens for authenticated user
+[**PatchCurrentUser**](AuthsAPI.md#PatchCurrentUser) | **Patch** /api/v1/me | Update authenticated user details
+[**PatchCurrentUserWithTenant**](AuthsAPI.md#PatchCurrentUserWithTenant) | **Patch** /api/v1/{tenant}/me | Update authenticated user details
 
 
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 > map[string]interface{} CreateApiTokenForCurrentUser(ctx).CreateApiTokenRequest(createApiTokenRequest).Execute()
 
-Create new API Token for authenticated user
+Create API token for the authenticated user
 
 ### Example
 
@@ -37,7 +37,7 @@ import (
 )
 
 func main() {
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "MaxAge_example") // CreateApiTokenRequest | 
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} CreateApiTokenForCurrentUserWithTenant(ctx, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
 
-Create new API Token for authenticated user
+Create API token for the authenticated user
 
 ### Example
 
@@ -102,7 +102,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "MaxAge_example") // CreateApiTokenRequest | 
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} DeleteApiTokenForCurrentUser(ctx, tokenId).Execute()
 
-Delete an API Token for authenticated user
+Delete API token for the authenticated user
 
 ### Example
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} DeleteApiTokenForCurrentUserWithTenant(ctx, tokenId, tenant).Execute()
 
-Delete an API Token for authenticated user
+Delete API token for the authenticated user
 
 ### Example
 
@@ -295,7 +295,9 @@ Name | Type | Description  | Notes
 
 > MeControllerMe GetCurrentUser(ctx).Execute()
 
-Get current user
+Get details about the authenticated user
+
+
 
 ### Example
 
@@ -354,7 +356,9 @@ Other parameters are passed through a pointer to a apiGetCurrentUserRequest stru
 
 > MeControllerMe GetCurrentUserWithTenant(ctx, tenant).Execute()
 
-Get current user
+Get details about the authenticated user
+
+
 
 ### Example
 
@@ -422,7 +426,7 @@ Name | Type | Description  | Notes
 
 > AuthControllerAuth Index(ctx).Execute()
 
-Get list of authentication methods
+Retrieve list of authentication methods
 
 ### Example
 
@@ -481,7 +485,9 @@ No authorization required
 
 > map[string]interface{} ListApiTokensForCurrentUser(ctx).Execute()
 
-List all API Tokens for the authenticated user
+List API tokens for authenticated user
+
+
 
 ### Example
 
@@ -540,7 +546,9 @@ Other parameters are passed through a pointer to a apiListApiTokensForCurrentUse
 
 > map[string]interface{} ListApiTokensForCurrentUserWithTenant(ctx, tenant).Execute()
 
-List all API Tokens for the authenticated user
+List API tokens for authenticated user
+
+
 
 ### Example
 
@@ -608,7 +616,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} PatchCurrentUser(ctx).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
 
-Updates details for the current user. Returns user's updated information upon success.
+Update authenticated user details
+
+
 
 ### Example
 
@@ -623,7 +633,7 @@ import (
 )
 
 func main() {
-	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest() // MeControllerUserDetailsRequest | The user details
+	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -672,7 +682,9 @@ Name | Type | Description  | Notes
 
 > map[string]interface{} PatchCurrentUserWithTenant(ctx, tenant).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
 
-Updates details for the current user. Returns user's updated information upon success.
+Update authenticated user details
+
+
 
 ### Example
 
@@ -688,7 +700,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest() // MeControllerUserDetailsRequest | The user details
+	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

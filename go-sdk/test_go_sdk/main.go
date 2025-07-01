@@ -2,20 +2,21 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 
-	kestra_api_client "github.com/GIT_USER_ID/GIT_REPO_ID"
+	kestra_api_client "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	configuration := kestra_api_client.NewConfiguration()
 
-	url := "http://localhost:8080"
+	url := "http://localhost:8088"
 	username := "root@root.com"
 	password := "Root!1234"
-	tenantId := "test"
+	tenantId := "main"
 
 	ctx := context.Background()
 
@@ -66,6 +67,13 @@ func main() {
 			flowId = flow.Id
 			flowNamespace = flow.Namespace
 			fmt.Printf("- ID: %s, Namespace: %s\n", flowId, flowNamespace)
+
+			flowJSON, err := json.MarshalIndent(flow, "", "  ")
+			if err != nil {
+				fmt.Printf("Error marshaling flow to JSON: %v\n", err)
+			} else {
+				fmt.Printf("%s\n", flowJSON)
+			}
 		}
 	}
 

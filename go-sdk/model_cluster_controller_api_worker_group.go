@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ClusterControllerApiWorkerGroup type satisfies the MappedNullable interface at compile time
@@ -20,20 +21,27 @@ var _ MappedNullable = &ClusterControllerApiWorkerGroup{}
 // ClusterControllerApiWorkerGroup ApiWorkerGroup.
 type ClusterControllerApiWorkerGroup struct {
 	// The ID of worker group.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	// The key of the worker group.
-	Key *string `json:"key,omitempty"`
+	Key string `json:"key"`
 	// The description of the worker group.
-	Description    *string  `json:"description,omitempty"`
-	AllowedTenants []string `json:"allowedTenants,omitempty"`
+	Description          string   `json:"description"`
+	AllowedTenants       []string `json:"allowedTenants"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ClusterControllerApiWorkerGroup ClusterControllerApiWorkerGroup
 
 // NewClusterControllerApiWorkerGroup instantiates a new ClusterControllerApiWorkerGroup object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClusterControllerApiWorkerGroup() *ClusterControllerApiWorkerGroup {
+func NewClusterControllerApiWorkerGroup(id string, key string, description string, allowedTenants []string) *ClusterControllerApiWorkerGroup {
 	this := ClusterControllerApiWorkerGroup{}
+	this.Id = id
+	this.Key = key
+	this.Description = description
+	this.AllowedTenants = allowedTenants
 	return &this
 }
 
@@ -45,130 +53,98 @@ func NewClusterControllerApiWorkerGroupWithDefaults() *ClusterControllerApiWorke
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *ClusterControllerApiWorkerGroup) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiWorkerGroup) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *ClusterControllerApiWorkerGroup) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *ClusterControllerApiWorkerGroup) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
+// GetKey returns the Key field value
 func (o *ClusterControllerApiWorkerGroup) GetKey() string {
-	if o == nil || IsNil(o.Key) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Key
+
+	return o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiWorkerGroup) GetKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.Key) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Key, true
+	return &o.Key, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *ClusterControllerApiWorkerGroup) HasKey() bool {
-	if o != nil && !IsNil(o.Key) {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetKey sets field value
 func (o *ClusterControllerApiWorkerGroup) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *ClusterControllerApiWorkerGroup) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiWorkerGroup) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *ClusterControllerApiWorkerGroup) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *ClusterControllerApiWorkerGroup) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetAllowedTenants returns the AllowedTenants field value if set, zero value otherwise.
+// GetAllowedTenants returns the AllowedTenants field value
 func (o *ClusterControllerApiWorkerGroup) GetAllowedTenants() []string {
-	if o == nil || IsNil(o.AllowedTenants) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.AllowedTenants
 }
 
-// GetAllowedTenantsOk returns a tuple with the AllowedTenants field value if set, nil otherwise
+// GetAllowedTenantsOk returns a tuple with the AllowedTenants field value
 // and a boolean to check if the value has been set.
 func (o *ClusterControllerApiWorkerGroup) GetAllowedTenantsOk() ([]string, bool) {
-	if o == nil || IsNil(o.AllowedTenants) {
+	if o == nil {
 		return nil, false
 	}
 	return o.AllowedTenants, true
 }
 
-// HasAllowedTenants returns a boolean if a field has been set.
-func (o *ClusterControllerApiWorkerGroup) HasAllowedTenants() bool {
-	if o != nil && !IsNil(o.AllowedTenants) {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowedTenants gets a reference to the given []string and assigns it to the AllowedTenants field.
+// SetAllowedTenants sets field value
 func (o *ClusterControllerApiWorkerGroup) SetAllowedTenants(v []string) {
 	o.AllowedTenants = v
 }
@@ -183,19 +159,64 @@ func (o ClusterControllerApiWorkerGroup) MarshalJSON() ([]byte, error) {
 
 func (o ClusterControllerApiWorkerGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize["id"] = o.Id
+	toSerialize["key"] = o.Key
+	toSerialize["description"] = o.Description
+	toSerialize["allowedTenants"] = o.AllowedTenants
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
 	}
-	if !IsNil(o.Key) {
-		toSerialize["key"] = o.Key
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.AllowedTenants) {
-		toSerialize["allowedTenants"] = o.AllowedTenants
-	}
+
 	return toSerialize, nil
+}
+
+func (o *ClusterControllerApiWorkerGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"key",
+		"description",
+		"allowedTenants",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varClusterControllerApiWorkerGroup := _ClusterControllerApiWorkerGroup{}
+
+	err = json.Unmarshal(data, &varClusterControllerApiWorkerGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ClusterControllerApiWorkerGroup(varClusterControllerApiWorkerGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "allowedTenants")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableClusterControllerApiWorkerGroup struct {

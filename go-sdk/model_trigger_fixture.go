@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,9 +20,10 @@ var _ MappedNullable = &TriggerFixture{}
 
 // TriggerFixture struct for TriggerFixture
 type TriggerFixture struct {
-	Id        string                            `json:"id"`
-	Type      string                            `json:"type"`
-	Variables map[string]map[string]interface{} `json:"variables,omitempty"`
+	Id                   string                 `json:"id"`
+	Type                 string                 `json:"type"`
+	Variables            map[string]interface{} `json:"variables,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TriggerFixture TriggerFixture
@@ -96,9 +96,9 @@ func (o *TriggerFixture) SetType(v string) {
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *TriggerFixture) GetVariables() map[string]map[string]interface{} {
+func (o *TriggerFixture) GetVariables() map[string]interface{} {
 	if o == nil || IsNil(o.Variables) {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Variables
@@ -106,9 +106,9 @@ func (o *TriggerFixture) GetVariables() map[string]map[string]interface{} {
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TriggerFixture) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+func (o *TriggerFixture) GetVariablesOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]map[string]interface{}{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
@@ -122,8 +122,8 @@ func (o *TriggerFixture) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
-func (o *TriggerFixture) SetVariables(v map[string]map[string]interface{}) {
+// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
+func (o *TriggerFixture) SetVariables(v map[string]interface{}) {
 	o.Variables = v
 }
 
@@ -142,6 +142,11 @@ func (o TriggerFixture) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Variables) {
 		toSerialize["variables"] = o.Variables
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -170,15 +175,22 @@ func (o *TriggerFixture) UnmarshalJSON(data []byte) (err error) {
 
 	varTriggerFixture := _TriggerFixture{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTriggerFixture)
+	err = json.Unmarshal(data, &varTriggerFixture)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TriggerFixture(varTriggerFixture)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

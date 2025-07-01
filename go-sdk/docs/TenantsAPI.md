@@ -5,9 +5,9 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**Create**](TenantsAPI.md#Create) | **Post** /api/v1/tenants | Create a tenant
-[**Delete**](TenantsAPI.md#Delete) | **Delete** /api/v1/tenants/{id} | Delete a tenant and all its resources (flows, namespaces, apps, ...
+[**Delete**](TenantsAPI.md#Delete) | **Delete** /api/v1/tenants/{id} | Delete a tenant and all its resources
 [**Find**](TenantsAPI.md#Find) | **Get** /api/v1/tenants/search | Search for tenants
-[**Get**](TenantsAPI.md#Get) | **Get** /api/v1/tenants/{id} | Get a tenant
+[**Get**](TenantsAPI.md#Get) | **Get** /api/v1/tenants/{id} | Retrieve a tenant
 [**SetLogo**](TenantsAPI.md#SetLogo) | **Post** /api/v1/tenants/{id}/logo | Set a tenant logo
 [**Update**](TenantsAPI.md#Update) | **Put** /api/v1/tenants/{id} | Update a tenant
 
@@ -18,6 +18,8 @@ Method | HTTP request | Description
 > Tenant Create(ctx).Tenant(tenant).Execute()
 
 Create a tenant
+
+
 
 ### Example
 
@@ -32,7 +34,7 @@ import (
 )
 
 func main() {
-	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
+	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -81,7 +83,9 @@ No authorization required
 
 > Delete(ctx, id).Execute()
 
-Delete a tenant and all its resources (flows, namespaces, apps, ...
+Delete a tenant and all its resources
+
+
 
 ### Example
 
@@ -148,6 +152,8 @@ No authorization required
 > PagedResultsTenant Find(ctx).Page(page).Size(size).Q(q).Sort(sort).Execute()
 
 Search for tenants
+
+
 
 ### Example
 
@@ -217,7 +223,9 @@ No authorization required
 
 > Tenant Get(ctx, id).Execute()
 
-Get a tenant
+Retrieve a tenant
+
+
 
 ### Example
 
@@ -286,6 +294,8 @@ No authorization required
 > ApiTenant SetLogo(ctx, id).Logo(logo).Execute()
 
 Set a tenant logo
+
+
 
 ### Example
 
@@ -357,6 +367,8 @@ No authorization required
 
 Update a tenant
 
+
+
 ### Example
 
 ```go
@@ -371,7 +383,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The tenant id
-	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
+	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

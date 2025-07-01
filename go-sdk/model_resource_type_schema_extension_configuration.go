@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -19,9 +19,12 @@ var _ MappedNullable = &ResourceTypeSchemaExtensionConfiguration{}
 
 // ResourceTypeSchemaExtensionConfiguration struct for ResourceTypeSchemaExtensionConfiguration
 type ResourceTypeSchemaExtensionConfiguration struct {
-	SchemaUrn *string `json:"schemaUrn,omitempty"`
-	Required  *bool   `json:"required,omitempty"`
+	SchemaUrn            *string `json:"schemaUrn,omitempty"`
+	Required             *bool   `json:"required,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ResourceTypeSchemaExtensionConfiguration ResourceTypeSchemaExtensionConfiguration
 
 // NewResourceTypeSchemaExtensionConfiguration instantiates a new ResourceTypeSchemaExtensionConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o ResourceTypeSchemaExtensionConfiguration) ToMap() (map[string]interface{
 	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ResourceTypeSchemaExtensionConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varResourceTypeSchemaExtensionConfiguration := _ResourceTypeSchemaExtensionConfiguration{}
+
+	err = json.Unmarshal(data, &varResourceTypeSchemaExtensionConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceTypeSchemaExtensionConfiguration(varResourceTypeSchemaExtensionConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schemaUrn")
+		delete(additionalProperties, "required")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableResourceTypeSchemaExtensionConfiguration struct {

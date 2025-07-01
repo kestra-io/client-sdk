@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,12 +20,13 @@ var _ MappedNullable = &UnitTest{}
 
 // UnitTest struct for UnitTest
 type UnitTest struct {
-	Id          string      `json:"id"`
-	Type        string      `json:"type"`
-	Disabled    *bool       `json:"disabled,omitempty"`
-	Description *string     `json:"description,omitempty"`
-	Fixtures    *Fixtures   `json:"fixtures,omitempty"`
-	Assertions  []Assertion `json:"assertions"`
+	Id                   string      `json:"id"`
+	Type                 string      `json:"type"`
+	Disabled             *bool       `json:"disabled,omitempty"`
+	Description          *string     `json:"description,omitempty"`
+	Fixtures             *Fixtures   `json:"fixtures,omitempty"`
+	Assertions           []Assertion `json:"assertions"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UnitTest UnitTest
@@ -241,6 +241,11 @@ func (o UnitTest) ToMap() (map[string]interface{}, error) {
 		toSerialize["fixtures"] = o.Fixtures
 	}
 	toSerialize["assertions"] = o.Assertions
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -270,15 +275,25 @@ func (o *UnitTest) UnmarshalJSON(data []byte) (err error) {
 
 	varUnitTest := _UnitTest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUnitTest)
+	err = json.Unmarshal(data, &varUnitTest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UnitTest(varUnitTest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "fixtures")
+		delete(additionalProperties, "assertions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

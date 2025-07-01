@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -16,6 +16,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 )
 
@@ -41,6 +42,8 @@ func (r ApiCreateInternalBlueprintsRequest) Execute() (*BlueprintControllerApiBl
 
 /*
 CreateInternalBlueprints Create a new internal blueprint
+
+Creates a new internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
@@ -150,6 +153,8 @@ func (r ApiDeleteInternalBlueprintsRequest) Execute() (*http.Response, error) {
 /*
 DeleteInternalBlueprints Delete an internal blueprint
 
+Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The internal blueprint id to delete
 	@param tenant
@@ -243,7 +248,9 @@ func (r ApiGetBlueprintRequest) Execute() (*BlueprintControllerApiBlueprintItemW
 }
 
 /*
-GetBlueprint Get a blueprint
+GetBlueprint Retrieve a blueprint
+
+Retrieves details of a specific community blueprint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The blueprint id
@@ -348,12 +355,14 @@ type ApiGetBlueprintGraphRequest struct {
 	tenant     string
 }
 
-func (r ApiGetBlueprintGraphRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+func (r ApiGetBlueprintGraphRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetBlueprintGraphExecute(r)
 }
 
 /*
-GetBlueprintGraph Get a blueprint graph
+GetBlueprintGraph Retrieve a blueprint graph
+
+Retrieves the topology graph representation of a specific community blueprint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The blueprint id
@@ -373,13 +382,13 @@ func (a *BlueprintsAPIService) GetBlueprintGraph(ctx context.Context, id string,
 
 // Execute executes the request
 //
-//	@return map[string]map[string]interface{}
-func (a *BlueprintsAPIService) GetBlueprintGraphExecute(r ApiGetBlueprintGraphRequest) (map[string]map[string]interface{}, *http.Response, error) {
+//	@return map[string]interface{}
+func (a *BlueprintsAPIService) GetBlueprintGraphExecute(r ApiGetBlueprintGraphRequest) (map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]map[string]interface{}
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlueprintsAPIService.GetBlueprintGraph")
@@ -463,7 +472,9 @@ func (r ApiGetBlueprintSourceRequest) Execute() (string, *http.Response, error) 
 }
 
 /*
-GetBlueprintSource Get a blueprint source code
+GetBlueprintSource Retrieve a blueprint source code
+
+Retrieves the YAML source code for a specific community blueprint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The blueprint id
@@ -572,7 +583,9 @@ func (r ApiInternalBlueprintRequest) Execute() (*BlueprintControllerApiBlueprint
 }
 
 /*
-InternalBlueprint Get an internal blueprint
+InternalBlueprint Retrieve an internal blueprint
+
+Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The blueprint id
@@ -678,7 +691,9 @@ func (r ApiInternalBlueprintFlowRequest) Execute() (string, *http.Response, erro
 }
 
 /*
-InternalBlueprintFlow Get an internal blueprint source code
+InternalBlueprintFlow Retrieve an internal blueprint source code
+
+Retrieves the YAML source code for a specific internal (custom) blueprint. Requires BLUEPRINT permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The blueprint id
@@ -821,6 +836,8 @@ func (r ApiSearchBlueprintsRequest) Execute() (*PagedResultsBlueprintControllerA
 /*
 SearchBlueprints List all blueprints
 
+Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param kind The blueprint kind
 	@param tenant
@@ -878,7 +895,15 @@ func (a *BlueprintsAPIService) SearchBlueprintsExecute(r ApiSearchBlueprintsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
+		t := *r.tags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
+		}
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
@@ -984,6 +1009,8 @@ func (r ApiSearchInternalBlueprintsRequest) Execute() (*PagedResultsBlueprint, *
 /*
 SearchInternalBlueprints List all internal blueprints
 
+Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
 	@return ApiSearchInternalBlueprintsRequest
@@ -1032,7 +1059,15 @@ func (a *BlueprintsAPIService) SearchInternalBlueprintsExecute(r ApiSearchIntern
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
+		t := *r.tags
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
+		}
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
@@ -1110,6 +1145,8 @@ func (r ApiUpdateInternalBlueprintsRequest) Execute() (*BlueprintWithFlow, *http
 
 /*
 UpdateInternalBlueprints Update an internal blueprint
+
+Updates an existing internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The id of the internal blueprint to update

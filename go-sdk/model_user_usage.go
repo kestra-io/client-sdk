@@ -1,7 +1,7 @@
 /*
 Kestra EE
 
-All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
 
 API version: v1
 */
@@ -11,7 +11,6 @@ API version: v1
 package kestra_api_client
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -21,10 +20,11 @@ var _ MappedNullable = &UserUsage{}
 
 // UserUsage struct for UserUsage
 type UserUsage struct {
-	Count          int64 `json:"count"`
-	ApiKeyCount    int64 `json:"apiKeyCount"`
-	OidcCount      int64 `json:"oidcCount"`
-	BasicAuthCount int64 `json:"basicAuthCount"`
+	Count                int64 `json:"count"`
+	ApiKeyCount          int64 `json:"apiKeyCount"`
+	OidcCount            int64 `json:"oidcCount"`
+	BasicAuthCount       int64 `json:"basicAuthCount"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserUsage UserUsage
@@ -160,6 +160,11 @@ func (o UserUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize["apiKeyCount"] = o.ApiKeyCount
 	toSerialize["oidcCount"] = o.OidcCount
 	toSerialize["basicAuthCount"] = o.BasicAuthCount
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -190,15 +195,23 @@ func (o *UserUsage) UnmarshalJSON(data []byte) (err error) {
 
 	varUserUsage := _UserUsage{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserUsage)
+	err = json.Unmarshal(data, &varUserUsage)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserUsage(varUserUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "apiKeyCount")
+		delete(additionalProperties, "oidcCount")
+		delete(additionalProperties, "basicAuthCount")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
