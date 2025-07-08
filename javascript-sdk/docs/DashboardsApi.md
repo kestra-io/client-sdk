@@ -30,13 +30,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
-apiInstance.createDashboard(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createDashboard(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -75,13 +74,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteDashboard(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteDashboard(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -120,13 +118,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
-apiInstance.getDashboard(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDashboard(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -167,13 +164,12 @@ let id = "id_example"; // String | The dashboard id
 let chartId = "chartId_example"; // String | The chart id
 let tenant = "tenant_example"; // String | 
 let globalFilter = new KestraApi.GlobalFilter(); // GlobalFilter | The filters to apply, some can override chart definition like labels & namespace
-apiInstance.getDashboardChartData(id, chartId, tenant, globalFilter, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDashboardChartData(id, chartId, tenant, globalFilter).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -214,13 +210,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let dashboardControllerPreviewRequest = new KestraApi.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
-apiInstance.previewChart(tenant, dashboardControllerPreviewRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.previewChart(tenant, dashboardControllerPreviewRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -264,13 +259,12 @@ let opts = {
   'q': "q_example", // String | The filter query
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchDashboards(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchDashboards(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -313,13 +307,12 @@ let apiInstance = new KestraApi.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
-apiInstance.updateDashboard(id, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateDashboard(id, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -359,13 +352,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The chart definition as YAML
-apiInstance.validateChart(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateChart(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -404,13 +396,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
-apiInstance.validateDashboard(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateDashboard(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

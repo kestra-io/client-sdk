@@ -35,13 +35,12 @@ let apiInstance = new KestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteKeyValue(namespace, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteKeyValue(namespace, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -90,13 +89,12 @@ let apiInstance = new KestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let kVControllerApiDeleteBulkRequest = new KestraApi.KVControllerApiDeleteBulkRequest(); // KVControllerApiDeleteBulkRequest | The keys
-apiInstance.deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -145,13 +143,12 @@ let apiInstance = new KestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
-apiInstance.getKeyValue(namespace, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getKeyValue(namespace, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -199,13 +196,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.listKeys(namespace, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listKeys(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -254,13 +250,12 @@ let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The value of the key
-apiInstance.setKeyValue(namespace, key, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.setKeyValue(namespace, key, tenant, body).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

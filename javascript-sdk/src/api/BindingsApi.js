@@ -37,22 +37,14 @@ export default class BindingsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the bulkCreateBinding operation.
-     * @callback module:api/BindingsApi~bulkCreateBindingCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/AbstractBindingControllerBindingDetail>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create multiple bindings
      * @param {String} tenant 
      * @param {Array.<module:model/Binding>} binding The bindings
-     * @param {module:api/BindingsApi~bulkCreateBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AbstractBindingControllerBindingDetail>} and HTTP response
      */
-    bulkCreateBinding(tenant, binding, callback) {
+    bulkCreateBindingWithHttpInfo(tenant, binding) {
       let postBody = binding;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -80,26 +72,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the bulkCreateBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~bulkCreateBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/AbstractBindingControllerBindingDetail>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create multiple bindings
+     * @param {String} tenant 
+     * @param {Array.<module:model/Binding>} binding The bindings
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
      */
+    bulkCreateBinding(tenant, binding) {
+      return this.bulkCreateBindingWithHttpInfo(tenant, binding)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create multiple bindings
      * @param {String} resourceTenant 
      * @param {Array.<module:model/Binding>} binding The bindings
-     * @param {module:api/BindingsApi~bulkCreateBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AbstractBindingControllerBindingDetail>} and HTTP response
      */
-    bulkCreateBindingapsSuperAdmin(resourceTenant, binding, callback) {
+    bulkCreateBindingapsSuperAdminWithHttpInfo(resourceTenant, binding) {
       let postBody = binding;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -127,26 +124,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/bindings/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createBinding operation.
-     * @callback module:api/BindingsApi~createBindingCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create multiple bindings
+     * @param {String} resourceTenant 
+     * @param {Array.<module:model/Binding>} binding The bindings
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
      */
+    bulkCreateBindingapsSuperAdmin(resourceTenant, binding) {
+      return this.bulkCreateBindingapsSuperAdminWithHttpInfo(resourceTenant, binding)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a binding
      * @param {String} tenant 
      * @param {module:model/Binding} binding The binding
-     * @param {module:api/BindingsApi~createBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AbstractBindingControllerBindingDetail} and HTTP response
      */
-    createBinding(tenant, binding, callback) {
+    createBindingWithHttpInfo(tenant, binding) {
       let postBody = binding;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -174,26 +176,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~createBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a binding
+     * @param {String} tenant 
+     * @param {module:model/Binding} binding The binding
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AbstractBindingControllerBindingDetail}
      */
+    createBinding(tenant, binding) {
+      return this.createBindingWithHttpInfo(tenant, binding)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a binding
      * @param {String} resourceTenant 
      * @param {module:model/Binding} binding The binding
-     * @param {module:api/BindingsApi~createBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AbstractBindingControllerBindingDetail} and HTTP response
      */
-    createBindingapsSuperAdmin(resourceTenant, binding, callback) {
+    createBindingapsSuperAdminWithHttpInfo(resourceTenant, binding) {
       let postBody = binding;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -221,25 +228,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/bindings', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteBinding operation.
-     * @callback module:api/BindingsApi~deleteBindingCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a binding
+     * @param {String} resourceTenant 
+     * @param {module:model/Binding} binding The binding
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AbstractBindingControllerBindingDetail}
      */
+    createBindingapsSuperAdmin(resourceTenant, binding) {
+      return this.createBindingapsSuperAdminWithHttpInfo(resourceTenant, binding)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a binding
      * @param {String} id The binding id
      * @param {String} tenant 
-     * @param {module:api/BindingsApi~deleteBindingCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteBinding(id, tenant, callback) {
+    deleteBindingWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -268,25 +281,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~deleteBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a binding
+     * @param {String} id The binding id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteBinding(id, tenant) {
+      return this.deleteBindingWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a binding
      * @param {String} id The binding id
      * @param {String} resourceTenant 
-     * @param {module:api/BindingsApi~deleteBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteBindingapsSuperAdmin(id, resourceTenant, callback) {
+    deleteBindingapsSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -315,26 +334,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/bindings/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getBinding operation.
-     * @callback module:api/BindingsApi~getBindingCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a binding
+     * @param {String} id The binding id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteBindingapsSuperAdmin(id, resourceTenant) {
+      return this.deleteBindingapsSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a binding
      * @param {String} id The binding id
      * @param {String} tenant 
-     * @param {module:api/BindingsApi~getBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AbstractBindingControllerBindingDetail} and HTTP response
      */
-    getBinding(id, tenant, callback) {
+    getBindingWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -363,26 +387,31 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~getBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a binding
+     * @param {String} id The binding id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AbstractBindingControllerBindingDetail}
      */
+    getBinding(id, tenant) {
+      return this.getBindingWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a binding
      * @param {String} id The binding id
      * @param {String} resourceTenant 
-     * @param {module:api/BindingsApi~getBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AbstractBindingControllerBindingDetail} and HTTP response
      */
-    getBindingapsSuperAdmin(id, resourceTenant, callback) {
+    getBindingapsSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -411,17 +440,23 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/bindings/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchBindings operation.
-     * @callback module:api/BindingsApi~searchBindingsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a binding
+     * @param {String} id The binding id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AbstractBindingControllerBindingDetail}
      */
+    getBindingapsSuperAdmin(id, resourceTenant) {
+      return this.getBindingapsSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for bindings
@@ -434,10 +469,9 @@ export default class BindingsApi {
      * @param {module:model/BindingType} [type] Binding type filter
      * @param {String} [id] External id filter
      * @param {String} [namespace] A namespace filter
-     * @param {module:api/BindingsApi~searchBindingsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsAbstractBindingControllerBindingDetail} and HTTP response
      */
-    searchBindings(page, size, tenant, opts, callback) {
+    searchBindingsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -477,17 +511,30 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchBindingsapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~searchBindingsapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for bindings
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {module:model/BindingType} opts.type Binding type filter
+     * @param {String} opts.id External id filter
+     * @param {String} opts.namespace A namespace filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
      */
+    searchBindings(page, size, tenant, opts) {
+      return this.searchBindingsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for bindings
@@ -500,10 +547,9 @@ export default class BindingsApi {
      * @param {module:model/BindingType} [type] Binding type filter
      * @param {String} [id] External id filter
      * @param {String} [namespace] A namespace filter
-     * @param {module:api/BindingsApi~searchBindingsapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsAbstractBindingControllerBindingDetail} and HTTP response
      */
-    searchBindingsapsSuperAdmin(page, size, resourceTenant, opts, callback) {
+    searchBindingsapsSuperAdminWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -543,8 +589,28 @@ export default class BindingsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/bindings/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Search for bindings
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {module:model/BindingType} opts.type Binding type filter
+     * @param {String} opts.id External id filter
+     * @param {String} opts.namespace A namespace filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
+     */
+    searchBindingsapsSuperAdmin(page, size, resourceTenant, opts) {
+      return this.searchBindingsapsSuperAdminWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

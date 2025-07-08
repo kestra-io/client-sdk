@@ -41,22 +41,14 @@ export default class UsersApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the autocompleteUsers operation.
-     * @callback module:api/UsersApi~autocompleteUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List users for autocomplete
      * @param {String} tenant 
      * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiUser>} and HTTP response
      */
-    autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete, callback) {
+    autocompleteUsersWithHttpInfo(tenant, abstractUserControllerUserApiAutocomplete) {
       let postBody = abstractUserControllerUserApiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -84,26 +76,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteUsersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~autocompleteUsersWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List users for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiUser>}
      */
+    autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete) {
+      return this.autocompleteUsersWithHttpInfo(tenant, abstractUserControllerUserApiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List users for autocomplete
      * @param {String} resourceTenant 
      * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiUser>} and HTTP response
      */
-    autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete, callback) {
+    autocompleteUsersWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, abstractUserControllerUserApiAutocomplete) {
       let postBody = abstractUserControllerUserApiAutocomplete;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -131,25 +128,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteUsersasSuperAdmin operation.
-     * @callback module:api/UsersApi~autocompleteUsersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List users for autocomplete
+     * @param {String} resourceTenant 
+     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiUser>}
      */
+    autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete) {
+      return this.autocompleteUsersWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, abstractUserControllerUserApiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List users for autocomplete
      * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiUser>} and HTTP response
      */
-    autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete, callback) {
+    autocompleteUsersasSuperAdminWithHttpInfo(abstractUserControllerUserApiAutocomplete) {
       let postBody = abstractUserControllerUserApiAutocomplete;
       // verify the required parameter 'abstractUserControllerUserApiAutocomplete' is set
       if (abstractUserControllerUserApiAutocomplete === undefined || abstractUserControllerUserApiAutocomplete === null) {
@@ -172,27 +174,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApiTokensForUser operation.
-     * @callback module:api/UsersApi~createApiTokensForUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List users for autocomplete
+     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiUser>}
      */
+    autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete) {
+      return this.autocompleteUsersasSuperAdminWithHttpInfo(abstractUserControllerUserApiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new API Token for a specific user
      * @param {String} id The user id
      * @param {String} tenant 
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createApiTokensForUser(id, tenant, createApiTokenRequest, callback) {
+    createApiTokensForUserWithHttpInfo(id, tenant, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -225,27 +231,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApiTokensForUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createApiTokensForUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for a specific user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createApiTokensForUser(id, tenant, createApiTokenRequest) {
+      return this.createApiTokensForUserWithHttpInfo(id, tenant, createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new API Token for a specific user
      * @param {String} id The user id
      * @param {String} resourceTenant 
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest, callback) {
+    createApiTokensForUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -278,26 +290,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApiTokensForUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~createApiTokensForUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for a specific user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest) {
+      return this.createApiTokensForUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new API Token for a specific user
      * @param {String} id The user id
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createApiTokensForUserasSuperAdmin(id, createApiTokenRequest, callback) {
+    createApiTokensForUserasSuperAdminWithHttpInfo(id, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -325,26 +343,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createServiceAccount operation.
-     * @callback module:api/UsersApi~createServiceAccountCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for a specific user
+     * @param {String} id The user id
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createApiTokensForUserasSuperAdmin(id, createApiTokenRequest) {
+      return this.createApiTokensForUserasSuperAdminWithHttpInfo(id, createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a user service account
      * @param {String} tenant 
      * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    createServiceAccount(tenant, apiServiceAccount, callback) {
+    createServiceAccountWithHttpInfo(tenant, apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -372,26 +395,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/service-accounts', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createServiceAccountWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createServiceAccountWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a user service account
+     * @param {String} tenant 
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    createServiceAccount(tenant, apiServiceAccount) {
+      return this.createServiceAccountWithHttpInfo(tenant, apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a user service account
      * @param {String} resourceTenant 
      * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount, callback) {
+    createServiceAccountWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -419,25 +447,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/service-accounts', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createServiceAccountasSuperAdmin operation.
-     * @callback module:api/UsersApi~createServiceAccountasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a user service account
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount) {
+      return this.createServiceAccountWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a user service account
      * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    createServiceAccountasSuperAdmin(apiServiceAccount, callback) {
+    createServiceAccountasSuperAdminWithHttpInfo(apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'apiServiceAccount' is set
       if (apiServiceAccount === undefined || apiServiceAccount === null) {
@@ -460,26 +493,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/service-accounts', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUser operation.
-     * @callback module:api/UsersApi~createUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a user service account
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    createServiceAccountasSuperAdmin(apiServiceAccount) {
+      return this.createServiceAccountasSuperAdminWithHttpInfo(apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a standard user
      * @param {String} tenant 
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUser(tenant, apiUser, callback) {
+    createUserWithHttpInfo(tenant, apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -507,27 +544,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUserBasicAuth operation.
-     * @callback module:api/UsersApi~createUserBasicAuthCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a standard user
+     * @param {String} tenant 
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUser(tenant, apiUser) {
+      return this.createUserWithHttpInfo(tenant, apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a basic auth password for a standard user
      * @param {String} id The user id
      * @param {String} tenant 
      * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest, callback) {
+    createUserBasicAuthWithHttpInfo(id, tenant, abstractUserControllerPasswordRequest) {
       let postBody = abstractUserControllerPasswordRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -560,27 +602,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUserBasicAuthWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserBasicAuthWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a basic auth password for a standard user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest) {
+      return this.createUserBasicAuthWithHttpInfo(id, tenant, abstractUserControllerPasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a basic auth password for a standard user
      * @param {String} id The user id
      * @param {String} resourceTenant 
      * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest, callback) {
+    createUserBasicAuthWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, abstractUserControllerPasswordRequest) {
       let postBody = abstractUserControllerPasswordRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -613,26 +661,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUserBasicAuthasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserBasicAuthasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a basic auth password for a standard user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest) {
+      return this.createUserBasicAuthWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, abstractUserControllerPasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a basic auth password for a standard user
      * @param {String} id The user id
      * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest, callback) {
+    createUserBasicAuthasSuperAdminWithHttpInfo(id, abstractUserControllerPasswordRequest) {
       let postBody = abstractUserControllerPasswordRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -660,26 +714,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a basic auth password for a standard user
+     * @param {String} id The user id
+     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest) {
+      return this.createUserBasicAuthasSuperAdminWithHttpInfo(id, abstractUserControllerPasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a standard user
      * @param {String} resourceTenant 
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~createUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser, callback) {
+    createUserWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -707,25 +766,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a standard user
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser) {
+      return this.createUserWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a standard user
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~createUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    createUserasSuperAdmin(apiUser, callback) {
+    createUserasSuperAdminWithHttpInfo(apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'apiUser' is set
       if (apiUser === undefined || apiUser === null) {
@@ -748,27 +812,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApiToken operation.
-     * @callback module:api/UsersApi~deleteApiTokenCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a standard user
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    createUserasSuperAdmin(apiUser) {
+      return this.createUserasSuperAdminWithHttpInfo(apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an API Token for specific user and token id
      * @param {String} id The user id
      * @param {String} tokenId The token id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteApiTokenCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteApiToken(id, tokenId, tenant, callback) {
+    deleteApiTokenWithHttpInfo(id, tokenId, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -802,27 +870,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApiTokenWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteApiTokenWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an API Token for specific user and token id
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteApiToken(id, tokenId, tenant) {
+      return this.deleteApiTokenWithHttpInfo(id, tokenId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an API Token for specific user and token id
      * @param {String} id The user id
      * @param {String} tokenId The token id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteApiTokenWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant, callback) {
+    deleteApiTokenWithResourceTenantasSuperAdminWithHttpInfo(id, tokenId, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -856,26 +930,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the deleteApiTokenasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteApiTokenasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete an API Token for specific user and token id
      * @param {String} id The user id
      * @param {String} tokenId The token id
-     * @param {module:api/UsersApi~deleteApiTokenasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    deleteApiTokenasSuperAdmin(id, tokenId, callback) {
+    deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant) {
+      return this.deleteApiTokenWithResourceTenantasSuperAdminWithHttpInfo(id, tokenId, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete an API Token for specific user and token id
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    deleteApiTokenasSuperAdminWithHttpInfo(id, tokenId) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -904,27 +984,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteAuth operation.
-     * @callback module:api/UsersApi~deleteAuthCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an API Token for specific user and token id
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteApiTokenasSuperAdmin(id, tokenId) {
+      return this.deleteApiTokenasSuperAdminWithHttpInfo(id, tokenId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an Auth for a user
      * @param {String} id The user id
      * @param {String} uid The auth id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteAuthCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteAuth(id, uid, tenant, callback) {
+    deleteAuthWithHttpInfo(id, uid, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -958,27 +1043,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/auths/{uid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteAuthWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteAuthWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an Auth for a user
+     * @param {String} id The user id
+     * @param {String} uid The auth id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteAuth(id, uid, tenant) {
+      return this.deleteAuthWithHttpInfo(id, uid, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an Auth for a user
      * @param {String} id The user id
      * @param {String} uid The auth id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteAuthWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant, callback) {
+    deleteAuthWithResourceTenantasSuperAdminWithHttpInfo(id, uid, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1012,26 +1103,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/auths/{uid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the deleteAuthasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteAuthasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete an Auth for a user
      * @param {String} id The user id
      * @param {String} uid The auth id
-     * @param {module:api/UsersApi~deleteAuthasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
-    deleteAuthasSuperAdmin(id, uid, callback) {
+    deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant) {
+      return this.deleteAuthWithResourceTenantasSuperAdminWithHttpInfo(id, uid, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete an Auth for a user
+     * @param {String} id The user id
+     * @param {String} uid The auth id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
+     */
+    deleteAuthasSuperAdminWithHttpInfo(id, uid) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1060,26 +1157,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/auths/{uid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRefreshToken operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an Auth for a user
+     * @param {String} id The user id
+     * @param {String} uid The auth id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteAuthasSuperAdmin(id, uid) {
+      return this.deleteAuthasSuperAdminWithHttpInfo(id, uid)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user refresh token
      * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteRefreshTokenCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteRefreshToken(id, tenant, callback) {
+    deleteRefreshTokenWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1108,26 +1210,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/refresh-token', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRefreshTokenWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a user refresh token
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteRefreshToken(id, tenant) {
+      return this.deleteRefreshTokenWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user refresh token
      * @param {String} id The user id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteRefreshTokenWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    deleteRefreshTokenWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1156,25 +1263,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/refresh-token', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRefreshTokenasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a user refresh token
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.deleteRefreshTokenWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user refresh token
      * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteRefreshTokenasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteRefreshTokenasSuperAdmin(id, callback) {
+    deleteRefreshTokenasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1198,25 +1310,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/refresh-token', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUser operation.
-     * @callback module:api/UsersApi~deleteUserCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a user refresh token
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteRefreshTokenasSuperAdmin(id) {
+      return this.deleteRefreshTokenasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user
      * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteUser(id, tenant, callback) {
+    deleteUserWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1245,25 +1362,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteUser(id, tenant) {
+      return this.deleteUserWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user
      * @param {String} id The user id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    deleteUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1292,24 +1415,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.deleteUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user
      * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteUserasSuperAdmin(id, callback) {
+    deleteUserasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1333,17 +1462,22 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findAllForAllTenants operation.
-     * @callback module:api/UsersApi~findAllForAllTenantsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a user
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteUserasSuperAdmin(id) {
+      return this.deleteUserasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all users in the instance across all tenantd
@@ -1353,10 +1487,9 @@ export default class UsersApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] A string filter
      * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~findAllForAllTenantsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    findAllForAllTenants(page, size, opts, callback) {
+    findAllForAllTenantsWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1389,17 +1522,27 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/instance', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findAllForAllTenantsWithResourceTenant operation.
-     * @callback module:api/UsersApi~findAllForAllTenantsWithResourceTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all users in the instance across all tenantd
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.q A string filter
+     * @param {module:model/UserType} opts.type The type of user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    findAllForAllTenants(page, size, opts) {
+      return this.findAllForAllTenantsWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all users in the instance across all tenantd
@@ -1410,10 +1553,9 @@ export default class UsersApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] A string filter
      * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~findAllForAllTenantsWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts, callback) {
+    findAllForAllTenantsWithResourceTenantWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1451,26 +1593,36 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/instance', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUser operation.
-     * @callback module:api/UsersApi~getUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all users in the instance across all tenantd
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.q A string filter
+     * @param {module:model/UserType} opts.type The type of user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts) {
+      return this.findAllForAllTenantsWithResourceTenantWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a user
      * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~getUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    getUser(id, tenant, callback) {
+    getUserWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1499,26 +1651,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~getUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    getUser(id, tenant) {
+      return this.getUserWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a user
      * @param {String} id The user id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~getUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    getUserWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    getUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1547,25 +1704,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~getUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    getUserWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.getUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a user
      * @param {String} id The user id
-     * @param {module:api/UsersApi~getUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    getUserasSuperAdmin(id, callback) {
+    getUserasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1589,25 +1751,29 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the impersonate operation.
-     * @callback module:api/UsersApi~impersonateCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a user
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    getUserasSuperAdmin(id) {
+      return this.getUserasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Impersonate a user
      * @param {String} id The user id
-     * @param {module:api/UsersApi~impersonateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    impersonate(id, callback) {
+    impersonateWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1631,26 +1797,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/impersonate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the impersonateWithResourceTenant operation.
-     * @callback module:api/UsersApi~impersonateWithResourceTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Impersonate a user
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    impersonate(id) {
+      return this.impersonateWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Impersonate a user
      * @param {String} resourceTenant 
      * @param {String} id The user id
-     * @param {module:api/UsersApi~impersonateWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    impersonateWithResourceTenant(resourceTenant, id, callback) {
+    impersonateWithResourceTenantWithHttpInfo(resourceTenant, id) {
       let postBody = null;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -1679,26 +1849,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/impersonate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokens operation.
-     * @callback module:api/UsersApi~listApiTokensCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Impersonate a user
+     * @param {String} resourceTenant 
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    impersonateWithResourceTenant(resourceTenant, id) {
+      return this.impersonateWithResourceTenantWithHttpInfo(resourceTenant, id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all API Tokens for specific user
      * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~listApiTokensCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokens(id, tenant, callback) {
+    listApiTokensWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1727,26 +1902,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~listApiTokensWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all API Tokens for specific user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokens(id, tenant) {
+      return this.listApiTokensWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all API Tokens for specific user
      * @param {String} id The user id
      * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~listApiTokensWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    listApiTokensWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1775,25 +1955,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensasSuperAdmin operation.
-     * @callback module:api/UsersApi~listApiTokensasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all API Tokens for specific user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.listApiTokensWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all API Tokens for specific user
      * @param {String} id The user id
-     * @param {module:api/UsersApi~listApiTokensasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokensasSuperAdmin(id, callback) {
+    listApiTokensasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1817,17 +2002,22 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchUsers operation.
-     * @callback module:api/UsersApi~searchUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all API Tokens for specific user
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokensasSuperAdmin(id) {
+      return this.listApiTokensasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users
@@ -1838,10 +2028,9 @@ export default class UsersApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchUsers(page, size, tenant, opts, callback) {
+    searchUsersWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1879,17 +2068,28 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchUsersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~searchUsersWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {module:model/UserType} opts.type The type of user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchUsers(page, size, tenant, opts) {
+      return this.searchUsersWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users
@@ -1900,10 +2100,9 @@ export default class UsersApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
+    searchUsersWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1941,17 +2140,28 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchUsersasSuperAdmin operation.
-     * @callback module:api/UsersApi~searchUsersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {module:model/UserType} opts.type The type of user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts) {
+      return this.searchUsersWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users
@@ -1961,10 +2171,9 @@ export default class UsersApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchUsersasSuperAdmin(page, size, opts, callback) {
+    searchUsersasSuperAdminWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1997,26 +2206,35 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setSuperAdmin operation.
-     * @callback module:api/UsersApi~setSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {module:model/UserType} opts.type The type of user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchUsersasSuperAdmin(page, size, opts) {
+      return this.searchUsersasSuperAdminWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user service account
      * @param {String} id The user id
      * @param {Boolean} body 
-     * @param {module:api/UsersApi~setSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    setSuperAdmin(id, body, callback) {
+    setSuperAdminWithHttpInfo(id, body) {
       let postBody = body;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2044,27 +2262,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}/set-superadmin', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setSuperAdminWithResourceTenant operation.
-     * @callback module:api/UsersApi~setSuperAdminWithResourceTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user service account
+     * @param {String} id The user id
+     * @param {Boolean} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    setSuperAdmin(id, body) {
+      return this.setSuperAdminWithHttpInfo(id, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user service account
      * @param {String} resourceTenant 
      * @param {String} id The user id
      * @param {Boolean} body 
-     * @param {module:api/UsersApi~setSuperAdminWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    setSuperAdminWithResourceTenant(resourceTenant, id, body, callback) {
+    setSuperAdminWithResourceTenantWithHttpInfo(resourceTenant, id, body) {
       let postBody = body;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -2097,25 +2320,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateCurrentUserPassword operation.
-     * @callback module:api/UsersApi~updateCurrentUserPasswordCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user service account
+     * @param {String} resourceTenant 
+     * @param {String} id The user id
+     * @param {Boolean} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    setSuperAdminWithResourceTenant(resourceTenant, id, body) {
+      return this.setSuperAdminWithResourceTenantWithHttpInfo(resourceTenant, id, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update login password for the current user.
      * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
-     * @param {module:api/UsersApi~updateCurrentUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    updateCurrentUserPassword(meControllerUpdatePasswordRequest, callback) {
+    updateCurrentUserPasswordWithHttpInfo(meControllerUpdatePasswordRequest) {
       let postBody = meControllerUpdatePasswordRequest;
       // verify the required parameter 'meControllerUpdatePasswordRequest' is set
       if (meControllerUpdatePasswordRequest === undefined || meControllerUpdatePasswordRequest === null) {
@@ -2138,26 +2367,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/me/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateCurrentUserPasswordWithTenant operation.
-     * @callback module:api/UsersApi~updateCurrentUserPasswordWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update login password for the current user.
+     * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    updateCurrentUserPassword(meControllerUpdatePasswordRequest) {
+      return this.updateCurrentUserPasswordWithHttpInfo(meControllerUpdatePasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update login password for the current user.
      * @param {String} tenant 
      * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
-     * @param {module:api/UsersApi~updateCurrentUserPasswordWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest, callback) {
+    updateCurrentUserPasswordWithTenantWithHttpInfo(tenant, meControllerUpdatePasswordRequest) {
       let postBody = meControllerUpdatePasswordRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2185,27 +2418,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateServiceAccount operation.
-     * @callback module:api/UsersApi~updateServiceAccountCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update login password for the current user.
+     * @param {String} tenant 
+     * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest) {
+      return this.updateCurrentUserPasswordWithTenantWithHttpInfo(tenant, meControllerUpdatePasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user service account
      * @param {String} id The user id
      * @param {String} tenant 
      * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    updateServiceAccount(id, tenant, apiServiceAccount, callback) {
+    updateServiceAccountWithHttpInfo(id, tenant, apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2238,27 +2476,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/service-accounts/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateServiceAccountWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateServiceAccountWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user service account
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    updateServiceAccount(id, tenant, apiServiceAccount) {
+      return this.updateServiceAccountWithHttpInfo(id, tenant, apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user service account
      * @param {String} id The user id
      * @param {String} resourceTenant 
      * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount, callback) {
+    updateServiceAccountWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2291,26 +2535,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/service-accounts/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateServiceAccountasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateServiceAccountasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user service account
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount) {
+      return this.updateServiceAccountWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user service account
      * @param {String} id The user id
      * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiServiceAccount} and HTTP response
      */
-    updateServiceAccountasSuperAdmin(id, apiServiceAccount, callback) {
+    updateServiceAccountasSuperAdminWithHttpInfo(id, apiServiceAccount) {
       let postBody = apiServiceAccount;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2338,27 +2588,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/service-accounts/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUser operation.
-     * @callback module:api/UsersApi~updateUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user service account
+     * @param {String} id The user id
+     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiServiceAccount}
      */
+    updateServiceAccountasSuperAdmin(id, apiServiceAccount) {
+      return this.updateServiceAccountasSuperAdminWithHttpInfo(id, apiServiceAccount)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a standard user
      * @param {String} id The user id
      * @param {String} tenant 
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~updateUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    updateUser(id, tenant, apiUser, callback) {
+    updateUserWithHttpInfo(id, tenant, apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2391,27 +2646,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a standard user
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    updateUser(id, tenant, apiUser) {
+      return this.updateUserWithHttpInfo(id, tenant, apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a standard user
      * @param {String} id The user id
      * @param {String} resourceTenant 
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~updateUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser, callback) {
+    updateUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2444,26 +2705,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/users/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a standard user
+     * @param {String} id The user id
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser) {
+      return this.updateUserWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a standard user
      * @param {String} id The user id
      * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~updateUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    updateUserasSuperAdmin(id, apiUser, callback) {
+    updateUserasSuperAdminWithHttpInfo(id, apiUser) {
       let postBody = apiUser;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -2491,8 +2758,21 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/users/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a standard user
+     * @param {String} id The user id
+     * @param {module:model/ApiUser} apiUser The user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
+     */
+    updateUserasSuperAdmin(id, apiUser) {
+      return this.updateUserasSuperAdminWithHttpInfo(id, apiUser)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

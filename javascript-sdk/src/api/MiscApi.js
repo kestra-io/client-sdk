@@ -43,20 +43,13 @@ export default class MiscApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createBasicAuth operation.
-     * @callback module:api/MiscApi~createBasicAuthCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create basic auth for the current instance
      * @param {module:model/MiscControllerBasicAuthCredentials} miscControllerBasicAuthCredentials 
-     * @param {module:api/MiscApi~createBasicAuthCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    createBasicAuth(miscControllerBasicAuthCredentials, callback) {
+    createBasicAuthWithHttpInfo(miscControllerBasicAuthCredentials) {
       let postBody = miscControllerBasicAuthCredentials;
       // verify the required parameter 'miscControllerBasicAuthCredentials' is set
       if (miscControllerBasicAuthCredentials === undefined || miscControllerBasicAuthCredentials === null) {
@@ -79,24 +72,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/main/basicAuth', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getConfiguration operation.
-     * @callback module:api/MiscApi~getConfigurationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MiscControllerEEConfiguration} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create basic auth for the current instance
+     * @param {module:model/MiscControllerBasicAuthCredentials} miscControllerBasicAuthCredentials 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    createBasicAuth(miscControllerBasicAuthCredentials) {
+      return this.createBasicAuthWithHttpInfo(miscControllerBasicAuthCredentials)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get current configurations
-     * @param {module:api/MiscApi~getConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MiscControllerEEConfiguration}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MiscControllerEEConfiguration} and HTTP response
      */
-    getConfiguration(callback) {
+    getConfigurationWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -115,25 +112,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/configs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUsages operation.
-     * @callback module:api/MiscApi~getUsagesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Usage} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get current configurations
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MiscControllerEEConfiguration}
      */
+    getConfiguration() {
+      return this.getConfigurationWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get instance usage information
      * @param {String} tenant 
-     * @param {module:api/MiscApi~getUsagesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Usage}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Usage} and HTTP response
      */
-    getUsages(tenant, callback) {
+    getUsagesWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -157,24 +157,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/usages/all', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the licenseInfo operation.
-     * @callback module:api/MiscApi~licenseInfoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MiscControllerLicenseInfo} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get instance usage information
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Usage}
      */
+    getUsages(tenant) {
+      return this.getUsagesWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get current license information
-     * @param {module:api/MiscApi~licenseInfoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MiscControllerLicenseInfo}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MiscControllerLicenseInfo} and HTTP response
      */
-    licenseInfo(callback) {
+    licenseInfoWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -193,25 +197,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/license-info', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listActions operation.
-     * @callback module:api/MiscApi~listActionsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Action>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get current license information
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MiscControllerLicenseInfo}
      */
+    licenseInfo() {
+      return this.licenseInfoWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get list of actions
      * @param {String} tenant 
-     * @param {module:api/MiscApi~listActionsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Action>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Action>} and HTTP response
      */
-    listActions(tenant, callback) {
+    listActionsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -235,25 +242,29 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/acls/actions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listPermissions operation.
-     * @callback module:api/MiscApi~listPermissionsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Permission>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get list of actions
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Action>}
      */
+    listActions(tenant) {
+      return this.listActionsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get list of permissions
      * @param {String} tenant 
-     * @param {module:api/MiscApi~listPermissionsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Permission>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Permission>} and HTTP response
      */
-    listPermissions(tenant, callback) {
+    listPermissionsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -277,24 +288,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/acls/permissions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setupConfiguration operation.
-     * @callback module:api/MiscApi~setupConfigurationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/SetupConfiguration} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get list of permissions
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Permission>}
      */
+    listPermissions(tenant) {
+      return this.listPermissionsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Currently running configuration
-     * @param {module:api/MiscApi~setupConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/SetupConfiguration}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SetupConfiguration} and HTTP response
      */
-    setupConfiguration(callback) {
+    setupConfigurationWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -313,25 +328,28 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/setup', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setupKestra operation.
-     * @callback module:api/MiscApi~setupKestraCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Currently running configuration
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SetupConfiguration}
      */
+    setupConfiguration() {
+      return this.setupConfigurationWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create the first user
      * @param {module:model/SetupConfigurationSetupData} setupConfigurationSetupData 
-     * @param {module:api/MiscApi~setupKestraCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    setupKestra(setupConfigurationSetupData, callback) {
+    setupKestraWithHttpInfo(setupConfigurationSetupData) {
       let postBody = setupConfigurationSetupData;
       // verify the required parameter 'setupConfigurationSetupData' is set
       if (setupConfigurationSetupData === undefined || setupConfigurationSetupData === null) {
@@ -354,25 +372,29 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/setup', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the tenantUsage operation.
-     * @callback module:api/MiscApi~tenantUsageCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/UsageEE} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create the first user
+     * @param {module:model/SetupConfigurationSetupData} setupConfigurationSetupData 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    setupKestra(setupConfigurationSetupData) {
+      return this.setupKestraWithHttpInfo(setupConfigurationSetupData)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get instance usage information for the current tenant
      * @param {String} tenant 
-     * @param {module:api/MiscApi~tenantUsageCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/UsageEE}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UsageEE} and HTTP response
      */
-    tenantUsage(tenant, callback) {
+    tenantUsageWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -396,8 +418,20 @@ export default class MiscApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/usages', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Get instance usage information for the current tenant
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UsageEE}
+     */
+    tenantUsage(tenant) {
+      return this.tenantUsageWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

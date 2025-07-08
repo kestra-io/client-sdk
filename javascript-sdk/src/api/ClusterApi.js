@@ -33,19 +33,12 @@ export default class ClusterApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the enterMaintenance operation.
-     * @callback module:api/ClusterApi~enterMaintenanceCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Enter cluster maintenance mode.
-     * @param {module:api/ClusterApi~enterMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    enterMaintenance(callback) {
+    enterMaintenanceWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -64,23 +57,27 @@ export default class ClusterApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/maintenance/enter', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the exitMaintenance operation.
-     * @callback module:api/ClusterApi~exitMaintenanceCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Enter cluster maintenance mode.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    enterMaintenance() {
+      return this.enterMaintenanceWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Exit cluster maintenance mode.
-     * @param {module:api/ClusterApi~exitMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    exitMaintenance(callback) {
+    exitMaintenanceWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -99,8 +96,19 @@ export default class ClusterApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/maintenance/exit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Exit cluster maintenance mode.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    exitMaintenance() {
+      return this.exitMaintenanceWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

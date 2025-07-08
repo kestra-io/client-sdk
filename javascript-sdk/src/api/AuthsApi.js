@@ -37,21 +37,13 @@ export default class AuthsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createApiTokenForCurrentUser operation.
-     * @callback module:api/AuthsApi~createApiTokenForCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create new API Token for authenticated user
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
-     * @param {module:api/AuthsApi~createApiTokenForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createApiTokenForCurrentUser(createApiTokenRequest, callback) {
+    createApiTokenForCurrentUserWithHttpInfo(createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'createApiTokenRequest' is set
       if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
@@ -74,26 +66,30 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/me/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApiTokenForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~createApiTokenForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for authenticated user
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createApiTokenForCurrentUser(createApiTokenRequest) {
+      return this.createApiTokenForCurrentUserWithHttpInfo(createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new API Token for authenticated user
      * @param {String} tenant 
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
-     * @param {module:api/AuthsApi~createApiTokenForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest, callback) {
+    createApiTokenForCurrentUserWithTenantWithHttpInfo(tenant, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -121,25 +117,30 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApiTokenForCurrentUser operation.
-     * @callback module:api/AuthsApi~deleteApiTokenForCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for authenticated user
+     * @param {String} tenant 
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest) {
+      return this.createApiTokenForCurrentUserWithTenantWithHttpInfo(tenant, createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an API Token for authenticated user
      * @param {String} tokenId The token id
-     * @param {module:api/AuthsApi~deleteApiTokenForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteApiTokenForCurrentUser(tokenId, callback) {
+    deleteApiTokenForCurrentUserWithHttpInfo(tokenId) {
       let postBody = null;
       // verify the required parameter 'tokenId' is set
       if (tokenId === undefined || tokenId === null) {
@@ -163,26 +164,30 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/me/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApiTokenForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~deleteApiTokenForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an API Token for authenticated user
+     * @param {String} tokenId The token id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteApiTokenForCurrentUser(tokenId) {
+      return this.deleteApiTokenForCurrentUserWithHttpInfo(tokenId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an API Token for authenticated user
      * @param {String} tokenId The token id
      * @param {String} tenant 
-     * @param {module:api/AuthsApi~deleteApiTokenForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteApiTokenForCurrentUserWithTenant(tokenId, tenant, callback) {
+    deleteApiTokenForCurrentUserWithTenantWithHttpInfo(tokenId, tenant) {
       let postBody = null;
       // verify the required parameter 'tokenId' is set
       if (tokenId === undefined || tokenId === null) {
@@ -211,24 +216,29 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getCurrentUser operation.
-     * @callback module:api/AuthsApi~getCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MeControllerMe} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an API Token for authenticated user
+     * @param {String} tokenId The token id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteApiTokenForCurrentUserWithTenant(tokenId, tenant) {
+      return this.deleteApiTokenForCurrentUserWithTenantWithHttpInfo(tokenId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get current user
-     * @param {module:api/AuthsApi~getCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MeControllerMe}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MeControllerMe} and HTTP response
      */
-    getCurrentUser(callback) {
+    getCurrentUserWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -247,25 +257,28 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~getCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MeControllerMe} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get current user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeControllerMe}
      */
+    getCurrentUser() {
+      return this.getCurrentUserWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get current user
      * @param {String} tenant 
-     * @param {module:api/AuthsApi~getCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MeControllerMe}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MeControllerMe} and HTTP response
      */
-    getCurrentUserWithTenant(tenant, callback) {
+    getCurrentUserWithTenantWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -289,24 +302,28 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the index operation.
-     * @callback module:api/AuthsApi~indexCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AuthControllerAuth} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get current user
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeControllerMe}
      */
+    getCurrentUserWithTenant(tenant) {
+      return this.getCurrentUserWithTenantWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get list of authentication methods
-     * @param {module:api/AuthsApi~indexCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AuthControllerAuth}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthControllerAuth} and HTTP response
      */
-    index(callback) {
+    indexWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -325,24 +342,27 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/auths', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensForCurrentUser operation.
-     * @callback module:api/AuthsApi~listApiTokensForCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get list of authentication methods
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthControllerAuth}
      */
+    index() {
+      return this.indexWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all API Tokens for the authenticated user
-     * @param {module:api/AuthsApi~listApiTokensForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokensForCurrentUser(callback) {
+    listApiTokensForCurrentUserWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -361,25 +381,28 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/me/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~listApiTokensForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all API Tokens for the authenticated user
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokensForCurrentUser() {
+      return this.listApiTokensForCurrentUserWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all API Tokens for the authenticated user
      * @param {String} tenant 
-     * @param {module:api/AuthsApi~listApiTokensForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokensForCurrentUserWithTenant(tenant, callback) {
+    listApiTokensForCurrentUserWithTenantWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -403,25 +426,29 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchCurrentUser operation.
-     * @callback module:api/AuthsApi~patchCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all API Tokens for the authenticated user
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokensForCurrentUserWithTenant(tenant) {
+      return this.listApiTokensForCurrentUserWithTenantWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Updates details for the current user. Returns user's updated information upon success.
      * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
-     * @param {module:api/AuthsApi~patchCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    patchCurrentUser(meControllerUserDetailsRequest, callback) {
+    patchCurrentUserWithHttpInfo(meControllerUserDetailsRequest) {
       let postBody = meControllerUserDetailsRequest;
       // verify the required parameter 'meControllerUserDetailsRequest' is set
       if (meControllerUserDetailsRequest === undefined || meControllerUserDetailsRequest === null) {
@@ -444,26 +471,30 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~patchCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Updates details for the current user. Returns user's updated information upon success.
+     * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    patchCurrentUser(meControllerUserDetailsRequest) {
+      return this.patchCurrentUserWithHttpInfo(meControllerUserDetailsRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Updates details for the current user. Returns user's updated information upon success.
      * @param {String} tenant 
      * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
-     * @param {module:api/AuthsApi~patchCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest, callback) {
+    patchCurrentUserWithTenantWithHttpInfo(tenant, meControllerUserDetailsRequest) {
       let postBody = meControllerUserDetailsRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -491,8 +522,21 @@ export default class AuthsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Updates details for the current user. Returns user's updated information upon success.
+     * @param {String} tenant 
+     * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest) {
+      return this.patchCurrentUserWithTenantWithHttpInfo(tenant, meControllerUserDetailsRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 
