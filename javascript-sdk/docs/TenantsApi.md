@@ -26,13 +26,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
-apiInstance.callDelete(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.callDelete(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -69,13 +68,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.TenantsApi();
 let tenant = new KestraApi.Tenant(); // Tenant | 
-apiInstance.create(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.create(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -117,13 +115,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.find(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.find(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -163,13 +160,12 @@ import KestraApi from 'kestra_api';
 
 let apiInstance = new KestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
-apiInstance.get(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.get(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -209,13 +205,12 @@ let id = "id_example"; // String | The tenant id
 let opts = {
   'logo': "/path/to/file" // File | The logo file
 };
-apiInstance.setLogo(id, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setLogo(id, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -254,13 +249,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
 let tenant = new KestraApi.Tenant(); // Tenant | 
-apiInstance.update(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.update(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

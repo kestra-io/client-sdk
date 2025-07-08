@@ -37,22 +37,14 @@ export default class TestSuitesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createTestSuite operation.
-     * @callback module:api/TestSuitesApi~createTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TestSuite} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a TestSuite from yaml source
      * @param {String} tenant 
      * @param {String} body The TestSuite source code
-     * @param {module:api/TestSuitesApi~createTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TestSuite}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
      */
-    createTestSuite(tenant, body, callback) {
+    createTestSuiteWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -80,26 +72,31 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteTestSuite operation.
-     * @callback module:api/TestSuitesApi~deleteTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a TestSuite from yaml source
+     * @param {String} tenant 
+     * @param {String} body The TestSuite source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
      */
+    createTestSuite(tenant, body) {
+      return this.createTestSuiteWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
-     * @param {module:api/TestSuitesApi~deleteTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteTestSuite(namespace, id, tenant, callback) {
+    deleteTestSuiteWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -133,26 +130,31 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/{namespace}/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the getTestSuite operation.
-     * @callback module:api/TestSuitesApi~getTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TestSuite} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
-     * @param {module:api/TestSuitesApi~getTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TestSuite}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    getTestSuite(namespace, id, tenant, callback) {
+    deleteTestSuite(namespace, id, tenant) {
+      return this.deleteTestSuiteWithHttpInfo(namespace, id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * @param {String} namespace The TestSuite namespace
+     * @param {String} id The TestSuite ID
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
+     */
+    getTestSuiteWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -186,27 +188,32 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/{namespace}/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the runTestSuite operation.
-     * @callback module:api/TestSuitesApi~runTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/TestSuiteRunResult>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} namespace The TestSuite namespace
+     * @param {String} id The TestSuite ID
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
      */
+    getTestSuite(namespace, id, tenant) {
+      return this.getTestSuiteWithHttpInfo(namespace, id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Run a full TestSuite
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
-     * @param {module:api/TestSuitesApi~runTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/TestSuiteRunResult>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/TestSuiteRunResult>} and HTTP response
      */
-    runTestSuite(namespace, id, tenant, callback) {
+    runTestSuiteWithHttpInfo(namespace, id, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -240,17 +247,24 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/{namespace}/{id}/run', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchTestSuites operation.
-     * @callback module:api/TestSuitesApi~searchTestSuitesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTestSuite} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Run a full TestSuite
+     * @param {String} namespace The TestSuite namespace
+     * @param {String} id The TestSuite ID
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/TestSuiteRunResult>}
      */
+    runTestSuite(namespace, id, tenant) {
+      return this.runTestSuiteWithHttpInfo(namespace, id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {Number} page The current page
@@ -260,10 +274,9 @@ export default class TestSuitesApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [namespace] The namespace to filter on
      * @param {String} [flowId] The flow id to filter on
-     * @param {module:api/TestSuitesApi~searchTestSuitesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTestSuite}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTestSuite} and HTTP response
      */
-    searchTestSuites(page, size, tenant, opts, callback) {
+    searchTestSuitesWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -301,27 +314,36 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTestSuite operation.
-     * @callback module:api/TestSuitesApi~updateTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TestSuite} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.namespace The namespace to filter on
+     * @param {String} opts.flowId The flow id to filter on
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTestSuite}
      */
+    searchTestSuites(page, size, tenant, opts) {
+      return this.searchTestSuitesWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
      * @param {String} body The TestSuite source code
-     * @param {module:api/TestSuitesApi~updateTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TestSuite}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TestSuite} and HTTP response
      */
-    updateTestSuite(namespace, id, tenant, body, callback) {
+    updateTestSuiteWithHttpInfo(namespace, id, tenant, body) {
       let postBody = body;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -359,26 +381,32 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/{namespace}/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateTestSuite operation.
-     * @callback module:api/TestSuitesApi~validateTestSuiteCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ValidateConstraintViolation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} namespace The TestSuite namespace
+     * @param {String} id The TestSuite ID
+     * @param {String} tenant 
+     * @param {String} body The TestSuite source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TestSuite}
      */
+    updateTestSuite(namespace, id, tenant, body) {
+      return this.updateTestSuiteWithHttpInfo(namespace, id, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Validate a TestSuite
      * @param {String} tenant 
      * @param {String} body The TestSuite source code
-     * @param {module:api/TestSuitesApi~validateTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ValidateConstraintViolation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ValidateConstraintViolation} and HTTP response
      */
-    validateTestSuite(tenant, body, callback) {
+    validateTestSuiteWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -406,8 +434,21 @@ export default class TestSuitesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Validate a TestSuite
+     * @param {String} tenant 
+     * @param {String} body The TestSuite source code
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ValidateConstraintViolation}
+     */
+    validateTestSuite(tenant, body) {
+      return this.validateTestSuiteWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

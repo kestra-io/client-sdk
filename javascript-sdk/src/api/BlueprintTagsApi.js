@@ -35,23 +35,15 @@ export default class BlueprintTagsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the internalBlueprintTags operation.
-     * @callback module:api/BlueprintTagsApi~internalBlueprintTagsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List all internal blueprint tags
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter to get tags with matching blueprints only
-     * @param {module:api/BlueprintTagsApi~internalBlueprintTagsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    internalBlueprintTags(tenant, opts, callback) {
+    internalBlueprintTagsWithHttpInfo(tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'tenant' is set
@@ -77,17 +69,24 @@ export default class BlueprintTagsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listBlueprintTags operation.
-     * @callback module:api/BlueprintTagsApi~listBlueprintTagsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/BlueprintControllerApiBlueprintTagItem>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all internal blueprint tags
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter to get tags with matching blueprints only
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    internalBlueprintTags(tenant, opts) {
+      return this.internalBlueprintTagsWithHttpInfo(tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List blueprint tags matching the filter
@@ -95,10 +94,9 @@ export default class BlueprintTagsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter to get tags with matching blueprints only
-     * @param {module:api/BlueprintTagsApi~listBlueprintTagsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/BlueprintControllerApiBlueprintTagItem>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/BlueprintControllerApiBlueprintTagItem>} and HTTP response
      */
-    listBlueprintTags(kind, tenant, opts, callback) {
+    listBlueprintTagsWithHttpInfo(kind, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'kind' is set
@@ -129,8 +127,23 @@ export default class BlueprintTagsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/community/{kind}/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * List blueprint tags matching the filter
+     * @param {module:model/BlueprintControllerKind} kind The blueprint kind
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter to get tags with matching blueprints only
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/BlueprintControllerApiBlueprintTagItem>}
+     */
+    listBlueprintTags(kind, tenant, opts) {
+      return this.listBlueprintTagsWithHttpInfo(kind, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -34,21 +34,13 @@ export default class BannersApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createBanner operation.
-     * @callback module:api/BannersApi~createBannerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Banner} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a new banner
      * @param {module:model/Banner} banner The banner to create
-     * @param {module:api/BannersApi~createBannerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Banner}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Banner} and HTTP response
      */
-    createBanner(banner, callback) {
+    createBannerWithHttpInfo(banner) {
       let postBody = banner;
       // verify the required parameter 'banner' is set
       if (banner === undefined || banner === null) {
@@ -71,24 +63,29 @@ export default class BannersApi {
       return this.apiClient.callApi(
         '/api/v1/banners', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteBanner operation.
-     * @callback module:api/BannersApi~deleteBannerCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a new banner
+     * @param {module:model/Banner} banner The banner to create
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Banner}
      */
+    createBanner(banner) {
+      return this.createBannerWithHttpInfo(banner)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a banner
      * @param {String} id The banner id
-     * @param {module:api/BannersApi~deleteBannerCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteBanner(id, callback) {
+    deleteBannerWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -112,24 +109,28 @@ export default class BannersApi {
       return this.apiClient.callApi(
         '/api/v1/banners/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchBanners operation.
-     * @callback module:api/BannersApi~searchBannersCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Banner>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a banner
+     * @param {String} id The banner id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteBanner(id) {
+      return this.deleteBannerWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get banners
-     * @param {module:api/BannersApi~searchBannersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Banner>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Banner>} and HTTP response
      */
-    searchBanners(callback) {
+    searchBannersWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -148,26 +149,29 @@ export default class BannersApi {
       return this.apiClient.callApi(
         '/api/v1/banners/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateBanner operation.
-     * @callback module:api/BannersApi~updateBannerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Banner} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get banners
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Banner>}
      */
+    searchBanners() {
+      return this.searchBannersWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a banner
      * @param {String} id The banner id
      * @param {module:model/Banner} banner The banner to update
-     * @param {module:api/BannersApi~updateBannerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Banner}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Banner} and HTTP response
      */
-    updateBanner(id, banner, callback) {
+    updateBannerWithHttpInfo(id, banner) {
       let postBody = banner;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -195,8 +199,21 @@ export default class BannersApi {
       return this.apiClient.callApi(
         '/api/v1/banners/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a banner
+     * @param {String} id The banner id
+     * @param {module:model/Banner} banner The banner to update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Banner}
+     */
+    updateBanner(id, banner) {
+      return this.updateBannerWithHttpInfo(id, banner)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -46,13 +46,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let tenant = "tenant_example"; // String | 
 let invitation = new KestraApi.Invitation(); // Invitation | Create a new invitation, send an email if the server-mail is enabled
-apiInstance.createInvitation(tenant, invitation, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createInvitation(tenant, invitation).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -99,13 +98,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let invitation = new KestraApi.Invitation(); // Invitation | Create a new invitation, send an email if the server-mail is enabled
-apiInstance.createInvitationWithResourceTenantasSuperAdmin(resourceTenant, invitation, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createInvitationWithResourceTenantasSuperAdmin(resourceTenant, invitation).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -151,13 +149,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
 let invitation = new KestraApi.Invitation(); // Invitation | Create a new invitation, send an email if the server-mail is enabled
-apiInstance.createInvitationasSuperAdmin(invitation, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createInvitationasSuperAdmin(invitation).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -203,13 +200,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteInvitation(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteInvitation(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -256,13 +252,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteInvitationWithResourceTenantasSuperAdmin(id, resourceTenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -308,13 +303,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
-apiInstance.deleteInvitationasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteInvitationasSuperAdmin(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -358,13 +352,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
-apiInstance.findAllInvitationsForCurrentUser((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findAllInvitationsForCurrentUser().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -406,13 +399,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.findAllInvitationsForCurrentUserWithTenant(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findAllInvitationsForCurrentUserWithTenant(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -458,13 +450,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let tenant = "tenant_example"; // String | 
-apiInstance.getInvitation(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getInvitation(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -511,13 +502,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.getInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getInvitationWithResourceTenantasSuperAdmin(id, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -563,13 +553,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
-apiInstance.getInvitationasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getInvitationasSuperAdmin(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -615,13 +604,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let email = "email_example"; // String | The email address of the invited
 let tenant = "tenant_example"; // String | 
-apiInstance.listByEmail(email, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listByEmail(email, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -668,13 +656,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.InvitationsApi();
 let email = "email_example"; // String | The email address of the invited
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.listByEmailWithResourceTenantasSuperAdmin(email, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listByEmailWithResourceTenantasSuperAdmin(email, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -720,13 +707,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.InvitationsApi();
 let email = "email_example"; // String | The email address of the invited
-apiInstance.listByEmailasSuperAdmin(email, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listByEmailasSuperAdmin(email).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -778,13 +764,12 @@ let opts = {
   'status': new KestraApi.InvitationInvitationStatus(), // InvitationInvitationStatus | The current status of the invitations
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchInvitations(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchInvitations(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -841,13 +826,12 @@ let opts = {
   'status': new KestraApi.InvitationInvitationStatus(), // InvitationInvitationStatus | The current status of the invitations
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchInvitationsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchInvitationsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -903,13 +887,12 @@ let opts = {
   'status': new KestraApi.InvitationInvitationStatus(), // InvitationInvitationStatus | The current status of the invitations
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchInvitationsasSuperAdmin(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchInvitationsasSuperAdmin(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

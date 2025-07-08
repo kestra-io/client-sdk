@@ -35,13 +35,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let tenant = "tenant_example"; // String | 
 let createSecurityIntegrationRequest = new KestraApi.CreateSecurityIntegrationRequest(); // CreateSecurityIntegrationRequest | The security integration definition
-apiInstance.createSecurityIntegration(tenant, createSecurityIntegrationRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createSecurityIntegration(tenant, createSecurityIntegrationRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -88,13 +87,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteSecurityIntegration(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteSecurityIntegration(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -141,13 +139,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
-apiInstance.disableSecurityIntegration(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disableSecurityIntegration(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -194,13 +191,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
-apiInstance.enableSecurityIntegration(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.enableSecurityIntegration(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -247,13 +243,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
-apiInstance.getSecurityIntegration(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSecurityIntegration(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -299,13 +294,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.SecurityIntegrationsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.listSecurityIntegrations(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listSecurityIntegrations(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

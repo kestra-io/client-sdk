@@ -35,20 +35,12 @@ export default class DefaultApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the acceptInvitation operation.
-     * @callback module:api/DefaultApi~acceptInvitationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {String} invitationId 
-     * @param {module:api/DefaultApi~acceptInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    acceptInvitation(invitationId, callback) {
+    acceptInvitationWithHttpInfo(invitationId) {
       let postBody = null;
       // verify the required parameter 'invitationId' is set
       if (invitationId === undefined || invitationId === null) {
@@ -72,25 +64,28 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/api/v1/invitation/accept/{invitationId}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createFromInvitation operation.
-     * @callback module:api/DefaultApi~createFromInvitationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} invitationId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    acceptInvitation(invitationId) {
+      return this.acceptInvitationWithHttpInfo(invitationId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} invitationId 
      * @param {module:model/AuthControllerInvitationUserRequest} authControllerInvitationUserRequest The basic information to create an account from an invitation
-     * @param {module:api/DefaultApi~createFromInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createFromInvitation(invitationId, authControllerInvitationUserRequest, callback) {
+    createFromInvitationWithHttpInfo(invitationId, authControllerInvitationUserRequest) {
       let postBody = authControllerInvitationUserRequest;
       // verify the required parameter 'invitationId' is set
       if (invitationId === undefined || invitationId === null) {
@@ -118,26 +113,30 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/api/v1/invitation/create/{invitationId}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the forgottenPassword operation.
-     * @callback module:api/DefaultApi~forgottenPasswordCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} invitationId 
+     * @param {module:model/AuthControllerInvitationUserRequest} authControllerInvitationUserRequest The basic information to create an account from an invitation
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createFromInvitation(invitationId, authControllerInvitationUserRequest) {
+      return this.createFromInvitationWithHttpInfo(invitationId, authControllerInvitationUserRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Sends an email to reset a password.
      * Sends an email to reset a password. Note that whatever the username is found or not, the response will always be 200 to avoid leaking information.
      * @param {String} username User that has forgotten his password
-     * @param {module:api/DefaultApi~forgottenPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    forgottenPassword(username, callback) {
+    forgottenPasswordWithHttpInfo(username) {
       let postBody = null;
       // verify the required parameter 'username' is set
       if (username === undefined || username === null) {
@@ -161,17 +160,23 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/api/v1/forgotten-password', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the login operation.
-     * @callback module:api/DefaultApi~loginCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Sends an email to reset a password.
+     * Sends an email to reset a password. Note that whatever the username is found or not, the response will always be 200 to avoid leaking information.
+     * @param {String} username User that has forgotten his password
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    forgottenPassword(username) {
+      return this.forgottenPasswordWithHttpInfo(username)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} username 
@@ -179,10 +184,9 @@ export default class DefaultApi {
      * @param {Object} opts Optional parameters
      * @param {String} [identity] 
      * @param {String} [secret] 
-     * @param {module:api/DefaultApi~loginCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    login(username, password, opts, callback) {
+    loginWithHttpInfo(username, password, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'username' is set
@@ -214,26 +218,33 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the resetPassword operation.
-     * @callback module:api/DefaultApi~resetPasswordCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} username 
+     * @param {String} password 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.identity 
+     * @param {String} opts.secret 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    login(username, password, opts) {
+      return this.loginWithHttpInfo(username, password, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Change a password for given token.
      * Change a password for given token. If password does not match password policy, use can still retry.
      * @param {module:model/AuthControllerResetPasswordRequest} authControllerResetPasswordRequest The password
-     * @param {module:api/DefaultApi~resetPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    resetPassword(authControllerResetPasswordRequest, callback) {
+    resetPasswordWithHttpInfo(authControllerResetPasswordRequest) {
       let postBody = authControllerResetPasswordRequest;
       // verify the required parameter 'authControllerResetPasswordRequest' is set
       if (authControllerResetPasswordRequest === undefined || authControllerResetPasswordRequest === null) {
@@ -256,8 +267,21 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/api/v1/reset-password', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Change a password for given token.
+     * Change a password for given token. If password does not match password policy, use can still retry.
+     * @param {module:model/AuthControllerResetPasswordRequest} authControllerResetPasswordRequest The password
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    resetPassword(authControllerResetPasswordRequest) {
+      return this.resetPasswordWithHttpInfo(authControllerResetPasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

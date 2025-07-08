@@ -46,13 +46,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.getAllInputTypes(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllInputTypes(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -98,13 +97,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let includeDeprecated = true; // Boolean | Whether to include deprecated plugins
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginBySubgroups(includeDeprecated, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginBySubgroups(includeDeprecated, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -152,13 +150,12 @@ let apiInstance = new KestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin full class name
 let all = false; // Boolean | Include all the properties
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginDocumentation(cls, all, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginDocumentation(cls, all, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -208,13 +205,12 @@ let cls = "cls_example"; // String | The plugin type
 let version = "version_example"; // String | The plugin version
 let all = false; // Boolean | Include all the properties
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginDocumentationFromVersion(cls, version, all, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginDocumentationFromVersion(cls, version, all, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -262,13 +258,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginGroupIcons(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginGroupIcons(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -313,13 +308,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginIcons(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginIcons(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -365,13 +359,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin type
 let tenant = "tenant_example"; // String | 
-apiInstance.getPluginVersions(cls, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPluginVersions(cls, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -420,13 +413,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let type = new KestraApi.Type(); // Type | The schema needed
 let tenant = "tenant_example"; // String | 
-apiInstance.getSchemaFromInputType(type, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSchemaFromInputType(type, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -476,13 +468,12 @@ let apiInstance = new KestraApi.PluginsApi();
 let type = new KestraApi.SchemaType(); // SchemaType | The schema needed
 let arrayOf = false; // Boolean | If schema should be an array of requested type
 let tenant = "tenant_example"; // String | 
-apiInstance.getSchemasFromType(type, arrayOf, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSchemasFromType(type, arrayOf, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -530,13 +521,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let groupId = "groupId_example"; // String | 
 let artifactId = "artifactId_example"; // String | 
-apiInstance.getVersionedPluginDetails(groupId, artifactId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getVersionedPluginDetails(groupId, artifactId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -584,13 +574,12 @@ let apiInstance = new KestraApi.PluginsApi();
 let groupId = "groupId_example"; // String | 
 let artifactId = "artifactId_example"; // String | 
 let version = "version_example"; // String | 
-apiInstance.getVersionedPluginDetailsFromVersion(groupId, artifactId, version, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getVersionedPluginDetailsFromVersion(groupId, artifactId, version).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -637,13 +626,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.installVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.installVersionedPlugins(clusterControllerApiPluginListRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -687,13 +675,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-apiInstance.listAvailableVersionedPlugins((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAvailableVersionedPlugins().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -735,13 +722,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.listPlugins(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listPlugins(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -791,13 +777,12 @@ let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'q': "q_example" // String | The query
 };
-apiInstance.listVersionedPlugin(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listVersionedPlugin(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -845,13 +830,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.resolveVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.resolveVersionedPlugins(clusterControllerApiPluginListRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -896,13 +880,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.uninstallVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.uninstallVersionedPlugins(clusterControllerApiPluginListRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -949,13 +932,12 @@ let apiInstance = new KestraApi.PluginsApi();
 let opts = {
   'file': "/path/to/file" // File | 
 };
-apiInstance.uploadVersionedPlugins(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.uploadVersionedPlugins(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

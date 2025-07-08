@@ -88,13 +88,12 @@ let opts = {
   'revision': 56, // Number | The flow revision or latest if null
   'scheduleDate': new Date("2013-10-20T19:20:30+01:00") // Date | Schedule the flow on a specific date
 };
-apiInstance.createExecution(namespace, id, wait, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createExecution(namespace, id, wait, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -149,13 +148,12 @@ let deleteLogs = true; // Boolean | Whether to delete execution logs
 let deleteMetrics = true; // Boolean | Whether to delete execution metrics
 let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -211,13 +209,12 @@ let requestBody = ["null"]; // [String] | The execution id
 let opts = {
   'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
 };
-apiInstance.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -285,13 +282,12 @@ let opts = {
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
   'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
 };
-apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -354,13 +350,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
-apiInstance.downloadFileFromExecution(executionId, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.downloadFileFromExecution(executionId, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -410,13 +405,12 @@ let executionId = "executionId_example"; // String | The execution id
 let taskRunId = "taskRunId_example"; // String | The taskrun id
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The Pebble expression that should be evaluated
-apiInstance.evalTaskRunExpression(executionId, taskRunId, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.evalTaskRunExpression(executionId, taskRunId, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -465,13 +459,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.followExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.followExecution(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -518,13 +511,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.forceRunByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.forceRunByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -571,13 +563,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.forceRunExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.forceRunExecution(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -637,13 +628,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -701,13 +691,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.getExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getExecution(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -757,13 +746,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'subflows': ["null"] // [String] | The subflow tasks to display
 };
-apiInstance.getExecutionFlowGraph(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getExecutionFlowGraph(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -812,13 +800,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
-apiInstance.getFileMetadatasFromExecution(executionId, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFileMetadatasFromExecution(executionId, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -870,13 +857,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'revision': 56 // Number | The flow revision
 };
-apiInstance.getFlowFromExecution(namespace, flowId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFlowFromExecution(namespace, flowId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -925,13 +911,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution that you want flow information's
 let tenant = "tenant_example"; // String | 
-apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFlowFromExecutionById(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -979,13 +964,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
 let tenant = "tenant_example"; // String | 
-apiInstance.killExecution(executionId, isOnKillCascade, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.killExecution(executionId, isOnKillCascade, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1033,13 +1017,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.killExecutionsByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.killExecutionsByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1099,13 +1082,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1162,13 +1144,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.listExecutableDistinctNamespaces(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listExecutableDistinctNamespaces(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1214,13 +1195,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The namespace
 let tenant = "tenant_example"; // String | 
-apiInstance.listFlowExecutionsByNamespace(namespace, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listFlowExecutionsByNamespace(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1267,13 +1247,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.pauseExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.pauseExecution(executionId, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1320,13 +1299,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.pauseExecutionsByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.pauseExecutionsByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1386,13 +1364,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1453,13 +1430,12 @@ let path = "path_example"; // String | The internal storage uri
 let maxRows = 56; // Number | The max row returns
 let encoding = "ISO-8859-1"; // String | The file encoding as Java charset name. Defaults to UTF-8
 let tenant = "tenant_example"; // String | 
-apiInstance.previewFileFromExecution(executionId, path, maxRows, encoding, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.previewFileFromExecution(executionId, path, maxRows, encoding, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1513,13 +1489,12 @@ let opts = {
   'taskRunId': "taskRunId_example", // String | The taskrun id
   'revision': 56 // Number | The flow revision to use for new execution
 };
-apiInstance.replayExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.replayExecution(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1571,13 +1546,12 @@ let requestBody = ["null"]; // [String] | The list of executions id
 let opts = {
   'latestRevision': false // Boolean | If latest revision should be used
 };
-apiInstance.replayExecutionsByIds(tenant, requestBody, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.replayExecutionsByIds(tenant, requestBody, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1639,13 +1613,12 @@ let opts = {
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
   'latestRevision': false // Boolean | If latest revision should be used
 };
-apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1707,13 +1680,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'revision': 56 // Number | The flow revision to use for new execution
 };
-apiInstance.restartExecution(executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.restartExecution(executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1761,13 +1733,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.restartExecutionsByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.restartExecutionsByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1827,13 +1798,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1891,13 +1861,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.resumeExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.resumeExecution(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1944,13 +1913,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.resumeExecutionsByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.resumeExecutionsByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2010,13 +1978,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2090,13 +2057,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.searchExecutions(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchExecutions(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2160,13 +2126,12 @@ let flowId = "flowId_example"; // String | The flow id
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
-apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchExecutionsByFlowId(namespace, flowId, page, size, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2231,13 +2196,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.searchTaskRun(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchTaskRun(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2298,13 +2262,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let label = [new KestraApi.Label()]; // [Label] | The labels to add to the execution
-apiInstance.setLabelsOnTerminatedExecution(executionId, tenant, label, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setLabelsOnTerminatedExecution(executionId, tenant, label).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2352,13 +2315,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let executionControllerSetLabelsByIdsRequest = new KestraApi.ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
-apiInstance.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2418,13 +2380,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2488,13 +2449,12 @@ let opts = {
   'labels': ["null"], // [String] | The labels as a list of 'key:value'
   'revision': 56 // Number | The flow revision or latest if null
 };
-apiInstance.triggerExecution(namespace, id, wait, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.triggerExecution(namespace, id, wait, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2547,13 +2507,12 @@ let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.triggerExecutionByGetWebhook(namespace, id, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2604,13 +2563,12 @@ let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPostWebhook(namespace, id, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.triggerExecutionByPostWebhook(namespace, id, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2661,13 +2619,12 @@ let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
 let tenant = "tenant_example"; // String | 
-apiInstance.triggerExecutionByPutWebhook(namespace, id, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.triggerExecutionByPutWebhook(namespace, id, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2716,13 +2673,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.unqueueExecution(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unqueueExecution(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2769,13 +2725,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.unqueueExecutionsByIds(tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unqueueExecutionsByIds(tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2835,13 +2790,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2900,13 +2854,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let status = new KestraApi.StateType(); // StateType | The new state of the execution
 let tenant = "tenant_example"; // String | 
-apiInstance.updateExecutionStatus(executionId, status, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateExecutionStatus(executionId, status, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2955,13 +2908,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let newStatus = new KestraApi.StateType(); // StateType | The new state of the executions
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.updateExecutionsStatusByIds(newStatus, tenant, requestBody, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateExecutionsStatusByIds(newStatus, tenant, requestBody).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3023,13 +2975,12 @@ let opts = {
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
   'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
-apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3089,13 +3040,12 @@ let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let executionControllerStateRequest = new KestraApi.ExecutionControllerStateRequest(); // ExecutionControllerStateRequest | the taskRun id and state to apply
-apiInstance.updateTaskRunState(executionId, tenant, executionControllerStateRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateTaskRunState(executionId, tenant, executionControllerStateRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3148,13 +3098,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'revision': 56 // Number | The flow revision or latest if null
 };
-apiInstance.validateNewExecutionInputs(namespace, id, labels, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateNewExecutionInputs(namespace, id, labels, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3204,13 +3153,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-apiInstance.validateResumeExecutionInputs(executionId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateResumeExecutionInputs(executionId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

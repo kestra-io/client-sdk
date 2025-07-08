@@ -45,22 +45,14 @@ export default class AppsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the bulkDeleteApps operation.
-     * @callback module:api/AppsApi~bulkDeleteAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete existing apps
      * @param {String} tenant 
      * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
-     * @param {module:api/AppsApi~bulkDeleteAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest, callback) {
+    bulkDeleteAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest) {
       let postBody = appsControllerApiBulkOperationRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -88,26 +80,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the bulkDisableApps operation.
-     * @callback module:api/AppsApi~bulkDisableAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete existing apps
+     * @param {String} tenant 
+     * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest) {
+      return this.bulkDeleteAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Disable existing apps
      * @param {String} tenant 
      * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
-     * @param {module:api/AppsApi~bulkDisableAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    bulkDisableApps(tenant, appsControllerApiBulkOperationRequest, callback) {
+    bulkDisableAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest) {
       let postBody = appsControllerApiBulkOperationRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -135,26 +132,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/disable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the bulkEnableApps operation.
-     * @callback module:api/AppsApi~bulkEnableAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable existing apps
+     * @param {String} tenant 
+     * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    bulkDisableApps(tenant, appsControllerApiBulkOperationRequest) {
+      return this.bulkDisableAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Enable existing apps
      * @param {String} tenant 
      * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
-     * @param {module:api/AppsApi~bulkEnableAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    bulkEnableApps(tenant, appsControllerApiBulkOperationRequest, callback) {
+    bulkEnableAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest) {
       let postBody = appsControllerApiBulkOperationRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -182,26 +184,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/enable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the bulkExportApps operation.
-     * @callback module:api/AppsApi~bulkExportAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {Blob} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Enable existing apps
+     * @param {String} tenant 
+     * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    bulkEnableApps(tenant, appsControllerApiBulkOperationRequest) {
+      return this.bulkEnableAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Export apps as a ZIP archive of yaml sources.
      * @param {String} tenant 
      * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
-     * @param {module:api/AppsApi~bulkExportAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Blob}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
      */
-    bulkExportApps(tenant, appsControllerApiBulkOperationRequest, callback) {
+    bulkExportAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest) {
       let postBody = appsControllerApiBulkOperationRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -229,26 +236,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/export', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApp operation.
-     * @callback module:api/AppsApi~createAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiAppSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Export apps as a ZIP archive of yaml sources.
+     * @param {String} tenant 
+     * @param {module:model/AppsControllerApiBulkOperationRequest} appsControllerApiBulkOperationRequest The list of Apps UID
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
      */
+    bulkExportApps(tenant, appsControllerApiBulkOperationRequest) {
+      return this.bulkExportAppsWithHttpInfo(tenant, appsControllerApiBulkOperationRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a new app
      * @param {String} tenant 
      * @param {String} body The app
-     * @param {module:api/AppsApi~createAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiAppSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiAppSource} and HTTP response
      */
-    createApp(tenant, body, callback) {
+    createAppWithHttpInfo(tenant, body) {
       let postBody = body;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -276,26 +288,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApp operation.
-     * @callback module:api/AppsApi~deleteAppCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a new app
+     * @param {String} tenant 
+     * @param {String} body The app
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiAppSource}
      */
+    createApp(tenant, body) {
+      return this.createAppWithHttpInfo(tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an existing app
      * @param {String} uid The ID of the app
      * @param {String} tenant 
-     * @param {module:api/AppsApi~deleteAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteApp(uid, tenant, callback) {
+    deleteAppWithHttpInfo(uid, tenant) {
       let postBody = null;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -324,26 +341,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/{uid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disableApp operation.
-     * @callback module:api/AppsApi~disableAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiApp} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an existing app
+     * @param {String} uid The ID of the app
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteApp(uid, tenant) {
+      return this.deleteAppWithHttpInfo(uid, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Disable the app.
      * @param {String} uid The ID of app
      * @param {String} tenant 
-     * @param {module:api/AppsApi~disableAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiApp}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiApp} and HTTP response
      */
-    disableApp(uid, tenant, callback) {
+    disableAppWithHttpInfo(uid, tenant) {
       let postBody = null;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -372,17 +394,23 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/{uid}/disable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the dispatchApp operation.
-     * @callback module:api/AppsApi~dispatchAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable the app.
+     * @param {String} uid The ID of app
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiApp}
      */
+    disableApp(uid, tenant) {
+      return this.disableAppWithHttpInfo(uid, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Dispatch for a given app.
@@ -391,10 +419,9 @@ export default class AppsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {module:model/HttpParameters} [parameters] 
-     * @param {module:api/AppsApi~dispatchAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppResponse} and HTTP response
      */
-    dispatchApp(id, dispatch, tenant, opts, callback) {
+    dispatchAppWithHttpInfo(id, dispatch, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -430,27 +457,35 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the downloadFileFromAppExecution operation.
-     * @callback module:api/AppsApi~downloadFileFromAppExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {File} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Dispatch for a given app.
+     * @param {String} id The ID of the app.
+     * @param {String} dispatch The ID to dispatch
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/HttpParameters} opts.parameters 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppResponse}
      */
+    dispatchApp(id, dispatch, tenant, opts) {
+      return this.dispatchAppWithHttpInfo(id, dispatch, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Download file from an app execution
      * @param {String} id The ID of the app.
      * @param {String} path The internal storage uri
      * @param {String} tenant 
-     * @param {module:api/AppsApi~downloadFileFromAppExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link File}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
-    downloadFileFromAppExecution(id, path, tenant, callback) {
+    downloadFileFromAppExecutionWithHttpInfo(id, path, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -484,26 +519,32 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{id}/file/download', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the enableApp operation.
-     * @callback module:api/AppsApi~enableAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiApp} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Download file from an app execution
+     * @param {String} id The ID of the app.
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
+    downloadFileFromAppExecution(id, path, tenant) {
+      return this.downloadFileFromAppExecutionWithHttpInfo(id, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Enable the app.
      * @param {String} uid The ID of app
      * @param {String} tenant 
-     * @param {module:api/AppsApi~enableAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiApp}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiApp} and HTTP response
      */
-    enableApp(uid, tenant, callback) {
+    enableAppWithHttpInfo(uid, tenant) {
       let postBody = null;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -532,26 +573,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/{uid}/enable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getApp operation.
-     * @callback module:api/AppsApi~getAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiAppSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Enable the app.
+     * @param {String} uid The ID of app
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiApp}
      */
+    enableApp(uid, tenant) {
+      return this.enableAppWithHttpInfo(uid, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a app
      * @param {String} uid The ID of the app
      * @param {String} tenant 
-     * @param {module:api/AppsApi~getAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiAppSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiAppSource} and HTTP response
      */
-    getApp(uid, tenant, callback) {
+    getAppWithHttpInfo(uid, tenant) {
       let postBody = null;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -580,27 +626,32 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/{uid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFileMetaFromAppExecution operation.
-     * @callback module:api/AppsApi~getFileMetaFromAppExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FileMetas} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a app
+     * @param {String} uid The ID of the app
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiAppSource}
      */
+    getApp(uid, tenant) {
+      return this.getAppWithHttpInfo(uid, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get file meta information from an app execution
      * @param {String} id The ID of the app.
      * @param {String} path The internal storage uri
      * @param {String} tenant 
-     * @param {module:api/AppsApi~getFileMetaFromAppExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FileMetas}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FileMetas} and HTTP response
      */
-    getFileMetaFromAppExecution(id, path, tenant, callback) {
+    getFileMetaFromAppExecutionWithHttpInfo(id, path, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -634,17 +685,24 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{id}/file/meta', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFilePreviewFromAppExecution operation.
-     * @callback module:api/AppsApi~getFilePreviewFromAppExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get file meta information from an app execution
+     * @param {String} id The ID of the app.
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FileMetas}
      */
+    getFileMetaFromAppExecution(id, path, tenant) {
+      return this.getFileMetaFromAppExecutionWithHttpInfo(id, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get file preview from an app execution
@@ -654,10 +712,9 @@ export default class AppsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [maxRows] The max row returns
-     * @param {module:api/AppsApi~getFilePreviewFromAppExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    getFilePreviewFromAppExecution(id, path, encoding, tenant, opts, callback) {
+    getFilePreviewFromAppExecutionWithHttpInfo(id, path, encoding, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -698,17 +755,27 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{id}/file/preview', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getLogsFromAppExecution operation.
-     * @callback module:api/AppsApi~getLogsFromAppExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {File} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get file preview from an app execution
+     * @param {String} id The ID of the app.
+     * @param {String} path The internal storage uri
+     * @param {String} encoding The file encoding as Java charset name. Defaults to UTF-8
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.maxRows The max row returns
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    getFilePreviewFromAppExecution(id, path, encoding, tenant, opts) {
+      return this.getFilePreviewFromAppExecutionWithHttpInfo(id, path, encoding, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Download logs for an app execution
@@ -718,10 +785,9 @@ export default class AppsApi {
      * @param {Object} opts Optional parameters
      * @param {module:model/Level} [minLevel] The min log level filter
      * @param {Array.<String>} [taskIds] The tasks' IDs
-     * @param {module:api/AppsApi~getLogsFromAppExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link File}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
-    getLogsFromAppExecution(uid, executionId, tenant, opts, callback) {
+    getLogsFromAppExecutionWithHttpInfo(uid, executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'uid' is set
@@ -758,17 +824,27 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{uid}/logs/download', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getStreamEventsFromApp operation.
-     * @callback module:api/AppsApi~getStreamEventsFromAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/EventAppResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Download logs for an app execution
+     * @param {String} uid The ID of the app.
+     * @param {String} executionId The ID of the execution.
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Level} opts.minLevel The min log level filter
+     * @param {Array.<String>} opts.taskIds The tasks' IDs
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
+    getLogsFromAppExecution(uid, executionId, tenant, opts) {
+      return this.getLogsFromAppExecutionWithHttpInfo(uid, executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an event stream from a given app.
@@ -776,10 +852,9 @@ export default class AppsApi {
      * @param {String} stream The ID of the stream to get
      * @param {Object.<String, module:model/HttpParameters>} parameters 
      * @param {String} tenant 
-     * @param {module:api/AppsApi~getStreamEventsFromAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/EventAppResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/EventAppResponse} and HTTP response
      */
-    getStreamEventsFromApp(id, stream, parameters, tenant, callback) {
+    getStreamEventsFromAppWithHttpInfo(id, stream, parameters, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -818,25 +893,32 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{id}/streams/{stream}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listTags operation.
-     * @callback module:api/AppsApi~listTagsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiAppTags} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an event stream from a given app.
+     * @param {String} id The ID of the app.
+     * @param {String} stream The ID of the stream to get
+     * @param {Object.<String, module:model/HttpParameters>} parameters 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/EventAppResponse}
      */
+    getStreamEventsFromApp(id, stream, parameters, tenant) {
+      return this.getStreamEventsFromAppWithHttpInfo(id, stream, parameters, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all the app tags
      * @param {String} tenant 
-     * @param {module:api/AppsApi~listTagsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiAppTags}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiAppTags} and HTTP response
      */
-    listTags(tenant, callback) {
+    listTagsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -860,27 +942,31 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the openApp operation.
-     * @callback module:api/AppsApi~openAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all the app tags
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiAppTags}
      */
+    listTags(tenant) {
+      return this.listTagsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Open an app
      * @param {String} uid The ID of the app
      * @param {Object.<String, module:model/HttpParameters>} parameters 
      * @param {String} tenant 
-     * @param {module:api/AppsApi~openAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppResponse} and HTTP response
      */
-    openApp(uid, parameters, tenant, callback) {
+    openAppWithHttpInfo(uid, parameters, tenant) {
       let postBody = null;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -914,26 +1000,32 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/view/{uid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the previewApp operation.
-     * @callback module:api/AppsApi~previewAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Open an app
+     * @param {String} uid The ID of the app
+     * @param {Object.<String, module:model/HttpParameters>} parameters 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppResponse}
      */
+    openApp(uid, parameters, tenant) {
+      return this.openAppWithHttpInfo(uid, parameters, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Open the app for the given source
      * @param {String} tenant 
      * @param {module:model/PreviewAppRequest} previewAppRequest The app
-     * @param {module:api/AppsApi~previewAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppResponse} and HTTP response
      */
-    previewApp(tenant, previewAppRequest, callback) {
+    previewAppWithHttpInfo(tenant, previewAppRequest) {
       let postBody = previewAppRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -961,17 +1053,23 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/preview', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchApps operation.
-     * @callback module:api/AppsApi~searchAppsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAppsControllerApiApp} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Open the app for the given source
+     * @param {String} tenant 
+     * @param {module:model/PreviewAppRequest} previewAppRequest The app
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppResponse}
      */
+    previewApp(tenant, previewAppRequest) {
+      return this.previewAppWithHttpInfo(tenant, previewAppRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for apps
@@ -984,10 +1082,9 @@ export default class AppsApi {
      * @param {String} [q] A string filter
      * @param {String} [namespace] A namespace filter prefix
      * @param {String} [flowId] A flow id filter
-     * @param {module:api/AppsApi~searchAppsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAppsControllerApiApp}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsAppsControllerApiApp} and HTTP response
      */
-    searchApps(page, size, tenant, opts, callback) {
+    searchAppsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1027,17 +1124,30 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchAppsFromCatalog operation.
-     * @callback module:api/AppsApi~searchAppsFromCatalogCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAppsControllerApiAppCatalogItem} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for apps
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<String>} opts.tags A tags filter
+     * @param {String} opts.q A string filter
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsAppsControllerApiApp}
      */
+    searchApps(page, size, tenant, opts) {
+      return this.searchAppsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for apps from catalog
@@ -1047,10 +1157,9 @@ export default class AppsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [tags] Tags filter
      * @param {String} [q] String filter
-     * @param {module:api/AppsApi~searchAppsFromCatalogCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAppsControllerApiAppCatalogItem}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsAppsControllerApiAppCatalogItem} and HTTP response
      */
-    searchAppsFromCatalog(page, size, tenant, opts, callback) {
+    searchAppsFromCatalogWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1087,27 +1196,36 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/catalog', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateApp operation.
-     * @callback module:api/AppsApi~updateAppCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AppsControllerApiAppSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for apps from catalog
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.tags Tags filter
+     * @param {String} opts.q String filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsAppsControllerApiAppCatalogItem}
      */
+    searchAppsFromCatalog(page, size, tenant, opts) {
+      return this.searchAppsFromCatalogWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update an existing app
      * @param {String} uid The ID of the app
      * @param {String} tenant 
      * @param {String} body The app
-     * @param {module:api/AppsApi~updateAppCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AppsControllerApiAppSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AppsControllerApiAppSource} and HTTP response
      */
-    updateApp(uid, tenant, body, callback) {
+    updateAppWithHttpInfo(uid, tenant, body) {
       let postBody = body;
       // verify the required parameter 'uid' is set
       if (uid === undefined || uid === null) {
@@ -1140,8 +1258,22 @@ export default class AppsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/apps/{uid}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update an existing app
+     * @param {String} uid The ID of the app
+     * @param {String} tenant 
+     * @param {String} body The app
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AppsControllerApiAppSource}
+     */
+    updateApp(uid, tenant, body) {
+      return this.updateAppWithHttpInfo(uid, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

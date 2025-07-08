@@ -50,13 +50,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
-apiInstance.bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -103,13 +102,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
-apiInstance.bulkDisableApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkDisableApps(tenant, appsControllerApiBulkOperationRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -156,13 +154,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
-apiInstance.bulkEnableApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkEnableApps(tenant, appsControllerApiBulkOperationRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -209,13 +206,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
-apiInstance.bulkExportApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkExportApps(tenant, appsControllerApiBulkOperationRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -262,13 +258,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The app
-apiInstance.createApp(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApp(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -315,13 +310,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApp(uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApp(uid, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -368,13 +362,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of app
 let tenant = "tenant_example"; // String | 
-apiInstance.disableApp(uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disableApp(uid, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -425,13 +418,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'parameters': new KestraApi.HttpParameters() // HttpParameters | 
 };
-apiInstance.dispatchApp(id, dispatch, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.dispatchApp(id, dispatch, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -481,13 +473,12 @@ let apiInstance = new KestraApi.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
-apiInstance.downloadFileFromAppExecution(id, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.downloadFileFromAppExecution(id, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -535,13 +526,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of app
 let tenant = "tenant_example"; // String | 
-apiInstance.enableApp(uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.enableApp(uid, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -588,13 +578,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
-apiInstance.getApp(uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getApp(uid, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -642,13 +631,12 @@ let apiInstance = new KestraApi.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
-apiInstance.getFileMetaFromAppExecution(id, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFileMetaFromAppExecution(id, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -701,13 +689,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'maxRows': 56 // Number | The max row returns
 };
-apiInstance.getFilePreviewFromAppExecution(id, path, encoding, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFilePreviewFromAppExecution(id, path, encoding, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -762,13 +749,12 @@ let opts = {
   'minLevel': new KestraApi.Level(), // Level | The min log level filter
   'taskIds': ["null"] // [String] | The tasks' IDs
 };
-apiInstance.getLogsFromAppExecution(uid, executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getLogsFromAppExecution(uid, executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -820,13 +806,12 @@ let id = "id_example"; // String | The ID of the app.
 let stream = "stream_example"; // String | The ID of the stream to get
 let parameters = {key: null}; // HttpParameters | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getStreamEventsFromApp(id, stream, parameters, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getStreamEventsFromApp(id, stream, parameters, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -874,13 +859,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
-apiInstance.listTags(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listTags(tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -927,13 +911,12 @@ let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let parameters = {key: null}; // HttpParameters | 
 let tenant = "tenant_example"; // String | 
-apiInstance.openApp(uid, parameters, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.openApp(uid, parameters, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -981,13 +964,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AppsApi();
 let tenant = "tenant_example"; // String | 
 let previewAppRequest = new KestraApi.PreviewAppRequest(); // PreviewAppRequest | The app
-apiInstance.previewApp(tenant, previewAppRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.previewApp(tenant, previewAppRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1042,13 +1024,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example" // String | A flow id filter
 };
-apiInstance.searchApps(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchApps(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1106,13 +1087,12 @@ let opts = {
   'tags': ["null"], // [String] | Tags filter
   'q': "q_example" // String | String filter
 };
-apiInstance.searchAppsFromCatalog(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchAppsFromCatalog(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1163,13 +1143,12 @@ let apiInstance = new KestraApi.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The app
-apiInstance.updateApp(uid, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateApp(uid, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

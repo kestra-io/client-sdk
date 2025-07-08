@@ -34,13 +34,6 @@ export default class FilesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createNamespaceDirectory operation.
-     * @callback module:api/FilesApi~createNamespaceDirectoryCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a directory
@@ -48,9 +41,9 @@ export default class FilesApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [path] The internal storage uri
-     * @param {module:api/FilesApi~createNamespaceDirectoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    createNamespaceDirectory(namespace, tenant, opts, callback) {
+    createNamespaceDirectoryWithHttpInfo(namespace, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -81,17 +74,25 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files/directory', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createNamespaceFile operation.
-     * @callback module:api/FilesApi~createNamespaceFileCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a directory
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.path The internal storage uri
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    createNamespaceDirectory(namespace, tenant, opts) {
+      return this.createNamespaceDirectoryWithHttpInfo(namespace, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a file
@@ -100,9 +101,9 @@ export default class FilesApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {File} [fileContent] The file to upload
-     * @param {module:api/FilesApi~createNamespaceFileCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    createNamespaceFile(namespace, path, tenant, opts, callback) {
+    createNamespaceFileWithHttpInfo(namespace, path, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -138,26 +139,35 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteFileDirectory operation.
-     * @callback module:api/FilesApi~deleteFileDirectoryCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a file
+     * @param {String} namespace The namespace id
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.fileContent The file to upload
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    createNamespaceFile(namespace, path, tenant, opts) {
+      return this.createNamespaceFileWithHttpInfo(namespace, path, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a file or directory
      * @param {String} namespace The namespace id
      * @param {String} path The internal storage uri of the file / directory to delete
      * @param {String} tenant 
-     * @param {module:api/FilesApi~deleteFileDirectoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteFileDirectory(namespace, path, tenant, callback) {
+    deleteFileDirectoryWithHttpInfo(namespace, path, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -191,26 +201,32 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the exportNamespaceFiles operation.
-     * @callback module:api/FilesApi~exportNamespaceFilesCallback
-     * @param {String} error Error message, if any.
-     * @param {Blob} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a file or directory
+     * @param {String} namespace The namespace id
+     * @param {String} path The internal storage uri of the file / directory to delete
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteFileDirectory(namespace, path, tenant) {
+      return this.deleteFileDirectoryWithHttpInfo(namespace, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Export namespace files as a ZIP
      * @param {String} namespace The namespace id
      * @param {String} tenant 
-     * @param {module:api/FilesApi~exportNamespaceFilesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Blob}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Blob} and HTTP response
      */
-    exportNamespaceFiles(namespace, tenant, callback) {
+    exportNamespaceFilesWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -239,27 +255,32 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files/export', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFileContent operation.
-     * @callback module:api/FilesApi~getFileContentCallback
-     * @param {String} error Error message, if any.
-     * @param {File} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Export namespace files as a ZIP
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Blob}
      */
+    exportNamespaceFiles(namespace, tenant) {
+      return this.exportNamespaceFilesWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get namespace file content
      * @param {String} namespace The namespace id
      * @param {String} path The internal storage uri
      * @param {String} tenant 
-     * @param {module:api/FilesApi~getFileContentCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link File}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
-    getFileContent(namespace, path, tenant, callback) {
+    getFileContentWithHttpInfo(namespace, path, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -293,17 +314,24 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFileMetadatas operation.
-     * @callback module:api/FilesApi~getFileMetadatasCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FileAttributes} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get namespace file content
+     * @param {String} namespace The namespace id
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
+    getFileContent(namespace, path, tenant) {
+      return this.getFileContentWithHttpInfo(namespace, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get namespace file stats such as size, creation & modification dates and type
@@ -311,10 +339,9 @@ export default class FilesApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [path] The internal storage uri
-     * @param {module:api/FilesApi~getFileMetadatasCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FileAttributes}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FileAttributes} and HTTP response
      */
-    getFileMetadatas(namespace, tenant, opts, callback) {
+    getFileMetadatasWithHttpInfo(namespace, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -345,17 +372,25 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files/stats', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listNamespaceDirectoryFiles operation.
-     * @callback module:api/FilesApi~listNamespaceDirectoryFilesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FileAttributes>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get namespace file stats such as size, creation & modification dates and type
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.path The internal storage uri
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FileAttributes}
      */
+    getFileMetadatas(namespace, tenant, opts) {
+      return this.getFileMetadatasWithHttpInfo(namespace, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List directory content
@@ -363,10 +398,9 @@ export default class FilesApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [path] The internal storage uri
-     * @param {module:api/FilesApi~listNamespaceDirectoryFilesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FileAttributes>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FileAttributes>} and HTTP response
      */
-    listNamespaceDirectoryFiles(namespace, tenant, opts, callback) {
+    listNamespaceDirectoryFilesWithHttpInfo(namespace, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -397,17 +431,25 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files/directory', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the moveFileDirectory operation.
-     * @callback module:api/FilesApi~moveFileDirectoryCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * List directory content
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.path The internal storage uri
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FileAttributes>}
      */
+    listNamespaceDirectoryFiles(namespace, tenant, opts) {
+      return this.listNamespaceDirectoryFilesWithHttpInfo(namespace, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Move a file or directory
@@ -415,9 +457,9 @@ export default class FilesApi {
      * @param {String} from The internal storage uri to move from
      * @param {String} to The internal storage uri to move to
      * @param {String} tenant 
-     * @param {module:api/FilesApi~moveFileDirectoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    moveFileDirectory(namespace, from, to, tenant, callback) {
+    moveFileDirectoryWithHttpInfo(namespace, from, to, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -456,27 +498,34 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchNamespaceFiles operation.
-     * @callback module:api/FilesApi~searchNamespaceFilesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Move a file or directory
+     * @param {String} namespace The namespace id
+     * @param {String} from The internal storage uri to move from
+     * @param {String} to The internal storage uri to move to
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    moveFileDirectory(namespace, from, to, tenant) {
+      return this.moveFileDirectoryWithHttpInfo(namespace, from, to, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Find files which path contain the given string in their URI
      * @param {String} namespace The namespace id
      * @param {String} q The string the file path should contain
      * @param {String} tenant 
-     * @param {module:api/FilesApi~searchNamespaceFilesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    searchNamespaceFiles(namespace, q, tenant, callback) {
+    searchNamespaceFilesWithHttpInfo(namespace, q, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -510,8 +559,22 @@ export default class FilesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/files/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Find files which path contain the given string in their URI
+     * @param {String} namespace The namespace id
+     * @param {String} q The string the file path should contain
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+     */
+    searchNamespaceFiles(namespace, q, tenant) {
+      return this.searchNamespaceFilesWithHttpInfo(namespace, q, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

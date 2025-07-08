@@ -33,13 +33,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AuditLogsApi();
 let tenant = "tenant_example"; // String | 
 let auditLogControllerFindRequest = new KestraApi.AuditLogControllerFindRequest(); // AuditLogControllerFindRequest | The find request
-apiInstance.findAuditLog(tenant, auditLogControllerFindRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findAuditLog(tenant, auditLogControllerFindRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -89,13 +88,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'previousId': "previousId_example" // String | The id of a previous audit log to compare with
 };
-apiInstance.getResourceDiffFromAuditLog(id, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getResourceDiffFromAuditLog(id, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -143,13 +141,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.AuditLogsApi();
 let detailId = "detailId_example"; // String | The resource Id
 let tenant = "tenant_example"; // String | 
-apiInstance.listAuditLogFromResourceId(detailId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAuditLogFromResourceId(detailId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -211,13 +208,12 @@ let opts = {
   'details': {key: "null"}, // {String: String} | A list of auditLog details
   'type': new KestraApi.CrudEventType() // CrudEventType | The event that create the audit log
 };
-apiInstance.searchAuditLogs(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchAuditLogs(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

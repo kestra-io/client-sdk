@@ -38,22 +38,14 @@ export default class BlueprintsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createInternalBlueprints operation.
-     * @callback module:api/BlueprintsApi~createInternalBlueprintsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a new internal blueprint
      * @param {String} tenant 
      * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The internal blueprint to create
-     * @param {module:api/BlueprintsApi~createInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource} and HTTP response
      */
-    createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource, callback) {
+    createInternalBlueprintsWithHttpInfo(tenant, blueprintControllerApiBlueprintItemWithSource) {
       let postBody = blueprintControllerApiBlueprintItemWithSource;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -81,25 +73,31 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteInternalBlueprints operation.
-     * @callback module:api/BlueprintsApi~deleteInternalBlueprintsCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a new internal blueprint
+     * @param {String} tenant 
+     * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The internal blueprint to create
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
      */
+    createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource) {
+      return this.createInternalBlueprintsWithHttpInfo(tenant, blueprintControllerApiBlueprintItemWithSource)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an internal blueprint
      * @param {String} id The internal blueprint id to delete
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~deleteInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteInternalBlueprints(id, tenant, callback) {
+    deleteInternalBlueprintsWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -128,27 +126,32 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getBlueprint operation.
-     * @callback module:api/BlueprintsApi~getBlueprintCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an internal blueprint
+     * @param {String} id The internal blueprint id to delete
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteInternalBlueprints(id, tenant) {
+      return this.deleteInternalBlueprintsWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a blueprint
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~getBlueprintCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource} and HTTP response
      */
-    getBlueprint(id, kind, tenant, callback) {
+    getBlueprintWithHttpInfo(id, kind, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -182,27 +185,33 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/community/{kind}/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getBlueprintGraph operation.
-     * @callback module:api/BlueprintsApi~getBlueprintGraphCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, {String: Object}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a blueprint
+     * @param {String} id The blueprint id
+     * @param {module:model/BlueprintControllerKind} kind The blueprint kind
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
      */
+    getBlueprint(id, kind, tenant) {
+      return this.getBlueprintWithHttpInfo(id, kind, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a blueprint graph
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~getBlueprintGraphCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, {String: Object}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
      */
-    getBlueprintGraph(id, kind, tenant, callback) {
+    getBlueprintGraphWithHttpInfo(id, kind, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -236,27 +245,33 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/community/{kind}/{id}/graph', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getBlueprintSource operation.
-     * @callback module:api/BlueprintsApi~getBlueprintSourceCallback
-     * @param {String} error Error message, if any.
-     * @param {String} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a blueprint graph
+     * @param {String} id The blueprint id
+     * @param {module:model/BlueprintControllerKind} kind The blueprint kind
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
      */
+    getBlueprintGraph(id, kind, tenant) {
+      return this.getBlueprintGraphWithHttpInfo(id, kind, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a blueprint source code
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~getBlueprintSourceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    getBlueprintSource(id, kind, tenant, callback) {
+    getBlueprintSourceWithHttpInfo(id, kind, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -290,26 +305,32 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/community/{kind}/{id}/source', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the internalBlueprint operation.
-     * @callback module:api/BlueprintsApi~internalBlueprintCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a blueprint source code
+     * @param {String} id The blueprint id
+     * @param {module:model/BlueprintControllerKind} kind The blueprint kind
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
+    getBlueprintSource(id, kind, tenant) {
+      return this.getBlueprintSourceWithHttpInfo(id, kind, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an internal blueprint
      * @param {String} id The blueprint id
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~internalBlueprintCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource} and HTTP response
      */
-    internalBlueprint(id, tenant, callback) {
+    internalBlueprintWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -338,26 +359,31 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the internalBlueprintFlow operation.
-     * @callback module:api/BlueprintsApi~internalBlueprintFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {String} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an internal blueprint
+     * @param {String} id The blueprint id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BlueprintControllerApiBlueprintItemWithSource}
      */
+    internalBlueprint(id, tenant) {
+      return this.internalBlueprintWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an internal blueprint source code
      * @param {String} id The blueprint id
      * @param {String} tenant 
-     * @param {module:api/BlueprintsApi~internalBlueprintFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    internalBlueprintFlow(id, tenant, callback) {
+    internalBlueprintFlowWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -386,17 +412,23 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom/{id}/source', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchBlueprints operation.
-     * @callback module:api/BlueprintsApi~searchBlueprintsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsBlueprintControllerApiBlueprintItem} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an internal blueprint source code
+     * @param {String} id The blueprint id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
+    internalBlueprintFlow(id, tenant) {
+      return this.internalBlueprintFlowWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all blueprints
@@ -408,10 +440,9 @@ export default class BlueprintsApi {
      * @param {String} [q] A string filter
      * @param {String} [sort] The sort of current page
      * @param {Array.<String>} [tags] A tags filter
-     * @param {module:api/BlueprintsApi~searchBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsBlueprintControllerApiBlueprintItem}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsBlueprintControllerApiBlueprintItem} and HTTP response
      */
-    searchBlueprints(page, size, kind, tenant, opts, callback) {
+    searchBlueprintsWithHttpInfo(page, size, kind, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -454,17 +485,29 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/community/{kind}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchInternalBlueprints operation.
-     * @callback module:api/BlueprintsApi~searchInternalBlueprintsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsBlueprint} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all blueprints
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {module:model/BlueprintControllerKind} kind The blueprint kind
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {String} opts.sort The sort of current page
+     * @param {Array.<String>} opts.tags A tags filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsBlueprintControllerApiBlueprintItem}
      */
+    searchBlueprints(page, size, kind, tenant, opts) {
+      return this.searchBlueprintsWithHttpInfo(page, size, kind, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all internal blueprints
@@ -475,10 +518,9 @@ export default class BlueprintsApi {
      * @param {String} [q] A string filter
      * @param {String} [sort] The sort of current page
      * @param {Array.<String>} [tags] A tags filter
-     * @param {module:api/BlueprintsApi~searchInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsBlueprint}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsBlueprint} and HTTP response
      */
-    searchInternalBlueprints(page, size, tenant, opts, callback) {
+    searchInternalBlueprintsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -516,27 +558,37 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateInternalBlueprints operation.
-     * @callback module:api/BlueprintsApi~updateInternalBlueprintsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BlueprintWithFlow} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all internal blueprints
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {String} opts.sort The sort of current page
+     * @param {Array.<String>} opts.tags A tags filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsBlueprint}
      */
+    searchInternalBlueprints(page, size, tenant, opts) {
+      return this.searchInternalBlueprintsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update an internal blueprint
      * @param {String} id The id of the internal blueprint to update
      * @param {String} tenant 
      * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The new internal blueprint for update
-     * @param {module:api/BlueprintsApi~updateInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BlueprintWithFlow}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BlueprintWithFlow} and HTTP response
      */
-    updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource, callback) {
+    updateInternalBlueprintsWithHttpInfo(id, tenant, blueprintControllerApiBlueprintItemWithSource) {
       let postBody = blueprintControllerApiBlueprintItemWithSource;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -569,8 +621,22 @@ export default class BlueprintsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/blueprints/custom/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update an internal blueprint
+     * @param {String} id The id of the internal blueprint to update
+     * @param {String} tenant 
+     * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The new internal blueprint for update
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BlueprintWithFlow}
+     */
+    updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource) {
+      return this.updateInternalBlueprintsWithHttpInfo(id, tenant, blueprintControllerApiBlueprintItemWithSource)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

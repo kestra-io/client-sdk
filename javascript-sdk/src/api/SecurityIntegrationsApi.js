@@ -34,22 +34,14 @@ export default class SecurityIntegrationsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createSecurityIntegration operation.
-     * @callback module:api/SecurityIntegrationsApi~createSecurityIntegrationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a security integration.
      * @param {String} tenant 
      * @param {module:model/CreateSecurityIntegrationRequest} createSecurityIntegrationRequest The security integration definition
-     * @param {module:api/SecurityIntegrationsApi~createSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createSecurityIntegration(tenant, createSecurityIntegrationRequest, callback) {
+    createSecurityIntegrationWithHttpInfo(tenant, createSecurityIntegrationRequest) {
       let postBody = createSecurityIntegrationRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -77,26 +69,31 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteSecurityIntegration operation.
-     * @callback module:api/SecurityIntegrationsApi~deleteSecurityIntegrationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a security integration.
+     * @param {String} tenant 
+     * @param {module:model/CreateSecurityIntegrationRequest} createSecurityIntegrationRequest The security integration definition
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createSecurityIntegration(tenant, createSecurityIntegrationRequest) {
+      return this.createSecurityIntegrationWithHttpInfo(tenant, createSecurityIntegrationRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete the security integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
-     * @param {module:api/SecurityIntegrationsApi~deleteSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteSecurityIntegration(id, tenant, callback) {
+    deleteSecurityIntegrationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -125,26 +122,31 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the disableSecurityIntegration operation.
-     * @callback module:api/SecurityIntegrationsApi~disableSecurityIntegrationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete the security integration.
+     * @param {String} id The ID of security integration
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteSecurityIntegration(id, tenant) {
+      return this.deleteSecurityIntegrationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Disable the security integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
-     * @param {module:api/SecurityIntegrationsApi~disableSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    disableSecurityIntegration(id, tenant, callback) {
+    disableSecurityIntegrationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -173,26 +175,31 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations/{id}/disable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the enableSecurityIntegration operation.
-     * @callback module:api/SecurityIntegrationsApi~enableSecurityIntegrationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Disable the security integration.
+     * @param {String} id The ID of security integration
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    disableSecurityIntegration(id, tenant) {
+      return this.disableSecurityIntegrationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Enable the security integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
-     * @param {module:api/SecurityIntegrationsApi~enableSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    enableSecurityIntegration(id, tenant, callback) {
+    enableSecurityIntegrationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -221,26 +228,31 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations/{id}/enable', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSecurityIntegration operation.
-     * @callback module:api/SecurityIntegrationsApi~getSecurityIntegrationCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Enable the security integration.
+     * @param {String} id The ID of security integration
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    enableSecurityIntegration(id, tenant) {
+      return this.enableSecurityIntegrationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a security integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
-     * @param {module:api/SecurityIntegrationsApi~getSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    getSecurityIntegration(id, tenant, callback) {
+    getSecurityIntegrationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -269,25 +281,30 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listSecurityIntegrations operation.
-     * @callback module:api/SecurityIntegrationsApi~listSecurityIntegrationsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a security integration.
+     * @param {String} id The ID of security integration
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    getSecurityIntegration(id, tenant) {
+      return this.getSecurityIntegrationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all security integrations.
      * @param {String} tenant 
-     * @param {module:api/SecurityIntegrationsApi~listSecurityIntegrationsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listSecurityIntegrations(tenant, callback) {
+    listSecurityIntegrationsWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -311,8 +328,20 @@ export default class SecurityIntegrationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/security-integrations', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * List all security integrations.
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    listSecurityIntegrations(tenant) {
+      return this.listSecurityIntegrationsWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

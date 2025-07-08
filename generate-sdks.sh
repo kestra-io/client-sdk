@@ -31,7 +31,12 @@ if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
     -c /local/configurations/javascript-config.yml \
     --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION
+    --additional-properties=packageVersion=$VERSION,usePromises=true
+
+# Add KestraClient back
+sed -i "/import WorkerGroupsApi from '.\/api\/WorkerGroupsApi';/a import KestraClient from './KestraClient';" javascript-sdk/src/index.js
+sed -i "/^ *WorkerGroupsApi$/ s/$/,/" javascript-sdk/src/index.js
+sed -i "/^};/i \ \ \ \ \n\ \ \ \ /**\n     * The KestraClient constructor.\n     */\n    KestraClient," javascript-sdk/src/index.js
 fi
 
 # Generate GoLang SDK

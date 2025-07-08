@@ -41,23 +41,15 @@ export default class GroupsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addUserToGroup operation.
-     * @callback module:api/GroupsApi~addUserToGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Add a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~addUserToGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    addUserToGroup(id, userId, tenant, callback) {
+    addUserToGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -91,27 +83,33 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the addUserToGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~addUserToGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Add a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    addUserToGroup(id, userId, tenant) {
+      return this.addUserToGroupWithHttpInfo(id, userId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Add a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
      * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~addUserToGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    addUserToGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, callback) {
+    addUserToGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -145,26 +143,32 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the addUserToGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~addUserToGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Add a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
-     * @param {module:api/GroupsApi~addUserToGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
-    addUserToGroupasSuperAdmin(id, userId, callback) {
+    addUserToGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant) {
+      return this.addUserToGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Add a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
+     */
+    addUserToGroupasSuperAdminWithHttpInfo(id, userId) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -193,26 +197,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}/members/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteGroups operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Add a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    addUserToGroupasSuperAdmin(id, userId) {
+      return this.addUserToGroupasSuperAdminWithHttpInfo(id, userId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups for autocomplete
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    autocompleteGroups(tenant, apiAutocomplete, callback) {
+    autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -240,26 +249,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteGroupsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    autocompleteGroups(tenant, apiAutocomplete) {
+      return this.autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups for autocomplete
      * @param {String} resourceTenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    autocompleteGroupsWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete, callback) {
+    autocompleteGroupsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -287,25 +301,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteGroupsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups for autocomplete
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    autocompleteGroupsWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete) {
+      return this.autocompleteGroupsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups for autocomplete
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    autocompleteGroupsasSuperAdmin(apiAutocomplete, callback) {
+    autocompleteGroupsasSuperAdminWithHttpInfo(apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'apiAutocomplete' is set
       if (apiAutocomplete === undefined || apiAutocomplete === null) {
@@ -328,26 +347,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createGroup operation.
-     * @callback module:api/GroupsApi~createGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups for autocomplete
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    autocompleteGroupsasSuperAdmin(apiAutocomplete) {
+      return this.autocompleteGroupsasSuperAdminWithHttpInfo(apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a group
      * @param {String} tenant 
      * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
-     * @param {module:api/GroupsApi~createGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    createGroup(tenant, abstractGroupControllerGroupWithMembers, callback) {
+    createGroupWithHttpInfo(tenant, abstractGroupControllerGroupWithMembers) {
       let postBody = abstractGroupControllerGroupWithMembers;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -375,26 +398,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~createGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a group
+     * @param {String} tenant 
+     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    createGroup(tenant, abstractGroupControllerGroupWithMembers) {
+      return this.createGroupWithHttpInfo(tenant, abstractGroupControllerGroupWithMembers)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a group
      * @param {String} resourceTenant 
      * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
-     * @param {module:api/GroupsApi~createGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    createGroupWithResourceTenantasSuperAdmin(resourceTenant, abstractGroupControllerGroupWithMembers, callback) {
+    createGroupWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, abstractGroupControllerGroupWithMembers) {
       let postBody = abstractGroupControllerGroupWithMembers;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -422,25 +450,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~createGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a group
+     * @param {String} resourceTenant 
+     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    createGroupWithResourceTenantasSuperAdmin(resourceTenant, abstractGroupControllerGroupWithMembers) {
+      return this.createGroupWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, abstractGroupControllerGroupWithMembers)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a group
      * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
-     * @param {module:api/GroupsApi~createGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    createGroupasSuperAdmin(abstractGroupControllerGroupWithMembers, callback) {
+    createGroupasSuperAdminWithHttpInfo(abstractGroupControllerGroupWithMembers) {
       let postBody = abstractGroupControllerGroupWithMembers;
       // verify the required parameter 'abstractGroupControllerGroupWithMembers' is set
       if (abstractGroupControllerGroupWithMembers === undefined || abstractGroupControllerGroupWithMembers === null) {
@@ -463,25 +496,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteGroup operation.
-     * @callback module:api/GroupsApi~deleteGroupCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a group
+     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    createGroupasSuperAdmin(abstractGroupControllerGroupWithMembers) {
+      return this.createGroupasSuperAdminWithHttpInfo(abstractGroupControllerGroupWithMembers)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group
      * @param {String} id The group id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~deleteGroupCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteGroup(id, tenant, callback) {
+    deleteGroupWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -510,25 +548,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a group
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteGroup(id, tenant) {
+      return this.deleteGroupWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group
      * @param {String} id The group id
      * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~deleteGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteGroupWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    deleteGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -557,24 +601,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a group
+     * @param {String} id The group id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteGroupWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.deleteGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group
      * @param {String} id The group id
-     * @param {module:api/GroupsApi~deleteGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteGroupasSuperAdmin(id, callback) {
+    deleteGroupasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -598,27 +648,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserFromGroup operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a group
+     * @param {String} id The group id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteGroupasSuperAdmin(id) {
+      return this.deleteGroupasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~deleteUserFromGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteUserFromGroup(id, userId, tenant, callback) {
+    deleteUserFromGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -652,27 +706,33 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserFromGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteUserFromGroup(id, userId, tenant) {
+      return this.deleteUserFromGroupWithHttpInfo(id, userId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
      * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~deleteUserFromGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    deleteUserFromGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, callback) {
+    deleteUserFromGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -706,26 +766,32 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the deleteUserFromGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete a group for a user
      * @param {String} id The group id
      * @param {String} userId The user id
-     * @param {module:api/GroupsApi~deleteUserFromGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
-    deleteUserFromGroupasSuperAdmin(id, userId, callback) {
+    deleteUserFromGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant) {
+      return this.deleteUserFromGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Delete a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
+     */
+    deleteUserFromGroupasSuperAdminWithHttpInfo(id, userId) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -754,26 +820,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}/members/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getGroup operation.
-     * @callback module:api/GroupsApi~getGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a group for a user
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    deleteUserFromGroupasSuperAdmin(id, userId) {
+      return this.deleteUserFromGroupasSuperAdminWithHttpInfo(id, userId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a group
      * @param {String} id The group id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~getGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    getGroup(id, tenant, callback) {
+    getGroupWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -802,26 +873,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~getGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a group
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    getGroup(id, tenant) {
+      return this.getGroupWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a group
      * @param {String} id The group id
      * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~getGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    getGroupWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    getGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -850,25 +926,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~getGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a group
+     * @param {String} id The group id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    getGroupWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.getGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a group
      * @param {String} id The group id
-     * @param {module:api/GroupsApi~getGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    getGroupasSuperAdmin(id, callback) {
+    getGroupasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -892,26 +973,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listGroupIds operation.
-     * @callback module:api/GroupsApi~listGroupIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a group
+     * @param {String} id The group id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    getGroupasSuperAdmin(id) {
+      return this.getGroupasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups by ids
      * @param {String} tenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    listGroupIds(tenant, apiIds, callback) {
+    listGroupIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -939,26 +1024,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listGroupIdsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~listGroupIdsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups by ids
+     * @param {String} tenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    listGroupIds(tenant, apiIds) {
+      return this.listGroupIdsWithHttpInfo(tenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups by ids
      * @param {String} resourceTenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    listGroupIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds, callback) {
+    listGroupIdsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -986,25 +1076,30 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listGroupIdsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~listGroupIdsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups by ids
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    listGroupIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds) {
+      return this.listGroupIdsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups by ids
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Group>} and HTTP response
      */
-    listGroupIdsasSuperAdmin(apiIds, callback) {
+    listGroupIdsasSuperAdminWithHttpInfo(apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'apiIds' is set
       if (apiIds === undefined || apiIds === null) {
@@ -1027,17 +1122,22 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupMembers operation.
-     * @callback module:api/GroupsApi~searchGroupMembersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups by ids
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Group>}
      */
+    listGroupIdsasSuperAdmin(apiIds) {
+      return this.listGroupIdsasSuperAdminWithHttpInfo(apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users in a group
@@ -1048,10 +1148,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchGroupMembers(id, page, size, tenant, opts, callback) {
+    searchGroupMembersWithHttpInfo(id, page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -1093,17 +1192,28 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupMembersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupMembersWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users in a group
+     * @param {String} id The group id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchGroupMembers(id, page, size, tenant, opts) {
+      return this.searchGroupMembersWithHttpInfo(id, page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users in a group
@@ -1114,10 +1224,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchGroupMembersWithResourceTenantasSuperAdmin(id, page, size, resourceTenant, opts, callback) {
+    searchGroupMembersWithResourceTenantasSuperAdminWithHttpInfo(id, page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -1159,17 +1268,28 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupMembersasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupMembersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users in a group
+     * @param {String} id The group id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchGroupMembersWithResourceTenantasSuperAdmin(id, page, size, resourceTenant, opts) {
+      return this.searchGroupMembersWithResourceTenantasSuperAdminWithHttpInfo(id, page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users in a group
@@ -1179,10 +1299,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiUser} and HTTP response
      */
-    searchGroupMembersasSuperAdmin(id, page, size, opts, callback) {
+    searchGroupMembersasSuperAdminWithHttpInfo(id, page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -1219,17 +1338,27 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroups operation.
-     * @callback module:api/GroupsApi~searchGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users in a group
+     * @param {String} id The group id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiUser}
      */
+    searchGroupMembersasSuperAdmin(id, page, size, opts) {
+      return this.searchGroupMembersasSuperAdminWithHttpInfo(id, page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for groups
@@ -1239,10 +1368,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsGroup} and HTTP response
      */
-    searchGroups(page, size, tenant, opts, callback) {
+    searchGroupsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1279,17 +1407,27 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for groups
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsGroup}
      */
+    searchGroups(page, size, tenant, opts) {
+      return this.searchGroupsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for groups
@@ -1299,10 +1437,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsGroup} and HTTP response
      */
-    searchGroupsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
+    searchGroupsWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1339,17 +1476,27 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for groups
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsGroup}
      */
+    searchGroupsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts) {
+      return this.searchGroupsWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for groups
@@ -1358,10 +1505,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsGroup} and HTTP response
      */
-    searchGroupsasSuperAdmin(page, size, opts, callback) {
+    searchGroupsasSuperAdminWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -1393,17 +1539,26 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setUserMembershipForGroup operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for groups
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsGroup}
      */
+    searchGroupsasSuperAdmin(page, size, opts) {
+      return this.searchGroupsasSuperAdminWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Set the membership type of a user in a group
@@ -1412,10 +1567,9 @@ export default class GroupsApi {
      * @param {String} userId The user id
      * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~setUserMembershipForGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    setUserMembershipForGroup(id, userId, membership, tenant, callback) {
+    setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1454,17 +1608,26 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/membership/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setUserMembershipForGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Set the membership type of a user in a group
+     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    setUserMembershipForGroup(id, userId, membership, tenant) {
+      return this.setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Set the membership type of a user in a group
@@ -1473,10 +1636,9 @@ export default class GroupsApi {
      * @param {String} userId The user id
      * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
      * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~setUserMembershipForGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
      */
-    setUserMembershipForGroupWithResourceTenantasSuperAdmin(id, userId, membership, resourceTenant, callback) {
+    setUserMembershipForGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, membership, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1515,17 +1677,9 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the setUserMembershipForGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Set the membership type of a user in a group
@@ -1533,10 +1687,26 @@ export default class GroupsApi {
      * @param {String} id The group id
      * @param {String} userId The user id
      * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
-     * @param {module:api/GroupsApi~setUserMembershipForGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
-    setUserMembershipForGroupasSuperAdmin(id, userId, membership, callback) {
+    setUserMembershipForGroupWithResourceTenantasSuperAdmin(id, userId, membership, resourceTenant) {
+      return this.setUserMembershipForGroupWithResourceTenantasSuperAdminWithHttpInfo(id, userId, membership, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Set the membership type of a user in a group
+     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiUser} and HTTP response
+     */
+    setUserMembershipForGroupasSuperAdminWithHttpInfo(id, userId, membership) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1570,27 +1740,34 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}/members/membership/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateGroup operation.
-     * @callback module:api/GroupsApi~updateGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Set the membership type of a user in a group
+     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+     * @param {String} id The group id
+     * @param {String} userId The user id
+     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiUser}
      */
+    setUserMembershipForGroupasSuperAdmin(id, userId, membership) {
+      return this.setUserMembershipForGroupasSuperAdminWithHttpInfo(id, userId, membership)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a group
      * @param {String} id The group id
      * @param {String} tenant 
      * @param {module:model/Group} group The group
-     * @param {module:api/GroupsApi~updateGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    updateGroup(id, tenant, group, callback) {
+    updateGroupWithHttpInfo(id, tenant, group) {
       let postBody = group;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1623,27 +1800,33 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~updateGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a group
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @param {module:model/Group} group The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    updateGroup(id, tenant, group) {
+      return this.updateGroupWithHttpInfo(id, tenant, group)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a group
      * @param {String} id The group id
      * @param {String} resourceTenant 
      * @param {module:model/Group} group The group
-     * @param {module:api/GroupsApi~updateGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    updateGroupWithResourceTenantasSuperAdmin(id, resourceTenant, group, callback) {
+    updateGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, group) {
       let postBody = group;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1676,26 +1859,32 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~updateGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a group
+     * @param {String} id The group id
+     * @param {String} resourceTenant 
+     * @param {module:model/Group} group The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
      */
+    updateGroupWithResourceTenantasSuperAdmin(id, resourceTenant, group) {
+      return this.updateGroupWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, group)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a group
      * @param {String} id The group id
      * @param {module:model/Group} group The group
-     * @param {module:api/GroupsApi~updateGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Group} and HTTP response
      */
-    updateGroupasSuperAdmin(id, group, callback) {
+    updateGroupasSuperAdminWithHttpInfo(id, group) {
       let postBody = group;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1723,8 +1912,21 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a group
+     * @param {String} id The group id
+     * @param {module:model/Group} group The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Group}
+     */
+    updateGroupasSuperAdmin(id, group) {
+      return this.updateGroupasSuperAdminWithHttpInfo(id, group)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

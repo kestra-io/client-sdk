@@ -35,13 +35,6 @@ export default class MetricsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the aggregateMetricsFromFlow operation.
-     * @callback module:api/MetricsApi~aggregateMetricsFromFlowCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MetricAggregations} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Get metrics aggregations for a specific flow
@@ -53,10 +46,9 @@ export default class MetricsApi {
      * @param {Object} opts Optional parameters
      * @param {Date} [startDate] The start datetime, default to now - 30 days
      * @param {Date} [endDate] The end datetime, default to now
-     * @param {module:api/MetricsApi~aggregateMetricsFromFlowCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MetricAggregations}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MetricAggregations} and HTTP response
      */
-    aggregateMetricsFromFlow(namespace, flowId, metric, aggregation, tenant, opts, callback) {
+    aggregateMetricsFromFlowWithHttpInfo(namespace, flowId, metric, aggregation, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -103,17 +95,29 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{metric}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the aggregateMetricsFromTask operation.
-     * @callback module:api/MetricsApi~aggregateMetricsFromTaskCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MetricAggregations} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get metrics aggregations for a specific flow
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow Id
+     * @param {String} metric The metric name
+     * @param {String} aggregation The type of aggregation: avg, sum, min or max
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Date} opts.startDate The start datetime, default to now - 30 days
+     * @param {Date} opts.endDate The end datetime, default to now
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MetricAggregations}
      */
+    aggregateMetricsFromFlow(namespace, flowId, metric, aggregation, tenant, opts) {
+      return this.aggregateMetricsFromFlowWithHttpInfo(namespace, flowId, metric, aggregation, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get metrics aggregations for a specific flow
@@ -126,10 +130,9 @@ export default class MetricsApi {
      * @param {Object} opts Optional parameters
      * @param {Date} [startDate] The start datetime, default to now - 30 days
      * @param {Date} [endDate] The end datetime, default to now
-     * @param {module:api/MetricsApi~aggregateMetricsFromTaskCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MetricAggregations}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/MetricAggregations} and HTTP response
      */
-    aggregateMetricsFromTask(namespace, flowId, taskId, metric, aggregation, tenant, opts, callback) {
+    aggregateMetricsFromTaskWithHttpInfo(namespace, flowId, taskId, metric, aggregation, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -181,27 +184,39 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/aggregates/{namespace}/{flowId}/{taskId}/{metric}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listFlowMetrics operation.
-     * @callback module:api/MetricsApi~listFlowMetricsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get metrics aggregations for a specific flow
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow Id
+     * @param {String} taskId The task Id
+     * @param {String} metric The metric name
+     * @param {String} aggregation The type of aggregation: avg, sum, min or max
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Date} opts.startDate The start datetime, default to now - 30 days
+     * @param {Date} opts.endDate The end datetime, default to now
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MetricAggregations}
      */
+    aggregateMetricsFromTask(namespace, flowId, taskId, metric, aggregation, tenant, opts) {
+      return this.aggregateMetricsFromTaskWithHttpInfo(namespace, flowId, taskId, metric, aggregation, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get metrics names for a specific flow
      * @param {String} namespace The namespace
      * @param {String} flowId The flow Id
      * @param {String} tenant 
-     * @param {module:api/MetricsApi~listFlowMetricsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    listFlowMetrics(namespace, flowId, tenant, callback) {
+    listFlowMetricsWithHttpInfo(namespace, flowId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -235,17 +250,24 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/names/{namespace}/{flowId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listTaskMetrics operation.
-     * @callback module:api/MetricsApi~listTaskMetricsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get metrics names for a specific flow
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow Id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    listFlowMetrics(namespace, flowId, tenant) {
+      return this.listFlowMetricsWithHttpInfo(namespace, flowId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get metrics names for a specific task in a flow
@@ -253,10 +275,9 @@ export default class MetricsApi {
      * @param {String} flowId The flow Id
      * @param {String} taskId The task Id
      * @param {String} tenant 
-     * @param {module:api/MetricsApi~listTaskMetricsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    listTaskMetrics(namespace, flowId, taskId, tenant, callback) {
+    listTaskMetricsWithHttpInfo(namespace, flowId, taskId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -295,27 +316,34 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/names/{namespace}/{flowId}/{taskId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listTasksWithMetrics operation.
-     * @callback module:api/MetricsApi~listTasksWithMetricsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get metrics names for a specific task in a flow
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow Id
+     * @param {String} taskId The task Id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    listTaskMetrics(namespace, flowId, taskId, tenant) {
+      return this.listTaskMetricsWithHttpInfo(namespace, flowId, taskId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get tasks id that have metrics for a specific flow, include deleted or renamed tasks
      * @param {String} namespace The namespace
      * @param {String} flowId The flow Id
      * @param {String} tenant 
-     * @param {module:api/MetricsApi~listTasksWithMetricsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    listTasksWithMetrics(namespace, flowId, tenant, callback) {
+    listTasksWithMetricsWithHttpInfo(namespace, flowId, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -349,17 +377,24 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/tasks/{namespace}/{flowId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchByExecution operation.
-     * @callback module:api/MetricsApi~searchByExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsMetricEntry} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get tasks id that have metrics for a specific flow, include deleted or renamed tasks
+     * @param {String} namespace The namespace
+     * @param {String} flowId The flow Id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    listTasksWithMetrics(namespace, flowId, tenant) {
+      return this.listTasksWithMetricsWithHttpInfo(namespace, flowId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get metrics for a specific execution
@@ -371,10 +406,9 @@ export default class MetricsApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [taskRunId] The taskrun id
      * @param {String} [taskId] The task id
-     * @param {module:api/MetricsApi~searchByExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsMetricEntry}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsMetricEntry} and HTTP response
      */
-    searchByExecution(page, size, executionId, tenant, opts, callback) {
+    searchByExecutionWithHttpInfo(page, size, executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -417,8 +451,27 @@ export default class MetricsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/metrics/{executionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Get metrics for a specific execution
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.taskRunId The taskrun id
+     * @param {String} opts.taskId The task id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsMetricEntry}
+     */
+    searchByExecution(page, size, executionId, tenant, opts) {
+      return this.searchByExecutionWithHttpInfo(page, size, executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

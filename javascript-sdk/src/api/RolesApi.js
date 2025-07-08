@@ -37,22 +37,14 @@ export default class RolesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the autocompleteRoles operation.
-     * @callback module:api/RolesApi~autocompleteRolesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List roles for autocomplete
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    autocompleteRoles(tenant, apiAutocomplete, callback) {
+    autocompleteRolesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -80,26 +72,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteRolesWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~autocompleteRolesWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    autocompleteRoles(tenant, apiAutocomplete) {
+      return this.autocompleteRolesWithHttpInfo(tenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles for autocomplete
      * @param {String} resourceTenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    autocompleteRolesWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete, callback) {
+    autocompleteRolesWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -127,25 +124,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteRolesasSuperAdmin operation.
-     * @callback module:api/RolesApi~autocompleteRolesasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles for autocomplete
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    autocompleteRolesWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete) {
+      return this.autocompleteRolesWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles for autocomplete
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    autocompleteRolesasSuperAdmin(apiAutocomplete, callback) {
+    autocompleteRolesasSuperAdminWithHttpInfo(apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'apiAutocomplete' is set
       if (apiAutocomplete === undefined || apiAutocomplete === null) {
@@ -168,26 +170,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createRole operation.
-     * @callback module:api/RolesApi~createRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles for autocomplete
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    autocompleteRolesasSuperAdmin(apiAutocomplete) {
+      return this.autocompleteRolesasSuperAdminWithHttpInfo(apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a role
      * @param {String} tenant 
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~createRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    createRole(tenant, role, callback) {
+    createRoleWithHttpInfo(tenant, role) {
       let postBody = role;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -215,26 +221,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~createRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a role
+     * @param {String} tenant 
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    createRole(tenant, role) {
+      return this.createRoleWithHttpInfo(tenant, role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a role
      * @param {String} resourceTenant 
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~createRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    createRoleWithResourceTenantasSuperAdmin(resourceTenant, role, callback) {
+    createRoleWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, role) {
       let postBody = role;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -262,25 +273,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~createRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a role
+     * @param {String} resourceTenant 
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    createRoleWithResourceTenantasSuperAdmin(resourceTenant, role) {
+      return this.createRoleWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a role
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~createRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    createRoleasSuperAdmin(role, callback) {
+    createRoleasSuperAdminWithHttpInfo(role) {
       let postBody = role;
       // verify the required parameter 'role' is set
       if (role === undefined || role === null) {
@@ -303,25 +319,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRole operation.
-     * @callback module:api/RolesApi~deleteRoleCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a role
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    createRoleasSuperAdmin(role) {
+      return this.createRoleasSuperAdminWithHttpInfo(role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a role
      * @param {String} id The role id
      * @param {String} tenant 
-     * @param {module:api/RolesApi~deleteRoleCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteRole(id, tenant, callback) {
+    deleteRoleWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -350,25 +371,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~deleteRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteRole(id, tenant) {
+      return this.deleteRoleWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a role
      * @param {String} id The role id
      * @param {String} resourceTenant 
-     * @param {module:api/RolesApi~deleteRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteRoleWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    deleteRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -397,24 +424,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~deleteRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a role
+     * @param {String} id The role id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteRoleWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.deleteRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a role
      * @param {String} id The role id
-     * @param {module:api/RolesApi~deleteRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteRoleasSuperAdmin(id, callback) {
+    deleteRoleasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -438,26 +471,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getRole operation.
-     * @callback module:api/RolesApi~getRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a role
+     * @param {String} id The role id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteRoleasSuperAdmin(id) {
+      return this.deleteRoleasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a role
      * @param {String} id The role id
      * @param {String} tenant 
-     * @param {module:api/RolesApi~getRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    getRole(id, tenant, callback) {
+    getRoleWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -486,26 +523,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~getRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    getRole(id, tenant) {
+      return this.getRoleWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a role
      * @param {String} id The role id
      * @param {String} resourceTenant 
-     * @param {module:api/RolesApi~getRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    getRoleWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    getRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -534,25 +576,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~getRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a role
+     * @param {String} id The role id
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    getRoleWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.getRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a role
      * @param {String} id The role id
-     * @param {module:api/RolesApi~getRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    getRoleasSuperAdmin(id, callback) {
+    getRoleasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -576,26 +623,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listRolesFromGivenIds operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a role
+     * @param {String} id The role id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    getRoleasSuperAdmin(id) {
+      return this.getRoleasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles by ids
      * @param {String} tenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    listRolesFromGivenIds(tenant, apiIds, callback) {
+    listRolesFromGivenIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -623,26 +674,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listRolesFromGivenIdsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles by ids
+     * @param {String} tenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    listRolesFromGivenIds(tenant, apiIds) {
+      return this.listRolesFromGivenIdsWithHttpInfo(tenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles by ids
      * @param {String} resourceTenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    listRolesFromGivenIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds, callback) {
+    listRolesFromGivenIdsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -670,25 +726,30 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listRolesFromGivenIdsasSuperAdmin operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles by ids
+     * @param {String} resourceTenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    listRolesFromGivenIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds) {
+      return this.listRolesFromGivenIdsWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles by ids
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    listRolesFromGivenIdsasSuperAdmin(apiIds, callback) {
+    listRolesFromGivenIdsasSuperAdminWithHttpInfo(apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'apiIds' is set
       if (apiIds === undefined || apiIds === null) {
@@ -711,17 +772,22 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchRoles operation.
-     * @callback module:api/RolesApi~searchRolesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles by ids
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    listRolesFromGivenIdsasSuperAdmin(apiIds) {
+      return this.listRolesFromGivenIdsasSuperAdminWithHttpInfo(apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for roles
@@ -731,10 +797,9 @@ export default class RolesApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsRole} and HTTP response
      */
-    searchRoles(page, size, tenant, opts, callback) {
+    searchRolesWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -771,17 +836,27 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchRolesWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~searchRolesWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for roles
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsRole}
      */
+    searchRoles(page, size, tenant, opts) {
+      return this.searchRolesWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for roles
@@ -791,10 +866,9 @@ export default class RolesApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsRole} and HTTP response
      */
-    searchRolesWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
+    searchRolesWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -831,17 +905,27 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchRolesasSuperAdmin operation.
-     * @callback module:api/RolesApi~searchRolesasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for roles
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsRole}
      */
+    searchRolesWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts) {
+      return this.searchRolesWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for roles
@@ -850,10 +934,9 @@ export default class RolesApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsRole} and HTTP response
      */
-    searchRolesasSuperAdmin(page, size, opts, callback) {
+    searchRolesasSuperAdminWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -885,27 +968,35 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateRole operation.
-     * @callback module:api/RolesApi~updateRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for roles
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsRole}
      */
+    searchRolesasSuperAdmin(page, size, opts) {
+      return this.searchRolesasSuperAdminWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a role
      * @param {String} id The role id
      * @param {String} tenant 
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~updateRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    updateRole(id, tenant, role, callback) {
+    updateRoleWithHttpInfo(id, tenant, role) {
       let postBody = role;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -938,27 +1029,33 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~updateRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    updateRole(id, tenant, role) {
+      return this.updateRoleWithHttpInfo(id, tenant, role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a role
      * @param {String} id The role id
      * @param {String} resourceTenant 
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~updateRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    updateRoleWithResourceTenantasSuperAdmin(id, resourceTenant, role, callback) {
+    updateRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, role) {
       let postBody = role;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -991,26 +1088,32 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/roles/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~updateRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a role
+     * @param {String} id The role id
+     * @param {String} resourceTenant 
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
      */
+    updateRoleWithResourceTenantasSuperAdmin(id, resourceTenant, role) {
+      return this.updateRoleWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant, role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a role
      * @param {String} id The role id
      * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~updateRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Role} and HTTP response
      */
-    updateRoleasSuperAdmin(id, role, callback) {
+    updateRoleasSuperAdminWithHttpInfo(id, role) {
       let postBody = role;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -1038,8 +1141,21 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/roles/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a role
+     * @param {String} id The role id
+     * @param {module:model/Role} role 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Role}
+     */
+    updateRoleasSuperAdmin(id, role) {
+      return this.updateRoleasSuperAdminWithHttpInfo(id, role)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

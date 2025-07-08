@@ -40,22 +40,14 @@ export default class AuditLogsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the findAuditLog operation.
-     * @callback module:api/AuditLogsApi~findAuditLogCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AuditLogControllerAuditLogWithUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Find a specific audit log
      * @param {String} tenant 
      * @param {module:model/AuditLogControllerFindRequest} auditLogControllerFindRequest The find request
-     * @param {module:api/AuditLogsApi~findAuditLogCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AuditLogControllerAuditLogWithUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuditLogControllerAuditLogWithUser} and HTTP response
      */
-    findAuditLog(tenant, auditLogControllerFindRequest, callback) {
+    findAuditLogWithHttpInfo(tenant, auditLogControllerFindRequest) {
       let postBody = auditLogControllerFindRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -83,17 +75,23 @@ export default class AuditLogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/auditlogs/find', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getResourceDiffFromAuditLog operation.
-     * @callback module:api/AuditLogsApi~getResourceDiffFromAuditLogCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AuditLogControllerAuditLogDiff} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Find a specific audit log
+     * @param {String} tenant 
+     * @param {module:model/AuditLogControllerFindRequest} auditLogControllerFindRequest The find request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuditLogControllerAuditLogWithUser}
      */
+    findAuditLog(tenant, auditLogControllerFindRequest) {
+      return this.findAuditLogWithHttpInfo(tenant, auditLogControllerFindRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
@@ -101,10 +99,9 @@ export default class AuditLogsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [previousId] The id of a previous audit log to compare with
-     * @param {module:api/AuditLogsApi~getResourceDiffFromAuditLogCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AuditLogControllerAuditLogDiff}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuditLogControllerAuditLogDiff} and HTTP response
      */
-    getResourceDiffFromAuditLog(id, tenant, opts, callback) {
+    getResourceDiffFromAuditLogWithHttpInfo(id, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -135,26 +132,33 @@ export default class AuditLogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/auditlogs/{id}/diff', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listAuditLogFromResourceId operation.
-     * @callback module:api/AuditLogsApi~listAuditLogFromResourceIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/AuditLogControllerAuditLogOption>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+     * @param {String} id The id of the audit log
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.previousId The id of a previous audit log to compare with
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuditLogControllerAuditLogDiff}
      */
+    getResourceDiffFromAuditLog(id, tenant, opts) {
+      return this.getResourceDiffFromAuditLogWithHttpInfo(id, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Find all audit logs about a specific resource.
      * @param {String} detailId The resource Id
      * @param {String} tenant 
-     * @param {module:api/AuditLogsApi~listAuditLogFromResourceIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/AuditLogControllerAuditLogOption>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AuditLogControllerAuditLogOption>} and HTTP response
      */
-    listAuditLogFromResourceId(detailId, tenant, callback) {
+    listAuditLogFromResourceIdWithHttpInfo(detailId, tenant) {
       let postBody = null;
       // verify the required parameter 'detailId' is set
       if (detailId === undefined || detailId === null) {
@@ -183,17 +187,23 @@ export default class AuditLogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/auditlogs/history/{detailId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchAuditLogs operation.
-     * @callback module:api/AuditLogsApi~searchAuditLogsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAuditLogControllerAuditLogWithUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Find all audit logs about a specific resource.
+     * @param {String} detailId The resource Id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AuditLogControllerAuditLogOption>}
      */
+    listAuditLogFromResourceId(detailId, tenant) {
+      return this.listAuditLogFromResourceIdWithHttpInfo(detailId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for audit logs
@@ -213,10 +223,9 @@ export default class AuditLogsApi {
      * @param {Date} [endDate] The end datetime
      * @param {Object.<String, {String: String}>} [details] A list of auditLog details
      * @param {module:model/CrudEventType} [type] The event that create the audit log
-     * @param {module:api/AuditLogsApi~searchAuditLogsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAuditLogControllerAuditLogWithUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsAuditLogControllerAuditLogWithUser} and HTTP response
      */
-    searchAuditLogs(page, size, tenant, opts, callback) {
+    searchAuditLogsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -263,8 +272,35 @@ export default class AuditLogsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/auditlogs/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Search for audit logs
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {String} opts.namespace A namespace filter
+     * @param {String} opts.flowId A flow id filter
+     * @param {String} opts.executionId An execution filter
+     * @param {String} opts.userId A user id filter
+     * @param {String} opts.id A id filter
+     * @param {module:model/Permission} opts.permission A permission filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {Object.<String, {String: String}>} opts.details A list of auditLog details
+     * @param {module:model/CrudEventType} opts.type The event that create the audit log
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsAuditLogControllerAuditLogWithUser}
+     */
+    searchAuditLogs(page, size, tenant, opts) {
+      return this.searchAuditLogsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

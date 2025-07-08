@@ -79,13 +79,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let tenant = "tenant_example"; // String | 
 let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -132,13 +131,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -184,13 +182,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -237,13 +234,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUser(id, tenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForUser(id, tenant, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -292,13 +288,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -346,13 +341,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUserasSuperAdmin(id, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForUserasSuperAdmin(id, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -399,13 +393,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let tenant = "tenant_example"; // String | 
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccount(tenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createServiceAccount(tenant, apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -452,13 +445,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -504,13 +496,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccountasSuperAdmin(apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createServiceAccountasSuperAdmin(apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -556,13 +547,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let tenant = "tenant_example"; // String | 
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUser(tenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUser(tenant, apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -610,13 +600,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -665,13 +654,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
 let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -719,13 +707,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -772,13 +759,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -824,13 +810,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUserasSuperAdmin(apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUserasSuperAdmin(apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -877,13 +862,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiToken(id, tokenId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiToken(id, tokenId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -932,13 +916,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -986,13 +969,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiTokenasSuperAdmin(id, tokenId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenasSuperAdmin(id, tokenId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1040,13 +1022,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let uid = "uid_example"; // String | The auth id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteAuth(id, uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteAuth(id, uid, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1095,13 +1076,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let uid = "uid_example"; // String | The auth id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1149,13 +1129,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let uid = "uid_example"; // String | The auth id
-apiInstance.deleteAuthasSuperAdmin(id, uid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteAuthasSuperAdmin(id, uid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1202,13 +1181,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteRefreshToken(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteRefreshToken(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1255,13 +1233,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1307,13 +1284,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.deleteRefreshTokenasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteRefreshTokenasSuperAdmin(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1359,13 +1335,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteUser(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteUser(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1412,13 +1387,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1464,13 +1438,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.deleteUserasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteUserasSuperAdmin(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1521,13 +1494,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'type': new KestraApi.UserType() // UserType | The type of user
 };
-apiInstance.findAllForAllTenants(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findAllForAllTenants(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1583,13 +1555,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'type': new KestraApi.UserType() // UserType | The type of user
 };
-apiInstance.findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1640,13 +1611,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.getUser(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUser(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1693,13 +1663,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.getUserWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUserWithResourceTenantasSuperAdmin(id, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1745,13 +1714,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.getUserasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUserasSuperAdmin(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1796,13 +1764,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.impersonate(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.impersonate(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1848,13 +1815,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let id = "id_example"; // String | The user id
-apiInstance.impersonateWithResourceTenant(resourceTenant, id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.impersonateWithResourceTenant(resourceTenant, id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1901,13 +1867,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokens(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokens(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1954,13 +1919,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2006,13 +1970,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.listApiTokensasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensasSuperAdmin(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2064,13 +2027,12 @@ let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'type': new KestraApi.UserType() // UserType | The type of user
 };
-apiInstance.searchUsers(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchUsers(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2127,13 +2089,12 @@ let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'type': new KestraApi.UserType() // UserType | The type of user
 };
-apiInstance.searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2189,13 +2150,12 @@ let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'type': new KestraApi.UserType() // UserType | The type of user
 };
-apiInstance.searchUsersasSuperAdmin(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchUsersasSuperAdmin(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2245,13 +2205,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let body = true; // Boolean | 
-apiInstance.setSuperAdmin(id, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setSuperAdmin(id, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2299,13 +2258,12 @@ let apiInstance = new KestraApi.UsersApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let id = "id_example"; // String | The user id
 let body = true; // Boolean | 
-apiInstance.setSuperAdminWithResourceTenant(resourceTenant, id, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setSuperAdminWithResourceTenant(resourceTenant, id, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2352,13 +2310,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let meControllerUpdatePasswordRequest = new KestraApi.MeControllerUpdatePasswordRequest(); // MeControllerUpdatePasswordRequest | 
-apiInstance.updateCurrentUserPassword(meControllerUpdatePasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateCurrentUserPassword(meControllerUpdatePasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2404,13 +2361,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let tenant = "tenant_example"; // String | 
 let meControllerUpdatePasswordRequest = new KestraApi.MeControllerUpdatePasswordRequest(); // MeControllerUpdatePasswordRequest | 
-apiInstance.updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2458,13 +2414,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccount(id, tenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateServiceAccount(id, tenant, apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2513,13 +2468,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2567,13 +2521,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccountasSuperAdmin(id, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateServiceAccountasSuperAdmin(id, apiServiceAccount).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2621,13 +2574,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUser(id, tenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUser(id, tenant, apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2676,13 +2628,12 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let resourceTenant = "resourceTenant_example"; // String | 
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2730,13 +2681,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUserasSuperAdmin(id, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUserasSuperAdmin(id, apiUser).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

@@ -53,13 +53,6 @@ export default class ExecutionsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createExecution operation.
-     * @callback module:api/ExecutionsApi~createExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ExecutionControllerExecutionResponse>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a new execution for a flow
@@ -71,10 +64,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] The labels as a list of 'key:value'
      * @param {Number} [revision] The flow revision or latest if null
      * @param {Date} [scheduleDate] Schedule the flow on a specific date
-     * @param {module:api/ExecutionsApi~createExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ExecutionControllerExecutionResponse>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>} and HTTP response
      */
-    createExecution(namespace, id, wait, tenant, opts, callback) {
+    createExecutionWithHttpInfo(namespace, id, wait, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -117,17 +109,29 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{namespace}/{id}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteExecution operation.
-     * @callback module:api/ExecutionsApi~deleteExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a new execution for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {Boolean} wait If the server will wait the end of the execution
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.labels The labels as a list of 'key:value'
+     * @param {Number} opts.revision The flow revision or latest if null
+     * @param {Date} opts.scheduleDate Schedule the flow on a specific date
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>}
      */
+    createExecution(namespace, id, wait, tenant, opts) {
+      return this.createExecutionWithHttpInfo(namespace, id, wait, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an execution
@@ -136,9 +140,9 @@ export default class ExecutionsApi {
      * @param {Boolean} deleteMetrics Whether to delete execution metrics
      * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~deleteExecutionCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant, callback) {
+    deleteExecutionWithHttpInfo(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -182,17 +186,26 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~deleteExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an execution
+     * @param {String} executionId The execution id
+     * @param {Boolean} deleteLogs Whether to delete execution logs
+     * @param {Boolean} deleteMetrics Whether to delete execution metrics
+     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteExecution(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant) {
+      return this.deleteExecutionWithHttpInfo(executionId, deleteLogs, deleteMetrics, deleteStorage, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a list of executions
@@ -203,10 +216,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} requestBody The execution id
      * @param {Object} opts Optional parameters
      * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
-     * @param {module:api/ExecutionsApi~deleteExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts, callback) {
+    deleteExecutionsByIdsWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts) {
       opts = opts || {};
       let postBody = requestBody;
       // verify the required parameter 'deleteLogs' is set
@@ -251,17 +263,28 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/by-ids', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~deleteExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a list of executions
+     * @param {Boolean} deleteLogs Whether to delete execution logs
+     * @param {Boolean} deleteMetrics Whether to delete execution metrics
+     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The execution id
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    deleteExecutionsByIds(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts) {
+      return this.deleteExecutionsByIdsWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, requestBody, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete executions filter by query parameters
@@ -283,10 +306,9 @@ export default class ExecutionsApi {
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
      * @param {Boolean} [includeNonTerminated = false)] Whether to delete non-terminated executions
-     * @param {module:api/ExecutionsApi~deleteExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    deleteExecutionsByQueryWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'deleteLogs' is set
@@ -342,27 +364,48 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/by-query', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the downloadFileFromExecution operation.
-     * @callback module:api/ExecutionsApi~downloadFileFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {File} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete executions filter by query parameters
+     * @param {Boolean} deleteLogs Whether to delete execution logs
+     * @param {Boolean} deleteMetrics Whether to delete execution metrics
+     * @param {Boolean} deleteStorage Whether to delete execution files in the internal storage
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Boolean} opts.includeNonTerminated Whether to delete non-terminated executions (default to false)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.deleteExecutionsByQueryWithHttpInfo(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Download file for an execution
      * @param {String} executionId The execution id
      * @param {String} path The internal storage uri
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~downloadFileFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link File}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
-    downloadFileFromExecution(executionId, path, tenant, callback) {
+    downloadFileFromExecutionWithHttpInfo(executionId, path, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -396,17 +439,24 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/file', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the evalTaskRunExpression operation.
-     * @callback module:api/ExecutionsApi~evalTaskRunExpressionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ExecutionControllerEvalResult} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Download file for an execution
+     * @param {String} executionId The execution id
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
+    downloadFileFromExecution(executionId, path, tenant) {
+      return this.downloadFileFromExecutionWithHttpInfo(executionId, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Evaluate a variable expression for this taskrun
@@ -414,10 +464,9 @@ export default class ExecutionsApi {
      * @param {String} taskRunId The taskrun id
      * @param {String} tenant 
      * @param {String} body The Pebble expression that should be evaluated
-     * @param {module:api/ExecutionsApi~evalTaskRunExpressionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ExecutionControllerEvalResult}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ExecutionControllerEvalResult} and HTTP response
      */
-    evalTaskRunExpression(executionId, taskRunId, tenant, body, callback) {
+    evalTaskRunExpressionWithHttpInfo(executionId, taskRunId, tenant, body) {
       let postBody = body;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -455,26 +504,33 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the followExecution operation.
-     * @callback module:api/ExecutionsApi~followExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/EventExecution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Evaluate a variable expression for this taskrun
+     * @param {String} executionId The execution id
+     * @param {String} taskRunId The taskrun id
+     * @param {String} tenant 
+     * @param {String} body The Pebble expression that should be evaluated
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ExecutionControllerEvalResult}
      */
+    evalTaskRunExpression(executionId, taskRunId, tenant, body) {
+      return this.evalTaskRunExpressionWithHttpInfo(executionId, taskRunId, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Follow an execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~followExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/EventExecution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/EventExecution} and HTTP response
      */
-    followExecution(executionId, tenant, callback) {
+    followExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -503,26 +559,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/follow', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the forceRunByIds operation.
-     * @callback module:api/ExecutionsApi~forceRunByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Follow an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/EventExecution}
      */
+    followExecution(executionId, tenant) {
+      return this.followExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Force run a list of executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~forceRunByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    forceRunByIds(tenant, requestBody, callback) {
+    forceRunByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -550,26 +611,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/force-run/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the forceRunExecution operation.
-     * @callback module:api/ExecutionsApi~forceRunExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Force run a list of executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    forceRunByIds(tenant, requestBody) {
+      return this.forceRunByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Force run an execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~forceRunExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    forceRunExecution(executionId, tenant, callback) {
+    forceRunExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -598,17 +664,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/force-run', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the forceRunExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~forceRunExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Force run an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    forceRunExecution(executionId, tenant) {
+      return this.forceRunExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Force run executions filter by query parameters
@@ -626,10 +698,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~forceRunExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    forceRunExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -669,26 +740,43 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/force-run/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getExecution operation.
-     * @callback module:api/ExecutionsApi~getExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Force run executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.forceRunExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~getExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    getExecution(executionId, tenant, callback) {
+    getExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -717,17 +805,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getExecutionFlowGraph operation.
-     * @callback module:api/ExecutionsApi~getExecutionFlowGraphCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowGraph} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    getExecution(executionId, tenant) {
+      return this.getExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Generate a graph for an execution
@@ -735,10 +829,9 @@ export default class ExecutionsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [subflows] The subflow tasks to display
-     * @param {module:api/ExecutionsApi~getExecutionFlowGraphCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowGraph}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowGraph} and HTTP response
      */
-    getExecutionFlowGraph(executionId, tenant, opts, callback) {
+    getExecutionFlowGraphWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -769,27 +862,34 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/graph', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFileMetadatasFromExecution operation.
-     * @callback module:api/ExecutionsApi~getFileMetadatasFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FileMetas} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Generate a graph for an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.subflows The subflow tasks to display
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowGraph}
      */
+    getExecutionFlowGraph(executionId, tenant, opts) {
+      return this.getExecutionFlowGraphWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get file meta information for an execution
      * @param {String} executionId The execution id
      * @param {String} path The internal storage uri
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~getFileMetadatasFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FileMetas}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FileMetas} and HTTP response
      */
-    getFileMetadatasFromExecution(executionId, path, tenant, callback) {
+    getFileMetadatasFromExecutionWithHttpInfo(executionId, path, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -823,17 +923,24 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/file/metas', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFlowFromExecution operation.
-     * @callback module:api/ExecutionsApi~getFlowFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowForExecution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get file meta information for an execution
+     * @param {String} executionId The execution id
+     * @param {String} path The internal storage uri
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FileMetas}
      */
+    getFileMetadatasFromExecution(executionId, path, tenant) {
+      return this.getFileMetadatasFromExecutionWithHttpInfo(executionId, path, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get flow information's for an execution
@@ -842,10 +949,9 @@ export default class ExecutionsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] The flow revision
-     * @param {module:api/ExecutionsApi~getFlowFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowForExecution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowForExecution} and HTTP response
      */
-    getFlowFromExecution(namespace, flowId, tenant, opts, callback) {
+    getFlowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -881,26 +987,34 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/flows/{namespace}/{flowId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getFlowFromExecutionById operation.
-     * @callback module:api/ExecutionsApi~getFlowFromExecutionByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/FlowForExecution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get flow information's for an execution
+     * @param {String} namespace The namespace of the flow
+     * @param {String} flowId The flow id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision The flow revision
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowForExecution}
      */
+    getFlowFromExecution(namespace, flowId, tenant, opts) {
+      return this.getFlowFromExecutionWithHttpInfo(namespace, flowId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get flow information's for an execution
      * @param {String} executionId The execution that you want flow information's
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~getFlowFromExecutionByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/FlowForExecution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/FlowForExecution} and HTTP response
      */
-    getFlowFromExecutionById(executionId, tenant, callback) {
+    getFlowFromExecutionByIdWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -929,27 +1043,32 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/flow', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the killExecution operation.
-     * @callback module:api/ExecutionsApi~killExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get flow information's for an execution
+     * @param {String} executionId The execution that you want flow information's
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/FlowForExecution}
      */
+    getFlowFromExecutionById(executionId, tenant) {
+      return this.getFlowFromExecutionByIdWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Kill an execution
      * @param {String} executionId The execution id
      * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~killExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    killExecution(executionId, isOnKillCascade, tenant, callback) {
+    killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -983,26 +1102,32 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/kill', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the killExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~killExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Kill an execution
+     * @param {String} executionId The execution id
+     * @param {Boolean} isOnKillCascade Specifies whether killing the execution also kill all subflow executions.
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    killExecution(executionId, isOnKillCascade, tenant) {
+      return this.killExecutionWithHttpInfo(executionId, isOnKillCascade, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Kill a list of executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~killExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    killExecutionsByIds(tenant, requestBody, callback) {
+    killExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1030,17 +1155,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/kill/by-ids', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the killExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~killExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Kill a list of executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    killExecutionsByIds(tenant, requestBody) {
+      return this.killExecutionsByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Kill executions filter by query parameters
@@ -1058,10 +1189,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~killExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    killExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -1101,25 +1231,42 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/kill/by-query', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listExecutableDistinctNamespaces operation.
-     * @callback module:api/ExecutionsApi~listExecutableDistinctNamespacesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Kill executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.killExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all namespaces that have executable flows
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~listExecutableDistinctNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    listExecutableDistinctNamespaces(tenant, callback) {
+    listExecutableDistinctNamespacesWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1143,26 +1290,30 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/namespaces', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listFlowExecutionsByNamespace operation.
-     * @callback module:api/ExecutionsApi~listFlowExecutionsByNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/FlowForExecution>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all namespaces that have executable flows
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    listExecutableDistinctNamespaces(tenant) {
+      return this.listExecutableDistinctNamespacesWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
      * @param {String} namespace The namespace
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~listFlowExecutionsByNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/FlowForExecution>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/FlowForExecution>} and HTTP response
      */
-    listFlowExecutionsByNamespace(namespace, tenant, callback) {
+    listFlowExecutionsByNamespaceWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -1191,25 +1342,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/namespaces/{namespace}/flows', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseExecution operation.
-     * @callback module:api/ExecutionsApi~pauseExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
+     * @param {String} namespace The namespace
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/FlowForExecution>}
      */
+    listFlowExecutionsByNamespace(namespace, tenant) {
+      return this.listFlowExecutionsByNamespaceWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Pause a running execution.
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~pauseExecutionCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    pauseExecution(executionId, tenant, callback) {
+    pauseExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -1238,26 +1395,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/pause', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~pauseExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause a running execution.
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    pauseExecution(executionId, tenant) {
+      return this.pauseExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Pause a list of running executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~pauseExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    pauseExecutionsByIds(tenant, requestBody, callback) {
+    pauseExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1285,17 +1447,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/pause/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the pauseExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~pauseExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause a list of running executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    pauseExecutionsByIds(tenant, requestBody) {
+      return this.pauseExecutionsByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Pause executions filter by query parameters
@@ -1313,10 +1481,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~pauseExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    pauseExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -1356,17 +1523,35 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/pause/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the previewFileFromExecution operation.
-     * @callback module:api/ExecutionsApi~previewFileFromExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Pause executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.pauseExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get file preview for an execution
@@ -1375,10 +1560,9 @@ export default class ExecutionsApi {
      * @param {Number} maxRows The max row returns
      * @param {String} encoding The file encoding as Java charset name. Defaults to UTF-8
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~previewFileFromExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    previewFileFromExecution(executionId, path, maxRows, encoding, tenant, callback) {
+    previewFileFromExecutionWithHttpInfo(executionId, path, maxRows, encoding, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -1422,17 +1606,26 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/file/preview', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the replayExecution operation.
-     * @callback module:api/ExecutionsApi~replayExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get file preview for an execution
+     * @param {String} executionId The execution id
+     * @param {String} path The internal storage uri
+     * @param {Number} maxRows The max row returns
+     * @param {String} encoding The file encoding as Java charset name. Defaults to UTF-8
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    previewFileFromExecution(executionId, path, maxRows, encoding, tenant) {
+      return this.previewFileFromExecutionWithHttpInfo(executionId, path, maxRows, encoding, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a new execution from an old one and start it from a specified task run id
@@ -1441,10 +1634,9 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [taskRunId] The taskrun id
      * @param {Number} [revision] The flow revision to use for new execution
-     * @param {module:api/ExecutionsApi~replayExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    replayExecution(executionId, tenant, opts, callback) {
+    replayExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -1476,17 +1668,26 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/replay', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the replayExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~replayExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a new execution from an old one and start it from a specified task run id
+     * @param {String} executionId the original execution id to clone
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.taskRunId The taskrun id
+     * @param {Number} opts.revision The flow revision to use for new execution
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    replayExecution(executionId, tenant, opts) {
+      return this.replayExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new executions from old ones. Keep the flow revision
@@ -1494,10 +1695,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} requestBody The list of executions id
      * @param {Object} opts Optional parameters
      * @param {Boolean} [latestRevision = false)] If latest revision should be used
-     * @param {module:api/ExecutionsApi~replayExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    replayExecutionsByIds(tenant, requestBody, opts, callback) {
+    replayExecutionsByIdsWithHttpInfo(tenant, requestBody, opts) {
       opts = opts || {};
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
@@ -1527,17 +1727,25 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/replay/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the replayExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~replayExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new executions from old ones. Keep the flow revision
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    replayExecutionsByIds(tenant, requestBody, opts) {
+      return this.replayExecutionsByIdsWithHttpInfo(tenant, requestBody, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new executions from old ones filter by query parameters. Keep the flow revision
@@ -1556,10 +1764,9 @@ export default class ExecutionsApi {
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
      * @param {Boolean} [latestRevision = false)] If latest revision should be used
-     * @param {module:api/ExecutionsApi~replayExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    replayExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -1600,17 +1807,36 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/replay/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the restartExecution operation.
-     * @callback module:api/ExecutionsApi~restartExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new executions from old ones filter by query parameters. Keep the flow revision
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @param {Boolean} opts.latestRevision If latest revision should be used (default to false)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.replayExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Restart a new execution from an old one
@@ -1618,10 +1844,9 @@ export default class ExecutionsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] The flow revision to use for new execution
-     * @param {module:api/ExecutionsApi~restartExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    restartExecution(executionId, tenant, opts, callback) {
+    restartExecutionWithHttpInfo(executionId, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
@@ -1652,26 +1877,33 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/restart', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the restartExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~restartExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Restart a new execution from an old one
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision The flow revision to use for new execution
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    restartExecution(executionId, tenant, opts) {
+      return this.restartExecutionWithHttpInfo(executionId, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Restart a list of executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~restartExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    restartExecutionsByIds(tenant, requestBody, callback) {
+    restartExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1699,17 +1931,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/restart/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the restartExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~restartExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Restart a list of executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    restartExecutionsByIds(tenant, requestBody) {
+      return this.restartExecutionsByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Restart executions filter by query parameters
@@ -1727,10 +1965,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~restartExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    restartExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -1770,26 +2007,43 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/restart/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the resumeExecution operation.
-     * @callback module:api/ExecutionsApi~resumeExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Restart executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.restartExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Resume a paused execution.
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~resumeExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    resumeExecution(executionId, tenant, callback) {
+    resumeExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -1818,26 +2072,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/resume', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the resumeExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~resumeExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Resume a paused execution.
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    resumeExecution(executionId, tenant) {
+      return this.resumeExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Resume a list of paused executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~resumeExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    resumeExecutionsByIds(tenant, requestBody, callback) {
+    resumeExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1865,17 +2124,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/resume/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the resumeExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~resumeExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Resume a list of paused executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    resumeExecutionsByIds(tenant, requestBody) {
+      return this.resumeExecutionsByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Resume executions filter by query parameters
@@ -1893,10 +2158,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~resumeExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    resumeExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -1936,17 +2200,35 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/resume/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchExecutions operation.
-     * @callback module:api/ExecutionsApi~searchExecutionsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsExecution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Resume executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.resumeExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for executions
@@ -1967,10 +2249,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~searchExecutionsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsExecution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
      */
-    searchExecutions(page, size, tenant, opts, callback) {
+    searchExecutionsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -2018,17 +2299,38 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchExecutionsByFlowId operation.
-     * @callback module:api/ExecutionsApi~searchExecutionsByFlowIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsExecution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for executions
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
      */
+    searchExecutions(page, size, tenant, opts) {
+      return this.searchExecutionsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for executions for a flow
@@ -2037,10 +2339,9 @@ export default class ExecutionsApi {
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~searchExecutionsByFlowIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsExecution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsExecution} and HTTP response
      */
-    searchExecutionsByFlowId(namespace, flowId, page, size, tenant, callback) {
+    searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -2084,17 +2385,26 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchTaskRun operation.
-     * @callback module:api/ExecutionsApi~searchTaskRunCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTaskRun} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for executions for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} flowId The flow id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsExecution}
      */
+    searchExecutionsByFlowId(namespace, flowId, page, size, tenant) {
+      return this.searchExecutionsByFlowIdWithHttpInfo(namespace, flowId, page, size, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for taskruns, only available with the Elasticsearch repository
@@ -2114,10 +2424,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~searchTaskRunCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTaskRun}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsTaskRun} and HTTP response
      */
-    searchTaskRun(page, size, tenant, opts, callback) {
+    searchTaskRunWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -2164,27 +2473,46 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/taskruns/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setLabelsOnTerminatedExecution operation.
-     * @callback module:api/ExecutionsApi~setLabelsOnTerminatedExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for taskruns, only available with the Elasticsearch repository
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/QueryFilter>} opts.filters Filters
+     * @param {String} opts.q A string filter
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsTaskRun}
      */
+    searchTaskRun(page, size, tenant, opts) {
+      return this.searchTaskRunWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Add or update labels of a terminated execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
      * @param {Array.<module:model/Label>} label The labels to add to the execution
-     * @param {module:api/ExecutionsApi~setLabelsOnTerminatedExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    setLabelsOnTerminatedExecution(executionId, tenant, label, callback) {
+    setLabelsOnTerminatedExecutionWithHttpInfo(executionId, tenant, label) {
       let postBody = label;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -2217,26 +2545,32 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/labels', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setLabelsOnTerminatedExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~setLabelsOnTerminatedExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Add or update labels of a terminated execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Array.<module:model/Label>} label The labels to add to the execution
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    setLabelsOnTerminatedExecution(executionId, tenant, label) {
+      return this.setLabelsOnTerminatedExecutionWithHttpInfo(executionId, tenant, label)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Set labels on a list of executions
      * @param {String} tenant 
      * @param {module:model/ExecutionControllerSetLabelsByIdsRequest} executionControllerSetLabelsByIdsRequest The request containing a list of labels and a list of executions
-     * @param {module:api/ExecutionsApi~setLabelsOnTerminatedExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, callback) {
+    setLabelsOnTerminatedExecutionsByIdsWithHttpInfo(tenant, executionControllerSetLabelsByIdsRequest) {
       let postBody = executionControllerSetLabelsByIdsRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2264,17 +2598,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/labels/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setLabelsOnTerminatedExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~setLabelsOnTerminatedExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Set labels on a list of executions
+     * @param {String} tenant 
+     * @param {module:model/ExecutionControllerSetLabelsByIdsRequest} executionControllerSetLabelsByIdsRequest The request containing a list of labels and a list of executions
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest) {
+      return this.setLabelsOnTerminatedExecutionsByIdsWithHttpInfo(tenant, executionControllerSetLabelsByIdsRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Set label on executions filter by query parameters
@@ -2292,10 +2632,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~setLabelsOnTerminatedExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts, callback) {
+    setLabelsOnTerminatedExecutionsByQueryWithHttpInfo(tenant, label, opts) {
       opts = opts || {};
       let postBody = label;
       // verify the required parameter 'tenant' is set
@@ -2335,17 +2674,35 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/labels/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the triggerExecution operation.
-     * @callback module:api/ExecutionsApi~triggerExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ExecutionControllerExecutionResponse>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Set label on executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/Label} label The labels to add to the execution
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts) {
+      return this.setLabelsOnTerminatedExecutionsByQueryWithHttpInfo(tenant, label, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Trigger a new execution for a flow
@@ -2356,10 +2713,9 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [labels] The labels as a list of 'key:value'
      * @param {Number} [revision] The flow revision or latest if null
-     * @param {module:api/ExecutionsApi~triggerExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ExecutionControllerExecutionResponse>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>} and HTTP response
      */
-    triggerExecution(namespace, id, wait, tenant, opts, callback) {
+    triggerExecutionWithHttpInfo(namespace, id, wait, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -2401,17 +2757,28 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/trigger/{namespace}/{id}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the triggerExecutionByGetWebhook operation.
-     * @callback module:api/ExecutionsApi~triggerExecutionByGetWebhookCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Trigger a new execution for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {Boolean} wait If the server will wait the end of the execution
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.labels The labels as a list of 'key:value'
+     * @param {Number} opts.revision The flow revision or latest if null
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerExecutionResponse>}
      */
+    triggerExecution(namespace, id, wait, tenant, opts) {
+      return this.triggerExecutionWithHttpInfo(namespace, id, wait, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Trigger a new execution by GET webhook trigger
@@ -2419,10 +2786,9 @@ export default class ExecutionsApi {
      * @param {String} id The flow id
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~triggerExecutionByGetWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    triggerExecutionByGetWebhook(namespace, id, key, tenant, callback) {
+    triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -2461,17 +2827,25 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the triggerExecutionByPostWebhook operation.
-     * @callback module:api/ExecutionsApi~triggerExecutionByPostWebhookCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Trigger a new execution by GET webhook trigger
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} key The webhook trigger uid
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    triggerExecutionByGetWebhook(namespace, id, key, tenant) {
+      return this.triggerExecutionByGetWebhookWithHttpInfo(namespace, id, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Trigger a new execution by POST webhook trigger
@@ -2479,10 +2853,9 @@ export default class ExecutionsApi {
      * @param {String} id The flow id
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~triggerExecutionByPostWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    triggerExecutionByPostWebhook(namespace, id, key, tenant, callback) {
+    triggerExecutionByPostWebhookWithHttpInfo(namespace, id, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -2521,17 +2894,25 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the triggerExecutionByPutWebhook operation.
-     * @callback module:api/ExecutionsApi~triggerExecutionByPutWebhookCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Trigger a new execution by POST webhook trigger
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} key The webhook trigger uid
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    triggerExecutionByPostWebhook(namespace, id, key, tenant) {
+      return this.triggerExecutionByPostWebhookWithHttpInfo(namespace, id, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Trigger a new execution by PUT webhook trigger
@@ -2539,10 +2920,9 @@ export default class ExecutionsApi {
      * @param {String} id The flow id
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~triggerExecutionByPutWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    triggerExecutionByPutWebhook(namespace, id, key, tenant, callback) {
+    triggerExecutionByPutWebhookWithHttpInfo(namespace, id, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -2581,26 +2961,33 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unqueueExecution operation.
-     * @callback module:api/ExecutionsApi~unqueueExecutionCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Trigger a new execution by PUT webhook trigger
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {String} key The webhook trigger uid
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    triggerExecutionByPutWebhook(namespace, id, key, tenant) {
+      return this.triggerExecutionByPutWebhookWithHttpInfo(namespace, id, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Unqueue an execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~unqueueExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    unqueueExecution(executionId, tenant, callback) {
+    unqueueExecutionWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -2629,26 +3016,31 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/unqueue', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unqueueExecutionsByIds operation.
-     * @callback module:api/ExecutionsApi~unqueueExecutionsByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unqueue an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    unqueueExecution(executionId, tenant) {
+      return this.unqueueExecutionWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Unqueue a list of executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~unqueueExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    unqueueExecutionsByIds(tenant, requestBody, callback) {
+    unqueueExecutionsByIdsWithHttpInfo(tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2676,17 +3068,23 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/unqueue/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the unqueueExecutionsByQuery operation.
-     * @callback module:api/ExecutionsApi~unqueueExecutionsByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unqueue a list of executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    unqueueExecutionsByIds(tenant, requestBody) {
+      return this.unqueueExecutionsByIdsWithHttpInfo(tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Unqueue executions filter by query parameters
@@ -2704,10 +3102,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~unqueueExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    unqueueExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'tenant' is set
@@ -2747,27 +3144,44 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/unqueue/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateExecutionStatus operation.
-     * @callback module:api/ExecutionsApi~updateExecutionStatusCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Unqueue executions filter by query parameters
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.unqueueExecutionsByQueryWithHttpInfo(tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Change the state of an execution
      * @param {String} executionId The execution id
      * @param {module:model/StateType} status The new state of the execution
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~updateExecutionStatusCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    updateExecutionStatus(executionId, status, tenant, callback) {
+    updateExecutionStatusWithHttpInfo(executionId, status, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -2801,27 +3215,33 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/change-status', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateExecutionsStatusByIds operation.
-     * @callback module:api/ExecutionsApi~updateExecutionsStatusByIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Change the state of an execution
+     * @param {String} executionId The execution id
+     * @param {module:model/StateType} status The new state of the execution
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    updateExecutionStatus(executionId, status, tenant) {
+      return this.updateExecutionStatusWithHttpInfo(executionId, status, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Change executions state by id
      * @param {module:model/StateType} newStatus The new state of the executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
-     * @param {module:api/ExecutionsApi~updateExecutionsStatusByIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    updateExecutionsStatusByIds(newStatus, tenant, requestBody, callback) {
+    updateExecutionsStatusByIdsWithHttpInfo(newStatus, tenant, requestBody) {
       let postBody = requestBody;
       // verify the required parameter 'newStatus' is set
       if (newStatus === undefined || newStatus === null) {
@@ -2854,17 +3274,24 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/change-status/by-ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateExecutionsStatusByQuery operation.
-     * @callback module:api/ExecutionsApi~updateExecutionsStatusByQueryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/BulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Change executions state by id
+     * @param {module:model/StateType} newStatus The new state of the executions
+     * @param {String} tenant 
+     * @param {Array.<String>} requestBody The list of executions id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    updateExecutionsStatusByIds(newStatus, tenant, requestBody) {
+      return this.updateExecutionsStatusByIdsWithHttpInfo(newStatus, tenant, requestBody)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Change executions state by query parameters
@@ -2883,10 +3310,9 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~updateExecutionsStatusByQueryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/BulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/BulkResponse} and HTTP response
      */
-    updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts, callback) {
+    updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, deleteExecutionsByQueryRequest, opts) {
       opts = opts || {};
       let postBody = deleteExecutionsByQueryRequest;
       // verify the required parameter 'newStatus' is set
@@ -2931,27 +3357,45 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/change-status/by-query', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTaskRunState operation.
-     * @callback module:api/ExecutionsApi~updateTaskRunStateCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Change executions state by query parameters
+     * @param {module:model/StateType} newStatus The new state of the executions
+     * @param {String} tenant 
+     * @param {module:model/DeleteExecutionsByQueryRequest} deleteExecutionsByQueryRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<module:model/FlowScope>} opts.scope The scope of the executions to include
+     * @param {String} opts.namespace A namespace filter prefix
+     * @param {String} opts.flowId A flow id filter
+     * @param {Date} opts.startDate The start datetime
+     * @param {Date} opts.endDate The end datetime
+     * @param {String} opts.timeRange A time range filter relative to the current time
+     * @param {Array.<module:model/StateType>} opts.state A state filter
+     * @param {Array.<String>} opts.labels A labels filter as a list of 'key:value'
+     * @param {String} opts.triggerExecutionId The trigger execution id
+     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} opts.childFilter A execution child filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BulkResponse}
      */
+    updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts) {
+      return this.updateExecutionsStatusByQueryWithHttpInfo(newStatus, tenant, deleteExecutionsByQueryRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Change state for a taskrun in an execution
      * @param {String} executionId The execution id
      * @param {String} tenant 
      * @param {module:model/ExecutionControllerStateRequest} executionControllerStateRequest the taskRun id and state to apply
-     * @param {module:api/ExecutionsApi~updateTaskRunStateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Execution} and HTTP response
      */
-    updateTaskRunState(executionId, tenant, executionControllerStateRequest, callback) {
+    updateTaskRunStateWithHttpInfo(executionId, tenant, executionControllerStateRequest) {
       let postBody = executionControllerStateRequest;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -2984,17 +3428,24 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/state', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateNewExecutionInputs operation.
-     * @callback module:api/ExecutionsApi~validateNewExecutionInputsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Change state for a taskrun in an execution
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {module:model/ExecutionControllerStateRequest} executionControllerStateRequest the taskRun id and state to apply
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Execution}
      */
+    updateTaskRunState(executionId, tenant, executionControllerStateRequest) {
+      return this.updateTaskRunStateWithHttpInfo(executionId, tenant, executionControllerStateRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Validate the creation of a new execution for a flow
@@ -3004,10 +3455,9 @@ export default class ExecutionsApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Number} [revision] The flow revision or latest if null
-     * @param {module:api/ExecutionsApi~validateNewExecutionInputsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} and HTTP response
      */
-    validateNewExecutionInputs(namespace, id, labels, tenant, opts, callback) {
+    validateNewExecutionInputsWithHttpInfo(namespace, id, labels, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -3048,26 +3498,35 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{namespace}/{id}/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the validateResumeExecutionInputs operation.
-     * @callback module:api/ExecutionsApi~validateResumeExecutionInputsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Validate the creation of a new execution for a flow
+     * @param {String} namespace The flow namespace
+     * @param {String} id The flow id
+     * @param {Array.<String>} labels The labels as a list of 'key:value'
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.revision The flow revision or latest if null
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
      */
+    validateNewExecutionInputs(namespace, id, labels, tenant, opts) {
+      return this.validateNewExecutionInputsWithHttpInfo(namespace, id, labels, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Validate inputs to resume a paused execution.
      * @param {String} executionId The execution id
      * @param {String} tenant 
-     * @param {module:api/ExecutionsApi~validateResumeExecutionInputsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>} and HTTP response
      */
-    validateResumeExecutionInputs(executionId, tenant, callback) {
+    validateResumeExecutionInputsWithHttpInfo(executionId, tenant) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
@@ -3096,8 +3555,21 @@ export default class ExecutionsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/resume/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Validate inputs to resume a paused execution.
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponse>}
+     */
+    validateResumeExecutionInputs(executionId, tenant) {
+      return this.validateResumeExecutionInputsWithHttpInfo(executionId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

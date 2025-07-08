@@ -36,22 +36,14 @@ export default class SCIMConfigurationApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the getAllResourceTypes operation.
-     * @callback module:api/SCIMConfigurationApi~getAllResourceTypesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ResourceType>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Get All Resource Types
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMConfigurationApi~getAllResourceTypesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ResourceType>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ResourceType>} and HTTP response
      */
-    getAllResourceTypes(integration, tenant, callback) {
+    getAllResourceTypesWithHttpInfo(integration, tenant) {
       let postBody = null;
       // verify the required parameter 'integration' is set
       if (integration === undefined || integration === null) {
@@ -80,26 +72,31 @@ export default class SCIMConfigurationApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getAllSchemas operation.
-     * @callback module:api/SCIMConfigurationApi~getAllSchemasCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Schema>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get All Resource Types
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ResourceType>}
      */
+    getAllResourceTypes(integration, tenant) {
+      return this.getAllResourceTypesWithHttpInfo(integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get All Schemas
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMConfigurationApi~getAllSchemasCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Schema>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Schema>} and HTTP response
      */
-    getAllSchemas(integration, tenant, callback) {
+    getAllSchemasWithHttpInfo(integration, tenant) {
       let postBody = null;
       // verify the required parameter 'integration' is set
       if (integration === undefined || integration === null) {
@@ -128,27 +125,32 @@ export default class SCIMConfigurationApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getResourceType operation.
-     * @callback module:api/SCIMConfigurationApi~getResourceTypeCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResourceType} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get All Schemas
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Schema>}
      */
+    getAllSchemas(integration, tenant) {
+      return this.getAllSchemasWithHttpInfo(integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get Resource Type by URN
      * @param {String} name 
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMConfigurationApi~getResourceTypeCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResourceType}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResourceType} and HTTP response
      */
-    getResourceType(name, integration, tenant, callback) {
+    getResourceTypeWithHttpInfo(name, integration, tenant) {
       let postBody = null;
       // verify the required parameter 'name' is set
       if (name === undefined || name === null) {
@@ -182,27 +184,33 @@ export default class SCIMConfigurationApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSchema operation.
-     * @callback module:api/SCIMConfigurationApi~getSchemaCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Schema} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get Resource Type by URN
+     * @param {String} name 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResourceType}
      */
+    getResourceType(name, integration, tenant) {
+      return this.getResourceTypeWithHttpInfo(name, integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get Schemas by URN
      * @param {String} uri 
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMConfigurationApi~getSchemaCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Schema}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Schema} and HTTP response
      */
-    getSchema(uri, integration, tenant, callback) {
+    getSchemaWithHttpInfo(uri, integration, tenant) {
       let postBody = null;
       // verify the required parameter 'uri' is set
       if (uri === undefined || uri === null) {
@@ -236,26 +244,32 @@ export default class SCIMConfigurationApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getServiceProviderConfiguration operation.
-     * @callback module:api/SCIMConfigurationApi~getServiceProviderConfigurationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ServiceProviderConfiguration} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get Schemas by URN
+     * @param {String} uri 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Schema}
      */
+    getSchema(uri, integration, tenant) {
+      return this.getSchemaWithHttpInfo(uri, integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get Service Provider Configuration
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMConfigurationApi~getServiceProviderConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ServiceProviderConfiguration}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ServiceProviderConfiguration} and HTTP response
      */
-    getServiceProviderConfiguration(integration, tenant, callback) {
+    getServiceProviderConfigurationWithHttpInfo(integration, tenant) {
       let postBody = null;
       // verify the required parameter 'integration' is set
       if (integration === undefined || integration === null) {
@@ -284,8 +298,21 @@ export default class SCIMConfigurationApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Get Service Provider Configuration
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ServiceProviderConfiguration}
+     */
+    getServiceProviderConfiguration(integration, tenant) {
+      return this.getServiceProviderConfigurationWithHttpInfo(integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

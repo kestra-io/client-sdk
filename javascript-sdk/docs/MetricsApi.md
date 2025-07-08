@@ -42,13 +42,12 @@ let opts = {
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime, default to now - 30 days
   'endDate': new Date("2013-10-20T19:20:30+01:00") // Date | The end datetime, default to now
 };
-apiInstance.aggregateMetricsFromFlow(namespace, flowId, metric, aggregation, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.aggregateMetricsFromFlow(namespace, flowId, metric, aggregation, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -108,13 +107,12 @@ let opts = {
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime, default to now - 30 days
   'endDate': new Date("2013-10-20T19:20:30+01:00") // Date | The end datetime, default to now
 };
-apiInstance.aggregateMetricsFromTask(namespace, flowId, taskId, metric, aggregation, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.aggregateMetricsFromTask(namespace, flowId, taskId, metric, aggregation, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -168,13 +166,12 @@ let apiInstance = new KestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let tenant = "tenant_example"; // String | 
-apiInstance.listFlowMetrics(namespace, flowId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listFlowMetrics(namespace, flowId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -224,13 +221,12 @@ let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let taskId = "taskId_example"; // String | The task Id
 let tenant = "tenant_example"; // String | 
-apiInstance.listTaskMetrics(namespace, flowId, taskId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listTaskMetrics(namespace, flowId, taskId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -280,13 +276,12 @@ let apiInstance = new KestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let tenant = "tenant_example"; // String | 
-apiInstance.listTasksWithMetrics(namespace, flowId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listTasksWithMetrics(namespace, flowId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -341,13 +336,12 @@ let opts = {
   'taskRunId': "taskRunId_example", // String | The taskrun id
   'taskId': "taskId_example" // String | The task id
 };
-apiInstance.searchByExecution(page, size, executionId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchByExecution(page, size, executionId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

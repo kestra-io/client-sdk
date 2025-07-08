@@ -28,13 +28,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The TestSuite source code
-apiInstance.createTestSuite(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createTestSuite(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -74,13 +73,12 @@ let apiInstance = new KestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteTestSuite(namespace, id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteTestSuite(namespace, id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -121,13 +119,12 @@ let apiInstance = new KestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
-apiInstance.getTestSuite(namespace, id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getTestSuite(namespace, id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -168,13 +165,12 @@ let apiInstance = new KestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
-apiInstance.runTestSuite(namespace, id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.runTestSuite(namespace, id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -220,13 +216,12 @@ let opts = {
   'namespace': "namespace_example", // String | The namespace to filter on
   'flowId': "flowId_example" // String | The flow id to filter on
 };
-apiInstance.searchTestSuites(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchTestSuites(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -271,13 +266,12 @@ let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The TestSuite source code
-apiInstance.updateTestSuite(namespace, id, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateTestSuite(namespace, id, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -318,13 +312,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The TestSuite source code
-apiInstance.validateTestSuite(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateTestSuite(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
