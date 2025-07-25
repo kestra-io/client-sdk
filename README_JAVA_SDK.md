@@ -2,19 +2,23 @@
 
 ## Steps to generate the SDK
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
+1. Update the `kestra-ee.yml` with latest OpenSpec API changes (if necessary).
+   - As of 09/06/25, a custom `kestra-ee.yml` is used to generate the Java SDK. In this file, the `tenant` field is set as mandatory rather than optional.
+   - The current file was generated with Micronaut OpenAPI version `6.15`. For the next generation, ensure you use the latest available version, which should fix two known bugs.
 
-   - As of 09/06/25, a custom `kestra-ee.yml` is used to generate the Java SDK, where we did set the tenant as mandatory instead of optional.
-   - Last `kestra-ee.yml` was generated with micronaut openapi `6.15`, for the next make sure to use the most recent version of it who should fixe 2 bugs.
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+2. Generate the SDK using the `generate-sdks.sh` script, which leverages the `openapi-generator-cli` Docker image.
 
-3. Then multiples files changes are needed to be done manually in the generated SDK:
+3. Apply manual modifications to the generated SDK files:
+
   - Remove all `classifier` from the build.gradle file.
-  - Add this dependency in the build.gradle file:
+
+   - Add the following dependency to `build.gradle`:
+
     ```groovy
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
     ```
-    - Enforce the SLF4J version to > 2.0
+    - Enforce the SLF4J version to be greater than 2.0:
+
       ```groovy
       configurations.all {
         resolutionStrategy {
@@ -22,10 +26,12 @@
         }
       }
       ```
-  - in the ApiClient.java file, we need to make it handle yaml mime type.
+
+   - In `ApiClient.java`, add support for YAML MIME types.
 
     First, add this method that will help detecting if a mime type is a yaml mime type:
-  - ```java
+
+    ```java
     public boolean isYamlMime(String mime) {
         // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
         String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
@@ -35,13 +41,15 @@
 
     Then, in the method `public HttpEntity serialize(Object obj, Map<String, Object> formParams, ContentType contentType)` of that same client,
     add the following else/if code:
+
     ```java
       else if (isYamlMime(mimeType)) {
         return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
       }
       ```
 
-## Step to use
+## How to use
 
-The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
-Use the `io.kestra.sdk.KestraClient` manually written that gather everything in one client.
+The OpenAPI generator creates one API class per controller. To streamline integration, use the manually written `io.kestra.sdk.KestraClient`, which consolidates all APIs into a single client.
+
+Instantiate the client once per API and configure it as needed for your usage.
