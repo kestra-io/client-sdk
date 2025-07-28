@@ -1,14 +1,15 @@
 plugins {
+    id "com.vanniktech.maven.publish" version "0.33.0"
     id 'java-library'
     id "idea"
     id 'jacoco'
     id "com.adarshr.test-logger" version "4.0.0"
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id 'ru.vyarus.java-lib' version '3.0.0'
-    id 'ru.vyarus.github-info' version '2.0.0'
+    id "com.gradleup.shadow" version "8.3.5"
+
+
     id 'signing'
-    id "io.github.gradle-nexus.publish-plugin" version "2.0.0"
-    id "com.github.ben-manes.versions" version "0.52.0"
+
+    id "com.github.ben-manes.versions" version "0.51.0"
     id 'net.researchgate.release' version '3.1.0'
 }
 
@@ -22,26 +23,43 @@ repositories {
     mavenCentral()
     if (isBuildSnapshot) {
         maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://central.sonatype.com/repository/maven-snapshots/" }
     }
 }
+
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
 }
-tasks.withType(Sign) {
-    onlyIf { !project.gradle.startParameter.taskNames.contains('publishToMavenLocal') }
-}
+
 /**********************************************************************************************************************\
  * Publish
  **********************************************************************************************************************/
-nexusPublishing {
-    repositoryDescription = "${project.group}:${rootProject.name}:${project.version}"
-    useStaging = !isBuildSnapshot
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+    coordinates("${project.group}", "${project.name}", "${project.version}")
+    pom {
+        name = "${project.name}"
+        description = "${project.group}:${project.name}:${project.version}"
+        url = "https://github.com/kestra-io/${project.name}"
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+        developers {
+            developer {
+                id = 'tchiotludo'
+                name = 'Dehon'
+                email = 'ldehon@kestra.io'
+            }
+        }
+        scm {
+            connection = 'scm:git:'
+            url = "https://github.com/kestra-io/${project.name}"
         }
     }
 }
@@ -49,11 +67,6 @@ nexusPublishing {
 tasks.withType(GenerateModuleMetadata).configureEach {
     // Suppression this validation error as we want to enforce the Kestra platform
     suppressedValidationErrors.add('enforced-platform')
-}
-
-github {
-    user 'kestra-io'
-    license 'Apache'
 }
 
 
@@ -69,14 +82,6 @@ jar {
     }
 }
 
-maven.pom {
-    developers {
-        developer {
-            id = "kestra-technologies"
-            name = "Kestra Technologies"
-        }
-    }
-}
 
 shadowJar {
     archiveClassifier.set(null)
