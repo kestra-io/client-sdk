@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -17,16 +17,18 @@ import Trigger from './Trigger';
 /**
  * The TriggerControllerSetDisabledRequest model module.
  * @module model/TriggerControllerSetDisabledRequest
- * @version v1
+ * @version v0.24.0
  */
 class TriggerControllerSetDisabledRequest {
     /**
      * Constructs a new <code>TriggerControllerSetDisabledRequest</code>.
      * @alias module:model/TriggerControllerSetDisabledRequest
+     * @param triggers {Array.<module:model/Trigger>} 
+     * @param disabled {Boolean} 
      */
-    constructor() { 
+    constructor(triggers, disabled) { 
         
-        TriggerControllerSetDisabledRequest.initialize(this);
+        TriggerControllerSetDisabledRequest.initialize(this, triggers, disabled);
     }
 
     /**
@@ -34,7 +36,9 @@ class TriggerControllerSetDisabledRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, triggers, disabled) { 
+        obj['triggers'] = triggers;
+        obj['disabled'] = disabled;
     }
 
     /**
@@ -64,6 +68,12 @@ class TriggerControllerSetDisabledRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TriggerControllerSetDisabledRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of TriggerControllerSetDisabledRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         if (data['triggers']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['triggers'])) {
@@ -81,7 +91,7 @@ class TriggerControllerSetDisabledRequest {
 
 }
 
-
+TriggerControllerSetDisabledRequest.RequiredProperties = ["triggers", "disabled"];
 
 /**
  * @member {Array.<module:model/Trigger>} triggers

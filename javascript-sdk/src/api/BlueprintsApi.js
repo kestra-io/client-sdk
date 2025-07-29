@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -22,7 +22,7 @@ import PagedResultsBlueprintControllerApiBlueprintItem from '../model/PagedResul
 /**
 * Blueprints service.
 * @module api/BlueprintsApi
-* @version v1
+* @version v0.24.0
 */
 export default class BlueprintsApi {
 
@@ -48,6 +48,7 @@ export default class BlueprintsApi {
 
     /**
      * Create a new internal blueprint
+     * Creates a new internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
      * @param {String} tenant 
      * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The internal blueprint to create
      * @param {module:api/BlueprintsApi~createInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
@@ -95,6 +96,7 @@ export default class BlueprintsApi {
 
     /**
      * Delete an internal blueprint
+     * Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
      * @param {String} id The internal blueprint id to delete
      * @param {String} tenant 
      * @param {module:api/BlueprintsApi~deleteInternalBlueprintsCallback} callback The callback function, accepting three arguments: error, data, response
@@ -141,7 +143,8 @@ export default class BlueprintsApi {
      */
 
     /**
-     * Get a blueprint
+     * Retrieve a blueprint
+     * Retrieves details of a specific community blueprint.
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
@@ -195,7 +198,8 @@ export default class BlueprintsApi {
      */
 
     /**
-     * Get a blueprint graph
+     * Retrieve a blueprint graph
+     * Retrieves the topology graph representation of a specific community blueprint.
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
@@ -249,7 +253,8 @@ export default class BlueprintsApi {
      */
 
     /**
-     * Get a blueprint source code
+     * Retrieve a blueprint source code
+     * Retrieves the YAML source code for a specific community blueprint.
      * @param {String} id The blueprint id
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
@@ -303,7 +308,8 @@ export default class BlueprintsApi {
      */
 
     /**
-     * Get an internal blueprint
+     * Retrieve an internal blueprint
+     * Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT permission.
      * @param {String} id The blueprint id
      * @param {String} tenant 
      * @param {module:api/BlueprintsApi~internalBlueprintCallback} callback The callback function, accepting three arguments: error, data, response
@@ -351,7 +357,8 @@ export default class BlueprintsApi {
      */
 
     /**
-     * Get an internal blueprint source code
+     * Retrieve an internal blueprint source code
+     * Retrieves the YAML source code for a specific internal (custom) blueprint. Requires BLUEPRINT permission.
      * @param {String} id The blueprint id
      * @param {String} tenant 
      * @param {module:api/BlueprintsApi~internalBlueprintFlowCallback} callback The callback function, accepting three arguments: error, data, response
@@ -400,6 +407,7 @@ export default class BlueprintsApi {
 
     /**
      * List all blueprints
+     * Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
@@ -468,6 +476,7 @@ export default class BlueprintsApi {
 
     /**
      * List all internal blueprints
+     * Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {String} tenant 
@@ -530,6 +539,7 @@ export default class BlueprintsApi {
 
     /**
      * Update an internal blueprint
+     * Updates an existing internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
      * @param {String} id The id of the internal blueprint to update
      * @param {String} tenant 
      * @param {module:model/BlueprintControllerApiBlueprintItemWithSource} blueprintControllerApiBlueprintItemWithSource The new internal blueprint for update

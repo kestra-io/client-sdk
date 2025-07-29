@@ -4,8 +4,9 @@
 
 1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
 
-  - As of 13/06/25, `the kestra-ee.yml` has been generated and used without modifications.
-  - Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
+  - As of 29/07/25, `the kestra-ee.yml` has been generated and used without modifications.
+  - Micronaut OpenAPI version `6.17.3` was used
+
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
 3.

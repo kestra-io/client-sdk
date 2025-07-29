@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -26,7 +26,7 @@ import QueryFilter from '../model/QueryFilter';
 /**
 * Namespaces service.
 * @module api/NamespacesApi
-* @version v1
+* @version v0.24.0
 */
 export default class NamespacesApi {
 
@@ -52,6 +52,7 @@ export default class NamespacesApi {
 
     /**
      * List namespaces for autocomplete
+     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
@@ -99,6 +100,7 @@ export default class NamespacesApi {
 
     /**
      * List namespaces for autocomplete
+     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
      * @param {String} resourceTenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
@@ -146,6 +148,7 @@ export default class NamespacesApi {
 
     /**
      * List namespaces for autocomplete
+     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {module:model/ApiIds} [apiIds] 
@@ -233,7 +236,7 @@ export default class NamespacesApi {
      */
 
     /**
-     * Delete a flow
+     * Delete a namespace
      * @param {String} id The namespace id
      * @param {String} tenant 
      * @param {module:api/NamespacesApi~deleteNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
@@ -382,7 +385,7 @@ export default class NamespacesApi {
      */
 
     /**
-     * Get a namespace
+     * Retrieve namespace details
      * @param {String} id The namespace id
      * @param {String} tenant 
      * @param {module:api/NamespacesApi~getNamespaceCallback} callback The callback function, accepting three arguments: error, data, response

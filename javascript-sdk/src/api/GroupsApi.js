@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,19 +13,21 @@
 
 
 import ApiClient from "../ApiClient";
-import AbstractGroupControllerGroupWithMembers from '../model/AbstractGroupControllerGroupWithMembers';
-import AbstractUserGroupIdentifierMembership from '../model/AbstractUserGroupIdentifierMembership';
 import ApiAutocomplete from '../model/ApiAutocomplete';
+import ApiGroupSummary from '../model/ApiGroupSummary';
 import ApiIds from '../model/ApiIds';
-import ApiUser from '../model/ApiUser';
-import Group from '../model/Group';
-import PagedResultsApiUser from '../model/PagedResultsApiUser';
-import PagedResultsGroup from '../model/PagedResultsGroup';
+import GroupIdentifierMembership from '../model/GroupIdentifierMembership';
+import IAMGroupControllerApiCreateGroupRequest from '../model/IAMGroupControllerApiCreateGroupRequest';
+import IAMGroupControllerApiGroupDetail from '../model/IAMGroupControllerApiGroupDetail';
+import IAMGroupControllerApiGroupMember from '../model/IAMGroupControllerApiGroupMember';
+import IAMGroupControllerApiUpdateGroupRequest from '../model/IAMGroupControllerApiUpdateGroupRequest';
+import PagedResultsApiGroupSummary from '../model/PagedResultsApiGroupSummary';
+import PagedResultsIAMGroupControllerApiGroupMember from '../model/PagedResultsIAMGroupControllerApiGroupMember';
 
 /**
 * Groups service.
 * @module api/GroupsApi
-* @version v1
+* @version v0.24.0
 */
 export default class GroupsApi {
 
@@ -45,17 +47,18 @@ export default class GroupsApi {
      * Callback function to receive the result of the addUserToGroup operation.
      * @callback module:api/GroupsApi~addUserToGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Add a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
+     * Add a user to a group
+     * Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user to add to the group
      * @param {String} tenant 
      * @param {module:api/GroupsApi~addUserToGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
      */
     addUserToGroup(id, userId, tenant, callback) {
       let postBody = null;
@@ -87,111 +90,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMGroupControllerApiGroupMember;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the addUserToGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~addUserToGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Add a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~addUserToGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    addUserToGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling addUserToGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling addUserToGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling addUserToGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the addUserToGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~addUserToGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Add a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {module:api/GroupsApi~addUserToGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    addUserToGroupasSuperAdmin(id, userId, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling addUserToGroupasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling addUserToGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}/members/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -201,7 +102,7 @@ export default class GroupsApi {
      * Callback function to receive the result of the autocompleteGroups operation.
      * @callback module:api/GroupsApi~autocompleteGroupsCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
+     * @param {Array.<module:model/ApiGroupSummary>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -210,7 +111,7 @@ export default class GroupsApi {
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
      * @param {module:api/GroupsApi~autocompleteGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * data is of type: {@link Array.<module:model/ApiGroupSummary>}
      */
     autocompleteGroups(tenant, apiAutocomplete, callback) {
       let postBody = apiAutocomplete;
@@ -236,97 +137,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [Group];
+      let returnType = [ApiGroupSummary];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteGroupsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List groups for autocomplete
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
-     */
-    autocompleteGroupsWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete, callback) {
-      let postBody = apiAutocomplete;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling autocompleteGroupsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiAutocomplete' is set
-      if (apiAutocomplete === undefined || apiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'apiAutocomplete' when calling autocompleteGroupsWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Group];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteGroupsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List groups for autocomplete
-     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
-     */
-    autocompleteGroupsasSuperAdmin(apiAutocomplete, callback) {
-      let postBody = apiAutocomplete;
-      // verify the required parameter 'apiAutocomplete' is set
-      if (apiAutocomplete === undefined || apiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'apiAutocomplete' when calling autocompleteGroupsasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Group];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -336,26 +149,26 @@ export default class GroupsApi {
      * Callback function to receive the result of the createGroup operation.
      * @callback module:api/GroupsApi~createGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create a group
      * @param {String} tenant 
-     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
+     * @param {module:model/IAMGroupControllerApiCreateGroupRequest} iAMGroupControllerApiCreateGroupRequest The group
      * @param {module:api/GroupsApi~createGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
      */
-    createGroup(tenant, abstractGroupControllerGroupWithMembers, callback) {
-      let postBody = abstractGroupControllerGroupWithMembers;
+    createGroup(tenant, iAMGroupControllerApiCreateGroupRequest, callback) {
+      let postBody = iAMGroupControllerApiCreateGroupRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling createGroup");
       }
-      // verify the required parameter 'abstractGroupControllerGroupWithMembers' is set
-      if (abstractGroupControllerGroupWithMembers === undefined || abstractGroupControllerGroupWithMembers === null) {
-        throw new Error("Missing the required parameter 'abstractGroupControllerGroupWithMembers' when calling createGroup");
+      // verify the required parameter 'iAMGroupControllerApiCreateGroupRequest' is set
+      if (iAMGroupControllerApiCreateGroupRequest === undefined || iAMGroupControllerApiCreateGroupRequest === null) {
+        throw new Error("Missing the required parameter 'iAMGroupControllerApiCreateGroupRequest' when calling createGroup");
       }
 
       let pathParams = {
@@ -371,97 +184,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Group;
+      let returnType = IAMGroupControllerApiGroupDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~createGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a group
-     * @param {String} resourceTenant 
-     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
-     * @param {module:api/GroupsApi~createGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    createGroupWithResourceTenantasSuperAdmin(resourceTenant, abstractGroupControllerGroupWithMembers, callback) {
-      let postBody = abstractGroupControllerGroupWithMembers;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'abstractGroupControllerGroupWithMembers' is set
-      if (abstractGroupControllerGroupWithMembers === undefined || abstractGroupControllerGroupWithMembers === null) {
-        throw new Error("Missing the required parameter 'abstractGroupControllerGroupWithMembers' when calling createGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~createGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a group
-     * @param {module:model/AbstractGroupControllerGroupWithMembers} abstractGroupControllerGroupWithMembers The group
-     * @param {module:api/GroupsApi~createGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    createGroupasSuperAdmin(abstractGroupControllerGroupWithMembers, callback) {
-      let postBody = abstractGroupControllerGroupWithMembers;
-      // verify the required parameter 'abstractGroupControllerGroupWithMembers' is set
-      if (abstractGroupControllerGroupWithMembers === undefined || abstractGroupControllerGroupWithMembers === null) {
-        throw new Error("Missing the required parameter 'abstractGroupControllerGroupWithMembers' when calling createGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -515,108 +240,21 @@ export default class GroupsApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a group
-     * @param {String} id The group id
-     * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~deleteGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteGroupWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a group
-     * @param {String} id The group id
-     * @param {module:api/GroupsApi~deleteGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteGroupasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the deleteUserFromGroup operation.
      * @callback module:api/GroupsApi~deleteUserFromGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Delete a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
+     * Remove a user from a group
+     * Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user to remove from the group
      * @param {String} tenant 
      * @param {module:api/GroupsApi~deleteUserFromGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
      */
     deleteUserFromGroup(id, userId, tenant, callback) {
       let postBody = null;
@@ -648,111 +286,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMGroupControllerApiGroupMember;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteUserFromGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~deleteUserFromGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteUserFromGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteUserFromGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling deleteUserFromGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteUserFromGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteUserFromGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a group for a user
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {module:api/GroupsApi~deleteUserFromGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteUserFromGroupasSuperAdmin(id, userId, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteUserFromGroupasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling deleteUserFromGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}/members/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -762,16 +298,17 @@ export default class GroupsApi {
      * Callback function to receive the result of the getGroup operation.
      * @callback module:api/GroupsApi~getGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get a group
+     * Retrieve a group
+     * Retrieves details of a specific group by its ID within the current tenant.
      * @param {String} id The group id
      * @param {String} tenant 
      * @param {module:api/GroupsApi~getGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
      */
     getGroup(id, tenant, callback) {
       let postBody = null;
@@ -798,99 +335,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Group;
+      let returnType = IAMGroupControllerApiGroupDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~getGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a group
-     * @param {String} id The group id
-     * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~getGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    getGroupWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling getGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~getGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a group
-     * @param {String} id The group id
-     * @param {module:api/GroupsApi~getGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    getGroupasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -900,7 +347,7 @@ export default class GroupsApi {
      * Callback function to receive the result of the listGroupIds operation.
      * @callback module:api/GroupsApi~listGroupIdsCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
+     * @param {Array.<module:model/ApiGroupSummary>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -909,7 +356,7 @@ export default class GroupsApi {
      * @param {String} tenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
      * @param {module:api/GroupsApi~listGroupIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
+     * data is of type: {@link Array.<module:model/ApiGroupSummary>}
      */
     listGroupIds(tenant, apiIds, callback) {
       let postBody = apiIds;
@@ -935,97 +382,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [Group];
+      let returnType = [ApiGroupSummary];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listGroupIdsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~listGroupIdsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List groups by ids
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
-     */
-    listGroupIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds, callback) {
-      let postBody = apiIds;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling listGroupIdsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiIds' is set
-      if (apiIds === undefined || apiIds === null) {
-        throw new Error("Missing the required parameter 'apiIds' when calling listGroupIdsWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Group];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listGroupIdsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~listGroupIdsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Group>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List groups by ids
-     * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Group>}
-     */
-    listGroupIdsasSuperAdmin(apiIds, callback) {
-      let postBody = apiIds;
-      // verify the required parameter 'apiIds' is set
-      if (apiIds === undefined || apiIds === null) {
-        throw new Error("Missing the required parameter 'apiIds' when calling listGroupIdsasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Group];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1035,7 +394,7 @@ export default class GroupsApi {
      * Callback function to receive the result of the searchGroupMembers operation.
      * @callback module:api/GroupsApi~searchGroupMembersCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
+     * @param {module:model/PagedResultsIAMGroupControllerApiGroupMember} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -1049,7 +408,7 @@ export default class GroupsApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:api/GroupsApi~searchGroupMembersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * data is of type: {@link module:model/PagedResultsIAMGroupControllerApiGroupMember}
      */
     searchGroupMembers(id, page, size, tenant, opts, callback) {
       opts = opts || {};
@@ -1089,135 +448,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
+      let returnType = PagedResultsIAMGroupControllerApiGroupMember;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchGroupMembersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupMembersWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for users in a group
-     * @param {String} id The group id
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
-     */
-    searchGroupMembersWithResourceTenantasSuperAdmin(id, page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling searchGroupMembersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroupMembersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroupMembersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchGroupMembersWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}/members', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchGroupMembersasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupMembersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for users in a group
-     * @param {String} id The group id
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
-     */
-    searchGroupMembersasSuperAdmin(id, page, size, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling searchGroupMembersasSuperAdmin");
-      }
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroupMembersasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroupMembersasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1227,7 +460,7 @@ export default class GroupsApi {
      * Callback function to receive the result of the searchGroups operation.
      * @callback module:api/GroupsApi~searchGroupsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
+     * @param {module:model/PagedResultsApiGroupSummary} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -1240,7 +473,7 @@ export default class GroupsApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:api/GroupsApi~searchGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
+     * data is of type: {@link module:model/PagedResultsApiGroupSummary}
      */
     searchGroups(page, size, tenant, opts, callback) {
       opts = opts || {};
@@ -1275,123 +508,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsGroup;
+      let returnType = PagedResultsApiGroupSummary;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchGroupsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for groups
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
-     */
-    searchGroupsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroupsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroupsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchGroupsWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsGroup;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchGroupsasSuperAdmin operation.
-     * @callback module:api/GroupsApi~searchGroupsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for groups
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsGroup}
-     */
-    searchGroupsasSuperAdmin(page, size, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchGroupsasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchGroupsasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsGroup;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1401,19 +520,19 @@ export default class GroupsApi {
      * Callback function to receive the result of the setUserMembershipForGroup operation.
      * @callback module:api/GroupsApi~setUserMembershipForGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Set the membership type of a user in a group
-     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
+     * Update a user's membership type in a group
+     * Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user whose membership is being updated
+     * @param {module:model/GroupIdentifierMembership} membership The new membership type to assign to the user.
      * @param {String} tenant 
      * @param {module:api/GroupsApi~setUserMembershipForGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
      */
     setUserMembershipForGroup(id, userId, membership, tenant, callback) {
       let postBody = null;
@@ -1450,125 +569,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMGroupControllerApiGroupMember;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/membership/{userId}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the setUserMembershipForGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Set the membership type of a user in a group
-     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
-     * @param {String} resourceTenant 
-     * @param {module:api/GroupsApi~setUserMembershipForGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    setUserMembershipForGroupWithResourceTenantasSuperAdmin(id, userId, membership, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling setUserMembershipForGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling setUserMembershipForGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'membership' is set
-      if (membership === undefined || membership === null) {
-        throw new Error("Missing the required parameter 'membership' when calling setUserMembershipForGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling setUserMembershipForGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'membership': membership
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the setUserMembershipForGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Set the membership type of a user in a group
-     * Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
-     * @param {String} id The group id
-     * @param {String} userId The user id
-     * @param {module:model/AbstractUserGroupIdentifierMembership} membership The membership type
-     * @param {module:api/GroupsApi~setUserMembershipForGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    setUserMembershipForGroupasSuperAdmin(id, userId, membership, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling setUserMembershipForGroupasSuperAdmin");
-      }
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling setUserMembershipForGroupasSuperAdmin");
-      }
-      // verify the required parameter 'membership' is set
-      if (membership === undefined || membership === null) {
-        throw new Error("Missing the required parameter 'membership' when calling setUserMembershipForGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'userId': userId
-      };
-      let queryParams = {
-        'membership': membership
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}/members/membership/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1578,7 +581,7 @@ export default class GroupsApi {
      * Callback function to receive the result of the updateGroup operation.
      * @callback module:api/GroupsApi~updateGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
+     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -1586,12 +589,12 @@ export default class GroupsApi {
      * Update a group
      * @param {String} id The group id
      * @param {String} tenant 
-     * @param {module:model/Group} group The group
+     * @param {module:model/IAMGroupControllerApiUpdateGroupRequest} iAMGroupControllerApiUpdateGroupRequest The group
      * @param {module:api/GroupsApi~updateGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
+     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
      */
-    updateGroup(id, tenant, group, callback) {
-      let postBody = group;
+    updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest, callback) {
+      let postBody = iAMGroupControllerApiUpdateGroupRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling updateGroup");
@@ -1600,9 +603,9 @@ export default class GroupsApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling updateGroup");
       }
-      // verify the required parameter 'group' is set
-      if (group === undefined || group === null) {
-        throw new Error("Missing the required parameter 'group' when calling updateGroup");
+      // verify the required parameter 'iAMGroupControllerApiUpdateGroupRequest' is set
+      if (iAMGroupControllerApiUpdateGroupRequest === undefined || iAMGroupControllerApiUpdateGroupRequest === null) {
+        throw new Error("Missing the required parameter 'iAMGroupControllerApiUpdateGroupRequest' when calling updateGroup");
       }
 
       let pathParams = {
@@ -1619,109 +622,9 @@ export default class GroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Group;
+      let returnType = IAMGroupControllerApiGroupDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateGroupWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/GroupsApi~updateGroupWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a group
-     * @param {String} id The group id
-     * @param {String} resourceTenant 
-     * @param {module:model/Group} group The group
-     * @param {module:api/GroupsApi~updateGroupWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    updateGroupWithResourceTenantasSuperAdmin(id, resourceTenant, group, callback) {
-      let postBody = group;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling updateGroupWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'group' is set
-      if (group === undefined || group === null) {
-        throw new Error("Missing the required parameter 'group' when calling updateGroupWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/groups/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateGroupasSuperAdmin operation.
-     * @callback module:api/GroupsApi~updateGroupasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Group} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a group
-     * @param {String} id The group id
-     * @param {module:model/Group} group The group
-     * @param {module:api/GroupsApi~updateGroupasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Group}
-     */
-    updateGroupasSuperAdmin(id, group, callback) {
-      let postBody = group;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateGroupasSuperAdmin");
-      }
-      // verify the required parameter 'group' is set
-      if (group === undefined || group === null) {
-        throw new Error("Missing the required parameter 'group' when calling updateGroupasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Group;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

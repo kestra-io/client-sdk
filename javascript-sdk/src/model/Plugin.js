@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -12,12 +12,13 @@
  */
 
 import ApiClient from '../ApiClient';
+import PluginPluginElementMetadata from './PluginPluginElementMetadata';
 import PluginSubGroupPluginCategory from './PluginSubGroupPluginCategory';
 
 /**
  * The Plugin model module.
  * @module model/Plugin
- * @version v1
+ * @version v0.24.0
  */
 class Plugin {
     /**
@@ -72,50 +73,50 @@ class Plugin {
             if (data.hasOwnProperty('manifest')) {
                 obj['manifest'] = ApiClient.convertToType(data['manifest'], {'String': 'String'});
             }
-            if (data.hasOwnProperty('tasks')) {
-                obj['tasks'] = ApiClient.convertToType(data['tasks'], ['String']);
-            }
-            if (data.hasOwnProperty('triggers')) {
-                obj['triggers'] = ApiClient.convertToType(data['triggers'], ['String']);
-            }
-            if (data.hasOwnProperty('conditions')) {
-                obj['conditions'] = ApiClient.convertToType(data['conditions'], ['String']);
-            }
-            if (data.hasOwnProperty('controllers')) {
-                obj['controllers'] = ApiClient.convertToType(data['controllers'], ['String']);
-            }
-            if (data.hasOwnProperty('storages')) {
-                obj['storages'] = ApiClient.convertToType(data['storages'], ['String']);
-            }
-            if (data.hasOwnProperty('secrets')) {
-                obj['secrets'] = ApiClient.convertToType(data['secrets'], ['String']);
-            }
-            if (data.hasOwnProperty('taskRunners')) {
-                obj['taskRunners'] = ApiClient.convertToType(data['taskRunners'], ['String']);
-            }
             if (data.hasOwnProperty('guides')) {
                 obj['guides'] = ApiClient.convertToType(data['guides'], ['String']);
             }
             if (data.hasOwnProperty('aliases')) {
                 obj['aliases'] = ApiClient.convertToType(data['aliases'], ['String']);
             }
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = ApiClient.convertToType(data['tasks'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('triggers')) {
+                obj['triggers'] = ApiClient.convertToType(data['triggers'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('conditions')) {
+                obj['conditions'] = ApiClient.convertToType(data['conditions'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('controllers')) {
+                obj['controllers'] = ApiClient.convertToType(data['controllers'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('storages')) {
+                obj['storages'] = ApiClient.convertToType(data['storages'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('secrets')) {
+                obj['secrets'] = ApiClient.convertToType(data['secrets'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('taskRunners')) {
+                obj['taskRunners'] = ApiClient.convertToType(data['taskRunners'], [PluginPluginElementMetadata]);
+            }
             if (data.hasOwnProperty('apps')) {
-                obj['apps'] = ApiClient.convertToType(data['apps'], ['String']);
+                obj['apps'] = ApiClient.convertToType(data['apps'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('appBlocks')) {
-                obj['appBlocks'] = ApiClient.convertToType(data['appBlocks'], ['String']);
+                obj['appBlocks'] = ApiClient.convertToType(data['appBlocks'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('charts')) {
-                obj['charts'] = ApiClient.convertToType(data['charts'], ['String']);
+                obj['charts'] = ApiClient.convertToType(data['charts'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('dataFilters')) {
-                obj['dataFilters'] = ApiClient.convertToType(data['dataFilters'], ['String']);
+                obj['dataFilters'] = ApiClient.convertToType(data['dataFilters'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('logExporters')) {
-                obj['logExporters'] = ApiClient.convertToType(data['logExporters'], ['String']);
+                obj['logExporters'] = ApiClient.convertToType(data['logExporters'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('additionalPlugins')) {
-                obj['additionalPlugins'] = ApiClient.convertToType(data['additionalPlugins'], ['String']);
+                obj['additionalPlugins'] = ApiClient.convertToType(data['additionalPlugins'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('categories')) {
                 obj['categories'] = ApiClient.convertToType(data['categories'], [PluginSubGroupPluginCategory]);
@@ -162,34 +163,6 @@ class Plugin {
             throw new Error("Expected the field `version` to be a primitive type in the JSON string but got " + data['version']);
         }
         // ensure the json data is an array
-        if (!Array.isArray(data['tasks'])) {
-            throw new Error("Expected the field `tasks` to be an array in the JSON data but got " + data['tasks']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['triggers'])) {
-            throw new Error("Expected the field `triggers` to be an array in the JSON data but got " + data['triggers']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['conditions'])) {
-            throw new Error("Expected the field `conditions` to be an array in the JSON data but got " + data['conditions']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['controllers'])) {
-            throw new Error("Expected the field `controllers` to be an array in the JSON data but got " + data['controllers']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['storages'])) {
-            throw new Error("Expected the field `storages` to be an array in the JSON data but got " + data['storages']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['secrets'])) {
-            throw new Error("Expected the field `secrets` to be an array in the JSON data but got " + data['secrets']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['taskRunners'])) {
-            throw new Error("Expected the field `taskRunners` to be an array in the JSON data but got " + data['taskRunners']);
-        }
-        // ensure the json data is an array
         if (!Array.isArray(data['guides'])) {
             throw new Error("Expected the field `guides` to be an array in the JSON data but got " + data['guides']);
         }
@@ -197,29 +170,135 @@ class Plugin {
         if (!Array.isArray(data['aliases'])) {
             throw new Error("Expected the field `aliases` to be an array in the JSON data but got " + data['aliases']);
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['apps'])) {
-            throw new Error("Expected the field `apps` to be an array in the JSON data but got " + data['apps']);
+        if (data['tasks']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['tasks'])) {
+                throw new Error("Expected the field `tasks` to be an array in the JSON data but got " + data['tasks']);
+            }
+            // validate the optional field `tasks` (array)
+            for (const item of data['tasks']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['appBlocks'])) {
-            throw new Error("Expected the field `appBlocks` to be an array in the JSON data but got " + data['appBlocks']);
+        if (data['triggers']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['triggers'])) {
+                throw new Error("Expected the field `triggers` to be an array in the JSON data but got " + data['triggers']);
+            }
+            // validate the optional field `triggers` (array)
+            for (const item of data['triggers']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['charts'])) {
-            throw new Error("Expected the field `charts` to be an array in the JSON data but got " + data['charts']);
+        if (data['conditions']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['conditions'])) {
+                throw new Error("Expected the field `conditions` to be an array in the JSON data but got " + data['conditions']);
+            }
+            // validate the optional field `conditions` (array)
+            for (const item of data['conditions']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['dataFilters'])) {
-            throw new Error("Expected the field `dataFilters` to be an array in the JSON data but got " + data['dataFilters']);
+        if (data['controllers']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['controllers'])) {
+                throw new Error("Expected the field `controllers` to be an array in the JSON data but got " + data['controllers']);
+            }
+            // validate the optional field `controllers` (array)
+            for (const item of data['controllers']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['logExporters'])) {
-            throw new Error("Expected the field `logExporters` to be an array in the JSON data but got " + data['logExporters']);
+        if (data['storages']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['storages'])) {
+                throw new Error("Expected the field `storages` to be an array in the JSON data but got " + data['storages']);
+            }
+            // validate the optional field `storages` (array)
+            for (const item of data['storages']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['additionalPlugins'])) {
-            throw new Error("Expected the field `additionalPlugins` to be an array in the JSON data but got " + data['additionalPlugins']);
+        if (data['secrets']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['secrets'])) {
+                throw new Error("Expected the field `secrets` to be an array in the JSON data but got " + data['secrets']);
+            }
+            // validate the optional field `secrets` (array)
+            for (const item of data['secrets']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['taskRunners']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['taskRunners'])) {
+                throw new Error("Expected the field `taskRunners` to be an array in the JSON data but got " + data['taskRunners']);
+            }
+            // validate the optional field `taskRunners` (array)
+            for (const item of data['taskRunners']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['apps']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['apps'])) {
+                throw new Error("Expected the field `apps` to be an array in the JSON data but got " + data['apps']);
+            }
+            // validate the optional field `apps` (array)
+            for (const item of data['apps']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['appBlocks']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['appBlocks'])) {
+                throw new Error("Expected the field `appBlocks` to be an array in the JSON data but got " + data['appBlocks']);
+            }
+            // validate the optional field `appBlocks` (array)
+            for (const item of data['appBlocks']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['charts']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['charts'])) {
+                throw new Error("Expected the field `charts` to be an array in the JSON data but got " + data['charts']);
+            }
+            // validate the optional field `charts` (array)
+            for (const item of data['charts']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['dataFilters']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['dataFilters'])) {
+                throw new Error("Expected the field `dataFilters` to be an array in the JSON data but got " + data['dataFilters']);
+            }
+            // validate the optional field `dataFilters` (array)
+            for (const item of data['dataFilters']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['logExporters']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['logExporters'])) {
+                throw new Error("Expected the field `logExporters` to be an array in the JSON data but got " + data['logExporters']);
+            }
+            // validate the optional field `logExporters` (array)
+            for (const item of data['logExporters']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
+        if (data['additionalPlugins']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['additionalPlugins'])) {
+                throw new Error("Expected the field `additionalPlugins` to be an array in the JSON data but got " + data['additionalPlugins']);
+            }
+            // validate the optional field `additionalPlugins` (array)
+            for (const item of data['additionalPlugins']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
         }
         // ensure the json data is an array
         if (!Array.isArray(data['categories'])) {
@@ -279,41 +358,6 @@ Plugin.prototype['version'] = undefined;
 Plugin.prototype['manifest'] = undefined;
 
 /**
- * @member {Array.<String>} tasks
- */
-Plugin.prototype['tasks'] = undefined;
-
-/**
- * @member {Array.<String>} triggers
- */
-Plugin.prototype['triggers'] = undefined;
-
-/**
- * @member {Array.<String>} conditions
- */
-Plugin.prototype['conditions'] = undefined;
-
-/**
- * @member {Array.<String>} controllers
- */
-Plugin.prototype['controllers'] = undefined;
-
-/**
- * @member {Array.<String>} storages
- */
-Plugin.prototype['storages'] = undefined;
-
-/**
- * @member {Array.<String>} secrets
- */
-Plugin.prototype['secrets'] = undefined;
-
-/**
- * @member {Array.<String>} taskRunners
- */
-Plugin.prototype['taskRunners'] = undefined;
-
-/**
  * @member {Array.<String>} guides
  */
 Plugin.prototype['guides'] = undefined;
@@ -324,32 +368,67 @@ Plugin.prototype['guides'] = undefined;
 Plugin.prototype['aliases'] = undefined;
 
 /**
- * @member {Array.<String>} apps
+ * @member {Array.<module:model/PluginPluginElementMetadata>} tasks
+ */
+Plugin.prototype['tasks'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} triggers
+ */
+Plugin.prototype['triggers'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} conditions
+ */
+Plugin.prototype['conditions'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} controllers
+ */
+Plugin.prototype['controllers'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} storages
+ */
+Plugin.prototype['storages'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} secrets
+ */
+Plugin.prototype['secrets'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} taskRunners
+ */
+Plugin.prototype['taskRunners'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} apps
  */
 Plugin.prototype['apps'] = undefined;
 
 /**
- * @member {Array.<String>} appBlocks
+ * @member {Array.<module:model/PluginPluginElementMetadata>} appBlocks
  */
 Plugin.prototype['appBlocks'] = undefined;
 
 /**
- * @member {Array.<String>} charts
+ * @member {Array.<module:model/PluginPluginElementMetadata>} charts
  */
 Plugin.prototype['charts'] = undefined;
 
 /**
- * @member {Array.<String>} dataFilters
+ * @member {Array.<module:model/PluginPluginElementMetadata>} dataFilters
  */
 Plugin.prototype['dataFilters'] = undefined;
 
 /**
- * @member {Array.<String>} logExporters
+ * @member {Array.<module:model/PluginPluginElementMetadata>} logExporters
  */
 Plugin.prototype['logExporters'] = undefined;
 
 /**
- * @member {Array.<String>} additionalPlugins
+ * @member {Array.<module:model/PluginPluginElementMetadata>} additionalPlugins
  */
 Plugin.prototype['additionalPlugins'] = undefined;
 

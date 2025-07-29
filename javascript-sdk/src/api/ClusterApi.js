@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -17,7 +17,7 @@ import ApiClient from "../ApiClient";
 /**
 * Cluster service.
 * @module api/ClusterApi
-* @version v1
+* @version v0.24.0
 */
 export default class ClusterApi {
 
@@ -42,7 +42,8 @@ export default class ClusterApi {
      */
 
     /**
-     * Enter cluster maintenance mode.
+     * Enter cluster maintenance mode
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/ClusterApi~enterMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
      */
     enterMaintenance(callback) {
@@ -62,7 +63,7 @@ export default class ClusterApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/cluster/maintenance/enter', 'POST',
+        '/api/v1/instance/maintenance/enter', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -77,7 +78,8 @@ export default class ClusterApi {
      */
 
     /**
-     * Exit cluster maintenance mode.
+     * Exit cluster maintenance mode
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/ClusterApi~exitMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
      */
     exitMaintenance(callback) {
@@ -97,7 +99,7 @@ export default class ClusterApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/cluster/maintenance/exit', 'POST',
+        '/api/v1/instance/maintenance/exit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

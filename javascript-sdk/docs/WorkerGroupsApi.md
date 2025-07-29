@@ -4,19 +4,21 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createWorkerGroup**](WorkerGroupsApi.md#createWorkerGroup) | **POST** /api/v1/cluster/workergroups | Create a new worker group.
-[**deleteWorkerGroupById**](WorkerGroupsApi.md#deleteWorkerGroupById) | **DELETE** /api/v1/cluster/workergroups/{id} | Delete an existing worker group.
-[**getWorkerGroupById**](WorkerGroupsApi.md#getWorkerGroupById) | **GET** /api/v1/cluster/workergroups/{id} | Get details about a worker group.
-[**listWorkerGroups**](WorkerGroupsApi.md#listWorkerGroups) | **GET** /api/v1/cluster/workergroups | List all Worker Groups
-[**updateWorkerGroupById**](WorkerGroupsApi.md#updateWorkerGroupById) | **PUT** /api/v1/cluster/workergroups/{id} | Update an existing worker group.
+[**createWorkerGroup**](WorkerGroupsApi.md#createWorkerGroup) | **POST** /api/v1/instance/workergroups | Create a worker group
+[**deleteWorkerGroupById**](WorkerGroupsApi.md#deleteWorkerGroupById) | **DELETE** /api/v1/instance/workergroups/{id} | Delete a worker group
+[**getWorkerGroupById**](WorkerGroupsApi.md#getWorkerGroupById) | **GET** /api/v1/instance/workergroups/{id} | Retrieve details of a specific worker group
+[**listWorkerGroups**](WorkerGroupsApi.md#listWorkerGroups) | **GET** /api/v1/instance/workergroups | List all worker groups
+[**updateWorkerGroupById**](WorkerGroupsApi.md#updateWorkerGroupById) | **PUT** /api/v1/instance/workergroups/{id} | Update a worker group
 
 
 
 ## createWorkerGroup
 
-> ClusterControllerApiWorkerGroup createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupRequest)
+> InstanceControllerApiWorkerGroup createWorkerGroup(instanceControllerApiCreateOrUpdateWorkerGroupRequest)
 
-Create a new worker group.
+Create a worker group
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -32,8 +34,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.WorkerGroupsApi();
-let clusterControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.ClusterControllerApiCreateOrUpdateWorkerGroupRequest(); // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
-apiInstance.createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
+let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+apiInstance.createWorkerGroup(instanceControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -47,11 +49,11 @@ apiInstance.createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiCreateOrUpdateWorkerGroupRequest** | [**ClusterControllerApiCreateOrUpdateWorkerGroupRequest**](ClusterControllerApiCreateOrUpdateWorkerGroupRequest.md)| The worker group definition | 
+ **instanceControllerApiCreateOrUpdateWorkerGroupRequest** | [**InstanceControllerApiCreateOrUpdateWorkerGroupRequest**](InstanceControllerApiCreateOrUpdateWorkerGroupRequest.md)| The worker group definition | 
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroup**](ClusterControllerApiWorkerGroup.md)
+[**InstanceControllerApiWorkerGroup**](InstanceControllerApiWorkerGroup.md)
 
 ### Authorization
 
@@ -67,7 +69,9 @@ Name | Type | Description  | Notes
 
 > Object deleteWorkerGroupById(id)
 
-Delete an existing worker group.
+Delete a worker group
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -116,9 +120,11 @@ Name | Type | Description  | Notes
 
 ## getWorkerGroupById
 
-> ClusterControllerApiWorkerGroupDetails getWorkerGroupById(id)
+> InstanceControllerApiWorkerGroupDetails getWorkerGroupById(id)
 
-Get details about a worker group.
+Retrieve details of a specific worker group
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -153,7 +159,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroupDetails**](ClusterControllerApiWorkerGroupDetails.md)
+[**InstanceControllerApiWorkerGroupDetails**](InstanceControllerApiWorkerGroupDetails.md)
 
 ### Authorization
 
@@ -167,9 +173,11 @@ Name | Type | Description  | Notes
 
 ## listWorkerGroups
 
-> ClusterControllerApiWorkerGroupList listWorkerGroups()
+> InstanceControllerApiWorkerGroupList listWorkerGroups()
 
-List all Worker Groups
+List all worker groups
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -200,7 +208,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroupList**](ClusterControllerApiWorkerGroupList.md)
+[**InstanceControllerApiWorkerGroupList**](InstanceControllerApiWorkerGroupList.md)
 
 ### Authorization
 
@@ -214,9 +222,11 @@ This endpoint does not need any parameter.
 
 ## updateWorkerGroupById
 
-> ClusterControllerApiWorkerGroup updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest)
+> InstanceControllerApiWorkerGroup updateWorkerGroupById(id, instanceControllerApiCreateOrUpdateWorkerGroupRequest)
 
-Update an existing worker group.
+Update a worker group
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -233,8 +243,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.WorkerGroupsApi();
 let id = "id_example"; // String | 
-let clusterControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.ClusterControllerApiCreateOrUpdateWorkerGroupRequest(); // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
-apiInstance.updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
+let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+apiInstance.updateWorkerGroupById(id, instanceControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -249,11 +259,11 @@ apiInstance.updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGr
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  | 
- **clusterControllerApiCreateOrUpdateWorkerGroupRequest** | [**ClusterControllerApiCreateOrUpdateWorkerGroupRequest**](ClusterControllerApiCreateOrUpdateWorkerGroupRequest.md)| The worker group definition | 
+ **instanceControllerApiCreateOrUpdateWorkerGroupRequest** | [**InstanceControllerApiCreateOrUpdateWorkerGroupRequest**](InstanceControllerApiCreateOrUpdateWorkerGroupRequest.md)| The worker group definition | 
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroup**](ClusterControllerApiWorkerGroup.md)
+[**InstanceControllerApiWorkerGroup**](InstanceControllerApiWorkerGroup.md)
 
 ### Authorization
 

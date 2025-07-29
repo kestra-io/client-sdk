@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**deleteExecutionsByQuery**](ExecutionsApi.md#deleteExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**downloadFileFromExecution**](ExecutionsApi.md#downloadFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**evalTaskRunExpression**](ExecutionsApi.md#evalTaskRunExpression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
+[**followDependenciesExecutions**](ExecutionsApi.md#followDependenciesExecutions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 [**followExecution**](ExecutionsApi.md#followExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 [**forceRunByIds**](ExecutionsApi.md#forceRunByIds) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 [**forceRunExecution**](ExecutionsApi.md#forceRunExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**getFileMetadatasFromExecution**](ExecutionsApi.md#getFileMetadatasFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**getFlowFromExecution**](ExecutionsApi.md#getFlowFromExecution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**getFlowFromExecutionById**](ExecutionsApi.md#getFlowFromExecutionById) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
+[**getLatestExecutions**](ExecutionsApi.md#getLatestExecutions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**killExecution**](ExecutionsApi.md#killExecution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 [**killExecutionsByIds**](ExecutionsApi.md#killExecutionsByIds) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 [**killExecutionsByQuery**](ExecutionsApi.md#killExecutionsByQuery) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
@@ -35,6 +37,7 @@ Method | HTTP request | Description
 [**restartExecutionsByIds**](ExecutionsApi.md#restartExecutionsByIds) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 [**restartExecutionsByQuery**](ExecutionsApi.md#restartExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 [**resumeExecution**](ExecutionsApi.md#resumeExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
+[**resumeExecutionFromBreakpoint**](ExecutionsApi.md#resumeExecutionFromBreakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 [**resumeExecutionsByIds**](ExecutionsApi.md#resumeExecutionsByIds) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
@@ -86,7 +89,9 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'labels': ["null"], // [String] | The labels as a list of 'key:value'
   'revision': 56, // Number | The flow revision or latest if null
-  'scheduleDate': new Date("2013-10-20T19:20:30+01:00") // Date | Schedule the flow on a specific date
+  'scheduleDate': new Date("2013-10-20T19:20:30+01:00"), // Date | Schedule the flow on a specific date
+  'breakpoint': "breakpoint_example", // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+  'kind': new KestraApi.ExecutionKind() // ExecutionKind | Specific execution kind
 };
 apiInstance.createExecution(namespace, id, wait, tenant, opts, (error, data, response) => {
   if (error) {
@@ -109,6 +114,8 @@ Name | Type | Description  | Notes
  **labels** | [**[String]**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] 
  **revision** | **Number**| The flow revision or latest if null | [optional] 
  **scheduleDate** | **Date**| Schedule the flow on a specific date | [optional] 
+ **breakpoint** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
 
 ### Return type
 
@@ -441,6 +448,63 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: text/plain
 - **Accept**: application/json
+
+
+## followDependenciesExecutions
+
+> EventExecutionStatusEvent followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant)
+
+Follow all execution dependencies executions
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.ExecutionsApi();
+let executionId = "executionId_example"; // String | The execution id
+let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
+let expandAll = false; // Boolean | If true, expand all dependencies recursively
+let tenant = "tenant_example"; // String | 
+apiInstance.followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **executionId** | **String**| The execution id | 
+ **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
+ **tenant** | **String**|  | 
+
+### Return type
+
+[**EventExecutionStatusEvent**](EventExecutionStatusEvent.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream
 
 
 ## followExecution
@@ -953,6 +1017,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## getLatestExecutions
+
+> [ExecutionControllerLastExecutionResponse] getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter)
+
+Get the latest execution for given flows
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.ExecutionsApi();
+let tenant = "tenant_example"; // String | 
+let executionRepositoryInterfaceFlowFilter = [new KestraApi.ExecutionRepositoryInterfaceFlowFilter()]; // [ExecutionRepositoryInterfaceFlowFilter] | 
+apiInstance.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **executionRepositoryInterfaceFlowFilter** | [**[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
+
+### Return type
+
+[**[ExecutionControllerLastExecutionResponse]**](ExecutionControllerLastExecutionResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1511,7 +1628,8 @@ let executionId = "executionId_example"; // String | the original execution id t
 let tenant = "tenant_example"; // String | 
 let opts = {
   'taskRunId': "taskRunId_example", // String | The taskrun id
-  'revision': 56 // Number | The flow revision to use for new execution
+  'revision': 56, // Number | The flow revision to use for new execution
+  'breakpoint': "breakpoint_example" // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
 };
 apiInstance.replayExecution(executionId, tenant, opts, (error, data, response) => {
   if (error) {
@@ -1531,6 +1649,7 @@ Name | Type | Description  | Notes
  **tenant** | **String**|  | 
  **taskRunId** | **String**| The taskrun id | [optional] 
  **revision** | **Number**| The flow revision to use for new execution | [optional] 
+ **breakpoint** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type
 
@@ -1920,6 +2039,63 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: multipart/form-data
 - **Accept**: application/json
+
+
+## resumeExecutionFromBreakpoint
+
+> resumeExecutionFromBreakpoint(executionId, tenant, opts)
+
+Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.ExecutionsApi();
+let executionId = "executionId_example"; // String | The execution id
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'breakpoint': "breakpoint_example" // String | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+};
+apiInstance.resumeExecutionFromBreakpoint(executionId, tenant, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **executionId** | **String**| The execution id | 
+ **tenant** | **String**|  | 
+ **breakpoint** | **String**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 
 ## resumeExecutionsByIds
@@ -2525,7 +2701,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByGetWebhook
 
-> Execution triggerExecutionByGetWebhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse triggerExecutionByGetWebhook(namespace, id, key, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -2568,7 +2744,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -2582,7 +2758,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByPostWebhook
 
-> Execution triggerExecutionByPostWebhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse triggerExecutionByPostWebhook(namespace, id, key, tenant)
 
 Trigger a new execution by POST webhook trigger
 
@@ -2625,7 +2801,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -2639,7 +2815,7 @@ Name | Type | Description  | Notes
 
 ## triggerExecutionByPutWebhook
 
-> Execution triggerExecutionByPutWebhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse triggerExecutionByPutWebhook(namespace, id, key, tenant)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -2682,7 +2858,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -2696,7 +2872,7 @@ Name | Type | Description  | Notes
 
 ## unqueueExecution
 
-> Execution unqueueExecution(executionId, tenant)
+> Execution unqueueExecution(executionId, state, tenant)
 
 Unqueue an execution
 
@@ -2715,8 +2891,9 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
+let state = new KestraApi.StateType(); // StateType | The new state of the execution
 let tenant = "tenant_example"; // String | 
-apiInstance.unqueueExecution(executionId, tenant, (error, data, response) => {
+apiInstance.unqueueExecution(executionId, state, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2731,6 +2908,7 @@ apiInstance.unqueueExecution(executionId, tenant, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| The execution id | 
+ **state** | [**StateType**](.md)| The new state of the execution | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2749,7 +2927,7 @@ Name | Type | Description  | Notes
 
 ## unqueueExecutionsByIds
 
-> BulkResponse unqueueExecutionsByIds(tenant, requestBody)
+> BulkResponse unqueueExecutionsByIds(state, tenant, requestBody)
 
 Unqueue a list of executions
 
@@ -2767,9 +2945,10 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.ExecutionsApi();
+let state = new KestraApi.StateType(); // StateType | The new state of the unqueued executions
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
-apiInstance.unqueueExecutionsByIds(tenant, requestBody, (error, data, response) => {
+apiInstance.unqueueExecutionsByIds(state, tenant, requestBody, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2783,6 +2962,7 @@ apiInstance.unqueueExecutionsByIds(tenant, requestBody, (error, data, response) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **state** | [**StateType**](.md)| The new state of the unqueued executions | 
  **tenant** | **String**|  | 
  **requestBody** | [**[String]**](String.md)| The list of executions id | 
 
@@ -2833,7 +3013,8 @@ let opts = {
   'state': [new KestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'newState': new KestraApi.StateType() // StateType | The new state of the unqueued executions
 };
 apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -2862,6 +3043,7 @@ Name | Type | Description  | Notes
  **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
  **triggerExecutionId** | **String**| The trigger execution id | [optional] 
  **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **newState** | [**StateType**](.md)| The new state of the unqueued executions | [optional] 
 
 ### Return type
 

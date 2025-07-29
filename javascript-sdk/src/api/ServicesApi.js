@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
-import ClusterControllerApiActiveServiceList from '../model/ClusterControllerApiActiveServiceList';
-import PagedResultsClusterControllerApiServiceInstance from '../model/PagedResultsClusterControllerApiServiceInstance';
+import InstanceControllerApiActiveServiceList from '../model/InstanceControllerApiActiveServiceList';
+import PagedResultsInstanceControllerApiServiceInstance from '../model/PagedResultsInstanceControllerApiServiceInstance';
 import ServiceInstance from '../model/ServiceInstance';
 import ServiceServiceState from '../model/ServiceServiceState';
 import ServiceType from '../model/ServiceType';
@@ -22,7 +22,7 @@ import ServiceType from '../model/ServiceType';
 /**
 * Services service.
 * @module api/ServicesApi
-* @version v1
+* @version v0.24.0
 */
 export default class ServicesApi {
 
@@ -42,14 +42,15 @@ export default class ServicesApi {
      * Callback function to receive the result of the getActiveServices operation.
      * @callback module:api/ServicesApi~getActiveServicesCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiActiveServiceList} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiActiveServiceList} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get details about active services
+     * List all active services
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/ServicesApi~getActiveServicesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiActiveServiceList}
+     * data is of type: {@link module:model/InstanceControllerApiActiveServiceList}
      */
     getActiveServices(callback) {
       let postBody = null;
@@ -66,9 +67,9 @@ export default class ServicesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiActiveServiceList;
+      let returnType = InstanceControllerApiActiveServiceList;
       return this.apiClient.callApi(
-        '/api/v1/cluster/services/active', 'GET',
+        '/api/v1/instance/services/active', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -83,7 +84,8 @@ export default class ServicesApi {
      */
 
     /**
-     * Get details about a service
+     * Retrieve details of a specific service
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {String} id 
      * @param {module:api/ServicesApi~getServiceCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ServiceInstance}
@@ -110,7 +112,7 @@ export default class ServicesApi {
       let accepts = ['application/json'];
       let returnType = ServiceInstance;
       return this.apiClient.callApi(
-        '/api/v1/cluster/services/{id}', 'GET',
+        '/api/v1/instance/services/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -120,12 +122,13 @@ export default class ServicesApi {
      * Callback function to receive the result of the searchServices operation.
      * @callback module:api/ServicesApi~searchServicesCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsClusterControllerApiServiceInstance} data The data returned by the service call.
+     * @param {module:model/PagedResultsInstanceControllerApiServiceInstance} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Search for service
+     * Search for a service (e.g. Worker, Executor, etc)
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {Object} opts Optional parameters
@@ -133,7 +136,7 @@ export default class ServicesApi {
      * @param {Array.<module:model/ServiceServiceState>} [state] The state filter
      * @param {Array.<module:model/ServiceType>} [type] The server type filter
      * @param {module:api/ServicesApi~searchServicesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsClusterControllerApiServiceInstance}
+     * data is of type: {@link module:model/PagedResultsInstanceControllerApiServiceInstance}
      */
     searchServices(page, size, opts, callback) {
       opts = opts || {};
@@ -164,9 +167,9 @@ export default class ServicesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsClusterControllerApiServiceInstance;
+      let returnType = PagedResultsInstanceControllerApiServiceInstance;
       return this.apiClient.callApi(
-        '/api/v1/cluster/services/search', 'GET',
+        '/api/v1/instance/services/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**enterMaintenance**](MaintenanceApi.md#enterMaintenance) | **POST** /api/v1/cluster/maintenance/enter | Enter cluster maintenance mode.
-[**exitMaintenance**](MaintenanceApi.md#exitMaintenance) | **POST** /api/v1/cluster/maintenance/exit | Exit cluster maintenance mode.
+[**enterMaintenance**](MaintenanceApi.md#enterMaintenance) | **POST** /api/v1/instance/maintenance/enter | Enter cluster maintenance mode
+[**exitMaintenance**](MaintenanceApi.md#exitMaintenance) | **POST** /api/v1/instance/maintenance/exit | Exit cluster maintenance mode
 
 
 
@@ -13,7 +13,9 @@ Method | HTTP request | Description
 
 > enterMaintenance()
 
-Enter cluster maintenance mode.
+Enter cluster maintenance mode
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -60,7 +62,9 @@ null (empty response body)
 
 > exitMaintenance()
 
-Exit cluster maintenance mode.
+Exit cluster maintenance mode
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**UserType**](UserType.md) |  | 
-**groupList** | [**[AbstractUserGroupIdentifier]**](AbstractUserGroupIdentifier.md) |  | [optional] 
+**groupList** | [**[GroupIdentifier]**](GroupIdentifier.md) |  | [optional] 
 **groups** | **[Object]** |  | [optional] 
 **username** | **String** |  | 
 **email** | **String** |  | 
@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **firstName** | **String** |  | [optional] 
 **lastName** | **String** |  | [optional] 
 **providers** | [**[AbstractUserTenantIdentityProvider]**](AbstractUserTenantIdentityProvider.md) |  | [optional] 
-**isSuperAdmin** | **Boolean** |  | [optional] 
 **auths** | [**[ApiAuth]**](ApiAuth.md) |  | [optional] 
 
 

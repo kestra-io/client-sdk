@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,15 +13,19 @@
 
 
 import ApiClient from "../ApiClient";
+import BulkResponse from '../model/BulkResponse';
 import PagedResultsTestSuite from '../model/PagedResultsTestSuite';
 import TestSuite from '../model/TestSuite';
+import TestSuiteControllerSearchTestsLastResult from '../model/TestSuiteControllerSearchTestsLastResult';
+import TestSuiteControllerTestSuiteBulkRequest from '../model/TestSuiteControllerTestSuiteBulkRequest';
+import TestSuiteControllerTestsLastResultResponse from '../model/TestSuiteControllerTestsLastResultResponse';
 import TestSuiteRunResult from '../model/TestSuiteRunResult';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 
 /**
 * TestSuites service.
 * @module api/TestSuitesApi
-* @version v1
+* @version v0.24.0
 */
 export default class TestSuitesApi {
 
@@ -46,7 +50,8 @@ export default class TestSuitesApi {
      */
 
     /**
-     * Create a TestSuite from yaml source
+     * Create a test from YAML source
+     * Creates a new test from a YAML definition. Requires TEST permission with the CREATE action.
      * @param {String} tenant 
      * @param {String} body The TestSuite source code
      * @param {module:api/TestSuitesApi~createTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
@@ -93,6 +98,8 @@ export default class TestSuitesApi {
      */
 
     /**
+     * Delete a test
+     * Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
@@ -138,6 +145,199 @@ export default class TestSuitesApi {
     }
 
     /**
+     * Callback function to receive the result of the deleteTestSuitesByIds operation.
+     * @callback module:api/TestSuitesApi~deleteTestSuitesByIdsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/BulkResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Delete multiple tests by id
+     * Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
+     * @param {String} tenant 
+     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
+     * @param {module:api/TestSuitesApi~deleteTestSuitesByIdsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/BulkResponse}
+     */
+    deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, callback) {
+      let postBody = testSuiteControllerTestSuiteBulkRequest;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling deleteTestSuitesByIds");
+      }
+      // verify the required parameter 'testSuiteControllerTestSuiteBulkRequest' is set
+      if (testSuiteControllerTestSuiteBulkRequest === undefined || testSuiteControllerTestSuiteBulkRequest === null) {
+        throw new Error("Missing the required parameter 'testSuiteControllerTestSuiteBulkRequest' when calling deleteTestSuitesByIds");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = BulkResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/by-ids', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the disableTestSuitesByIds operation.
+     * @callback module:api/TestSuitesApi~disableTestSuitesByIdsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/BulkResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Disable multiple tests by id
+     * Disable a test by namespace and ID. Requires TEST permission with the UPDATE action.
+     * @param {String} tenant 
+     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
+     * @param {module:api/TestSuitesApi~disableTestSuitesByIdsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/BulkResponse}
+     */
+    disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, callback) {
+      let postBody = testSuiteControllerTestSuiteBulkRequest;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling disableTestSuitesByIds");
+      }
+      // verify the required parameter 'testSuiteControllerTestSuiteBulkRequest' is set
+      if (testSuiteControllerTestSuiteBulkRequest === undefined || testSuiteControllerTestSuiteBulkRequest === null) {
+        throw new Error("Missing the required parameter 'testSuiteControllerTestSuiteBulkRequest' when calling disableTestSuitesByIds");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = BulkResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/disable/by-ids', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the enableTestSuitesByIds operation.
+     * @callback module:api/TestSuitesApi~enableTestSuitesByIdsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/BulkResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Enable multiple tests by id
+     * Enable a test by namespace and ID. Requires TEST permission with the UPDATE action.
+     * @param {String} tenant 
+     * @param {module:model/TestSuiteControllerTestSuiteBulkRequest} testSuiteControllerTestSuiteBulkRequest 
+     * @param {module:api/TestSuitesApi~enableTestSuitesByIdsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/BulkResponse}
+     */
+    enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, callback) {
+      let postBody = testSuiteControllerTestSuiteBulkRequest;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling enableTestSuitesByIds");
+      }
+      // verify the required parameter 'testSuiteControllerTestSuiteBulkRequest' is set
+      if (testSuiteControllerTestSuiteBulkRequest === undefined || testSuiteControllerTestSuiteBulkRequest === null) {
+        throw new Error("Missing the required parameter 'testSuiteControllerTestSuiteBulkRequest' when calling enableTestSuitesByIds");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = BulkResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/enable/by-ids', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getTestResult operation.
+     * @callback module:api/TestSuitesApi~getTestResultCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/TestSuiteRunResult} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get a test result
+     * Get a test result once it was run.
+     * @param {String} id The test run ID
+     * @param {String} tenant 
+     * @param {module:api/TestSuitesApi~getTestResultCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/TestSuiteRunResult}
+     */
+    getTestResult(id, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling getTestResult");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling getTestResult");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = TestSuiteRunResult;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/results/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getTestSuite operation.
      * @callback module:api/TestSuitesApi~getTestSuiteCallback
      * @param {String} error Error message, if any.
@@ -146,6 +346,8 @@ export default class TestSuitesApi {
      */
 
     /**
+     * Retrieve a test
+     * Retrieves a test by namespace and ID. Requires TEST permission with the READ action.
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
@@ -191,6 +393,54 @@ export default class TestSuitesApi {
     }
 
     /**
+     * Callback function to receive the result of the getTestsLastResult operation.
+     * @callback module:api/TestSuitesApi~getTestsLastResultCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/TestSuiteControllerTestsLastResultResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get tests last result
+     * Get multiple tests last result for a query.
+     * @param {String} tenant 
+     * @param {module:model/TestSuiteControllerSearchTestsLastResult} testSuiteControllerSearchTestsLastResult 
+     * @param {module:api/TestSuitesApi~getTestsLastResultCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/TestSuiteControllerTestsLastResultResponse}
+     */
+    getTestsLastResult(tenant, testSuiteControllerSearchTestsLastResult, callback) {
+      let postBody = testSuiteControllerSearchTestsLastResult;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling getTestsLastResult");
+      }
+      // verify the required parameter 'testSuiteControllerSearchTestsLastResult' is set
+      if (testSuiteControllerSearchTestsLastResult === undefined || testSuiteControllerSearchTestsLastResult === null) {
+        throw new Error("Missing the required parameter 'testSuiteControllerSearchTestsLastResult' when calling getTestsLastResult");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = TestSuiteControllerTestsLastResultResponse;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/results/search/last', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the runTestSuite operation.
      * @callback module:api/TestSuitesApi~runTestSuiteCallback
      * @param {String} error Error message, if any.
@@ -199,7 +449,8 @@ export default class TestSuitesApi {
      */
 
     /**
-     * Run a full TestSuite
+     * Run a full test
+     * Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
@@ -253,6 +504,8 @@ export default class TestSuitesApi {
      */
 
     /**
+     * Search for tests
+     * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {String} tenant 
@@ -314,6 +567,8 @@ export default class TestSuitesApi {
      */
 
     /**
+     * Update a test from YAML source
+     * Updates an existing test with a new YAML definition. Requires TEST permission with the UPDATE action.
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
@@ -372,7 +627,8 @@ export default class TestSuitesApi {
      */
 
     /**
-     * Validate a TestSuite
+     * Validate a test
+     * Validates a test YAML definition without persisting it. Returns constraint violations if any. Requires TEST permission with the READ action.
      * @param {String} tenant 
      * @param {String} body The TestSuite source code
      * @param {module:api/TestSuitesApi~validateTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response

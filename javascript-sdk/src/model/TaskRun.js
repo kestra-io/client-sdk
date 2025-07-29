@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -18,7 +18,7 @@ import TaskRunAttempt from './TaskRunAttempt';
 /**
  * The TaskRun model module.
  * @module model/TaskRun
- * @version v1
+ * @version v0.24.0
  */
 class TaskRun {
     /**
@@ -99,6 +99,9 @@ class TaskRun {
             }
             if (data.hasOwnProperty('dynamic')) {
                 obj['dynamic'] = ApiClient.convertToType(data['dynamic'], 'Boolean');
+            }
+            if (data.hasOwnProperty('forceExecution')) {
+                obj['forceExecution'] = ApiClient.convertToType(data['forceExecution'], 'Boolean');
             }
         }
         return obj;
@@ -235,6 +238,11 @@ TaskRun.prototype['iteration'] = undefined;
  * @member {Boolean} dynamic
  */
 TaskRun.prototype['dynamic'] = undefined;
+
+/**
+ * @member {Boolean} forceExecution
+ */
+TaskRun.prototype['forceExecution'] = undefined;
 
 
 

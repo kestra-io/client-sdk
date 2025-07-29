@@ -6,11 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createInternalBlueprints**](BlueprintsApi.md#createInternalBlueprints) | **POST** /api/v1/{tenant}/blueprints/custom | Create a new internal blueprint
 [**deleteInternalBlueprints**](BlueprintsApi.md#deleteInternalBlueprints) | **DELETE** /api/v1/{tenant}/blueprints/custom/{id} | Delete an internal blueprint
-[**getBlueprint**](BlueprintsApi.md#getBlueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Get a blueprint
-[**getBlueprintGraph**](BlueprintsApi.md#getBlueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Get a blueprint graph
-[**getBlueprintSource**](BlueprintsApi.md#getBlueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Get a blueprint source code
-[**internalBlueprint**](BlueprintsApi.md#internalBlueprint) | **GET** /api/v1/{tenant}/blueprints/custom/{id} | Get an internal blueprint
-[**internalBlueprintFlow**](BlueprintsApi.md#internalBlueprintFlow) | **GET** /api/v1/{tenant}/blueprints/custom/{id}/source | Get an internal blueprint source code
+[**getBlueprint**](BlueprintsApi.md#getBlueprint) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id} | Retrieve a blueprint
+[**getBlueprintGraph**](BlueprintsApi.md#getBlueprintGraph) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/graph | Retrieve a blueprint graph
+[**getBlueprintSource**](BlueprintsApi.md#getBlueprintSource) | **GET** /api/v1/{tenant}/blueprints/community/{kind}/{id}/source | Retrieve a blueprint source code
+[**internalBlueprint**](BlueprintsApi.md#internalBlueprint) | **GET** /api/v1/{tenant}/blueprints/custom/{id} | Retrieve an internal blueprint
+[**internalBlueprintFlow**](BlueprintsApi.md#internalBlueprintFlow) | **GET** /api/v1/{tenant}/blueprints/custom/{id}/source | Retrieve an internal blueprint source code
 [**searchBlueprints**](BlueprintsApi.md#searchBlueprints) | **GET** /api/v1/{tenant}/blueprints/community/{kind} | List all blueprints
 [**searchInternalBlueprints**](BlueprintsApi.md#searchInternalBlueprints) | **GET** /api/v1/{tenant}/blueprints/custom | List all internal blueprints
 [**updateInternalBlueprints**](BlueprintsApi.md#updateInternalBlueprints) | **PUT** /api/v1/{tenant}/blueprints/custom/{id} | Update an internal blueprint
@@ -22,6 +22,8 @@ Method | HTTP request | Description
 > BlueprintControllerApiBlueprintItemWithSource createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource)
 
 Create a new internal blueprint
+
+Creates a new internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
 
 ### Example
 
@@ -68,6 +70,8 @@ No authorization required
 
 Delete an internal blueprint
 
+Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
+
 ### Example
 
 ```javascript
@@ -111,7 +115,9 @@ No authorization required
 
 > BlueprintControllerApiBlueprintItemWithSource getBlueprint(id, kind, tenant)
 
-Get a blueprint
+Retrieve a blueprint
+
+Retrieves details of a specific community blueprint.
 
 ### Example
 
@@ -158,7 +164,9 @@ No authorization required
 
 > {String: Object} getBlueprintGraph(id, kind, tenant)
 
-Get a blueprint graph
+Retrieve a blueprint graph
+
+Retrieves the topology graph representation of a specific community blueprint.
 
 ### Example
 
@@ -205,7 +213,9 @@ No authorization required
 
 > String getBlueprintSource(id, kind, tenant)
 
-Get a blueprint source code
+Retrieve a blueprint source code
+
+Retrieves the YAML source code for a specific community blueprint.
 
 ### Example
 
@@ -252,7 +262,9 @@ No authorization required
 
 > BlueprintControllerApiBlueprintItemWithSource internalBlueprint(id, tenant)
 
-Get an internal blueprint
+Retrieve an internal blueprint
+
+Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT permission.
 
 ### Example
 
@@ -297,7 +309,9 @@ No authorization required
 
 > String internalBlueprintFlow(id, tenant)
 
-Get an internal blueprint source code
+Retrieve an internal blueprint source code
+
+Retrieves the YAML source code for a specific internal (custom) blueprint. Requires BLUEPRINT permission.
 
 ### Example
 
@@ -343,6 +357,8 @@ No authorization required
 > PagedResultsBlueprintControllerApiBlueprintItem searchBlueprints(page, size, kind, tenant, opts)
 
 List all blueprints
+
+Lists all community blueprints of the specified kind. Community blueprints are shared and versioned.
 
 ### Example
 
@@ -401,6 +417,8 @@ No authorization required
 
 List all internal blueprints
 
+Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRINT permission.
+
 ### Example
 
 ```javascript
@@ -455,6 +473,8 @@ No authorization required
 > BlueprintWithFlow updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource)
 
 Update an internal blueprint
+
+Updates an existing internal (custom) blueprint for the current tenant. Requires BLUEPRINT permission.
 
 ### Example
 

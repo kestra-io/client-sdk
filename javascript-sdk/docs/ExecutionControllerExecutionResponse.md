@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **traceParent** | **String** |  | [optional] 
 **fixtures** | [**[TaskFixture]**](TaskFixture.md) |  | [optional] 
 **kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
+**breakpoints** | [**[Breakpoint]**](Breakpoint.md) |  | [optional] 
 **url** | **String** |  | [optional] 
 
 

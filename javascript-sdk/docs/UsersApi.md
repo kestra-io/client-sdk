@@ -4,62 +4,33 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**autocompleteUsers**](UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/users/autocomplete | List users for autocomplete
-[**autocompleteUsersWithResourceTenantasSuperAdmin**](UsersApi.md#autocompleteUsersWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/users/autocomplete | List users for autocomplete
-[**autocompleteUsersasSuperAdmin**](UsersApi.md#autocompleteUsersasSuperAdmin) | **POST** /api/v1/tenants/users/autocomplete | List users for autocomplete
-[**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/{tenant}/users/{id}/api-tokens | Create new API Token for a specific user
-[**createApiTokensForUserWithResourceTenantasSuperAdmin**](UsersApi.md#createApiTokensForUserWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | Create new API Token for a specific user
-[**createApiTokensForUserasSuperAdmin**](UsersApi.md#createApiTokensForUserasSuperAdmin) | **POST** /api/v1/tenants/users/{id}/api-tokens | Create new API Token for a specific user
-[**createServiceAccount**](UsersApi.md#createServiceAccount) | **POST** /api/v1/{tenant}/users/service-accounts | Create a user service account
-[**createServiceAccountWithResourceTenantasSuperAdmin**](UsersApi.md#createServiceAccountWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/users/service-accounts | Create a user service account
-[**createServiceAccountasSuperAdmin**](UsersApi.md#createServiceAccountasSuperAdmin) | **POST** /api/v1/tenants/users/service-accounts | Create a user service account
-[**createUser**](UsersApi.md#createUser) | **POST** /api/v1/{tenant}/users | Create a standard user
-[**createUserBasicAuth**](UsersApi.md#createUserBasicAuth) | **PUT** /api/v1/{tenant}/users/{id}/password | Create a basic auth password for a standard user
-[**createUserBasicAuthWithResourceTenantasSuperAdmin**](UsersApi.md#createUserBasicAuthWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/users/{id}/password | Create a basic auth password for a standard user
-[**createUserBasicAuthasSuperAdmin**](UsersApi.md#createUserBasicAuthasSuperAdmin) | **PUT** /api/v1/tenants/users/{id}/password | Create a basic auth password for a standard user
-[**createUserWithResourceTenantasSuperAdmin**](UsersApi.md#createUserWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/users | Create a standard user
-[**createUserasSuperAdmin**](UsersApi.md#createUserasSuperAdmin) | **POST** /api/v1/tenants/users | Create a standard user
-[**deleteApiToken**](UsersApi.md#deleteApiToken) | **DELETE** /api/v1/{tenant}/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**deleteApiTokenWithResourceTenantasSuperAdmin**](UsersApi.md#deleteApiTokenWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**deleteApiTokenasSuperAdmin**](UsersApi.md#deleteApiTokenasSuperAdmin) | **DELETE** /api/v1/tenants/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**deleteAuth**](UsersApi.md#deleteAuth) | **DELETE** /api/v1/{tenant}/users/{id}/auths/{uid} | Delete an Auth for a user
-[**deleteAuthWithResourceTenantasSuperAdmin**](UsersApi.md#deleteAuthWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/users/{id}/auths/{uid} | Delete an Auth for a user
-[**deleteAuthasSuperAdmin**](UsersApi.md#deleteAuthasSuperAdmin) | **DELETE** /api/v1/tenants/users/{id}/auths/{uid} | Delete an Auth for a user
-[**deleteRefreshToken**](UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/{tenant}/users/{id}/refresh-token | Delete a user refresh token
-[**deleteRefreshTokenWithResourceTenantasSuperAdmin**](UsersApi.md#deleteRefreshTokenWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/users/{id}/refresh-token | Delete a user refresh token
-[**deleteRefreshTokenasSuperAdmin**](UsersApi.md#deleteRefreshTokenasSuperAdmin) | **DELETE** /api/v1/tenants/users/{id}/refresh-token | Delete a user refresh token
-[**deleteUser**](UsersApi.md#deleteUser) | **DELETE** /api/v1/{tenant}/users/{id} | Delete a user
-[**deleteUserWithResourceTenantasSuperAdmin**](UsersApi.md#deleteUserWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/users/{id} | Delete a user
-[**deleteUserasSuperAdmin**](UsersApi.md#deleteUserasSuperAdmin) | **DELETE** /api/v1/tenants/users/{id} | Delete a user
-[**findAllForAllTenants**](UsersApi.md#findAllForAllTenants) | **GET** /api/v1/tenants/users/instance | Get all users in the instance across all tenantd
-[**findAllForAllTenantsWithResourceTenant**](UsersApi.md#findAllForAllTenantsWithResourceTenant) | **GET** /api/v1/tenants/{resourceTenant}/users/instance | Get all users in the instance across all tenantd
-[**getUser**](UsersApi.md#getUser) | **GET** /api/v1/{tenant}/users/{id} | Get a user
-[**getUserWithResourceTenantasSuperAdmin**](UsersApi.md#getUserWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/users/{id} | Get a user
-[**getUserasSuperAdmin**](UsersApi.md#getUserasSuperAdmin) | **GET** /api/v1/tenants/users/{id} | Get a user
-[**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/tenants/users/{id}/impersonate | Impersonate a user
-[**impersonateWithResourceTenant**](UsersApi.md#impersonateWithResourceTenant) | **POST** /api/v1/tenants/{resourceTenant}/users/{id}/impersonate | Impersonate a user
-[**listApiTokens**](UsersApi.md#listApiTokens) | **GET** /api/v1/{tenant}/users/{id}/api-tokens | List all API Tokens for specific user
-[**listApiTokensWithResourceTenantasSuperAdmin**](UsersApi.md#listApiTokensWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | List all API Tokens for specific user
-[**listApiTokensasSuperAdmin**](UsersApi.md#listApiTokensasSuperAdmin) | **GET** /api/v1/tenants/users/{id}/api-tokens | List all API Tokens for specific user
-[**searchUsers**](UsersApi.md#searchUsers) | **GET** /api/v1/{tenant}/users/search | Search for users
-[**searchUsersWithResourceTenantasSuperAdmin**](UsersApi.md#searchUsersWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/users/search | Search for users
-[**searchUsersasSuperAdmin**](UsersApi.md#searchUsersasSuperAdmin) | **GET** /api/v1/tenants/users/search | Search for users
-[**setSuperAdmin**](UsersApi.md#setSuperAdmin) | **PUT** /api/v1/tenants/users/{id}/set-superadmin | Update a user service account
-[**setSuperAdminWithResourceTenant**](UsersApi.md#setSuperAdminWithResourceTenant) | **PUT** /api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin | Update a user service account
-[**updateCurrentUserPassword**](UsersApi.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update login password for the current user.
-[**updateCurrentUserPasswordWithTenant**](UsersApi.md#updateCurrentUserPasswordWithTenant) | **PUT** /api/v1/{tenant}/me/password | Update login password for the current user.
-[**updateServiceAccount**](UsersApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/users/service-accounts/{id} | Update a user service account
-[**updateServiceAccountWithResourceTenantasSuperAdmin**](UsersApi.md#updateServiceAccountWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/users/service-accounts/{id} | Update a user service account
-[**updateServiceAccountasSuperAdmin**](UsersApi.md#updateServiceAccountasSuperAdmin) | **PUT** /api/v1/tenants/users/service-accounts/{id} | Update a user service account
-[**updateUser**](UsersApi.md#updateUser) | **PUT** /api/v1/{tenant}/users/{id} | Update a standard user
-[**updateUserWithResourceTenantasSuperAdmin**](UsersApi.md#updateUserWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/users/{id} | Update a standard user
-[**updateUserasSuperAdmin**](UsersApi.md#updateUserasSuperAdmin) | **PUT** /api/v1/tenants/users/{id} | Update a standard user
+[**autocompleteUsers**](UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
+[**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
+[**createApiTokensForUser1**](UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+[**createUser**](UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
+[**deleteApiToken**](UsersApi.md#deleteApiToken) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**deleteApiToken1**](UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**deleteRefreshToken**](UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
+[**deleteUser**](UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
+[**deleteUserAuthMethod**](UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
+[**getUser**](UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
+[**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
+[**listApiTokens**](UsersApi.md#listApiTokens) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
+[**listApiTokens1**](UsersApi.md#listApiTokens1) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+[**listUsers**](UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
+[**patchUser**](UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details
+[**patchUserDemo**](UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
+[**patchUserPassword**](UsersApi.md#patchUserPassword) | **PATCH** /api/v1/users/{id}/password | Update user password
+[**patchUserSuperAdmin**](UsersApi.md#patchUserSuperAdmin) | **PATCH** /api/v1/users/{id}/superadmin | Update user superadmin privileges
+[**updateCurrentUserPassword**](UsersApi.md#updateCurrentUserPassword) | **PUT** /api/v1/me/password | Update authenticated user password
+[**updateUser**](UsersApi.md#updateUser) | **PUT** /api/v1/users/{id} | Update a user account
+[**updateUserGroups**](UsersApi.md#updateUserGroups) | **PUT** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
 
 
 
 ## autocompleteUsers
 
-> [ApiUser] autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete)
+> [IAMTenantAccessControllerApiUserTenantAccess] autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete)
 
 List users for autocomplete
 
@@ -78,8 +49,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let tenant = "tenant_example"; // String | 
-let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete, (error, data, response) => {
+let iAMTenantAccessControllerUserApiAutocomplete = new KestraApi.IAMTenantAccessControllerUserApiAutocomplete(); // IAMTenantAccessControllerUserApiAutocomplete | Autocomplete request
+apiInstance.autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -94,115 +65,11 @@ apiInstance.autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete,
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md)| Autocomplete request | 
+ **iAMTenantAccessControllerUserApiAutocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md)| Autocomplete request | 
 
 ### Return type
 
-[**[ApiUser]**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteUsersWithResourceTenantasSuperAdmin
-
-> [ApiUser] autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete)
-
-List users for autocomplete
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md)| Autocomplete request | 
-
-### Return type
-
-[**[ApiUser]**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteUsersasSuperAdmin
-
-> [ApiUser] autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete)
-
-List users for autocomplete
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let abstractUserControllerUserApiAutocomplete = new KestraApi.AbstractUserControllerUserApiAutocomplete(); // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md)| Autocomplete request | 
-
-### Return type
-
-[**[ApiUser]**](ApiUser.md)
+[**[IAMTenantAccessControllerApiUserTenantAccess]**](IAMTenantAccessControllerApiUserTenantAccess.md)
 
 ### Authorization
 
@@ -216,7 +83,62 @@ Name | Type | Description  | Notes
 
 ## createApiTokensForUser
 
-> Object createApiTokensForUser(id, tenant, createApiTokenRequest)
+> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+
+Create new API Token for a specific user
+
+Superadmin-only. Create a new API token for a user.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user id
+let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
+apiInstance.createApiTokensForUser(id, createApiTokenRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+
+### Return type
+
+[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## createApiTokensForUser1
+
+> Object createApiTokensForUser1(id, tenant, createApiTokenRequest)
 
 Create new API Token for a specific user
 
@@ -237,7 +159,7 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUser(id, tenant, createApiTokenRequest, (error, data, response) => {
+apiInstance.createApiTokensForUser1(id, tenant, createApiTokenRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -258,271 +180,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createApiTokensForUserWithResourceTenantasSuperAdmin
-
-> Object createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest)
-
-Create new API Token for a specific user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createApiTokensForUserasSuperAdmin
-
-> Object createApiTokensForUserasSuperAdmin(id, createApiTokenRequest)
-
-Create new API Token for a specific user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUserasSuperAdmin(id, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createServiceAccount
-
-> ApiServiceAccount createServiceAccount(tenant, apiServiceAccount)
-
-Create a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let tenant = "tenant_example"; // String | 
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccount(tenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The service account | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createServiceAccountWithResourceTenantasSuperAdmin
-
-> ApiServiceAccount createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount)
-
-Create a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The service account | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createServiceAccountasSuperAdmin
-
-> ApiServiceAccount createServiceAccountasSuperAdmin(apiServiceAccount)
-
-Create a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The service account
-apiInstance.createServiceAccountasSuperAdmin(apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The service account | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
 
 ### Authorization
 
@@ -536,62 +193,11 @@ Name | Type | Description  | Notes
 
 ## createUser
 
-> ApiUser createUser(tenant, apiUser)
+> createUser(iAMUserControllerApiCreateOrUpdateUserRequest)
 
-Create a standard user
+Create a new user account
 
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let tenant = "tenant_example"; // String | 
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUser(tenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createUserBasicAuth
-
-> ApiUser createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest)
-
-Create a basic auth password for a standard user
+Superadmin-only. Create a new user account with an optional password based authentication method.
 
 ### Example
 
@@ -607,14 +213,12 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let tenant = "tenant_example"; // String | 
-let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest, (error, data, response) => {
+let iAMUserControllerApiCreateOrUpdateUserRequest = new KestraApi.IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
+apiInstance.createUser(iAMUserControllerApiCreateOrUpdateUserRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 });
 ```
@@ -624,13 +228,11 @@ apiInstance.createUserBasicAuth(id, tenant, abstractUserControllerPasswordReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tenant** | **String**|  | 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md)| The password | 
+ **iAMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+null (empty response body)
 
 ### Authorization
 
@@ -639,224 +241,67 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createUserBasicAuthWithResourceTenantasSuperAdmin
-
-> ApiUser createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest)
-
-Create a basic auth password for a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md)| The password | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createUserBasicAuthasSuperAdmin
-
-> ApiUser createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest)
-
-Create a basic auth password for a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let abstractUserControllerPasswordRequest = new KestraApi.AbstractUserControllerPasswordRequest(); // AbstractUserControllerPasswordRequest | The password
-apiInstance.createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **abstractUserControllerPasswordRequest** | [**AbstractUserControllerPasswordRequest**](AbstractUserControllerPasswordRequest.md)| The password | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createUserWithResourceTenantasSuperAdmin
-
-> ApiUser createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser)
-
-Create a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createUserasSuperAdmin
-
-> ApiUser createUserasSuperAdmin(apiUser)
-
-Create a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.createUserasSuperAdmin(apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ## deleteApiToken
 
-> Object deleteApiToken(id, tokenId, tenant)
+> deleteApiToken(id, tokenId)
+
+Delete an API Token for specific user and token id
+
+Superadmin-only. Delete an API token for a user.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user id
+let tokenId = "tokenId_example"; // String | The token id
+apiInstance.deleteApiToken(id, tokenId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **tokenId** | **String**| The token id | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+## deleteApiToken1
+
+> Object deleteApiToken1(id, tokenId, tenant)
 
 Delete an API Token for specific user and token id
 
@@ -877,7 +322,7 @@ let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiToken(id, tokenId, tenant, (error, data, response) => {
+apiInstance.deleteApiToken1(id, tokenId, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -898,277 +343,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteApiTokenWithResourceTenantasSuperAdmin
-
-> Object deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant)
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let tokenId = "tokenId_example"; // String | The token id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tokenId** | **String**| The token id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteApiTokenasSuperAdmin
-
-> Object deleteApiTokenasSuperAdmin(id, tokenId)
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiTokenasSuperAdmin(id, tokenId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tokenId** | **String**| The token id | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteAuth
-
-> ApiUser deleteAuth(id, uid, tenant)
-
-Delete an Auth for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let uid = "uid_example"; // String | The auth id
-let tenant = "tenant_example"; // String | 
-apiInstance.deleteAuth(id, uid, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **uid** | **String**| The auth id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteAuthWithResourceTenantasSuperAdmin
-
-> ApiUser deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant)
-
-Delete an Auth for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let uid = "uid_example"; // String | The auth id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **uid** | **String**| The auth id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteAuthasSuperAdmin
-
-> ApiUser deleteAuthasSuperAdmin(id, uid)
-
-Delete an Auth for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let uid = "uid_example"; // String | The auth id
-apiInstance.deleteAuthasSuperAdmin(id, uid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **uid** | **String**| The auth id | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
 
 ### Authorization
 
@@ -1182,7 +356,7 @@ Name | Type | Description  | Notes
 
 ## deleteRefreshToken
 
-> ApiUser deleteRefreshToken(id, tenant)
+> deleteRefreshToken(id)
 
 Delete a user refresh token
 
@@ -1201,117 +375,11 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-let tenant = "tenant_example"; // String | 
-apiInstance.deleteRefreshToken(id, tenant, (error, data, response) => {
+apiInstance.deleteRefreshToken(id, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteRefreshTokenWithResourceTenantasSuperAdmin
-
-> ApiUser deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant)
-
-Delete a user refresh token
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteRefreshTokenasSuperAdmin
-
-> ApiUser deleteRefreshTokenasSuperAdmin(id)
-
-Delete a user refresh token
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-apiInstance.deleteRefreshTokenasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 });
 ```
@@ -1325,7 +393,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+null (empty response body)
 
 ### Authorization
 
@@ -1334,14 +402,16 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ## deleteUser
 
-> deleteUser(id, tenant)
+> deleteUser(id)
 
 Delete a user
+
+Superadmin-only. Delete a user including all its access.
 
 ### Example
 
@@ -1358,113 +428,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-let tenant = "tenant_example"; // String | 
-apiInstance.deleteUser(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## deleteUserWithResourceTenantasSuperAdmin
-
-> deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant)
-
-Delete a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## deleteUserasSuperAdmin
-
-> deleteUserasSuperAdmin(id)
-
-Delete a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-apiInstance.deleteUserasSuperAdmin(id, (error, data, response) => {
+apiInstance.deleteUser(id, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1494,11 +458,13 @@ null (empty response body)
 - **Accept**: Not defined
 
 
-## findAllForAllTenants
+## deleteUserAuthMethod
 
-> PagedResultsApiUser findAllForAllTenants(page, size, opts)
+> IAMUserControllerApiUser deleteUserAuthMethod(id, auth)
 
-Get all users in the instance across all tenantd
+Update user password
+
+Superadmin-only. Updates whether a user is a superadmin.
 
 ### Example
 
@@ -1514,14 +480,9 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'q': "q_example", // String | A string filter
-  'type': new KestraApi.UserType() // UserType | The type of user
-};
-apiInstance.findAllForAllTenants(page, size, opts, (error, data, response) => {
+let id = "id_example"; // String | The user id
+let auth = "auth_example"; // String | The user auth method id
+apiInstance.deleteUserAuthMethod(id, auth, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1535,78 +496,12 @@ apiInstance.findAllForAllTenants(page, size, opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **q** | **String**| A string filter | [optional] 
- **type** | [**UserType**](.md)| The type of user | [optional] 
+ **id** | **String**| The user id | 
+ **auth** | **String**| The user auth method id | 
 
 ### Return type
 
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## findAllForAllTenantsWithResourceTenant
-
-> PagedResultsApiUser findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts)
-
-Get all users in the instance across all tenantd
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let resourceTenant = "resourceTenant_example"; // String | 
-let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'q': "q_example", // String | A string filter
-  'type': new KestraApi.UserType() // UserType | The type of user
-};
-apiInstance.findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **resourceTenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **q** | **String**| A string filter | [optional] 
- **type** | [**UserType**](.md)| The type of user | [optional] 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -1620,9 +515,11 @@ Name | Type | Description  | Notes
 
 ## getUser
 
-> ApiUser getUser(id, tenant)
+> IAMUserControllerApiUser getUser(id)
 
 Get a user
+
+Superadmin-only. Get user account details.
 
 ### Example
 
@@ -1639,113 +536,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-let tenant = "tenant_example"; // String | 
-apiInstance.getUser(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getUserWithResourceTenantasSuperAdmin
-
-> ApiUser getUserWithResourceTenantasSuperAdmin(id, resourceTenant)
-
-Get a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.getUserWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getUserasSuperAdmin
-
-> ApiUser getUserasSuperAdmin(id)
-
-Get a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-apiInstance.getUserasSuperAdmin(id, (error, data, response) => {
+apiInstance.getUser(id, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1763,7 +554,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -1780,6 +571,8 @@ Name | Type | Description  | Notes
 > Object impersonate(id)
 
 Impersonate a user
+
+Superadmin-only. Allows an admin to impersonate another user.
 
 ### Example
 
@@ -1826,64 +619,64 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## impersonateWithResourceTenant
-
-> Object impersonateWithResourceTenant(resourceTenant, id)
-
-Impersonate a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let id = "id_example"; // String | The user id
-apiInstance.impersonateWithResourceTenant(resourceTenant, id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **id** | **String**| The user id | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## listApiTokens
 
-> Object listApiTokens(id, tenant)
+> Object listApiTokens(id)
 
-List all API Tokens for specific user
+List API tokens for a specific user
+
+Superadmin-only. Get all API token existing for a user.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user id
+apiInstance.listApiTokens(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## listApiTokens1
+
+> Object listApiTokens1(id, tenant)
+
+List API tokens for a specific user
 
 ### Example
 
@@ -1901,7 +694,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokens(id, tenant, (error, data, response) => {
+apiInstance.listApiTokens1(id, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1932,241 +725,11 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## listApiTokensWithResourceTenantasSuperAdmin
+## listUsers
 
-> Object listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant)
+> PagedResultsIAMUserControllerApiUserSummary listUsers(page, size, opts)
 
-List all API Tokens for specific user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## listApiTokensasSuperAdmin
-
-> Object listApiTokensasSuperAdmin(id)
-
-List all API Tokens for specific user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-apiInstance.listApiTokensasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchUsers
-
-> PagedResultsApiUser searchUsers(page, size, tenant, opts)
-
-Search for users
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"], // [String] | The sort of current page
-  'type': new KestraApi.UserType() // UserType | The type of user
-};
-apiInstance.searchUsers(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **tenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **type** | [**UserType**](.md)| The type of user | [optional] 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchUsersWithResourceTenantasSuperAdmin
-
-> PagedResultsApiUser searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts)
-
-Search for users
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let resourceTenant = "resourceTenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"], // [String] | The sort of current page
-  'type': new KestraApi.UserType() // UserType | The type of user
-};
-apiInstance.searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **resourceTenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **type** | [**UserType**](.md)| The type of user | [optional] 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchUsersasSuperAdmin
-
-> PagedResultsApiUser searchUsersasSuperAdmin(page, size, opts)
-
-Search for users
+Retrieve users
 
 ### Example
 
@@ -2186,10 +749,9 @@ let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let opts = {
   'q': "q_example", // String | A string filter
-  'sort': ["null"], // [String] | The sort of current page
-  'type': new KestraApi.UserType() // UserType | The type of user
+  'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchUsersasSuperAdmin(page, size, opts, (error, data, response) => {
+apiInstance.listUsers(page, size, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2207,11 +769,10 @@ Name | Type | Description  | Notes
  **size** | **Number**| The current page size | [default to 10]
  **q** | **String**| A string filter | [optional] 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **type** | [**UserType**](.md)| The type of user | [optional] 
 
 ### Return type
 
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+[**PagedResultsIAMUserControllerApiUserSummary**](PagedResultsIAMUserControllerApiUserSummary.md)
 
 ### Authorization
 
@@ -2223,11 +784,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## setSuperAdmin
+## patchUser
 
-> ApiUser setSuperAdmin(id, body)
+> IAMUserControllerApiUser patchUser(id, meControllerApiUserDetailsRequest)
 
-Update a user service account
+Update user details
+
+Superadmin-only. Updates the the details of a user.
 
 ### Example
 
@@ -2244,8 +807,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
-let body = true; // Boolean | 
-apiInstance.setSuperAdmin(id, body, (error, data, response) => {
+let meControllerApiUserDetailsRequest = new KestraApi.MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
+apiInstance.patchUser(id, meControllerApiUserDetailsRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2260,11 +823,11 @@ apiInstance.setSuperAdmin(id, body, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The user id | 
- **body** | **Boolean**|  | 
+ **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -2276,11 +839,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## setSuperAdminWithResourceTenant
+## patchUserDemo
 
-> ApiUser setSuperAdminWithResourceTenant(resourceTenant, id, body)
+> patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest)
 
-Update a user service account
+Update user demo
+
+Superadmin-only. Updates whether a user is for demo.
 
 ### Example
 
@@ -2296,10 +861,64 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
-let resourceTenant = "resourceTenant_example"; // String | 
 let id = "id_example"; // String | The user id
-let body = true; // Boolean | 
-apiInstance.setSuperAdminWithResourceTenant(resourceTenant, id, body, (error, data, response) => {
+let iAMUserControllerApiPatchRestrictedRequest = new KestraApi.IAMUserControllerApiPatchRestrictedRequest(); // IAMUserControllerApiPatchRestrictedRequest | 
+apiInstance.patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **iAMUserControllerApiPatchRestrictedRequest** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md)|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+
+## patchUserPassword
+
+> Object patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest)
+
+Update user password
+
+Superadmin-only. Updates whether a user is a superadmin.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user id
+let iAMUserControllerApiPatchUserPasswordRequest = new KestraApi.IAMUserControllerApiPatchUserPasswordRequest(); // IAMUserControllerApiPatchUserPasswordRequest | 
+apiInstance.patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2313,13 +932,12 @@ apiInstance.setSuperAdminWithResourceTenant(resourceTenant, id, body, (error, da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
  **id** | **String**| The user id | 
- **body** | **Boolean**|  | 
+ **iAMUserControllerApiPatchUserPasswordRequest** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md)|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+**Object**
 
 ### Authorization
 
@@ -2329,13 +947,70 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+
+## patchUserSuperAdmin
+
+> patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest)
+
+Update user superadmin privileges
+
+Superadmin-only. Updates whether a user is a superadmin.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user id
+let iAMUserControllerApiPatchSuperAdminRequest = new KestraApi.IAMUserControllerApiPatchSuperAdminRequest(); // IAMUserControllerApiPatchSuperAdminRequest | 
+apiInstance.patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **iAMUserControllerApiPatchSuperAdminRequest** | [**IAMUserControllerApiPatchSuperAdminRequest**](IAMUserControllerApiPatchSuperAdminRequest.md)|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 
 ## updateCurrentUserPassword
 
-> Object updateCurrentUserPassword(meControllerUpdatePasswordRequest)
+> Object updateCurrentUserPassword(meControllerApiUpdatePasswordRequest)
 
-Update login password for the current user.
+Update authenticated user password
+
+Changes the login password for the authenticated user.
 
 ### Example
 
@@ -2351,8 +1026,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
-let meControllerUpdatePasswordRequest = new KestraApi.MeControllerUpdatePasswordRequest(); // MeControllerUpdatePasswordRequest | 
-apiInstance.updateCurrentUserPassword(meControllerUpdatePasswordRequest, (error, data, response) => {
+let meControllerApiUpdatePasswordRequest = new KestraApi.MeControllerApiUpdatePasswordRequest(); // MeControllerApiUpdatePasswordRequest | 
+apiInstance.updateCurrentUserPassword(meControllerApiUpdatePasswordRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -2366,227 +1041,11 @@ apiInstance.updateCurrentUserPassword(meControllerUpdatePasswordRequest, (error,
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **meControllerUpdatePasswordRequest** | [**MeControllerUpdatePasswordRequest**](MeControllerUpdatePasswordRequest.md)|  | 
+ **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md)|  | 
 
 ### Return type
 
 **Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateCurrentUserPasswordWithTenant
-
-> Object updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest)
-
-Update login password for the current user.
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let tenant = "tenant_example"; // String | 
-let meControllerUpdatePasswordRequest = new KestraApi.MeControllerUpdatePasswordRequest(); // MeControllerUpdatePasswordRequest | 
-apiInstance.updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **meControllerUpdatePasswordRequest** | [**MeControllerUpdatePasswordRequest**](MeControllerUpdatePasswordRequest.md)|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateServiceAccount
-
-> ApiServiceAccount updateServiceAccount(id, tenant, apiServiceAccount)
-
-Update a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let tenant = "tenant_example"; // String | 
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccount(id, tenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **tenant** | **String**|  | 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateServiceAccountWithResourceTenantasSuperAdmin
-
-> ApiServiceAccount updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount)
-
-Update a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateServiceAccountasSuperAdmin
-
-> ApiServiceAccount updateServiceAccountasSuperAdmin(id, apiServiceAccount)
-
-Update a user service account
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let apiServiceAccount = new KestraApi.ApiServiceAccount(); // ApiServiceAccount | The user
-apiInstance.updateServiceAccountasSuperAdmin(id, apiServiceAccount, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md)| The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
 
 ### Authorization
 
@@ -2600,9 +1059,11 @@ Name | Type | Description  | Notes
 
 ## updateUser
 
-> ApiUser updateUser(id, tenant, apiUser)
+> IAMUserControllerApiUser updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest)
 
-Update a standard user
+Update a user account
+
+Superadmin-only. Update an existing user account with an optional password based authentication method.
 
 ### Example
 
@@ -2619,13 +1080,66 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.UsersApi();
 let id = "id_example"; // String | The user id
+let iAMUserControllerApiCreateOrUpdateUserRequest = new KestraApi.IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
+apiInstance.updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **iAMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md)|  | 
+
+### Return type
+
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## updateUserGroups
+
+> updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest)
+
+Update the list of groups a user belongs to for the given tenant
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.UsersApi();
+let id = "id_example"; // String | The user ID
 let tenant = "tenant_example"; // String | 
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUser(id, tenant, apiUser, (error, data, response) => {
+let iAMUserGroupControllerApiUpdateUserGroupsRequest = new KestraApi.IAMUserGroupControllerApiUpdateUserGroupsRequest(); // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
+apiInstance.updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 });
 ```
@@ -2635,13 +1149,13 @@ apiInstance.updateUser(id, tenant, apiUser, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
+ **id** | **String**| The user ID | 
  **tenant** | **String**|  | 
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
+ **iAMUserGroupControllerApiUpdateUserGroupsRequest** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md)|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+null (empty response body)
 
 ### Authorization
 
@@ -2650,113 +1164,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateUserWithResourceTenantasSuperAdmin
-
-> ApiUser updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser)
-
-Update a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateUserasSuperAdmin
-
-> ApiUser updateUserasSuperAdmin(id, apiUser)
-
-Update a standard user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.UsersApi();
-let id = "id_example"; // String | The user id
-let apiUser = new KestraApi.ApiUser(); // ApiUser | The user
-apiInstance.updateUserasSuperAdmin(id, apiUser, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The user id | 
- **apiUser** | [**ApiUser**](ApiUser.md)| The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 

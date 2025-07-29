@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -18,7 +18,7 @@ import Banner from '../model/Banner';
 /**
 * Banners service.
 * @module api/BannersApi
-* @version v1
+* @version v0.24.0
 */
 export default class BannersApi {
 
@@ -43,8 +43,9 @@ export default class BannersApi {
      */
 
     /**
-     * Create a new banner
-     * @param {module:model/Banner} banner The banner to create
+     * Create an announcement banner
+     * Superadmin-only. Creates a global announcement banner visible to all tenants.
+     * @param {module:model/Banner} banner The announcement banner to create
      * @param {module:api/BannersApi~createBannerCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Banner}
      */
@@ -84,7 +85,8 @@ export default class BannersApi {
      */
 
     /**
-     * Delete a banner
+     * Delete an announcement banner
+     * Superadmin-only. Deletes a global announcement banner by its ID.
      * @param {String} id The banner id
      * @param {module:api/BannersApi~deleteBannerCallback} callback The callback function, accepting three arguments: error, data, response
      */
@@ -125,7 +127,8 @@ export default class BannersApi {
      */
 
     /**
-     * Get banners
+     * Retrieve all announcement banners
+     * Superadmin-only. Returns all global announcement banners.
      * @param {module:api/BannersApi~searchBannersCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Banner>}
      */
@@ -161,7 +164,8 @@ export default class BannersApi {
      */
 
     /**
-     * Update a banner
+     * Update an announcement banner
+     * Superadmin-only. Updates a global announcement banner by its ID.
      * @param {String} id The banner id
      * @param {module:model/Banner} banner The banner to update
      * @param {module:api/BannersApi~updateBannerCallback} callback The callback function, accepting three arguments: error, data, response

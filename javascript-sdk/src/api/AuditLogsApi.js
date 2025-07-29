@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -24,7 +24,7 @@ import Permission from '../model/Permission';
 /**
 * AuditLogs service.
 * @module api/AuditLogsApi
-* @version v1
+* @version v0.24.0
 */
 export default class AuditLogsApi {
 
@@ -96,7 +96,8 @@ export default class AuditLogsApi {
      */
 
     /**
-     * Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+     * Retrieve the diff between audit logs
+     * Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
      * @param {String} id The id of the audit log
      * @param {String} tenant 
      * @param {Object} opts Optional parameters

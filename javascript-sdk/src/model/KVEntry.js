@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The KVEntry model module.
  * @module model/KVEntry
- * @version v1
+ * @version v0.24.0
  */
 class KVEntry {
     /**
@@ -50,6 +50,9 @@ class KVEntry {
             if (data.hasOwnProperty('key')) {
                 obj['key'] = ApiClient.convertToType(data['key'], 'String');
             }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
             if (data.hasOwnProperty('creationDate')) {
                 obj['creationDate'] = ApiClient.convertToType(data['creationDate'], 'Date');
             }
@@ -73,6 +76,10 @@ class KVEntry {
         if (data['key'] && !(typeof data['key'] === 'string' || data['key'] instanceof String)) {
             throw new Error("Expected the field `key` to be a primitive type in the JSON string but got " + data['key']);
         }
+        // ensure the json data is a string
+        if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
+            throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
+        }
 
         return true;
     }
@@ -86,6 +93,11 @@ class KVEntry {
  * @member {String} key
  */
 KVEntry.prototype['key'] = undefined;
+
+/**
+ * @member {String} description
+ */
+KVEntry.prototype['description'] = undefined;
 
 /**
  * @member {Date} creationDate

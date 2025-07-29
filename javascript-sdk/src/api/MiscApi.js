@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -27,7 +27,7 @@ import UsageEE from '../model/UsageEE';
 /**
 * Misc service.
 * @module api/MiscApi
-* @version v1
+* @version v0.24.0
 */
 export default class MiscApi {
 
@@ -52,18 +52,25 @@ export default class MiscApi {
      */
 
     /**
-     * Create basic auth for the current instance
+     * Configure basic authentication for the instance.
+     * Sets up basic authentication credentials.
+     * @param {String} tenant 
      * @param {module:model/MiscControllerBasicAuthCredentials} miscControllerBasicAuthCredentials 
      * @param {module:api/MiscApi~createBasicAuthCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    createBasicAuth(miscControllerBasicAuthCredentials, callback) {
+    createBasicAuth(tenant, miscControllerBasicAuthCredentials, callback) {
       let postBody = miscControllerBasicAuthCredentials;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling createBasicAuth");
+      }
       // verify the required parameter 'miscControllerBasicAuthCredentials' is set
       if (miscControllerBasicAuthCredentials === undefined || miscControllerBasicAuthCredentials === null) {
         throw new Error("Missing the required parameter 'miscControllerBasicAuthCredentials' when calling createBasicAuth");
       }
 
       let pathParams = {
+        'tenant': tenant
       };
       let queryParams = {
       };
@@ -77,7 +84,44 @@ export default class MiscApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/main/basicAuth', 'POST',
+        '/api/v1/{tenant}/basicAuth', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getBasicAuthConfigErrors operation.
+     * @callback module:api/MiscApi~getBasicAuthConfigErrorsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<String>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Retrieve the instance configuration.
+     * Global endpoint available to all users.
+     * @param {module:api/MiscApi~getBasicAuthConfigErrorsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<String>}
+     */
+    getBasicAuthConfigErrors(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = ['String'];
+      return this.apiClient.callApi(
+        '/api/v1/basicAuthValidationErrors', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -92,7 +136,8 @@ export default class MiscApi {
      */
 
     /**
-     * Get current configurations
+     * Retrieve the instance configuration.
+     * Global endpoint available to all users.
      * @param {module:api/MiscApi~getConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/MiscControllerEEConfiguration}
      */
@@ -128,7 +173,7 @@ export default class MiscApi {
      */
 
     /**
-     * Get instance usage information
+     * Retrieve instance usage information
      * @param {String} tenant 
      * @param {module:api/MiscApi~getUsagesCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Usage}
@@ -170,7 +215,8 @@ export default class MiscApi {
      */
 
     /**
-     * Get current license information
+     * Retrieve license information
+     * Global endpoint, available to any authenticated user.
      * @param {module:api/MiscApi~licenseInfoCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/MiscControllerLicenseInfo}
      */
@@ -206,7 +252,8 @@ export default class MiscApi {
      */
 
     /**
-     * Get list of actions
+     * Retrieve list of actions
+     * Actions are used to restrict possible operations for each permission. Each action must be one of the following: CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g. only allow a user to read a flow, but not update or delete it.
      * @param {String} tenant 
      * @param {module:api/MiscApi~listActionsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Action>}
@@ -248,7 +295,8 @@ export default class MiscApi {
      */
 
     /**
-     * Get list of permissions
+     * Retrieve list of permissions
+     * Permissions are used to control access to resources within the Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
      * @param {String} tenant 
      * @param {module:api/MiscApi~listPermissionsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Permission>}
@@ -290,7 +338,7 @@ export default class MiscApi {
      */
 
     /**
-     * Currently running configuration
+     * Retrieve current setup configuration
      * @param {module:api/MiscApi~setupConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/SetupConfiguration}
      */
@@ -326,7 +374,8 @@ export default class MiscApi {
      */
 
     /**
-     * Create the first user
+     * Create the first Superadmin user
+     * Only used during initial instance setup.
      * @param {module:model/SetupConfigurationSetupData} setupConfigurationSetupData 
      * @param {module:api/MiscApi~setupKestraCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ApiUser}
@@ -367,7 +416,7 @@ export default class MiscApi {
      */
 
     /**
-     * Get instance usage information for the current tenant
+     * Retrieve usage information for the current tenant
      * @param {String} tenant 
      * @param {module:api/MiscApi~tenantUsageCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/UsageEE}

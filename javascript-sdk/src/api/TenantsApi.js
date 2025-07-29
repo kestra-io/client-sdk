@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -14,13 +14,14 @@
 
 import ApiClient from "../ApiClient";
 import ApiTenant from '../model/ApiTenant';
+import FlowTopologyGraph from '../model/FlowTopologyGraph';
 import PagedResultsTenant from '../model/PagedResultsTenant';
 import Tenant from '../model/Tenant';
 
 /**
 * Tenants service.
 * @module api/TenantsApi
-* @version v1
+* @version v0.24.0
 */
 export default class TenantsApi {
 
@@ -45,7 +46,8 @@ export default class TenantsApi {
      */
 
     /**
-     * Delete a tenant and all its resources (flows, namespaces, apps, ...
+     * Delete a tenant and all its resources
+     * Superadmin-only. Deletes all resources linked to the tenant, including flows, namespaces, apps, etc.
      * @param {String} id The tenant id
      * @param {module:api/TenantsApi~callDeleteCallback} callback The callback function, accepting three arguments: error, data, response
      */
@@ -87,6 +89,7 @@ export default class TenantsApi {
 
     /**
      * Create a tenant
+     * Superadmin-only.
      * @param {module:model/Tenant} tenant 
      * @param {module:api/TenantsApi~createCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Tenant}
@@ -128,6 +131,7 @@ export default class TenantsApi {
 
     /**
      * Search for tenants
+     * Superadmin-only.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {Object} opts Optional parameters
@@ -181,7 +185,8 @@ export default class TenantsApi {
      */
 
     /**
-     * Get a tenant
+     * Retrieve a tenant
+     * Superadmin-only.
      * @param {String} id The tenant id
      * @param {module:api/TenantsApi~getCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Tenant}
@@ -215,6 +220,54 @@ export default class TenantsApi {
     }
 
     /**
+     * Callback function to receive the result of the getFlowDependenciesFromTenant operation.
+     * @callback module:api/TenantsApi~getFlowDependenciesFromTenantCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/FlowTopologyGraph} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get tenant dependencies
+     * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
+     * @param {String} tenant 
+     * @param {module:api/TenantsApi~getFlowDependenciesFromTenantCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/FlowTopologyGraph}
+     */
+    getFlowDependenciesFromTenant(destinationOnly, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'destinationOnly' is set
+      if (destinationOnly === undefined || destinationOnly === null) {
+        throw new Error("Missing the required parameter 'destinationOnly' when calling getFlowDependenciesFromTenant");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling getFlowDependenciesFromTenant");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+        'destinationOnly': destinationOnly
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = FlowTopologyGraph;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/dependencies', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the setLogo operation.
      * @callback module:api/TenantsApi~setLogoCallback
      * @param {String} error Error message, if any.
@@ -224,6 +277,7 @@ export default class TenantsApi {
 
     /**
      * Set a tenant logo
+     * Superadmin-only.
      * @param {String} id The tenant id
      * @param {Object} opts Optional parameters
      * @param {File} [logo] The logo file
@@ -270,6 +324,7 @@ export default class TenantsApi {
 
     /**
      * Update a tenant
+     * Superadmin-only.
      * @param {String} id The tenant id
      * @param {module:model/Tenant} tenant 
      * @param {module:api/TenantsApi~updateCallback} callback The callback function, accepting three arguments: error, data, response

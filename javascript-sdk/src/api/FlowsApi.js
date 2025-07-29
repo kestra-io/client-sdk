@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -35,7 +35,7 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Flows service.
 * @module api/FlowsApi
-* @version v1
+* @version v0.24.0
 */
 export default class FlowsApi {
 
@@ -864,11 +864,12 @@ export default class FlowsApi {
      * @param {String} namespace The flow namespace
      * @param {String} id The flow id
      * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
+     * @param {Boolean} expandAll If true, expand all dependencies recursively
      * @param {String} tenant 
      * @param {module:api/FlowsApi~getFlowDependenciesCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/FlowTopologyGraph}
      */
-    getFlowDependencies(namespace, id, destinationOnly, tenant, callback) {
+    getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, callback) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -882,6 +883,10 @@ export default class FlowsApi {
       if (destinationOnly === undefined || destinationOnly === null) {
         throw new Error("Missing the required parameter 'destinationOnly' when calling getFlowDependencies");
       }
+      // verify the required parameter 'expandAll' is set
+      if (expandAll === undefined || expandAll === null) {
+        throw new Error("Missing the required parameter 'expandAll' when calling getFlowDependencies");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling getFlowDependencies");
@@ -893,7 +898,8 @@ export default class FlowsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'destinationOnly': destinationOnly
+        'destinationOnly': destinationOnly,
+        'expandAll': expandAll
       };
       let headerParams = {
       };
@@ -920,7 +926,7 @@ export default class FlowsApi {
      */
 
     /**
-     * Get flow dependencies
+     * Retrieve flow dependencies
      * @param {String} namespace The flow namespace
      * @param {Boolean} destinationOnly if true, list only destination dependencies, otherwise list also source dependencies
      * @param {String} tenant 

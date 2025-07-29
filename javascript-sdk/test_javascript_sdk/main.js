@@ -37,6 +37,6 @@ tasks:
 console.log("Creating flow with id: " + flowId + " in namespace: " + namespace);
 
 console.log("flows api: ", kestraClient.flowsApi);
-KestraClient.flowsApi.createFlow(tenantId, flow, (err, data, res) => callback(err, data, res, "createFlow"));
+kestraClient.flowsApi.createFlow(tenantId, flow, (err, data, res) => callback(err, data, res, "createFlow"));
 
 

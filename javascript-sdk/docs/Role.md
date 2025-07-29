@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | [optional] 
 **name** | **String** |  | 
 **description** | **String** |  | [optional] 
-**permissions** | [**RolePermissions**](RolePermissions.md) |  | [optional] 
+**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
 **isDefault** | **Boolean** |  | [optional] 
 **deleted** | **Boolean** |  | 
 

@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**findAuditLog**](AuditLogsApi.md#findAuditLog) | **POST** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
-[**getResourceDiffFromAuditLog**](AuditLogsApi.md#getResourceDiffFromAuditLog) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+[**getResourceDiffFromAuditLog**](AuditLogsApi.md#getResourceDiffFromAuditLog) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
 [**listAuditLogFromResourceId**](AuditLogsApi.md#listAuditLogFromResourceId) | **GET** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
 [**searchAuditLogs**](AuditLogsApi.md#searchAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/search | Search for audit logs
 
@@ -68,7 +68,9 @@ Name | Type | Description  | Notes
 
 > AuditLogControllerAuditLogDiff getResourceDiffFromAuditLog(id, tenant, opts)
 
-Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+Retrieve the diff between audit logs
+
+Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
 
 ### Example
 

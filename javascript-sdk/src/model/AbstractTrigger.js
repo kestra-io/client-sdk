@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -21,7 +21,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The AbstractTrigger model module.
  * @module model/AbstractTrigger
- * @version v1
+ * @version v0.24.0
  */
 class AbstractTrigger {
     /**
@@ -93,6 +93,9 @@ class AbstractTrigger {
             }
             if (data.hasOwnProperty('logToFile')) {
                 obj['logToFile'] = ApiClient.convertToType(data['logToFile'], 'Boolean');
+            }
+            if (data.hasOwnProperty('failOnTriggerError')) {
+                obj['failOnTriggerError'] = ApiClient.convertToType(data['failOnTriggerError'], 'Boolean');
             }
         }
         return obj;
@@ -216,6 +219,11 @@ AbstractTrigger.prototype['stopAfter'] = undefined;
  * @member {Boolean} logToFile
  */
 AbstractTrigger.prototype['logToFile'] = undefined;
+
+/**
+ * @member {Boolean} failOnTriggerError
+ */
+AbstractTrigger.prototype['failOnTriggerError'] = undefined;
 
 
 

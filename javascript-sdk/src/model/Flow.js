@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -22,11 +22,12 @@ import Output from './Output';
 import PluginDefault from './PluginDefault';
 import SLA from './SLA';
 import Task from './Task';
+import WorkerGroup from './WorkerGroup';
 
 /**
  * The Flow model module.
  * @module model/Flow
- * @version v1
+ * @version v0.24.0
  */
 class Flow {
     /**
@@ -92,6 +93,9 @@ class Flow {
             }
             if (data.hasOwnProperty('variables')) {
                 obj['variables'] = ApiClient.convertToType(data['variables'], {'String': Object});
+            }
+            if (data.hasOwnProperty('workerGroup')) {
+                obj['workerGroup'] = WorkerGroup.constructFromObject(data['workerGroup']);
             }
             if (data.hasOwnProperty('deleted')) {
                 obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
@@ -179,6 +183,10 @@ class Flow {
         // validate the optional field `labels`
         if (data['labels']) { // data not null
           FlowAllOfLabels.validateJSON(data['labels']);
+        }
+        // validate the optional field `workerGroup`
+        if (data['workerGroup']) { // data not null
+          WorkerGroup.validateJSON(data['workerGroup']);
         }
         if (data['finally']) { // data not null
             // ensure the json data is an array
@@ -329,6 +337,11 @@ Flow.prototype['labels'] = undefined;
 Flow.prototype['variables'] = undefined;
 
 /**
+ * @member {module:model/WorkerGroup} workerGroup
+ */
+Flow.prototype['workerGroup'] = undefined;
+
+/**
  * @member {Boolean} deleted
  */
 Flow.prototype['deleted'] = undefined;
@@ -427,6 +440,10 @@ AbstractFlow.prototype['labels'] = undefined;
  * @member {Object.<String, Object>} variables
  */
 AbstractFlow.prototype['variables'] = undefined;
+/**
+ * @member {module:model/WorkerGroup} workerGroup
+ */
+AbstractFlow.prototype['workerGroup'] = undefined;
 /**
  * @member {Boolean} deleted
  */

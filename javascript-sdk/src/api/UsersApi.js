@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,19 +13,24 @@
 
 
 import ApiClient from "../ApiClient";
-import AbstractUserControllerPasswordRequest from '../model/AbstractUserControllerPasswordRequest';
-import AbstractUserControllerUserApiAutocomplete from '../model/AbstractUserControllerUserApiAutocomplete';
-import ApiServiceAccount from '../model/ApiServiceAccount';
-import ApiUser from '../model/ApiUser';
 import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
-import MeControllerUpdatePasswordRequest from '../model/MeControllerUpdatePasswordRequest';
-import PagedResultsApiUser from '../model/PagedResultsApiUser';
-import UserType from '../model/UserType';
+import CreateApiTokenResponse from '../model/CreateApiTokenResponse';
+import IAMTenantAccessControllerApiUserTenantAccess from '../model/IAMTenantAccessControllerApiUserTenantAccess';
+import IAMTenantAccessControllerUserApiAutocomplete from '../model/IAMTenantAccessControllerUserApiAutocomplete';
+import IAMUserControllerApiCreateOrUpdateUserRequest from '../model/IAMUserControllerApiCreateOrUpdateUserRequest';
+import IAMUserControllerApiPatchRestrictedRequest from '../model/IAMUserControllerApiPatchRestrictedRequest';
+import IAMUserControllerApiPatchSuperAdminRequest from '../model/IAMUserControllerApiPatchSuperAdminRequest';
+import IAMUserControllerApiPatchUserPasswordRequest from '../model/IAMUserControllerApiPatchUserPasswordRequest';
+import IAMUserControllerApiUser from '../model/IAMUserControllerApiUser';
+import IAMUserGroupControllerApiUpdateUserGroupsRequest from '../model/IAMUserGroupControllerApiUpdateUserGroupsRequest';
+import MeControllerApiUpdatePasswordRequest from '../model/MeControllerApiUpdatePasswordRequest';
+import MeControllerApiUserDetailsRequest from '../model/MeControllerApiUserDetailsRequest';
+import PagedResultsIAMUserControllerApiUserSummary from '../model/PagedResultsIAMUserControllerApiUserSummary';
 
 /**
 * Users service.
 * @module api/UsersApi
-* @version v1
+* @version v0.24.0
 */
 export default class UsersApi {
 
@@ -45,26 +50,26 @@ export default class UsersApi {
      * Callback function to receive the result of the autocompleteUsers operation.
      * @callback module:api/UsersApi~autocompleteUsersCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
+     * @param {Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * List users for autocomplete
      * @param {String} tenant 
-     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
+     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
      * @param {module:api/UsersApi~autocompleteUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
+     * data is of type: {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>}
      */
-    autocompleteUsers(tenant, abstractUserControllerUserApiAutocomplete, callback) {
-      let postBody = abstractUserControllerUserApiAutocomplete;
+    autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete, callback) {
+      let postBody = iAMTenantAccessControllerUserApiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling autocompleteUsers");
       }
-      // verify the required parameter 'abstractUserControllerUserApiAutocomplete' is set
-      if (abstractUserControllerUserApiAutocomplete === undefined || abstractUserControllerUserApiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerUserApiAutocomplete' when calling autocompleteUsers");
+      // verify the required parameter 'iAMTenantAccessControllerUserApiAutocomplete' is set
+      if (iAMTenantAccessControllerUserApiAutocomplete === undefined || iAMTenantAccessControllerUserApiAutocomplete === null) {
+        throw new Error("Missing the required parameter 'iAMTenantAccessControllerUserApiAutocomplete' when calling autocompleteUsers");
       }
 
       let pathParams = {
@@ -80,97 +85,9 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [ApiUser];
+      let returnType = [IAMTenantAccessControllerApiUserTenantAccess];
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteUsersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~autocompleteUsersWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List users for autocomplete
-     * @param {String} resourceTenant 
-     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
-     */
-    autocompleteUsersWithResourceTenantasSuperAdmin(resourceTenant, abstractUserControllerUserApiAutocomplete, callback) {
-      let postBody = abstractUserControllerUserApiAutocomplete;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling autocompleteUsersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'abstractUserControllerUserApiAutocomplete' is set
-      if (abstractUserControllerUserApiAutocomplete === undefined || abstractUserControllerUserApiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerUserApiAutocomplete' when calling autocompleteUsersWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [ApiUser];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteUsersasSuperAdmin operation.
-     * @callback module:api/UsersApi~autocompleteUsersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiUser>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List users for autocomplete
-     * @param {module:model/AbstractUserControllerUserApiAutocomplete} abstractUserControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiUser>}
-     */
-    autocompleteUsersasSuperAdmin(abstractUserControllerUserApiAutocomplete, callback) {
-      let postBody = abstractUserControllerUserApiAutocomplete;
-      // verify the required parameter 'abstractUserControllerUserApiAutocomplete' is set
-      if (abstractUserControllerUserApiAutocomplete === undefined || abstractUserControllerUserApiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerUserApiAutocomplete' when calling autocompleteUsersasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [ApiUser];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/users/autocomplete', 'POST',
+        '/api/v1/{tenant}/tenant-access/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -180,132 +97,27 @@ export default class UsersApi {
      * Callback function to receive the result of the createApiTokensForUser operation.
      * @callback module:api/UsersApi~createApiTokensForUserCallback
      * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
+     * @param {module:model/CreateApiTokenResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create new API Token for a specific user
+     * Superadmin-only. Create a new API token for a user.
      * @param {String} id The user id
-     * @param {String} tenant 
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
      * @param {module:api/UsersApi~createApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * data is of type: {@link module:model/CreateApiTokenResponse}
      */
-    createApiTokensForUser(id, tenant, createApiTokenRequest, callback) {
+    createApiTokensForUser(id, createApiTokenRequest, callback) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling createApiTokensForUser");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createApiTokensForUser");
-      }
       // verify the required parameter 'createApiTokenRequest' is set
       if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
         throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUser");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/api-tokens', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createApiTokensForUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createApiTokensForUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create new API Token for a specific user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    createApiTokensForUserWithResourceTenantasSuperAdmin(id, resourceTenant, createApiTokenRequest, callback) {
-      let postBody = createApiTokenRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createApiTokensForUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createApiTokensForUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'createApiTokenRequest' is set
-      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
-        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUserWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createApiTokensForUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~createApiTokensForUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create new API Token for a specific user
-     * @param {String} id The user id
-     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    createApiTokensForUserasSuperAdmin(id, createApiTokenRequest, callback) {
-      let postBody = createApiTokenRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createApiTokensForUserasSuperAdmin");
-      }
-      // verify the required parameter 'createApiTokenRequest' is set
-      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
-        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUserasSuperAdmin");
       }
 
       let pathParams = {
@@ -321,41 +133,47 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = CreateApiTokenResponse;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/api-tokens', 'POST',
+        '/api/v1/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the createServiceAccount operation.
-     * @callback module:api/UsersApi~createServiceAccountCallback
+     * Callback function to receive the result of the createApiTokensForUser1 operation.
+     * @callback module:api/UsersApi~createApiTokensForUser1Callback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create a user service account
+     * Create new API Token for a specific user
+     * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @param {module:api/UsersApi~createApiTokensForUser1Callback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
      */
-    createServiceAccount(tenant, apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
+    createApiTokensForUser1(id, tenant, createApiTokenRequest, callback) {
+      let postBody = createApiTokenRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling createApiTokensForUser1");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createServiceAccount");
+        throw new Error("Missing the required parameter 'tenant' when calling createApiTokensForUser1");
       }
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling createServiceAccount");
+      // verify the required parameter 'createApiTokenRequest' is set
+      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
+        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUser1");
       }
 
       let pathParams = {
+        'id': id,
         'tenant': tenant
       };
       let queryParams = {
@@ -368,97 +186,9 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
+      let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/service-accounts', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createServiceAccountWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createServiceAccountWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a user service account
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
-     */
-    createServiceAccountWithResourceTenantasSuperAdmin(resourceTenant, apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createServiceAccountWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling createServiceAccountWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/service-accounts', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createServiceAccountasSuperAdmin operation.
-     * @callback module:api/UsersApi~createServiceAccountasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a user service account
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The service account
-     * @param {module:api/UsersApi~createServiceAccountasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
-     */
-    createServiceAccountasSuperAdmin(apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling createServiceAccountasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/users/service-accounts', 'POST',
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -468,268 +198,21 @@ export default class UsersApi {
      * Callback function to receive the result of the createUser operation.
      * @callback module:api/UsersApi~createUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create a standard user
-     * @param {String} tenant 
-     * @param {module:model/ApiUser} apiUser The user
+     * Create a new user account
+     * Superadmin-only. Create a new user account with an optional password based authentication method.
+     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
      * @param {module:api/UsersApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
      */
-    createUser(tenant, apiUser, callback) {
-      let postBody = apiUser;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createUser");
-      }
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling createUser");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createUserBasicAuth operation.
-     * @callback module:api/UsersApi~createUserBasicAuthCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a basic auth password for a standard user
-     * @param {String} id The user id
-     * @param {String} tenant 
-     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    createUserBasicAuth(id, tenant, abstractUserControllerPasswordRequest, callback) {
-      let postBody = abstractUserControllerPasswordRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createUserBasicAuth");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createUserBasicAuth");
-      }
-      // verify the required parameter 'abstractUserControllerPasswordRequest' is set
-      if (abstractUserControllerPasswordRequest === undefined || abstractUserControllerPasswordRequest === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerPasswordRequest' when calling createUserBasicAuth");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/password', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createUserBasicAuthWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserBasicAuthWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a basic auth password for a standard user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    createUserBasicAuthWithResourceTenantasSuperAdmin(id, resourceTenant, abstractUserControllerPasswordRequest, callback) {
-      let postBody = abstractUserControllerPasswordRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createUserBasicAuthWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createUserBasicAuthWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'abstractUserControllerPasswordRequest' is set
-      if (abstractUserControllerPasswordRequest === undefined || abstractUserControllerPasswordRequest === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerPasswordRequest' when calling createUserBasicAuthWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/password', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createUserBasicAuthasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserBasicAuthasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a basic auth password for a standard user
-     * @param {String} id The user id
-     * @param {module:model/AbstractUserControllerPasswordRequest} abstractUserControllerPasswordRequest The password
-     * @param {module:api/UsersApi~createUserBasicAuthasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    createUserBasicAuthasSuperAdmin(id, abstractUserControllerPasswordRequest, callback) {
-      let postBody = abstractUserControllerPasswordRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createUserBasicAuthasSuperAdmin");
-      }
-      // verify the required parameter 'abstractUserControllerPasswordRequest' is set
-      if (abstractUserControllerPasswordRequest === undefined || abstractUserControllerPasswordRequest === null) {
-        throw new Error("Missing the required parameter 'abstractUserControllerPasswordRequest' when calling createUserBasicAuthasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/password', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a standard user
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~createUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    createUserWithResourceTenantasSuperAdmin(resourceTenant, apiUser, callback) {
-      let postBody = apiUser;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling createUserWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~createUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a standard user
-     * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~createUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    createUserasSuperAdmin(apiUser, callback) {
-      let postBody = apiUser;
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling createUserasSuperAdmin");
+    createUser(iAMUserControllerApiCreateOrUpdateUserRequest, callback) {
+      let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
+      // verify the required parameter 'iAMUserControllerApiCreateOrUpdateUserRequest' is set
+      if (iAMUserControllerApiCreateOrUpdateUserRequest === undefined || iAMUserControllerApiCreateOrUpdateUserRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserControllerApiCreateOrUpdateUserRequest' when calling createUser");
       }
 
       let pathParams = {
@@ -743,10 +226,10 @@ export default class UsersApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users', 'POST',
+        '/api/v1/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -756,19 +239,18 @@ export default class UsersApi {
      * Callback function to receive the result of the deleteApiToken operation.
      * @callback module:api/UsersApi~deleteApiTokenCallback
      * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Delete an API Token for specific user and token id
+     * Superadmin-only. Delete an API token for a user.
      * @param {String} id The user id
      * @param {String} tokenId The token id
-     * @param {String} tenant 
      * @param {module:api/UsersApi~deleteApiTokenCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
      */
-    deleteApiToken(id, tokenId, tenant, callback) {
+    deleteApiToken(id, tokenId, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -777,113 +259,6 @@ export default class UsersApi {
       // verify the required parameter 'tokenId' is set
       if (tokenId === undefined || tokenId === null) {
         throw new Error("Missing the required parameter 'tokenId' when calling deleteApiToken");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteApiToken");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tokenId': tokenId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/api-tokens/{tokenId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteApiTokenWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteApiTokenWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an API Token for specific user and token id
-     * @param {String} id The user id
-     * @param {String} tokenId The token id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteApiTokenWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    deleteApiTokenWithResourceTenantasSuperAdmin(id, tokenId, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'tokenId' is set
-      if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteApiTokenWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tokenId': tokenId,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens/{tokenId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteApiTokenasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteApiTokenasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an API Token for specific user and token id
-     * @param {String} id The user id
-     * @param {String} tokenId The token id
-     * @param {module:api/UsersApi~deleteApiTokenasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    deleteApiTokenasSuperAdmin(id, tokenId, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenasSuperAdmin");
-      }
-      // verify the required parameter 'tokenId' is set
-      if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenasSuperAdmin");
       }
 
       let pathParams = {
@@ -899,49 +274,49 @@ export default class UsersApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/api-tokens/{tokenId}', 'DELETE',
+        '/api/v1/users/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteAuth operation.
-     * @callback module:api/UsersApi~deleteAuthCallback
+     * Callback function to receive the result of the deleteApiToken1 operation.
+     * @callback module:api/UsersApi~deleteApiToken1Callback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Delete an Auth for a user
+     * Delete an API Token for specific user and token id
      * @param {String} id The user id
-     * @param {String} uid The auth id
+     * @param {String} tokenId The token id
      * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteAuthCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {module:api/UsersApi~deleteApiToken1Callback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
      */
-    deleteAuth(id, uid, tenant, callback) {
+    deleteApiToken1(id, tokenId, tenant, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteAuth");
+        throw new Error("Missing the required parameter 'id' when calling deleteApiToken1");
       }
-      // verify the required parameter 'uid' is set
-      if (uid === undefined || uid === null) {
-        throw new Error("Missing the required parameter 'uid' when calling deleteAuth");
+      // verify the required parameter 'tokenId' is set
+      if (tokenId === undefined || tokenId === null) {
+        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiToken1");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteAuth");
+        throw new Error("Missing the required parameter 'tenant' when calling deleteApiToken1");
       }
 
       let pathParams = {
         'id': id,
-        'uid': uid,
+        'tokenId': tokenId,
         'tenant': tenant
       };
       let queryParams = {
@@ -954,111 +329,9 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/auths/{uid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteAuthWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteAuthWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an Auth for a user
-     * @param {String} id The user id
-     * @param {String} uid The auth id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteAuthWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteAuthWithResourceTenantasSuperAdmin(id, uid, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteAuthWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'uid' is set
-      if (uid === undefined || uid === null) {
-        throw new Error("Missing the required parameter 'uid' when calling deleteAuthWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteAuthWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'uid': uid,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/auths/{uid}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteAuthasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteAuthasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an Auth for a user
-     * @param {String} id The user id
-     * @param {String} uid The auth id
-     * @param {module:api/UsersApi~deleteAuthasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteAuthasSuperAdmin(id, uid, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteAuthasSuperAdmin");
-      }
-      // verify the required parameter 'uid' is set
-      if (uid === undefined || uid === null) {
-        throw new Error("Missing the required parameter 'uid' when calling deleteAuthasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'uid': uid
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/auths/{uid}', 'DELETE',
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1068,117 +341,20 @@ export default class UsersApi {
      * Callback function to receive the result of the deleteRefreshToken operation.
      * @callback module:api/UsersApi~deleteRefreshTokenCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Delete a user refresh token
      * @param {String} id The user id
-     * @param {String} tenant 
      * @param {module:api/UsersApi~deleteRefreshTokenCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
      */
-    deleteRefreshToken(id, tenant, callback) {
+    deleteRefreshToken(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling deleteRefreshToken");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteRefreshToken");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/refresh-token', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteRefreshTokenWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a user refresh token
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteRefreshTokenWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteRefreshTokenWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteRefreshTokenWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteRefreshTokenWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/refresh-token', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteRefreshTokenasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a user refresh token
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteRefreshTokenasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    deleteRefreshTokenasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteRefreshTokenasSuperAdmin");
       }
 
       let pathParams = {
@@ -1193,10 +369,10 @@ export default class UsersApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/refresh-token', 'DELETE',
+        '/api/v1/users/{id}/refresh-token', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1212,108 +388,15 @@ export default class UsersApi {
 
     /**
      * Delete a user
+     * Superadmin-only. Delete a user including all its access.
      * @param {String} id The user id
-     * @param {String} tenant 
      * @param {module:api/UsersApi~deleteUserCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteUser(id, tenant, callback) {
+    deleteUser(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling deleteUser");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteUser");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~deleteUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteUserWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteUserWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~deleteUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a user
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteUserasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteUserasSuperAdmin");
       }
 
       let pathParams = {
@@ -1331,51 +414,44 @@ export default class UsersApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}', 'DELETE',
+        '/api/v1/users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the findAllForAllTenants operation.
-     * @callback module:api/UsersApi~findAllForAllTenantsCallback
+     * Callback function to receive the result of the deleteUserAuthMethod operation.
+     * @callback module:api/UsersApi~deleteUserAuthMethodCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get all users in the instance across all tenantd
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {String} [q] A string filter
-     * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~findAllForAllTenantsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * Update user password
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {String} auth The user auth method id
+     * @param {module:api/UsersApi~deleteUserAuthMethodCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
-    findAllForAllTenants(page, size, opts, callback) {
-      opts = opts || {};
+    deleteUserAuthMethod(id, auth, callback) {
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling findAllForAllTenants");
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling deleteUserAuthMethod");
       }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling findAllForAllTenants");
+      // verify the required parameter 'auth' is set
+      if (auth === undefined || auth === null) {
+        throw new Error("Missing the required parameter 'auth' when calling deleteUserAuthMethod");
       }
 
       let pathParams = {
+        'id': id,
+        'auth': auth
       };
       let queryParams = {
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'page': page,
-        'size': size,
-        'q': opts['q'],
-        'type': opts['type']
       };
       let headerParams = {
       };
@@ -1385,71 +461,9 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/instance', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the findAllForAllTenantsWithResourceTenant operation.
-     * @callback module:api/UsersApi~findAllForAllTenantsWithResourceTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get all users in the instance across all tenantd
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {String} [q] A string filter
-     * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~findAllForAllTenantsWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
-     */
-    findAllForAllTenantsWithResourceTenant(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling findAllForAllTenantsWithResourceTenant");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling findAllForAllTenantsWithResourceTenant");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling findAllForAllTenantsWithResourceTenant");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'page': page,
-        'size': size,
-        'q': opts['q'],
-        'type': opts['type']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/instance', 'GET',
+        '/api/v1/users/{id}/auths/{auth}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1459,117 +473,22 @@ export default class UsersApi {
      * Callback function to receive the result of the getUser operation.
      * @callback module:api/UsersApi~getUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Get a user
+     * Superadmin-only. Get user account details.
      * @param {String} id The user id
-     * @param {String} tenant 
      * @param {module:api/UsersApi~getUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
-    getUser(id, tenant, callback) {
+    getUser(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling getUser");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getUser");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~getUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~getUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    getUserWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling getUserWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~getUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a user
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~getUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    getUserasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getUserasSuperAdmin");
       }
 
       let pathParams = {
@@ -1585,9 +504,9 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}', 'GET',
+        '/api/v1/users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1603,6 +522,7 @@ export default class UsersApi {
 
     /**
      * Impersonate a user
+     * Superadmin-only. Allows an admin to impersonate another user.
      * @param {String} id The user id
      * @param {module:api/UsersApi~impersonateCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
@@ -1629,55 +549,7 @@ export default class UsersApi {
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/impersonate', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the impersonateWithResourceTenant operation.
-     * @callback module:api/UsersApi~impersonateWithResourceTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Impersonate a user
-     * @param {String} resourceTenant 
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~impersonateWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    impersonateWithResourceTenant(resourceTenant, id, callback) {
-      let postBody = null;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling impersonateWithResourceTenant");
-      }
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling impersonateWithResourceTenant");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant,
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/impersonate', 'POST',
+        '/api/v1/users/{id}/impersonate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1692,113 +564,18 @@ export default class UsersApi {
      */
 
     /**
-     * List all API Tokens for specific user
+     * List API tokens for a specific user
+     * Superadmin-only. Get all API token existing for a user.
      * @param {String} id The user id
-     * @param {String} tenant 
      * @param {module:api/UsersApi~listApiTokensCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
-    listApiTokens(id, tenant, callback) {
+    listApiTokens(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling listApiTokens");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listApiTokens");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}/api-tokens', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listApiTokensWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~listApiTokensWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List all API Tokens for specific user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:api/UsersApi~listApiTokensWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    listApiTokensWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listApiTokensWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling listApiTokensWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/api-tokens', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listApiTokensasSuperAdmin operation.
-     * @callback module:api/UsersApi~listApiTokensasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List all API Tokens for specific user
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~listApiTokensasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    listApiTokensasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listApiTokensasSuperAdmin");
-      }
 
       let pathParams = {
         'id': id
@@ -1815,57 +592,43 @@ export default class UsersApi {
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/api-tokens', 'GET',
+        '/api/v1/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the searchUsers operation.
-     * @callback module:api/UsersApi~searchUsersCallback
+     * Callback function to receive the result of the listApiTokens1 operation.
+     * @callback module:api/UsersApi~listApiTokens1Callback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Search for users
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
+     * List API tokens for a specific user
+     * @param {String} id The user id
      * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @param {module:api/UsersApi~listApiTokens1Callback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
      */
-    searchUsers(page, size, tenant, opts, callback) {
-      opts = opts || {};
+    listApiTokens1(id, tenant, callback) {
       let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchUsers");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchUsers");
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling listApiTokens1");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchUsers");
+        throw new Error("Missing the required parameter 'tenant' when calling listApiTokens1");
       }
 
       let pathParams = {
+        'id': id,
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'type': opts['type']
       };
       let headerParams = {
       };
@@ -1875,105 +638,42 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
+      let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/search', 'GET',
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the searchUsersWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~searchUsersWithResourceTenantasSuperAdminCallback
+     * Callback function to receive the result of the listUsers operation.
+     * @callback module:api/UsersApi~listUsersCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
+     * @param {module:model/PagedResultsIAMUserControllerApiUserSummary} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Search for users
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
-     */
-    searchUsersWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchUsersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchUsersWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchUsersWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'type': opts['type']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchUsersasSuperAdmin operation.
-     * @callback module:api/UsersApi~searchUsersasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for users
+     * Retrieve users
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:model/UserType} [type] The type of user
-     * @param {module:api/UsersApi~searchUsersasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiUser}
+     * @param {module:api/UsersApi~listUsersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/PagedResultsIAMUserControllerApiUserSummary}
      */
-    searchUsersasSuperAdmin(page, size, opts, callback) {
+    listUsers(page, size, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
       if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchUsersasSuperAdmin");
+        throw new Error("Missing the required parameter 'page' when calling listUsers");
       }
       // verify the required parameter 'size' is set
       if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchUsersasSuperAdmin");
+        throw new Error("Missing the required parameter 'size' when calling listUsers");
       }
 
       let pathParams = {
@@ -1982,8 +682,7 @@ export default class UsersApi {
         'q': opts['q'],
         'page': page,
         'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'type': opts['type']
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
       };
       let headerParams = {
       };
@@ -1993,38 +692,39 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsApiUser;
+      let returnType = PagedResultsIAMUserControllerApiUserSummary;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/search', 'GET',
+        '/api/v1/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the setSuperAdmin operation.
-     * @callback module:api/UsersApi~setSuperAdminCallback
+     * Callback function to receive the result of the patchUser operation.
+     * @callback module:api/UsersApi~patchUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update a user service account
+     * Update user details
+     * Superadmin-only. Updates the the details of a user.
      * @param {String} id The user id
-     * @param {Boolean} body 
-     * @param {module:api/UsersApi~setSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
+     * @param {module:api/UsersApi~patchUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
-    setSuperAdmin(id, body, callback) {
-      let postBody = body;
+    patchUser(id, meControllerApiUserDetailsRequest, callback) {
+      let postBody = meControllerApiUserDetailsRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling setSuperAdmin");
+        throw new Error("Missing the required parameter 'id' when calling patchUser");
       }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling setSuperAdmin");
+      // verify the required parameter 'meControllerApiUserDetailsRequest' is set
+      if (meControllerApiUserDetailsRequest === undefined || meControllerApiUserDetailsRequest === null) {
+        throw new Error("Missing the required parameter 'meControllerApiUserDetailsRequest' when calling patchUser");
       }
 
       let pathParams = {
@@ -2040,47 +740,89 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}/set-superadmin', 'PUT',
+        '/api/v1/users/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
     }
 
     /**
-     * Callback function to receive the result of the setSuperAdminWithResourceTenant operation.
-     * @callback module:api/UsersApi~setSuperAdminWithResourceTenantCallback
+     * Callback function to receive the result of the patchUserDemo operation.
+     * @callback module:api/UsersApi~patchUserDemoCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update a user service account
-     * @param {String} resourceTenant 
+     * Update user demo
+     * Superadmin-only. Updates whether a user is for demo.
      * @param {String} id The user id
-     * @param {Boolean} body 
-     * @param {module:api/UsersApi~setSuperAdminWithResourceTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * @param {module:model/IAMUserControllerApiPatchRestrictedRequest} iAMUserControllerApiPatchRestrictedRequest 
+     * @param {module:api/UsersApi~patchUserDemoCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    setSuperAdminWithResourceTenant(resourceTenant, id, body, callback) {
-      let postBody = body;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling setSuperAdminWithResourceTenant");
-      }
+    patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest, callback) {
+      let postBody = iAMUserControllerApiPatchRestrictedRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling setSuperAdminWithResourceTenant");
+        throw new Error("Missing the required parameter 'id' when calling patchUserDemo");
       }
-      // verify the required parameter 'body' is set
-      if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling setSuperAdminWithResourceTenant");
+      // verify the required parameter 'iAMUserControllerApiPatchRestrictedRequest' is set
+      if (iAMUserControllerApiPatchRestrictedRequest === undefined || iAMUserControllerApiPatchRestrictedRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserControllerApiPatchRestrictedRequest' when calling patchUserDemo");
       }
 
       let pathParams = {
-        'resourceTenant': resourceTenant,
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/users/{id}/restricted', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the patchUserPassword operation.
+     * @callback module:api/UsersApi~patchUserPasswordCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update user password
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
+     * @param {module:api/UsersApi~patchUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest, callback) {
+      let postBody = iAMUserControllerApiPatchUserPasswordRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling patchUserPassword");
+      }
+      // verify the required parameter 'iAMUserControllerApiPatchUserPasswordRequest' is set
+      if (iAMUserControllerApiPatchUserPasswordRequest === undefined || iAMUserControllerApiPatchUserPasswordRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserControllerApiPatchUserPasswordRequest' when calling patchUserPassword");
+      }
+
+      let pathParams = {
         'id': id
       };
       let queryParams = {
@@ -2093,9 +835,56 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin', 'PUT',
+        '/api/v1/users/{id}/password', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the patchUserSuperAdmin operation.
+     * @callback module:api/UsersApi~patchUserSuperAdminCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update user superadmin privileges
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {module:model/IAMUserControllerApiPatchSuperAdminRequest} iAMUserControllerApiPatchSuperAdminRequest 
+     * @param {module:api/UsersApi~patchUserSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest, callback) {
+      let postBody = iAMUserControllerApiPatchSuperAdminRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling patchUserSuperAdmin");
+      }
+      // verify the required parameter 'iAMUserControllerApiPatchSuperAdminRequest' is set
+      if (iAMUserControllerApiPatchSuperAdminRequest === undefined || iAMUserControllerApiPatchSuperAdminRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserControllerApiPatchSuperAdminRequest' when calling patchUserSuperAdmin");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/users/{id}/superadmin', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -2110,16 +899,17 @@ export default class UsersApi {
      */
 
     /**
-     * Update login password for the current user.
-     * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
+     * Update authenticated user password
+     * Changes the login password for the authenticated user.
+     * @param {module:model/MeControllerApiUpdatePasswordRequest} meControllerApiUpdatePasswordRequest 
      * @param {module:api/UsersApi~updateCurrentUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
-    updateCurrentUserPassword(meControllerUpdatePasswordRequest, callback) {
-      let postBody = meControllerUpdatePasswordRequest;
-      // verify the required parameter 'meControllerUpdatePasswordRequest' is set
-      if (meControllerUpdatePasswordRequest === undefined || meControllerUpdatePasswordRequest === null) {
-        throw new Error("Missing the required parameter 'meControllerUpdatePasswordRequest' when calling updateCurrentUserPassword");
+    updateCurrentUserPassword(meControllerApiUpdatePasswordRequest, callback) {
+      let postBody = meControllerApiUpdatePasswordRequest;
+      // verify the required parameter 'meControllerApiUpdatePasswordRequest' is set
+      if (meControllerApiUpdatePasswordRequest === undefined || meControllerApiUpdatePasswordRequest === null) {
+        throw new Error("Missing the required parameter 'meControllerApiUpdatePasswordRequest' when calling updateCurrentUserPassword");
       }
 
       let pathParams = {
@@ -2143,335 +933,30 @@ export default class UsersApi {
     }
 
     /**
-     * Callback function to receive the result of the updateCurrentUserPasswordWithTenant operation.
-     * @callback module:api/UsersApi~updateCurrentUserPasswordWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update login password for the current user.
-     * @param {String} tenant 
-     * @param {module:model/MeControllerUpdatePasswordRequest} meControllerUpdatePasswordRequest 
-     * @param {module:api/UsersApi~updateCurrentUserPasswordWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    updateCurrentUserPasswordWithTenant(tenant, meControllerUpdatePasswordRequest, callback) {
-      let postBody = meControllerUpdatePasswordRequest;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateCurrentUserPasswordWithTenant");
-      }
-      // verify the required parameter 'meControllerUpdatePasswordRequest' is set
-      if (meControllerUpdatePasswordRequest === undefined || meControllerUpdatePasswordRequest === null) {
-        throw new Error("Missing the required parameter 'meControllerUpdatePasswordRequest' when calling updateCurrentUserPasswordWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me/password', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateServiceAccount operation.
-     * @callback module:api/UsersApi~updateServiceAccountCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a user service account
-     * @param {String} id The user id
-     * @param {String} tenant 
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
-     */
-    updateServiceAccount(id, tenant, apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateServiceAccount");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateServiceAccount");
-      }
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling updateServiceAccount");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/service-accounts/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateServiceAccountWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateServiceAccountWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a user service account
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
-     */
-    updateServiceAccountWithResourceTenantasSuperAdmin(id, resourceTenant, apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateServiceAccountWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling updateServiceAccountWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling updateServiceAccountWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/service-accounts/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateServiceAccountasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateServiceAccountasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiServiceAccount} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a user service account
-     * @param {String} id The user id
-     * @param {module:model/ApiServiceAccount} apiServiceAccount The user
-     * @param {module:api/UsersApi~updateServiceAccountasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiServiceAccount}
-     */
-    updateServiceAccountasSuperAdmin(id, apiServiceAccount, callback) {
-      let postBody = apiServiceAccount;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateServiceAccountasSuperAdmin");
-      }
-      // verify the required parameter 'apiServiceAccount' is set
-      if (apiServiceAccount === undefined || apiServiceAccount === null) {
-        throw new Error("Missing the required parameter 'apiServiceAccount' when calling updateServiceAccountasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiServiceAccount;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/users/service-accounts/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the updateUser operation.
      * @callback module:api/UsersApi~updateUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update a standard user
+     * Update a user account
+     * Superadmin-only. Update an existing user account with an optional password based authentication method.
      * @param {String} id The user id
-     * @param {String} tenant 
-     * @param {module:model/ApiUser} apiUser The user
+     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
      * @param {module:api/UsersApi~updateUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
-    updateUser(id, tenant, apiUser, callback) {
-      let postBody = apiUser;
+    updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest, callback) {
+      let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling updateUser");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling updateUser");
-      }
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling updateUser");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/users/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateUserWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateUserWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a standard user
-     * @param {String} id The user id
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~updateUserWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    updateUserWithResourceTenantasSuperAdmin(id, resourceTenant, apiUser, callback) {
-      let postBody = apiUser;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling updateUserWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling updateUserWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ApiUser;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/users/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateUserasSuperAdmin operation.
-     * @callback module:api/UsersApi~updateUserasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a standard user
-     * @param {String} id The user id
-     * @param {module:model/ApiUser} apiUser The user
-     * @param {module:api/UsersApi~updateUserasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiUser}
-     */
-    updateUserasSuperAdmin(id, apiUser, callback) {
-      let postBody = apiUser;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateUserasSuperAdmin");
-      }
-      // verify the required parameter 'apiUser' is set
-      if (apiUser === undefined || apiUser === null) {
-        throw new Error("Missing the required parameter 'apiUser' when calling updateUserasSuperAdmin");
+      // verify the required parameter 'iAMUserControllerApiCreateOrUpdateUserRequest' is set
+      if (iAMUserControllerApiCreateOrUpdateUserRequest === undefined || iAMUserControllerApiCreateOrUpdateUserRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserControllerApiCreateOrUpdateUserRequest' when calling updateUser");
       }
 
       let pathParams = {
@@ -2487,9 +972,61 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ApiUser;
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
-        '/api/v1/tenants/users/{id}', 'PUT',
+        '/api/v1/users/{id}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the updateUserGroups operation.
+     * @callback module:api/UsersApi~updateUserGroupsCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update the list of groups a user belongs to for the given tenant
+     * @param {String} id The user ID
+     * @param {String} tenant 
+     * @param {module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest} iAMUserGroupControllerApiUpdateUserGroupsRequest 
+     * @param {module:api/UsersApi~updateUserGroupsCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest, callback) {
+      let postBody = iAMUserGroupControllerApiUpdateUserGroupsRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling updateUserGroups");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling updateUserGroups");
+      }
+      // verify the required parameter 'iAMUserGroupControllerApiUpdateUserGroupsRequest' is set
+      if (iAMUserGroupControllerApiUpdateUserGroupsRequest === undefined || iAMUserGroupControllerApiUpdateUserGroupsRequest === null) {
+        throw new Error("Missing the required parameter 'iAMUserGroupControllerApiUpdateUserGroupsRequest' when calling updateUserGroups");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/users/{id}/groups', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -18,16 +18,23 @@ import UnitTestResult from './UnitTestResult';
 /**
  * The TestSuiteRunResult model module.
  * @module model/TestSuiteRunResult
- * @version v1
+ * @version v0.24.0
  */
 class TestSuiteRunResult {
     /**
      * Constructs a new <code>TestSuiteRunResult</code>.
      * @alias module:model/TestSuiteRunResult
+     * @param id {String} 
+     * @param testSuiteId {String} 
+     * @param namespace {String} 
+     * @param flowId {String} 
+     * @param state {module:model/TestState} 
+     * @param startDate {Date} 
+     * @param endDate {Date} 
      */
-    constructor() { 
+    constructor(id, testSuiteId, namespace, flowId, state, startDate, endDate) { 
         
-        TestSuiteRunResult.initialize(this);
+        TestSuiteRunResult.initialize(this, id, testSuiteId, namespace, flowId, state, startDate, endDate);
     }
 
     /**
@@ -35,7 +42,14 @@ class TestSuiteRunResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, testSuiteId, namespace, flowId, state, startDate, endDate) { 
+        obj['id'] = id;
+        obj['testSuiteId'] = testSuiteId;
+        obj['namespace'] = namespace;
+        obj['flowId'] = flowId;
+        obj['state'] = state;
+        obj['startDate'] = startDate;
+        obj['endDate'] = endDate;
     }
 
     /**
@@ -64,6 +78,12 @@ class TestSuiteRunResult {
             if (data.hasOwnProperty('state')) {
                 obj['state'] = TestState.constructFromObject(data['state']);
             }
+            if (data.hasOwnProperty('startDate')) {
+                obj['startDate'] = ApiClient.convertToType(data['startDate'], 'Date');
+            }
+            if (data.hasOwnProperty('endDate')) {
+                obj['endDate'] = ApiClient.convertToType(data['endDate'], 'Date');
+            }
             if (data.hasOwnProperty('results')) {
                 obj['results'] = ApiClient.convertToType(data['results'], [UnitTestResult]);
             }
@@ -77,6 +97,12 @@ class TestSuiteRunResult {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TestSuiteRunResult</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of TestSuiteRunResult.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -110,7 +136,7 @@ class TestSuiteRunResult {
 
 }
 
-
+TestSuiteRunResult.RequiredProperties = ["id", "testSuiteId", "namespace", "flowId", "state", "startDate", "endDate"];
 
 /**
  * @member {String} id
@@ -136,6 +162,16 @@ TestSuiteRunResult.prototype['flowId'] = undefined;
  * @member {module:model/TestState} state
  */
 TestSuiteRunResult.prototype['state'] = undefined;
+
+/**
+ * @member {Date} startDate
+ */
+TestSuiteRunResult.prototype['startDate'] = undefined;
+
+/**
+ * @member {Date} endDate
+ */
+TestSuiteRunResult.prototype['endDate'] = undefined;
 
 /**
  * @member {Array.<module:model/UnitTestResult>} results

@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -19,7 +19,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
- * @version v1
+ * @version v0.24.0
  */
 class MiscControllerConfiguration {
     /**
@@ -83,9 +83,6 @@ class MiscControllerConfiguration {
             if (data.hasOwnProperty('preview')) {
                 obj['preview'] = MiscControllerPreview.constructFromObject(data['preview']);
             }
-            if (data.hasOwnProperty('isBasicAuthEnabled')) {
-                obj['isBasicAuthEnabled'] = ApiClient.convertToType(data['isBasicAuthEnabled'], 'Boolean');
-            }
             if (data.hasOwnProperty('systemNamespace')) {
                 obj['systemNamespace'] = ApiClient.convertToType(data['systemNamespace'], 'String');
             }
@@ -94,6 +91,12 @@ class MiscControllerConfiguration {
             }
             if (data.hasOwnProperty('resourceToFilters')) {
                 obj['resourceToFilters'] = ApiClient.convertToType(data['resourceToFilters'], [QueryFilterResourceField]);
+            }
+            if (data.hasOwnProperty('isAiEnabled')) {
+                obj['isAiEnabled'] = ApiClient.convertToType(data['isAiEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBasicAuthInitialized')) {
+                obj['isBasicAuthInitialized'] = ApiClient.convertToType(data['isBasicAuthInitialized'], 'Boolean');
             }
         }
         return obj;
@@ -212,11 +215,6 @@ MiscControllerConfiguration.prototype['url'] = undefined;
 MiscControllerConfiguration.prototype['preview'] = undefined;
 
 /**
- * @member {Boolean} isBasicAuthEnabled
- */
-MiscControllerConfiguration.prototype['isBasicAuthEnabled'] = undefined;
-
-/**
  * @member {String} systemNamespace
  */
 MiscControllerConfiguration.prototype['systemNamespace'] = undefined;
@@ -230,6 +228,16 @@ MiscControllerConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
  * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
  */
 MiscControllerConfiguration.prototype['resourceToFilters'] = undefined;
+
+/**
+ * @member {Boolean} isAiEnabled
+ */
+MiscControllerConfiguration.prototype['isAiEnabled'] = undefined;
+
+/**
+ * @member {Boolean} isBasicAuthInitialized
+ */
+MiscControllerConfiguration.prototype['isBasicAuthInitialized'] = undefined;
 
 
 

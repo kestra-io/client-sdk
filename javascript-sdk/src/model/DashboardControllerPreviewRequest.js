@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -12,21 +12,22 @@
  */
 
 import ApiClient from '../ApiClient';
-import GlobalFilter from './GlobalFilter';
+import ChartFiltersOverrides from './ChartFiltersOverrides';
 
 /**
  * The DashboardControllerPreviewRequest model module.
  * @module model/DashboardControllerPreviewRequest
- * @version v1
+ * @version v0.24.0
  */
 class DashboardControllerPreviewRequest {
     /**
      * Constructs a new <code>DashboardControllerPreviewRequest</code>.
      * @alias module:model/DashboardControllerPreviewRequest
+     * @param chart {String} 
      */
-    constructor() { 
+    constructor(chart) { 
         
-        DashboardControllerPreviewRequest.initialize(this);
+        DashboardControllerPreviewRequest.initialize(this, chart);
     }
 
     /**
@@ -34,7 +35,8 @@ class DashboardControllerPreviewRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, chart) { 
+        obj['chart'] = chart;
     }
 
     /**
@@ -52,7 +54,7 @@ class DashboardControllerPreviewRequest {
                 obj['chart'] = ApiClient.convertToType(data['chart'], 'String');
             }
             if (data.hasOwnProperty('globalFilter')) {
-                obj['globalFilter'] = ApiClient.convertToType(data['globalFilter'], GlobalFilter);
+                obj['globalFilter'] = ApiClient.convertToType(data['globalFilter'], ChartFiltersOverrides);
             }
         }
         return obj;
@@ -64,13 +66,19 @@ class DashboardControllerPreviewRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>DashboardControllerPreviewRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of DashboardControllerPreviewRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['chart'] && !(typeof data['chart'] === 'string' || data['chart'] instanceof String)) {
             throw new Error("Expected the field `chart` to be a primitive type in the JSON string but got " + data['chart']);
         }
         // validate the optional field `globalFilter`
         if (data['globalFilter']) { // data not null
-          GlobalFilter.validateJSON(data['globalFilter']);
+          ChartFiltersOverrides.validateJSON(data['globalFilter']);
         }
 
         return true;
@@ -79,7 +87,7 @@ class DashboardControllerPreviewRequest {
 
 }
 
-
+DashboardControllerPreviewRequest.RequiredProperties = ["chart"];
 
 /**
  * @member {String} chart
@@ -87,7 +95,7 @@ class DashboardControllerPreviewRequest {
 DashboardControllerPreviewRequest.prototype['chart'] = undefined;
 
 /**
- * @member {module:model/GlobalFilter} globalFilter
+ * @member {module:model/ChartFiltersOverrides} globalFilter
  */
 DashboardControllerPreviewRequest.prototype['globalFilter'] = undefined;
 

@@ -18,5 +18,6 @@ Name | Type | Description | Notes
 **RETRYING** | **Number** |  | [optional] 
 **RETRIED** | **Number** |  | [optional] 
 **SKIPPED** | **Number** |  | [optional] 
+**BREAKPOINT** | **Number** |  | [optional] 
 
 

@@ -4,17 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createApiTokenForCurrentUser**](AuthsApi.md#createApiTokenForCurrentUser) | **POST** /api/v1/me/api-tokens | Create new API Token for authenticated user
-[**createApiTokenForCurrentUserWithTenant**](AuthsApi.md#createApiTokenForCurrentUserWithTenant) | **POST** /api/v1/{tenant}/me/api-tokens | Create new API Token for authenticated user
-[**deleteApiTokenForCurrentUser**](AuthsApi.md#deleteApiTokenForCurrentUser) | **DELETE** /api/v1/me/api-tokens/{tokenId} | Delete an API Token for authenticated user
-[**deleteApiTokenForCurrentUserWithTenant**](AuthsApi.md#deleteApiTokenForCurrentUserWithTenant) | **DELETE** /api/v1/{tenant}/me/api-tokens/{tokenId} | Delete an API Token for authenticated user
-[**getCurrentUser**](AuthsApi.md#getCurrentUser) | **GET** /api/v1/me | Get current user
-[**getCurrentUserWithTenant**](AuthsApi.md#getCurrentUserWithTenant) | **GET** /api/v1/{tenant}/me | Get current user
-[**index**](AuthsApi.md#index) | **GET** /api/v1/auths | Get list of authentication methods
-[**listApiTokensForCurrentUser**](AuthsApi.md#listApiTokensForCurrentUser) | **GET** /api/v1/me/api-tokens | List all API Tokens for the authenticated user
-[**listApiTokensForCurrentUserWithTenant**](AuthsApi.md#listApiTokensForCurrentUserWithTenant) | **GET** /api/v1/{tenant}/me/api-tokens | List all API Tokens for the authenticated user
-[**patchCurrentUser**](AuthsApi.md#patchCurrentUser) | **PATCH** /api/v1/me | Updates details for the current user. Returns user&#39;s updated information upon success.
-[**patchCurrentUserWithTenant**](AuthsApi.md#patchCurrentUserWithTenant) | **PATCH** /api/v1/{tenant}/me | Updates details for the current user. Returns user&#39;s updated information upon success.
+[**createApiTokenForCurrentUser**](AuthsApi.md#createApiTokenForCurrentUser) | **POST** /api/v1/me/api-tokens | Create API token for the authenticated user
+[**deleteApiTokenForCurrentUser**](AuthsApi.md#deleteApiTokenForCurrentUser) | **DELETE** /api/v1/me/api-tokens/{tokenId} | Delete API token for the authenticated user
+[**getCurrentUser**](AuthsApi.md#getCurrentUser) | **GET** /api/v1/me | Get details about the authenticated user
+[**index**](AuthsApi.md#index) | **GET** /api/v1/auths | Retrieve list of authentication methods
+[**listApiTokensForCurrentUser**](AuthsApi.md#listApiTokensForCurrentUser) | **GET** /api/v1/me/api-tokens | List API tokens for authenticated user
+[**patchCurrentUser**](AuthsApi.md#patchCurrentUser) | **PATCH** /api/v1/me | Update authenticated user details
 
 
 
@@ -22,7 +17,7 @@ Method | HTTP request | Description
 
 > Object createApiTokenForCurrentUser(createApiTokenRequest)
 
-Create new API Token for authenticated user
+Create API token for the authenticated user
 
 ### Example
 
@@ -69,64 +64,11 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## createApiTokenForCurrentUserWithTenant
-
-> Object createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest)
-
-Create new API Token for authenticated user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.AuthsApi();
-let tenant = "tenant_example"; // String | 
-let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | 
-apiInstance.createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## deleteApiTokenForCurrentUser
 
 > Object deleteApiTokenForCurrentUser(tokenId)
 
-Delete an API Token for authenticated user
+Delete API token for the authenticated user
 
 ### Example
 
@@ -173,64 +115,13 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## deleteApiTokenForCurrentUserWithTenant
-
-> Object deleteApiTokenForCurrentUserWithTenant(tokenId, tenant)
-
-Delete an API Token for authenticated user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.AuthsApi();
-let tokenId = "tokenId_example"; // String | The token id
-let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiTokenForCurrentUserWithTenant(tokenId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tokenId** | **String**| The token id | 
- **tenant** | **String**|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## getCurrentUser
 
-> MeControllerMe getCurrentUser()
+> MeControllerApiMe getCurrentUser()
 
-Get current user
+Get details about the authenticated user
+
+Requires the ME permission.
 
 ### Example
 
@@ -261,58 +152,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**MeControllerMe**](MeControllerMe.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getCurrentUserWithTenant
-
-> MeControllerMe getCurrentUserWithTenant(tenant)
-
-Get current user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.AuthsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.getCurrentUserWithTenant(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
-
-### Return type
-
-[**MeControllerMe**](MeControllerMe.md)
+[**MeControllerApiMe**](MeControllerApiMe.md)
 
 ### Authorization
 
@@ -328,7 +168,7 @@ Name | Type | Description  | Notes
 
 > AuthControllerAuth index()
 
-Get list of authentication methods
+Retrieve list of authentication methods
 
 ### Example
 
@@ -367,7 +207,9 @@ No authorization required
 
 > Object listApiTokensForCurrentUser()
 
-List all API Tokens for the authenticated user
+List API tokens for authenticated user
+
+Returns all API tokens belonging to the authenticated user.
 
 ### Example
 
@@ -410,113 +252,13 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
-## listApiTokensForCurrentUserWithTenant
-
-> Object listApiTokensForCurrentUserWithTenant(tenant)
-
-List all API Tokens for the authenticated user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.AuthsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokensForCurrentUserWithTenant(tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## patchCurrentUser
 
-> Object patchCurrentUser(meControllerUserDetailsRequest)
+> Object patchCurrentUser(meControllerApiUserDetailsRequest)
 
-Updates details for the current user. Returns user&#39;s updated information upon success.
+Update authenticated user details
 
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.AuthsApi();
-let meControllerUserDetailsRequest = new KestraApi.MeControllerUserDetailsRequest(); // MeControllerUserDetailsRequest | The user details
-apiInstance.patchCurrentUser(meControllerUserDetailsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **meControllerUserDetailsRequest** | [**MeControllerUserDetailsRequest**](MeControllerUserDetailsRequest.md)| The user details | 
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## patchCurrentUserWithTenant
-
-> Object patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest)
-
-Updates details for the current user. Returns user&#39;s updated information upon success.
+Updates the authenticated user&#39;s profile information and returns the updated user.
 
 ### Example
 
@@ -532,9 +274,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.AuthsApi();
-let tenant = "tenant_example"; // String | 
-let meControllerUserDetailsRequest = new KestraApi.MeControllerUserDetailsRequest(); // MeControllerUserDetailsRequest | The user details
-apiInstance.patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest, (error, data, response) => {
+let meControllerApiUserDetailsRequest = new KestraApi.MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
+apiInstance.patchCurrentUser(meControllerApiUserDetailsRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -548,8 +289,7 @@ apiInstance.patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest, (
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
- **meControllerUserDetailsRequest** | [**MeControllerUserDetailsRequest**](MeControllerUserDetailsRequest.md)| The user details | 
+ **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md)| The user details | 
 
 ### Return type
 

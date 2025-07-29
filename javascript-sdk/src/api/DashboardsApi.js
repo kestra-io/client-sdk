@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,9 +13,9 @@
 
 
 import ApiClient from "../ApiClient";
+import ChartFiltersOverrides from '../model/ChartFiltersOverrides';
 import Dashboard from '../model/Dashboard';
 import DashboardControllerPreviewRequest from '../model/DashboardControllerPreviewRequest';
-import GlobalFilter from '../model/GlobalFilter';
 import PagedResultsDashboard from '../model/PagedResultsDashboard';
 import PagedResultsMapStringObject from '../model/PagedResultsMapStringObject';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
@@ -23,7 +23,7 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Dashboards service.
 * @module api/DashboardsApi
-* @version v1
+* @version v0.24.0
 */
 export default class DashboardsApi {
 
@@ -134,6 +134,112 @@ export default class DashboardsApi {
     }
 
     /**
+     * Callback function to receive the result of the exportChartToCsv operation.
+     * @callback module:api/DashboardsApi~exportChartToCsvCallback
+     * @param {String} error Error message, if any.
+     * @param {Blob} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Export a table chart data to CSV
+     * @param {String} tenant 
+     * @param {module:model/DashboardControllerPreviewRequest} dashboardControllerPreviewRequest 
+     * @param {module:api/DashboardsApi~exportChartToCsvCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Blob}
+     */
+    exportChartToCsv(tenant, dashboardControllerPreviewRequest, callback) {
+      let postBody = dashboardControllerPreviewRequest;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling exportChartToCsv");
+      }
+      // verify the required parameter 'dashboardControllerPreviewRequest' is set
+      if (dashboardControllerPreviewRequest === undefined || dashboardControllerPreviewRequest === null) {
+        throw new Error("Missing the required parameter 'dashboardControllerPreviewRequest' when calling exportChartToCsv");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/octet-stream'];
+      let returnType = 'Blob';
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/dashboards/charts/export/to-csv', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the exportDashboardChartDataToCSV operation.
+     * @callback module:api/DashboardsApi~exportDashboardChartDataToCSVCallback
+     * @param {String} error Error message, if any.
+     * @param {Blob} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Export a dashboard chart data to CSV
+     * @param {String} id The dashboard id
+     * @param {String} chartId The chart id
+     * @param {String} tenant 
+     * @param {module:model/ChartFiltersOverrides} chartFiltersOverrides The filters to apply, some can override chart definition like labels & namespace
+     * @param {module:api/DashboardsApi~exportDashboardChartDataToCSVCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Blob}
+     */
+    exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides, callback) {
+      let postBody = chartFiltersOverrides;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling exportDashboardChartDataToCSV");
+      }
+      // verify the required parameter 'chartId' is set
+      if (chartId === undefined || chartId === null) {
+        throw new Error("Missing the required parameter 'chartId' when calling exportDashboardChartDataToCSV");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling exportDashboardChartDataToCSV");
+      }
+      // verify the required parameter 'chartFiltersOverrides' is set
+      if (chartFiltersOverrides === undefined || chartFiltersOverrides === null) {
+        throw new Error("Missing the required parameter 'chartFiltersOverrides' when calling exportDashboardChartDataToCSV");
+      }
+
+      let pathParams = {
+        'id': id,
+        'chartId': chartId,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/octet-stream'];
+      let returnType = 'Blob';
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the getDashboard operation.
      * @callback module:api/DashboardsApi~getDashboardCallback
      * @param {String} error Error message, if any.
@@ -194,12 +300,12 @@ export default class DashboardsApi {
      * @param {String} id The dashboard id
      * @param {String} chartId The chart id
      * @param {String} tenant 
-     * @param {module:model/GlobalFilter} globalFilter The filters to apply, some can override chart definition like labels & namespace
+     * @param {module:model/ChartFiltersOverrides} chartFiltersOverrides The filters to apply, some can override chart definition like labels & namespace
      * @param {module:api/DashboardsApi~getDashboardChartDataCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/PagedResultsMapStringObject}
      */
-    getDashboardChartData(id, chartId, tenant, globalFilter, callback) {
-      let postBody = globalFilter;
+    getDashboardChartData(id, chartId, tenant, chartFiltersOverrides, callback) {
+      let postBody = chartFiltersOverrides;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling getDashboardChartData");
@@ -212,9 +318,9 @@ export default class DashboardsApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling getDashboardChartData");
       }
-      // verify the required parameter 'globalFilter' is set
-      if (globalFilter === undefined || globalFilter === null) {
-        throw new Error("Missing the required parameter 'globalFilter' when calling getDashboardChartData");
+      // verify the required parameter 'chartFiltersOverrides' is set
+      if (chartFiltersOverrides === undefined || chartFiltersOverrides === null) {
+        throw new Error("Missing the required parameter 'chartFiltersOverrides' when calling getDashboardChartData");
       }
 
       let pathParams = {

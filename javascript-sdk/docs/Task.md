@@ -17,5 +17,6 @@ Name | Type | Description | Notes
 **logToFile** | **Boolean** |  | [optional] 
 **runIf** | **String** |  | [optional] 
 **allowWarning** | **Boolean** |  | [optional] 
+**taskCache** | [**Cache**](Cache.md) |  | [optional] 
 
 
