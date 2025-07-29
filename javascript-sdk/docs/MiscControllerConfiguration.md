@@ -15,9 +15,10 @@ Name | Type | Description | Notes
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **String** |  | [optional] 
 **preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
-**isBasicAuthEnabled** | **Boolean** |  | [optional] 
 **systemNamespace** | **String** |  | [optional] 
 **hiddenLabelsPrefixes** | **[String]** |  | [optional] 
 **resourceToFilters** | [**[QueryFilterResourceField]**](QueryFilterResourceField.md) |  | [optional] 
+**isAiEnabled** | **Boolean** |  | [optional] 
+**isBasicAuthInitialized** | **Boolean** |  | [optional] 
 
 

@@ -4,17 +4,19 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getActiveServices**](ServicesApi.md#getActiveServices) | **GET** /api/v1/cluster/services/active | Get details about active services
-[**getService**](ServicesApi.md#getService) | **GET** /api/v1/cluster/services/{id} | Get details about a service
-[**searchServices**](ServicesApi.md#searchServices) | **GET** /api/v1/cluster/services/search | Search for service
+[**getActiveServices**](ServicesApi.md#getActiveServices) | **GET** /api/v1/instance/services/active | List all active services
+[**getService**](ServicesApi.md#getService) | **GET** /api/v1/instance/services/{id} | Retrieve details of a specific service
+[**searchServices**](ServicesApi.md#searchServices) | **GET** /api/v1/instance/services/search | Search for a service (e.g. Worker, Executor, etc)
 
 
 
 ## getActiveServices
 
-> ClusterControllerApiActiveServiceList getActiveServices()
+> InstanceControllerApiActiveServiceList getActiveServices()
 
-Get details about active services
+List all active services
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -45,7 +47,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ClusterControllerApiActiveServiceList**](ClusterControllerApiActiveServiceList.md)
+[**InstanceControllerApiActiveServiceList**](InstanceControllerApiActiveServiceList.md)
 
 ### Authorization
 
@@ -61,7 +63,9 @@ This endpoint does not need any parameter.
 
 > ServiceInstance getService(id)
 
-Get details about a service
+Retrieve details of a specific service
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -110,9 +114,11 @@ Name | Type | Description  | Notes
 
 ## searchServices
 
-> PagedResultsClusterControllerApiServiceInstance searchServices(page, size, opts)
+> PagedResultsInstanceControllerApiServiceInstance searchServices(page, size, opts)
 
-Search for service
+Search for a service (e.g. Worker, Executor, etc)
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -157,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsClusterControllerApiServiceInstance**](PagedResultsClusterControllerApiServiceInstance.md)
+[**PagedResultsInstanceControllerApiServiceInstance**](PagedResultsInstanceControllerApiServiceInstance.md)
 
 ### Authorization
 

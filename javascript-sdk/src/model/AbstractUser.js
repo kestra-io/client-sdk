@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -12,14 +12,14 @@
  */
 
 import ApiClient from '../ApiClient';
-import AbstractUserGroupIdentifier from './AbstractUserGroupIdentifier';
 import AbstractUserTenantIdentityProvider from './AbstractUserTenantIdentityProvider';
+import GroupIdentifier from './GroupIdentifier';
 import UserType from './UserType';
 
 /**
  * The AbstractUser model module.
  * @module model/AbstractUser
- * @version v1
+ * @version v0.24.0
  */
 class AbstractUser {
     /**
@@ -60,7 +60,7 @@ class AbstractUser {
                 obj['type'] = UserType.constructFromObject(data['type']);
             }
             if (data.hasOwnProperty('groupList')) {
-                obj['groupList'] = ApiClient.convertToType(data['groupList'], [AbstractUserGroupIdentifier]);
+                obj['groupList'] = ApiClient.convertToType(data['groupList'], [GroupIdentifier]);
             }
             if (data.hasOwnProperty('groups')) {
                 obj['groups'] = ApiClient.convertToType(data['groups'], [Object]);
@@ -92,9 +92,6 @@ class AbstractUser {
             if (data.hasOwnProperty('providers')) {
                 obj['providers'] = ApiClient.convertToType(data['providers'], [AbstractUserTenantIdentityProvider]);
             }
-            if (data.hasOwnProperty('isSuperAdmin')) {
-                obj['isSuperAdmin'] = ApiClient.convertToType(data['isSuperAdmin'], 'Boolean');
-            }
         }
         return obj;
     }
@@ -118,7 +115,7 @@ class AbstractUser {
             }
             // validate the optional field `groupList` (array)
             for (const item of data['groupList']) {
-                AbstractUserGroupIdentifier.validateJSON(item);
+                GroupIdentifier.validateJSON(item);
             };
         }
         // ensure the json data is an array
@@ -178,7 +175,7 @@ AbstractUser.RequiredProperties = ["type", "username", "email"];
 AbstractUser.prototype['type'] = undefined;
 
 /**
- * @member {Array.<module:model/AbstractUserGroupIdentifier>} groupList
+ * @member {Array.<module:model/GroupIdentifier>} groupList
  */
 AbstractUser.prototype['groupList'] = undefined;
 
@@ -231,11 +228,6 @@ AbstractUser.prototype['lastName'] = undefined;
  * @member {Array.<module:model/AbstractUserTenantIdentityProvider>} providers
  */
 AbstractUser.prototype['providers'] = undefined;
-
-/**
- * @member {Boolean} isSuperAdmin
- */
-AbstractUser.prototype['isSuperAdmin'] = undefined;
 
 
 

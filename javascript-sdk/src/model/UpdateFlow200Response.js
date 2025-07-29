@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -23,11 +23,12 @@ import Output from './Output';
 import PluginDefault from './PluginDefault';
 import SLA from './SLA';
 import Task from './Task';
+import WorkerGroup from './WorkerGroup';
 
 /**
  * The UpdateFlow200Response model module.
  * @module model/UpdateFlow200Response
- * @version v1
+ * @version v0.24.0
  */
 class UpdateFlow200Response {
     /**
@@ -170,6 +171,11 @@ UpdateFlow200Response.prototype['labels'] = undefined;
  * @member {Object.<String, Object>} variables
  */
 UpdateFlow200Response.prototype['variables'] = undefined;
+
+/**
+ * @member {module:model/WorkerGroup} workerGroup
+ */
+UpdateFlow200Response.prototype['workerGroup'] = undefined;
 
 /**
  * @member {Boolean} deleted

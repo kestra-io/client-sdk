@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**triggers** | [**[Trigger]**](Trigger.md) |  | [optional] 
-**disabled** | **Boolean** |  | [optional] 
+**triggers** | [**[Trigger]**](Trigger.md) |  | 
+**disabled** | **Boolean** |  | 
 
 

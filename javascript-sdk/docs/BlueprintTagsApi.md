@@ -15,6 +15,8 @@ Method | HTTP request | Description
 
 List all internal blueprint tags
 
+Lists all tags used by internal (custom) blueprints for the current tenant.
+
 ### Example
 
 ```javascript
@@ -61,6 +63,8 @@ No authorization required
 > [BlueprintControllerApiBlueprintTagItem] listBlueprintTags(kind, tenant, opts)
 
 List blueprint tags matching the filter
+
+Lists tags for community blueprints of the specified kind, optionally filtered by query.
 
 ### Example
 

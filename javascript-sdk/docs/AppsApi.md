@@ -7,14 +7,14 @@ Method | HTTP request | Description
 [**bulkDeleteApps**](AppsApi.md#bulkDeleteApps) | **DELETE** /api/v1/{tenant}/apps | Delete existing apps
 [**bulkDisableApps**](AppsApi.md#bulkDisableApps) | **POST** /api/v1/{tenant}/apps/disable | Disable existing apps
 [**bulkEnableApps**](AppsApi.md#bulkEnableApps) | **POST** /api/v1/{tenant}/apps/enable | Enable existing apps
-[**bulkExportApps**](AppsApi.md#bulkExportApps) | **POST** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of yaml sources.
+[**bulkExportApps**](AppsApi.md#bulkExportApps) | **POST** /api/v1/{tenant}/apps/export | Export apps as a ZIP archive of YAML sources.
 [**createApp**](AppsApi.md#createApp) | **POST** /api/v1/{tenant}/apps | Create a new app
 [**deleteApp**](AppsApi.md#deleteApp) | **DELETE** /api/v1/{tenant}/apps/{uid} | Delete an existing app
 [**disableApp**](AppsApi.md#disableApp) | **POST** /api/v1/{tenant}/apps/{uid}/disable | Disable the app.
 [**dispatchApp**](AppsApi.md#dispatchApp) | **POST** /api/v1/{tenant}/apps/view/{id}/dispatch/{dispatch} | Dispatch for a given app.
 [**downloadFileFromAppExecution**](AppsApi.md#downloadFileFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/download | Download file from an app execution
 [**enableApp**](AppsApi.md#enableApp) | **POST** /api/v1/{tenant}/apps/{uid}/enable | Enable the app.
-[**getApp**](AppsApi.md#getApp) | **GET** /api/v1/{tenant}/apps/{uid} | Get a app
+[**getApp**](AppsApi.md#getApp) | **GET** /api/v1/{tenant}/apps/{uid} | Retrieve an app
 [**getFileMetaFromAppExecution**](AppsApi.md#getFileMetaFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/meta | Get file meta information from an app execution
 [**getFilePreviewFromAppExecution**](AppsApi.md#getFilePreviewFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{id}/file/preview | Get file preview from an app execution
 [**getLogsFromAppExecution**](AppsApi.md#getLogsFromAppExecution) | **GET** /api/v1/{tenant}/apps/view/{uid}/logs/download | Download logs for an app execution
@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 
 > Blob bulkExportApps(tenant, appsControllerApiBulkOperationRequest)
 
-Export apps as a ZIP archive of yaml sources.
+Export apps as a ZIP archive of YAML sources.
 
 ### Example
 
@@ -570,7 +570,7 @@ Name | Type | Description  | Notes
 
 > AppsControllerApiAppSource getApp(uid, tenant)
 
-Get a app
+Retrieve an app
 
 ### Example
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chart** | **String** |  | [optional] 
-**globalFilter** | [**GlobalFilter**](GlobalFilter.md) |  | [optional] 
+**chart** | **String** |  | 
+**globalFilter** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md) |  | [optional] 
 
 

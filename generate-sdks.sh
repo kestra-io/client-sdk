@@ -36,7 +36,7 @@ if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
 docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
     -c /local/configurations/javascript-config.yml \
     --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION
+    --additional-properties=projectVersion=$VERSION
 fi
 
 # Generate GoLang SDK

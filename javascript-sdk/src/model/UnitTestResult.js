@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -20,7 +20,7 @@ import TestState from './TestState';
 /**
  * The UnitTestResult model module.
  * @module model/UnitTestResult
- * @version v1
+ * @version v0.24.0
  */
 class UnitTestResult {
     /**
@@ -28,15 +28,13 @@ class UnitTestResult {
      * @alias module:model/UnitTestResult
      * @param testId {String} 
      * @param testType {String} 
-     * @param executionId {String} 
-     * @param url {String} 
      * @param state {module:model/TestState} 
      * @param assertionResults {Array.<module:model/AssertionResult>} 
      * @param errors {Array.<module:model/AssertionRunError>} 
      */
-    constructor(testId, testType, executionId, url, state, assertionResults, errors) { 
+    constructor(testId, testType, state, assertionResults, errors) { 
         
-        UnitTestResult.initialize(this, testId, testType, executionId, url, state, assertionResults, errors);
+        UnitTestResult.initialize(this, testId, testType, state, assertionResults, errors);
     }
 
     /**
@@ -44,11 +42,9 @@ class UnitTestResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, testId, testType, executionId, url, state, assertionResults, errors) { 
+    static initialize(obj, testId, testType, state, assertionResults, errors) { 
         obj['testId'] = testId;
         obj['testType'] = testType;
-        obj['executionId'] = executionId;
-        obj['url'] = url;
         obj['state'] = state;
         obj['assertionResults'] = assertionResults;
         obj['errors'] = errors;
@@ -152,7 +148,7 @@ class UnitTestResult {
 
 }
 
-UnitTestResult.RequiredProperties = ["testId", "testType", "executionId", "url", "state", "assertionResults", "errors"];
+UnitTestResult.RequiredProperties = ["testId", "testType", "state", "assertionResults", "errors"];
 
 /**
  * @member {String} testId

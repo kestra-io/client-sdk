@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**acceptInvitation**](DefaultApi.md#acceptInvitation) | **POST** /api/v1/invitation/accept/{invitationId} | 
 [**createFromInvitation**](DefaultApi.md#createFromInvitation) | **POST** /api/v1/invitation/create/{invitationId} | 
 [**forgottenPassword**](DefaultApi.md#forgottenPassword) | **GET** /api/v1/forgotten-password | Sends an email to reset a password.
+[**generate**](DefaultApi.md#generate) | **GET** /api/v1/{tenant}/stats/generate-reports | 
 [**login**](DefaultApi.md#login) | **POST** /login | 
 [**resetPassword**](DefaultApi.md#resetPassword) | **POST** /api/v1/reset-password | Change a password for given token.
 
@@ -143,6 +144,61 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+
+## generate
+
+> Blob generate(tenant, opts)
+
+
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.DefaultApi();
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'from': new Date("2013-10-20") // Date | The start date
+};
+apiInstance.generate(tenant, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **from** | **Date**| The start date | [optional] 
+
+### Return type
+
+**Blob**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
 
 
 ## login

@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createSecurityIntegration**](SecurityIntegrationsApi.md#createSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations | Create a security integration.
-[**deleteSecurityIntegration**](SecurityIntegrationsApi.md#deleteSecurityIntegration) | **DELETE** /api/v1/{tenant}/security-integrations/{id} | Delete the security integration.
-[**disableSecurityIntegration**](SecurityIntegrationsApi.md#disableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/disable | Disable the security integration.
-[**enableSecurityIntegration**](SecurityIntegrationsApi.md#enableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/enable | Enable the security integration.
-[**getSecurityIntegration**](SecurityIntegrationsApi.md#getSecurityIntegration) | **GET** /api/v1/{tenant}/security-integrations/{id} | Get a security integration.
-[**listSecurityIntegrations**](SecurityIntegrationsApi.md#listSecurityIntegrations) | **GET** /api/v1/{tenant}/security-integrations | List all security integrations.
+[**createSecurityIntegration**](SecurityIntegrationsApi.md#createSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations | Create a security integration
+[**deleteSecurityIntegration**](SecurityIntegrationsApi.md#deleteSecurityIntegration) | **DELETE** /api/v1/{tenant}/security-integrations/{id} | Delete a security integration
+[**disableSecurityIntegration**](SecurityIntegrationsApi.md#disableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/disable | Disable a security integration
+[**enableSecurityIntegration**](SecurityIntegrationsApi.md#enableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/enable | Enable a security integration
+[**getSecurityIntegration**](SecurityIntegrationsApi.md#getSecurityIntegration) | **GET** /api/v1/{tenant}/security-integrations/{id} | Retrieve a security integration
+[**listSecurityIntegrations**](SecurityIntegrationsApi.md#listSecurityIntegrations) | **GET** /api/v1/{tenant}/security-integrations | List all security integrations
 
 
 
@@ -17,7 +17,9 @@ Method | HTTP request | Description
 
 > Object createSecurityIntegration(tenant, createSecurityIntegrationRequest)
 
-Create a security integration.
+Create a security integration
+
+Superadmin-only.
 
 ### Example
 
@@ -70,7 +72,9 @@ Name | Type | Description  | Notes
 
 > Object deleteSecurityIntegration(id, tenant)
 
-Delete the security integration.
+Delete a security integration
+
+Superadmin-only.
 
 ### Example
 
@@ -123,7 +127,9 @@ Name | Type | Description  | Notes
 
 > Object disableSecurityIntegration(id, tenant)
 
-Disable the security integration.
+Disable a security integration
+
+Superadmin-only. Disables the specified integration.
 
 ### Example
 
@@ -176,7 +182,9 @@ Name | Type | Description  | Notes
 
 > Object enableSecurityIntegration(id, tenant)
 
-Enable the security integration.
+Enable a security integration
+
+Superadmin-only. Enables the specified integration.
 
 ### Example
 
@@ -229,7 +237,9 @@ Name | Type | Description  | Notes
 
 > Object getSecurityIntegration(id, tenant)
 
-Get a security integration.
+Retrieve a security integration
+
+Superadmin-only.
 
 ### Example
 
@@ -282,7 +292,9 @@ Name | Type | Description  | Notes
 
 > Object listSecurityIntegrations(tenant)
 
-List all security integrations.
+List all security integrations
+
+Superadmin-only.
 
 ### Example
 

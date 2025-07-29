@@ -31,4 +31,6 @@
 
 * `SKIPPED` (value: `"SKIPPED"`)
 
+* `BREAKPOINT` (value: `"BREAKPOINT"`)
+
 

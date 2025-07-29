@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerLicenseInfo model module.
  * @module model/MiscControllerLicenseInfo
- * @version v1
+ * @version v0.24.0
  */
 class MiscControllerLicenseInfo {
     /**
@@ -56,6 +56,15 @@ class MiscControllerLicenseInfo {
             if (data.hasOwnProperty('expired')) {
                 obj['expired'] = ApiClient.convertToType(data['expired'], 'Boolean');
             }
+            if (data.hasOwnProperty('maxServers')) {
+                obj['maxServers'] = ApiClient.convertToType(data['maxServers'], 'Number');
+            }
+            if (data.hasOwnProperty('standalone')) {
+                obj['standalone'] = ApiClient.convertToType(data['standalone'], 'Boolean');
+            }
+            if (data.hasOwnProperty('workerGroups')) {
+                obj['workerGroups'] = ApiClient.convertToType(data['workerGroups'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -93,6 +102,21 @@ MiscControllerLicenseInfo.prototype['expiry'] = undefined;
  * @member {Boolean} expired
  */
 MiscControllerLicenseInfo.prototype['expired'] = undefined;
+
+/**
+ * @member {Number} maxServers
+ */
+MiscControllerLicenseInfo.prototype['maxServers'] = undefined;
+
+/**
+ * @member {Boolean} standalone
+ */
+MiscControllerLicenseInfo.prototype['standalone'] = undefined;
+
+/**
+ * @member {Boolean} workerGroups
+ */
+MiscControllerLicenseInfo.prototype['workerGroups'] = undefined;
 
 
 

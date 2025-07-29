@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
 **description** | **String** |  | [optional] 
-**maxAge** | **String** |  | 
+**maxAge** | **String** |  | [optional] 
 **extended** | **Boolean** |  | [optional] 
 
 

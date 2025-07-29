@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -19,7 +19,7 @@ import AuthControllerResetPasswordRequest from '../model/AuthControllerResetPass
 /**
 * Default service.
 * @module api/DefaultApi
-* @version v1
+* @version v0.24.0
 */
 export default class DefaultApi {
 
@@ -160,6 +160,51 @@ export default class DefaultApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/forgotten-password', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the generate operation.
+     * @callback module:api/DefaultApi~generateCallback
+     * @param {String} error Error message, if any.
+     * @param {Blob} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Date} [from] The start date
+     * @param {module:api/DefaultApi~generateCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Blob}
+     */
+    generate(tenant, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling generate");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+        'from': opts['from']
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/octet-stream'];
+      let returnType = 'Blob';
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/stats/generate-reports', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

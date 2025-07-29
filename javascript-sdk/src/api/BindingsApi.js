@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,15 +13,15 @@
 
 
 import ApiClient from "../ApiClient";
-import AbstractBindingControllerBindingDetail from '../model/AbstractBindingControllerBindingDetail';
-import Binding from '../model/Binding';
 import BindingType from '../model/BindingType';
-import PagedResultsAbstractBindingControllerBindingDetail from '../model/PagedResultsAbstractBindingControllerBindingDetail';
+import IAMBindingControllerApiBindingDetail from '../model/IAMBindingControllerApiBindingDetail';
+import IAMBindingControllerApiCreateBindingRequest from '../model/IAMBindingControllerApiCreateBindingRequest';
+import PagedResultsIAMBindingControllerApiBindingSummary from '../model/PagedResultsIAMBindingControllerApiBindingSummary';
 
 /**
 * Bindings service.
 * @module api/BindingsApi
-* @version v1
+* @version v0.24.0
 */
 export default class BindingsApi {
 
@@ -41,26 +41,26 @@ export default class BindingsApi {
      * Callback function to receive the result of the bulkCreateBinding operation.
      * @callback module:api/BindingsApi~bulkCreateBindingCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/AbstractBindingControllerBindingDetail>} data The data returned by the service call.
+     * @param {Array.<module:model/IAMBindingControllerApiBindingDetail>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create multiple bindings
      * @param {String} tenant 
-     * @param {Array.<module:model/Binding>} binding The bindings
+     * @param {Array.<module:model/IAMBindingControllerApiCreateBindingRequest>} iAMBindingControllerApiCreateBindingRequest The bindings
      * @param {module:api/BindingsApi~bulkCreateBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
+     * data is of type: {@link Array.<module:model/IAMBindingControllerApiBindingDetail>}
      */
-    bulkCreateBinding(tenant, binding, callback) {
-      let postBody = binding;
+    bulkCreateBinding(tenant, iAMBindingControllerApiCreateBindingRequest, callback) {
+      let postBody = iAMBindingControllerApiCreateBindingRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling bulkCreateBinding");
       }
-      // verify the required parameter 'binding' is set
-      if (binding === undefined || binding === null) {
-        throw new Error("Missing the required parameter 'binding' when calling bulkCreateBinding");
+      // verify the required parameter 'iAMBindingControllerApiCreateBindingRequest' is set
+      if (iAMBindingControllerApiCreateBindingRequest === undefined || iAMBindingControllerApiCreateBindingRequest === null) {
+        throw new Error("Missing the required parameter 'iAMBindingControllerApiCreateBindingRequest' when calling bulkCreateBinding");
       }
 
       let pathParams = {
@@ -76,56 +76,9 @@ export default class BindingsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [AbstractBindingControllerBindingDetail];
+      let returnType = [IAMBindingControllerApiBindingDetail];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/bulk', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the bulkCreateBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~bulkCreateBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/AbstractBindingControllerBindingDetail>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create multiple bindings
-     * @param {String} resourceTenant 
-     * @param {Array.<module:model/Binding>} binding The bindings
-     * @param {module:api/BindingsApi~bulkCreateBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/AbstractBindingControllerBindingDetail>}
-     */
-    bulkCreateBindingapsSuperAdmin(resourceTenant, binding, callback) {
-      let postBody = binding;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling bulkCreateBindingapsSuperAdmin");
-      }
-      // verify the required parameter 'binding' is set
-      if (binding === undefined || binding === null) {
-        throw new Error("Missing the required parameter 'binding' when calling bulkCreateBindingapsSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [AbstractBindingControllerBindingDetail];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/bindings/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -135,26 +88,26 @@ export default class BindingsApi {
      * Callback function to receive the result of the createBinding operation.
      * @callback module:api/BindingsApi~createBindingCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
+     * @param {module:model/IAMBindingControllerApiBindingDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create a binding
      * @param {String} tenant 
-     * @param {module:model/Binding} binding The binding
+     * @param {module:model/IAMBindingControllerApiCreateBindingRequest} iAMBindingControllerApiCreateBindingRequest The binding
      * @param {module:api/BindingsApi~createBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * data is of type: {@link module:model/IAMBindingControllerApiBindingDetail}
      */
-    createBinding(tenant, binding, callback) {
-      let postBody = binding;
+    createBinding(tenant, iAMBindingControllerApiCreateBindingRequest, callback) {
+      let postBody = iAMBindingControllerApiCreateBindingRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling createBinding");
       }
-      // verify the required parameter 'binding' is set
-      if (binding === undefined || binding === null) {
-        throw new Error("Missing the required parameter 'binding' when calling createBinding");
+      // verify the required parameter 'iAMBindingControllerApiCreateBindingRequest' is set
+      if (iAMBindingControllerApiCreateBindingRequest === undefined || iAMBindingControllerApiCreateBindingRequest === null) {
+        throw new Error("Missing the required parameter 'iAMBindingControllerApiCreateBindingRequest' when calling createBinding");
       }
 
       let pathParams = {
@@ -170,56 +123,9 @@ export default class BindingsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = AbstractBindingControllerBindingDetail;
+      let returnType = IAMBindingControllerApiBindingDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~createBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a binding
-     * @param {String} resourceTenant 
-     * @param {module:model/Binding} binding The binding
-     * @param {module:api/BindingsApi~createBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
-     */
-    createBindingapsSuperAdmin(resourceTenant, binding, callback) {
-      let postBody = binding;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createBindingapsSuperAdmin");
-      }
-      // verify the required parameter 'binding' is set
-      if (binding === undefined || binding === null) {
-        throw new Error("Missing the required parameter 'binding' when calling createBindingapsSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = AbstractBindingControllerBindingDetail;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/bindings', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -273,66 +179,19 @@ export default class BindingsApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~deleteBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a binding
-     * @param {String} id The binding id
-     * @param {String} resourceTenant 
-     * @param {module:api/BindingsApi~deleteBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteBindingapsSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteBindingapsSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteBindingapsSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/bindings/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the getBinding operation.
      * @callback module:api/BindingsApi~getBindingCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
+     * @param {module:model/IAMBindingControllerApiBindingDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get a binding
+     * Retrieve a binding
      * @param {String} id The binding id
      * @param {String} tenant 
      * @param {module:api/BindingsApi~getBindingCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
+     * data is of type: {@link module:model/IAMBindingControllerApiBindingDetail}
      */
     getBinding(id, tenant, callback) {
       let postBody = null;
@@ -359,57 +218,9 @@ export default class BindingsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = AbstractBindingControllerBindingDetail;
+      let returnType = IAMBindingControllerApiBindingDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getBindingapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~getBindingapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a binding
-     * @param {String} id The binding id
-     * @param {String} resourceTenant 
-     * @param {module:api/BindingsApi~getBindingapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AbstractBindingControllerBindingDetail}
-     */
-    getBindingapsSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getBindingapsSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling getBindingapsSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = AbstractBindingControllerBindingDetail;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/bindings/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -419,7 +230,7 @@ export default class BindingsApi {
      * Callback function to receive the result of the searchBindings operation.
      * @callback module:api/BindingsApi~searchBindingsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAbstractBindingControllerBindingDetail} data The data returned by the service call.
+     * @param {module:model/PagedResultsIAMBindingControllerApiBindingSummary} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -435,7 +246,7 @@ export default class BindingsApi {
      * @param {String} [id] External id filter
      * @param {String} [namespace] A namespace filter
      * @param {module:api/BindingsApi~searchBindingsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
+     * data is of type: {@link module:model/PagedResultsIAMBindingControllerApiBindingSummary}
      */
     searchBindings(page, size, tenant, opts, callback) {
       opts = opts || {};
@@ -473,75 +284,9 @@ export default class BindingsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsAbstractBindingControllerBindingDetail;
+      let returnType = PagedResultsIAMBindingControllerApiBindingSummary;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/bindings/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchBindingsapsSuperAdmin operation.
-     * @callback module:api/BindingsApi~searchBindingsapsSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsAbstractBindingControllerBindingDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for bindings
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:model/BindingType} [type] Binding type filter
-     * @param {String} [id] External id filter
-     * @param {String} [namespace] A namespace filter
-     * @param {module:api/BindingsApi~searchBindingsapsSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsAbstractBindingControllerBindingDetail}
-     */
-    searchBindingsapsSuperAdmin(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchBindingsapsSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchBindingsapsSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchBindingsapsSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'type': opts['type'],
-        'id': opts['id'],
-        'namespace': opts['namespace']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsAbstractBindingControllerBindingDetail;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/bindings/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

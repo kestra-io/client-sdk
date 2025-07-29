@@ -20,7 +20,7 @@ Method | HTTP request | Description
 [**generateFlowGraphFromSource**](FlowsApi.md#generateFlowGraphFromSource) | **POST** /api/v1/{tenant}/flows/graph | Generate a graph for a flow source
 [**getFlow**](FlowsApi.md#getFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id} | Get a flow
 [**getFlowDependencies**](FlowsApi.md#getFlowDependencies) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/dependencies | Get flow dependencies
-[**getFlowDependenciesFromNamespace**](FlowsApi.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Get flow dependencies
+[**getFlowDependenciesFromNamespace**](FlowsApi.md#getFlowDependenciesFromNamespace) | **GET** /api/v1/{tenant}/namespaces/{namespace}/dependencies | Retrieve flow dependencies
 [**getTaskFromFlow**](FlowsApi.md#getTaskFromFlow) | **GET** /api/v1/{tenant}/flows/{namespace}/{id}/tasks/{taskId} | Get a flow task
 [**importFlows**](FlowsApi.md#importFlows) | **POST** /api/v1/{tenant}/flows/import |     Import flows as a ZIP archive of yaml sources or a multi-objects YAML file.     When sending a Yaml that contains one or more flows, a list of index is returned.     When sending a ZIP archive, a list of files that couldn&#39;t be imported is returned. 
 [**listDistinctNamespaces**](FlowsApi.md#listDistinctNamespaces) | **GET** /api/v1/{tenant}/flows/distinct-namespaces | List all distinct namespaces
@@ -910,7 +910,7 @@ Name | Type | Description  | Notes
 
 ## getFlowDependencies
 
-> FlowTopologyGraph getFlowDependencies(namespace, id, destinationOnly, tenant)
+> FlowTopologyGraph getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant)
 
 Get flow dependencies
 
@@ -931,8 +931,9 @@ let apiInstance = new KestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
+let expandAll = false; // Boolean | If true, expand all dependencies recursively
 let tenant = "tenant_example"; // String | 
-apiInstance.getFlowDependencies(namespace, id, destinationOnly, tenant, (error, data, response) => {
+apiInstance.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -949,6 +950,7 @@ Name | Type | Description  | Notes
  **namespace** | **String**| The flow namespace | 
  **id** | **String**| The flow id | 
  **destinationOnly** | **Boolean**| If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **expandAll** | **Boolean**| If true, expand all dependencies recursively | [default to false]
  **tenant** | **String**|  | 
 
 ### Return type
@@ -969,7 +971,7 @@ Name | Type | Description  | Notes
 
 > FlowTopologyGraph getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant)
 
-Get flow dependencies
+Retrieve flow dependencies
 
 ### Example
 

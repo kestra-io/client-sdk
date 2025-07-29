@@ -4,10 +4,10 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createBanner**](BannersApi.md#createBanner) | **POST** /api/v1/banners | Create a new banner
-[**deleteBanner**](BannersApi.md#deleteBanner) | **DELETE** /api/v1/banners/{id} | Delete a banner
-[**searchBanners**](BannersApi.md#searchBanners) | **GET** /api/v1/banners/search | Get banners
-[**updateBanner**](BannersApi.md#updateBanner) | **PUT** /api/v1/banners/{id} | Update a banner
+[**createBanner**](BannersApi.md#createBanner) | **POST** /api/v1/banners | Create an announcement banner
+[**deleteBanner**](BannersApi.md#deleteBanner) | **DELETE** /api/v1/banners/{id} | Delete an announcement banner
+[**searchBanners**](BannersApi.md#searchBanners) | **GET** /api/v1/banners/search | Retrieve all announcement banners
+[**updateBanner**](BannersApi.md#updateBanner) | **PUT** /api/v1/banners/{id} | Update an announcement banner
 
 
 
@@ -15,7 +15,9 @@ Method | HTTP request | Description
 
 > Banner createBanner(banner)
 
-Create a new banner
+Create an announcement banner
+
+Superadmin-only. Creates a global announcement banner visible to all tenants.
 
 ### Example
 
@@ -31,7 +33,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.BannersApi();
-let banner = new KestraApi.Banner(); // Banner | The banner to create
+let banner = new KestraApi.Banner(); // Banner | The announcement banner to create
 apiInstance.createBanner(banner, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -46,7 +48,7 @@ apiInstance.createBanner(banner, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **banner** | [**Banner**](Banner.md)| The banner to create | 
+ **banner** | [**Banner**](Banner.md)| The announcement banner to create | 
 
 ### Return type
 
@@ -66,7 +68,9 @@ Name | Type | Description  | Notes
 
 > deleteBanner(id)
 
-Delete a banner
+Delete an announcement banner
+
+Superadmin-only. Deletes a global announcement banner by its ID.
 
 ### Example
 
@@ -117,7 +121,9 @@ null (empty response body)
 
 > [Banner] searchBanners()
 
-Get banners
+Retrieve all announcement banners
+
+Superadmin-only. Returns all global announcement banners.
 
 ### Example
 
@@ -164,7 +170,9 @@ This endpoint does not need any parameter.
 
 > Banner updateBanner(id, banner)
 
-Update a banner
+Update an announcement banner
+
+Superadmin-only. Updates a global announcement banner by its ID.
 
 ### Example
 

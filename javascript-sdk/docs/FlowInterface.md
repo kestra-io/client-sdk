@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) |  | [optional] 
 **variables** | **{String: Object}** |  | [optional] 
+**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **sla** | [**[SLA]**](SLA.md) |  | [optional] 
 **source** | **String** |  | [optional] 

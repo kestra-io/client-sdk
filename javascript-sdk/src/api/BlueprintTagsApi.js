@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -19,7 +19,7 @@ import BlueprintControllerKind from '../model/BlueprintControllerKind';
 /**
 * BlueprintTags service.
 * @module api/BlueprintTagsApi
-* @version v1
+* @version v0.24.0
 */
 export default class BlueprintTagsApi {
 
@@ -45,6 +45,7 @@ export default class BlueprintTagsApi {
 
     /**
      * List all internal blueprint tags
+     * Lists all tags used by internal (custom) blueprints for the current tenant.
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter to get tags with matching blueprints only
@@ -91,6 +92,7 @@ export default class BlueprintTagsApi {
 
     /**
      * List blueprint tags matching the filter
+     * Lists tags for community blueprints of the specified kind, optionally filtered by query.
      * @param {module:model/BlueprintControllerKind} kind The blueprint kind
      * @param {String} tenant 
      * @param {Object} opts Optional parameters

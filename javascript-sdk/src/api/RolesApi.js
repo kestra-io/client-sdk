@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -15,13 +15,16 @@
 import ApiClient from "../ApiClient";
 import ApiAutocomplete from '../model/ApiAutocomplete';
 import ApiIds from '../model/ApiIds';
-import PagedResultsRole from '../model/PagedResultsRole';
+import ApiRoleSummary from '../model/ApiRoleSummary';
+import IAMRoleControllerApiRoleCreateOrUpdateRequest from '../model/IAMRoleControllerApiRoleCreateOrUpdateRequest';
+import IAMRoleControllerApiRoleDetail from '../model/IAMRoleControllerApiRoleDetail';
+import PagedResultsApiRoleSummary from '../model/PagedResultsApiRoleSummary';
 import Role from '../model/Role';
 
 /**
 * Roles service.
 * @module api/RolesApi
-* @version v1
+* @version v0.24.0
 */
 export default class RolesApi {
 
@@ -41,7 +44,7 @@ export default class RolesApi {
      * Callback function to receive the result of the autocompleteRoles operation.
      * @callback module:api/RolesApi~autocompleteRolesCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
+     * @param {Array.<module:model/ApiRoleSummary>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -50,7 +53,7 @@ export default class RolesApi {
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
      * @param {module:api/RolesApi~autocompleteRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * data is of type: {@link Array.<module:model/ApiRoleSummary>}
      */
     autocompleteRoles(tenant, apiAutocomplete, callback) {
       let postBody = apiAutocomplete;
@@ -76,97 +79,9 @@ export default class RolesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [Role];
+      let returnType = [ApiRoleSummary];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteRolesWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~autocompleteRolesWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List roles for autocomplete
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
-     */
-    autocompleteRolesWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete, callback) {
-      let postBody = apiAutocomplete;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling autocompleteRolesWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiAutocomplete' is set
-      if (apiAutocomplete === undefined || apiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'apiAutocomplete' when calling autocompleteRolesWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Role];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteRolesasSuperAdmin operation.
-     * @callback module:api/RolesApi~autocompleteRolesasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List roles for autocomplete
-     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
-     */
-    autocompleteRolesasSuperAdmin(apiAutocomplete, callback) {
-      let postBody = apiAutocomplete;
-      // verify the required parameter 'apiAutocomplete' is set
-      if (apiAutocomplete === undefined || apiAutocomplete === null) {
-        throw new Error("Missing the required parameter 'apiAutocomplete' when calling autocompleteRolesasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Role];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -176,26 +91,26 @@ export default class RolesApi {
      * Callback function to receive the result of the createRole operation.
      * @callback module:api/RolesApi~createRoleCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
+     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create a role
      * @param {String} tenant 
-     * @param {module:model/Role} role 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
      * @param {module:api/RolesApi~createRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
      */
-    createRole(tenant, role, callback) {
-      let postBody = role;
+    createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, callback) {
+      let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling createRole");
       }
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling createRole");
+      // verify the required parameter 'iAMRoleControllerApiRoleCreateOrUpdateRequest' is set
+      if (iAMRoleControllerApiRoleCreateOrUpdateRequest === undefined || iAMRoleControllerApiRoleCreateOrUpdateRequest === null) {
+        throw new Error("Missing the required parameter 'iAMRoleControllerApiRoleCreateOrUpdateRequest' when calling createRole");
       }
 
       let pathParams = {
@@ -211,97 +126,9 @@ export default class RolesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Role;
+      let returnType = IAMRoleControllerApiRoleDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~createRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a role
-     * @param {String} resourceTenant 
-     * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~createRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    createRoleWithResourceTenantasSuperAdmin(resourceTenant, role, callback) {
-      let postBody = role;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createRoleWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling createRoleWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~createRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create a role
-     * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~createRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    createRoleasSuperAdmin(role, callback) {
-      let postBody = role;
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling createRoleasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -355,107 +182,19 @@ export default class RolesApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~deleteRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a role
-     * @param {String} id The role id
-     * @param {String} resourceTenant 
-     * @param {module:api/RolesApi~deleteRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteRoleWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteRoleWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteRoleWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~deleteRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete a role
-     * @param {String} id The role id
-     * @param {module:api/RolesApi~deleteRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteRoleasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteRoleasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the getRole operation.
      * @callback module:api/RolesApi~getRoleCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
+     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get a role
+     * Retrieve a role
      * @param {String} id The role id
      * @param {String} tenant 
      * @param {module:api/RolesApi~getRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
      */
     getRole(id, tenant, callback) {
       let postBody = null;
@@ -482,99 +221,9 @@ export default class RolesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Role;
+      let returnType = IAMRoleControllerApiRoleDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~getRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a role
-     * @param {String} id The role id
-     * @param {String} resourceTenant 
-     * @param {module:api/RolesApi~getRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    getRoleWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getRoleWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling getRoleWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~getRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get a role
-     * @param {String} id The role id
-     * @param {module:api/RolesApi~getRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    getRoleasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getRoleasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -628,98 +277,10 @@ export default class RolesApi {
     }
 
     /**
-     * Callback function to receive the result of the listRolesFromGivenIdsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List roles by ids
-     * @param {String} resourceTenant 
-     * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
-     */
-    listRolesFromGivenIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds, callback) {
-      let postBody = apiIds;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling listRolesFromGivenIdsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'apiIds' is set
-      if (apiIds === undefined || apiIds === null) {
-        throw new Error("Missing the required parameter 'apiIds' when calling listRolesFromGivenIdsWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Role];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listRolesFromGivenIdsasSuperAdmin operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List roles by ids
-     * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
-     */
-    listRolesFromGivenIdsasSuperAdmin(apiIds, callback) {
-      let postBody = apiIds;
-      // verify the required parameter 'apiIds' is set
-      if (apiIds === undefined || apiIds === null) {
-        throw new Error("Missing the required parameter 'apiIds' when calling listRolesFromGivenIdsasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = [Role];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/ids', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the searchRoles operation.
      * @callback module:api/RolesApi~searchRolesCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
+     * @param {module:model/PagedResultsApiRoleSummary} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -732,7 +293,7 @@ export default class RolesApi {
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:api/RolesApi~searchRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
+     * data is of type: {@link module:model/PagedResultsApiRoleSummary}
      */
     searchRoles(page, size, tenant, opts, callback) {
       opts = opts || {};
@@ -767,123 +328,9 @@ export default class RolesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsRole;
+      let returnType = PagedResultsApiRoleSummary;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchRolesWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~searchRolesWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for roles
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
-     */
-    searchRolesWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchRolesWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchRolesWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchRolesWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsRole;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchRolesasSuperAdmin operation.
-     * @callback module:api/RolesApi~searchRolesasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsRole} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for roles
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsRole}
-     */
-    searchRolesasSuperAdmin(page, size, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchRolesasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchRolesasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'q': opts['q'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsRole;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -893,7 +340,7 @@ export default class RolesApi {
      * Callback function to receive the result of the updateRole operation.
      * @callback module:api/RolesApi~updateRoleCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
+     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -901,12 +348,12 @@ export default class RolesApi {
      * Update a role
      * @param {String} id The role id
      * @param {String} tenant 
-     * @param {module:model/Role} role 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
      * @param {module:api/RolesApi~updateRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
+     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
      */
-    updateRole(id, tenant, role, callback) {
-      let postBody = role;
+    updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, callback) {
+      let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling updateRole");
@@ -915,9 +362,9 @@ export default class RolesApi {
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling updateRole");
       }
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling updateRole");
+      // verify the required parameter 'iAMRoleControllerApiRoleCreateOrUpdateRequest' is set
+      if (iAMRoleControllerApiRoleCreateOrUpdateRequest === undefined || iAMRoleControllerApiRoleCreateOrUpdateRequest === null) {
+        throw new Error("Missing the required parameter 'iAMRoleControllerApiRoleCreateOrUpdateRequest' when calling updateRole");
       }
 
       let pathParams = {
@@ -934,109 +381,9 @@ export default class RolesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Role;
+      let returnType = IAMRoleControllerApiRoleDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateRoleWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/RolesApi~updateRoleWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a role
-     * @param {String} id The role id
-     * @param {String} resourceTenant 
-     * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~updateRoleWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    updateRoleWithResourceTenantasSuperAdmin(id, resourceTenant, role, callback) {
-      let postBody = role;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateRoleWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling updateRoleWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling updateRoleWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/roles/{id}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the updateRoleasSuperAdmin operation.
-     * @callback module:api/RolesApi~updateRoleasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Role} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Update a role
-     * @param {String} id The role id
-     * @param {module:model/Role} role 
-     * @param {module:api/RolesApi~updateRoleasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Role}
-     */
-    updateRoleasSuperAdmin(id, role, callback) {
-      let postBody = role;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling updateRoleasSuperAdmin");
-      }
-      // verify the required parameter 'role' is set
-      if (role === undefined || role === null) {
-        throw new Error("Missing the required parameter 'role' when calling updateRoleasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Role;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/roles/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

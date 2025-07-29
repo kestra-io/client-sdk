@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
-**testSuiteId** | **String** |  | [optional] 
-**namespace** | **String** |  | [optional] 
-**flowId** | **String** |  | [optional] 
-**state** | [**TestState**](TestState.md) |  | [optional] 
+**id** | **String** |  | 
+**testSuiteId** | **String** |  | 
+**namespace** | **String** |  | 
+**flowId** | **String** |  | 
+**state** | [**TestState**](TestState.md) |  | 
+**startDate** | **Date** |  | 
+**endDate** | **Date** |  | 
 **results** | [**[UnitTestResult]**](UnitTestResult.md) |  | [optional] 
 
 

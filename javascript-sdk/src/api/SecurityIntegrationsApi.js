@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -18,7 +18,7 @@ import CreateSecurityIntegrationRequest from '../model/CreateSecurityIntegration
 /**
 * SecurityIntegrations service.
 * @module api/SecurityIntegrationsApi
-* @version v1
+* @version v0.24.0
 */
 export default class SecurityIntegrationsApi {
 
@@ -43,7 +43,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * Create a security integration.
+     * Create a security integration
+     * Superadmin-only.
      * @param {String} tenant 
      * @param {module:model/CreateSecurityIntegrationRequest} createSecurityIntegrationRequest The security integration definition
      * @param {module:api/SecurityIntegrationsApi~createSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -90,7 +91,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * Delete the security integration.
+     * Delete a security integration
+     * Superadmin-only.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
      * @param {module:api/SecurityIntegrationsApi~deleteSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -138,7 +140,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * Disable the security integration.
+     * Disable a security integration
+     * Superadmin-only. Disables the specified integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
      * @param {module:api/SecurityIntegrationsApi~disableSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -186,7 +189,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * Enable the security integration.
+     * Enable a security integration
+     * Superadmin-only. Enables the specified integration.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
      * @param {module:api/SecurityIntegrationsApi~enableSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -234,7 +238,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * Get a security integration.
+     * Retrieve a security integration
+     * Superadmin-only.
      * @param {String} id The ID of security integration
      * @param {String} tenant 
      * @param {module:api/SecurityIntegrationsApi~getSecurityIntegrationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -282,7 +287,8 @@ export default class SecurityIntegrationsApi {
      */
 
     /**
-     * List all security integrations.
+     * List all security integrations
+     * Superadmin-only.
      * @param {String} tenant 
      * @param {module:api/SecurityIntegrationsApi~listSecurityIntegrationsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}

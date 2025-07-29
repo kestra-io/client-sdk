@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,14 +13,14 @@
 
 
 import ApiClient from "../ApiClient";
-import ClusterControllerApiPluginArtifactListPluginArtifact from '../model/ClusterControllerApiPluginArtifactListPluginArtifact';
-import ClusterControllerApiPluginArtifactListPluginResolutionResult from '../model/ClusterControllerApiPluginArtifactListPluginResolutionResult';
-import ClusterControllerApiPluginListRequest from '../model/ClusterControllerApiPluginListRequest';
-import ClusterControllerApiPluginVersionDetails from '../model/ClusterControllerApiPluginVersionDetails';
-import ClusterControllerApiPluginVersions from '../model/ClusterControllerApiPluginVersions';
 import DocumentationWithSchema from '../model/DocumentationWithSchema';
 import InputType from '../model/InputType';
-import PagedResultsClusterControllerApiPluginArtifact from '../model/PagedResultsClusterControllerApiPluginArtifact';
+import InstanceControllerApiPluginArtifactListPluginArtifact from '../model/InstanceControllerApiPluginArtifactListPluginArtifact';
+import InstanceControllerApiPluginArtifactListPluginResolutionResult from '../model/InstanceControllerApiPluginArtifactListPluginResolutionResult';
+import InstanceControllerApiPluginListRequest from '../model/InstanceControllerApiPluginListRequest';
+import InstanceControllerApiPluginVersionDetails from '../model/InstanceControllerApiPluginVersionDetails';
+import InstanceControllerApiPluginVersions from '../model/InstanceControllerApiPluginVersions';
+import PagedResultsInstanceControllerApiPluginArtifact from '../model/PagedResultsInstanceControllerApiPluginArtifact';
 import Plugin from '../model/Plugin';
 import PluginArtifact from '../model/PluginArtifact';
 import PluginControllerApiPluginVersions from '../model/PluginControllerApiPluginVersions';
@@ -31,7 +31,7 @@ import Type from '../model/Type';
 /**
 * Plugins service.
 * @module api/PluginsApi
-* @version v1
+* @version v0.24.0
 */
 export default class PluginsApi {
 
@@ -57,19 +57,13 @@ export default class PluginsApi {
 
     /**
      * Get all types for an inputs
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getAllInputTypesCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/InputType>}
      */
-    getAllInputTypes(tenant, callback) {
+    getAllInputTypes(callback) {
       let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getAllInputTypes");
-      }
 
       let pathParams = {
-        'tenant': tenant
       };
       let queryParams = {
       };
@@ -83,7 +77,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = [InputType];
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/inputs', 'GET',
+        '/api/v1/plugins/inputs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -99,27 +93,15 @@ export default class PluginsApi {
 
     /**
      * Get plugins group by subgroups
-     * @param {Boolean} includeDeprecated Whether to include deprecated plugins
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginBySubgroupsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Plugin>}
      */
-    getPluginBySubgroups(includeDeprecated, tenant, callback) {
+    getPluginBySubgroups(callback) {
       let postBody = null;
-      // verify the required parameter 'includeDeprecated' is set
-      if (includeDeprecated === undefined || includeDeprecated === null) {
-        throw new Error("Missing the required parameter 'includeDeprecated' when calling getPluginBySubgroups");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginBySubgroups");
-      }
 
       let pathParams = {
-        'tenant': tenant
       };
       let queryParams = {
-        'includeDeprecated': includeDeprecated
       };
       let headerParams = {
       };
@@ -131,7 +113,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = [Plugin];
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/groups/subgroups', 'GET',
+        '/api/v1/plugins/groups/subgroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -149,11 +131,10 @@ export default class PluginsApi {
      * Get plugin documentation
      * @param {String} cls The plugin full class name
      * @param {Boolean} all Include all the properties
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginDocumentationCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DocumentationWithSchema}
      */
-    getPluginDocumentation(cls, all, tenant, callback) {
+    getPluginDocumentation(cls, all, callback) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
@@ -163,14 +144,9 @@ export default class PluginsApi {
       if (all === undefined || all === null) {
         throw new Error("Missing the required parameter 'all' when calling getPluginDocumentation");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginDocumentation");
-      }
 
       let pathParams = {
-        'cls': cls,
-        'tenant': tenant
+        'cls': cls
       };
       let queryParams = {
         'all': all
@@ -185,7 +161,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = DocumentationWithSchema;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/{cls}', 'GET',
+        '/api/v1/plugins/{cls}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -204,11 +180,10 @@ export default class PluginsApi {
      * @param {String} cls The plugin type
      * @param {String} version The plugin version
      * @param {Boolean} all Include all the properties
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginDocumentationFromVersionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DocumentationWithSchema}
      */
-    getPluginDocumentationFromVersion(cls, version, all, tenant, callback) {
+    getPluginDocumentationFromVersion(cls, version, all, callback) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
@@ -222,15 +197,10 @@ export default class PluginsApi {
       if (all === undefined || all === null) {
         throw new Error("Missing the required parameter 'all' when calling getPluginDocumentationFromVersion");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginDocumentationFromVersion");
-      }
 
       let pathParams = {
         'cls': cls,
-        'version': version,
-        'tenant': tenant
+        'version': version
       };
       let queryParams = {
         'all': all
@@ -245,7 +215,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = DocumentationWithSchema;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/{cls}/versions/{version}', 'GET',
+        '/api/v1/plugins/{cls}/versions/{version}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -261,19 +231,13 @@ export default class PluginsApi {
 
     /**
      * Get plugins icons
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginGroupIconsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, module:model/{String: PluginIcon}>}
      */
-    getPluginGroupIcons(tenant, callback) {
+    getPluginGroupIcons(callback) {
       let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginGroupIcons");
-      }
 
       let pathParams = {
-        'tenant': tenant
       };
       let queryParams = {
       };
@@ -287,7 +251,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = {'String': PluginIcon};
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/icons/groups', 'GET',
+        '/api/v1/plugins/icons/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -303,19 +267,13 @@ export default class PluginsApi {
 
     /**
      * Get plugins icons
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginIconsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, module:model/{String: PluginIcon}>}
      */
-    getPluginIcons(tenant, callback) {
+    getPluginIcons(callback) {
       let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginIcons");
-      }
 
       let pathParams = {
-        'tenant': tenant
       };
       let queryParams = {
       };
@@ -329,7 +287,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = {'String': PluginIcon};
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/icons', 'GET',
+        '/api/v1/plugins/icons', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -346,24 +304,18 @@ export default class PluginsApi {
     /**
      * Get all versions for a plugin
      * @param {String} cls The plugin type
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getPluginVersionsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/PluginControllerApiPluginVersions}
      */
-    getPluginVersions(cls, tenant, callback) {
+    getPluginVersions(cls, callback) {
       let postBody = null;
       // verify the required parameter 'cls' is set
       if (cls === undefined || cls === null) {
         throw new Error("Missing the required parameter 'cls' when calling getPluginVersions");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getPluginVersions");
-      }
 
       let pathParams = {
-        'cls': cls,
-        'tenant': tenant
+        'cls': cls
       };
       let queryParams = {
       };
@@ -377,7 +329,50 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = PluginControllerApiPluginVersions;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/{cls}/versions', 'GET',
+        '/api/v1/plugins/{cls}/versions', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getPropertiesFromType operation.
+     * @callback module:api/PluginsApi~getPropertiesFromTypeCallback
+     * @param {String} error Error message, if any.
+     * @param {Object.<String, {String: Object}>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get the properties part of the JSON schema for a type
+     * The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+     * @param {module:model/SchemaType} type The schema needed
+     * @param {module:api/PluginsApi~getPropertiesFromTypeCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object.<String, {String: Object}>}
+     */
+    getPropertiesFromType(type, callback) {
+      let postBody = null;
+      // verify the required parameter 'type' is set
+      if (type === undefined || type === null) {
+        throw new Error("Missing the required parameter 'type' when calling getPropertiesFromType");
+      }
+
+      let pathParams = {
+        'type': type
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = {'String': Object};
+      return this.apiClient.callApi(
+        '/api/v1/plugins/properties/{type}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -392,27 +387,21 @@ export default class PluginsApi {
      */
 
     /**
-     * Get json schemas for an input type
-     * The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+     * Get the JSON schema for an input type
+     * The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
      * @param {module:model/Type} type The schema needed
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getSchemaFromInputTypeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/DocumentationWithSchema}
      */
-    getSchemaFromInputType(type, tenant, callback) {
+    getSchemaFromInputType(type, callback) {
       let postBody = null;
       // verify the required parameter 'type' is set
       if (type === undefined || type === null) {
         throw new Error("Missing the required parameter 'type' when calling getSchemaFromInputType");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getSchemaFromInputType");
-      }
 
       let pathParams = {
-        'type': type,
-        'tenant': tenant
+        'type': type
       };
       let queryParams = {
       };
@@ -426,7 +415,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = DocumentationWithSchema;
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/inputs/{type}', 'GET',
+        '/api/v1/plugins/inputs/{type}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -441,15 +430,14 @@ export default class PluginsApi {
      */
 
     /**
-     * Get all json schemas for a type
-     * The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+     * Get the JSON schema for a type
+     * The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
      * @param {module:model/SchemaType} type The schema needed
      * @param {Boolean} arrayOf If schema should be an array of requested type
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~getSchemasFromTypeCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object.<String, {String: Object}>}
      */
-    getSchemasFromType(type, arrayOf, tenant, callback) {
+    getSchemasFromType(type, arrayOf, callback) {
       let postBody = null;
       // verify the required parameter 'type' is set
       if (type === undefined || type === null) {
@@ -459,14 +447,9 @@ export default class PluginsApi {
       if (arrayOf === undefined || arrayOf === null) {
         throw new Error("Missing the required parameter 'arrayOf' when calling getSchemasFromType");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getSchemasFromType");
-      }
 
       let pathParams = {
-        'type': type,
-        'tenant': tenant
+        'type': type
       };
       let queryParams = {
         'arrayOf': arrayOf
@@ -481,7 +464,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = {'String': Object};
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins/schemas/{type}', 'GET',
+        '/api/v1/plugins/schemas/{type}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -491,16 +474,17 @@ export default class PluginsApi {
      * Callback function to receive the result of the getVersionedPluginDetails operation.
      * @callback module:api/PluginsApi~getVersionedPluginDetailsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginVersions} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiPluginVersions} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get details about a Kestra's plugin artifact.
+     * Retrieve details of a plugin artifact
+     * Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
      * @param {String} groupId 
      * @param {String} artifactId 
      * @param {module:api/PluginsApi~getVersionedPluginDetailsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginVersions}
+     * data is of type: {@link module:model/InstanceControllerApiPluginVersions}
      */
     getVersionedPluginDetails(groupId, artifactId, callback) {
       let postBody = null;
@@ -527,9 +511,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiPluginVersions;
+      let returnType = InstanceControllerApiPluginVersions;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}', 'GET',
+        '/api/v1/instance/versioned-plugins/{groupId}/{artifactId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -539,17 +523,18 @@ export default class PluginsApi {
      * Callback function to receive the result of the getVersionedPluginDetailsFromVersion operation.
      * @callback module:api/PluginsApi~getVersionedPluginDetailsFromVersionCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginVersionDetails} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiPluginVersionDetails} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get details about a specific Kestra's plugin artifact version.
+     * Retrieve details of a specific plugin artifact version
+     * Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
      * @param {String} groupId 
      * @param {String} artifactId 
      * @param {String} version 
      * @param {module:api/PluginsApi~getVersionedPluginDetailsFromVersionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginVersionDetails}
+     * data is of type: {@link module:model/InstanceControllerApiPluginVersionDetails}
      */
     getVersionedPluginDetailsFromVersion(groupId, artifactId, version, callback) {
       let postBody = null;
@@ -581,9 +566,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiPluginVersionDetails;
+      let returnType = InstanceControllerApiPluginVersionDetails;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version}', 'GET',
+        '/api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -593,21 +578,22 @@ export default class PluginsApi {
      * Callback function to receive the result of the installVersionedPlugins operation.
      * @callback module:api/PluginsApi~installVersionedPluginsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Install a specific Kestra's plugin artifact
-     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * Install specified plugin artifacts
+     * Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
+     * @param {module:model/InstanceControllerApiPluginListRequest} instanceControllerApiPluginListRequest List of plugins
      * @param {module:api/PluginsApi~installVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
+     * data is of type: {@link module:model/InstanceControllerApiPluginArtifactListPluginArtifact}
      */
-    installVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
-      let postBody = clusterControllerApiPluginListRequest;
-      // verify the required parameter 'clusterControllerApiPluginListRequest' is set
-      if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
-        throw new Error("Missing the required parameter 'clusterControllerApiPluginListRequest' when calling installVersionedPlugins");
+    installVersionedPlugins(instanceControllerApiPluginListRequest, callback) {
+      let postBody = instanceControllerApiPluginListRequest;
+      // verify the required parameter 'instanceControllerApiPluginListRequest' is set
+      if (instanceControllerApiPluginListRequest === undefined || instanceControllerApiPluginListRequest === null) {
+        throw new Error("Missing the required parameter 'instanceControllerApiPluginListRequest' when calling installVersionedPlugins");
       }
 
       let pathParams = {
@@ -622,9 +608,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiPluginArtifactListPluginArtifact;
+      let returnType = InstanceControllerApiPluginArtifactListPluginArtifact;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/install', 'POST',
+        '/api/v1/instance/versioned-plugins/install', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -639,7 +625,8 @@ export default class PluginsApi {
      */
 
     /**
-     * Get the list of available Kestra's plugin artifact.
+     * List available plugin artifacts
+     * Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
      * @param {module:api/PluginsApi~listAvailableVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
@@ -660,7 +647,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/available', 'GET',
+        '/api/v1/instance/versioned-plugins/available', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -676,19 +663,13 @@ export default class PluginsApi {
 
     /**
      * Get list of plugins
-     * @param {String} tenant 
      * @param {module:api/PluginsApi~listPluginsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Plugin>}
      */
-    listPlugins(tenant, callback) {
+    listPlugins(callback) {
       let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listPlugins");
-      }
 
       let pathParams = {
-        'tenant': tenant
       };
       let queryParams = {
       };
@@ -702,7 +683,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = [Plugin];
       return this.apiClient.callApi(
-        '/api/v1/{tenant}/plugins', 'GET',
+        '/api/v1/plugins', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -712,19 +693,20 @@ export default class PluginsApi {
      * Callback function to receive the result of the listVersionedPlugin operation.
      * @callback module:api/PluginsApi~listVersionedPluginCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsClusterControllerApiPluginArtifact} data The data returned by the service call.
+     * @param {module:model/PagedResultsInstanceControllerApiPluginArtifact} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get the list of installed Kestra's plugin artifact.
+     * List installed plugin artifacts
+     * Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
      * @param {String} [q] The query
      * @param {module:api/PluginsApi~listVersionedPluginCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsClusterControllerApiPluginArtifact}
+     * data is of type: {@link module:model/PagedResultsInstanceControllerApiPluginArtifact}
      */
     listVersionedPlugin(page, size, opts, callback) {
       opts = opts || {};
@@ -754,9 +736,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsClusterControllerApiPluginArtifact;
+      let returnType = PagedResultsInstanceControllerApiPluginArtifact;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins', 'GET',
+        '/api/v1/instance/versioned-plugins', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -766,21 +748,22 @@ export default class PluginsApi {
      * Callback function to receive the result of the resolveVersionedPlugins operation.
      * @callback module:api/PluginsApi~resolveVersionedPluginsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiPluginArtifactListPluginResolutionResult} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Resolve a specific Kestra's plugin artifact
-     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * Resolve versions for specified plugin artifacts
+     * Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
+     * @param {module:model/InstanceControllerApiPluginListRequest} instanceControllerApiPluginListRequest List of plugins
      * @param {module:api/PluginsApi~resolveVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginResolutionResult}
+     * data is of type: {@link module:model/InstanceControllerApiPluginArtifactListPluginResolutionResult}
      */
-    resolveVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
-      let postBody = clusterControllerApiPluginListRequest;
-      // verify the required parameter 'clusterControllerApiPluginListRequest' is set
-      if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
-        throw new Error("Missing the required parameter 'clusterControllerApiPluginListRequest' when calling resolveVersionedPlugins");
+    resolveVersionedPlugins(instanceControllerApiPluginListRequest, callback) {
+      let postBody = instanceControllerApiPluginListRequest;
+      // verify the required parameter 'instanceControllerApiPluginListRequest' is set
+      if (instanceControllerApiPluginListRequest === undefined || instanceControllerApiPluginListRequest === null) {
+        throw new Error("Missing the required parameter 'instanceControllerApiPluginListRequest' when calling resolveVersionedPlugins");
       }
 
       let pathParams = {
@@ -795,9 +778,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiPluginArtifactListPluginResolutionResult;
+      let returnType = InstanceControllerApiPluginArtifactListPluginResolutionResult;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/resolve', 'POST',
+        '/api/v1/instance/versioned-plugins/resolve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -807,21 +790,22 @@ export default class PluginsApi {
      * Callback function to receive the result of the uninstallVersionedPlugins operation.
      * @callback module:api/PluginsApi~uninstallVersionedPluginsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiPluginArtifactListPluginArtifact} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Uninstall Kestra's plugin artifacts
-     * @param {module:model/ClusterControllerApiPluginListRequest} clusterControllerApiPluginListRequest List of plugins
+     * Uninstall plugin artifacts
+     * Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
+     * @param {module:model/InstanceControllerApiPluginListRequest} instanceControllerApiPluginListRequest List of plugins
      * @param {module:api/PluginsApi~uninstallVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiPluginArtifactListPluginArtifact}
+     * data is of type: {@link module:model/InstanceControllerApiPluginArtifactListPluginArtifact}
      */
-    uninstallVersionedPlugins(clusterControllerApiPluginListRequest, callback) {
-      let postBody = clusterControllerApiPluginListRequest;
-      // verify the required parameter 'clusterControllerApiPluginListRequest' is set
-      if (clusterControllerApiPluginListRequest === undefined || clusterControllerApiPluginListRequest === null) {
-        throw new Error("Missing the required parameter 'clusterControllerApiPluginListRequest' when calling uninstallVersionedPlugins");
+    uninstallVersionedPlugins(instanceControllerApiPluginListRequest, callback) {
+      let postBody = instanceControllerApiPluginListRequest;
+      // verify the required parameter 'instanceControllerApiPluginListRequest' is set
+      if (instanceControllerApiPluginListRequest === undefined || instanceControllerApiPluginListRequest === null) {
+        throw new Error("Missing the required parameter 'instanceControllerApiPluginListRequest' when calling uninstallVersionedPlugins");
       }
 
       let pathParams = {
@@ -836,9 +820,9 @@ export default class PluginsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiPluginArtifactListPluginArtifact;
+      let returnType = InstanceControllerApiPluginArtifactListPluginArtifact;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/uninstall', 'DELETE',
+        '/api/v1/instance/versioned-plugins/uninstall', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -853,15 +837,21 @@ export default class PluginsApi {
      */
 
     /**
-     * Upload a Kestra's plugin artifact
+     * Upload a plugin artifact JAR file
+     * Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
+     * @param {File} file 
      * @param {Object} opts Optional parameters
-     * @param {File} [file] 
+     * @param {Boolean} [forceInstallOnExistingVersions] 
      * @param {module:api/PluginsApi~uploadVersionedPluginsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/PluginArtifact}
      */
-    uploadVersionedPlugins(opts, callback) {
+    uploadVersionedPlugins(file, opts, callback) {
       opts = opts || {};
       let postBody = null;
+      // verify the required parameter 'file' is set
+      if (file === undefined || file === null) {
+        throw new Error("Missing the required parameter 'file' when calling uploadVersionedPlugins");
+      }
 
       let pathParams = {
       };
@@ -870,7 +860,8 @@ export default class PluginsApi {
       let headerParams = {
       };
       let formParams = {
-        'file': opts['file']
+        'file': file,
+        'forceInstallOnExistingVersions': opts['forceInstallOnExistingVersions']
       };
 
       let authNames = ['basicAuth', 'bearerAuth'];
@@ -878,7 +869,7 @@ export default class PluginsApi {
       let accepts = ['application/json'];
       let returnType = PluginArtifact;
       return this.apiClient.callApi(
-        '/api/v1/cluster/versioned-plugins/upload', 'POST',
+        '/api/v1/instance/versioned-plugins/upload', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

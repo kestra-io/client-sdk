@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createDashboard**](DashboardsApi.md#createDashboard) | **POST** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 [**deleteDashboard**](DashboardsApi.md#deleteDashboard) | **DELETE** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
+[**exportChartToCsv**](DashboardsApi.md#exportChartToCsv) | **POST** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
+[**exportDashboardChartDataToCSV**](DashboardsApi.md#exportDashboardChartDataToCSV) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
 [**getDashboard**](DashboardsApi.md#getDashboard) | **GET** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 [**getDashboardChartData**](DashboardsApi.md#getDashboardChartData) | **POST** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
 [**previewChart**](DashboardsApi.md#previewChart) | **POST** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
@@ -106,6 +108,100 @@ No authorization required
 - **Accept**: Not defined
 
 
+## exportChartToCsv
+
+> Blob exportChartToCsv(tenant, dashboardControllerPreviewRequest)
+
+Export a table chart data to CSV
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+
+let apiInstance = new KestraApi.DashboardsApi();
+let tenant = "tenant_example"; // String | 
+let dashboardControllerPreviewRequest = new KestraApi.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+apiInstance.exportChartToCsv(tenant, dashboardControllerPreviewRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md)|  | 
+
+### Return type
+
+**Blob**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+
+## exportDashboardChartDataToCSV
+
+> Blob exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides)
+
+Export a dashboard chart data to CSV
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+
+let apiInstance = new KestraApi.DashboardsApi();
+let id = "id_example"; // String | The dashboard id
+let chartId = "chartId_example"; // String | The chart id
+let tenant = "tenant_example"; // String | 
+let chartFiltersOverrides = new KestraApi.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+apiInstance.exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The dashboard id | 
+ **chartId** | **String**| The chart id | 
+ **tenant** | **String**|  | 
+ **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | 
+
+### Return type
+
+**Blob**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+
 ## getDashboard
 
 > Dashboard getDashboard(id, tenant)
@@ -153,7 +249,7 @@ No authorization required
 
 ## getDashboardChartData
 
-> PagedResultsMapStringObject getDashboardChartData(id, chartId, tenant, globalFilter)
+> PagedResultsMapStringObject getDashboardChartData(id, chartId, tenant, chartFiltersOverrides)
 
 Generate a dashboard chart data
 
@@ -166,8 +262,8 @@ let apiInstance = new KestraApi.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let chartId = "chartId_example"; // String | The chart id
 let tenant = "tenant_example"; // String | 
-let globalFilter = new KestraApi.GlobalFilter(); // GlobalFilter | The filters to apply, some can override chart definition like labels & namespace
-apiInstance.getDashboardChartData(id, chartId, tenant, globalFilter, (error, data, response) => {
+let chartFiltersOverrides = new KestraApi.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+apiInstance.getDashboardChartData(id, chartId, tenant, chartFiltersOverrides, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -184,7 +280,7 @@ Name | Type | Description  | Notes
  **id** | **String**| The dashboard id | 
  **chartId** | **String**| The chart id | 
  **tenant** | **String**|  | 
- **globalFilter** | [**GlobalFilter**](GlobalFilter.md)| The filters to apply, some can override chart definition like labels &amp; namespace | 
+ **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md)| The filters to apply, some can override chart definition like labels &amp; namespace | 
 
 ### Return type
 

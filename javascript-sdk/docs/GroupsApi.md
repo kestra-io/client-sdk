@@ -4,47 +4,27 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addUserToGroup**](GroupsApi.md#addUserToGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a group for a user
-[**addUserToGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#addUserToGroupWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Add a group for a user
-[**addUserToGroupasSuperAdmin**](GroupsApi.md#addUserToGroupasSuperAdmin) | **PUT** /api/v1/tenants/groups/{id}/members/{userId} | Add a group for a user
+[**addUserToGroup**](GroupsApi.md#addUserToGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/{userId} | Add a user to a group
 [**autocompleteGroups**](GroupsApi.md#autocompleteGroups) | **POST** /api/v1/{tenant}/groups/autocomplete | List groups for autocomplete
-[**autocompleteGroupsWithResourceTenantasSuperAdmin**](GroupsApi.md#autocompleteGroupsWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/groups/autocomplete | List groups for autocomplete
-[**autocompleteGroupsasSuperAdmin**](GroupsApi.md#autocompleteGroupsasSuperAdmin) | **POST** /api/v1/tenants/groups/autocomplete | List groups for autocomplete
 [**createGroup**](GroupsApi.md#createGroup) | **POST** /api/v1/{tenant}/groups | Create a group
-[**createGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#createGroupWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/groups | Create a group
-[**createGroupasSuperAdmin**](GroupsApi.md#createGroupasSuperAdmin) | **POST** /api/v1/tenants/groups | Create a group
 [**deleteGroup**](GroupsApi.md#deleteGroup) | **DELETE** /api/v1/{tenant}/groups/{id} | Delete a group
-[**deleteGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#deleteGroupWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/groups/{id} | Delete a group
-[**deleteGroupasSuperAdmin**](GroupsApi.md#deleteGroupasSuperAdmin) | **DELETE** /api/v1/tenants/groups/{id} | Delete a group
-[**deleteUserFromGroup**](GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Delete a group for a user
-[**deleteUserFromGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#deleteUserFromGroupWithResourceTenantasSuperAdmin) | **DELETE** /api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId} | Delete a group for a user
-[**deleteUserFromGroupasSuperAdmin**](GroupsApi.md#deleteUserFromGroupasSuperAdmin) | **DELETE** /api/v1/tenants/groups/{id}/members/{userId} | Delete a group for a user
-[**getGroup**](GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Get a group
-[**getGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#getGroupWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/groups/{id} | Get a group
-[**getGroupasSuperAdmin**](GroupsApi.md#getGroupasSuperAdmin) | **GET** /api/v1/tenants/groups/{id} | Get a group
+[**deleteUserFromGroup**](GroupsApi.md#deleteUserFromGroup) | **DELETE** /api/v1/{tenant}/groups/{id}/members/{userId} | Remove a user from a group
+[**getGroup**](GroupsApi.md#getGroup) | **GET** /api/v1/{tenant}/groups/{id} | Retrieve a group
 [**listGroupIds**](GroupsApi.md#listGroupIds) | **POST** /api/v1/{tenant}/groups/ids | List groups by ids
-[**listGroupIdsWithResourceTenantasSuperAdmin**](GroupsApi.md#listGroupIdsWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/groups/ids | List groups by ids
-[**listGroupIdsasSuperAdmin**](GroupsApi.md#listGroupIdsasSuperAdmin) | **POST** /api/v1/tenants/groups/ids | List groups by ids
 [**searchGroupMembers**](GroupsApi.md#searchGroupMembers) | **GET** /api/v1/{tenant}/groups/{id}/members | Search for users in a group
-[**searchGroupMembersWithResourceTenantasSuperAdmin**](GroupsApi.md#searchGroupMembersWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/groups/{id}/members | Search for users in a group
-[**searchGroupMembersasSuperAdmin**](GroupsApi.md#searchGroupMembersasSuperAdmin) | **GET** /api/v1/tenants/groups/{id}/members | Search for users in a group
 [**searchGroups**](GroupsApi.md#searchGroups) | **GET** /api/v1/{tenant}/groups/search | Search for groups
-[**searchGroupsWithResourceTenantasSuperAdmin**](GroupsApi.md#searchGroupsWithResourceTenantasSuperAdmin) | **GET** /api/v1/tenants/{resourceTenant}/groups/search | Search for groups
-[**searchGroupsasSuperAdmin**](GroupsApi.md#searchGroupsasSuperAdmin) | **GET** /api/v1/tenants/groups/search | Search for groups
-[**setUserMembershipForGroup**](GroupsApi.md#setUserMembershipForGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
-[**setUserMembershipForGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#setUserMembershipForGroupWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
-[**setUserMembershipForGroupasSuperAdmin**](GroupsApi.md#setUserMembershipForGroupasSuperAdmin) | **PUT** /api/v1/tenants/groups/{id}/members/membership/{userId} | Set the membership type of a user in a group
+[**setUserMembershipForGroup**](GroupsApi.md#setUserMembershipForGroup) | **PUT** /api/v1/{tenant}/groups/{id}/members/membership/{userId} | Update a user&#39;s membership type in a group
 [**updateGroup**](GroupsApi.md#updateGroup) | **PUT** /api/v1/{tenant}/groups/{id} | Update a group
-[**updateGroupWithResourceTenantasSuperAdmin**](GroupsApi.md#updateGroupWithResourceTenantasSuperAdmin) | **PUT** /api/v1/tenants/{resourceTenant}/groups/{id} | Update a group
-[**updateGroupasSuperAdmin**](GroupsApi.md#updateGroupasSuperAdmin) | **PUT** /api/v1/tenants/groups/{id} | Update a group
 
 
 
 ## addUserToGroup
 
-> ApiUser addUserToGroup(id, userId, tenant)
+> IAMGroupControllerApiGroupMember addUserToGroup(id, userId, tenant)
 
-Add a group for a user
+Add a user to a group
+
+Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
 
 ### Example
 
@@ -60,8 +40,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
+let id = "id_example"; // String | The ID of the group
+let userId = "userId_example"; // String | The ID of the user to add to the group
 let tenant = "tenant_example"; // String | 
 apiInstance.addUserToGroup(id, userId, tenant, (error, data, response) => {
   if (error) {
@@ -77,121 +57,13 @@ apiInstance.addUserToGroup(id, userId, tenant, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
+ **id** | **String**| The ID of the group | 
+ **userId** | **String**| The ID of the user to add to the group | 
  **tenant** | **String**|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## addUserToGroupWithResourceTenantasSuperAdmin
-
-> ApiUser addUserToGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant)
-
-Add a group for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.addUserToGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## addUserToGroupasSuperAdmin
-
-> ApiUser addUserToGroupasSuperAdmin(id, userId)
-
-Add a group for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-apiInstance.addUserToGroupasSuperAdmin(id, userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
+[**IAMGroupControllerApiGroupMember**](IAMGroupControllerApiGroupMember.md)
 
 ### Authorization
 
@@ -205,7 +77,7 @@ Name | Type | Description  | Notes
 
 ## autocompleteGroups
 
-> [Group] autocompleteGroups(tenant, apiAutocomplete)
+> [ApiGroupSummary] autocompleteGroups(tenant, apiAutocomplete)
 
 List groups for autocomplete
 
@@ -244,111 +116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Group]**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteGroupsWithResourceTenantasSuperAdmin
-
-> [Group] autocompleteGroupsWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete)
-
-List groups for autocomplete
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiAutocomplete = new KestraApi.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
-apiInstance.autocompleteGroupsWithResourceTenantasSuperAdmin(resourceTenant, apiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
-
-### Return type
-
-[**[Group]**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteGroupsasSuperAdmin
-
-> [Group] autocompleteGroupsasSuperAdmin(apiAutocomplete)
-
-List groups for autocomplete
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let apiAutocomplete = new KestraApi.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
-apiInstance.autocompleteGroupsasSuperAdmin(apiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)| Autocomplete request | 
-
-### Return type
-
-[**[Group]**](Group.md)
+[**[ApiGroupSummary]**](ApiGroupSummary.md)
 
 ### Authorization
 
@@ -362,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## createGroup
 
-> Group createGroup(tenant, abstractGroupControllerGroupWithMembers)
+> IAMGroupControllerApiGroupDetail createGroup(tenant, iAMGroupControllerApiCreateGroupRequest)
 
 Create a group
 
@@ -381,8 +149,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.GroupsApi();
 let tenant = "tenant_example"; // String | 
-let abstractGroupControllerGroupWithMembers = new KestraApi.AbstractGroupControllerGroupWithMembers(); // AbstractGroupControllerGroupWithMembers | The group
-apiInstance.createGroup(tenant, abstractGroupControllerGroupWithMembers, (error, data, response) => {
+let iAMGroupControllerApiCreateGroupRequest = new KestraApi.IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
+apiInstance.createGroup(tenant, iAMGroupControllerApiCreateGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -397,115 +165,11 @@ apiInstance.createGroup(tenant, abstractGroupControllerGroupWithMembers, (error,
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md)| The group | 
+ **iAMGroupControllerApiCreateGroupRequest** | [**IAMGroupControllerApiCreateGroupRequest**](IAMGroupControllerApiCreateGroupRequest.md)| The group | 
 
 ### Return type
 
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createGroupWithResourceTenantasSuperAdmin
-
-> Group createGroupWithResourceTenantasSuperAdmin(resourceTenant, abstractGroupControllerGroupWithMembers)
-
-Create a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let abstractGroupControllerGroupWithMembers = new KestraApi.AbstractGroupControllerGroupWithMembers(); // AbstractGroupControllerGroupWithMembers | The group
-apiInstance.createGroupWithResourceTenantasSuperAdmin(resourceTenant, abstractGroupControllerGroupWithMembers, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md)| The group | 
-
-### Return type
-
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## createGroupasSuperAdmin
-
-> Group createGroupasSuperAdmin(abstractGroupControllerGroupWithMembers)
-
-Create a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let abstractGroupControllerGroupWithMembers = new KestraApi.AbstractGroupControllerGroupWithMembers(); // AbstractGroupControllerGroupWithMembers | The group
-apiInstance.createGroupasSuperAdmin(abstractGroupControllerGroupWithMembers, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **abstractGroupControllerGroupWithMembers** | [**AbstractGroupControllerGroupWithMembers**](AbstractGroupControllerGroupWithMembers.md)| The group | 
-
-### Return type
-
-[**Group**](Group.md)
+[**IAMGroupControllerApiGroupDetail**](IAMGroupControllerApiGroupDetail.md)
 
 ### Authorization
 
@@ -570,115 +234,13 @@ null (empty response body)
 - **Accept**: Not defined
 
 
-## deleteGroupWithResourceTenantasSuperAdmin
-
-> deleteGroupWithResourceTenantasSuperAdmin(id, resourceTenant)
-
-Delete a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteGroupWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
-## deleteGroupasSuperAdmin
-
-> deleteGroupasSuperAdmin(id)
-
-Delete a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-apiInstance.deleteGroupasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-
 ## deleteUserFromGroup
 
-> ApiUser deleteUserFromGroup(id, userId, tenant)
+> IAMGroupControllerApiGroupMember deleteUserFromGroup(id, userId, tenant)
 
-Delete a group for a user
+Remove a user from a group
+
+Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
 
 ### Example
 
@@ -694,8 +256,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
+let id = "id_example"; // String | The ID of the group
+let userId = "userId_example"; // String | The ID of the user to remove from the group
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteUserFromGroup(id, userId, tenant, (error, data, response) => {
   if (error) {
@@ -711,121 +273,13 @@ apiInstance.deleteUserFromGroup(id, userId, tenant, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
+ **id** | **String**| The ID of the group | 
+ **userId** | **String**| The ID of the user to remove from the group | 
  **tenant** | **String**|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteUserFromGroupWithResourceTenantasSuperAdmin
-
-> ApiUser deleteUserFromGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant)
-
-Delete a group for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteUserFromGroupWithResourceTenantasSuperAdmin(id, userId, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## deleteUserFromGroupasSuperAdmin
-
-> ApiUser deleteUserFromGroupasSuperAdmin(id, userId)
-
-Delete a group for a user
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-apiInstance.deleteUserFromGroupasSuperAdmin(id, userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
+[**IAMGroupControllerApiGroupMember**](IAMGroupControllerApiGroupMember.md)
 
 ### Authorization
 
@@ -839,9 +293,11 @@ Name | Type | Description  | Notes
 
 ## getGroup
 
-> Group getGroup(id, tenant)
+> IAMGroupControllerApiGroupDetail getGroup(id, tenant)
 
-Get a group
+Retrieve a group
+
+Retrieves details of a specific group by its ID within the current tenant.
 
 ### Example
 
@@ -878,111 +334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getGroupWithResourceTenantasSuperAdmin
-
-> Group getGroupWithResourceTenantasSuperAdmin(id, resourceTenant)
-
-Get a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.getGroupWithResourceTenantasSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## getGroupasSuperAdmin
-
-> Group getGroupasSuperAdmin(id)
-
-Get a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-apiInstance.getGroupasSuperAdmin(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
-
-### Return type
-
-[**Group**](Group.md)
+[**IAMGroupControllerApiGroupDetail**](IAMGroupControllerApiGroupDetail.md)
 
 ### Authorization
 
@@ -996,7 +348,7 @@ Name | Type | Description  | Notes
 
 ## listGroupIds
 
-> [Group] listGroupIds(tenant, apiIds)
+> [ApiGroupSummary] listGroupIds(tenant, apiIds)
 
 List groups by ids
 
@@ -1035,111 +387,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Group]**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## listGroupIdsWithResourceTenantasSuperAdmin
-
-> [Group] listGroupIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds)
-
-List groups by ids
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let apiIds = new KestraApi.ApiIds(); // ApiIds | The ids that must be present on results
-apiInstance.listGroupIdsWithResourceTenantasSuperAdmin(resourceTenant, apiIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **apiIds** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
-
-### Return type
-
-[**[Group]**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## listGroupIdsasSuperAdmin
-
-> [Group] listGroupIdsasSuperAdmin(apiIds)
-
-List groups by ids
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let apiIds = new KestraApi.ApiIds(); // ApiIds | The ids that must be present on results
-apiInstance.listGroupIdsasSuperAdmin(apiIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiIds** | [**ApiIds**](ApiIds.md)| The ids that must be present on results | 
-
-### Return type
-
-[**[Group]**](Group.md)
+[**[ApiGroupSummary]**](ApiGroupSummary.md)
 
 ### Authorization
 
@@ -1153,7 +401,7 @@ Name | Type | Description  | Notes
 
 ## searchGroupMembers
 
-> PagedResultsApiUser searchGroupMembers(id, page, size, tenant, opts)
+> PagedResultsIAMGroupControllerApiGroupMember searchGroupMembers(id, page, size, tenant, opts)
 
 Search for users in a group
 
@@ -1202,131 +450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchGroupMembersWithResourceTenantasSuperAdmin
-
-> PagedResultsApiUser searchGroupMembersWithResourceTenantasSuperAdmin(id, page, size, resourceTenant, opts)
-
-Search for users in a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let resourceTenant = "resourceTenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"] // [String] | The sort of current page
-};
-apiInstance.searchGroupMembersWithResourceTenantasSuperAdmin(id, page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **resourceTenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchGroupMembersasSuperAdmin
-
-> PagedResultsApiUser searchGroupMembersasSuperAdmin(id, page, size, opts)
-
-Search for users in a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"] // [String] | The sort of current page
-};
-apiInstance.searchGroupMembersasSuperAdmin(id, page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+[**PagedResultsIAMGroupControllerApiGroupMember**](PagedResultsIAMGroupControllerApiGroupMember.md)
 
 ### Authorization
 
@@ -1340,7 +464,7 @@ Name | Type | Description  | Notes
 
 ## searchGroups
 
-> PagedResultsGroup searchGroups(page, size, tenant, opts)
+> PagedResultsApiGroupSummary searchGroups(page, size, tenant, opts)
 
 Search for groups
 
@@ -1387,127 +511,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsGroup**](PagedResultsGroup.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchGroupsWithResourceTenantasSuperAdmin
-
-> PagedResultsGroup searchGroupsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts)
-
-Search for groups
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let resourceTenant = "resourceTenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"] // [String] | The sort of current page
-};
-apiInstance.searchGroupsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **resourceTenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
-
-### Return type
-
-[**PagedResultsGroup**](PagedResultsGroup.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchGroupsasSuperAdmin
-
-> PagedResultsGroup searchGroupsasSuperAdmin(page, size, opts)
-
-Search for groups
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let opts = {
-  'q': "q_example", // String | A string filter
-  'sort': ["null"] // [String] | The sort of current page
-};
-apiInstance.searchGroupsasSuperAdmin(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **q** | **String**| A string filter | [optional] 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
-
-### Return type
-
-[**PagedResultsGroup**](PagedResultsGroup.md)
+[**PagedResultsApiGroupSummary**](PagedResultsApiGroupSummary.md)
 
 ### Authorization
 
@@ -1521,11 +525,11 @@ Name | Type | Description  | Notes
 
 ## setUserMembershipForGroup
 
-> ApiUser setUserMembershipForGroup(id, userId, membership, tenant)
+> IAMGroupControllerApiGroupMember setUserMembershipForGroup(id, userId, membership, tenant)
 
-Set the membership type of a user in a group
+Update a user&#39;s membership type in a group
 
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
+Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
 
 ### Example
 
@@ -1541,9 +545,9 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-let membership = new KestraApi.AbstractUserGroupIdentifierMembership(); // AbstractUserGroupIdentifierMembership | The membership type
+let id = "id_example"; // String | The ID of the group
+let userId = "userId_example"; // String | The ID of the user whose membership is being updated
+let membership = new KestraApi.GroupIdentifierMembership(); // GroupIdentifierMembership | The new membership type to assign to the user.
 let tenant = "tenant_example"; // String | 
 apiInstance.setUserMembershipForGroup(id, userId, membership, tenant, (error, data, response) => {
   if (error) {
@@ -1559,130 +563,14 @@ apiInstance.setUserMembershipForGroup(id, userId, membership, tenant, (error, da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
- **membership** | [**AbstractUserGroupIdentifierMembership**](.md)| The membership type | 
+ **id** | **String**| The ID of the group | 
+ **userId** | **String**| The ID of the user whose membership is being updated | 
+ **membership** | [**GroupIdentifierMembership**](.md)| The new membership type to assign to the user. | 
  **tenant** | **String**|  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## setUserMembershipForGroupWithResourceTenantasSuperAdmin
-
-> ApiUser setUserMembershipForGroupWithResourceTenantasSuperAdmin(id, userId, membership, resourceTenant)
-
-Set the membership type of a user in a group
-
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-let membership = new KestraApi.AbstractUserGroupIdentifierMembership(); // AbstractUserGroupIdentifierMembership | The membership type
-let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.setUserMembershipForGroupWithResourceTenantasSuperAdmin(id, userId, membership, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
- **membership** | [**AbstractUserGroupIdentifierMembership**](.md)| The membership type | 
- **resourceTenant** | **String**|  | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## setUserMembershipForGroupasSuperAdmin
-
-> ApiUser setUserMembershipForGroupasSuperAdmin(id, userId, membership)
-
-Set the membership type of a user in a group
-
-Sets the membership type of a user in a group. This method allows a group owner or a user with UPDATE permission to modify the membership of a user in a specific group.
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let userId = "userId_example"; // String | The user id
-let membership = new KestraApi.AbstractUserGroupIdentifierMembership(); // AbstractUserGroupIdentifierMembership | The membership type
-apiInstance.setUserMembershipForGroupasSuperAdmin(id, userId, membership, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **userId** | **String**| The user id | 
- **membership** | [**AbstractUserGroupIdentifierMembership**](.md)| The membership type | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
+[**IAMGroupControllerApiGroupMember**](IAMGroupControllerApiGroupMember.md)
 
 ### Authorization
 
@@ -1696,7 +584,7 @@ Name | Type | Description  | Notes
 
 ## updateGroup
 
-> Group updateGroup(id, tenant, group)
+> IAMGroupControllerApiGroupDetail updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest)
 
 Update a group
 
@@ -1716,8 +604,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
-let group = new KestraApi.Group(); // Group | The group
-apiInstance.updateGroup(id, tenant, group, (error, data, response) => {
+let iAMGroupControllerApiUpdateGroupRequest = new KestraApi.IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
+apiInstance.updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1733,119 +621,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The group id | 
  **tenant** | **String**|  | 
- **group** | [**Group**](Group.md)| The group | 
+ **iAMGroupControllerApiUpdateGroupRequest** | [**IAMGroupControllerApiUpdateGroupRequest**](IAMGroupControllerApiUpdateGroupRequest.md)| The group | 
 
 ### Return type
 
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateGroupWithResourceTenantasSuperAdmin
-
-> Group updateGroupWithResourceTenantasSuperAdmin(id, resourceTenant, group)
-
-Update a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let resourceTenant = "resourceTenant_example"; // String | 
-let group = new KestraApi.Group(); // Group | The group
-apiInstance.updateGroupWithResourceTenantasSuperAdmin(id, resourceTenant, group, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **resourceTenant** | **String**|  | 
- **group** | [**Group**](Group.md)| The group | 
-
-### Return type
-
-[**Group**](Group.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## updateGroupasSuperAdmin
-
-> Group updateGroupasSuperAdmin(id, group)
-
-Update a group
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.GroupsApi();
-let id = "id_example"; // String | The group id
-let group = new KestraApi.Group(); // Group | The group
-apiInstance.updateGroupasSuperAdmin(id, group, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The group id | 
- **group** | [**Group**](Group.md)| The group | 
-
-### Return type
-
-[**Group**](Group.md)
+[**IAMGroupControllerApiGroupDetail**](IAMGroupControllerApiGroupDetail.md)
 
 ### Authorization
 

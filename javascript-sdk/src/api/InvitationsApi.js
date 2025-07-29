@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,14 +13,16 @@
 
 
 import ApiClient from "../ApiClient";
+import IAMInvitationControllerApiInvitationCreateRequest from '../model/IAMInvitationControllerApiInvitationCreateRequest';
+import IAMInvitationControllerApiInvitationDetail from '../model/IAMInvitationControllerApiInvitationDetail';
 import Invitation from '../model/Invitation';
 import InvitationInvitationStatus from '../model/InvitationInvitationStatus';
-import PagedResultsInvitation from '../model/PagedResultsInvitation';
+import PagedResultsIAMInvitationControllerApiInvitationDetail from '../model/PagedResultsIAMInvitationControllerApiInvitationDetail';
 
 /**
 * Invitations service.
 * @module api/InvitationsApi
-* @version v1
+* @version v0.24.0
 */
 export default class InvitationsApi {
 
@@ -40,26 +42,26 @@ export default class InvitationsApi {
      * Callback function to receive the result of the createInvitation operation.
      * @callback module:api/InvitationsApi~createInvitationCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create an invitation
+     * Creates a new invitation and sends an email if the mail server is enabled.
      * @param {String} tenant 
-     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
+     * @param {module:model/IAMInvitationControllerApiInvitationCreateRequest} iAMInvitationControllerApiInvitationCreateRequest Create a new invitation, send an email if the server-mail is enabled
      * @param {module:api/InvitationsApi~createInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
      */
-    createInvitation(tenant, invitation, callback) {
-      let postBody = invitation;
+    createInvitation(tenant, iAMInvitationControllerApiInvitationCreateRequest, callback) {
+      let postBody = iAMInvitationControllerApiInvitationCreateRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling createInvitation");
       }
-      // verify the required parameter 'invitation' is set
-      if (invitation === undefined || invitation === null) {
-        throw new Error("Missing the required parameter 'invitation' when calling createInvitation");
+      // verify the required parameter 'iAMInvitationControllerApiInvitationCreateRequest' is set
+      if (iAMInvitationControllerApiInvitationCreateRequest === undefined || iAMInvitationControllerApiInvitationCreateRequest === null) {
+        throw new Error("Missing the required parameter 'iAMInvitationControllerApiInvitationCreateRequest' when calling createInvitation");
       }
 
       let pathParams = {
@@ -74,98 +76,10 @@ export default class InvitationsApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Invitation;
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~createInvitationWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create an invitation
-     * @param {String} resourceTenant 
-     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
-     * @param {module:api/InvitationsApi~createInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
-     */
-    createInvitationWithResourceTenantasSuperAdmin(resourceTenant, invitation, callback) {
-      let postBody = invitation;
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling createInvitationWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'invitation' is set
-      if (invitation === undefined || invitation === null) {
-        throw new Error("Missing the required parameter 'invitation' when calling createInvitationWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Invitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/invitations', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~createInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create an invitation
-     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
-     * @param {module:api/InvitationsApi~createInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
-     */
-    createInvitationasSuperAdmin(invitation, callback) {
-      let postBody = invitation;
-      // verify the required parameter 'invitation' is set
-      if (invitation === undefined || invitation === null) {
-        throw new Error("Missing the required parameter 'invitation' when calling createInvitationasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Invitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/invitations', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -181,6 +95,7 @@ export default class InvitationsApi {
 
     /**
      * Delete an invitation
+     * Deletes the invitation by its ID.
      * @param {String} id The id of the invitation
      * @param {String} tenant 
      * @param {module:api/InvitationsApi~deleteInvitationCallback} callback The callback function, accepting three arguments: error, data, response
@@ -219,94 +134,6 @@ export default class InvitationsApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~deleteInvitationWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an invitation
-     * @param {String} id The id of the invitation
-     * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~deleteInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteInvitationWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling deleteInvitationWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/invitations/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~deleteInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an invitation
-     * @param {String} id The id of the invitation
-     * @param {module:api/InvitationsApi~deleteInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     */
-    deleteInvitationasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteInvitationasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/invitations/{id}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the findAllInvitationsForCurrentUser operation.
      * @callback module:api/InvitationsApi~findAllInvitationsForCurrentUserCallback
      * @param {String} error Error message, if any.
@@ -315,7 +142,8 @@ export default class InvitationsApi {
      */
 
     /**
-     * Get all invitations for a given email
+     * List invitations for the authenticated user
+     * Returns all invitations for the authenticated user's email across all tenants.
      * @param {module:api/InvitationsApi~findAllInvitationsForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/Invitation>}
      */
@@ -343,61 +171,20 @@ export default class InvitationsApi {
     }
 
     /**
-     * Callback function to receive the result of the findAllInvitationsForCurrentUserWithTenant operation.
-     * @callback module:api/InvitationsApi~findAllInvitationsForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get all invitations for a given email
-     * @param {String} tenant 
-     * @param {module:api/InvitationsApi~findAllInvitationsForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
-     */
-    findAllInvitationsForCurrentUserWithTenant(tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling findAllInvitationsForCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [Invitation];
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me/invitations', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the getInvitation operation.
      * @callback module:api/InvitationsApi~getInvitationCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
+     * @param {module:model/IAMInvitationControllerApiInvitationDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get an invitation
+     * Retrieve an invitation
+     * Retrieves the invitation by its ID, including the invitation link.
      * @param {String} id The id of the invitation
      * @param {String} tenant 
      * @param {module:api/InvitationsApi~getInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * data is of type: {@link module:model/IAMInvitationControllerApiInvitationDetail}
      */
     getInvitation(id, tenant, callback) {
       let postBody = null;
@@ -424,7 +211,7 @@ export default class InvitationsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Invitation;
+      let returnType = IAMInvitationControllerApiInvitationDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -433,119 +220,30 @@ export default class InvitationsApi {
     }
 
     /**
-     * Callback function to receive the result of the getInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~getInvitationWithResourceTenantasSuperAdminCallback
+     * Callback function to receive the result of the listInvitationsByEmail operation.
+     * @callback module:api/InvitationsApi~listInvitationsByEmailCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
+     * @param {Array.<module:model/IAMInvitationControllerApiInvitationDetail>} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get an invitation
-     * @param {String} id The id of the invitation
-     * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~getInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
-     */
-    getInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getInvitationWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling getInvitationWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Invitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/invitations/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~getInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get an invitation
-     * @param {String} id The id of the invitation
-     * @param {module:api/InvitationsApi~getInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
-     */
-    getInvitationasSuperAdmin(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getInvitationasSuperAdmin");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Invitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/invitations/{id}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listByEmail operation.
-     * @callback module:api/InvitationsApi~listByEmailCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get all invitations for a given email
+     * Retrieve all invitations for a given email
+     * Returns all invitations created for a given email address in the current tenant.
      * @param {String} email The email address of the invited
      * @param {String} tenant 
-     * @param {module:api/InvitationsApi~listByEmailCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @param {module:api/InvitationsApi~listInvitationsByEmailCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<module:model/IAMInvitationControllerApiInvitationDetail>}
      */
-    listByEmail(email, tenant, callback) {
+    listInvitationsByEmail(email, tenant, callback) {
       let postBody = null;
       // verify the required parameter 'email' is set
       if (email === undefined || email === null) {
-        throw new Error("Missing the required parameter 'email' when calling listByEmail");
+        throw new Error("Missing the required parameter 'email' when calling listInvitationsByEmail");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listByEmail");
+        throw new Error("Missing the required parameter 'tenant' when calling listInvitationsByEmail");
       }
 
       let pathParams = {
@@ -562,99 +260,9 @@ export default class InvitationsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Invitation];
+      let returnType = [IAMInvitationControllerApiInvitationDetail];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/email/{email}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listByEmailWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~listByEmailWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get all invitations for a given email
-     * @param {String} email The email address of the invited
-     * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~listByEmailWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
-     */
-    listByEmailWithResourceTenantasSuperAdmin(email, resourceTenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'email' is set
-      if (email === undefined || email === null) {
-        throw new Error("Missing the required parameter 'email' when calling listByEmailWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling listByEmailWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'email': email,
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [Invitation];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/invitations/email/{email}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listByEmailasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~listByEmailasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get all invitations for a given email
-     * @param {String} email The email address of the invited
-     * @param {module:api/InvitationsApi~listByEmailasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
-     */
-    listByEmailasSuperAdmin(email, callback) {
-      let postBody = null;
-      // verify the required parameter 'email' is set
-      if (email === undefined || email === null) {
-        throw new Error("Missing the required parameter 'email' when calling listByEmailasSuperAdmin");
-      }
-
-      let pathParams = {
-        'email': email
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = [Invitation];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/invitations/email/{email}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -664,12 +272,13 @@ export default class InvitationsApi {
      * Callback function to receive the result of the searchInvitations operation.
      * @callback module:api/InvitationsApi~searchInvitationsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
+     * @param {module:model/PagedResultsIAMInvitationControllerApiInvitationDetail} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Search for invitations
+     * Search and filter invitations by email, status, and pagination.
      * @param {Number} page The current page
      * @param {Number} size The current page size
      * @param {String} tenant 
@@ -678,7 +287,7 @@ export default class InvitationsApi {
      * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
      * @param {Array.<String>} [sort] The sort of current page
      * @param {module:api/InvitationsApi~searchInvitationsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
+     * data is of type: {@link module:model/PagedResultsIAMInvitationControllerApiInvitationDetail}
      */
     searchInvitations(page, size, tenant, opts, callback) {
       opts = opts || {};
@@ -714,127 +323,9 @@ export default class InvitationsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsInvitation;
+      let returnType = PagedResultsIAMInvitationControllerApiInvitationDetail;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchInvitationsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~searchInvitationsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for invitations
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [email] The email address of the invited
-     * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/InvitationsApi~searchInvitationsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
-     */
-    searchInvitationsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchInvitationsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchInvitationsWithResourceTenantasSuperAdmin");
-      }
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling searchInvitationsWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'email': opts['email'],
-        'status': opts['status'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsInvitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/invitations/search', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchInvitationsasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~searchInvitationsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for invitations
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {Object} opts Optional parameters
-     * @param {String} [email] The email address of the invited
-     * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/InvitationsApi~searchInvitationsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
-     */
-    searchInvitationsasSuperAdmin(page, size, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchInvitationsasSuperAdmin");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchInvitationsasSuperAdmin");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'email': opts['email'],
-        'status': opts['status'],
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsInvitation;
-      return this.apiClient.callApi(
-        '/api/v1/tenants/invitations/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

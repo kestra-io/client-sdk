@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **labels** | [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 
 **stopAfter** | [**[StateType]**](StateType.md) |  | [optional] 
 **logToFile** | **Boolean** |  | [optional] 
+**failOnTriggerError** | **Boolean** |  | [optional] 
 
 

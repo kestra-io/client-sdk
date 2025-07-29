@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import Breakpoint from './Breakpoint';
 import Execution from './Execution';
 import ExecutionKind from './ExecutionKind';
 import ExecutionMetadata from './ExecutionMetadata';
@@ -24,7 +25,7 @@ import TaskRun from './TaskRun';
 /**
  * The ExecutionControllerExecutionResponse model module.
  * @module model/ExecutionControllerExecutionResponse
- * @version v1
+ * @version v0.24.0
  */
 class ExecutionControllerExecutionResponse {
     /**
@@ -126,6 +127,9 @@ class ExecutionControllerExecutionResponse {
             if (data.hasOwnProperty('kind')) {
                 obj['kind'] = ApiClient.convertToType(data['kind'], ExecutionKind);
             }
+            if (data.hasOwnProperty('breakpoints')) {
+                obj['breakpoints'] = ApiClient.convertToType(data['breakpoints'], [Breakpoint]);
+            }
             if (data.hasOwnProperty('url')) {
                 obj['url'] = ApiClient.convertToType(data['url'], 'String');
             }
@@ -209,6 +213,16 @@ class ExecutionControllerExecutionResponse {
             // validate the optional field `fixtures` (array)
             for (const item of data['fixtures']) {
                 TaskFixture.validateJSON(item);
+            };
+        }
+        if (data['breakpoints']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['breakpoints'])) {
+                throw new Error("Expected the field `breakpoints` to be an array in the JSON data but got " + data['breakpoints']);
+            }
+            // validate the optional field `breakpoints` (array)
+            for (const item of data['breakpoints']) {
+                Breakpoint.validateJSON(item);
             };
         }
         // ensure the json data is a string
@@ -320,6 +334,11 @@ ExecutionControllerExecutionResponse.prototype['fixtures'] = undefined;
 ExecutionControllerExecutionResponse.prototype['kind'] = undefined;
 
 /**
+ * @member {Array.<module:model/Breakpoint>} breakpoints
+ */
+ExecutionControllerExecutionResponse.prototype['breakpoints'] = undefined;
+
+/**
  * @member {String} url
  */
 ExecutionControllerExecutionResponse.prototype['url'] = undefined;
@@ -402,6 +421,10 @@ Execution.prototype['fixtures'] = undefined;
  * @member {module:model/ExecutionKind} kind
  */
 Execution.prototype['kind'] = undefined;
+/**
+ * @member {Array.<module:model/Breakpoint>} breakpoints
+ */
+Execution.prototype['breakpoints'] = undefined;
 
 
 

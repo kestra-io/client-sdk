@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -16,18 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The CreateApiTokenRequest model module.
  * @module model/CreateApiTokenRequest
- * @version v1
+ * @version v0.24.0
  */
 class CreateApiTokenRequest {
     /**
      * Constructs a new <code>CreateApiTokenRequest</code>.
      * @alias module:model/CreateApiTokenRequest
      * @param name {String} 
-     * @param maxAge {String} 
      */
-    constructor(name, maxAge) { 
+    constructor(name) { 
         
-        CreateApiTokenRequest.initialize(this, name, maxAge);
+        CreateApiTokenRequest.initialize(this, name);
     }
 
     /**
@@ -35,9 +34,8 @@ class CreateApiTokenRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, maxAge) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['maxAge'] = maxAge;
     }
 
     /**
@@ -98,7 +96,7 @@ class CreateApiTokenRequest {
 
 }
 
-CreateApiTokenRequest.RequiredProperties = ["name", "maxAge"];
+CreateApiTokenRequest.RequiredProperties = ["name"];
 
 /**
  * @member {String} name

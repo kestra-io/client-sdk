@@ -4,30 +4,31 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllInputTypes**](PluginsApi.md#getAllInputTypes) | **GET** /api/v1/{tenant}/plugins/inputs | Get all types for an inputs
-[**getPluginBySubgroups**](PluginsApi.md#getPluginBySubgroups) | **GET** /api/v1/{tenant}/plugins/groups/subgroups | Get plugins group by subgroups
-[**getPluginDocumentation**](PluginsApi.md#getPluginDocumentation) | **GET** /api/v1/{tenant}/plugins/{cls} | Get plugin documentation
-[**getPluginDocumentationFromVersion**](PluginsApi.md#getPluginDocumentationFromVersion) | **GET** /api/v1/{tenant}/plugins/{cls}/versions/{version} | Get plugin documentation
-[**getPluginGroupIcons**](PluginsApi.md#getPluginGroupIcons) | **GET** /api/v1/{tenant}/plugins/icons/groups | Get plugins icons
-[**getPluginIcons**](PluginsApi.md#getPluginIcons) | **GET** /api/v1/{tenant}/plugins/icons | Get plugins icons
-[**getPluginVersions**](PluginsApi.md#getPluginVersions) | **GET** /api/v1/{tenant}/plugins/{cls}/versions | Get all versions for a plugin
-[**getSchemaFromInputType**](PluginsApi.md#getSchemaFromInputType) | **GET** /api/v1/{tenant}/plugins/inputs/{type} | Get json schemas for an input type
-[**getSchemasFromType**](PluginsApi.md#getSchemasFromType) | **GET** /api/v1/{tenant}/plugins/schemas/{type} | Get all json schemas for a type
-[**getVersionedPluginDetails**](PluginsApi.md#getVersionedPluginDetails) | **GET** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId} | Get details about a Kestra&#39;s plugin artifact.
-[**getVersionedPluginDetailsFromVersion**](PluginsApi.md#getVersionedPluginDetailsFromVersion) | **GET** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version} | Get details about a specific Kestra&#39;s plugin artifact version.
-[**installVersionedPlugins**](PluginsApi.md#installVersionedPlugins) | **POST** /api/v1/cluster/versioned-plugins/install | Install a specific Kestra&#39;s plugin artifact
-[**listAvailableVersionedPlugins**](PluginsApi.md#listAvailableVersionedPlugins) | **GET** /api/v1/cluster/versioned-plugins/available | Get the list of available Kestra&#39;s plugin artifact.
-[**listPlugins**](PluginsApi.md#listPlugins) | **GET** /api/v1/{tenant}/plugins | Get list of plugins
-[**listVersionedPlugin**](PluginsApi.md#listVersionedPlugin) | **GET** /api/v1/cluster/versioned-plugins | Get the list of installed Kestra&#39;s plugin artifact.
-[**resolveVersionedPlugins**](PluginsApi.md#resolveVersionedPlugins) | **POST** /api/v1/cluster/versioned-plugins/resolve | Resolve a specific Kestra&#39;s plugin artifact
-[**uninstallVersionedPlugins**](PluginsApi.md#uninstallVersionedPlugins) | **DELETE** /api/v1/cluster/versioned-plugins/uninstall | Uninstall Kestra&#39;s plugin artifacts
-[**uploadVersionedPlugins**](PluginsApi.md#uploadVersionedPlugins) | **POST** /api/v1/cluster/versioned-plugins/upload | Upload a Kestra&#39;s plugin artifact
+[**getAllInputTypes**](PluginsApi.md#getAllInputTypes) | **GET** /api/v1/plugins/inputs | Get all types for an inputs
+[**getPluginBySubgroups**](PluginsApi.md#getPluginBySubgroups) | **GET** /api/v1/plugins/groups/subgroups | Get plugins group by subgroups
+[**getPluginDocumentation**](PluginsApi.md#getPluginDocumentation) | **GET** /api/v1/plugins/{cls} | Get plugin documentation
+[**getPluginDocumentationFromVersion**](PluginsApi.md#getPluginDocumentationFromVersion) | **GET** /api/v1/plugins/{cls}/versions/{version} | Get plugin documentation
+[**getPluginGroupIcons**](PluginsApi.md#getPluginGroupIcons) | **GET** /api/v1/plugins/icons/groups | Get plugins icons
+[**getPluginIcons**](PluginsApi.md#getPluginIcons) | **GET** /api/v1/plugins/icons | Get plugins icons
+[**getPluginVersions**](PluginsApi.md#getPluginVersions) | **GET** /api/v1/plugins/{cls}/versions | Get all versions for a plugin
+[**getPropertiesFromType**](PluginsApi.md#getPropertiesFromType) | **GET** /api/v1/plugins/properties/{type} | Get the properties part of the JSON schema for a type
+[**getSchemaFromInputType**](PluginsApi.md#getSchemaFromInputType) | **GET** /api/v1/plugins/inputs/{type} | Get the JSON schema for an input type
+[**getSchemasFromType**](PluginsApi.md#getSchemasFromType) | **GET** /api/v1/plugins/schemas/{type} | Get the JSON schema for a type
+[**getVersionedPluginDetails**](PluginsApi.md#getVersionedPluginDetails) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId} | Retrieve details of a plugin artifact
+[**getVersionedPluginDetailsFromVersion**](PluginsApi.md#getVersionedPluginDetailsFromVersion) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
+[**installVersionedPlugins**](PluginsApi.md#installVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
+[**listAvailableVersionedPlugins**](PluginsApi.md#listAvailableVersionedPlugins) | **GET** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
+[**listPlugins**](PluginsApi.md#listPlugins) | **GET** /api/v1/plugins | Get list of plugins
+[**listVersionedPlugin**](PluginsApi.md#listVersionedPlugin) | **GET** /api/v1/instance/versioned-plugins | List installed plugin artifacts
+[**resolveVersionedPlugins**](PluginsApi.md#resolveVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
+[**uninstallVersionedPlugins**](PluginsApi.md#uninstallVersionedPlugins) | **DELETE** /api/v1/instance/versioned-plugins/uninstall | Uninstall plugin artifacts
+[**uploadVersionedPlugins**](PluginsApi.md#uploadVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/upload | Upload a plugin artifact JAR file
 
 
 
 ## getAllInputTypes
 
-> [InputType] getAllInputTypes(tenant)
+> [InputType] getAllInputTypes()
 
 Get all types for an inputs
 
@@ -45,8 +46,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.getAllInputTypes(tenant, (error, data, response) => {
+apiInstance.getAllInputTypes((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -57,10 +57,7 @@ apiInstance.getAllInputTypes(tenant, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -78,7 +75,7 @@ Name | Type | Description  | Notes
 
 ## getPluginBySubgroups
 
-> [Plugin] getPluginBySubgroups(includeDeprecated, tenant)
+> [Plugin] getPluginBySubgroups()
 
 Get plugins group by subgroups
 
@@ -96,9 +93,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let includeDeprecated = true; // Boolean | Whether to include deprecated plugins
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginBySubgroups(includeDeprecated, tenant, (error, data, response) => {
+apiInstance.getPluginBySubgroups((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -109,11 +104,7 @@ apiInstance.getPluginBySubgroups(includeDeprecated, tenant, (error, data, respon
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **includeDeprecated** | **Boolean**| Whether to include deprecated plugins | [default to true]
- **tenant** | **String**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -131,7 +122,7 @@ Name | Type | Description  | Notes
 
 ## getPluginDocumentation
 
-> DocumentationWithSchema getPluginDocumentation(cls, all, tenant)
+> DocumentationWithSchema getPluginDocumentation(cls, all)
 
 Get plugin documentation
 
@@ -151,8 +142,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin full class name
 let all = false; // Boolean | Include all the properties
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginDocumentation(cls, all, tenant, (error, data, response) => {
+apiInstance.getPluginDocumentation(cls, all, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -168,7 +158,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cls** | **String**| The plugin full class name | 
  **all** | **Boolean**| Include all the properties | [default to false]
- **tenant** | **String**|  | 
 
 ### Return type
 
@@ -186,7 +175,7 @@ Name | Type | Description  | Notes
 
 ## getPluginDocumentationFromVersion
 
-> DocumentationWithSchema getPluginDocumentationFromVersion(cls, version, all, tenant)
+> DocumentationWithSchema getPluginDocumentationFromVersion(cls, version, all)
 
 Get plugin documentation
 
@@ -207,8 +196,7 @@ let apiInstance = new KestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin type
 let version = "version_example"; // String | The plugin version
 let all = false; // Boolean | Include all the properties
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginDocumentationFromVersion(cls, version, all, tenant, (error, data, response) => {
+apiInstance.getPluginDocumentationFromVersion(cls, version, all, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -225,7 +213,6 @@ Name | Type | Description  | Notes
  **cls** | **String**| The plugin type | 
  **version** | **String**| The plugin version | 
  **all** | **Boolean**| Include all the properties | [default to false]
- **tenant** | **String**|  | 
 
 ### Return type
 
@@ -243,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## getPluginGroupIcons
 
-> {String: PluginIcon} getPluginGroupIcons(tenant)
+> {String: PluginIcon} getPluginGroupIcons()
 
 Get plugins icons
 
@@ -261,8 +248,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginGroupIcons(tenant, (error, data, response) => {
+apiInstance.getPluginGroupIcons((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -273,10 +259,7 @@ apiInstance.getPluginGroupIcons(tenant, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -294,7 +277,7 @@ Name | Type | Description  | Notes
 
 ## getPluginIcons
 
-> {String: PluginIcon} getPluginIcons(tenant)
+> {String: PluginIcon} getPluginIcons()
 
 Get plugins icons
 
@@ -312,8 +295,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginIcons(tenant, (error, data, response) => {
+apiInstance.getPluginIcons((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -324,10 +306,7 @@ apiInstance.getPluginIcons(tenant, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -345,7 +324,7 @@ Name | Type | Description  | Notes
 
 ## getPluginVersions
 
-> PluginControllerApiPluginVersions getPluginVersions(cls, tenant)
+> PluginControllerApiPluginVersions getPluginVersions(cls)
 
 Get all versions for a plugin
 
@@ -364,8 +343,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin type
-let tenant = "tenant_example"; // String | 
-apiInstance.getPluginVersions(cls, tenant, (error, data, response) => {
+apiInstance.getPluginVersions(cls, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -380,7 +358,6 @@ apiInstance.getPluginVersions(cls, tenant, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cls** | **String**| The plugin type | 
- **tenant** | **String**|  | 
 
 ### Return type
 
@@ -396,13 +373,66 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## getPropertiesFromType
+
+> {String: Object} getPropertiesFromType(type)
+
+Get the properties part of the JSON schema for a type
+
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.PluginsApi();
+let type = new KestraApi.SchemaType(); // SchemaType | The schema needed
+apiInstance.getPropertiesFromType(type, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | [**SchemaType**](.md)| The schema needed | 
+
+### Return type
+
+**{String: Object}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## getSchemaFromInputType
 
-> DocumentationWithSchema getSchemaFromInputType(type, tenant)
+> DocumentationWithSchema getSchemaFromInputType(type)
 
-Get json schemas for an input type
+Get the JSON schema for an input type
 
-The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
 
 ### Example
 
@@ -419,8 +449,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
 let type = new KestraApi.Type(); // Type | The schema needed
-let tenant = "tenant_example"; // String | 
-apiInstance.getSchemaFromInputType(type, tenant, (error, data, response) => {
+apiInstance.getSchemaFromInputType(type, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -435,7 +464,6 @@ apiInstance.getSchemaFromInputType(type, tenant, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | [**Type**](.md)| The schema needed | 
- **tenant** | **String**|  | 
 
 ### Return type
 
@@ -453,11 +481,11 @@ Name | Type | Description  | Notes
 
 ## getSchemasFromType
 
-> {String: Object} getSchemasFromType(type, arrayOf, tenant)
+> {String: Object} getSchemasFromType(type, arrayOf)
 
-Get all json schemas for a type
+Get the JSON schema for a type
 
-The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
 
 ### Example
 
@@ -475,8 +503,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.PluginsApi();
 let type = new KestraApi.SchemaType(); // SchemaType | The schema needed
 let arrayOf = false; // Boolean | If schema should be an array of requested type
-let tenant = "tenant_example"; // String | 
-apiInstance.getSchemasFromType(type, arrayOf, tenant, (error, data, response) => {
+apiInstance.getSchemasFromType(type, arrayOf, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -492,7 +519,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | [**SchemaType**](.md)| The schema needed | 
  **arrayOf** | **Boolean**| If schema should be an array of requested type | [default to false]
- **tenant** | **String**|  | 
 
 ### Return type
 
@@ -510,9 +536,11 @@ Name | Type | Description  | Notes
 
 ## getVersionedPluginDetails
 
-> ClusterControllerApiPluginVersions getVersionedPluginDetails(groupId, artifactId)
+> InstanceControllerApiPluginVersions getVersionedPluginDetails(groupId, artifactId)
 
-Get details about a Kestra&#39;s plugin artifact.
+Retrieve details of a plugin artifact
+
+Superadmin-only. Retrieves metadata and available versions for a given plugin artifact. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -549,7 +577,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiPluginVersions**](ClusterControllerApiPluginVersions.md)
+[**InstanceControllerApiPluginVersions**](InstanceControllerApiPluginVersions.md)
 
 ### Authorization
 
@@ -563,9 +591,11 @@ Name | Type | Description  | Notes
 
 ## getVersionedPluginDetailsFromVersion
 
-> ClusterControllerApiPluginVersionDetails getVersionedPluginDetailsFromVersion(groupId, artifactId, version)
+> InstanceControllerApiPluginVersionDetails getVersionedPluginDetailsFromVersion(groupId, artifactId, version)
 
-Get details about a specific Kestra&#39;s plugin artifact version.
+Retrieve details of a specific plugin artifact version
+
+Superadmin-only. Retrieves metadata for a specific version of a plugin artifact. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -604,7 +634,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiPluginVersionDetails**](ClusterControllerApiPluginVersionDetails.md)
+[**InstanceControllerApiPluginVersionDetails**](InstanceControllerApiPluginVersionDetails.md)
 
 ### Authorization
 
@@ -618,9 +648,11 @@ Name | Type | Description  | Notes
 
 ## installVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginArtifact installVersionedPlugins(clusterControllerApiPluginListRequest)
+> InstanceControllerApiPluginArtifactListPluginArtifact installVersionedPlugins(instanceControllerApiPluginListRequest)
 
-Install a specific Kestra&#39;s plugin artifact
+Install specified plugin artifacts
+
+Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -636,8 +668,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.installVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
+let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+apiInstance.installVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -651,11 +683,11 @@ apiInstance.installVersionedPlugins(clusterControllerApiPluginListRequest, (erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md)| List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md)| List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginArtifact**](ClusterControllerApiPluginArtifactListPluginArtifact.md)
+[**InstanceControllerApiPluginArtifactListPluginArtifact**](InstanceControllerApiPluginArtifactListPluginArtifact.md)
 
 ### Authorization
 
@@ -671,7 +703,9 @@ Name | Type | Description  | Notes
 
 > Object listAvailableVersionedPlugins()
 
-Get the list of available Kestra&#39;s plugin artifact.
+List available plugin artifacts
+
+Superadmin-only. Lists all plugin artifacts available for installation. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -716,7 +750,7 @@ This endpoint does not need any parameter.
 
 ## listPlugins
 
-> [Plugin] listPlugins(tenant)
+> [Plugin] listPlugins()
 
 Get list of plugins
 
@@ -734,8 +768,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let tenant = "tenant_example"; // String | 
-apiInstance.listPlugins(tenant, (error, data, response) => {
+apiInstance.listPlugins((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -746,10 +779,7 @@ apiInstance.listPlugins(tenant, (error, data, response) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tenant** | **String**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -767,9 +797,11 @@ Name | Type | Description  | Notes
 
 ## listVersionedPlugin
 
-> PagedResultsClusterControllerApiPluginArtifact listVersionedPlugin(page, size, opts)
+> PagedResultsInstanceControllerApiPluginArtifact listVersionedPlugin(page, size, opts)
 
-Get the list of installed Kestra&#39;s plugin artifact.
+List installed plugin artifacts
+
+Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -812,7 +844,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsClusterControllerApiPluginArtifact**](PagedResultsClusterControllerApiPluginArtifact.md)
+[**PagedResultsInstanceControllerApiPluginArtifact**](PagedResultsInstanceControllerApiPluginArtifact.md)
 
 ### Authorization
 
@@ -826,9 +858,11 @@ Name | Type | Description  | Notes
 
 ## resolveVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginResolutionResult resolveVersionedPlugins(clusterControllerApiPluginListRequest)
+> InstanceControllerApiPluginArtifactListPluginResolutionResult resolveVersionedPlugins(instanceControllerApiPluginListRequest)
 
-Resolve a specific Kestra&#39;s plugin artifact
+Resolve versions for specified plugin artifacts
+
+Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -844,8 +878,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.resolveVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
+let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+apiInstance.resolveVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -859,11 +893,11 @@ apiInstance.resolveVersionedPlugins(clusterControllerApiPluginListRequest, (erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md)| List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md)| List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginResolutionResult**](ClusterControllerApiPluginArtifactListPluginResolutionResult.md)
+[**InstanceControllerApiPluginArtifactListPluginResolutionResult**](InstanceControllerApiPluginArtifactListPluginResolutionResult.md)
 
 ### Authorization
 
@@ -877,9 +911,11 @@ Name | Type | Description  | Notes
 
 ## uninstallVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginArtifact uninstallVersionedPlugins(clusterControllerApiPluginListRequest)
+> InstanceControllerApiPluginArtifactListPluginArtifact uninstallVersionedPlugins(instanceControllerApiPluginListRequest)
 
-Uninstall Kestra&#39;s plugin artifacts
+Uninstall plugin artifacts
+
+Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -895,8 +931,8 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
-let clusterControllerApiPluginListRequest = new KestraApi.ClusterControllerApiPluginListRequest(); // ClusterControllerApiPluginListRequest | List of plugins
-apiInstance.uninstallVersionedPlugins(clusterControllerApiPluginListRequest, (error, data, response) => {
+let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+apiInstance.uninstallVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -910,11 +946,11 @@ apiInstance.uninstallVersionedPlugins(clusterControllerApiPluginListRequest, (er
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md)| List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md)| List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginArtifact**](ClusterControllerApiPluginArtifactListPluginArtifact.md)
+[**InstanceControllerApiPluginArtifactListPluginArtifact**](InstanceControllerApiPluginArtifactListPluginArtifact.md)
 
 ### Authorization
 
@@ -928,9 +964,11 @@ Name | Type | Description  | Notes
 
 ## uploadVersionedPlugins
 
-> PluginArtifact uploadVersionedPlugins(opts)
+> PluginArtifact uploadVersionedPlugins(file, opts)
 
-Upload a Kestra&#39;s plugin artifact
+Upload a plugin artifact JAR file
+
+Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUCTURE permission.
 
 ### Example
 
@@ -946,10 +984,11 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.PluginsApi();
+let file = "/path/to/file"; // File | 
 let opts = {
-  'file': "/path/to/file" // File | 
+  'forceInstallOnExistingVersions': true // Boolean | 
 };
-apiInstance.uploadVersionedPlugins(opts, (error, data, response) => {
+apiInstance.uploadVersionedPlugins(file, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -963,7 +1002,8 @@ apiInstance.uploadVersionedPlugins(opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **File**|  | [optional] 
+ **file** | **File**|  | 
+ **forceInstallOnExistingVersions** | **Boolean**|  | [optional] 
 
 ### Return type
 

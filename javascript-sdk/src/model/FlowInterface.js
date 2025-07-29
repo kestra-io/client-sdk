@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -20,11 +20,12 @@ import Label from './Label';
 import Output from './Output';
 import SLA from './SLA';
 import TenantInterface from './TenantInterface';
+import WorkerGroup from './WorkerGroup';
 
 /**
  * The FlowInterface model module.
  * @module model/FlowInterface
- * @version v1
+ * @version v0.24.0
  */
 class FlowInterface {
     /**
@@ -91,6 +92,9 @@ class FlowInterface {
             if (data.hasOwnProperty('variables')) {
                 obj['variables'] = ApiClient.convertToType(data['variables'], {'String': Object});
             }
+            if (data.hasOwnProperty('workerGroup')) {
+                obj['workerGroup'] = WorkerGroup.constructFromObject(data['workerGroup']);
+            }
             if (data.hasOwnProperty('concurrency')) {
                 obj['concurrency'] = Concurrency.constructFromObject(data['concurrency']);
             }
@@ -151,6 +155,10 @@ class FlowInterface {
             for (const item of data['outputs']) {
                 Output.validateJSON(item);
             };
+        }
+        // validate the optional field `workerGroup`
+        if (data['workerGroup']) { // data not null
+          WorkerGroup.validateJSON(data['workerGroup']);
         }
         // validate the optional field `concurrency`
         if (data['concurrency']) { // data not null
@@ -228,6 +236,11 @@ FlowInterface.prototype['outputs'] = undefined;
  * @member {Object.<String, Object>} variables
  */
 FlowInterface.prototype['variables'] = undefined;
+
+/**
+ * @member {module:model/WorkerGroup} workerGroup
+ */
+FlowInterface.prototype['workerGroup'] = undefined;
 
 /**
  * @member {module:model/Concurrency} concurrency

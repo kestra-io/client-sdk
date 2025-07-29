@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,15 +13,15 @@
 
 
 import ApiClient from "../ApiClient";
-import ClusterControllerApiCreateOrUpdateWorkerGroupRequest from '../model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest';
-import ClusterControllerApiWorkerGroup from '../model/ClusterControllerApiWorkerGroup';
-import ClusterControllerApiWorkerGroupDetails from '../model/ClusterControllerApiWorkerGroupDetails';
-import ClusterControllerApiWorkerGroupList from '../model/ClusterControllerApiWorkerGroupList';
+import InstanceControllerApiCreateOrUpdateWorkerGroupRequest from '../model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest';
+import InstanceControllerApiWorkerGroup from '../model/InstanceControllerApiWorkerGroup';
+import InstanceControllerApiWorkerGroupDetails from '../model/InstanceControllerApiWorkerGroupDetails';
+import InstanceControllerApiWorkerGroupList from '../model/InstanceControllerApiWorkerGroupList';
 
 /**
 * WorkerGroups service.
 * @module api/WorkerGroupsApi
-* @version v1
+* @version v0.24.0
 */
 export default class WorkerGroupsApi {
 
@@ -41,21 +41,22 @@ export default class WorkerGroupsApi {
      * Callback function to receive the result of the createWorkerGroup operation.
      * @callback module:api/WorkerGroupsApi~createWorkerGroupCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroup} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiWorkerGroup} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create a new worker group.
-     * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
+     * Create a worker group
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+     * @param {module:model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest} instanceControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
      * @param {module:api/WorkerGroupsApi~createWorkerGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroup}
+     * data is of type: {@link module:model/InstanceControllerApiWorkerGroup}
      */
-    createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
-      let postBody = clusterControllerApiCreateOrUpdateWorkerGroupRequest;
-      // verify the required parameter 'clusterControllerApiCreateOrUpdateWorkerGroupRequest' is set
-      if (clusterControllerApiCreateOrUpdateWorkerGroupRequest === undefined || clusterControllerApiCreateOrUpdateWorkerGroupRequest === null) {
-        throw new Error("Missing the required parameter 'clusterControllerApiCreateOrUpdateWorkerGroupRequest' when calling createWorkerGroup");
+    createWorkerGroup(instanceControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
+      let postBody = instanceControllerApiCreateOrUpdateWorkerGroupRequest;
+      // verify the required parameter 'instanceControllerApiCreateOrUpdateWorkerGroupRequest' is set
+      if (instanceControllerApiCreateOrUpdateWorkerGroupRequest === undefined || instanceControllerApiCreateOrUpdateWorkerGroupRequest === null) {
+        throw new Error("Missing the required parameter 'instanceControllerApiCreateOrUpdateWorkerGroupRequest' when calling createWorkerGroup");
       }
 
       let pathParams = {
@@ -70,9 +71,9 @@ export default class WorkerGroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiWorkerGroup;
+      let returnType = InstanceControllerApiWorkerGroup;
       return this.apiClient.callApi(
-        '/api/v1/cluster/workergroups', 'POST',
+        '/api/v1/instance/workergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -87,7 +88,8 @@ export default class WorkerGroupsApi {
      */
 
     /**
-     * Delete an existing worker group.
+     * Delete a worker group
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {String} id 
      * @param {module:api/WorkerGroupsApi~deleteWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
@@ -114,7 +116,7 @@ export default class WorkerGroupsApi {
       let accepts = ['application/json'];
       let returnType = Object;
       return this.apiClient.callApi(
-        '/api/v1/cluster/workergroups/{id}', 'DELETE',
+        '/api/v1/instance/workergroups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -124,15 +126,16 @@ export default class WorkerGroupsApi {
      * Callback function to receive the result of the getWorkerGroupById operation.
      * @callback module:api/WorkerGroupsApi~getWorkerGroupByIdCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroupDetails} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiWorkerGroupDetails} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get details about a worker group.
+     * Retrieve details of a specific worker group
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {String} id 
      * @param {module:api/WorkerGroupsApi~getWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroupDetails}
+     * data is of type: {@link module:model/InstanceControllerApiWorkerGroupDetails}
      */
     getWorkerGroupById(id, callback) {
       let postBody = null;
@@ -154,9 +157,9 @@ export default class WorkerGroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiWorkerGroupDetails;
+      let returnType = InstanceControllerApiWorkerGroupDetails;
       return this.apiClient.callApi(
-        '/api/v1/cluster/workergroups/{id}', 'GET',
+        '/api/v1/instance/workergroups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -166,14 +169,15 @@ export default class WorkerGroupsApi {
      * Callback function to receive the result of the listWorkerGroups operation.
      * @callback module:api/WorkerGroupsApi~listWorkerGroupsCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroupList} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiWorkerGroupList} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * List all Worker Groups
+     * List all worker groups
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/WorkerGroupsApi~listWorkerGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroupList}
+     * data is of type: {@link module:model/InstanceControllerApiWorkerGroupList}
      */
     listWorkerGroups(callback) {
       let postBody = null;
@@ -190,9 +194,9 @@ export default class WorkerGroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiWorkerGroupList;
+      let returnType = InstanceControllerApiWorkerGroupList;
       return this.apiClient.callApi(
-        '/api/v1/cluster/workergroups', 'GET',
+        '/api/v1/instance/workergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -202,26 +206,27 @@ export default class WorkerGroupsApi {
      * Callback function to receive the result of the updateWorkerGroupById operation.
      * @callback module:api/WorkerGroupsApi~updateWorkerGroupByIdCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroup} data The data returned by the service call.
+     * @param {module:model/InstanceControllerApiWorkerGroup} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Update an existing worker group.
+     * Update a worker group
+     * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {String} id 
-     * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
+     * @param {module:model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest} instanceControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
      * @param {module:api/WorkerGroupsApi~updateWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroup}
+     * data is of type: {@link module:model/InstanceControllerApiWorkerGroup}
      */
-    updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
-      let postBody = clusterControllerApiCreateOrUpdateWorkerGroupRequest;
+    updateWorkerGroupById(id, instanceControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
+      let postBody = instanceControllerApiCreateOrUpdateWorkerGroupRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling updateWorkerGroupById");
       }
-      // verify the required parameter 'clusterControllerApiCreateOrUpdateWorkerGroupRequest' is set
-      if (clusterControllerApiCreateOrUpdateWorkerGroupRequest === undefined || clusterControllerApiCreateOrUpdateWorkerGroupRequest === null) {
-        throw new Error("Missing the required parameter 'clusterControllerApiCreateOrUpdateWorkerGroupRequest' when calling updateWorkerGroupById");
+      // verify the required parameter 'instanceControllerApiCreateOrUpdateWorkerGroupRequest' is set
+      if (instanceControllerApiCreateOrUpdateWorkerGroupRequest === undefined || instanceControllerApiCreateOrUpdateWorkerGroupRequest === null) {
+        throw new Error("Missing the required parameter 'instanceControllerApiCreateOrUpdateWorkerGroupRequest' when calling updateWorkerGroupById");
       }
 
       let pathParams = {
@@ -237,9 +242,9 @@ export default class WorkerGroupsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = ClusterControllerApiWorkerGroup;
+      let returnType = InstanceControllerApiWorkerGroup;
       return this.apiClient.callApi(
-        '/api/v1/cluster/workergroups/{id}', 'PUT',
+        '/api/v1/instance/workergroups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

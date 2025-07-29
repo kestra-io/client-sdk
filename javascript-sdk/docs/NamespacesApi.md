@@ -8,10 +8,10 @@ Method | HTTP request | Description
 [**autocompleteNamespacesWithResourceTenantasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
 [**autocompleteNamespacesasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesasSuperAdmin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
-[**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a flow
+[**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**getInheritedSecrets**](NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
+[**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
 [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -27,6 +27,8 @@ Method | HTTP request | Description
 > [String] autocompleteNamespaces(tenant, opts)
 
 List namespaces for autocomplete
+
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
 
 ### Example
 
@@ -85,6 +87,8 @@ Name | Type | Description  | Notes
 
 List namespaces for autocomplete
 
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
+
 ### Example
 
 ```javascript
@@ -141,6 +145,8 @@ Name | Type | Description  | Notes
 > [String] autocompleteNamespacesasSuperAdmin(opts)
 
 List namespaces for autocomplete
+
+Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
 
 ### Example
 
@@ -248,7 +254,7 @@ Name | Type | Description  | Notes
 
 > deleteNamespace(id, tenant)
 
-Delete a flow
+Delete a namespace
 
 ### Example
 
@@ -409,7 +415,7 @@ Name | Type | Description  | Notes
 
 > Namespace getNamespace(id, tenant)
 
-Get a namespace
+Retrieve namespace details
 
 ### Example
 

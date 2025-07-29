@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import Banner from './Banner';
+import CustomLink from './CustomLink';
 import MiscControllerConfiguration from './MiscControllerConfiguration';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPluginIdAndVersion from './MiscControllerPluginIdAndVersion';
@@ -23,7 +24,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version v1
+ * @version v0.24.0
  */
 class MiscControllerEEConfiguration {
     /**
@@ -89,9 +90,6 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('preview')) {
                 obj['preview'] = MiscControllerPreview.constructFromObject(data['preview']);
             }
-            if (data.hasOwnProperty('isBasicAuthEnabled')) {
-                obj['isBasicAuthEnabled'] = ApiClient.convertToType(data['isBasicAuthEnabled'], 'Boolean');
-            }
             if (data.hasOwnProperty('systemNamespace')) {
                 obj['systemNamespace'] = ApiClient.convertToType(data['systemNamespace'], 'String');
             }
@@ -100,6 +98,12 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('resourceToFilters')) {
                 obj['resourceToFilters'] = ApiClient.convertToType(data['resourceToFilters'], [QueryFilterResourceField]);
+            }
+            if (data.hasOwnProperty('isAiEnabled')) {
+                obj['isAiEnabled'] = ApiClient.convertToType(data['isAiEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBasicAuthInitialized')) {
+                obj['isBasicAuthInitialized'] = ApiClient.convertToType(data['isBasicAuthInitialized'], 'Boolean');
             }
             if (data.hasOwnProperty('tenants')) {
                 obj['tenants'] = MiscControllerTenantConfigurationInfo.constructFromObject(data['tenants']);
@@ -127,6 +131,15 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('outputsInInternalStorageEnabled')) {
                 obj['outputsInInternalStorageEnabled'] = ApiClient.convertToType(data['outputsInInternalStorageEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('contextCustomLinks')) {
+                obj['contextCustomLinks'] = ApiClient.convertToType(data['contextCustomLinks'], {'String': CustomLink});
+            }
+            if (data.hasOwnProperty('inMaintenance')) {
+                obj['inMaintenance'] = ApiClient.convertToType(data['inMaintenance'], 'Boolean');
+            }
+            if (data.hasOwnProperty('passwordRegexp')) {
+                obj['passwordRegexp'] = ApiClient.convertToType(data['passwordRegexp'], 'String');
             }
         }
         return obj;
@@ -208,6 +221,10 @@ class MiscControllerEEConfiguration {
         if (data['banner']) { // data not null
           Banner.validateJSON(data['banner']);
         }
+        // ensure the json data is a string
+        if (data['passwordRegexp'] && !(typeof data['passwordRegexp'] === 'string' || data['passwordRegexp'] instanceof String)) {
+            throw new Error("Expected the field `passwordRegexp` to be a primitive type in the JSON string but got " + data['passwordRegexp']);
+        }
 
         return true;
     }
@@ -273,11 +290,6 @@ MiscControllerEEConfiguration.prototype['url'] = undefined;
 MiscControllerEEConfiguration.prototype['preview'] = undefined;
 
 /**
- * @member {Boolean} isBasicAuthEnabled
- */
-MiscControllerEEConfiguration.prototype['isBasicAuthEnabled'] = undefined;
-
-/**
  * @member {String} systemNamespace
  */
 MiscControllerEEConfiguration.prototype['systemNamespace'] = undefined;
@@ -291,6 +303,16 @@ MiscControllerEEConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
  * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
  */
 MiscControllerEEConfiguration.prototype['resourceToFilters'] = undefined;
+
+/**
+ * @member {Boolean} isAiEnabled
+ */
+MiscControllerEEConfiguration.prototype['isAiEnabled'] = undefined;
+
+/**
+ * @member {Boolean} isBasicAuthInitialized
+ */
+MiscControllerEEConfiguration.prototype['isBasicAuthInitialized'] = undefined;
 
 /**
  * @member {module:model/MiscControllerTenantConfigurationInfo} tenants
@@ -336,6 +358,21 @@ MiscControllerEEConfiguration.prototype['mailServiceEnabled'] = undefined;
  * @member {Boolean} outputsInInternalStorageEnabled
  */
 MiscControllerEEConfiguration.prototype['outputsInInternalStorageEnabled'] = undefined;
+
+/**
+ * @member {Object.<String, module:model/CustomLink>} contextCustomLinks
+ */
+MiscControllerEEConfiguration.prototype['contextCustomLinks'] = undefined;
+
+/**
+ * @member {Boolean} inMaintenance
+ */
+MiscControllerEEConfiguration.prototype['inMaintenance'] = undefined;
+
+/**
+ * @member {String} passwordRegexp
+ */
+MiscControllerEEConfiguration.prototype['passwordRegexp'] = undefined;
 
 
 // Implement MiscControllerConfiguration interface:
@@ -384,10 +421,6 @@ MiscControllerConfiguration.prototype['url'] = undefined;
  */
 MiscControllerConfiguration.prototype['preview'] = undefined;
 /**
- * @member {Boolean} isBasicAuthEnabled
- */
-MiscControllerConfiguration.prototype['isBasicAuthEnabled'] = undefined;
-/**
  * @member {String} systemNamespace
  */
 MiscControllerConfiguration.prototype['systemNamespace'] = undefined;
@@ -399,6 +432,14 @@ MiscControllerConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
  * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
  */
 MiscControllerConfiguration.prototype['resourceToFilters'] = undefined;
+/**
+ * @member {Boolean} isAiEnabled
+ */
+MiscControllerConfiguration.prototype['isAiEnabled'] = undefined;
+/**
+ * @member {Boolean} isBasicAuthInitialized
+ */
+MiscControllerConfiguration.prototype['isBasicAuthInitialized'] = undefined;
 
 
 

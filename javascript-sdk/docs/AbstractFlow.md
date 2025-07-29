@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **disabled** | **Boolean** |  | 
 **labels** | [**AbstractFlowLabels**](AbstractFlowLabels.md) |  | [optional] 
 **variables** | **{String: Object}** |  | [optional] 
+**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **Boolean** |  | 
 
 

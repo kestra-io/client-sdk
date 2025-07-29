@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -13,15 +13,15 @@
 
 import ApiClient from '../ApiClient';
 import AbstractUser from './AbstractUser';
-import AbstractUserGroupIdentifier from './AbstractUserGroupIdentifier';
 import AbstractUserTenantIdentityProvider from './AbstractUserTenantIdentityProvider';
 import ApiAuth from './ApiAuth';
+import GroupIdentifier from './GroupIdentifier';
 import UserType from './UserType';
 
 /**
  * The ApiUser model module.
  * @module model/ApiUser
- * @version v1
+ * @version v0.24.0
  */
 class ApiUser {
     /**
@@ -64,7 +64,7 @@ class ApiUser {
                 obj['type'] = UserType.constructFromObject(data['type']);
             }
             if (data.hasOwnProperty('groupList')) {
-                obj['groupList'] = ApiClient.convertToType(data['groupList'], [AbstractUserGroupIdentifier]);
+                obj['groupList'] = ApiClient.convertToType(data['groupList'], [GroupIdentifier]);
             }
             if (data.hasOwnProperty('groups')) {
                 obj['groups'] = ApiClient.convertToType(data['groups'], [Object]);
@@ -96,9 +96,6 @@ class ApiUser {
             if (data.hasOwnProperty('providers')) {
                 obj['providers'] = ApiClient.convertToType(data['providers'], [AbstractUserTenantIdentityProvider]);
             }
-            if (data.hasOwnProperty('isSuperAdmin')) {
-                obj['isSuperAdmin'] = ApiClient.convertToType(data['isSuperAdmin'], 'Boolean');
-            }
             if (data.hasOwnProperty('auths')) {
                 obj['auths'] = ApiClient.convertToType(data['auths'], [ApiAuth]);
             }
@@ -125,7 +122,7 @@ class ApiUser {
             }
             // validate the optional field `groupList` (array)
             for (const item of data['groupList']) {
-                AbstractUserGroupIdentifier.validateJSON(item);
+                GroupIdentifier.validateJSON(item);
             };
         }
         // ensure the json data is an array
@@ -195,7 +192,7 @@ ApiUser.RequiredProperties = ["type", "username", "email"];
 ApiUser.prototype['type'] = undefined;
 
 /**
- * @member {Array.<module:model/AbstractUserGroupIdentifier>} groupList
+ * @member {Array.<module:model/GroupIdentifier>} groupList
  */
 ApiUser.prototype['groupList'] = undefined;
 
@@ -250,11 +247,6 @@ ApiUser.prototype['lastName'] = undefined;
 ApiUser.prototype['providers'] = undefined;
 
 /**
- * @member {Boolean} isSuperAdmin
- */
-ApiUser.prototype['isSuperAdmin'] = undefined;
-
-/**
  * @member {Array.<module:model/ApiAuth>} auths
  */
 ApiUser.prototype['auths'] = undefined;
@@ -266,7 +258,7 @@ ApiUser.prototype['auths'] = undefined;
  */
 AbstractUser.prototype['type'] = undefined;
 /**
- * @member {Array.<module:model/AbstractUserGroupIdentifier>} groupList
+ * @member {Array.<module:model/GroupIdentifier>} groupList
  */
 AbstractUser.prototype['groupList'] = undefined;
 /**
@@ -309,10 +301,6 @@ AbstractUser.prototype['lastName'] = undefined;
  * @member {Array.<module:model/AbstractUserTenantIdentityProvider>} providers
  */
 AbstractUser.prototype['providers'] = undefined;
-/**
- * @member {Boolean} isSuperAdmin
- */
-AbstractUser.prototype['isSuperAdmin'] = undefined;
 
 
 

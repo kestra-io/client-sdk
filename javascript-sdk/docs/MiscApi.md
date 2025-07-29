@@ -4,23 +4,26 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createBasicAuth**](MiscApi.md#createBasicAuth) | **POST** /api/v1/main/basicAuth | Create basic auth for the current instance
-[**getConfiguration**](MiscApi.md#getConfiguration) | **GET** /api/v1/configs | Get current configurations
-[**getUsages**](MiscApi.md#getUsages) | **GET** /api/v1/{tenant}/usages/all | Get instance usage information
-[**licenseInfo**](MiscApi.md#licenseInfo) | **GET** /api/v1/license-info | Get current license information
-[**listActions**](MiscApi.md#listActions) | **GET** /api/v1/{tenant}/acls/actions | Get list of actions
-[**listPermissions**](MiscApi.md#listPermissions) | **GET** /api/v1/{tenant}/acls/permissions | Get list of permissions
-[**setupConfiguration**](MiscApi.md#setupConfiguration) | **GET** /api/v1/setup | Currently running configuration
-[**setupKestra**](MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first user
-[**tenantUsage**](MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Get instance usage information for the current tenant
+[**createBasicAuth**](MiscApi.md#createBasicAuth) | **POST** /api/v1/{tenant}/basicAuth | Configure basic authentication for the instance.
+[**getBasicAuthConfigErrors**](MiscApi.md#getBasicAuthConfigErrors) | **GET** /api/v1/basicAuthValidationErrors | Retrieve the instance configuration.
+[**getConfiguration**](MiscApi.md#getConfiguration) | **GET** /api/v1/configs | Retrieve the instance configuration.
+[**getUsages**](MiscApi.md#getUsages) | **GET** /api/v1/{tenant}/usages/all | Retrieve instance usage information
+[**licenseInfo**](MiscApi.md#licenseInfo) | **GET** /api/v1/license-info | Retrieve license information
+[**listActions**](MiscApi.md#listActions) | **GET** /api/v1/{tenant}/acls/actions | Retrieve list of actions
+[**listPermissions**](MiscApi.md#listPermissions) | **GET** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
+[**setupConfiguration**](MiscApi.md#setupConfiguration) | **GET** /api/v1/setup | Retrieve current setup configuration
+[**setupKestra**](MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
+[**tenantUsage**](MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 
 
 
 ## createBasicAuth
 
-> createBasicAuth(miscControllerBasicAuthCredentials)
+> createBasicAuth(tenant, miscControllerBasicAuthCredentials)
 
-Create basic auth for the current instance
+Configure basic authentication for the instance.
+
+Sets up basic authentication credentials.
 
 ### Example
 
@@ -36,8 +39,9 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraApi.MiscApi();
+let tenant = "tenant_example"; // String | 
 let miscControllerBasicAuthCredentials = new KestraApi.MiscControllerBasicAuthCredentials(); // MiscControllerBasicAuthCredentials | 
-apiInstance.createBasicAuth(miscControllerBasicAuthCredentials, (error, data, response) => {
+apiInstance.createBasicAuth(tenant, miscControllerBasicAuthCredentials, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -51,6 +55,7 @@ apiInstance.createBasicAuth(miscControllerBasicAuthCredentials, (error, data, re
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
  **miscControllerBasicAuthCredentials** | [**MiscControllerBasicAuthCredentials**](MiscControllerBasicAuthCredentials.md)|  | 
 
 ### Return type
@@ -67,11 +72,62 @@ null (empty response body)
 - **Accept**: Not defined
 
 
+## getBasicAuthConfigErrors
+
+> [String] getBasicAuthConfigErrors()
+
+Retrieve the instance configuration.
+
+Global endpoint available to all users.
+
+### Example
+
+```javascript
+import KestraApi from 'kestra_api';
+let defaultClient = KestraApi.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraApi.MiscApi();
+apiInstance.getBasicAuthConfigErrors((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**[String]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## getConfiguration
 
 > MiscControllerEEConfiguration getConfiguration()
 
-Get current configurations
+Retrieve the instance configuration.
+
+Global endpoint available to all users.
 
 ### Example
 
@@ -118,7 +174,7 @@ This endpoint does not need any parameter.
 
 > Usage getUsages(tenant)
 
-Get instance usage information
+Retrieve instance usage information
 
 ### Example
 
@@ -169,7 +225,9 @@ Name | Type | Description  | Notes
 
 > MiscControllerLicenseInfo licenseInfo()
 
-Get current license information
+Retrieve license information
+
+Global endpoint, available to any authenticated user.
 
 ### Example
 
@@ -216,7 +274,9 @@ This endpoint does not need any parameter.
 
 > [Action] listActions(tenant)
 
-Get list of actions
+Retrieve list of actions
+
+Actions are used to restrict possible operations for each permission. Each action must be one of the following: CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g. only allow a user to read a flow, but not update or delete it.
 
 ### Example
 
@@ -267,7 +327,9 @@ Name | Type | Description  | Notes
 
 > [Permission] listPermissions(tenant)
 
-Get list of permissions
+Retrieve list of permissions
+
+Permissions are used to control access to resources within the Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
 
 ### Example
 
@@ -318,7 +380,7 @@ Name | Type | Description  | Notes
 
 > SetupConfiguration setupConfiguration()
 
-Currently running configuration
+Retrieve current setup configuration
 
 ### Example
 
@@ -365,7 +427,9 @@ This endpoint does not need any parameter.
 
 > ApiUser setupKestra(setupConfigurationSetupData)
 
-Create the first user
+Create the first Superadmin user
+
+Only used during initial instance setup.
 
 ### Example
 
@@ -416,7 +480,7 @@ Name | Type | Description  | Notes
 
 > UsageEE tenantUsage(tenant)
 
-Get instance usage information for the current tenant
+Retrieve usage information for the current tenant
 
 ### Example
 

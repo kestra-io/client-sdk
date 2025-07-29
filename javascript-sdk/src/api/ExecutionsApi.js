@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -17,13 +17,18 @@ import BulkErrorResponse from '../model/BulkErrorResponse';
 import BulkResponse from '../model/BulkResponse';
 import DeleteExecutionsByQueryRequest from '../model/DeleteExecutionsByQueryRequest';
 import EventExecution from '../model/EventExecution';
+import EventExecutionStatusEvent from '../model/EventExecutionStatusEvent';
 import Execution from '../model/Execution';
 import ExecutionControllerApiValidateExecutionInputsResponse from '../model/ExecutionControllerApiValidateExecutionInputsResponse';
 import ExecutionControllerEvalResult from '../model/ExecutionControllerEvalResult';
 import ExecutionControllerExecutionResponse from '../model/ExecutionControllerExecutionResponse';
+import ExecutionControllerLastExecutionResponse from '../model/ExecutionControllerLastExecutionResponse';
 import ExecutionControllerSetLabelsByIdsRequest from '../model/ExecutionControllerSetLabelsByIdsRequest';
 import ExecutionControllerStateRequest from '../model/ExecutionControllerStateRequest';
+import ExecutionControllerWebhookResponse from '../model/ExecutionControllerWebhookResponse';
+import ExecutionKind from '../model/ExecutionKind';
 import ExecutionRepositoryInterfaceChildFilter from '../model/ExecutionRepositoryInterfaceChildFilter';
+import ExecutionRepositoryInterfaceFlowFilter from '../model/ExecutionRepositoryInterfaceFlowFilter';
 import FileMetas from '../model/FileMetas';
 import FlowForExecution from '../model/FlowForExecution';
 import FlowGraph from '../model/FlowGraph';
@@ -37,7 +42,7 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version v1
+* @version v0.24.0
 */
 export default class ExecutionsApi {
 
@@ -71,6 +76,8 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] The labels as a list of 'key:value'
      * @param {Number} [revision] The flow revision or latest if null
      * @param {Date} [scheduleDate] Schedule the flow on a specific date
+     * @param {String} [breakpoint] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {module:model/ExecutionKind} [kind] Specific execution kind
      * @param {module:api/ExecutionsApi~createExecutionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/ExecutionControllerExecutionResponse>}
      */
@@ -103,7 +110,9 @@ export default class ExecutionsApi {
         'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
         'wait': wait,
         'revision': opts['revision'],
-        'scheduleDate': opts['scheduleDate']
+        'scheduleDate': opts['scheduleDate'],
+        'breakpoint': opts['breakpoint'],
+        'kind': opts['kind']
       };
       let headerParams = {
       };
@@ -454,6 +463,66 @@ export default class ExecutionsApi {
       let returnType = ExecutionControllerEvalResult;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/eval/{taskRunId}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the followDependenciesExecutions operation.
+     * @callback module:api/ExecutionsApi~followDependenciesExecutionsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/EventExecutionStatusEvent} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Follow all execution dependencies executions
+     * @param {String} executionId The execution id
+     * @param {Boolean} destinationOnly If true, list only destination dependencies, otherwise list also source dependencies
+     * @param {Boolean} expandAll If true, expand all dependencies recursively
+     * @param {String} tenant 
+     * @param {module:api/ExecutionsApi~followDependenciesExecutionsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/EventExecutionStatusEvent}
+     */
+    followDependenciesExecutions(executionId, destinationOnly, expandAll, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'executionId' is set
+      if (executionId === undefined || executionId === null) {
+        throw new Error("Missing the required parameter 'executionId' when calling followDependenciesExecutions");
+      }
+      // verify the required parameter 'destinationOnly' is set
+      if (destinationOnly === undefined || destinationOnly === null) {
+        throw new Error("Missing the required parameter 'destinationOnly' when calling followDependenciesExecutions");
+      }
+      // verify the required parameter 'expandAll' is set
+      if (expandAll === undefined || expandAll === null) {
+        throw new Error("Missing the required parameter 'expandAll' when calling followDependenciesExecutions");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling followDependenciesExecutions");
+      }
+
+      let pathParams = {
+        'executionId': executionId,
+        'tenant': tenant
+      };
+      let queryParams = {
+        'destinationOnly': destinationOnly,
+        'expandAll': expandAll
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['text/event-stream'];
+      let returnType = EventExecutionStatusEvent;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/{executionId}/follow-dependencies', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -928,6 +997,53 @@ export default class ExecutionsApi {
       let returnType = FlowForExecution;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/flow', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getLatestExecutions operation.
+     * @callback module:api/ExecutionsApi~getLatestExecutionsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/ExecutionControllerLastExecutionResponse>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get the latest execution for given flows
+     * @param {String} tenant 
+     * @param {Array.<module:model/ExecutionRepositoryInterfaceFlowFilter>} executionRepositoryInterfaceFlowFilter 
+     * @param {module:api/ExecutionsApi~getLatestExecutionsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<module:model/ExecutionControllerLastExecutionResponse>}
+     */
+    getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, callback) {
+      let postBody = executionRepositoryInterfaceFlowFilter;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling getLatestExecutions");
+      }
+      // verify the required parameter 'executionRepositoryInterfaceFlowFilter' is set
+      if (executionRepositoryInterfaceFlowFilter === undefined || executionRepositoryInterfaceFlowFilter === null) {
+        throw new Error("Missing the required parameter 'executionRepositoryInterfaceFlowFilter' when calling getLatestExecutions");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = [ExecutionControllerLastExecutionResponse];
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/latest', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -1441,6 +1557,7 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [taskRunId] The taskrun id
      * @param {Number} [revision] The flow revision to use for new execution
+     * @param {String} [breakpoint] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:api/ExecutionsApi~replayExecutionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Execution}
      */
@@ -1462,7 +1579,8 @@ export default class ExecutionsApi {
       };
       let queryParams = {
         'taskRunId': opts['taskRunId'],
-        'revision': opts['revision']
+        'revision': opts['revision'],
+        'breakpoint': opts['breakpoint']
       };
       let headerParams = {
       };
@@ -1817,6 +1935,57 @@ export default class ExecutionsApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/resume', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the resumeExecutionFromBreakpoint operation.
+     * @callback module:api/ExecutionsApi~resumeExecutionFromBreakpointCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+     * @param {String} executionId The execution id
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} [breakpoint] \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {module:api/ExecutionsApi~resumeExecutionFromBreakpointCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    resumeExecutionFromBreakpoint(executionId, tenant, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'executionId' is set
+      if (executionId === undefined || executionId === null) {
+        throw new Error("Missing the required parameter 'executionId' when calling resumeExecutionFromBreakpoint");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling resumeExecutionFromBreakpoint");
+      }
+
+      let pathParams = {
+        'executionId': executionId,
+        'tenant': tenant
+      };
+      let queryParams = {
+        'breakpoint': opts['breakpoint']
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -2409,7 +2578,7 @@ export default class ExecutionsApi {
      * Callback function to receive the result of the triggerExecutionByGetWebhook operation.
      * @callback module:api/ExecutionsApi~triggerExecutionByGetWebhookCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
+     * @param {module:model/ExecutionControllerWebhookResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -2420,7 +2589,7 @@ export default class ExecutionsApi {
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~triggerExecutionByGetWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * data is of type: {@link module:model/ExecutionControllerWebhookResponse}
      */
     triggerExecutionByGetWebhook(namespace, id, key, tenant, callback) {
       let postBody = null;
@@ -2457,7 +2626,7 @@ export default class ExecutionsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Execution;
+      let returnType = ExecutionControllerWebhookResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -2469,7 +2638,7 @@ export default class ExecutionsApi {
      * Callback function to receive the result of the triggerExecutionByPostWebhook operation.
      * @callback module:api/ExecutionsApi~triggerExecutionByPostWebhookCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
+     * @param {module:model/ExecutionControllerWebhookResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -2480,7 +2649,7 @@ export default class ExecutionsApi {
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~triggerExecutionByPostWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * data is of type: {@link module:model/ExecutionControllerWebhookResponse}
      */
     triggerExecutionByPostWebhook(namespace, id, key, tenant, callback) {
       let postBody = null;
@@ -2517,7 +2686,7 @@ export default class ExecutionsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Execution;
+      let returnType = ExecutionControllerWebhookResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -2529,7 +2698,7 @@ export default class ExecutionsApi {
      * Callback function to receive the result of the triggerExecutionByPutWebhook operation.
      * @callback module:api/ExecutionsApi~triggerExecutionByPutWebhookCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Execution} data The data returned by the service call.
+     * @param {module:model/ExecutionControllerWebhookResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -2540,7 +2709,7 @@ export default class ExecutionsApi {
      * @param {String} key The webhook trigger uid
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~triggerExecutionByPutWebhookCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Execution}
+     * data is of type: {@link module:model/ExecutionControllerWebhookResponse}
      */
     triggerExecutionByPutWebhook(namespace, id, key, tenant, callback) {
       let postBody = null;
@@ -2577,7 +2746,7 @@ export default class ExecutionsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Execution;
+      let returnType = ExecutionControllerWebhookResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/webhook/{namespace}/{id}/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -2596,15 +2765,20 @@ export default class ExecutionsApi {
     /**
      * Unqueue an execution
      * @param {String} executionId The execution id
+     * @param {module:model/StateType} state The new state of the execution
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~unqueueExecutionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Execution}
      */
-    unqueueExecution(executionId, tenant, callback) {
+    unqueueExecution(executionId, state, tenant, callback) {
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
         throw new Error("Missing the required parameter 'executionId' when calling unqueueExecution");
+      }
+      // verify the required parameter 'state' is set
+      if (state === undefined || state === null) {
+        throw new Error("Missing the required parameter 'state' when calling unqueueExecution");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -2616,6 +2790,7 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
+        'state': state
       };
       let headerParams = {
       };
@@ -2643,13 +2818,18 @@ export default class ExecutionsApi {
 
     /**
      * Unqueue a list of executions
+     * @param {module:model/StateType} state The new state of the unqueued executions
      * @param {String} tenant 
      * @param {Array.<String>} requestBody The list of executions id
      * @param {module:api/ExecutionsApi~unqueueExecutionsByIdsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/BulkResponse}
      */
-    unqueueExecutionsByIds(tenant, requestBody, callback) {
+    unqueueExecutionsByIds(state, tenant, requestBody, callback) {
       let postBody = requestBody;
+      // verify the required parameter 'state' is set
+      if (state === undefined || state === null) {
+        throw new Error("Missing the required parameter 'state' when calling unqueueExecutionsByIds");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling unqueueExecutionsByIds");
@@ -2663,6 +2843,7 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
+        'state': state
       };
       let headerParams = {
       };
@@ -2704,6 +2885,7 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
      * @param {String} [triggerExecutionId] The trigger execution id
      * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
+     * @param {module:model/StateType} [newState] The new state of the unqueued executions
      * @param {module:api/ExecutionsApi~unqueueExecutionsByQueryCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
@@ -2733,7 +2915,8 @@ export default class ExecutionsApi {
         'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
         'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
         'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
+        'childFilter': opts['childFilter'],
+        'newState': opts['newState']
       };
       let headerParams = {
       };

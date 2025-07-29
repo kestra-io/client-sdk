@@ -1,6 +1,6 @@
 /**
  * Kestra EE
- * All API operations allow an optional tenant identifier in the HTTP path, if you don't use multi-tenancy you must omit the tenant identifier.<br/> This means that, for example, when trying to access the Flows API, instead of using <code>/api/v1/{tenant}/flows</code> you must use <code>/api/v1/flows</code>.
+ * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.
  *
  * The version of the OpenAPI document: v1
  * 
@@ -15,13 +15,13 @@
 import ApiClient from "../ApiClient";
 import AuthControllerAuth from '../model/AuthControllerAuth';
 import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
-import MeControllerMe from '../model/MeControllerMe';
-import MeControllerUserDetailsRequest from '../model/MeControllerUserDetailsRequest';
+import MeControllerApiMe from '../model/MeControllerApiMe';
+import MeControllerApiUserDetailsRequest from '../model/MeControllerApiUserDetailsRequest';
 
 /**
 * Auths service.
 * @module api/AuthsApi
-* @version v1
+* @version v0.24.0
 */
 export default class AuthsApi {
 
@@ -46,7 +46,7 @@ export default class AuthsApi {
      */
 
     /**
-     * Create new API Token for authenticated user
+     * Create API token for the authenticated user
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
      * @param {module:api/AuthsApi~createApiTokenForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
@@ -79,53 +79,6 @@ export default class AuthsApi {
     }
 
     /**
-     * Callback function to receive the result of the createApiTokenForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~createApiTokenForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create new API Token for authenticated user
-     * @param {String} tenant 
-     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest 
-     * @param {module:api/AuthsApi~createApiTokenForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    createApiTokenForCurrentUserWithTenant(tenant, createApiTokenRequest, callback) {
-      let postBody = createApiTokenRequest;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createApiTokenForCurrentUserWithTenant");
-      }
-      // verify the required parameter 'createApiTokenRequest' is set
-      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
-        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokenForCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me/api-tokens', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the deleteApiTokenForCurrentUser operation.
      * @callback module:api/AuthsApi~deleteApiTokenForCurrentUserCallback
      * @param {String} error Error message, if any.
@@ -134,7 +87,7 @@ export default class AuthsApi {
      */
 
     /**
-     * Delete an API Token for authenticated user
+     * Delete API token for the authenticated user
      * @param {String} tokenId The token id
      * @param {module:api/AuthsApi~deleteApiTokenForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
@@ -168,65 +121,18 @@ export default class AuthsApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteApiTokenForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~deleteApiTokenForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an API Token for authenticated user
-     * @param {String} tokenId The token id
-     * @param {String} tenant 
-     * @param {module:api/AuthsApi~deleteApiTokenForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    deleteApiTokenForCurrentUserWithTenant(tokenId, tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'tokenId' is set
-      if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenForCurrentUserWithTenant");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteApiTokenForCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tokenId': tokenId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me/api-tokens/{tokenId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the getCurrentUser operation.
      * @callback module:api/AuthsApi~getCurrentUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/MeControllerMe} data The data returned by the service call.
+     * @param {module:model/MeControllerApiMe} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Get current user
+     * Get details about the authenticated user
+     * Requires the ME permission.
      * @param {module:api/AuthsApi~getCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MeControllerMe}
+     * data is of type: {@link module:model/MeControllerApiMe}
      */
     getCurrentUser(callback) {
       let postBody = null;
@@ -243,51 +149,9 @@ export default class AuthsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = MeControllerMe;
+      let returnType = MeControllerApiMe;
       return this.apiClient.callApi(
         '/api/v1/me', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the getCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~getCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/MeControllerMe} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Get current user
-     * @param {String} tenant 
-     * @param {module:api/AuthsApi~getCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/MeControllerMe}
-     */
-    getCurrentUserWithTenant(tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = MeControllerMe;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -302,7 +166,7 @@ export default class AuthsApi {
      */
 
     /**
-     * Get list of authentication methods
+     * Retrieve list of authentication methods
      * @param {module:api/AuthsApi~indexCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/AuthControllerAuth}
      */
@@ -338,7 +202,8 @@ export default class AuthsApi {
      */
 
     /**
-     * List all API Tokens for the authenticated user
+     * List API tokens for authenticated user
+     * Returns all API tokens belonging to the authenticated user.
      * @param {module:api/AuthsApi~listApiTokensForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
@@ -366,48 +231,6 @@ export default class AuthsApi {
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensForCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~listApiTokensForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List all API Tokens for the authenticated user
-     * @param {String} tenant 
-     * @param {module:api/AuthsApi~listApiTokensForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    listApiTokensForCurrentUserWithTenant(tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listApiTokensForCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me/api-tokens', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the patchCurrentUser operation.
      * @callback module:api/AuthsApi~patchCurrentUserCallback
      * @param {String} error Error message, if any.
@@ -416,16 +239,17 @@ export default class AuthsApi {
      */
 
     /**
-     * Updates details for the current user. Returns user's updated information upon success.
-     * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
+     * Update authenticated user details
+     * Updates the authenticated user's profile information and returns the updated user.
+     * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
      * @param {module:api/AuthsApi~patchCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
-    patchCurrentUser(meControllerUserDetailsRequest, callback) {
-      let postBody = meControllerUserDetailsRequest;
-      // verify the required parameter 'meControllerUserDetailsRequest' is set
-      if (meControllerUserDetailsRequest === undefined || meControllerUserDetailsRequest === null) {
-        throw new Error("Missing the required parameter 'meControllerUserDetailsRequest' when calling patchCurrentUser");
+    patchCurrentUser(meControllerApiUserDetailsRequest, callback) {
+      let postBody = meControllerApiUserDetailsRequest;
+      // verify the required parameter 'meControllerApiUserDetailsRequest' is set
+      if (meControllerApiUserDetailsRequest === undefined || meControllerApiUserDetailsRequest === null) {
+        throw new Error("Missing the required parameter 'meControllerApiUserDetailsRequest' when calling patchCurrentUser");
       }
 
       let pathParams = {
@@ -443,53 +267,6 @@ export default class AuthsApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/me', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the patchCurrentUserWithTenant operation.
-     * @callback module:api/AuthsApi~patchCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Updates details for the current user. Returns user's updated information upon success.
-     * @param {String} tenant 
-     * @param {module:model/MeControllerUserDetailsRequest} meControllerUserDetailsRequest The user details
-     * @param {module:api/AuthsApi~patchCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    patchCurrentUserWithTenant(tenant, meControllerUserDetailsRequest, callback) {
-      let postBody = meControllerUserDetailsRequest;
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling patchCurrentUserWithTenant");
-      }
-      // verify the required parameter 'meControllerUserDetailsRequest' is set
-      if (meControllerUserDetailsRequest === undefined || meControllerUserDetailsRequest === null) {
-        throw new Error("Missing the required parameter 'meControllerUserDetailsRequest' when calling patchCurrentUserWithTenant");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
