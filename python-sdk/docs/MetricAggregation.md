@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.metric_aggregation import MetricAggregation
+from kestrapy.models.metric_aggregation import MetricAggregation
 
 # TODO update the JSON string below
 json = "{}"

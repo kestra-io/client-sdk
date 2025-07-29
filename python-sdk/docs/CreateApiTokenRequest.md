@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**max_age** | **str** |  | 
+**max_age** | **str** |  | [optional] 
 **extended** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.create_api_token_request import CreateApiTokenRequest
+from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 
 # TODO update the JSON string below
 json = "{}"

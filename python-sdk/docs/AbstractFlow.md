@@ -13,12 +13,13 @@ Name | Type | Description | Notes
 **disabled** | **bool** |  | 
 **labels** | [**AbstractFlowLabels**](AbstractFlowLabels.md) |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 
 
 ## Example
 
 ```python
-from kestra_api_client.models.abstract_flow import AbstractFlow
+from kestrapy.models.abstract_flow import AbstractFlow
 
 # TODO update the JSON string below
 json = "{}"

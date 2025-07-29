@@ -1,4 +1,4 @@
-# kestra_api_client.ExecutionsApi
+# kestrapy.ExecutionsApi
 
 All URIs are relative to *http://localhost*
 
@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**delete_executions_by_query**](ExecutionsApi.md#delete_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**download_file_from_execution**](ExecutionsApi.md#download_file_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**eval_task_run_expression**](ExecutionsApi.md#eval_task_run_expression) | **POST** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
+[**follow_dependencies_executions**](ExecutionsApi.md#follow_dependencies_executions) | **GET** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 [**follow_execution**](ExecutionsApi.md#follow_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 [**force_run_by_ids**](ExecutionsApi.md#force_run_by_ids) | **POST** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 [**force_run_execution**](ExecutionsApi.md#force_run_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**get_file_metadatas_from_execution**](ExecutionsApi.md#get_file_metadatas_from_execution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**get_flow_from_execution**](ExecutionsApi.md#get_flow_from_execution) | **GET** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**get_flow_from_execution_by_id**](ExecutionsApi.md#get_flow_from_execution_by_id) | **GET** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
+[**get_latest_executions**](ExecutionsApi.md#get_latest_executions) | **POST** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**kill_execution**](ExecutionsApi.md#kill_execution) | **DELETE** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 [**kill_executions_by_ids**](ExecutionsApi.md#kill_executions_by_ids) | **DELETE** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 [**kill_executions_by_query**](ExecutionsApi.md#kill_executions_by_query) | **DELETE** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
@@ -35,6 +37,7 @@ Method | HTTP request | Description
 [**restart_executions_by_ids**](ExecutionsApi.md#restart_executions_by_ids) | **POST** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 [**restart_executions_by_query**](ExecutionsApi.md#restart_executions_by_query) | **POST** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 [**resume_execution**](ExecutionsApi.md#resume_execution) | **POST** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
+[**resume_execution_from_breakpoint**](ExecutionsApi.md#resume_execution_from_breakpoint) | **POST** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 [**resume_executions_by_ids**](ExecutionsApi.md#resume_executions_by_ids) | **POST** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 [**resume_executions_by_query**](ExecutionsApi.md#resume_executions_by_query) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 [**search_executions**](ExecutionsApi.md#search_executions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
@@ -59,7 +62,7 @@ Method | HTTP request | Description
 
 
 # **create_execution**
-> List[ExecutionControllerExecutionResponse] create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date)
+> List[ExecutionControllerExecutionResponse] create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoint=breakpoint, kind=kind)
 
 Create a new execution for a flow
 
@@ -69,14 +72,14 @@ Create a new execution for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -86,20 +89,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     wait = False # bool | If the server will wait the end of the execution (default to False)
@@ -107,10 +110,12 @@ with kestra_api_client.ApiClient(configuration) as api_client:
     labels = ['labels_example'] # List[str] | The labels as a list of 'key:value' (optional)
     revision = 56 # int | The flow revision or latest if null (optional)
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
+    breakpoint = 'breakpoint_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    kind = kestrapy.ExecutionKind() # ExecutionKind | Specific execution kind (optional)
 
     try:
         # Create a new execution for a flow
-        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date)
+        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoint=breakpoint, kind=kind)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -131,6 +136,8 @@ Name | Type | Description  | Notes
  **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | [optional] 
  **revision** | **int**| The flow revision or latest if null | [optional] 
  **schedule_date** | **datetime**| Schedule the flow on a specific date | [optional] 
+ **breakpoint** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
 
 ### Return type
 
@@ -165,13 +172,13 @@ Delete an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -181,20 +188,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
@@ -254,14 +261,14 @@ Delete a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -271,20 +278,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
@@ -348,16 +355,16 @@ Delete executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -367,36 +374,36 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
     include_non_terminated = False # bool | Whether to delete non-terminated executions (optional) (default to False)
 
     try:
@@ -465,13 +472,13 @@ Download file for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -481,20 +488,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
@@ -551,14 +558,14 @@ Evaluate a variable expression for this taskrun
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution_controller_eval_result import ExecutionControllerEvalResult
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -568,20 +575,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     task_run_id = 'task_run_id_example' # str | The taskrun id
     tenant = 'tenant_example' # str | 
@@ -629,6 +636,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **follow_dependencies_executions**
+> EventExecutionStatusEvent follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+
+Follow all execution dependencies executions
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.models.event_execution_status_event import EventExecutionStatusEvent
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    execution_id = 'execution_id_example' # str | The execution id
+    destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
+    expand_all = False # bool | If true, expand all dependencies recursively (default to False)
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Follow all execution dependencies executions
+        api_response = api_instance.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+        print("The response of ExecutionsApi->follow_dependencies_executions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->follow_dependencies_executions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **destination_only** | **bool**| If true, list only destination dependencies, otherwise list also source dependencies | [default to False]
+ **expand_all** | **bool**| If true, expand all dependencies recursively | [default to False]
+ **tenant** | **str**|  | 
+
+### Return type
+
+[**EventExecutionStatusEvent**](EventExecutionStatusEvent.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/event-stream
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | followDependenciesExecutions 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **follow_execution**
 > EventExecution follow_execution(execution_id, tenant)
 
@@ -640,14 +736,14 @@ Follow an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.event_execution import EventExecution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.event_execution import EventExecution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -657,20 +753,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
@@ -725,14 +821,14 @@ Force run a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -742,20 +838,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -811,14 +907,14 @@ Force run an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -828,20 +924,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
@@ -896,16 +992,16 @@ Force run executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -915,33 +1011,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Force run executions filter by query parameters
@@ -1005,14 +1101,14 @@ Get an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1022,20 +1118,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
@@ -1090,14 +1186,14 @@ Generate a graph for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_graph import FlowGraph
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_graph import FlowGraph
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1107,20 +1203,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     subflows = ['subflows_example'] # List[str] | The subflow tasks to display (optional)
@@ -1177,14 +1273,14 @@ Get file meta information for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.file_metas import FileMetas
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.file_metas import FileMetas
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1194,20 +1290,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
@@ -1264,14 +1360,14 @@ Get flow information's for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_for_execution import FlowForExecution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_for_execution import FlowForExecution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1281,20 +1377,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The namespace of the flow
     flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
@@ -1353,14 +1449,14 @@ Get flow information's for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_for_execution import FlowForExecution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_for_execution import FlowForExecution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1370,20 +1466,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution that you want flow information's
     tenant = 'tenant_example' # str | 
 
@@ -1427,6 +1523,92 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_latest_executions**
+> List[ExecutionControllerLastExecutionResponse] get_latest_executions(tenant, execution_repository_interface_flow_filter)
+
+Get the latest execution for given flows
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
+from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    tenant = 'tenant_example' # str | 
+    execution_repository_interface_flow_filter = [kestrapy.ExecutionRepositoryInterfaceFlowFilter()] # List[ExecutionRepositoryInterfaceFlowFilter] | 
+
+    try:
+        # Get the latest execution for given flows
+        api_response = api_instance.get_latest_executions(tenant, execution_repository_interface_flow_filter)
+        print("The response of ExecutionsApi->get_latest_executions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->get_latest_executions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **execution_repository_interface_flow_filter** | [**List[ExecutionRepositoryInterfaceFlowFilter]**](ExecutionRepositoryInterfaceFlowFilter.md)|  | 
+
+### Return type
+
+[**List[ExecutionControllerLastExecutionResponse]**](ExecutionControllerLastExecutionResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getLatestExecutions 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **kill_execution**
 > object kill_execution(execution_id, is_on_kill_cascade, tenant)
 
@@ -1438,13 +1620,13 @@ Kill an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1454,20 +1636,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     is_on_kill_cascade = True # bool | Specifies whether killing the execution also kill all subflow executions. (default to True)
     tenant = 'tenant_example' # str | 
@@ -1527,14 +1709,14 @@ Kill a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1544,20 +1726,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -1613,16 +1795,16 @@ Kill executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1632,33 +1814,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Kill executions filter by query parameters
@@ -1722,13 +1904,13 @@ Get all namespaces that have executable flows
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1738,20 +1920,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
@@ -1804,14 +1986,14 @@ Get all flow ids for a namespace. Data returned are FlowForExecution containing 
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_for_execution import FlowForExecution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_for_execution import FlowForExecution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1821,20 +2003,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The namespace
     tenant = 'tenant_example' # str | 
 
@@ -1889,13 +2071,13 @@ Pause a running execution.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1905,20 +2087,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
@@ -1973,14 +2155,14 @@ Pause a list of running executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -1990,20 +2172,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -2059,16 +2241,16 @@ Pause executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2078,33 +2260,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Pause executions filter by query parameters
@@ -2168,13 +2350,13 @@ Get file preview for an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2184,20 +2366,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     max_rows = 56 # int | The max row returns
@@ -2248,7 +2430,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution**
-> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision)
+> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoint=breakpoint)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2258,14 +2440,14 @@ Create a new execution from an old one and start it from a specified task run id
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2275,28 +2457,29 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | the original execution id to clone
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
     revision = 56 # int | The flow revision to use for new execution (optional)
+    breakpoint = 'breakpoint_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = api_instance.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision)
+        api_response = api_instance.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoint=breakpoint)
         print("The response of ExecutionsApi->replay_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -2314,6 +2497,7 @@ Name | Type | Description  | Notes
  **tenant** | **str**|  | 
  **task_run_id** | **str**| The taskrun id | [optional] 
  **revision** | **int**| The flow revision to use for new execution | [optional] 
+ **breakpoint** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type
 
@@ -2347,14 +2531,14 @@ Create new executions from old ones. Keep the flow revision
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2364,20 +2548,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
     latest_revision = False # bool | If latest revision should be used (optional) (default to False)
@@ -2435,16 +2619,16 @@ Create new executions from old ones filter by query parameters. Keep the flow re
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2454,33 +2638,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
     latest_revision = False # bool | If latest revision should be used (optional) (default to False)
 
     try:
@@ -2546,14 +2730,14 @@ Restart a new execution from an old one
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2563,20 +2747,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     revision = 56 # int | The flow revision to use for new execution (optional)
@@ -2633,14 +2817,14 @@ Restart a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2650,20 +2834,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -2719,16 +2903,16 @@ Restart executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2738,33 +2922,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Restart executions filter by query parameters
@@ -2828,13 +3012,13 @@ Resume a paused execution.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2844,20 +3028,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
@@ -2903,6 +3087,92 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **resume_execution_from_breakpoint**
+> resume_execution_from_breakpoint(execution_id, tenant, breakpoint=breakpoint)
+
+Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    execution_id = 'execution_id_example' # str | The execution id
+    tenant = 'tenant_example' # str | 
+    breakpoint = 'breakpoint_example' # str | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+
+    try:
+        # Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+        api_instance.resume_execution_from_breakpoint(execution_id, tenant, breakpoint=breakpoint)
+    except Exception as e:
+        print("Exception when calling ExecutionsApi->resume_execution_from_breakpoint: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **execution_id** | **str**| The execution id | 
+ **tenant** | **str**|  | 
+ **breakpoint** | **str**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | On success |  -  |
+**409** | If the executions is not in the &#39;BREAKPOINT&#39; state or has no breakpoint |  -  |
+**200** | resumeExecutionFromBreakpoint 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **resume_executions_by_ids**
 > BulkResponse resume_executions_by_ids(tenant, request_body)
 
@@ -2914,14 +3184,14 @@ Resume a list of paused executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -2931,20 +3201,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -3000,16 +3270,16 @@ Resume executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3019,33 +3289,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Resume executions filter by query parameters
@@ -3109,17 +3379,17 @@ Search for executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.paged_results_execution import PagedResultsExecution
-from kestra_api_client.models.query_filter import QueryFilter
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.paged_results_execution import PagedResultsExecution
+from kestrapy.models.query_filter import QueryFilter
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3129,36 +3399,36 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    filters = [kestra_api_client.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Search for executions
@@ -3225,14 +3495,14 @@ Search for executions for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_execution import PagedResultsExecution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_execution import PagedResultsExecution
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3242,20 +3512,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     flow_id = 'flow_id_example' # str | The flow id
     page = 1 # int | The current page (default to 1)
@@ -3316,16 +3586,16 @@ Search for taskruns, only available with the Elasticsearch repository
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_task_run import PagedResultsTaskRun
-from kestra_api_client.models.query_filter import QueryFilter
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_task_run import PagedResultsTaskRun
+from kestrapy.models.query_filter import QueryFilter
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3335,35 +3605,35 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    filters = [kestra_api_client.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
     q = 'q_example' # str | A string filter (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Search for taskruns, only available with the Elasticsearch repository
@@ -3429,14 +3699,14 @@ Add or update labels of a terminated execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.label import Label
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.label import Label
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3446,23 +3716,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    label = [kestra_api_client.Label()] # List[Label] | The labels to add to the execution
+    label = [kestrapy.Label()] # List[Label] | The labels to add to the execution
 
     try:
         # Add or update labels of a terminated execution
@@ -3518,15 +3788,15 @@ Set labels on a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3536,22 +3806,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    execution_controller_set_labels_by_ids_request = kestra_api_client.ExecutionControllerSetLabelsByIdsRequest() # ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
+    execution_controller_set_labels_by_ids_request = kestrapy.ExecutionControllerSetLabelsByIdsRequest() # ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 
     try:
         # Set labels on a list of executions
@@ -3605,16 +3875,16 @@ Set label on executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.list[label] import List[Label]
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.list[label] import List[Label]
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3624,33 +3894,33 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    label = kestra_api_client.Label() # List[Label] | The labels to add to the execution
+    label = kestrapy.Label() # List[Label] | The labels to add to the execution
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Set label on executions filter by query parameters
@@ -3714,14 +3984,14 @@ Trigger a new execution for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_execution_response import ExecutionControllerExecutionResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3731,20 +4001,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     wait = False # bool | If the server will wait the end of the execution (default to False)
@@ -3798,7 +4068,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_get_webhook**
-> Execution trigger_execution_by_get_webhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse trigger_execution_by_get_webhook(namespace, id, key, tenant)
 
 Trigger a new execution by GET webhook trigger
 
@@ -3808,14 +4078,14 @@ Trigger a new execution by GET webhook trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3825,20 +4095,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -3867,7 +4137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -3887,7 +4157,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_post_webhook**
-> Execution trigger_execution_by_post_webhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse trigger_execution_by_post_webhook(namespace, id, key, tenant)
 
 Trigger a new execution by POST webhook trigger
 
@@ -3897,14 +4167,14 @@ Trigger a new execution by POST webhook trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -3914,20 +4184,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -3956,7 +4226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -3976,7 +4246,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_execution_by_put_webhook**
-> Execution trigger_execution_by_put_webhook(namespace, id, key, tenant)
+> ExecutionControllerWebhookResponse trigger_execution_by_put_webhook(namespace, id, key, tenant)
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3986,14 +4256,14 @@ Trigger a new execution by PUT webhook trigger
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4003,20 +4273,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -4045,7 +4315,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -4065,7 +4335,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_execution**
-> Execution unqueue_execution(execution_id, tenant)
+> Execution unqueue_execution(execution_id, state, tenant)
 
 Unqueue an execution
 
@@ -4075,14 +4345,15 @@ Unqueue an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4092,26 +4363,27 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
+    state = kestrapy.StateType() # StateType | The new state of the execution
     tenant = 'tenant_example' # str | 
 
     try:
         # Unqueue an execution
-        api_response = api_instance.unqueue_execution(execution_id, tenant)
+        api_response = api_instance.unqueue_execution(execution_id, state, tenant)
         print("The response of ExecutionsApi->unqueue_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -4126,6 +4398,7 @@ with kestra_api_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
+ **state** | [**StateType**](.md)| The new state of the execution | 
  **tenant** | **str**|  | 
 
 ### Return type
@@ -4150,7 +4423,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_executions_by_ids**
-> BulkResponse unqueue_executions_by_ids(tenant, request_body)
+> BulkResponse unqueue_executions_by_ids(state, tenant, request_body)
 
 Unqueue a list of executions
 
@@ -4160,14 +4433,15 @@ Unqueue a list of executions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4177,26 +4451,27 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    state = kestrapy.StateType() # StateType | The new state of the unqueued executions
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Unqueue a list of executions
-        api_response = api_instance.unqueue_executions_by_ids(tenant, request_body)
+        api_response = api_instance.unqueue_executions_by_ids(state, tenant, request_body)
         print("The response of ExecutionsApi->unqueue_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -4210,6 +4485,7 @@ with kestra_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **state** | [**StateType**](.md)| The new state of the unqueued executions | 
  **tenant** | **str**|  | 
  **request_body** | [**List[str]**](str.md)| The list of executions id | 
 
@@ -4236,7 +4512,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unqueue_executions_by_query**
-> object unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+> object unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, new_state=new_state)
 
 Unqueue executions filter by query parameters
 
@@ -4246,16 +4522,16 @@ Unqueue executions filter by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4265,37 +4541,38 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    new_state = kestrapy.StateType() # StateType | The new state of the unqueued executions (optional)
 
     try:
         # Unqueue executions filter by query parameters
-        api_response = api_instance.unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_instance.unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, new_state=new_state)
         print("The response of ExecutionsApi->unqueue_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -4322,6 +4599,7 @@ Name | Type | Description  | Notes
  **labels** | [**List[str]**](str.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
  **trigger_execution_id** | **str**| The trigger execution id | [optional] 
  **child_filter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
+ **new_state** | [**StateType**](.md)| The new state of the unqueued executions | [optional] 
 
 ### Return type
 
@@ -4355,15 +4633,15 @@ Change the state of an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4373,22 +4651,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
-    status = kestra_api_client.StateType() # StateType | The new state of the execution
+    status = kestrapy.StateType() # StateType | The new state of the execution
     tenant = 'tenant_example' # str | 
 
     try:
@@ -4443,15 +4721,15 @@ Change executions state by id
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4461,21 +4739,21 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
-    new_status = kestra_api_client.StateType() # StateType | The new state of the executions
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    new_status = kestrapy.StateType() # StateType | The new state of the executions
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
@@ -4532,17 +4810,17 @@ Change executions state by query parameters
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
-from kestra_api_client.models.flow_scope import FlowScope
-from kestra_api_client.models.state_type import StateType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.flow_scope import FlowScope
+from kestrapy.models.state_type import StateType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4552,34 +4830,34 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
-    new_status = kestra_api_client.StateType() # StateType | The new state of the executions
+    api_instance = kestrapy.ExecutionsApi(api_client)
+    new_status = kestrapy.StateType() # StateType | The new state of the executions
     tenant = 'tenant_example' # str | 
-    delete_executions_by_query_request = kestra_api_client.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
+    delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
-    scope = [kestra_api_client.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
+    scope = [kestrapy.FlowScope()] # List[FlowScope] | The scope of the executions to include (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     time_range = 'PT5M' # str | A time range filter relative to the current time (optional)
-    state = [kestra_api_client.StateType()] # List[StateType] | A state filter (optional)
+    state = [kestrapy.StateType()] # List[StateType] | A state filter (optional)
     labels = ['labels_example'] # List[str] | A labels filter as a list of 'key:value' (optional)
     trigger_execution_id = 'trigger_execution_id_example' # str | The trigger execution id (optional)
-    child_filter = kestra_api_client.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+    child_filter = kestrapy.ExecutionRepositoryInterfaceChildFilter() # ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
 
     try:
         # Change executions state by query parameters
@@ -4645,15 +4923,15 @@ Change state for a taskrun in an execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution import Execution
-from kestra_api_client.models.execution_controller_state_request import ExecutionControllerStateRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution import Execution
+from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4663,23 +4941,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    execution_controller_state_request = kestra_api_client.ExecutionControllerStateRequest() # ExecutionControllerStateRequest | the taskRun id and state to apply
+    execution_controller_state_request = kestrapy.ExecutionControllerStateRequest() # ExecutionControllerStateRequest | the taskRun id and state to apply
 
     try:
         # Change state for a taskrun in an execution
@@ -4733,14 +5011,14 @@ Validate the creation of a new execution for a flow
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution_controller_api_validate_execution_inputs_response import ExecutionControllerApiValidateExecutionInputsResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_api_validate_execution_inputs_response import ExecutionControllerApiValidateExecutionInputsResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4750,20 +5028,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     labels = ['labels_example'] # List[str] | The labels as a list of 'key:value'
@@ -4825,14 +5103,14 @@ Validate inputs to resume a paused execution.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.execution_controller_api_validate_execution_inputs_response import ExecutionControllerApiValidateExecutionInputsResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.execution_controller_api_validate_execution_inputs_response import ExecutionControllerApiValidateExecutionInputsResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -4842,20 +5120,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ExecutionsApi(api_client)
+    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 

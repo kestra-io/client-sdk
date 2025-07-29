@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.convertible_values_list_string import ConvertibleValuesListString
+from kestrapy.models.convertible_values_list_string import ConvertibleValuesListString
 
 # TODO update the JSON string below
 json = "{}"

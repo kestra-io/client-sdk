@@ -18,11 +18,12 @@ Name | Type | Description | Notes
 **state** | [**State**](State.md) |  | 
 **iteration** | **int** |  | [optional] 
 **dynamic** | **bool** |  | [optional] 
+**force_execution** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.task_run import TaskRun
+from kestrapy.models.task_run import TaskRun
 
 # TODO update the JSON string below
 json = "{}"

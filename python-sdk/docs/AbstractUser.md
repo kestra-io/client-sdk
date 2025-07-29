@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**UserType**](UserType.md) |  | 
-**group_list** | [**List[AbstractUserGroupIdentifier]**](AbstractUserGroupIdentifier.md) |  | [optional] 
+**group_list** | [**List[GroupIdentifier]**](GroupIdentifier.md) |  | [optional] 
 **groups** | **List[object]** |  | [optional] 
 **username** | **str** |  | 
 **email** | **str** |  | 
@@ -17,12 +17,11 @@ Name | Type | Description | Notes
 **first_name** | **str** |  | [optional] 
 **last_name** | **str** |  | [optional] 
 **providers** | [**List[AbstractUserTenantIdentityProvider]**](AbstractUserTenantIdentityProvider.md) |  | [optional] 
-**is_super_admin** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.abstract_user import AbstractUser
+from kestrapy.models.abstract_user import AbstractUser
 
 # TODO update the JSON string below
 json = "{}"

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.depends_on import DependsOn
+from kestrapy.models.depends_on import DependsOn
 
 # TODO update the JSON string below
 json = "{}"

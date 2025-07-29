@@ -1,19 +1,21 @@
-# kestra_api_client.BannersApi
+# kestrapy.BannersApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_banner**](BannersApi.md#create_banner) | **POST** /api/v1/banners | Create a new banner
-[**delete_banner**](BannersApi.md#delete_banner) | **DELETE** /api/v1/banners/{id} | Delete a banner
-[**search_banners**](BannersApi.md#search_banners) | **GET** /api/v1/banners/search | Get banners
-[**update_banner**](BannersApi.md#update_banner) | **PUT** /api/v1/banners/{id} | Update a banner
+[**create_banner**](BannersApi.md#create_banner) | **POST** /api/v1/banners | Create an announcement banner
+[**delete_banner**](BannersApi.md#delete_banner) | **DELETE** /api/v1/banners/{id} | Delete an announcement banner
+[**search_banners**](BannersApi.md#search_banners) | **GET** /api/v1/banners/search | Retrieve all announcement banners
+[**update_banner**](BannersApi.md#update_banner) | **PUT** /api/v1/banners/{id} | Update an announcement banner
 
 
 # **create_banner**
 > Banner create_banner(banner)
 
-Create a new banner
+Create an announcement banner
+
+Superadmin-only. Creates a global announcement banner visible to all tenants.
 
 ### Example
 
@@ -21,14 +23,14 @@ Create a new banner
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.banner import Banner
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.banner import Banner
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -38,24 +40,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BannersApi(api_client)
-    banner = kestra_api_client.Banner() # Banner | The banner to create
+    api_instance = kestrapy.BannersApi(api_client)
+    banner = kestrapy.Banner() # Banner | The announcement banner to create
 
     try:
-        # Create a new banner
+        # Create an announcement banner
         api_response = api_instance.create_banner(banner)
         print("The response of BannersApi->create_banner:\n")
         pprint(api_response)
@@ -70,7 +72,7 @@ with kestra_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **banner** | [**Banner**](Banner.md)| The banner to create | 
+ **banner** | [**Banner**](Banner.md)| The announcement banner to create | 
 
 ### Return type
 
@@ -96,7 +98,9 @@ Name | Type | Description  | Notes
 # **delete_banner**
 > delete_banner(id)
 
-Delete a banner
+Delete an announcement banner
+
+Superadmin-only. Deletes a global announcement banner by its ID.
 
 ### Example
 
@@ -104,13 +108,13 @@ Delete a banner
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -120,24 +124,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BannersApi(api_client)
+    api_instance = kestrapy.BannersApi(api_client)
     id = 'id_example' # str | The banner id
 
     try:
-        # Delete a banner
+        # Delete an announcement banner
         api_instance.delete_banner(id)
     except Exception as e:
         print("Exception when calling BannersApi->delete_banner: %s\n" % e)
@@ -176,7 +180,9 @@ void (empty response body)
 # **search_banners**
 > List[Banner] search_banners()
 
-Get banners
+Retrieve all announcement banners
+
+Superadmin-only. Returns all global announcement banners.
 
 ### Example
 
@@ -184,14 +190,14 @@ Get banners
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.banner import Banner
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.banner import Banner
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -201,23 +207,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BannersApi(api_client)
+    api_instance = kestrapy.BannersApi(api_client)
 
     try:
-        # Get banners
+        # Retrieve all announcement banners
         api_response = api_instance.search_banners()
         print("The response of BannersApi->search_banners:\n")
         pprint(api_response)
@@ -255,7 +261,9 @@ This endpoint does not need any parameter.
 # **update_banner**
 > Banner update_banner(id, banner)
 
-Update a banner
+Update an announcement banner
+
+Superadmin-only. Updates a global announcement banner by its ID.
 
 ### Example
 
@@ -263,14 +271,14 @@ Update a banner
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.banner import Banner
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.banner import Banner
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -280,25 +288,25 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BannersApi(api_client)
+    api_instance = kestrapy.BannersApi(api_client)
     id = 'id_example' # str | The banner id
-    banner = kestra_api_client.Banner() # Banner | The banner to update
+    banner = kestrapy.Banner() # Banner | The banner to update
 
     try:
-        # Update a banner
+        # Update an announcement banner
         api_response = api_instance.update_banner(id, banner)
         print("The response of BannersApi->update_banner:\n")
         pprint(api_response)

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
+from kestrapy.models.delete_executions_by_query_request import DeleteExecutionsByQueryRequest
 
 # TODO update the JSON string below
 json = "{}"

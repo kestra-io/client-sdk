@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.execution_metadata import ExecutionMetadata
+from kestrapy.models.execution_metadata import ExecutionMetadata
 
 # TODO update the JSON string below
 json = "{}"

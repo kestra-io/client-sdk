@@ -24,6 +24,11 @@ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
     -c /local/configurations/python-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION
+sed -i 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
+sed -i 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
+sed -i '/from kestra_api_client\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestra_api_client/api/executions_api.py
+grep -vF '{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}' python-sdk/kestra_api_client/models/task.py > temp_file && mv temp_file python-sdk/kestra_api_client/models/task.py
+echo "from kestra_api_client.kestra_client import KestraClient as KestraClient" >> python-sdk/kestra_api_client/__init__.py
 fi
 
 # Generate Javascript SDK

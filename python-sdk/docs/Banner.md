@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
-**message** | **str** |  | [optional] 
+**message** | **str** |  | 
 **type** | [**BannerType**](BannerType.md) |  | [optional] 
 **start_date** | **datetime** |  | [optional] 
 **end_date** | **datetime** |  | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.banner import Banner
+from kestrapy.models.banner import Banner
 
 # TODO update the JSON string below
 json = "{}"

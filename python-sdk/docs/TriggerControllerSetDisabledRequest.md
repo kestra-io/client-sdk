@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**triggers** | [**List[Trigger]**](Trigger.md) |  | [optional] 
-**disabled** | **bool** |  | [optional] 
+**triggers** | [**List[Trigger]**](Trigger.md) |  | 
+**disabled** | **bool** |  | 
 
 ## Example
 
 ```python
-from kestra_api_client.models.trigger_controller_set_disabled_request import TriggerControllerSetDisabledRequest
+from kestrapy.models.trigger_controller_set_disabled_request import TriggerControllerSetDisabledRequest
 
 # TODO update the JSON string below
 json = "{}"

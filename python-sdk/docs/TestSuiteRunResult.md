@@ -5,17 +5,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**test_suite_id** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
-**flow_id** | **str** |  | [optional] 
-**state** | [**TestState**](TestState.md) |  | [optional] 
+**id** | **str** |  | 
+**test_suite_id** | **str** |  | 
+**namespace** | **str** |  | 
+**flow_id** | **str** |  | 
+**state** | [**TestState**](TestState.md) |  | 
+**start_date** | **datetime** |  | 
+**end_date** | **datetime** |  | 
 **results** | [**List[UnitTestResult]**](UnitTestResult.md) |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.test_suite_run_result import TestSuiteRunResult
+from kestrapy.models.test_suite_run_result import TestSuiteRunResult
 
 # TODO update the JSON string below
 json = "{}"

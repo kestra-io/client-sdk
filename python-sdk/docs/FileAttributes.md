@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.file_attributes import FileAttributes
+from kestrapy.models.file_attributes import FileAttributes
 
 # TODO update the JSON string below
 json = "{}"

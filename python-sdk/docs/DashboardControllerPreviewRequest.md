@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chart** | **str** |  | [optional] 
-**global_filter** | [**GlobalFilter**](GlobalFilter.md) |  | [optional] 
+**chart** | **str** |  | 
+**global_filter** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md) |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
+from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
 
 # TODO update the JSON string below
 json = "{}"

@@ -1,24 +1,27 @@
-# kestra_api_client.MiscApi
+# kestrapy.MiscApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_basic_auth**](MiscApi.md#create_basic_auth) | **POST** /api/v1/main/basicAuth | Create basic auth for the current instance
-[**get_configuration**](MiscApi.md#get_configuration) | **GET** /api/v1/configs | Get current configurations
-[**get_usages**](MiscApi.md#get_usages) | **GET** /api/v1/{tenant}/usages/all | Get instance usage information
-[**license_info**](MiscApi.md#license_info) | **GET** /api/v1/license-info | Get current license information
-[**list_actions**](MiscApi.md#list_actions) | **GET** /api/v1/{tenant}/acls/actions | Get list of actions
-[**list_permissions**](MiscApi.md#list_permissions) | **GET** /api/v1/{tenant}/acls/permissions | Get list of permissions
-[**setup_configuration**](MiscApi.md#setup_configuration) | **GET** /api/v1/setup | Currently running configuration
-[**setup_kestra**](MiscApi.md#setup_kestra) | **POST** /api/v1/setup | Create the first user
-[**tenant_usage**](MiscApi.md#tenant_usage) | **GET** /api/v1/{tenant}/usages | Get instance usage information for the current tenant
+[**create_basic_auth**](MiscApi.md#create_basic_auth) | **POST** /api/v1/{tenant}/basicAuth | Configure basic authentication for the instance.
+[**get_basic_auth_config_errors**](MiscApi.md#get_basic_auth_config_errors) | **GET** /api/v1/basicAuthValidationErrors | Retrieve the instance configuration.
+[**get_configuration**](MiscApi.md#get_configuration) | **GET** /api/v1/configs | Retrieve the instance configuration.
+[**get_usages**](MiscApi.md#get_usages) | **GET** /api/v1/{tenant}/usages/all | Retrieve instance usage information
+[**license_info**](MiscApi.md#license_info) | **GET** /api/v1/license-info | Retrieve license information
+[**list_actions**](MiscApi.md#list_actions) | **GET** /api/v1/{tenant}/acls/actions | Retrieve list of actions
+[**list_permissions**](MiscApi.md#list_permissions) | **GET** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
+[**setup_configuration**](MiscApi.md#setup_configuration) | **GET** /api/v1/setup | Retrieve current setup configuration
+[**setup_kestra**](MiscApi.md#setup_kestra) | **POST** /api/v1/setup | Create the first Superadmin user
+[**tenant_usage**](MiscApi.md#tenant_usage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 
 
 # **create_basic_auth**
-> create_basic_auth(misc_controller_basic_auth_credentials)
+> create_basic_auth(tenant, misc_controller_basic_auth_credentials)
 
-Create basic auth for the current instance
+Configure basic authentication for the instance.
+
+Sets up basic authentication credentials.
 
 ### Example
 
@@ -26,14 +29,14 @@ Create basic auth for the current instance
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -43,25 +46,26 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
-    misc_controller_basic_auth_credentials = kestra_api_client.MiscControllerBasicAuthCredentials() # MiscControllerBasicAuthCredentials | 
+    api_instance = kestrapy.MiscApi(api_client)
+    tenant = 'tenant_example' # str | 
+    misc_controller_basic_auth_credentials = kestrapy.MiscControllerBasicAuthCredentials() # MiscControllerBasicAuthCredentials | 
 
     try:
-        # Create basic auth for the current instance
-        api_instance.create_basic_auth(misc_controller_basic_auth_credentials)
+        # Configure basic authentication for the instance.
+        api_instance.create_basic_auth(tenant, misc_controller_basic_auth_credentials)
     except Exception as e:
         print("Exception when calling MiscApi->create_basic_auth: %s\n" % e)
 ```
@@ -73,6 +77,7 @@ with kestra_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
  **misc_controller_basic_auth_credentials** | [**MiscControllerBasicAuthCredentials**](MiscControllerBasicAuthCredentials.md)|  | 
 
 ### Return type
@@ -96,10 +101,12 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_configuration**
-> MiscControllerEEConfiguration get_configuration()
+# **get_basic_auth_config_errors**
+> List[str] get_basic_auth_config_errors()
 
-Get current configurations
+Retrieve the instance configuration.
+
+Global endpoint available to all users.
 
 ### Example
 
@@ -107,14 +114,13 @@ Get current configurations
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -124,23 +130,104 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
 
     try:
-        # Get current configurations
+        # Retrieve the instance configuration.
+        api_response = api_instance.get_basic_auth_config_errors()
+        print("The response of MiscApi->get_basic_auth_config_errors:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling MiscApi->get_basic_auth_config_errors: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**List[str]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | getBasicAuthConfigErrors 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_configuration**
+> MiscControllerEEConfiguration get_configuration()
+
+Retrieve the instance configuration.
+
+Global endpoint available to all users.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.MiscApi(api_client)
+
+    try:
+        # Retrieve the instance configuration.
         api_response = api_instance.get_configuration()
         print("The response of MiscApi->get_configuration:\n")
         pprint(api_response)
@@ -178,7 +265,7 @@ This endpoint does not need any parameter.
 # **get_usages**
 > Usage get_usages(tenant)
 
-Get instance usage information
+Retrieve instance usage information
 
 ### Example
 
@@ -186,14 +273,14 @@ Get instance usage information
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.usage import Usage
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.usage import Usage
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -203,24 +290,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
-        # Get instance usage information
+        # Retrieve instance usage information
         api_response = api_instance.get_usages(tenant)
         print("The response of MiscApi->get_usages:\n")
         pprint(api_response)
@@ -261,7 +348,9 @@ Name | Type | Description  | Notes
 # **license_info**
 > MiscControllerLicenseInfo license_info()
 
-Get current license information
+Retrieve license information
+
+Global endpoint, available to any authenticated user.
 
 ### Example
 
@@ -269,14 +358,14 @@ Get current license information
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.misc_controller_license_info import MiscControllerLicenseInfo
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.misc_controller_license_info import MiscControllerLicenseInfo
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -286,23 +375,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
 
     try:
-        # Get current license information
+        # Retrieve license information
         api_response = api_instance.license_info()
         print("The response of MiscApi->license_info:\n")
         pprint(api_response)
@@ -340,7 +429,9 @@ This endpoint does not need any parameter.
 # **list_actions**
 > List[Action] list_actions(tenant)
 
-Get list of actions
+Retrieve list of actions
+
+Actions are used to restrict possible operations for each permission. Each action must be one of the following: CREATE, READ, UPDATE, DELETE. Using permissions and actions together, you can control access to resources e.g. only allow a user to read a flow, but not update or delete it.
 
 ### Example
 
@@ -348,14 +439,14 @@ Get list of actions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.action import Action
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.action import Action
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -365,24 +456,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
-        # Get list of actions
+        # Retrieve list of actions
         api_response = api_instance.list_actions(tenant)
         print("The response of MiscApi->list_actions:\n")
         pprint(api_response)
@@ -423,7 +514,9 @@ Name | Type | Description  | Notes
 # **list_permissions**
 > List[Permission] list_permissions(tenant)
 
-Get list of permissions
+Retrieve list of permissions
+
+Permissions are used to control access to resources within the Kestra platform. Example of permissions are: FLOW, EXECUTION, NAMESPACE, APP, TEST, etc.
 
 ### Example
 
@@ -431,14 +524,14 @@ Get list of permissions
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.permission import Permission
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.permission import Permission
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -448,24 +541,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
-        # Get list of permissions
+        # Retrieve list of permissions
         api_response = api_instance.list_permissions(tenant)
         print("The response of MiscApi->list_permissions:\n")
         pprint(api_response)
@@ -506,7 +599,7 @@ Name | Type | Description  | Notes
 # **setup_configuration**
 > SetupConfiguration setup_configuration()
 
-Currently running configuration
+Retrieve current setup configuration
 
 ### Example
 
@@ -514,14 +607,14 @@ Currently running configuration
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.setup_configuration import SetupConfiguration
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.setup_configuration import SetupConfiguration
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -531,23 +624,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
 
     try:
-        # Currently running configuration
+        # Retrieve current setup configuration
         api_response = api_instance.setup_configuration()
         print("The response of MiscApi->setup_configuration:\n")
         pprint(api_response)
@@ -585,7 +678,9 @@ This endpoint does not need any parameter.
 # **setup_kestra**
 > ApiUser setup_kestra(setup_configuration_setup_data)
 
-Create the first user
+Create the first Superadmin user
+
+Only used during initial instance setup.
 
 ### Example
 
@@ -593,15 +688,15 @@ Create the first user
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.api_user import ApiUser
-from kestra_api_client.models.setup_configuration_setup_data import SetupConfigurationSetupData
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.api_user import ApiUser
+from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -611,24 +706,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
-    setup_configuration_setup_data = kestra_api_client.SetupConfigurationSetupData() # SetupConfigurationSetupData | 
+    api_instance = kestrapy.MiscApi(api_client)
+    setup_configuration_setup_data = kestrapy.SetupConfigurationSetupData() # SetupConfigurationSetupData | 
 
     try:
-        # Create the first user
+        # Create the first Superadmin user
         api_response = api_instance.setup_kestra(setup_configuration_setup_data)
         print("The response of MiscApi->setup_kestra:\n")
         pprint(api_response)
@@ -669,7 +764,7 @@ Name | Type | Description  | Notes
 # **tenant_usage**
 > UsageEE tenant_usage(tenant)
 
-Get instance usage information for the current tenant
+Retrieve usage information for the current tenant
 
 ### Example
 
@@ -677,14 +772,14 @@ Get instance usage information for the current tenant
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.usage_ee import UsageEE
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.usage_ee import UsageEE
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -694,24 +789,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MiscApi(api_client)
+    api_instance = kestrapy.MiscApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
-        # Get instance usage information for the current tenant
+        # Retrieve usage information for the current tenant
         api_response = api_instance.tenant_usage(tenant)
         print("The response of MiscApi->tenant_usage:\n")
         pprint(api_response)

@@ -16,15 +16,16 @@ Name | Type | Description | Notes
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **str** |  | [optional] 
 **preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
-**is_basic_auth_enabled** | **bool** |  | [optional] 
 **system_namespace** | **str** |  | [optional] 
 **hidden_labels_prefixes** | **List[str]** |  | [optional] 
 **resource_to_filters** | [**List[QueryFilterResourceField]**](QueryFilterResourceField.md) |  | [optional] 
+**is_ai_enabled** | **bool** |  | [optional] 
+**is_basic_auth_initialized** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.misc_controller_configuration import MiscControllerConfiguration
+from kestrapy.models.misc_controller_configuration import MiscControllerConfiguration
 
 # TODO update the JSON string below
 json = "{}"

@@ -45,7 +45,15 @@
 
 * `DASHBOARD` (value: `'DASHBOARD'`)
 
+* `TENANT_ACCESS` (value: `'TENANT_ACCESS'`)
+
 * `TENANT` (value: `'TENANT'`)
+
+* `SERVICE_ACCOUNT` (value: `'SERVICE_ACCOUNT'`)
+
+* `INVITATION` (value: `'INVITATION'`)
+
+* `GROUP_MEMBERSHIP` (value: `'GROUP_MEMBERSHIP'`)
 
 * `UNKNOWN` (value: `'UNKNOWN'`)
 

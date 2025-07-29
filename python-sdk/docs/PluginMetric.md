@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.plugin_metric import PluginMetric
+from kestrapy.models.plugin_metric import PluginMetric
 
 # TODO update the JSON string below
 json = "{}"

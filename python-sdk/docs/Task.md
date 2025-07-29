@@ -18,11 +18,12 @@ Name | Type | Description | Notes
 **log_to_file** | **bool** |  | [optional] 
 **run_if** | **str** |  | [optional] 
 **allow_warning** | **bool** |  | [optional] 
+**task_cache** | [**Cache**](Cache.md) |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.task import Task
+from kestrapy.models.task import Task
 
 # TODO update the JSON string below
 json = "{}"

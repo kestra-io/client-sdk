@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
 **creation_date** | **datetime** |  | [optional] 
 **update_date** | **datetime** |  | [optional] 
 **expiration_date** | **datetime** |  | [optional] 
@@ -13,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.kv_entry import KVEntry
+from kestrapy.models.kv_entry import KVEntry
 
 # TODO update the JSON string below
 json = "{}"

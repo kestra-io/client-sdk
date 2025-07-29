@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **test_id** | **str** |  | 
 **test_type** | **str** |  | 
-**execution_id** | **str** |  | 
-**url** | **str** |  | 
+**execution_id** | **str** |  | [optional] 
+**url** | **str** |  | [optional] 
 **state** | [**TestState**](TestState.md) |  | 
 **assertion_results** | [**List[AssertionResult]**](AssertionResult.md) |  | 
 **errors** | [**List[AssertionRunError]**](AssertionRunError.md) |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.unit_test_result import UnitTestResult
+from kestrapy.models.unit_test_result import UnitTestResult
 
 # TODO update the JSON string below
 json = "{}"

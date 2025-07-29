@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.create_security_integration_request import CreateSecurityIntegrationRequest
+from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 
 # TODO update the JSON string below
 json = "{}"

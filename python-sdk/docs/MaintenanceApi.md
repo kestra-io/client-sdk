@@ -1,17 +1,19 @@
-# kestra_api_client.MaintenanceApi
+# kestrapy.MaintenanceApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**enter_maintenance**](MaintenanceApi.md#enter_maintenance) | **POST** /api/v1/cluster/maintenance/enter | Enter cluster maintenance mode.
-[**exit_maintenance**](MaintenanceApi.md#exit_maintenance) | **POST** /api/v1/cluster/maintenance/exit | Exit cluster maintenance mode.
+[**enter_maintenance**](MaintenanceApi.md#enter_maintenance) | **POST** /api/v1/instance/maintenance/enter | Enter cluster maintenance mode
+[**exit_maintenance**](MaintenanceApi.md#exit_maintenance) | **POST** /api/v1/instance/maintenance/exit | Exit cluster maintenance mode
 
 
 # **enter_maintenance**
 > enter_maintenance()
 
-Enter cluster maintenance mode.
+Enter cluster maintenance mode
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -19,13 +21,13 @@ Enter cluster maintenance mode.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -35,23 +37,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MaintenanceApi(api_client)
+    api_instance = kestrapy.MaintenanceApi(api_client)
 
     try:
-        # Enter cluster maintenance mode.
+        # Enter cluster maintenance mode
         api_instance.enter_maintenance()
     except Exception as e:
         print("Exception when calling MaintenanceApi->enter_maintenance: %s\n" % e)
@@ -87,7 +89,9 @@ void (empty response body)
 # **exit_maintenance**
 > exit_maintenance()
 
-Exit cluster maintenance mode.
+Exit cluster maintenance mode
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -95,13 +99,13 @@ Exit cluster maintenance mode.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -111,23 +115,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.MaintenanceApi(api_client)
+    api_instance = kestrapy.MaintenanceApi(api_client)
 
     try:
-        # Exit cluster maintenance mode.
+        # Exit cluster maintenance mode
         api_instance.exit_maintenance()
     except Exception as e:
         print("Exception when calling MaintenanceApi->exit_maintenance: %s\n" % e)

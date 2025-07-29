@@ -19,11 +19,12 @@ Name | Type | Description | Notes
 **retrying** | **int** |  | [optional] 
 **retried** | **int** |  | [optional] 
 **skipped** | **int** |  | [optional] 
+**breakpoint** | **int** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
+from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
 
 # TODO update the JSON string below
 json = "{}"

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.trigger_fixture import TriggerFixture
+from kestrapy.models.trigger_fixture import TriggerFixture
 
 # TODO update the JSON string below
 json = "{}"

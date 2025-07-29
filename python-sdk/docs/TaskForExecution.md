@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.task_for_execution import TaskForExecution
+from kestrapy.models.task_for_execution import TaskForExecution
 
 # TODO update the JSON string below
 json = "{}"

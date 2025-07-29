@@ -1,18 +1,20 @@
-# kestra_api_client.ServicesApi
+# kestrapy.ServicesApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_active_services**](ServicesApi.md#get_active_services) | **GET** /api/v1/cluster/services/active | Get details about active services
-[**get_service**](ServicesApi.md#get_service) | **GET** /api/v1/cluster/services/{id} | Get details about a service
-[**search_services**](ServicesApi.md#search_services) | **GET** /api/v1/cluster/services/search | Search for service
+[**get_active_services**](ServicesApi.md#get_active_services) | **GET** /api/v1/instance/services/active | List all active services
+[**get_service**](ServicesApi.md#get_service) | **GET** /api/v1/instance/services/{id} | Retrieve details of a specific service
+[**search_services**](ServicesApi.md#search_services) | **GET** /api/v1/instance/services/search | Search for a service (e.g. Worker, Executor, etc)
 
 
 # **get_active_services**
-> ClusterControllerApiActiveServiceList get_active_services()
+> InstanceControllerApiActiveServiceList get_active_services()
 
-Get details about active services
+List all active services
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -20,14 +22,14 @@ Get details about active services
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.cluster_controller_api_active_service_list import ClusterControllerApiActiveServiceList
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -37,23 +39,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
 
     try:
-        # Get details about active services
+        # List all active services
         api_response = api_instance.get_active_services()
         print("The response of ServicesApi->get_active_services:\n")
         pprint(api_response)
@@ -69,7 +71,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ClusterControllerApiActiveServiceList**](ClusterControllerApiActiveServiceList.md)
+[**InstanceControllerApiActiveServiceList**](InstanceControllerApiActiveServiceList.md)
 
 ### Authorization
 
@@ -91,7 +93,9 @@ This endpoint does not need any parameter.
 # **get_service**
 > ServiceInstance get_service(id)
 
-Get details about a service
+Retrieve details of a specific service
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -99,14 +103,14 @@ Get details about a service
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.service_instance import ServiceInstance
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.service_instance import ServiceInstance
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -116,24 +120,24 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
     id = 'id_example' # str | 
 
     try:
-        # Get details about a service
+        # Retrieve details of a specific service
         api_response = api_instance.get_service(id)
         print("The response of ServicesApi->get_service:\n")
         pprint(api_response)
@@ -172,9 +176,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_services**
-> PagedResultsClusterControllerApiServiceInstance search_services(page, size, sort=sort, state=state, type=type)
+> PagedResultsInstanceControllerApiServiceInstance search_services(page, size, sort=sort, state=state, type=type)
 
-Search for service
+Search for a service (e.g. Worker, Executor, etc)
+
+Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 
 ### Example
 
@@ -182,16 +188,16 @@ Search for service
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_cluster_controller_api_service_instance import PagedResultsClusterControllerApiServiceInstance
-from kestra_api_client.models.service_service_state import ServiceServiceState
-from kestra_api_client.models.service_type import ServiceType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_instance_controller_api_service_instance import PagedResultsInstanceControllerApiServiceInstance
+from kestrapy.models.service_service_state import ServiceServiceState
+from kestrapy.models.service_type import ServiceType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -201,28 +207,28 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    state = [kestra_api_client.ServiceServiceState()] # List[ServiceServiceState] | The state filter (optional)
-    type = [kestra_api_client.ServiceType()] # List[ServiceType] | The server type filter (optional)
+    state = [kestrapy.ServiceServiceState()] # List[ServiceServiceState] | The state filter (optional)
+    type = [kestrapy.ServiceType()] # List[ServiceType] | The server type filter (optional)
 
     try:
-        # Search for service
+        # Search for a service (e.g. Worker, Executor, etc)
         api_response = api_instance.search_services(page, size, sort=sort, state=state, type=type)
         print("The response of ServicesApi->search_services:\n")
         pprint(api_response)
@@ -245,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsClusterControllerApiServiceInstance**](PagedResultsClusterControllerApiServiceInstance.md)
+[**PagedResultsInstanceControllerApiServiceInstance**](PagedResultsInstanceControllerApiServiceInstance.md)
 
 ### Authorization
 

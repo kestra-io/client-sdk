@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.server_config_liveness import ServerConfigLiveness
+from kestrapy.models.server_config_liveness import ServerConfigLiveness
 
 # TODO update the JSON string below
 json = "{}"

@@ -1,6 +1,7 @@
 # flake8: noqa
 
 # import apis into api package
+from kestra_api_client.api.ai_api import AIApi
 from kestra_api_client.api.apps_api import AppsApi
 from kestra_api_client.api.audit_logs_api import AuditLogsApi
 from kestra_api_client.api.auths_api import AuthsApi
@@ -26,7 +27,9 @@ from kestra_api_client.api.roles_api import RolesApi
 from kestra_api_client.api.scim_api import SCIMApi
 from kestra_api_client.api.scim_configuration_api import SCIMConfigurationApi
 from kestra_api_client.api.security_integrations_api import SecurityIntegrationsApi
+from kestra_api_client.api.service_account_api import ServiceAccountApi
 from kestra_api_client.api.services_api import ServicesApi
+from kestra_api_client.api.tenant_access_api import TenantAccessApi
 from kestra_api_client.api.tenants_api import TenantsApi
 from kestra_api_client.api.test_suites_api import TestSuitesApi
 from kestra_api_client.api.triggers_api import TriggersApi

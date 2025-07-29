@@ -1,4 +1,4 @@
-# kestra_api_client.DefaultApi
+# kestrapy.DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**accept_invitation**](DefaultApi.md#accept_invitation) | **POST** /api/v1/invitation/accept/{invitationId} | 
 [**create_from_invitation**](DefaultApi.md#create_from_invitation) | **POST** /api/v1/invitation/create/{invitationId} | 
 [**forgotten_password**](DefaultApi.md#forgotten_password) | **GET** /api/v1/forgotten-password | Sends an email to reset a password.
+[**generate**](DefaultApi.md#generate) | **GET** /api/v1/{tenant}/stats/generate-reports | 
 [**login**](DefaultApi.md#login) | **POST** /login | 
 [**reset_password**](DefaultApi.md#reset_password) | **POST** /api/v1/reset-password | Change a password for given token.
 
@@ -18,21 +19,21 @@ Method | HTTP request | Description
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.DefaultApi(api_client)
+    api_instance = kestrapy.DefaultApi(api_client)
     invitation_id = 'invitation_id_example' # str | 
 
     try:
@@ -80,24 +81,24 @@ No authorization required
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.auth_controller_invitation_user_request import AuthControllerInvitationUserRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.auth_controller_invitation_user_request import AuthControllerInvitationUserRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.DefaultApi(api_client)
+    api_instance = kestrapy.DefaultApi(api_client)
     invitation_id = 'invitation_id_example' # str | 
-    auth_controller_invitation_user_request = kestra_api_client.AuthControllerInvitationUserRequest() # AuthControllerInvitationUserRequest | The basic information to create an account from an invitation
+    auth_controller_invitation_user_request = kestrapy.AuthControllerInvitationUserRequest() # AuthControllerInvitationUserRequest | The basic information to create an account from an invitation
 
     try:
         api_response = api_instance.create_from_invitation(invitation_id, auth_controller_invitation_user_request)
@@ -149,21 +150,21 @@ Sends an email to reset a password. Note that whatever the username is found or 
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.DefaultApi(api_client)
+    api_instance = kestrapy.DefaultApi(api_client)
     username = 'username_example' # str | User that has forgotten his password
 
     try:
@@ -205,6 +206,87 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **generate**
+> bytearray generate(tenant, var_from=var_from)
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.DefaultApi(api_client)
+    tenant = 'tenant_example' # str | 
+    var_from = '2013-10-20' # date | The start date (optional)
+
+    try:
+        api_response = api_instance.generate(tenant, var_from=var_from)
+        print("The response of DefaultApi->generate:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DefaultApi->generate: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **var_from** | **date**| The start date | [optional] 
+
+### Return type
+
+**bytearray**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | generate 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **login**
 > object login(username, password, identity=identity, secret=secret)
 
@@ -212,21 +294,21 @@ No authorization required
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.DefaultApi(api_client)
+    api_instance = kestrapy.DefaultApi(api_client)
     username = 'username_example' # str | 
     password = 'password_example' # str | 
     identity = 'identity_example' # str |  (optional)
@@ -284,23 +366,23 @@ Change a password for given token. If password does not match password policy, u
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.auth_controller_reset_password_request import AuthControllerResetPasswordRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.auth_controller_reset_password_request import AuthControllerResetPasswordRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.DefaultApi(api_client)
-    auth_controller_reset_password_request = kestra_api_client.AuthControllerResetPasswordRequest() # AuthControllerResetPasswordRequest | The password
+    api_instance = kestrapy.DefaultApi(api_client)
+    auth_controller_reset_password_request = kestrapy.AuthControllerResetPasswordRequest() # AuthControllerResetPasswordRequest | The password
 
     try:
         # Change a password for given token.

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.validate_constraint_violation import ValidateConstraintViolation
+from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
 # TODO update the JSON string below
 json = "{}"

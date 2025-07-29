@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.execution_controller_state_request import ExecutionControllerStateRequest
+from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
 
 # TODO update the JSON string below
 json = "{}"

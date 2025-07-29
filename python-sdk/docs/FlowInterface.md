@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **concurrency** | [**Concurrency**](Concurrency.md) |  | [optional] 
 **sla** | [**List[SLA]**](SLA.md) |  | [optional] 
 **source** | **str** |  | [optional] 
@@ -22,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.flow_interface import FlowInterface
+from kestrapy.models.flow_interface import FlowInterface
 
 # TODO update the JSON string below
 json = "{}"

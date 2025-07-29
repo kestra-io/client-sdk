@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.group import Group
+from kestrapy.models.group import Group
 
 # TODO update the JSON string below
 json = "{}"

@@ -17,11 +17,12 @@ Name | Type | Description | Notes
 **labels** | [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 
 **stop_after** | [**List[StateType]**](StateType.md) |  | [optional] 
 **log_to_file** | **bool** |  | [optional] 
+**fail_on_trigger_error** | **bool** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.abstract_trigger import AbstractTrigger
+from kestrapy.models.abstract_trigger import AbstractTrigger
 
 # TODO update the JSON string below
 json = "{}"

@@ -24,11 +24,12 @@ Name | Type | Description | Notes
 **trace_parent** | **str** |  | [optional] 
 **fixtures** | [**List[TaskFixture]**](TaskFixture.md) |  | [optional] 
 **kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
+**breakpoints** | [**List[Breakpoint]**](Breakpoint.md) |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.execution import Execution
+from kestrapy.models.execution import Execution
 
 # TODO update the JSON string below
 json = "{}"

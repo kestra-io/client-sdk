@@ -1,11 +1,11 @@
-# kestra_api_client.AuditLogsApi
+# kestrapy.AuditLogsApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**find_audit_log**](AuditLogsApi.md#find_audit_log) | **POST** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
-[**get_resource_diff_from_audit_log**](AuditLogsApi.md#get_resource_diff_from_audit_log) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+[**get_resource_diff_from_audit_log**](AuditLogsApi.md#get_resource_diff_from_audit_log) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
 [**list_audit_log_from_resource_id**](AuditLogsApi.md#list_audit_log_from_resource_id) | **GET** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
 [**search_audit_logs**](AuditLogsApi.md#search_audit_logs) | **GET** /api/v1/{tenant}/auditlogs/search | Search for audit logs
 
@@ -21,15 +21,15 @@ Find a specific audit log
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.audit_log_controller_audit_log_with_user import AuditLogControllerAuditLogWithUser
-from kestra_api_client.models.audit_log_controller_find_request import AuditLogControllerFindRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.audit_log_controller_audit_log_with_user import AuditLogControllerAuditLogWithUser
+from kestrapy.models.audit_log_controller_find_request import AuditLogControllerFindRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -39,22 +39,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.AuditLogsApi(api_client)
+    api_instance = kestrapy.AuditLogsApi(api_client)
     tenant = 'tenant_example' # str | 
-    audit_log_controller_find_request = kestra_api_client.AuditLogControllerFindRequest() # AuditLogControllerFindRequest | The find request
+    audit_log_controller_find_request = kestrapy.AuditLogControllerFindRequest() # AuditLogControllerFindRequest | The find request
 
     try:
         # Find a specific audit log
@@ -99,7 +99,9 @@ Name | Type | Description  | Notes
 # **get_resource_diff_from_audit_log**
 > AuditLogControllerAuditLogDiff get_resource_diff_from_audit_log(id, tenant, previous_id=previous_id)
 
-Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+Retrieve the diff between audit logs
+
+Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
 
 ### Example
 
@@ -107,14 +109,14 @@ Get the diff of an object between current version and a previous version. Can al
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -124,26 +126,26 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.AuditLogsApi(api_client)
+    api_instance = kestrapy.AuditLogsApi(api_client)
     id = 'id_example' # str | The id of the audit log
     tenant = 'tenant_example' # str | 
     previous_id = 'previous_id_example' # str | The id of a previous audit log to compare with (optional)
 
     try:
-        # Get the diff of an object between current version and a previous version. Can also compare two version from specific audit logs.
+        # Retrieve the diff between audit logs
         api_response = api_instance.get_resource_diff_from_audit_log(id, tenant, previous_id=previous_id)
         print("The response of AuditLogsApi->get_resource_diff_from_audit_log:\n")
         pprint(api_response)
@@ -194,14 +196,14 @@ Find all audit logs about a specific resource.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.audit_log_controller_audit_log_option import AuditLogControllerAuditLogOption
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.audit_log_controller_audit_log_option import AuditLogControllerAuditLogOption
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -211,20 +213,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.AuditLogsApi(api_client)
+    api_instance = kestrapy.AuditLogsApi(api_client)
     detail_id = 'detail_id_example' # str | The resource Id
     tenant = 'tenant_example' # str | 
 
@@ -279,14 +281,14 @@ Search for audit logs
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_audit_log_controller_audit_log_with_user import PagedResultsAuditLogControllerAuditLogWithUser
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_audit_log_controller_audit_log_with_user import PagedResultsAuditLogControllerAuditLogWithUser
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -296,20 +298,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.AuditLogsApi(api_client)
+    api_instance = kestrapy.AuditLogsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -320,11 +322,11 @@ with kestra_api_client.ApiClient(configuration) as api_client:
     execution_id = 'execution_id_example' # str | An execution filter (optional)
     user_id = 'user_id_example' # str | A user id filter (optional)
     id = 'id_example' # str | A id filter (optional)
-    permission = kestra_api_client.Permission() # Permission | A permission filter (optional)
+    permission = kestrapy.Permission() # Permission | A permission filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     details = {'key': 'details_example'} # Dict[str, str] | A list of auditLog details (optional)
-    type = kestra_api_client.CrudEventType() # CrudEventType | The event that create the audit log (optional)
+    type = kestrapy.CrudEventType() # CrudEventType | The event that create the audit log (optional)
 
     try:
         # Search for audit logs

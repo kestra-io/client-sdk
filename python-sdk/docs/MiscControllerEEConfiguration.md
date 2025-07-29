@@ -16,10 +16,11 @@ Name | Type | Description | Notes
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **str** |  | [optional] 
 **preview** | [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
-**is_basic_auth_enabled** | **bool** |  | [optional] 
 **system_namespace** | **str** |  | [optional] 
 **hidden_labels_prefixes** | **List[str]** |  | [optional] 
 **resource_to_filters** | [**List[QueryFilterResourceField]**](QueryFilterResourceField.md) |  | [optional] 
+**is_ai_enabled** | **bool** |  | [optional] 
+**is_basic_auth_initialized** | **bool** |  | [optional] 
 **tenants** | [**MiscControllerTenantConfigurationInfo**](MiscControllerTenantConfigurationInfo.md) |  | [optional] 
 **secrets_enabled** | **bool** |  | [optional] 
 **supported_storages** | [**List[MiscControllerPluginIdAndVersion]**](MiscControllerPluginIdAndVersion.md) |  | [optional] 
@@ -29,11 +30,14 @@ Name | Type | Description | Notes
 **banner** | [**Banner**](Banner.md) |  | [optional] 
 **mail_service_enabled** | **bool** |  | [optional] 
 **outputs_in_internal_storage_enabled** | **bool** |  | [optional] 
+**context_custom_links** | [**Dict[str, CustomLink]**](CustomLink.md) |  | [optional] 
+**in_maintenance** | **bool** |  | [optional] 
+**password_regexp** | **str** |  | [optional] 
 
 ## Example
 
 ```python
-from kestra_api_client.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
+from kestrapy.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
 
 # TODO update the JSON string below
 json = "{}"

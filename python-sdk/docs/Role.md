@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **id** | **str** |  | [optional] 
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**permissions** | [**RolePermissions**](RolePermissions.md) |  | [optional] 
+**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
 **is_default** | **bool** |  | [optional] 
 **deleted** | **bool** |  | 
 
 ## Example
 
 ```python
-from kestra_api_client.models.role import Role
+from kestrapy.models.role import Role
 
 # TODO update the JSON string below
 json = "{}"

@@ -13,11 +13,12 @@ Name | Type | Description | Notes
 **disabled** | **bool** |  | 
 **labels** | [**FlowWithSourceAllOfLabels**](FlowWithSourceAllOfLabels.md) |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **var_finally** | [**List[Task]**](Task.md) |  | [optional] 
 **task_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
 **description** | **str** |  | [optional] 
-**tasks** | [**List[Task]**](Task.md) |  | 
+**tasks** | [**Dict[Task]**](Task.md) |  | 
 **errors** | [**List[Task]**](Task.md) |  | [optional] 
 **listeners** | [**List[Listener]**](Listener.md) |  | [optional] 
 **after_execution** | [**List[Task]**](Task.md) |  | [optional] 
@@ -30,7 +31,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.flow_with_source import FlowWithSource
+from kestrapy.models.flow_with_source import FlowWithSource
 
 # TODO update the JSON string below
 json = "{}"

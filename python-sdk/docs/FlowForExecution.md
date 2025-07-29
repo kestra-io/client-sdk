@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **disabled** | **bool** |  | 
 **labels** | [**FlowForExecutionAllOfLabels**](FlowForExecutionAllOfLabels.md) |  | [optional] 
 **variables** | **Dict[str, object]** |  | [optional] 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **bool** |  | 
 **tasks** | [**List[TaskForExecution]**](TaskForExecution.md) |  | 
 **errors** | [**List[TaskForExecution]**](TaskForExecution.md) |  | [optional] 
@@ -23,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.flow_for_execution import FlowForExecution
+from kestrapy.models.flow_for_execution import FlowForExecution
 
 # TODO update the JSON string below
 json = "{}"

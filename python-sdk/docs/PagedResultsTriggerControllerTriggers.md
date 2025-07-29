@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.paged_results_trigger_controller_triggers import PagedResultsTriggerControllerTriggers
+from kestrapy.models.paged_results_trigger_controller_triggers import PagedResultsTriggerControllerTriggers
 
 # TODO update the JSON string below
 json = "{}"

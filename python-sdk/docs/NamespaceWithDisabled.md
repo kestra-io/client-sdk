@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.namespace_with_disabled import NamespaceWithDisabled
+from kestrapy.models.namespace_with_disabled import NamespaceWithDisabled
 
 # TODO update the JSON string below
 json = "{}"

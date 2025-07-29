@@ -4,11 +4,12 @@
 
 1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
 
-   - As of 13/06/25, `the kestra-ee.yml` has been generated and used without modifications.
-   - Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
+   - As of 29/07/25, `the kestra-ee.yml` has been generated and used without modifications.
+   - Micronaut OpenAPI version `6.17.3`
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
-3. Then multiples files changes are needed to be done manually in the generated SDK:
+3.THESE CHANGES ARE DONE AT GENERATION, BUT IF THERE IS AN ERROR, DOUBLE CHECK
+  Then multiples files changes are needed to be done manually in the generated SDK:
    - In the pyproject.toml file, set the following values (you need to replace the current one):
      ```toml
      license = "Apache-2.0"
@@ -18,6 +19,16 @@
      ```python
      from kestra_api_client.models.list[label] import List[Label]
      ```
+
+  - In the `__init__.py` add the following import, its the custom kestra client that gather all API clients:
+     ```python
+     from kestra_api_client.kestra_client import KestraClient as KestraClient
+     ```
+  - In the `task.py`, delete the following part, from the type validator:
+      ```python
+              if not re.match(r"\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*", value):
+            raise ValueError(r"must validate the regular expression /\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*/")
+      ```
 
 ## Step to use
 

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.listener import Listener
+from kestrapy.models.listener import Listener
 
 # TODO update the JSON string below
 json = "{}"

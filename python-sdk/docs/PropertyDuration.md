@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.property_duration import PropertyDuration
+from kestrapy.models.property_duration import PropertyDuration
 
 # TODO update the JSON string below
 json = "{}"
