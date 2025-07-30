@@ -3,7 +3,7 @@
 ## Steps to generate the SDK
 
 1. Update the `kestra-ee.yml` with latest OpenSpec API changes (if necessary).
-   - As of 09/06/25, a custom `kestra-ee.yml` is used to generate the Java SDK. In this file, the `tenant` field is set as mandatory rather than optional.
+   - As of 2025-06-09, a custom `kestra-ee.yml` is used to generate the Java SDK. In this file, the `tenant` field is set as mandatory rather than optional.
    - The current file was generated with Micronaut OpenAPI version `6.15`. For the next generation, ensure you use the latest available version, which should fix two known bugs.
 
 2. Generate the SDK using the `generate-sdks.sh` script, which leverages the `openapi-generator-cli` Docker image.
