@@ -2,24 +2,28 @@
 
 ## Steps to generate the SDK
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
+1. Update the `kestra-ee.yml` with the latest OpenSpec API changes (if necessary).
 
-- As of 13/06/25, `the kestra-ee.yml` has been generated and used without modifications.
-- Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+- As of 2025-06-13, `the kestra-ee.yml` has been generated and used without modifications.
+- Micronaut OpenAPI version `6.16.2` was used. As of 2025-06-13, this version has not been committed to the core and was only modified locally.
+2. Generate the SDK using the `generate-sdks.sh` script which uses the `openapi-generator-cli` Docker image.
 
-Note: For now `go.mod` is generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID` we will need to check if we can change that at generation time.
+Note: For now `go.mod` is generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID`. You may need to manually change this, or investigate if this can be set at generation time.
 
-## Step to use
+## How to use
 
-The OpenApi generate a single Kestra Client that contains all the API endpoints.
+The OpenAPI generator produces a single Kestra client that includes all API endpoints.
+
 You can import it like this:
+
 ```go
 kestra_api_client "github.com/GIT_USER_ID/GIT_REPO_ID"
 ```
 
-Then you need two step to configure the client:
-* Set up the host URL in the server through the configuration and instantiate the client:
+Then you need to follow two steps to configure the client:
+
+* Step 1: Configure the server and instantiate the client:
+
 ```go
 configuration := kestra_api_client.NewConfiguration()
 
@@ -31,7 +35,10 @@ configuration.Servers = []kestra_api_client.ServerConfiguration{
 
 apiClient := kestra_api_client.NewAPIClient(configuration)
 ```
-* Set up the authentication through the context that will be pass when calling the API:
+* Step 2: Set up authentication
+
+Authentication is configured through the request context:
+
 ```go
 ctx := context.Background()
 
@@ -43,10 +50,9 @@ basicAuth := kestra_api_client.BasicAuth{
 ctx = context.WithValue(ctx, kestra_api_client.ContextBasicAuth, basicAuth)
 ```
 
-Then finally create the request with the context and execute it:
+With the context and client configured, create and execute your request:
 
 ```go
 request := apiClient.FlowsAPI.SearchFlows(ctx, tenantId).Page(1).Size(10)
 flows, resp, err := request.Execute()
 ```
-
