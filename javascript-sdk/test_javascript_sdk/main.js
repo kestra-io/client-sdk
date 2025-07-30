@@ -1,4 +1,4 @@
-import {KestraClient} from "kestra_api";
+import {KestraClient} from "@kestra-io/kestra-api";
 
 const host = "http://localhost:8080"
 const username = "root@root.com"

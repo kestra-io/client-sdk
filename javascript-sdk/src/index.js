@@ -444,9 +444,9 @@ import KestraClient from "./KestraClient";
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var KestraApi = require('index'); // See note below*.
-* var xxxSvc = new KestraApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new KestraApi.Yyy(); // Construct a model instance.
+* var KestraIoKestraApi = require('index'); // See note below*.
+* var xxxSvc = new KestraIoKestraApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new KestraIoKestraApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -458,8 +458,8 @@ import KestraClient from "./KestraClient";
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new KestraApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new KestraApi.Yyy(); // Construct a model instance.
+* var xxxSvc = new KestraIoKestraApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new KestraIoKestraApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.

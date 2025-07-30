@@ -1,5 +1,5 @@
 {
-  "name": "kestra_api",
+  "name": "@kestra-io/kestra-api",
   "version": "v0.24.0",
   "description": "All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/> Endpoints designated as Superadmin-only are not tenant-scoped.",
   "license": "Unlicense",
