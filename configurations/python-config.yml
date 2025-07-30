@@ -9,7 +9,6 @@ globalProperties:
 additionalProperties:
   packageName: kestrapy
   projectName: "@kestra-io/kestrapy"
-  packageUrl: "kestra.io"
   packageAuthorEmail: "contact@kestra.io"
   disallowAdditionalPropertiesIfNotPresent: false
   customEmail: "contact@kestra.io"
