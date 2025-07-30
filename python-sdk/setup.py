@@ -20,7 +20,7 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
-NAME = "kestrapy"
+NAME = "@kestra-io/kestrapy"
 VERSION = "v0.24.0"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
@@ -33,10 +33,10 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="Kestra EE",
-    author="OpenAPI Generator community",
-    author_email="team@openapitools.org",
-    url="",
+    description="Kestra Python SDK",
+    author="Kestra.io",
+    author_email="contact@kestra.io",
+    url="kestra.io",
     keywords=["OpenAPI", "OpenAPI-Generator", "Kestra EE"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

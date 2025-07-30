@@ -2,6 +2,10 @@
 
 VERSION=$1
 LANGUAGES=$2
+TEMPLATE_FLAG=$3
+
+HOST_UID=$(id -u)
+HOST_GID=$(id -g)
 
 # check if LANGUAGES is empty
 if [ -z "$LANGUAGES" ]; then
@@ -11,19 +15,26 @@ fi
 
 BASE_PKG=io.kestra.sdk
 
+if [ -n "$TEMPLATE_FLAG" ]; then
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli author template -g "$LANGUAGES" -o /local/templates/python
+  exit 0
+fi
+
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
      -c /local/configurations/java-config.yml --artifact-version $VERSION \
       --skip-validate-spec
 fi
 
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
     -c /local/configurations/python-config.yml \
     --skip-validate-spec \
-    --additional-properties=packageVersion=$VERSION
+    --additional-properties=packageVersion=$VERSION \
+    --template-dir=/local/templates/python
+
 sed -i 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
 sed -i 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
 sed -i '/from kestra_api_client\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestra_api_client/api/executions_api.py
@@ -33,7 +44,7 @@ fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
     -c /local/configurations/javascript-config.yml \
     --skip-validate-spec \
     --additional-properties=projectVersion=$VERSION
@@ -41,7 +52,7 @@ fi
 
 # Generate GoLang SDK
 if [[ ",$LANGUAGES," == *",go,"* ]]; then
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
       -c /local/configurations/go-config.yml \
       --skip-validate-spec \
       --additional-properties=packageVersion=$VERSION

@@ -889,3 +889,11 @@ from kestra_api_client.models.worker_group_fallback import WorkerGroupFallback a
 from kestra_api_client.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
 from kestra_api_client.kestra_client import KestraClient as KestraClient
 from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient
+from kestra_api_client.kestra_client import KestraClient as KestraClient

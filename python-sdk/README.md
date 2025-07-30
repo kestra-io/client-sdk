@@ -1,4 +1,4 @@
-# kestrapy
+# @kestra-io/kestrapy
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
 
