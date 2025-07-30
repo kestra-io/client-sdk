@@ -19,7 +19,7 @@ import IAMServiceAccountControllerApiServiceAccountResponse from '../model/IAMSe
 /**
 * ServiceAccount service.
 * @module api/ServiceAccountApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class ServiceAccountApi {
 

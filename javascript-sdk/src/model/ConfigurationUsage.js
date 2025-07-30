@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ConfigurationUsage model module.
  * @module model/ConfigurationUsage
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ConfigurationUsage {
     /**

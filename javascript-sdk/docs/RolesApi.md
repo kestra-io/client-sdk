@@ -1,4 +1,4 @@
-# KestraApi.RolesApi
+# KestraIoKestraApi.RolesApi
 
 All URIs are relative to *http://localhost*
 
@@ -23,8 +23,8 @@ List roles for autocomplete
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -33,9 +33,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let tenant = "tenant_example"; // String | 
-let apiAutocomplete = new KestraApi.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
+let apiAutocomplete = new KestraIoKestraApi.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
 apiInstance.autocompleteRoles(tenant, apiAutocomplete, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -76,8 +76,8 @@ Create a role
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -86,9 +86,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let tenant = "tenant_example"; // String | 
-let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraIoKestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 apiInstance.createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -129,8 +129,8 @@ Delete a role
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -139,7 +139,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteRole(id, tenant, (error, data, response) => {
@@ -182,8 +182,8 @@ Retrieve a role
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -192,7 +192,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
 apiInstance.getRole(id, tenant, (error, data, response) => {
@@ -235,8 +235,8 @@ List roles by ids
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -245,9 +245,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let tenant = "tenant_example"; // String | 
-let apiIds = new KestraApi.ApiIds(); // ApiIds | The ids that must be present on results
+let apiIds = new KestraIoKestraApi.ApiIds(); // ApiIds | The ids that must be present on results
 apiInstance.listRolesFromGivenIds(tenant, apiIds, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -288,8 +288,8 @@ Search for roles
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -298,7 +298,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -349,8 +349,8 @@ Update a role
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -359,10 +359,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.RolesApi();
+let apiInstance = new KestraIoKestraApi.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
-let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraIoKestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 apiInstance.updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, (error, data, response) => {
   if (error) {
     console.error(error);

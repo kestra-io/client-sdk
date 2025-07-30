@@ -1,4 +1,4 @@
-# KestraApi.IAMTenantAccessControllerApiTenantAccess
+# KestraIoKestraApi.IAMTenantAccessControllerApiTenantAccess
 
 ## Properties
 

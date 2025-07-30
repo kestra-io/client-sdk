@@ -17,7 +17,7 @@ import State from './State';
 /**
  * The ExecutionStatusEvent model module.
  * @module model/ExecutionStatusEvent
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ExecutionStatusEvent {
     /**

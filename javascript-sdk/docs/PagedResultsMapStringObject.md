@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsMapStringObject
+# KestraIoKestraApi.PagedResultsMapStringObject
 
 ## Properties
 

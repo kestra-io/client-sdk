@@ -1,4 +1,4 @@
-# KestraApi.IAMUserControllerApiCreateOrUpdateUserRequest
+# KestraIoKestraApi.IAMUserControllerApiCreateOrUpdateUserRequest
 
 ## Properties
 

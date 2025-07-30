@@ -1,4 +1,4 @@
-# KestraApi.AuthsApi
+# KestraIoKestraApi.AuthsApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,8 +22,8 @@ Create API token for the authenticated user
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -32,8 +32,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuthsApi();
-let createApiTokenRequest = new KestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | 
+let apiInstance = new KestraIoKestraApi.AuthsApi();
+let createApiTokenRequest = new KestraIoKestraApi.CreateApiTokenRequest(); // CreateApiTokenRequest | 
 apiInstance.createApiTokenForCurrentUser(createApiTokenRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -73,8 +73,8 @@ Delete API token for the authenticated user
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -83,7 +83,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuthsApi();
+let apiInstance = new KestraIoKestraApi.AuthsApi();
 let tokenId = "tokenId_example"; // String | The token id
 apiInstance.deleteApiTokenForCurrentUser(tokenId, (error, data, response) => {
   if (error) {
@@ -126,8 +126,8 @@ Requires the ME permission.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -136,7 +136,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuthsApi();
+let apiInstance = new KestraIoKestraApi.AuthsApi();
 apiInstance.getCurrentUser((error, data, response) => {
   if (error) {
     console.error(error);
@@ -173,9 +173,9 @@ Retrieve list of authentication methods
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.AuthsApi();
+let apiInstance = new KestraIoKestraApi.AuthsApi();
 apiInstance.index((error, data, response) => {
   if (error) {
     console.error(error);
@@ -214,8 +214,8 @@ Returns all API tokens belonging to the authenticated user.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -224,7 +224,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuthsApi();
+let apiInstance = new KestraIoKestraApi.AuthsApi();
 apiInstance.listApiTokensForCurrentUser((error, data, response) => {
   if (error) {
     console.error(error);
@@ -263,8 +263,8 @@ Updates the authenticated user&#39;s profile information and returns the updated
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -273,8 +273,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuthsApi();
-let meControllerApiUserDetailsRequest = new KestraApi.MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
+let apiInstance = new KestraIoKestraApi.AuthsApi();
+let meControllerApiUserDetailsRequest = new KestraIoKestraApi.MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
 apiInstance.patchCurrentUser(meControllerApiUserDetailsRequest, (error, data, response) => {
   if (error) {
     console.error(error);

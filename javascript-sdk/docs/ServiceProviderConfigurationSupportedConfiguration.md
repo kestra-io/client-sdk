@@ -1,4 +1,4 @@
-# KestraApi.ServiceProviderConfigurationSupportedConfiguration
+# KestraIoKestraApi.ServiceProviderConfigurationSupportedConfiguration
 
 ## Properties
 

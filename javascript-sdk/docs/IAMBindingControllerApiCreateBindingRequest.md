@@ -1,4 +1,4 @@
-# KestraApi.IAMBindingControllerApiCreateBindingRequest
+# KestraIoKestraApi.IAMBindingControllerApiCreateBindingRequest
 
 ## Properties
 

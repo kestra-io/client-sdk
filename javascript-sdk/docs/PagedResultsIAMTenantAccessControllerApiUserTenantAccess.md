@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsIAMTenantAccessControllerApiUserTenantAccess
+# KestraIoKestraApi.PagedResultsIAMTenantAccessControllerApiUserTenantAccess
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.IAMInvitationControllerApiInvitationRole
+# KestraIoKestraApi.IAMInvitationControllerApiInvitationRole
 
 ## Properties
 

@@ -19,7 +19,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
- * @version v0.24.0
+ * @version v0.0.4
  */
 class MiscControllerConfiguration {
     /**

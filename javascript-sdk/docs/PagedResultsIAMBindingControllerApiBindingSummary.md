@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsIAMBindingControllerApiBindingSummary
+# KestraIoKestraApi.PagedResultsIAMBindingControllerApiBindingSummary
 
 ## Properties
 

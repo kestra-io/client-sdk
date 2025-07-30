@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The HostUsageJvm model module.
  * @module model/HostUsageJvm
- * @version v0.24.0
+ * @version v0.0.4
  */
 class HostUsageJvm {
     /**

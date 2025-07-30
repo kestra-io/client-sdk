@@ -1,4 +1,4 @@
-# KestraApi.StateType
+# KestraIoKestraApi.StateType
 
 ## Enum
 

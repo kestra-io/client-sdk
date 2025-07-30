@@ -1,4 +1,4 @@
-# KestraApi.InvitationsApi
+# KestraIoKestraApi.InvitationsApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,8 +24,8 @@ Creates a new invitation and sends an email if the mail server is enabled.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -34,9 +34,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 let tenant = "tenant_example"; // String | 
-let iAMInvitationControllerApiInvitationCreateRequest = new KestraApi.IAMInvitationControllerApiInvitationCreateRequest(); // IAMInvitationControllerApiInvitationCreateRequest | Create a new invitation, send an email if the server-mail is enabled
+let iAMInvitationControllerApiInvitationCreateRequest = new KestraIoKestraApi.IAMInvitationControllerApiInvitationCreateRequest(); // IAMInvitationControllerApiInvitationCreateRequest | Create a new invitation, send an email if the server-mail is enabled
 apiInstance.createInvitation(tenant, iAMInvitationControllerApiInvitationCreateRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -79,8 +79,8 @@ Deletes the invitation by its ID.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -89,7 +89,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteInvitation(id, tenant, (error, data, response) => {
@@ -134,8 +134,8 @@ Returns all invitations for the authenticated user&#39;s email across all tenant
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -144,7 +144,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 apiInstance.findAllInvitationsForCurrentUser((error, data, response) => {
   if (error) {
     console.error(error);
@@ -183,8 +183,8 @@ Retrieves the invitation by its ID, including the invitation link.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -193,7 +193,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 let id = "id_example"; // String | The id of the invitation
 let tenant = "tenant_example"; // String | 
 apiInstance.getInvitation(id, tenant, (error, data, response) => {
@@ -238,8 +238,8 @@ Returns all invitations created for a given email address in the current tenant.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -248,7 +248,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 let email = "email_example"; // String | The email address of the invited
 let tenant = "tenant_example"; // String | 
 apiInstance.listInvitationsByEmail(email, tenant, (error, data, response) => {
@@ -293,8 +293,8 @@ Search and filter invitations by email, status, and pagination.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -303,13 +303,13 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.InvitationsApi();
+let apiInstance = new KestraIoKestraApi.InvitationsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'email': "email_example", // String | The email address of the invited
-  'status': new KestraApi.InvitationInvitationStatus(), // InvitationInvitationStatus | The current status of the invitations
+  'status': new KestraIoKestraApi.InvitationInvitationStatus(), // InvitationInvitationStatus | The current status of the invitations
   'sort': ["null"] // [String] | The sort of current page
 };
 apiInstance.searchInvitations(page, size, tenant, opts, (error, data, response) => {

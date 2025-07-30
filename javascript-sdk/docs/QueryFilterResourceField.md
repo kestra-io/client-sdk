@@ -1,4 +1,4 @@
-# KestraApi.QueryFilterResourceField
+# KestraIoKestraApi.QueryFilterResourceField
 
 ## Properties
 

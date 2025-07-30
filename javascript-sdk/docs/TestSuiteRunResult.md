@@ -1,4 +1,4 @@
-# KestraApi.TestSuiteRunResult
+# KestraIoKestraApi.TestSuiteRunResult
 
 ## Properties
 

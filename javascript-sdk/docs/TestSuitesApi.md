@@ -1,4 +1,4 @@
-# KestraApi.TestSuitesApi
+# KestraIoKestraApi.TestSuitesApi
 
 All URIs are relative to *http://localhost*
 
@@ -30,9 +30,9 @@ Creates a new test from a YAML definition. Requires TEST permission with the CRE
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The TestSuite source code
 apiInstance.createTestSuite(tenant, body, (error, data, response) => {
@@ -77,9 +77,9 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
@@ -126,11 +126,11 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
-let testSuiteControllerTestSuiteBulkRequest = new KestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
+let testSuiteControllerTestSuiteBulkRequest = new KestraIoKestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
 apiInstance.deleteTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -173,11 +173,11 @@ Disable a test by namespace and ID. Requires TEST permission with the UPDATE act
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
-let testSuiteControllerTestSuiteBulkRequest = new KestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
+let testSuiteControllerTestSuiteBulkRequest = new KestraIoKestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
 apiInstance.disableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -220,11 +220,11 @@ Enable a test by namespace and ID. Requires TEST permission with the UPDATE acti
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
-let testSuiteControllerTestSuiteBulkRequest = new KestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
+let testSuiteControllerTestSuiteBulkRequest = new KestraIoKestraApi.TestSuiteControllerTestSuiteBulkRequest(); // TestSuiteControllerTestSuiteBulkRequest | 
 apiInstance.enableTestSuitesByIds(tenant, testSuiteControllerTestSuiteBulkRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -267,9 +267,9 @@ Get a test result once it was run.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let id = "id_example"; // String | The test run ID
 let tenant = "tenant_example"; // String | 
 apiInstance.getTestResult(id, tenant, (error, data, response) => {
@@ -314,9 +314,9 @@ Retrieves a test by namespace and ID. Requires TEST permission with the READ act
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
@@ -363,11 +363,11 @@ Get multiple tests last result for a query.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
-let testSuiteControllerSearchTestsLastResult = new KestraApi.TestSuiteControllerSearchTestsLastResult(); // TestSuiteControllerSearchTestsLastResult | 
+let testSuiteControllerSearchTestsLastResult = new KestraIoKestraApi.TestSuiteControllerSearchTestsLastResult(); // TestSuiteControllerSearchTestsLastResult | 
 apiInstance.getTestsLastResult(tenant, testSuiteControllerSearchTestsLastResult, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -410,9 +410,9 @@ Executes all test cases in the specified test. Requires TEST permission with the
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
@@ -459,9 +459,9 @@ Searches for tests with optional filtering by namespace and flow ID. Requires TE
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -516,9 +516,9 @@ Updates an existing test with a new YAML definition. Requires TEST permission wi
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
@@ -567,9 +567,9 @@ Validates a test YAML definition without persisting it. Returns constraint viola
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TestSuitesApi();
+let apiInstance = new KestraIoKestraApi.TestSuitesApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The TestSuite source code
 apiInstance.validateTestSuite(tenant, body, (error, data, response) => {

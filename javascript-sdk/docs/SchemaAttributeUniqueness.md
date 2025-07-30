@@ -1,4 +1,4 @@
-# KestraApi.SchemaAttributeUniqueness
+# KestraIoKestraApi.SchemaAttributeUniqueness
 
 ## Enum
 

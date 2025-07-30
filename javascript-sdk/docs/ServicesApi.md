@@ -1,4 +1,4 @@
-# KestraApi.ServicesApi
+# KestraIoKestraApi.ServicesApi
 
 All URIs are relative to *http://localhost*
 
@@ -21,8 +21,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -31,7 +31,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServicesApi();
+let apiInstance = new KestraIoKestraApi.ServicesApi();
 apiInstance.getActiveServices((error, data, response) => {
   if (error) {
     console.error(error);
@@ -70,8 +70,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -80,7 +80,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServicesApi();
+let apiInstance = new KestraIoKestraApi.ServicesApi();
 let id = "id_example"; // String | 
 apiInstance.getService(id, (error, data, response) => {
   if (error) {
@@ -123,8 +123,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -133,13 +133,13 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServicesApi();
+let apiInstance = new KestraIoKestraApi.ServicesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'state': [new KestraApi.ServiceServiceState()], // [ServiceServiceState] | The state filter
-  'type': [new KestraApi.ServiceType()] // [ServiceType] | The server type filter
+  'state': [new KestraIoKestraApi.ServiceServiceState()], // [ServiceServiceState] | The state filter
+  'type': [new KestraIoKestraApi.ServiceType()] // [ServiceType] | The server type filter
 };
 apiInstance.searchServices(page, size, opts, (error, data, response) => {
   if (error) {

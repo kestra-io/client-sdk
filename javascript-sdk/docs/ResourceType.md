@@ -1,4 +1,4 @@
-# KestraApi.ResourceType
+# KestraIoKestraApi.ResourceType
 
 ## Properties
 

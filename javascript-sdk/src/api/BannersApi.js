@@ -18,7 +18,7 @@ import Banner from '../model/Banner';
 /**
 * Banners service.
 * @module api/BannersApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class BannersApi {
 

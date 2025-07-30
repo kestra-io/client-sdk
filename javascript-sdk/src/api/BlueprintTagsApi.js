@@ -19,7 +19,7 @@ import BlueprintControllerKind from '../model/BlueprintControllerKind';
 /**
 * BlueprintTags service.
 * @module api/BlueprintTagsApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class BlueprintTagsApi {
 

@@ -1,4 +1,4 @@
-# KestraApi.SCIMConfigurationApi
+# KestraIoKestraApi.SCIMConfigurationApi
 
 All URIs are relative to *http://localhost*
 
@@ -23,9 +23,9 @@ Get All Resource Types
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMConfigurationApi();
+let apiInstance = new KestraIoKestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 apiInstance.getAllResourceTypes(integration, tenant, (error, data, response) => {
@@ -70,9 +70,9 @@ Get All Schemas
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMConfigurationApi();
+let apiInstance = new KestraIoKestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 apiInstance.getAllSchemas(integration, tenant, (error, data, response) => {
@@ -117,9 +117,9 @@ Get Resource Type by URN
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMConfigurationApi();
+let apiInstance = new KestraIoKestraApi.SCIMConfigurationApi();
 let name = "name_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -166,9 +166,9 @@ Get Schemas by URN
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMConfigurationApi();
+let apiInstance = new KestraIoKestraApi.SCIMConfigurationApi();
 let uri = "uri_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -215,9 +215,9 @@ Get Service Provider Configuration
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMConfigurationApi();
+let apiInstance = new KestraIoKestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 apiInstance.getServiceProviderConfiguration(integration, tenant, (error, data, response) => {

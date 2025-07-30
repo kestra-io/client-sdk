@@ -22,7 +22,7 @@ import SortOrder from '../model/SortOrder';
 /**
 * SCIM service.
 * @module api/SCIMApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class SCIMApi {
 

@@ -18,7 +18,7 @@ import InputObject from './InputObject';
 /**
  * The TaskForExecution model module.
  * @module model/TaskForExecution
- * @version v0.24.0
+ * @version v0.0.4
  */
 class TaskForExecution {
     /**

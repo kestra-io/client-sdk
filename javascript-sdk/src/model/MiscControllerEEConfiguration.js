@@ -24,7 +24,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version v0.24.0
+ * @version v0.0.4
  */
 class MiscControllerEEConfiguration {
     /**

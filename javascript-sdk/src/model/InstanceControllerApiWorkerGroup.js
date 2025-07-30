@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiWorkerGroup model module.
  * @module model/InstanceControllerApiWorkerGroup
- * @version v0.24.0
+ * @version v0.0.4
  */
 class InstanceControllerApiWorkerGroup {
     /**

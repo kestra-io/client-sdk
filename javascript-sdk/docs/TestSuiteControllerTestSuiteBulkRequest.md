@@ -1,4 +1,4 @@
-# KestraApi.TestSuiteControllerTestSuiteBulkRequest
+# KestraIoKestraApi.TestSuiteControllerTestSuiteBulkRequest
 
 ## Properties
 

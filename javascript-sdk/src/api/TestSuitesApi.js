@@ -25,7 +25,7 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * TestSuites service.
 * @module api/TestSuitesApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class TestSuitesApi {
 

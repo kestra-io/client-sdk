@@ -1,4 +1,4 @@
-# KestraApi.IAMBindingControllerApiBindingSummary
+# KestraIoKestraApi.IAMBindingControllerApiBindingSummary
 
 ## Properties
 

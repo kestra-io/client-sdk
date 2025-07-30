@@ -18,7 +18,7 @@ import PatchOperationType from './PatchOperationType';
 /**
  * The PatchOperation model module.
  * @module model/PatchOperation
- * @version v0.24.0
+ * @version v0.0.4
  */
 class PatchOperation {
     /**

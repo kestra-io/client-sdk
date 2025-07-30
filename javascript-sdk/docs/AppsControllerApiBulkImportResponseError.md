@@ -1,4 +1,4 @@
-# KestraApi.AppsControllerApiBulkImportResponseError
+# KestraIoKestraApi.AppsControllerApiBulkImportResponseError
 
 ## Properties
 

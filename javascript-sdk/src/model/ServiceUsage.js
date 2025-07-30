@@ -17,7 +17,7 @@ import ServiceUsageDailyServiceStatistics from './ServiceUsageDailyServiceStatis
 /**
  * The ServiceUsage model module.
  * @module model/ServiceUsage
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ServiceUsage {
     /**

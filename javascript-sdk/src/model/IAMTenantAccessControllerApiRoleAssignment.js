@@ -18,7 +18,7 @@ import RBACServiceRoleAssignmentRoleOrigin from './RBACServiceRoleAssignmentRole
 /**
  * The IAMTenantAccessControllerApiRoleAssignment model module.
  * @module model/IAMTenantAccessControllerApiRoleAssignment
- * @version v0.24.0
+ * @version v0.0.4
  */
 class IAMTenantAccessControllerApiRoleAssignment {
     /**

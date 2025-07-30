@@ -1,4 +1,4 @@
-# KestraApi.MiscControllerTenantConfigurationInfo
+# KestraIoKestraApi.MiscControllerTenantConfigurationInfo
 
 ## Properties
 

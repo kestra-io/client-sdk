@@ -1,4 +1,4 @@
-# KestraApi.SchemaAttributeReturned
+# KestraIoKestraApi.SchemaAttributeReturned
 
 ## Enum
 

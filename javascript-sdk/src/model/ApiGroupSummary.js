@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiGroupSummary model module.
  * @module model/ApiGroupSummary
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ApiGroupSummary {
     /**

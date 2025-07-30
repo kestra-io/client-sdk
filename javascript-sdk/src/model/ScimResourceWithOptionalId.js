@@ -20,7 +20,7 @@ import ScimResource from './ScimResource';
 /**
  * The ScimResourceWithOptionalId model module.
  * @module model/ScimResourceWithOptionalId
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ScimResourceWithOptionalId {
     /**

@@ -1,4 +1,4 @@
-# KestraApi.ExecutionsApi
+# KestraIoKestraApi.ExecutionsApi
 
 All URIs are relative to *http://localhost*
 
@@ -71,8 +71,8 @@ Create a new execution for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -81,7 +81,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let wait = false; // Boolean | If the server will wait the end of the execution
@@ -91,7 +91,7 @@ let opts = {
   'revision': 56, // Number | The flow revision or latest if null
   'scheduleDate': new Date("2013-10-20T19:20:30+01:00"), // Date | Schedule the flow on a specific date
   'breakpoint': "breakpoint_example", // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-  'kind': new KestraApi.ExecutionKind() // ExecutionKind | Specific execution kind
+  'kind': new KestraIoKestraApi.ExecutionKind() // ExecutionKind | Specific execution kind
 };
 apiInstance.createExecution(namespace, id, wait, tenant, opts, (error, data, response) => {
   if (error) {
@@ -140,8 +140,8 @@ Delete an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -150,7 +150,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let deleteLogs = true; // Boolean | Whether to delete execution logs
 let deleteMetrics = true; // Boolean | Whether to delete execution metrics
@@ -199,8 +199,8 @@ Delete a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -209,7 +209,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let deleteLogs = true; // Boolean | Whether to delete execution logs
 let deleteMetrics = true; // Boolean | Whether to delete execution metrics
 let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
@@ -262,8 +262,8 @@ Delete executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -272,24 +272,24 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let deleteLogs = true; // Boolean | Whether to delete execution logs
 let deleteMetrics = true; // Boolean | Whether to delete execution metrics
 let deleteStorage = true; // Boolean | Whether to delete execution files in the internal storage
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
   'includeNonTerminated': false // Boolean | Whether to delete non-terminated executions
 };
 apiInstance.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
@@ -347,8 +347,8 @@ Download file for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -357,7 +357,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -402,8 +402,8 @@ Evaluate a variable expression for this taskrun
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -412,7 +412,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let taskRunId = "taskRunId_example"; // String | The taskrun id
 let tenant = "tenant_example"; // String | 
@@ -459,8 +459,8 @@ Follow all execution dependencies executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -469,7 +469,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
 let expandAll = false; // Boolean | If true, expand all dependencies recursively
@@ -516,8 +516,8 @@ Follow an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -526,7 +526,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.followExecution(executionId, tenant, (error, data, response) => {
@@ -569,8 +569,8 @@ Force run a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -579,7 +579,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.forceRunByIds(tenant, requestBody, (error, data, response) => {
@@ -622,8 +622,8 @@ Force run an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -632,7 +632,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.forceRunExecution(executionId, tenant, (error, data, response) => {
@@ -675,8 +675,8 @@ Force run executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -685,21 +685,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.forceRunExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -752,8 +752,8 @@ Get an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -762,7 +762,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.getExecution(executionId, tenant, (error, data, response) => {
@@ -805,8 +805,8 @@ Generate a graph for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -815,7 +815,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -862,8 +862,8 @@ Get file meta information for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -872,7 +872,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -917,8 +917,8 @@ Get flow information&#39;s for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -927,7 +927,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The namespace of the flow
 let flowId = "flowId_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
@@ -976,8 +976,8 @@ Get flow information&#39;s for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -986,7 +986,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution that you want flow information's
 let tenant = "tenant_example"; // String | 
 apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response) => {
@@ -1029,8 +1029,8 @@ Get the latest execution for given flows
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1039,9 +1039,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let executionRepositoryInterfaceFlowFilter = [new KestraApi.ExecutionRepositoryInterfaceFlowFilter()]; // [ExecutionRepositoryInterfaceFlowFilter] | 
+let executionRepositoryInterfaceFlowFilter = [new KestraIoKestraApi.ExecutionRepositoryInterfaceFlowFilter()]; // [ExecutionRepositoryInterfaceFlowFilter] | 
 apiInstance.getLatestExecutions(tenant, executionRepositoryInterfaceFlowFilter, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -1082,8 +1082,8 @@ Kill an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1092,7 +1092,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let isOnKillCascade = true; // Boolean | Specifies whether killing the execution also kill all subflow executions.
 let tenant = "tenant_example"; // String | 
@@ -1137,8 +1137,8 @@ Kill a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1147,7 +1147,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.killExecutionsByIds(tenant, requestBody, (error, data, response) => {
@@ -1190,8 +1190,8 @@ Kill executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1200,21 +1200,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.killExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -1267,8 +1267,8 @@ Get all namespaces that have executable flows
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1277,7 +1277,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 apiInstance.listExecutableDistinctNamespaces(tenant, (error, data, response) => {
   if (error) {
@@ -1318,8 +1318,8 @@ Get all flow ids for a namespace. Data returned are FlowForExecution containing 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1328,7 +1328,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The namespace
 let tenant = "tenant_example"; // String | 
 apiInstance.listFlowExecutionsByNamespace(namespace, tenant, (error, data, response) => {
@@ -1371,8 +1371,8 @@ Pause a running execution.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1381,7 +1381,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.pauseExecution(executionId, tenant, (error, data, response) => {
@@ -1424,8 +1424,8 @@ Pause a list of running executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1434,7 +1434,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.pauseExecutionsByIds(tenant, requestBody, (error, data, response) => {
@@ -1477,8 +1477,8 @@ Pause executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1487,21 +1487,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.pauseExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -1554,8 +1554,8 @@ Get file preview for an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1564,7 +1564,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let path = "path_example"; // String | The internal storage uri
 let maxRows = 56; // Number | The max row returns
@@ -1613,8 +1613,8 @@ Create a new execution from an old one and start it from a specified task run id
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1623,7 +1623,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | the original execution id to clone
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -1674,8 +1674,8 @@ Create new executions from old ones. Keep the flow revision
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1684,7 +1684,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 let opts = {
@@ -1731,8 +1731,8 @@ Create new executions from old ones filter by query parameters. Keep the flow re
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1741,21 +1741,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
   'latestRevision': false // Boolean | If latest revision should be used
 };
 apiInstance.replayExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
@@ -1810,8 +1810,8 @@ Restart a new execution from an old one
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1820,7 +1820,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -1867,8 +1867,8 @@ Restart a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1877,7 +1877,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.restartExecutionsByIds(tenant, requestBody, (error, data, response) => {
@@ -1920,8 +1920,8 @@ Restart executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1930,21 +1930,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.restartExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -1997,8 +1997,8 @@ Resume a paused execution.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2007,7 +2007,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.resumeExecution(executionId, tenant, (error, data, response) => {
@@ -2050,8 +2050,8 @@ Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2060,7 +2060,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -2107,8 +2107,8 @@ Resume a list of paused executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2117,7 +2117,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.resumeExecutionsByIds(tenant, requestBody, (error, data, response) => {
@@ -2160,8 +2160,8 @@ Resume executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2170,21 +2170,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.resumeExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -2237,8 +2237,8 @@ Search for executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2247,24 +2247,24 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraApi.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.searchExecutions(page, size, tenant, opts, (error, data, response) => {
   if (error) {
@@ -2320,8 +2320,8 @@ Search for executions for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2330,7 +2330,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let flowId = "flowId_example"; // String | The flow id
 let page = 1; // Number | The current page
@@ -2379,8 +2379,8 @@ Search for taskruns, only available with the Elasticsearch repository
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2389,23 +2389,23 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraApi.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.searchTaskRun(page, size, tenant, opts, (error, data, response) => {
   if (error) {
@@ -2460,8 +2460,8 @@ Add or update labels of a terminated execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2470,10 +2470,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-let label = [new KestraApi.Label()]; // [Label] | The labels to add to the execution
+let label = [new KestraIoKestraApi.Label()]; // [Label] | The labels to add to the execution
 apiInstance.setLabelsOnTerminatedExecution(executionId, tenant, label, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -2515,8 +2515,8 @@ Set labels on a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2525,9 +2525,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let executionControllerSetLabelsByIdsRequest = new KestraApi.ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
+let executionControllerSetLabelsByIdsRequest = new KestraIoKestraApi.ExecutionControllerSetLabelsByIdsRequest(); // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 apiInstance.setLabelsOnTerminatedExecutionsByIds(tenant, executionControllerSetLabelsByIdsRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -2568,8 +2568,8 @@ Set label on executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2578,21 +2578,21 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let label = new KestraApi.Label(); // [Label] | The labels to add to the execution
+let label = new KestraIoKestraApi.Label(); // [Label] | The labels to add to the execution
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.setLabelsOnTerminatedExecutionsByQuery(tenant, label, opts, (error, data, response) => {
   if (error) {
@@ -2645,8 +2645,8 @@ Trigger a new execution for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2655,7 +2655,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let wait = false; // Boolean | If the server will wait the end of the execution
@@ -2708,8 +2708,8 @@ Trigger a new execution by GET webhook trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2718,7 +2718,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
@@ -2765,8 +2765,8 @@ Trigger a new execution by POST webhook trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2775,7 +2775,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
@@ -2822,8 +2822,8 @@ Trigger a new execution by PUT webhook trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2832,7 +2832,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let key = "key_example"; // String | The webhook trigger uid
@@ -2879,8 +2879,8 @@ Unqueue an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2889,9 +2889,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
-let state = new KestraApi.StateType(); // StateType | The new state of the execution
+let state = new KestraIoKestraApi.StateType(); // StateType | The new state of the execution
 let tenant = "tenant_example"; // String | 
 apiInstance.unqueueExecution(executionId, state, tenant, (error, data, response) => {
   if (error) {
@@ -2934,8 +2934,8 @@ Unqueue a list of executions
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2944,8 +2944,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
-let state = new KestraApi.StateType(); // StateType | The new state of the unqueued executions
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
+let state = new KestraIoKestraApi.StateType(); // StateType | The new state of the unqueued executions
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.unqueueExecutionsByIds(state, tenant, requestBody, (error, data, response) => {
@@ -2989,8 +2989,8 @@ Unqueue executions filter by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -2999,22 +2999,22 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
-  'newState': new KestraApi.StateType() // StateType | The new state of the unqueued executions
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter(), // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'newState': new KestraIoKestraApi.StateType() // StateType | The new state of the unqueued executions
 };
 apiInstance.unqueueExecutionsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -3068,8 +3068,8 @@ Change the state of an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3078,9 +3078,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
-let status = new KestraApi.StateType(); // StateType | The new state of the execution
+let status = new KestraIoKestraApi.StateType(); // StateType | The new state of the execution
 let tenant = "tenant_example"; // String | 
 apiInstance.updateExecutionStatus(executionId, status, tenant, (error, data, response) => {
   if (error) {
@@ -3123,8 +3123,8 @@ Change executions state by id
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3133,8 +3133,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
-let newStatus = new KestraApi.StateType(); // StateType | The new state of the executions
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
+let newStatus = new KestraIoKestraApi.StateType(); // StateType | The new state of the executions
 let tenant = "tenant_example"; // String | 
 let requestBody = ["null"]; // [String] | The list of executions id
 apiInstance.updateExecutionsStatusByIds(newStatus, tenant, requestBody, (error, data, response) => {
@@ -3178,8 +3178,8 @@ Change executions state by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3188,22 +3188,22 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
-let newStatus = new KestraApi.StateType(); // StateType | The new state of the executions
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
+let newStatus = new KestraIoKestraApi.StateType(); // StateType | The new state of the executions
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the executions to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraApi.StateType()], // [StateType] | A state filter
+  'state': [new KestraIoKestraApi.StateType()], // [StateType] | A state filter
   'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
   'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
+  'childFilter': new KestraIoKestraApi.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
 };
 apiInstance.updateExecutionsStatusByQuery(newStatus, tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
   if (error) {
@@ -3257,8 +3257,8 @@ Change state for a taskrun in an execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3267,10 +3267,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
-let executionControllerStateRequest = new KestraApi.ExecutionControllerStateRequest(); // ExecutionControllerStateRequest | the taskRun id and state to apply
+let executionControllerStateRequest = new KestraIoKestraApi.ExecutionControllerStateRequest(); // ExecutionControllerStateRequest | the taskRun id and state to apply
 apiInstance.updateTaskRunState(executionId, tenant, executionControllerStateRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -3312,8 +3312,8 @@ Validate the creation of a new execution for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3322,7 +3322,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let labels = ["null"]; // [String] | The labels as a list of 'key:value'
@@ -3373,8 +3373,8 @@ Validate inputs to resume a paused execution.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -3383,7 +3383,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ExecutionsApi();
+let apiInstance = new KestraIoKestraApi.ExecutionsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 apiInstance.validateResumeExecutionInputs(executionId, tenant, (error, data, response) => {

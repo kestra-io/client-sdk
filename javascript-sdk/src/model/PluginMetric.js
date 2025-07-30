@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginMetric model module.
  * @module model/PluginMetric
- * @version v0.24.0
+ * @version v0.0.4
  */
 class PluginMetric {
     /**

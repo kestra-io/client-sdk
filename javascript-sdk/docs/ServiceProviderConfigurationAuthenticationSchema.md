@@ -1,4 +1,4 @@
-# KestraApi.ServiceProviderConfigurationAuthenticationSchema
+# KestraIoKestraApi.ServiceProviderConfigurationAuthenticationSchema
 
 ## Properties
 

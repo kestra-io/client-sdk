@@ -1,4 +1,4 @@
-# KestraApi.BlueprintControllerKind
+# KestraIoKestraApi.BlueprintControllerKind
 
 ## Enum
 

@@ -1,4 +1,4 @@
-# KestraApi.TestSuiteControllerTestsLastResultResponse
+# KestraIoKestraApi.TestSuiteControllerTestsLastResultResponse
 
 ## Properties
 

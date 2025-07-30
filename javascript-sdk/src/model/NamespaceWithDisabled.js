@@ -23,7 +23,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The NamespaceWithDisabled model module.
  * @module model/NamespaceWithDisabled
- * @version v0.24.0
+ * @version v0.0.4
  */
 class NamespaceWithDisabled {
     /**

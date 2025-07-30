@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsDashboard
+# KestraIoKestraApi.PagedResultsDashboard
 
 ## Properties
 

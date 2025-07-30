@@ -1,4 +1,4 @@
-# KestraApi.FlowsApi
+# KestraIoKestraApi.FlowsApi
 
 All URIs are relative to *http://localhost*
 
@@ -46,8 +46,8 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -56,7 +56,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
@@ -103,8 +103,8 @@ All flow will be created / updated for this namespace. Flow that already created
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -113,7 +113,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let _delete = true; // Boolean | If missing flow should be deleted
 let allowNamespaceChild = false; // Boolean | If namespace child should are allowed to be updated
 let tenant = "tenant_example"; // String | 
@@ -164,8 +164,8 @@ Create a flow from yaml source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -174,7 +174,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The flow source code
 apiInstance.createFlow(tenant, body, (error, data, response) => {
@@ -217,8 +217,8 @@ Delete a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -227,7 +227,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
@@ -272,8 +272,8 @@ Delete flows by their IDs.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -282,9 +282,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let idWithNamespace = [new KestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
+let idWithNamespace = [new KestraIoKestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 apiInstance.deleteFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -325,8 +325,8 @@ Delete flows returned by the query parameters.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -335,12 +335,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
@@ -388,8 +388,8 @@ Disable flows by their IDs.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -398,9 +398,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let idWithNamespace = [new KestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
+let idWithNamespace = [new KestraIoKestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 apiInstance.disableFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -441,8 +441,8 @@ Disable flows returned by the query parameters.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -451,12 +451,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
@@ -504,8 +504,8 @@ Enable flows by their IDs.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -514,9 +514,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let idWithNamespace = [new KestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
+let idWithNamespace = [new KestraIoKestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 apiInstance.enableFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -557,8 +557,8 @@ Enable flows returned by the query parameters.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -567,12 +567,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
@@ -620,8 +620,8 @@ Export flows as a ZIP archive of yaml sources.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -630,9 +630,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let idWithNamespace = [new KestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
+let idWithNamespace = [new KestraIoKestraApi.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
 apiInstance.exportFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -673,8 +673,8 @@ Export flows as a ZIP archive of yaml sources.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -683,12 +683,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraApi.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
@@ -736,8 +736,8 @@ Generate a graph for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -746,7 +746,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
@@ -797,8 +797,8 @@ Generate a graph for a flow source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -807,7 +807,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The flow source code
 let opts = {
@@ -854,8 +854,8 @@ Get a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -864,7 +864,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let source = false; // Boolean | Include the source code
@@ -917,8 +917,8 @@ Get flow dependencies
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -927,7 +927,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
@@ -976,8 +976,8 @@ Retrieve flow dependencies
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -986,7 +986,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
 let tenant = "tenant_example"; // String | 
@@ -1031,8 +1031,8 @@ Get a flow task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1041,7 +1041,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let taskId = "taskId_example"; // String | The task id
@@ -1092,8 +1092,8 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1102,7 +1102,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
@@ -1147,8 +1147,8 @@ List all distinct namespaces
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1157,7 +1157,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example" // String | A string filter
@@ -1202,8 +1202,8 @@ Get revisions for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1212,7 +1212,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
@@ -1257,8 +1257,8 @@ Retrieve all flows from a given namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1267,7 +1267,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | Namespace to filter flows
 let tenant = "tenant_example"; // String | 
 apiInstance.listFlowsByNamespace(namespace, tenant, (error, data, response) => {
@@ -1310,8 +1310,8 @@ Search for flows
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1320,15 +1320,15 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraApi.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
-  'scope': [new KestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
+  'scope': [new KestraIoKestraApi.FlowScope()], // [FlowScope] | The scope of the flows to include
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
@@ -1379,8 +1379,8 @@ Search for flows source code
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1389,7 +1389,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -1442,8 +1442,8 @@ Update a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1452,7 +1452,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let id = "id_example"; // String | The flow id
 let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
@@ -1501,8 +1501,8 @@ All flow will be created / updated for this namespace. Flow that already created
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1511,11 +1511,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let _delete = true; // Boolean | If missing flow should be deleted
 let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
-let flow = [new KestraApi.Flow()]; // [Flow] | A list of flows
+let flow = [new KestraIoKestraApi.Flow()]; // [Flow] | A list of flows
 apiInstance.updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -1558,8 +1558,8 @@ Update a single task on a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1568,12 +1568,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let taskId = "taskId_example"; // String | The task id
 let tenant = "tenant_example"; // String | 
-let task = new KestraApi.Task(); // Task | The task
+let task = new KestraIoKestraApi.Task(); // Task | The task
 apiInstance.updateTask(namespace, id, taskId, tenant, task, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -1617,8 +1617,8 @@ Validate a list of flows
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1627,7 +1627,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | A list of flows source code in a single string
 apiInstance.validateFlows(tenant, body, (error, data, response) => {
@@ -1670,8 +1670,8 @@ Validate a task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1680,8 +1680,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
-let section = new KestraApi.FlowControllerTaskValidationType(); // FlowControllerTaskValidationType | The type of task
+let apiInstance = new KestraIoKestraApi.FlowsApi();
+let section = new KestraIoKestraApi.FlowControllerTaskValidationType(); // FlowControllerTaskValidationType | The type of task
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | A task definition that can be from tasks or triggers
 apiInstance.validateTask(section, tenant, body, (error, data, response) => {
@@ -1725,8 +1725,8 @@ Validate trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1735,7 +1735,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FlowsApi();
+let apiInstance = new KestraIoKestraApi.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The trigger
 apiInstance.validateTrigger(tenant, body, (error, data, response) => {

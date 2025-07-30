@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ServiceUsageDailyStatistics model module.
  * @module model/ServiceUsageDailyStatistics
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ServiceUsageDailyStatistics {
     /**

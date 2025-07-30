@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiPluginVersionDetailsApiPluginClasses
+# KestraIoKestraApi.InstanceControllerApiPluginVersionDetailsApiPluginClasses
 
 ## Properties
 

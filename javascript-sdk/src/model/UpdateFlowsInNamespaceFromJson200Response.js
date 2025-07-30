@@ -18,7 +18,7 @@ import FlowInterface from './FlowInterface';
 /**
  * The UpdateFlowsInNamespaceFromJson200Response model module.
  * @module model/UpdateFlowsInNamespaceFromJson200Response
- * @version v0.24.0
+ * @version v0.0.4
  */
 class UpdateFlowsInNamespaceFromJson200Response {
     /**

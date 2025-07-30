@@ -1,4 +1,4 @@
-# KestraApi.IdWithNamespace
+# KestraIoKestraApi.IdWithNamespace
 
 ## Properties
 

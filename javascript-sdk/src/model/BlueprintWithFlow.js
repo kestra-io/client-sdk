@@ -17,7 +17,7 @@ import Blueprint from './Blueprint';
 /**
  * The BlueprintWithFlow model module.
  * @module model/BlueprintWithFlow
- * @version v0.24.0
+ * @version v0.0.4
  */
 class BlueprintWithFlow {
     /**

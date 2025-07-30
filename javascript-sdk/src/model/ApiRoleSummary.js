@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiRoleSummary model module.
  * @module model/ApiRoleSummary
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ApiRoleSummary {
     /**

@@ -1,4 +1,4 @@
-# KestraApi.SCIMApi
+# KestraIoKestraApi.SCIMApi
 
 All URIs are relative to *http://localhost*
 
@@ -32,12 +32,12 @@ Create
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let scimUser = new KestraApi.ScimUser(); // ScimUser | 
+let scimUser = new KestraIoKestraApi.ScimUser(); // ScimUser | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
@@ -87,12 +87,12 @@ Create
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let scimUser = new KestraApi.ScimUser(); // ScimUser | 
+let scimUser = new KestraIoKestraApi.ScimUser(); // ScimUser | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
@@ -142,9 +142,9 @@ Delete from the backing store
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -191,9 +191,9 @@ Delete from the backing store
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -240,12 +240,12 @@ Search
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let searchRequest = new KestraApi.SearchRequest(); // SearchRequest | 
+let searchRequest = new KestraIoKestraApi.SearchRequest(); // SearchRequest | 
 apiInstance.findGroups(integration, tenant, searchRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -289,12 +289,12 @@ Search
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let searchRequest = new KestraApi.SearchRequest(); // SearchRequest | 
+let searchRequest = new KestraIoKestraApi.SearchRequest(); // SearchRequest | 
 apiInstance.findUsers(integration, tenant, searchRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -338,9 +338,9 @@ Find by id
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -393,9 +393,9 @@ Find by id
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
@@ -448,13 +448,13 @@ Patch a portion of the backing store
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let patchRequest = new KestraApi.PatchRequest(); // PatchRequest | 
+let patchRequest = new KestraIoKestraApi.PatchRequest(); // PatchRequest | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
@@ -505,13 +505,13 @@ Patch a portion of the backing store
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let patchRequest = new KestraApi.PatchRequest(); // PatchRequest | 
+let patchRequest = new KestraIoKestraApi.PatchRequest(); // PatchRequest | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
@@ -562,9 +562,9 @@ Find by a combination of query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -572,7 +572,7 @@ let opts = {
   'excludedAttributes': "excludedAttributes_example", // String | 
   'filter': "filter_example", // String | 
   'sortBy': "sortBy_example", // String | 
-  'sortOrder': new KestraApi.SortOrder(), // SortOrder | 
+  'sortOrder': new KestraIoKestraApi.SortOrder(), // SortOrder | 
   'startIndex': 56, // Number | 
   'count': 56 // Number | 
 };
@@ -625,9 +625,9 @@ Find by a combination of query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -635,7 +635,7 @@ let opts = {
   'excludedAttributes': "excludedAttributes_example", // String | 
   'filter': "filter_example", // String | 
   'sortBy': "sortBy_example", // String | 
-  'sortOrder': new KestraApi.SortOrder(), // SortOrder | 
+  'sortOrder': new KestraIoKestraApi.SortOrder(), // SortOrder | 
   'startIndex': 56, // Number | 
   'count': 56 // Number | 
 };
@@ -688,13 +688,13 @@ Update
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let scimResource = new KestraApi.ScimResource(); // ScimResource | 
+let scimResource = new KestraIoKestraApi.ScimResource(); // ScimResource | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 
@@ -745,13 +745,13 @@ Update
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.SCIMApi();
+let apiInstance = new KestraIoKestraApi.SCIMApi();
 let id = "id_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-let scimResource = new KestraApi.ScimResource(); // ScimResource | 
+let scimResource = new KestraIoKestraApi.ScimResource(); // ScimResource | 
 let opts = {
   'attributes': "attributes_example", // String | 
   'excludedAttributes': "excludedAttributes_example" // String | 

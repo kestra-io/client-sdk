@@ -17,7 +17,7 @@ import InstanceControllerApiPluginVersionDetailsApiPluginClasses from './Instanc
 /**
  * The InstanceControllerApiPluginVersionDetails model module.
  * @module model/InstanceControllerApiPluginVersionDetails
- * @version v0.24.0
+ * @version v0.0.4
  */
 class InstanceControllerApiPluginVersionDetails {
     /**

@@ -27,7 +27,7 @@ import UsageEE from '../model/UsageEE';
 /**
 * Misc service.
 * @module api/MiscApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class MiscApi {
 

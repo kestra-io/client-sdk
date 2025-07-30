@@ -1,4 +1,4 @@
-# KestraApi.AbstractUser
+# KestraIoKestraApi.AbstractUser
 
 ## Properties
 

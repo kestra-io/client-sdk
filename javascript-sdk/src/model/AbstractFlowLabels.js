@@ -17,7 +17,7 @@ import MapObjectObject from './MapObjectObject';
 /**
  * The AbstractFlowLabels model module.
  * @module model/AbstractFlowLabels
- * @version v0.24.0
+ * @version v0.0.4
  */
 class AbstractFlowLabels {
     /**

@@ -1,4 +1,4 @@
-# KestraApi.SchemaAttribute
+# KestraIoKestraApi.SchemaAttribute
 
 ## Properties
 

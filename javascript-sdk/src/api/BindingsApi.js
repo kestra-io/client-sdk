@@ -21,7 +21,7 @@ import PagedResultsIAMBindingControllerApiBindingSummary from '../model/PagedRes
 /**
 * Bindings service.
 * @module api/BindingsApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class BindingsApi {
 

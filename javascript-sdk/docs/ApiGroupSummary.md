@@ -1,4 +1,4 @@
-# KestraApi.ApiGroupSummary
+# KestraIoKestraApi.ApiGroupSummary
 
 ## Properties
 

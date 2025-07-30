@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiSecretMeta model module.
  * @module model/ApiSecretMeta
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ApiSecretMeta {
     /**

@@ -22,7 +22,7 @@ import PagedResultsIAMInvitationControllerApiInvitationDetail from '../model/Pag
 /**
 * Invitations service.
 * @module api/InvitationsApi
-* @version v0.24.0
+* @version v0.0.4
 */
 export default class InvitationsApi {
 

@@ -17,7 +17,7 @@ import IdentityProvider from './IdentityProvider';
 /**
  * The Group model module.
  * @module model/Group
- * @version v0.24.0
+ * @version v0.0.4
  */
 class Group {
     /**

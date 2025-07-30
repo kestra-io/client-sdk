@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The BaseResourcePatchRequest model module.
  * @module model/BaseResourcePatchRequest
- * @version v0.24.0
+ * @version v0.0.4
  */
 class BaseResourcePatchRequest {
     /**

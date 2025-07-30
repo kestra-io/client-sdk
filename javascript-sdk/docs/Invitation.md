@@ -1,4 +1,4 @@
-# KestraApi.Invitation
+# KestraIoKestraApi.Invitation
 
 ## Properties
 

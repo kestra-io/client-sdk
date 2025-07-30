@@ -18,7 +18,7 @@ import ConvertibleValuesListString from './ConvertibleValuesListString';
 /**
  * The ConvertibleMultiValuesString model module.
  * @module model/ConvertibleMultiValuesString
- * @version v0.24.0
+ * @version v0.0.4
  */
 class ConvertibleMultiValuesString {
     /**

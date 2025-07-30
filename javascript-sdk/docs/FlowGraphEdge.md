@@ -1,4 +1,4 @@
-# KestraApi.FlowGraphEdge
+# KestraIoKestraApi.FlowGraphEdge
 
 ## Properties
 

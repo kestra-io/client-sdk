@@ -1,4 +1,4 @@
-# KestraApi.PatchOperationType
+# KestraIoKestraApi.PatchOperationType
 
 ## Enum
 

@@ -17,7 +17,7 @@ import Permission from './Permission';
 /**
  * The AuditLogDetail model module.
  * @module model/AuditLogDetail
- * @version v0.24.0
+ * @version v0.0.4
  */
 class AuditLogDetail {
     /**

@@ -1,4 +1,4 @@
-# KestraApi.AbstractTrigger
+# KestraIoKestraApi.AbstractTrigger
 
 ## Properties
 

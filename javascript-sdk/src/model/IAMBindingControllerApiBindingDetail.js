@@ -20,7 +20,7 @@ import Role from './Role';
 /**
  * The IAMBindingControllerApiBindingDetail model module.
  * @module model/IAMBindingControllerApiBindingDetail
- * @version v0.24.0
+ * @version v0.0.4
  */
 class IAMBindingControllerApiBindingDetail {
     /**

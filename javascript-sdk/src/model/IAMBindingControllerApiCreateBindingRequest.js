@@ -17,7 +17,7 @@ import BindingType from './BindingType';
 /**
  * The IAMBindingControllerApiCreateBindingRequest model module.
  * @module model/IAMBindingControllerApiCreateBindingRequest
- * @version v0.24.0
+ * @version v0.0.4
  */
 class IAMBindingControllerApiCreateBindingRequest {
     /**

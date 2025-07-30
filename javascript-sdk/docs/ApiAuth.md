@@ -1,4 +1,4 @@
-# KestraApi.ApiAuth
+# KestraIoKestraApi.ApiAuth
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.ApiSecretValue
+# KestraIoKestraApi.ApiSecretValue
 
 ## Properties
 
