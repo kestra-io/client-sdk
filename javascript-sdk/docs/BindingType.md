@@ -1,4 +1,4 @@
-# KestraApi.BindingType
+# KestraIoKestraApi.BindingType
 
 ## Enum
 

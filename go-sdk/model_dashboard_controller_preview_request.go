@@ -20,8 +20,8 @@ var _ MappedNullable = &DashboardControllerPreviewRequest{}
 
 // DashboardControllerPreviewRequest struct for DashboardControllerPreviewRequest
 type DashboardControllerPreviewRequest struct {
-	Chart                string               `json:"chart"`
-	GlobalFilter         NullableGlobalFilter `json:"globalFilter,omitempty"`
+	Chart                string                        `json:"chart"`
+	GlobalFilter         NullableChartFiltersOverrides `json:"globalFilter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -70,9 +70,9 @@ func (o *DashboardControllerPreviewRequest) SetChart(v string) {
 }
 
 // GetGlobalFilter returns the GlobalFilter field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DashboardControllerPreviewRequest) GetGlobalFilter() GlobalFilter {
+func (o *DashboardControllerPreviewRequest) GetGlobalFilter() ChartFiltersOverrides {
 	if o == nil || IsNil(o.GlobalFilter.Get()) {
-		var ret GlobalFilter
+		var ret ChartFiltersOverrides
 		return ret
 	}
 	return *o.GlobalFilter.Get()
@@ -81,7 +81,7 @@ func (o *DashboardControllerPreviewRequest) GetGlobalFilter() GlobalFilter {
 // GetGlobalFilterOk returns a tuple with the GlobalFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DashboardControllerPreviewRequest) GetGlobalFilterOk() (*GlobalFilter, bool) {
+func (o *DashboardControllerPreviewRequest) GetGlobalFilterOk() (*ChartFiltersOverrides, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *DashboardControllerPreviewRequest) HasGlobalFilter() bool {
 	return false
 }
 
-// SetGlobalFilter gets a reference to the given NullableGlobalFilter and assigns it to the GlobalFilter field.
-func (o *DashboardControllerPreviewRequest) SetGlobalFilter(v GlobalFilter) {
+// SetGlobalFilter gets a reference to the given NullableChartFiltersOverrides and assigns it to the GlobalFilter field.
+func (o *DashboardControllerPreviewRequest) SetGlobalFilter(v ChartFiltersOverrides) {
 	o.GlobalFilter.Set(&v)
 }
 

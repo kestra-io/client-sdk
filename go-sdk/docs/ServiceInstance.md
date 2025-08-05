@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Server** | [**ServerInstance**](ServerInstance.md) |  | 
-**Metrics** | [**[]Metric**](Metric.md) |  | 
-**State** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
-**Id** | **string** |  | 
-**Type** | [**ServiceType**](ServiceType.md) |  | 
-**CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
-**Events** | [**[]ServiceInstanceTimestampedEvent**](ServiceInstanceTimestampedEvent.md) |  | 
-**Config** | [**ServerConfig**](ServerConfig.md) |  | 
-**Props** | **map[string]interface{}** |  | 
-**SeqId** | **int64** |  | 
+**Server** | Pointer to [**ServerInstance**](ServerInstance.md) |  | [optional] 
+**Metrics** | Pointer to [**[]Metric**](Metric.md) |  | [optional] 
+**State** | Pointer to [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to [**ServiceType**](ServiceType.md) |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
+**Events** | Pointer to [**[]ServiceInstanceTimestampedEvent**](ServiceInstanceTimestampedEvent.md) |  | [optional] 
+**Config** | Pointer to [**ServerConfig**](ServerConfig.md) |  | [optional] 
+**Props** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**SeqId** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
 ### NewServiceInstance
 
-`func NewServiceInstance(server ServerInstance, metrics []Metric, state ServiceServiceState, id string, type_ ServiceType, createdAt time.Time, updatedAt time.Time, events []ServiceInstanceTimestampedEvent, config ServerConfig, props map[string]interface{}, seqId int64, ) *ServiceInstance`
+`func NewServiceInstance() *ServiceInstance`
 
 NewServiceInstance instantiates a new ServiceInstance object
 This constructor will assign default values to properties that have it defined,
@@ -54,6 +54,11 @@ and a boolean to check if the value has been set.
 
 SetServer sets Server field to given value.
 
+### HasServer
+
+`func (o *ServiceInstance) HasServer() bool`
+
+HasServer returns a boolean if a field has been set.
 
 ### GetMetrics
 
@@ -74,6 +79,11 @@ and a boolean to check if the value has been set.
 
 SetMetrics sets Metrics field to given value.
 
+### HasMetrics
+
+`func (o *ServiceInstance) HasMetrics() bool`
+
+HasMetrics returns a boolean if a field has been set.
 
 ### GetState
 
@@ -94,6 +104,11 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
+### HasState
+
+`func (o *ServiceInstance) HasState() bool`
+
+HasState returns a boolean if a field has been set.
 
 ### GetId
 
@@ -114,6 +129,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *ServiceInstance) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetType
 
@@ -134,6 +154,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *ServiceInstance) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -154,6 +179,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *ServiceInstance) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -174,6 +204,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *ServiceInstance) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetEvents
 
@@ -194,6 +229,11 @@ and a boolean to check if the value has been set.
 
 SetEvents sets Events field to given value.
 
+### HasEvents
+
+`func (o *ServiceInstance) HasEvents() bool`
+
+HasEvents returns a boolean if a field has been set.
 
 ### GetConfig
 
@@ -214,26 +254,36 @@ and a boolean to check if the value has been set.
 
 SetConfig sets Config field to given value.
 
+### HasConfig
+
+`func (o *ServiceInstance) HasConfig() bool`
+
+HasConfig returns a boolean if a field has been set.
 
 ### GetProps
 
-`func (o *ServiceInstance) GetProps() map[string]interface{}`
+`func (o *ServiceInstance) GetProps() map[string]map[string]interface{}`
 
 GetProps returns the Props field if non-nil, zero value otherwise.
 
 ### GetPropsOk
 
-`func (o *ServiceInstance) GetPropsOk() (*map[string]interface{}, bool)`
+`func (o *ServiceInstance) GetPropsOk() (*map[string]map[string]interface{}, bool)`
 
 GetPropsOk returns a tuple with the Props field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProps
 
-`func (o *ServiceInstance) SetProps(v map[string]interface{})`
+`func (o *ServiceInstance) SetProps(v map[string]map[string]interface{})`
 
 SetProps sets Props field to given value.
 
+### HasProps
+
+`func (o *ServiceInstance) HasProps() bool`
+
+HasProps returns a boolean if a field has been set.
 
 ### GetSeqId
 
@@ -254,6 +304,11 @@ and a boolean to check if the value has been set.
 
 SetSeqId sets SeqId field to given value.
 
+### HasSeqId
+
+`func (o *ServiceInstance) HasSeqId() bool`
+
+HasSeqId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

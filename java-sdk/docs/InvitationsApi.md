@@ -88,6 +88,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Invitation successfully created |  -  |
+| **204** | Tenant access granted to the user |  -  |
 | **403** | Insufficient privileges to invite a Superadmin user |  -  |
 | **409** | Invitation already exists for the given email, or user already had access to the tenant |  -  |
 

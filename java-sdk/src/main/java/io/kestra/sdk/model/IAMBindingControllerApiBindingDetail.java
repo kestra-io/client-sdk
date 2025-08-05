@@ -20,10 +20,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.ApiUser;
-import io.kestra.sdk.model.Binding;
-import io.kestra.sdk.model.Group;
-import io.kestra.sdk.model.Role;
+import io.kestra.sdk.model.BindingType;
+import io.kestra.sdk.model.IAMBindingControllerApiBindingGroup;
+import io.kestra.sdk.model.IAMBindingControllerApiBindingUser;
+import io.kestra.sdk.model.IAMBindingControllerApiRole;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -34,59 +38,127 @@ import java.util.StringJoiner;
  * IAMBindingControllerApiBindingDetail
  */
 @JsonPropertyOrder({
-  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_BINDING,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_ID,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_TYPE,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_NAMESPACE,
   IAMBindingControllerApiBindingDetail.JSON_PROPERTY_ROLE,
-  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_USER,
-  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_GROUP
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_GROUP,
+  IAMBindingControllerApiBindingDetail.JSON_PROPERTY_USER
 })
 @JsonTypeName("IAMBindingController.ApiBindingDetail")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMBindingControllerApiBindingDetail {
-  public static final String JSON_PROPERTY_BINDING = "binding";
+  public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable
-  private Binding binding;
+  private String id;
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  @javax.annotation.Nullable
+  private BindingType type;
+
+  public static final String JSON_PROPERTY_NAMESPACE = "namespace";
+  @javax.annotation.Nullable
+  private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_ROLE = "role";
   @javax.annotation.Nullable
-  private Role role;
-
-  public static final String JSON_PROPERTY_USER = "user";
-  @javax.annotation.Nullable
-  private ApiUser user;
+  private IAMBindingControllerApiRole role;
 
   public static final String JSON_PROPERTY_GROUP = "group";
   @javax.annotation.Nullable
-  private Group group;
+  private JsonNullable<IAMBindingControllerApiBindingGroup> group = JsonNullable.<IAMBindingControllerApiBindingGroup>undefined();
+
+  public static final String JSON_PROPERTY_USER = "user";
+  @javax.annotation.Nullable
+  private JsonNullable<IAMBindingControllerApiBindingUser> user = JsonNullable.<IAMBindingControllerApiBindingUser>undefined();
 
   public IAMBindingControllerApiBindingDetail() {
   }
 
-  public IAMBindingControllerApiBindingDetail binding(@javax.annotation.Nullable Binding binding) {
+  public IAMBindingControllerApiBindingDetail id(@javax.annotation.Nullable String id) {
     
-    this.binding = binding;
+    this.id = id;
     return this;
   }
 
   /**
-   * Get binding
-   * @return binding
+   * Get id
+   * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BINDING)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Binding getBinding() {
-    return binding;
+  public String getId() {
+    return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BINDING)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBinding(@javax.annotation.Nullable Binding binding) {
-    this.binding = binding;
+  public void setId(@javax.annotation.Nullable String id) {
+    this.id = id;
   }
 
-  public IAMBindingControllerApiBindingDetail role(@javax.annotation.Nullable Role role) {
+  public IAMBindingControllerApiBindingDetail type(@javax.annotation.Nullable BindingType type) {
+    
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * Get type
+   * @return type
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BindingType getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable BindingType type) {
+    this.type = type;
+  }
+
+  public IAMBindingControllerApiBindingDetail namespace(@javax.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+    
+    return this;
+  }
+
+  /**
+   * Get namespace
+   * @return namespace
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+
+  public String getNamespace() {
+        return namespace.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getNamespace_JsonNullable() {
+    return namespace;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  public void setNamespace_JsonNullable(JsonNullable<String> namespace) {
+    this.namespace = namespace;
+  }
+
+  public void setNamespace(@javax.annotation.Nullable String namespace) {
+    this.namespace = JsonNullable.<String>of(namespace);
+  }
+
+  public IAMBindingControllerApiBindingDetail role(@javax.annotation.Nullable IAMBindingControllerApiRole role) {
     
     this.role = role;
     return this;
@@ -100,45 +172,20 @@ public class IAMBindingControllerApiBindingDetail {
   @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Role getRole() {
+  public IAMBindingControllerApiRole getRole() {
     return role;
   }
 
 
   @JsonProperty(JSON_PROPERTY_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRole(@javax.annotation.Nullable Role role) {
+  public void setRole(@javax.annotation.Nullable IAMBindingControllerApiRole role) {
     this.role = role;
   }
 
-  public IAMBindingControllerApiBindingDetail user(@javax.annotation.Nullable ApiUser user) {
+  public IAMBindingControllerApiBindingDetail group(@javax.annotation.Nullable IAMBindingControllerApiBindingGroup group) {
+    this.group = JsonNullable.<IAMBindingControllerApiBindingGroup>of(group);
     
-    this.user = user;
-    return this;
-  }
-
-  /**
-   * Get user
-   * @return user
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ApiUser getUser() {
-    return user;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUser(@javax.annotation.Nullable ApiUser user) {
-    this.user = user;
-  }
-
-  public IAMBindingControllerApiBindingDetail group(@javax.annotation.Nullable Group group) {
-    
-    this.group = group;
     return this;
   }
 
@@ -147,18 +194,59 @@ public class IAMBindingControllerApiBindingDetail {
    * @return group
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
-  public Group getGroup() {
-    return group;
+  public IAMBindingControllerApiBindingGroup getGroup() {
+        return group.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_GROUP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroup(@javax.annotation.Nullable Group group) {
+
+  public JsonNullable<IAMBindingControllerApiBindingGroup> getGroup_JsonNullable() {
+    return group;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_GROUP)
+  public void setGroup_JsonNullable(JsonNullable<IAMBindingControllerApiBindingGroup> group) {
     this.group = group;
+  }
+
+  public void setGroup(@javax.annotation.Nullable IAMBindingControllerApiBindingGroup group) {
+    this.group = JsonNullable.<IAMBindingControllerApiBindingGroup>of(group);
+  }
+
+  public IAMBindingControllerApiBindingDetail user(@javax.annotation.Nullable IAMBindingControllerApiBindingUser user) {
+    this.user = JsonNullable.<IAMBindingControllerApiBindingUser>of(user);
+    
+    return this;
+  }
+
+  /**
+   * Get user
+   * @return user
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+
+  public IAMBindingControllerApiBindingUser getUser() {
+        return user.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_USER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<IAMBindingControllerApiBindingUser> getUser_JsonNullable() {
+    return user;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_USER)
+  public void setUser_JsonNullable(JsonNullable<IAMBindingControllerApiBindingUser> user) {
+    this.user = user;
+  }
+
+  public void setUser(@javax.annotation.Nullable IAMBindingControllerApiBindingUser user) {
+    this.user = JsonNullable.<IAMBindingControllerApiBindingUser>of(user);
   }
 
   @Override
@@ -170,25 +258,40 @@ public class IAMBindingControllerApiBindingDetail {
       return false;
     }
     IAMBindingControllerApiBindingDetail iaMBindingControllerApiBindingDetail = (IAMBindingControllerApiBindingDetail) o;
-    return Objects.equals(this.binding, iaMBindingControllerApiBindingDetail.binding) &&
+    return Objects.equals(this.id, iaMBindingControllerApiBindingDetail.id) &&
+        Objects.equals(this.type, iaMBindingControllerApiBindingDetail.type) &&
+        equalsNullable(this.namespace, iaMBindingControllerApiBindingDetail.namespace) &&
         Objects.equals(this.role, iaMBindingControllerApiBindingDetail.role) &&
-        Objects.equals(this.user, iaMBindingControllerApiBindingDetail.user) &&
-        Objects.equals(this.group, iaMBindingControllerApiBindingDetail.group);
+        equalsNullable(this.group, iaMBindingControllerApiBindingDetail.group) &&
+        equalsNullable(this.user, iaMBindingControllerApiBindingDetail.user);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(binding, role, user, group);
+    return Objects.hash(id, type, hashCodeNullable(namespace), role, hashCodeNullable(group), hashCodeNullable(user));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IAMBindingControllerApiBindingDetail {\n");
-    sb.append("    binding: ").append(toIndentedString(binding)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    role: ").append(toIndentedString(role)).append("\n");
-    sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    group: ").append(toIndentedString(group)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -236,9 +339,34 @@ public class IAMBindingControllerApiBindingDetail {
 
     StringJoiner joiner = new StringJoiner("&");
 
-    // add `binding` to the URL query string
-    if (getBinding() != null) {
-      joiner.add(getBinding().toUrlQueryString(prefix + "binding" + suffix));
+    // add `id` to the URL query string
+    if (getId() != null) {
+      try {
+        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      try {
+        joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `namespace` to the URL query string
+    if (getNamespace() != null) {
+      try {
+        joiner.add(String.format("%snamespace%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNamespace()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
     }
 
     // add `role` to the URL query string
@@ -246,14 +374,14 @@ public class IAMBindingControllerApiBindingDetail {
       joiner.add(getRole().toUrlQueryString(prefix + "role" + suffix));
     }
 
-    // add `user` to the URL query string
-    if (getUser() != null) {
-      joiner.add(getUser().toUrlQueryString(prefix + "user" + suffix));
-    }
-
     // add `group` to the URL query string
     if (getGroup() != null) {
       joiner.add(getGroup().toUrlQueryString(prefix + "group" + suffix));
+    }
+
+    // add `user` to the URL query string
+    if (getUser() != null) {
+      joiner.add(getUser().toUrlQueryString(prefix + "user" + suffix));
     }
 
     return joiner.toString();

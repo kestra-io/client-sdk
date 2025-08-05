@@ -1,4 +1,4 @@
-# KestraApi.QueryFilterOperation
+# KestraIoKestraApi.QueryFilterOperation
 
 ## Properties
 

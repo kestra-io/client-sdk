@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | **map[string]interface{}** |  | 
-**ExternalId** | **string** |  | 
-**SecurityIntegrationId** | **string** |  | 
-**SecurityIntegrationName** | **string** |  | 
+**Attributes** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**ExternalId** | Pointer to **string** |  | [optional] 
+**SecurityIntegrationId** | Pointer to **string** |  | [optional] 
+**SecurityIntegrationName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewIdentityProvider
 
-`func NewIdentityProvider(attributes map[string]interface{}, externalId string, securityIntegrationId string, securityIntegrationName string, ) *IdentityProvider`
+`func NewIdentityProvider() *IdentityProvider`
 
 NewIdentityProvider instantiates a new IdentityProvider object
 This constructor will assign default values to properties that have it defined,
@@ -30,23 +30,28 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAttributes
 
-`func (o *IdentityProvider) GetAttributes() map[string]interface{}`
+`func (o *IdentityProvider) GetAttributes() map[string]map[string]interface{}`
 
 GetAttributes returns the Attributes field if non-nil, zero value otherwise.
 
 ### GetAttributesOk
 
-`func (o *IdentityProvider) GetAttributesOk() (*map[string]interface{}, bool)`
+`func (o *IdentityProvider) GetAttributesOk() (*map[string]map[string]interface{}, bool)`
 
 GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttributes
 
-`func (o *IdentityProvider) SetAttributes(v map[string]interface{})`
+`func (o *IdentityProvider) SetAttributes(v map[string]map[string]interface{})`
 
 SetAttributes sets Attributes field to given value.
 
+### HasAttributes
+
+`func (o *IdentityProvider) HasAttributes() bool`
+
+HasAttributes returns a boolean if a field has been set.
 
 ### GetExternalId
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetExternalId sets ExternalId field to given value.
 
+### HasExternalId
+
+`func (o *IdentityProvider) HasExternalId() bool`
+
+HasExternalId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationId
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationId sets SecurityIntegrationId field to given value.
 
+### HasSecurityIntegrationId
+
+`func (o *IdentityProvider) HasSecurityIntegrationId() bool`
+
+HasSecurityIntegrationId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationName
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationName sets SecurityIntegrationName field to given value.
 
+### HasSecurityIntegrationName
+
+`func (o *IdentityProvider) HasSecurityIntegrationName() bool`
+
+HasSecurityIntegrationName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

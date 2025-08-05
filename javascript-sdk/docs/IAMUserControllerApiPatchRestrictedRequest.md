@@ -1,4 +1,4 @@
-# KestraApi.IAMUserControllerApiPatchRestrictedRequest
+# KestraIoKestraApi.IAMUserControllerApiPatchRestrictedRequest
 
 ## Properties
 

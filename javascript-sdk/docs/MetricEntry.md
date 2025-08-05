@@ -1,4 +1,4 @@
-# KestraApi.MetricEntry
+# KestraIoKestraApi.MetricEntry
 
 ## Properties
 

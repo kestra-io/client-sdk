@@ -5,16 +5,11 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateApiTokenForCurrentUser**](AuthsAPI.md#CreateApiTokenForCurrentUser) | **Post** /api/v1/me/api-tokens | Create API token for the authenticated user
-[**CreateApiTokenForCurrentUserWithTenant**](AuthsAPI.md#CreateApiTokenForCurrentUserWithTenant) | **Post** /api/v1/{tenant}/me/api-tokens | Create API token for the authenticated user
 [**DeleteApiTokenForCurrentUser**](AuthsAPI.md#DeleteApiTokenForCurrentUser) | **Delete** /api/v1/me/api-tokens/{tokenId} | Delete API token for the authenticated user
-[**DeleteApiTokenForCurrentUserWithTenant**](AuthsAPI.md#DeleteApiTokenForCurrentUserWithTenant) | **Delete** /api/v1/{tenant}/me/api-tokens/{tokenId} | Delete API token for the authenticated user
 [**GetCurrentUser**](AuthsAPI.md#GetCurrentUser) | **Get** /api/v1/me | Get details about the authenticated user
-[**GetCurrentUserWithTenant**](AuthsAPI.md#GetCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me | Get details about the authenticated user
 [**Index**](AuthsAPI.md#Index) | **Get** /api/v1/auths | Retrieve list of authentication methods
 [**ListApiTokensForCurrentUser**](AuthsAPI.md#ListApiTokensForCurrentUser) | **Get** /api/v1/me/api-tokens | List API tokens for authenticated user
-[**ListApiTokensForCurrentUserWithTenant**](AuthsAPI.md#ListApiTokensForCurrentUserWithTenant) | **Get** /api/v1/{tenant}/me/api-tokens | List API tokens for authenticated user
 [**PatchCurrentUser**](AuthsAPI.md#PatchCurrentUser) | **Patch** /api/v1/me | Update authenticated user details
-[**PatchCurrentUserWithTenant**](AuthsAPI.md#PatchCurrentUserWithTenant) | **Patch** /api/v1/{tenant}/me | Update authenticated user details
 
 
 
@@ -37,7 +32,7 @@ import (
 )
 
 func main() {
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | 
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -62,76 +57,6 @@ Other parameters are passed through a pointer to a apiCreateApiTokenForCurrentUs
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) |  | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateApiTokenForCurrentUserWithTenant
-
-> map[string]interface{} CreateApiTokenForCurrentUserWithTenant(ctx, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
-
-Create API token for the authenticated user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.CreateApiTokenForCurrentUserWithTenant(context.Background(), tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.CreateApiTokenForCurrentUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApiTokenForCurrentUserWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.CreateApiTokenForCurrentUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApiTokenForCurrentUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
  **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) |  | 
 
 ### Return type
@@ -220,80 +145,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteApiTokenForCurrentUserWithTenant
-
-> map[string]interface{} DeleteApiTokenForCurrentUserWithTenant(ctx, tokenId, tenant).Execute()
-
-Delete API token for the authenticated user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tokenId := "tokenId_example" // string | The token id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.DeleteApiTokenForCurrentUserWithTenant(context.Background(), tokenId, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.DeleteApiTokenForCurrentUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteApiTokenForCurrentUserWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.DeleteApiTokenForCurrentUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tokenId** | **string** | The token id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiTokenForCurrentUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetCurrentUser
 
-> MeControllerMe GetCurrentUser(ctx).Execute()
+> MeControllerApiMe GetCurrentUser(ctx).Execute()
 
 Get details about the authenticated user
 
@@ -320,7 +174,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.GetCurrentUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetCurrentUser`: MeControllerMe
+	// response from `GetCurrentUser`: MeControllerApiMe
 	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.GetCurrentUser`: %v\n", resp)
 }
 ```
@@ -336,77 +190,7 @@ Other parameters are passed through a pointer to a apiGetCurrentUserRequest stru
 
 ### Return type
 
-[**MeControllerMe**](MeControllerMe.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetCurrentUserWithTenant
-
-> MeControllerMe GetCurrentUserWithTenant(ctx, tenant).Execute()
-
-Get details about the authenticated user
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.GetCurrentUserWithTenant(context.Background(), tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.GetCurrentUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCurrentUserWithTenant`: MeControllerMe
-	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.GetCurrentUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCurrentUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**MeControllerMe**](MeControllerMe.md)
+[**MeControllerApiMe**](MeControllerApiMe.md)
 
 ### Authorization
 
@@ -542,79 +326,9 @@ Other parameters are passed through a pointer to a apiListApiTokensForCurrentUse
 [[Back to README]](../README.md)
 
 
-## ListApiTokensForCurrentUserWithTenant
-
-> map[string]interface{} ListApiTokensForCurrentUserWithTenant(ctx, tenant).Execute()
-
-List API tokens for authenticated user
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.ListApiTokensForCurrentUserWithTenant(context.Background(), tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.ListApiTokensForCurrentUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApiTokensForCurrentUserWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.ListApiTokensForCurrentUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListApiTokensForCurrentUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PatchCurrentUser
 
-> map[string]interface{} PatchCurrentUser(ctx).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
+> map[string]interface{} PatchCurrentUser(ctx).MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest).Execute()
 
 Update authenticated user details
 
@@ -633,11 +347,11 @@ import (
 )
 
 func main() {
-	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerUserDetailsRequest | The user details
+	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest() // MeControllerApiUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.PatchCurrentUser(context.Background()).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
+	resp, r, err := apiClient.AuthsAPI.PatchCurrentUser(context.Background()).MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.PatchCurrentUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -658,79 +372,7 @@ Other parameters are passed through a pointer to a apiPatchCurrentUserRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **meControllerUserDetailsRequest** | [**MeControllerUserDetailsRequest**](MeControllerUserDetailsRequest.md) | The user details | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PatchCurrentUserWithTenant
-
-> map[string]interface{} PatchCurrentUserWithTenant(ctx, tenant).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
-
-Update authenticated user details
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-	meControllerUserDetailsRequest := *openapiclient.NewMeControllerUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerUserDetailsRequest | The user details
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthsAPI.PatchCurrentUserWithTenant(context.Background(), tenant).MeControllerUserDetailsRequest(meControllerUserDetailsRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthsAPI.PatchCurrentUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PatchCurrentUserWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `AuthsAPI.PatchCurrentUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchCurrentUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **meControllerUserDetailsRequest** | [**MeControllerUserDetailsRequest**](MeControllerUserDetailsRequest.md) | The user details | 
+ **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md) | The user details | 
 
 ### Return type
 

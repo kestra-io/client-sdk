@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateBasicAuth**](MiscAPI.md#CreateBasicAuth) | **Post** /api/v1/{tenant}/basicAuth | Configure basic authentication for the instance.
+[**GetBasicAuthConfigErrors**](MiscAPI.md#GetBasicAuthConfigErrors) | **Get** /api/v1/basicAuthValidationErrors | Retrieve the instance configuration.
 [**GetConfiguration**](MiscAPI.md#GetConfiguration) | **Get** /api/v1/configs | Retrieve the instance configuration.
 [**GetUsages**](MiscAPI.md#GetUsages) | **Get** /api/v1/{tenant}/usages/all | Retrieve instance usage information
 [**LicenseInfo**](MiscAPI.md#LicenseInfo) | **Get** /api/v1/license-info | Retrieve license information
@@ -38,7 +39,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials("Uid_example", "Username_example", "Password_example") // MiscControllerBasicAuthCredentials | 
+	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials() // MiscControllerBasicAuthCredentials | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -80,6 +81,67 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBasicAuthConfigErrors
+
+> []string GetBasicAuthConfigErrors(ctx).Execute()
+
+Retrieve the instance configuration.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MiscAPI.GetBasicAuthConfigErrors(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MiscAPI.GetBasicAuthConfigErrors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBasicAuthConfigErrors`: []string
+	fmt.Fprintf(os.Stdout, "Response from `MiscAPI.GetBasicAuthConfigErrors`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBasicAuthConfigErrorsRequest struct via the builder pattern
+
+
+### Return type
+
+**[]string**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -496,7 +558,7 @@ import (
 )
 
 func main() {
-	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData("Username_example", "Password_example", *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false)) // SetupConfigurationSetupData | 
+	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData() // SetupConfigurationSetupData | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

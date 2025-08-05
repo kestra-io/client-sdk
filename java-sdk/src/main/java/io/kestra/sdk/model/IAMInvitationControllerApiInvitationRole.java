@@ -37,10 +37,10 @@ import java.util.StringJoiner;
   IAMInvitationControllerApiInvitationRole.JSON_PROPERTY_NAMESPACES
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationRole")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMInvitationControllerApiInvitationRole {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
@@ -50,7 +50,7 @@ public class IAMInvitationControllerApiInvitationRole {
   public IAMInvitationControllerApiInvitationRole() {
   }
 
-  public IAMInvitationControllerApiInvitationRole id(@javax.annotation.Nullable String id) {
+  public IAMInvitationControllerApiInvitationRole id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -60,9 +60,9 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -70,8 +70,8 @@ public class IAMInvitationControllerApiInvitationRole {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 

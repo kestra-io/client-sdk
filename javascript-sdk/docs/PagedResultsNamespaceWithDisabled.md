@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsNamespaceWithDisabled
+# KestraIoKestraApi.PagedResultsNamespaceWithDisabled
 
 ## Properties
 

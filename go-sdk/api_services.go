@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -28,7 +27,7 @@ type ApiGetActiveServicesRequest struct {
 	ApiService *ServicesAPIService
 }
 
-func (r ApiGetActiveServicesRequest) Execute() (*ClusterControllerApiActiveServiceList, *http.Response, error) {
+func (r ApiGetActiveServicesRequest) Execute() (*InstanceControllerApiActiveServiceList, *http.Response, error) {
 	return r.ApiService.GetActiveServicesExecute(r)
 }
 
@@ -49,13 +48,13 @@ func (a *ServicesAPIService) GetActiveServices(ctx context.Context) ApiGetActive
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiActiveServiceList
-func (a *ServicesAPIService) GetActiveServicesExecute(r ApiGetActiveServicesRequest) (*ClusterControllerApiActiveServiceList, *http.Response, error) {
+//	@return InstanceControllerApiActiveServiceList
+func (a *ServicesAPIService) GetActiveServicesExecute(r ApiGetActiveServicesRequest) (*InstanceControllerApiActiveServiceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiActiveServiceList
+		localVarReturnValue *InstanceControllerApiActiveServiceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.GetActiveServices")
@@ -63,7 +62,7 @@ func (a *ServicesAPIService) GetActiveServicesExecute(r ApiGetActiveServicesRequ
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/services/active"
+	localVarPath := localBasePath + "/api/v1/instance/services/active"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -166,7 +165,7 @@ func (a *ServicesAPIService) GetServiceExecute(r ApiGetServiceRequest) (*Service
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/services/{id}"
+	localVarPath := localBasePath + "/api/v1/instance/services/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -267,7 +266,7 @@ func (r ApiSearchServicesRequest) Type_(type_ []ServiceType) ApiSearchServicesRe
 	return r
 }
 
-func (r ApiSearchServicesRequest) Execute() (*PagedResultsClusterControllerApiServiceInstance, *http.Response, error) {
+func (r ApiSearchServicesRequest) Execute() (*PagedResultsInstanceControllerApiServiceInstance, *http.Response, error) {
 	return r.ApiService.SearchServicesExecute(r)
 }
 
@@ -288,13 +287,13 @@ func (a *ServicesAPIService) SearchServices(ctx context.Context) ApiSearchServic
 
 // Execute executes the request
 //
-//	@return PagedResultsClusterControllerApiServiceInstance
-func (a *ServicesAPIService) SearchServicesExecute(r ApiSearchServicesRequest) (*PagedResultsClusterControllerApiServiceInstance, *http.Response, error) {
+//	@return PagedResultsInstanceControllerApiServiceInstance
+func (a *ServicesAPIService) SearchServicesExecute(r ApiSearchServicesRequest) (*PagedResultsInstanceControllerApiServiceInstance, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsClusterControllerApiServiceInstance
+		localVarReturnValue *PagedResultsInstanceControllerApiServiceInstance
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServicesAPIService.SearchServices")
@@ -302,7 +301,7 @@ func (a *ServicesAPIService) SearchServicesExecute(r ApiSearchServicesRequest) (
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/services/search"
+	localVarPath := localBasePath + "/api/v1/instance/services/search"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -317,37 +316,13 @@ func (a *ServicesAPIService) SearchServicesExecute(r ApiSearchServicesRequest) (
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.type_ != nil {
-		t := *r.type_
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "type", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "type", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

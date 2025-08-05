@@ -6,7 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateTestSuite**](TestSuitesAPI.md#CreateTestSuite) | **Post** /api/v1/{tenant}/tests | Create a test from YAML source
 [**DeleteTestSuite**](TestSuitesAPI.md#DeleteTestSuite) | **Delete** /api/v1/{tenant}/tests/{namespace}/{id} | Delete a test
+[**DeleteTestSuitesByIds**](TestSuitesAPI.md#DeleteTestSuitesByIds) | **Delete** /api/v1/{tenant}/tests/by-ids | Delete multiple tests by id
+[**DisableTestSuitesByIds**](TestSuitesAPI.md#DisableTestSuitesByIds) | **Post** /api/v1/{tenant}/tests/disable/by-ids | Disable multiple tests by id
+[**EnableTestSuitesByIds**](TestSuitesAPI.md#EnableTestSuitesByIds) | **Post** /api/v1/{tenant}/tests/enable/by-ids | Enable multiple tests by id
+[**GetTestResult**](TestSuitesAPI.md#GetTestResult) | **Get** /api/v1/{tenant}/tests/results/{id} | Get a test result
 [**GetTestSuite**](TestSuitesAPI.md#GetTestSuite) | **Get** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
+[**GetTestsLastResult**](TestSuitesAPI.md#GetTestsLastResult) | **Post** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 [**RunTestSuite**](TestSuitesAPI.md#RunTestSuite) | **Post** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
 [**SearchTestSuites**](TestSuitesAPI.md#SearchTestSuites) | **Get** /api/v1/{tenant}/tests/search | Search for tests
 [**UpdateTestSuite**](TestSuitesAPI.md#UpdateTestSuite) | **Put** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
@@ -162,6 +167,295 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## DeleteTestSuitesByIds
+
+> BulkResponse DeleteTestSuitesByIds(ctx, tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+
+Delete multiple tests by id
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	testSuiteControllerTestSuiteBulkRequest := *openapiclient.NewTestSuiteControllerTestSuiteBulkRequest([]openapiclient.TestSuiteControllerTestSuiteApiId{*openapiclient.NewTestSuiteControllerTestSuiteApiId("Namespace_example", "Id_example")}) // TestSuiteControllerTestSuiteBulkRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.DeleteTestSuitesByIds(context.Background(), tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.DeleteTestSuitesByIds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteTestSuitesByIds`: BulkResponse
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.DeleteTestSuitesByIds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTestSuitesByIdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md) |  | 
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DisableTestSuitesByIds
+
+> BulkResponse DisableTestSuitesByIds(ctx, tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+
+Disable multiple tests by id
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	testSuiteControllerTestSuiteBulkRequest := *openapiclient.NewTestSuiteControllerTestSuiteBulkRequest([]openapiclient.TestSuiteControllerTestSuiteApiId{*openapiclient.NewTestSuiteControllerTestSuiteApiId("Namespace_example", "Id_example")}) // TestSuiteControllerTestSuiteBulkRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.DisableTestSuitesByIds(context.Background(), tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.DisableTestSuitesByIds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DisableTestSuitesByIds`: BulkResponse
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.DisableTestSuitesByIds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDisableTestSuitesByIdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md) |  | 
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## EnableTestSuitesByIds
+
+> BulkResponse EnableTestSuitesByIds(ctx, tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+
+Enable multiple tests by id
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	testSuiteControllerTestSuiteBulkRequest := *openapiclient.NewTestSuiteControllerTestSuiteBulkRequest([]openapiclient.TestSuiteControllerTestSuiteApiId{*openapiclient.NewTestSuiteControllerTestSuiteApiId("Namespace_example", "Id_example")}) // TestSuiteControllerTestSuiteBulkRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.EnableTestSuitesByIds(context.Background(), tenant).TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.EnableTestSuitesByIds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `EnableTestSuitesByIds`: BulkResponse
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.EnableTestSuitesByIds`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEnableTestSuitesByIdsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **testSuiteControllerTestSuiteBulkRequest** | [**TestSuiteControllerTestSuiteBulkRequest**](TestSuiteControllerTestSuiteBulkRequest.md) |  | 
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTestResult
+
+> TestSuiteRunResult GetTestResult(ctx, id, tenant).Execute()
+
+Get a test result
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The test run ID
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.GetTestResult(context.Background(), id, tenant).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.GetTestResult``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTestResult`: TestSuiteRunResult
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.GetTestResult`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The test run ID | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTestResultRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**TestSuiteRunResult**](TestSuiteRunResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTestSuite
 
 > TestSuite GetTestSuite(ctx, namespace, id, tenant).Execute()
@@ -231,6 +525,78 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetTestsLastResult
+
+> TestSuiteControllerTestsLastResultResponse GetTestsLastResult(ctx, tenant).TestSuiteControllerSearchTestsLastResult(testSuiteControllerSearchTestsLastResult).Execute()
+
+Get tests last result
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	testSuiteControllerSearchTestsLastResult := *openapiclient.NewTestSuiteControllerSearchTestsLastResult() // TestSuiteControllerSearchTestsLastResult | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.GetTestsLastResult(context.Background(), tenant).TestSuiteControllerSearchTestsLastResult(testSuiteControllerSearchTestsLastResult).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.GetTestsLastResult``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTestsLastResult`: TestSuiteControllerTestsLastResultResponse
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.GetTestsLastResult`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTestsLastResultRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **testSuiteControllerSearchTestsLastResult** | [**TestSuiteControllerSearchTestsLastResult**](TestSuiteControllerSearchTestsLastResult.md) |  | 
+
+### Return type
+
+[**TestSuiteControllerTestsLastResultResponse**](TestSuiteControllerTestsLastResultResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

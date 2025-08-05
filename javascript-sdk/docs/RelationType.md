@@ -1,4 +1,4 @@
-# KestraApi.RelationType
+# KestraIoKestraApi.RelationType
 
 ## Enum
 

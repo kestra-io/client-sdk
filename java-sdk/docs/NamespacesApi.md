@@ -5,8 +5,6 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**autocompleteNamespaces**](NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete |
-| [**autocompleteNamespacesWithResourceTenantasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete |
-| [**autocompleteNamespacesasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesasSuperAdmin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete |
 | [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace |
 | [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace |
 | [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace |
@@ -24,7 +22,7 @@ All URIs are relative to *http://localhost*
 
 ## autocompleteNamespaces
 
-> List&lt;String&gt; autocompleteNamespaces(tenant, q, apiIds)
+> List&lt;String&gt; autocompleteNamespaces(tenant, apiAutocomplete)
 
 List namespaces for autocomplete
 
@@ -57,10 +55,9 @@ public class Example {
 
         NamespacesApi apiInstance = new NamespacesApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        String q = "q_example"; // String | A string filter
-        ApiIds apiIds = new ApiIds(); // ApiIds | 
+        ApiAutocomplete apiAutocomplete = new ApiAutocomplete(); // ApiAutocomplete | 
         try {
-            List<String> result = apiInstance.autocompleteNamespaces(tenant, q, apiIds);
+            List<String> result = apiInstance.autocompleteNamespaces(tenant, apiAutocomplete);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#autocompleteNamespaces");
@@ -79,8 +76,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
-| **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] |
+| **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | |
 
 ### Return type
 
@@ -100,164 +96,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | autocompleteNamespaces 200 response |  -  |
-
-
-## autocompleteNamespacesWithResourceTenantasSuperAdmin
-
-> List&lt;String&gt; autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, q, apiIds)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.NamespacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        NamespacesApi apiInstance = new NamespacesApi(defaultClient);
-        String resourceTenant = "resourceTenant_example"; // String | 
-        String q = "q_example"; // String | A string filter
-        ApiIds apiIds = new ApiIds(); // ApiIds | 
-        try {
-            List<String> result = apiInstance.autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, q, apiIds);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NamespacesApi#autocompleteNamespacesWithResourceTenantasSuperAdmin");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **resourceTenant** | **String**|  | |
-| **q** | **String**| A string filter | [optional] |
-| **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] |
-
-### Return type
-
-**List&lt;String&gt;**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | autocompleteNamespacesWithResourceTenantasSuperAdmin 200 response |  -  |
-
-
-## autocompleteNamespacesasSuperAdmin
-
-> List&lt;String&gt; autocompleteNamespacesasSuperAdmin(q, apiIds)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.NamespacesApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        NamespacesApi apiInstance = new NamespacesApi(defaultClient);
-        String q = "q_example"; // String | A string filter
-        ApiIds apiIds = new ApiIds(); // ApiIds | 
-        try {
-            List<String> result = apiInstance.autocompleteNamespacesasSuperAdmin(q, apiIds);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling NamespacesApi#autocompleteNamespacesasSuperAdmin");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **q** | **String**| A string filter | [optional] |
-| **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] |
-
-### Return type
-
-**List&lt;String&gt;**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | autocompleteNamespacesasSuperAdmin 200 response |  -  |
 
 
 ## createNamespace

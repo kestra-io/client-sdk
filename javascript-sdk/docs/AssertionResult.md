@@ -1,4 +1,4 @@
-# KestraApi.AssertionResult
+# KestraIoKestraApi.AssertionResult
 
 ## Properties
 

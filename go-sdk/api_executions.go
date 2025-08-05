@@ -35,6 +35,8 @@ type ApiCreateExecutionRequest struct {
 	labels       *[]string
 	revision     *int32
 	scheduleDate *time.Time
+	breakpoints  *string
+	kind         *ExecutionKind
 }
 
 // If the server will wait the end of the execution
@@ -58,6 +60,18 @@ func (r ApiCreateExecutionRequest) Revision(revision int32) ApiCreateExecutionRe
 // Schedule the flow on a specific date
 func (r ApiCreateExecutionRequest) ScheduleDate(scheduleDate time.Time) ApiCreateExecutionRequest {
 	r.scheduleDate = &scheduleDate
+	return r
+}
+
+// Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma.
+func (r ApiCreateExecutionRequest) Breakpoints(breakpoints string) ApiCreateExecutionRequest {
+	r.breakpoints = &breakpoints
+	return r
+}
+
+// Specific execution kind
+func (r ApiCreateExecutionRequest) Kind(kind ExecutionKind) ApiCreateExecutionRequest {
+	r.kind = &kind
 	return r
 }
 
@@ -129,6 +143,12 @@ func (a *ExecutionsAPIService) CreateExecutionExecute(r ApiCreateExecutionReques
 	}
 	if r.scheduleDate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scheduleDate", r.scheduleDate, "form", "")
+	}
+	if r.breakpoints != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
+	}
+	if r.kind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "kind", r.kind, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
@@ -656,15 +676,7 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -682,15 +694,7 @@ func (a *ExecutionsAPIService) DeleteExecutionsByQueryExecute(r ApiDeleteExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -976,6 +980,134 @@ func (a *ExecutionsAPIService) EvalTaskRunExpressionExecute(r ApiEvalTaskRunExpr
 	}
 	// body params
 	localVarPostBody = r.body
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiFollowDependenciesExecutionsRequest struct {
+	ctx             context.Context
+	ApiService      *ExecutionsAPIService
+	executionId     string
+	destinationOnly *bool
+	expandAll       *bool
+	tenant          string
+}
+
+// If true, list only destination dependencies, otherwise list also source dependencies
+func (r ApiFollowDependenciesExecutionsRequest) DestinationOnly(destinationOnly bool) ApiFollowDependenciesExecutionsRequest {
+	r.destinationOnly = &destinationOnly
+	return r
+}
+
+// If true, expand all dependencies recursively
+func (r ApiFollowDependenciesExecutionsRequest) ExpandAll(expandAll bool) ApiFollowDependenciesExecutionsRequest {
+	r.expandAll = &expandAll
+	return r
+}
+
+func (r ApiFollowDependenciesExecutionsRequest) Execute() (*EventExecutionStatusEvent, *http.Response, error) {
+	return r.ApiService.FollowDependenciesExecutionsExecute(r)
+}
+
+/*
+FollowDependenciesExecutions Follow all execution dependencies executions
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param executionId The execution id
+	@param tenant
+	@return ApiFollowDependenciesExecutionsRequest
+*/
+func (a *ExecutionsAPIService) FollowDependenciesExecutions(ctx context.Context, executionId string, tenant string) ApiFollowDependenciesExecutionsRequest {
+	return ApiFollowDependenciesExecutionsRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		executionId: executionId,
+		tenant:      tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return EventExecutionStatusEvent
+func (a *ExecutionsAPIService) FollowDependenciesExecutionsExecute(r ApiFollowDependenciesExecutionsRequest) (*EventExecutionStatusEvent, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventExecutionStatusEvent
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.FollowDependenciesExecutions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/follow-dependencies"
+	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.destinationOnly == nil {
+		return localVarReturnValue, nil, reportError("destinationOnly is required and must be specified")
+	}
+	if r.expandAll == nil {
+		return localVarReturnValue, nil, reportError("expandAll is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "destinationOnly", r.destinationOnly, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "expandAll", r.expandAll, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/event-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1487,15 +1619,7 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -1513,15 +1637,7 @@ func (a *ExecutionsAPIService) ForceRunExecutionsByQueryExecute(r ApiForceRunExe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -1762,15 +1878,7 @@ func (a *ExecutionsAPIService) GetExecutionFlowGraphExecute(r ApiGetExecutionFlo
 	localVarFormParams := url.Values{}
 
 	if r.subflows != nil {
-		t := *r.subflows
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "subflows", r.subflows, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2132,6 +2240,119 @@ func (a *ExecutionsAPIService) GetFlowFromExecutionByIdExecute(r ApiGetFlowFromE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetLatestExecutionsRequest struct {
+	ctx                                    context.Context
+	ApiService                             *ExecutionsAPIService
+	tenant                                 string
+	executionRepositoryInterfaceFlowFilter *[]ExecutionRepositoryInterfaceFlowFilter
+}
+
+func (r ApiGetLatestExecutionsRequest) ExecutionRepositoryInterfaceFlowFilter(executionRepositoryInterfaceFlowFilter []ExecutionRepositoryInterfaceFlowFilter) ApiGetLatestExecutionsRequest {
+	r.executionRepositoryInterfaceFlowFilter = &executionRepositoryInterfaceFlowFilter
+	return r
+}
+
+func (r ApiGetLatestExecutionsRequest) Execute() ([]ExecutionControllerLastExecutionResponse, *http.Response, error) {
+	return r.ApiService.GetLatestExecutionsExecute(r)
+}
+
+/*
+GetLatestExecutions Get the latest execution for given flows
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiGetLatestExecutionsRequest
+*/
+func (a *ExecutionsAPIService) GetLatestExecutions(ctx context.Context, tenant string) ApiGetLatestExecutionsRequest {
+	return ApiGetLatestExecutionsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []ExecutionControllerLastExecutionResponse
+func (a *ExecutionsAPIService) GetLatestExecutionsExecute(r ApiGetLatestExecutionsRequest) ([]ExecutionControllerLastExecutionResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ExecutionControllerLastExecutionResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.GetLatestExecutions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/latest"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.executionRepositoryInterfaceFlowFilter == nil {
+		return localVarReturnValue, nil, reportError("executionRepositoryInterfaceFlowFilter is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.executionRepositoryInterfaceFlowFilter
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2548,15 +2769,7 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -2574,15 +2787,7 @@ func (a *ExecutionsAPIService) KillExecutionsByQueryExecute(r ApiKillExecutionsB
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -3221,15 +3426,7 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -3247,15 +3444,7 @@ func (a *ExecutionsAPIService) PauseExecutionsByQueryExecute(r ApiPauseExecution
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -3476,6 +3665,7 @@ type ApiReplayExecutionRequest struct {
 	tenant      string
 	taskRunId   *string
 	revision    *int32
+	breakpoints *string
 }
 
 // The taskrun id
@@ -3487,6 +3677,12 @@ func (r ApiReplayExecutionRequest) TaskRunId(taskRunId string) ApiReplayExecutio
 // The flow revision to use for new execution
 func (r ApiReplayExecutionRequest) Revision(revision int32) ApiReplayExecutionRequest {
 	r.revision = &revision
+	return r
+}
+
+// Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma.
+func (r ApiReplayExecutionRequest) Breakpoints(breakpoints string) ApiReplayExecutionRequest {
+	r.breakpoints = &breakpoints
 	return r
 }
 
@@ -3540,6 +3736,9 @@ func (a *ExecutionsAPIService) ReplayExecutionExecute(r ApiReplayExecutionReques
 	}
 	if r.revision != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
+	}
+	if r.breakpoints != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3877,15 +4076,7 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -3903,15 +4094,7 @@ func (a *ExecutionsAPIService) ReplayExecutionsByQueryExecute(r ApiReplayExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -4370,15 +4553,7 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -4396,15 +4571,7 @@ func (a *ExecutionsAPIService) RestartExecutionsByQueryExecute(r ApiRestartExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -4583,6 +4750,110 @@ func (a *ExecutionsAPIService) ResumeExecutionExecute(r ApiResumeExecutionReques
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiResumeExecutionFromBreakpointRequest struct {
+	ctx         context.Context
+	ApiService  *ExecutionsAPIService
+	executionId string
+	tenant      string
+	breakpoints *string
+}
+
+// \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma.
+func (r ApiResumeExecutionFromBreakpointRequest) Breakpoints(breakpoints string) ApiResumeExecutionFromBreakpointRequest {
+	r.breakpoints = &breakpoints
+	return r
+}
+
+func (r ApiResumeExecutionFromBreakpointRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ResumeExecutionFromBreakpointExecute(r)
+}
+
+/*
+ResumeExecutionFromBreakpoint Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param executionId The execution id
+	@param tenant
+	@return ApiResumeExecutionFromBreakpointRequest
+*/
+func (a *ExecutionsAPIService) ResumeExecutionFromBreakpoint(ctx context.Context, executionId string, tenant string) ApiResumeExecutionFromBreakpointRequest {
+	return ApiResumeExecutionFromBreakpointRequest{
+		ApiService:  a,
+		ctx:         ctx,
+		executionId: executionId,
+		tenant:      tenant,
+	}
+}
+
+// Execute executes the request
+func (a *ExecutionsAPIService) ResumeExecutionFromBreakpointExecute(r ApiResumeExecutionFromBreakpointRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.ResumeExecutionFromBreakpoint")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint"
+	localVarPath = strings.Replace(localVarPath, "{"+"executionId"+"}", url.PathEscape(parameterValueToString(r.executionId, "executionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.breakpoints != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiResumeExecutionsByIdsRequest struct {
@@ -4847,15 +5118,7 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -4873,15 +5136,7 @@ func (a *ExecutionsAPIService) ResumeExecutionsByQueryExecute(r ApiResumeExecuti
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -5135,40 +5390,16 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		t := *r.filters
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -5186,15 +5417,7 @@ func (a *ExecutionsAPIService) SearchExecutionsExecute(r ApiSearchExecutionsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -5590,26 +5813,10 @@ func (a *ExecutionsAPIService) SearchTaskRunExecute(r ApiSearchTaskRunRequest) (
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.filters != nil {
-		t := *r.filters
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -5630,15 +5837,7 @@ func (a *ExecutionsAPIService) SearchTaskRunExecute(r ApiSearchTaskRunRequest) (
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -6092,15 +6291,7 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -6118,15 +6309,7 @@ func (a *ExecutionsAPIService) SetLabelsOnTerminatedExecutionsByQueryExecute(r A
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -6359,7 +6542,7 @@ type ApiTriggerExecutionByGetWebhookRequest struct {
 	tenant     string
 }
 
-func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*Execution, *http.Response, error) {
+func (r ApiTriggerExecutionByGetWebhookRequest) Execute() (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByGetWebhookExecute(r)
 }
 
@@ -6386,13 +6569,13 @@ func (a *ExecutionsAPIService) TriggerExecutionByGetWebhook(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return Execution
-func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerExecutionByGetWebhookRequest) (*Execution, *http.Response, error) {
+//	@return ExecutionControllerWebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByGetWebhookExecute(r ApiTriggerExecutionByGetWebhookRequest) (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarReturnValue *ExecutionControllerWebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByGetWebhook")
@@ -6473,7 +6656,7 @@ type ApiTriggerExecutionByPostWebhookRequest struct {
 	tenant     string
 }
 
-func (r ApiTriggerExecutionByPostWebhookRequest) Execute() (*Execution, *http.Response, error) {
+func (r ApiTriggerExecutionByPostWebhookRequest) Execute() (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByPostWebhookExecute(r)
 }
 
@@ -6500,13 +6683,13 @@ func (a *ExecutionsAPIService) TriggerExecutionByPostWebhook(ctx context.Context
 
 // Execute executes the request
 //
-//	@return Execution
-func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookExecute(r ApiTriggerExecutionByPostWebhookRequest) (*Execution, *http.Response, error) {
+//	@return ExecutionControllerWebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByPostWebhookExecute(r ApiTriggerExecutionByPostWebhookRequest) (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarReturnValue *ExecutionControllerWebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPostWebhook")
@@ -6587,7 +6770,7 @@ type ApiTriggerExecutionByPutWebhookRequest struct {
 	tenant     string
 }
 
-func (r ApiTriggerExecutionByPutWebhookRequest) Execute() (*Execution, *http.Response, error) {
+func (r ApiTriggerExecutionByPutWebhookRequest) Execute() (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	return r.ApiService.TriggerExecutionByPutWebhookExecute(r)
 }
 
@@ -6614,13 +6797,13 @@ func (a *ExecutionsAPIService) TriggerExecutionByPutWebhook(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return Execution
-func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookExecute(r ApiTriggerExecutionByPutWebhookRequest) (*Execution, *http.Response, error) {
+//	@return ExecutionControllerWebhookResponse
+func (a *ExecutionsAPIService) TriggerExecutionByPutWebhookExecute(r ApiTriggerExecutionByPutWebhookRequest) (*ExecutionControllerWebhookResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Execution
+		localVarReturnValue *ExecutionControllerWebhookResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionsAPIService.TriggerExecutionByPutWebhook")
@@ -6696,7 +6879,14 @@ type ApiUnqueueExecutionRequest struct {
 	ctx         context.Context
 	ApiService  *ExecutionsAPIService
 	executionId string
+	state       *StateType
 	tenant      string
+}
+
+// The new state of the execution
+func (r ApiUnqueueExecutionRequest) State(state StateType) ApiUnqueueExecutionRequest {
+	r.state = &state
+	return r
 }
 
 func (r ApiUnqueueExecutionRequest) Execute() (*Execution, *http.Response, error) {
@@ -6743,7 +6933,11 @@ func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.state == nil {
+		return localVarReturnValue, nil, reportError("state is required and must be specified")
+	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -6801,8 +6995,15 @@ func (a *ExecutionsAPIService) UnqueueExecutionExecute(r ApiUnqueueExecutionRequ
 type ApiUnqueueExecutionsByIdsRequest struct {
 	ctx         context.Context
 	ApiService  *ExecutionsAPIService
+	state       *StateType
 	tenant      string
 	requestBody *[]string
+}
+
+// The new state of the unqueued executions
+func (r ApiUnqueueExecutionsByIdsRequest) State(state StateType) ApiUnqueueExecutionsByIdsRequest {
+	r.state = &state
+	return r
 }
 
 // The list of executions id
@@ -6852,10 +7053,14 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByIdsExecute(r ApiUnqueueExecuti
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.state == nil {
+		return localVarReturnValue, nil, reportError("state is required and must be specified")
+	}
 	if r.requestBody == nil {
 		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
 	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -6938,6 +7143,7 @@ type ApiUnqueueExecutionsByQueryRequest struct {
 	labels                         *[]string
 	triggerExecutionId             *string
 	childFilter                    *ExecutionRepositoryInterfaceChildFilter
+	newState                       *StateType
 }
 
 func (r ApiUnqueueExecutionsByQueryRequest) DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest DeleteExecutionsByQueryRequest) ApiUnqueueExecutionsByQueryRequest {
@@ -7011,6 +7217,12 @@ func (r ApiUnqueueExecutionsByQueryRequest) ChildFilter(childFilter ExecutionRep
 	return r
 }
 
+// The new state of the unqueued executions
+func (r ApiUnqueueExecutionsByQueryRequest) NewState(newState StateType) ApiUnqueueExecutionsByQueryRequest {
+	r.newState = &newState
+	return r
+}
+
 func (r ApiUnqueueExecutionsByQueryRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.UnqueueExecutionsByQueryExecute(r)
 }
@@ -7060,15 +7272,7 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -7086,15 +7290,7 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels
@@ -7112,6 +7308,9 @@ func (a *ExecutionsAPIService) UnqueueExecutionsByQueryExecute(r ApiUnqueueExecu
 	}
 	if r.childFilter != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "childFilter", r.childFilter, "form", "")
+	}
+	if r.newState != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "newState", r.newState, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -7569,15 +7768,7 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.scope != nil {
-		t := *r.scope
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "scope", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "scope", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
@@ -7595,15 +7786,7 @@ func (a *ExecutionsAPIService) UpdateExecutionsStatusByQueryExecute(r ApiUpdateE
 		parameterAddToHeaderOrQuery(localVarQueryParams, "timeRange", r.timeRange, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.labels != nil {
 		t := *r.labels

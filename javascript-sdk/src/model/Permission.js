@@ -146,20 +146,6 @@ export default class Permission {
 
     
         /**
-         * value: "ME"
-         * @const
-         */
-        "ME" = "ME";
-
-    
-        /**
-         * value: "APITOKEN"
-         * @const
-         */
-        "APITOKEN" = "APITOKEN";
-
-    
-        /**
          * value: "DASHBOARD"
          * @const
          */
@@ -171,13 +157,6 @@ export default class Permission {
          * @const
          */
         "TENANT_ACCESS" = "TENANT_ACCESS";
-
-    
-        /**
-         * value: "TENANT"
-         * @const
-         */
-        "TENANT" = "TENANT";
 
     
         /**

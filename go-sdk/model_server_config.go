@@ -22,7 +22,7 @@ var _ MappedNullable = &ServerConfig{}
 type ServerConfig struct {
 	WorkerTaskRestartStrategy NullableWorkerTaskRestartStrategy `json:"workerTaskRestartStrategy,omitempty"`
 	TerminationGracePeriod    string                            `json:"terminationGracePeriod"`
-	Liveness                  ServerConfigLiveness              `json:"liveness"`
+	Liveness                  *ServerConfigLiveness             `json:"liveness,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -32,10 +32,9 @@ type _ServerConfig ServerConfig
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServerConfig(terminationGracePeriod string, liveness ServerConfigLiveness) *ServerConfig {
+func NewServerConfig(terminationGracePeriod string) *ServerConfig {
 	this := ServerConfig{}
 	this.TerminationGracePeriod = terminationGracePeriod
-	this.Liveness = liveness
 	return &this
 }
 
@@ -116,28 +115,36 @@ func (o *ServerConfig) SetTerminationGracePeriod(v string) {
 	o.TerminationGracePeriod = v
 }
 
-// GetLiveness returns the Liveness field value
+// GetLiveness returns the Liveness field value if set, zero value otherwise.
 func (o *ServerConfig) GetLiveness() ServerConfigLiveness {
-	if o == nil {
+	if o == nil || IsNil(o.Liveness) {
 		var ret ServerConfigLiveness
 		return ret
 	}
-
-	return o.Liveness
+	return *o.Liveness
 }
 
-// GetLivenessOk returns a tuple with the Liveness field value
+// GetLivenessOk returns a tuple with the Liveness field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServerConfig) GetLivenessOk() (*ServerConfigLiveness, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Liveness) {
 		return nil, false
 	}
-	return &o.Liveness, true
+	return o.Liveness, true
 }
 
-// SetLiveness sets field value
+// HasLiveness returns a boolean if a field has been set.
+func (o *ServerConfig) HasLiveness() bool {
+	if o != nil && !IsNil(o.Liveness) {
+		return true
+	}
+
+	return false
+}
+
+// SetLiveness gets a reference to the given ServerConfigLiveness and assigns it to the Liveness field.
 func (o *ServerConfig) SetLiveness(v ServerConfigLiveness) {
-	o.Liveness = v
+	o.Liveness = &v
 }
 
 func (o ServerConfig) MarshalJSON() ([]byte, error) {
@@ -154,7 +161,9 @@ func (o ServerConfig) ToMap() (map[string]interface{}, error) {
 		toSerialize["workerTaskRestartStrategy"] = o.WorkerTaskRestartStrategy.Get()
 	}
 	toSerialize["terminationGracePeriod"] = o.TerminationGracePeriod
-	toSerialize["liveness"] = o.Liveness
+	if !IsNil(o.Liveness) {
+		toSerialize["liveness"] = o.Liveness
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -169,7 +178,6 @@ func (o *ServerConfig) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"terminationGracePeriod",
-		"liveness",
 	}
 
 	allProperties := make(map[string]interface{})

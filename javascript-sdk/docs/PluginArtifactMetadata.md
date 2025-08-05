@@ -1,4 +1,4 @@
-# KestraApi.PluginArtifactMetadata
+# KestraIoKestraApi.PluginArtifactMetadata
 
 ## Properties
 

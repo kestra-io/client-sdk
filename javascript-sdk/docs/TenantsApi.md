@@ -1,4 +1,4 @@
-# KestraApi.TenantsApi
+# KestraIoKestraApi.TenantsApi
 
 All URIs are relative to *http://localhost*
 
@@ -25,9 +25,9 @@ Superadmin-only. Deletes all resources linked to the tenant, including flows, na
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
 apiInstance.callDelete(id, (error, data, response) => {
   if (error) {
@@ -70,10 +70,10 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
-let tenant = new KestraApi.Tenant(); // Tenant | 
+let apiInstance = new KestraIoKestraApi.TenantsApi();
+let tenant = new KestraIoKestraApi.Tenant(); // Tenant | 
 apiInstance.create(tenant, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -115,9 +115,9 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let opts = {
@@ -168,9 +168,9 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
 apiInstance.get(id, (error, data, response) => {
   if (error) {
@@ -211,9 +211,9 @@ Get tenant dependencies
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
 let tenant = "tenant_example"; // String | 
 apiInstance.getFlowDependenciesFromTenant(destinationOnly, tenant, (error, data, response) => {
@@ -258,9 +258,9 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
 let opts = {
   'logo': "/path/to/file" // File | The logo file
@@ -307,11 +307,11 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.TenantsApi();
+let apiInstance = new KestraIoKestraApi.TenantsApi();
 let id = "id_example"; // String | The tenant id
-let tenant = new KestraApi.Tenant(); // Tenant | 
+let tenant = new KestraIoKestraApi.Tenant(); // Tenant | 
 apiInstance.update(id, tenant, (error, data, response) => {
   if (error) {
     console.error(error);

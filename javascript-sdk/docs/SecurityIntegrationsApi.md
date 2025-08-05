@@ -1,4 +1,4 @@
-# KestraApi.SecurityIntegrationsApi
+# KestraIoKestraApi.SecurityIntegrationsApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,8 +24,8 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -34,9 +34,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let tenant = "tenant_example"; // String | 
-let createSecurityIntegrationRequest = new KestraApi.CreateSecurityIntegrationRequest(); // CreateSecurityIntegrationRequest | The security integration definition
+let createSecurityIntegrationRequest = new KestraIoKestraApi.CreateSecurityIntegrationRequest(); // CreateSecurityIntegrationRequest | The security integration definition
 apiInstance.createSecurityIntegration(tenant, createSecurityIntegrationRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -79,8 +79,8 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -89,7 +89,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteSecurityIntegration(id, tenant, (error, data, response) => {
@@ -134,8 +134,8 @@ Superadmin-only. Disables the specified integration.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -144,7 +144,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
 apiInstance.disableSecurityIntegration(id, tenant, (error, data, response) => {
@@ -189,8 +189,8 @@ Superadmin-only. Enables the specified integration.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -199,7 +199,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
 apiInstance.enableSecurityIntegration(id, tenant, (error, data, response) => {
@@ -244,8 +244,8 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -254,7 +254,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let id = "id_example"; // String | The ID of security integration
 let tenant = "tenant_example"; // String | 
 apiInstance.getSecurityIntegration(id, tenant, (error, data, response) => {
@@ -299,8 +299,8 @@ Superadmin-only.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -309,7 +309,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.SecurityIntegrationsApi();
+let apiInstance = new KestraIoKestraApi.SecurityIntegrationsApi();
 let tenant = "tenant_example"; // String | 
 apiInstance.listSecurityIntegrations(tenant, (error, data, response) => {
   if (error) {

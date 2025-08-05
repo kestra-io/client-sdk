@@ -1,4 +1,4 @@
-# KestraApi.BannersApi
+# KestraIoKestraApi.BannersApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,8 +22,8 @@ Superadmin-only. Creates a global announcement banner visible to all tenants.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -32,8 +32,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BannersApi();
-let banner = new KestraApi.Banner(); // Banner | The announcement banner to create
+let apiInstance = new KestraIoKestraApi.BannersApi();
+let banner = new KestraIoKestraApi.Banner(); // Banner | The announcement banner to create
 apiInstance.createBanner(banner, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -75,8 +75,8 @@ Superadmin-only. Deletes a global announcement banner by its ID.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -85,7 +85,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BannersApi();
+let apiInstance = new KestraIoKestraApi.BannersApi();
 let id = "id_example"; // String | The banner id
 apiInstance.deleteBanner(id, (error, data, response) => {
   if (error) {
@@ -128,8 +128,8 @@ Superadmin-only. Returns all global announcement banners.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -138,7 +138,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BannersApi();
+let apiInstance = new KestraIoKestraApi.BannersApi();
 apiInstance.searchBanners((error, data, response) => {
   if (error) {
     console.error(error);
@@ -177,8 +177,8 @@ Superadmin-only. Updates a global announcement banner by its ID.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -187,9 +187,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BannersApi();
+let apiInstance = new KestraIoKestraApi.BannersApi();
 let id = "id_example"; // String | The banner id
-let banner = new KestraApi.Banner(); // Banner | The banner to update
+let banner = new KestraIoKestraApi.Banner(); // Banner | The banner to update
 apiInstance.updateBanner(id, banner, (error, data, response) => {
   if (error) {
     console.error(error);

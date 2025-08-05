@@ -11,17 +11,18 @@ Method | HTTP request | Description
 [**GetPluginGroupIcons**](PluginsAPI.md#GetPluginGroupIcons) | **Get** /api/v1/plugins/icons/groups | Get plugins icons
 [**GetPluginIcons**](PluginsAPI.md#GetPluginIcons) | **Get** /api/v1/plugins/icons | Get plugins icons
 [**GetPluginVersions**](PluginsAPI.md#GetPluginVersions) | **Get** /api/v1/plugins/{cls}/versions | Get all versions for a plugin
-[**GetSchemaFromInputType**](PluginsAPI.md#GetSchemaFromInputType) | **Get** /api/v1/plugins/inputs/{type} | Get json schemas for an input type
-[**GetSchemasFromType**](PluginsAPI.md#GetSchemasFromType) | **Get** /api/v1/plugins/schemas/{type} | Get all json schemas for a type
-[**GetVersionedPluginDetails**](PluginsAPI.md#GetVersionedPluginDetails) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId} | Retrieve details of a plugin artifact
-[**GetVersionedPluginDetailsFromVersion**](PluginsAPI.md#GetVersionedPluginDetailsFromVersion) | **Get** /api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
-[**InstallVersionedPlugins**](PluginsAPI.md#InstallVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/install | Install specified plugin artifacts
-[**ListAvailableVersionedPlugins**](PluginsAPI.md#ListAvailableVersionedPlugins) | **Get** /api/v1/cluster/versioned-plugins/available | List available plugin artifacts
+[**GetPropertiesFromType**](PluginsAPI.md#GetPropertiesFromType) | **Get** /api/v1/plugins/properties/{type} | Get the properties part of the JSON schema for a type
+[**GetSchemaFromInputType**](PluginsAPI.md#GetSchemaFromInputType) | **Get** /api/v1/plugins/inputs/{type} | Get the JSON schema for an input type
+[**GetSchemasFromType**](PluginsAPI.md#GetSchemasFromType) | **Get** /api/v1/plugins/schemas/{type} | Get the JSON schema for a type
+[**GetVersionedPluginDetails**](PluginsAPI.md#GetVersionedPluginDetails) | **Get** /api/v1/instance/versioned-plugins/{groupId}/{artifactId} | Retrieve details of a plugin artifact
+[**GetVersionedPluginDetailsFromVersion**](PluginsAPI.md#GetVersionedPluginDetailsFromVersion) | **Get** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
+[**InstallVersionedPlugins**](PluginsAPI.md#InstallVersionedPlugins) | **Post** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
+[**ListAvailableVersionedPlugins**](PluginsAPI.md#ListAvailableVersionedPlugins) | **Get** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
 [**ListPlugins**](PluginsAPI.md#ListPlugins) | **Get** /api/v1/plugins | Get list of plugins
-[**ListVersionedPlugin**](PluginsAPI.md#ListVersionedPlugin) | **Get** /api/v1/cluster/versioned-plugins | List installed plugin artifacts
-[**ResolveVersionedPlugins**](PluginsAPI.md#ResolveVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
-[**UninstallVersionedPlugins**](PluginsAPI.md#UninstallVersionedPlugins) | **Delete** /api/v1/cluster/versioned-plugins/uninstall | Uninstall plugin artifacts
-[**UploadVersionedPlugins**](PluginsAPI.md#UploadVersionedPlugins) | **Post** /api/v1/cluster/versioned-plugins/upload | Upload a plugin artifact JAR file
+[**ListVersionedPlugin**](PluginsAPI.md#ListVersionedPlugin) | **Get** /api/v1/instance/versioned-plugins | List installed plugin artifacts
+[**ResolveVersionedPlugins**](PluginsAPI.md#ResolveVersionedPlugins) | **Post** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
+[**UninstallVersionedPlugins**](PluginsAPI.md#UninstallVersionedPlugins) | **Delete** /api/v1/instance/versioned-plugins/uninstall | Uninstall plugin artifacts
+[**UploadVersionedPlugins**](PluginsAPI.md#UploadVersionedPlugins) | **Post** /api/v1/instance/versioned-plugins/upload | Upload a plugin artifact JAR file
 
 
 
@@ -86,7 +87,7 @@ Other parameters are passed through a pointer to a apiGetAllInputTypesRequest st
 
 ## GetPluginBySubgroups
 
-> []Plugin GetPluginBySubgroups(ctx).IncludeDeprecated(includeDeprecated).Execute()
+> []Plugin GetPluginBySubgroups(ctx).Execute()
 
 Get plugins group by subgroups
 
@@ -103,11 +104,10 @@ import (
 )
 
 func main() {
-	includeDeprecated := true // bool | Whether to include deprecated plugins (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.GetPluginBySubgroups(context.Background()).IncludeDeprecated(includeDeprecated).Execute()
+	resp, r, err := apiClient.PluginsAPI.GetPluginBySubgroups(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPluginBySubgroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -119,16 +119,12 @@ func main() {
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetPluginBySubgroupsRequest struct via the builder pattern
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **includeDeprecated** | **bool** | Whether to include deprecated plugins | [default to true]
 
 ### Return type
 
@@ -477,11 +473,81 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetPropertiesFromType
+
+> map[string]map[string]interface{} GetPropertiesFromType(ctx, type_).Execute()
+
+Get the properties part of the JSON schema for a type
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	type_ := openapiclient.SchemaType("FLOW") // SchemaType | The schema needed
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PluginsAPI.GetPropertiesFromType(context.Background(), type_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetPropertiesFromType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPropertiesFromType`: map[string]map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetPropertiesFromType`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**type_** | [**SchemaType**](.md) | The schema needed | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPropertiesFromTypeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**map[string]map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSchemaFromInputType
 
 > DocumentationWithSchema GetSchemaFromInputType(ctx, type_).Execute()
 
-Get json schemas for an input type
+Get the JSON schema for an input type
 
 
 
@@ -549,9 +615,9 @@ Name | Type | Description  | Notes
 
 ## GetSchemasFromType
 
-> map[string]interface{} GetSchemasFromType(ctx, type_).ArrayOf(arrayOf).Execute()
+> map[string]map[string]interface{} GetSchemasFromType(ctx, type_).ArrayOf(arrayOf).Execute()
 
-Get all json schemas for a type
+Get the JSON schema for a type
 
 
 
@@ -578,7 +644,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetSchemasFromType``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSchemasFromType`: map[string]interface{}
+	// response from `GetSchemasFromType`: map[string]map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetSchemasFromType`: %v\n", resp)
 }
 ```
@@ -603,7 +669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+**map[string]map[string]interface{}**
 
 ### Authorization
 
@@ -621,7 +687,7 @@ Name | Type | Description  | Notes
 
 ## GetVersionedPluginDetails
 
-> ClusterControllerApiPluginVersions GetVersionedPluginDetails(ctx, groupId, artifactId).Execute()
+> InstanceControllerApiPluginVersions GetVersionedPluginDetails(ctx, groupId, artifactId).Execute()
 
 Retrieve details of a plugin artifact
 
@@ -650,7 +716,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetVersionedPluginDetails``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetVersionedPluginDetails`: ClusterControllerApiPluginVersions
+	// response from `GetVersionedPluginDetails`: InstanceControllerApiPluginVersions
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetVersionedPluginDetails`: %v\n", resp)
 }
 ```
@@ -676,7 +742,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiPluginVersions**](ClusterControllerApiPluginVersions.md)
+[**InstanceControllerApiPluginVersions**](InstanceControllerApiPluginVersions.md)
 
 ### Authorization
 
@@ -694,7 +760,7 @@ Name | Type | Description  | Notes
 
 ## GetVersionedPluginDetailsFromVersion
 
-> ClusterControllerApiPluginVersionDetails GetVersionedPluginDetailsFromVersion(ctx, groupId, artifactId, version).Execute()
+> InstanceControllerApiPluginVersionDetails GetVersionedPluginDetailsFromVersion(ctx, groupId, artifactId, version).Execute()
 
 Retrieve details of a specific plugin artifact version
 
@@ -724,7 +790,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.GetVersionedPluginDetailsFromVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetVersionedPluginDetailsFromVersion`: ClusterControllerApiPluginVersionDetails
+	// response from `GetVersionedPluginDetailsFromVersion`: InstanceControllerApiPluginVersionDetails
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.GetVersionedPluginDetailsFromVersion`: %v\n", resp)
 }
 ```
@@ -752,7 +818,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiPluginVersionDetails**](ClusterControllerApiPluginVersionDetails.md)
+[**InstanceControllerApiPluginVersionDetails**](InstanceControllerApiPluginVersionDetails.md)
 
 ### Authorization
 
@@ -770,7 +836,7 @@ Name | Type | Description  | Notes
 
 ## InstallVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginArtifact InstallVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+> InstanceControllerApiPluginArtifactListPluginArtifact InstallVersionedPlugins(ctx).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 
 Install specified plugin artifacts
 
@@ -789,16 +855,16 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.InstallVersionedPlugins(context.Background()).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+	resp, r, err := apiClient.PluginsAPI.InstallVersionedPlugins(context.Background()).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.InstallVersionedPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `InstallVersionedPlugins`: ClusterControllerApiPluginArtifactListPluginArtifact
+	// response from `InstallVersionedPlugins`: InstanceControllerApiPluginArtifactListPluginArtifact
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.InstallVersionedPlugins`: %v\n", resp)
 }
 ```
@@ -814,11 +880,11 @@ Other parameters are passed through a pointer to a apiInstallVersionedPluginsReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md) | List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md) | List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginArtifact**](ClusterControllerApiPluginArtifactListPluginArtifact.md)
+[**InstanceControllerApiPluginArtifactListPluginArtifact**](InstanceControllerApiPluginArtifactListPluginArtifact.md)
 
 ### Authorization
 
@@ -956,7 +1022,7 @@ Other parameters are passed through a pointer to a apiListPluginsRequest struct 
 
 ## ListVersionedPlugin
 
-> PagedResultsClusterControllerApiPluginArtifact ListVersionedPlugin(ctx).Page(page).Size(size).Sort(sort).Q(q).Execute()
+> PagedResultsInstanceControllerApiPluginArtifact ListVersionedPlugin(ctx).Page(page).Size(size).Sort(sort).Q(q).Execute()
 
 List installed plugin artifacts
 
@@ -987,7 +1053,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.ListVersionedPlugin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListVersionedPlugin`: PagedResultsClusterControllerApiPluginArtifact
+	// response from `ListVersionedPlugin`: PagedResultsInstanceControllerApiPluginArtifact
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.ListVersionedPlugin`: %v\n", resp)
 }
 ```
@@ -1010,7 +1076,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsClusterControllerApiPluginArtifact**](PagedResultsClusterControllerApiPluginArtifact.md)
+[**PagedResultsInstanceControllerApiPluginArtifact**](PagedResultsInstanceControllerApiPluginArtifact.md)
 
 ### Authorization
 
@@ -1028,7 +1094,7 @@ Name | Type | Description  | Notes
 
 ## ResolveVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginResolutionResult ResolveVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+> InstanceControllerApiPluginArtifactListPluginResolutionResult ResolveVersionedPlugins(ctx).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 
 Resolve versions for specified plugin artifacts
 
@@ -1047,16 +1113,16 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.ResolveVersionedPlugins(context.Background()).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+	resp, r, err := apiClient.PluginsAPI.ResolveVersionedPlugins(context.Background()).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.ResolveVersionedPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ResolveVersionedPlugins`: ClusterControllerApiPluginArtifactListPluginResolutionResult
+	// response from `ResolveVersionedPlugins`: InstanceControllerApiPluginArtifactListPluginResolutionResult
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.ResolveVersionedPlugins`: %v\n", resp)
 }
 ```
@@ -1072,11 +1138,11 @@ Other parameters are passed through a pointer to a apiResolveVersionedPluginsReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md) | List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md) | List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginResolutionResult**](ClusterControllerApiPluginArtifactListPluginResolutionResult.md)
+[**InstanceControllerApiPluginArtifactListPluginResolutionResult**](InstanceControllerApiPluginArtifactListPluginResolutionResult.md)
 
 ### Authorization
 
@@ -1094,7 +1160,7 @@ Name | Type | Description  | Notes
 
 ## UninstallVersionedPlugins
 
-> ClusterControllerApiPluginArtifactListPluginArtifact UninstallVersionedPlugins(ctx).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+> InstanceControllerApiPluginArtifactListPluginArtifact UninstallVersionedPlugins(ctx).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 
 Uninstall plugin artifacts
 
@@ -1113,16 +1179,16 @@ import (
 )
 
 func main() {
-	clusterControllerApiPluginListRequest := *openapiclient.NewClusterControllerApiPluginListRequest([]string{"Plugins_example"}) // ClusterControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PluginsAPI.UninstallVersionedPlugins(context.Background()).ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest).Execute()
+	resp, r, err := apiClient.PluginsAPI.UninstallVersionedPlugins(context.Background()).InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.UninstallVersionedPlugins``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UninstallVersionedPlugins`: ClusterControllerApiPluginArtifactListPluginArtifact
+	// response from `UninstallVersionedPlugins`: InstanceControllerApiPluginArtifactListPluginArtifact
 	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.UninstallVersionedPlugins`: %v\n", resp)
 }
 ```
@@ -1138,11 +1204,11 @@ Other parameters are passed through a pointer to a apiUninstallVersionedPluginsR
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiPluginListRequest** | [**ClusterControllerApiPluginListRequest**](ClusterControllerApiPluginListRequest.md) | List of plugins | 
+ **instanceControllerApiPluginListRequest** | [**InstanceControllerApiPluginListRequest**](InstanceControllerApiPluginListRequest.md) | List of plugins | 
 
 ### Return type
 
-[**ClusterControllerApiPluginArtifactListPluginArtifact**](ClusterControllerApiPluginArtifactListPluginArtifact.md)
+[**InstanceControllerApiPluginArtifactListPluginArtifact**](InstanceControllerApiPluginArtifactListPluginArtifact.md)
 
 ### Authorization
 

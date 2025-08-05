@@ -1,4 +1,4 @@
-# KestraApi.SearchRequest
+# KestraIoKestraApi.SearchRequest
 
 ## Properties
 

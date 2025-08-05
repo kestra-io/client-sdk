@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expression** | **string** |  | 
+**Expression** | Pointer to **string** |  | [optional] 
 **Value** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewPropertyListString
 
-`func NewPropertyListString(expression string, ) *PropertyListString`
+`func NewPropertyListString() *PropertyListString`
 
 NewPropertyListString instantiates a new PropertyListString object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetExpression sets Expression field to given value.
 
+### HasExpression
+
+`func (o *PropertyListString) HasExpression() bool`
+
+HasExpression returns a boolean if a field has been set.
 
 ### GetValue
 

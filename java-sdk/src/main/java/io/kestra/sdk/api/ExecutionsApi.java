@@ -57,7 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionsApi extends BaseApi {
 
   public ExecutionsApi() {
@@ -78,13 +78,13 @@ public class ExecutionsApi extends BaseApi {
    * @param labels The labels as a list of &#39;key:value&#39; (optional)
    * @param revision The flow revision or latest if null (optional)
    * @param scheduleDate Schedule the flow on a specific date (optional)
-   * @param breakpoint Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
    * @return List&lt;ExecutionControllerExecutionResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoint, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
-    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoint, kind, Collections.emptyMap());
+  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
+    return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap());
   }
 
 
@@ -98,13 +98,13 @@ public class ExecutionsApi extends BaseApi {
    * @param labels The labels as a list of &#39;key:value&#39; (optional)
    * @param revision The flow revision or latest if null (optional)
    * @param scheduleDate Schedule the flow on a specific date (optional)
-   * @param breakpoint Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;ExecutionControllerExecutionResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoint, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -145,7 +145,7 @@ public class ExecutionsApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("wait", wait));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
     localVarQueryParams.addAll(apiClient.parameterToPair("scheduleDate", scheduleDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoint", breakpoint));
+    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
     localVarQueryParams.addAll(apiClient.parameterToPair("kind", kind));
     
     localVarHeaderParams.putAll(additionalHeaders);
@@ -2544,12 +2544,12 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
    * @param revision The flow revision to use for new execution (optional)
-   * @param breakpoint Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoint) throws ApiException {
-    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoint, Collections.emptyMap());
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
+    return this.replayExecution(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
   }
 
 
@@ -2560,12 +2560,12 @@ public class ExecutionsApi extends BaseApi {
    * @param tenant  (required)
    * @param taskRunId The taskrun id (optional)
    * @param revision The flow revision to use for new execution (optional)
-   * @param breakpoint Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoint, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecution(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -2593,7 +2593,7 @@ public class ExecutionsApi extends BaseApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
     localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
-    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoint", breakpoint));
+    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
     
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3203,11 +3203,11 @@ public class ExecutionsApi extends BaseApi {
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param breakpoint \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @throws ApiException if fails to make API call
    */
-  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoint) throws ApiException {
-    this.resumeExecutionFromBreakpoint(executionId, tenant, breakpoint, Collections.emptyMap());
+  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints) throws ApiException {
+    this.resumeExecutionFromBreakpoint(executionId, tenant, breakpoints, Collections.emptyMap());
   }
 
 
@@ -3216,11 +3216,11 @@ public class ExecutionsApi extends BaseApi {
    * 
    * @param executionId The execution id (required)
    * @param tenant  (required)
-   * @param breakpoint \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param breakpoints \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoint, Map<String, String> additionalHeaders) throws ApiException {
+  public void resumeExecutionFromBreakpoint(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
@@ -3246,7 +3246,7 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoint", breakpoint));
+    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

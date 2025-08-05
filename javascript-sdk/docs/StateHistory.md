@@ -1,4 +1,4 @@
-# KestraApi.StateHistory
+# KestraIoKestraApi.StateHistory
 
 ## Properties
 

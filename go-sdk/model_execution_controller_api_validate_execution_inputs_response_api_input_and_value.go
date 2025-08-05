@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue type satisfies the MappedNullable interface at compile time
@@ -20,10 +19,10 @@ var _ MappedNullable = &ExecutionControllerApiValidateExecutionInputsResponseApi
 
 // ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue struct for ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
 type ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue struct {
-	Input                InputObject                                                          `json:"input"`
-	Value                interface{}                                                          `json:"value"`
-	Enabled              bool                                                                 `json:"enabled"`
-	Errors               []ExecutionControllerApiValidateExecutionInputsResponseApiInputError `json:"errors"`
+	Input                *InputObject                                                         `json:"input,omitempty"`
+	Value                map[string]interface{}                                               `json:"value,omitempty"`
+	Enabled              *bool                                                                `json:"enabled,omitempty"`
+	Errors               []ExecutionControllerApiValidateExecutionInputsResponseApiInputError `json:"errors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +32,8 @@ type _ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue Exec
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(input InputObject, value interface{}, enabled bool, errors []ExecutionControllerApiValidateExecutionInputsResponseApiInputError) *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
+func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue() *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
 	this := ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue{}
-	this.Input = input
-	this.Value = value
-	this.Enabled = enabled
-	this.Errors = errors
 	return &this
 }
 
@@ -50,100 +45,130 @@ func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValueWit
 	return &this
 }
 
-// GetInput returns the Input field value
+// GetInput returns the Input field value if set, zero value otherwise.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetInput() InputObject {
-	if o == nil {
+	if o == nil || IsNil(o.Input) {
 		var ret InputObject
 		return ret
 	}
-
-	return o.Input
+	return *o.Input
 }
 
-// GetInputOk returns a tuple with the Input field value
+// GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetInputOk() (*InputObject, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Input) {
 		return nil, false
 	}
-	return &o.Input, true
+	return o.Input, true
 }
 
-// SetInput sets field value
-func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetInput(v InputObject) {
-	o.Input = v
-}
-
-// GetValue returns the Value field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValue() interface{} {
-	if o == nil {
-		var ret interface{}
-		return ret
+// HasInput returns a boolean if a field has been set.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasInput() bool {
+	if o != nil && !IsNil(o.Input) {
+		return true
 	}
 
+	return false
+}
+
+// SetInput gets a reference to the given InputObject and assigns it to the Input field.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetInput(v InputObject) {
+	o.Input = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValue() map[string]interface{} {
+	if o == nil || IsNil(o.Value) {
+		var ret map[string]interface{}
+		return ret
+	}
 	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValueOk() (*interface{}, bool) {
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetValueOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
-func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetValue(v interface{}) {
+// HasValue returns a boolean if a field has been set.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
-// GetEnabled returns the Enabled field value
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetEnabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
-
-	return o.Enabled
+	return *o.Enabled
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
-	return &o.Enabled, true
+	return o.Enabled, true
 }
 
-// SetEnabled sets field value
+// HasEnabled returns a boolean if a field has been set.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetEnabled(v bool) {
-	o.Enabled = v
+	o.Enabled = &v
 }
 
-// GetErrors returns the Errors field value
+// GetErrors returns the Errors field value if set, zero value otherwise.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetErrors() []ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
-	if o == nil {
+	if o == nil || IsNil(o.Errors) {
 		var ret []ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 		return ret
 	}
-
 	return o.Errors
 }
 
-// GetErrorsOk returns a tuple with the Errors field value
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetErrorsOk() ([]ExecutionControllerApiValidateExecutionInputsResponseApiInputError, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
 	return o.Errors, true
 }
 
-// SetErrors sets field value
+// HasErrors returns a boolean if a field has been set.
+func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasErrors() bool {
+	if o != nil && !IsNil(o.Errors) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []ExecutionControllerApiValidateExecutionInputsResponseApiInputError and assigns it to the Errors field.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetErrors(v []ExecutionControllerApiValidateExecutionInputsResponseApiInputError) {
 	o.Errors = v
 }
@@ -158,12 +183,18 @@ func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) M
 
 func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["input"] = o.Input
-	if o.Value != nil {
+	if !IsNil(o.Input) {
+		toSerialize["input"] = o.Input
+	}
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	toSerialize["enabled"] = o.Enabled
-	toSerialize["errors"] = o.Errors
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -173,30 +204,6 @@ func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) T
 }
 
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"input",
-		"value",
-		"enabled",
-		"errors",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue := _ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue{}
 
 	err = json.Unmarshal(data, &varExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue)

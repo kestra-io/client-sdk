@@ -62,7 +62,7 @@ Method | HTTP request | Description
 
 
 # **create_execution**
-> List[ExecutionControllerExecutionResponse] create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoint=breakpoint, kind=kind)
+> List[ExecutionControllerExecutionResponse] create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
 
 Create a new execution for a flow
 
@@ -110,12 +110,12 @@ with kestrapy.ApiClient(configuration) as api_client:
     labels = ['labels_example'] # List[str] | The labels as a list of 'key:value' (optional)
     revision = 56 # int | The flow revision or latest if null (optional)
     schedule_date = '2013-10-20T19:20:30+01:00' # datetime | Schedule the flow on a specific date (optional)
-    breakpoint = 'breakpoint_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
     kind = kestrapy.ExecutionKind() # ExecutionKind | Specific execution kind (optional)
 
     try:
         # Create a new execution for a flow
-        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoint=breakpoint, kind=kind)
+        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
  **labels** | [**List[str]**](str.md)| The labels as a list of &#39;key:value&#39; | [optional] 
  **revision** | **int**| The flow revision or latest if null | [optional] 
  **schedule_date** | **datetime**| Schedule the flow on a specific date | [optional] 
- **breakpoint** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
  **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] 
 
 ### Return type
@@ -2430,7 +2430,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution**
-> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoint=breakpoint)
+> Execution replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2475,11 +2475,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
     revision = 56 # int | The flow revision to use for new execution (optional)
-    breakpoint = 'breakpoint_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = api_instance.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoint=breakpoint)
+        api_response = api_instance.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
         print("The response of ExecutionsApi->replay_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -2497,7 +2497,7 @@ Name | Type | Description  | Notes
  **tenant** | **str**|  | 
  **task_run_id** | **str**| The taskrun id | [optional] 
  **revision** | **int**| The flow revision to use for new execution | [optional] 
- **breakpoint** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type
 
@@ -3088,7 +3088,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **resume_execution_from_breakpoint**
-> resume_execution_from_breakpoint(execution_id, tenant, breakpoint=breakpoint)
+> resume_execution_from_breakpoint(execution_id, tenant, breakpoints=breakpoints)
 
 Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
 
@@ -3130,11 +3130,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    breakpoint = 'breakpoint_example' # str | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+    breakpoints = 'breakpoints_example' # str | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
     try:
         # Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-        api_instance.resume_execution_from_breakpoint(execution_id, tenant, breakpoint=breakpoint)
+        api_instance.resume_execution_from_breakpoint(execution_id, tenant, breakpoints=breakpoints)
     except Exception as e:
         print("Exception when calling ExecutionsApi->resume_execution_from_breakpoint: %s\n" % e)
 ```
@@ -3148,7 +3148,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| The execution id | 
  **tenant** | **str**|  | 
- **breakpoint** | **str**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
+ **breakpoints** | **str**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type
 

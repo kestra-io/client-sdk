@@ -39,13 +39,15 @@
 
 * `TEST` (value: `"TEST"`)
 
-* `ME` (value: `"ME"`)
-
-* `APITOKEN` (value: `"APITOKEN"`)
-
 * `DASHBOARD` (value: `"DASHBOARD"`)
 
-* `TENANT` (value: `"TENANT"`)
+* `TENANT_ACCESS` (value: `"TENANT_ACCESS"`)
+
+* `SERVICE_ACCOUNT` (value: `"SERVICE_ACCOUNT"`)
+
+* `INVITATION` (value: `"INVITATION"`)
+
+* `GROUP_MEMBERSHIP` (value: `"GROUP_MEMBERSHIP"`)
 
 * `UNKNOWN` (value: `"UNKNOWN"`)
 

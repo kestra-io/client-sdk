@@ -1,4 +1,4 @@
-# KestraApi.SortRequest
+# KestraIoKestraApi.SortRequest
 
 ## Properties
 

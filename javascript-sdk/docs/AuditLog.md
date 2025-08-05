@@ -1,4 +1,4 @@
-# KestraApi.AuditLog
+# KestraIoKestraApi.AuditLog
 
 ## Properties
 

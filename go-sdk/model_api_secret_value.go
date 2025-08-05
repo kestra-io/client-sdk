@@ -20,10 +20,10 @@ var _ MappedNullable = &ApiSecretValue{}
 
 // ApiSecretValue struct for ApiSecretValue
 type ApiSecretValue struct {
-	Tags                 []ApiSecretTag `json:"tags"`
+	Tags                 []ApiSecretTag `json:"tags,omitempty"`
 	Key                  string         `json:"key"`
 	Value                string         `json:"value"`
-	Description          string         `json:"description"`
+	Description          *string        `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +33,10 @@ type _ApiSecretValue ApiSecretValue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiSecretValue(tags []ApiSecretTag, key string, value string, description string) *ApiSecretValue {
+func NewApiSecretValue(key string, value string) *ApiSecretValue {
 	this := ApiSecretValue{}
-	this.Tags = tags
 	this.Key = key
 	this.Value = value
-	this.Description = description
 	return &this
 }
 
@@ -50,26 +48,34 @@ func NewApiSecretValueWithDefaults() *ApiSecretValue {
 	return &this
 }
 
-// GetTags returns the Tags field value
+// GetTags returns the Tags field value if set, zero value otherwise.
 func (o *ApiSecretValue) GetTags() []ApiSecretTag {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []ApiSecretTag
 		return ret
 	}
-
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiSecretValue) GetTagsOk() ([]ApiSecretTag, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// SetTags sets field value
+// HasTags returns a boolean if a field has been set.
+func (o *ApiSecretValue) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []ApiSecretTag and assigns it to the Tags field.
 func (o *ApiSecretValue) SetTags(v []ApiSecretTag) {
 	o.Tags = v
 }
@@ -122,28 +128,36 @@ func (o *ApiSecretValue) SetValue(v string) {
 	o.Value = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ApiSecretValue) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiSecretValue) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *ApiSecretValue) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *ApiSecretValue) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
 func (o ApiSecretValue) MarshalJSON() ([]byte, error) {
@@ -156,10 +170,14 @@ func (o ApiSecretValue) MarshalJSON() ([]byte, error) {
 
 func (o ApiSecretValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["tags"] = o.Tags
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	toSerialize["key"] = o.Key
 	toSerialize["value"] = o.Value
-	toSerialize["description"] = o.Description
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -173,10 +191,8 @@ func (o *ApiSecretValue) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"tags",
 		"key",
 		"value",
-		"description",
 	}
 
 	allProperties := make(map[string]interface{})

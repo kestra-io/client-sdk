@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**ChartOptions** | Pointer to **interface{}** |  | [optional] 
+**ChartOptions** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetType sets Type field to given value.
 
 ### GetChartOptions
 
-`func (o *ChartChartOption) GetChartOptions() interface{}`
+`func (o *ChartChartOption) GetChartOptions() map[string]interface{}`
 
 GetChartOptions returns the ChartOptions field if non-nil, zero value otherwise.
 
 ### GetChartOptionsOk
 
-`func (o *ChartChartOption) GetChartOptionsOk() (*interface{}, bool)`
+`func (o *ChartChartOption) GetChartOptionsOk() (*map[string]interface{}, bool)`
 
 GetChartOptionsOk returns a tuple with the ChartOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChartOptions
 
-`func (o *ChartChartOption) SetChartOptions(v interface{})`
+`func (o *ChartChartOption) SetChartOptions(v map[string]interface{})`
 
 SetChartOptions sets ChartOptions field to given value.
 
@@ -92,16 +92,6 @@ SetChartOptions sets ChartOptions field to given value.
 
 HasChartOptions returns a boolean if a field has been set.
 
-### SetChartOptionsNil
-
-`func (o *ChartChartOption) SetChartOptionsNil(b bool)`
-
- SetChartOptionsNil sets the value for ChartOptions to be an explicit nil
-
-### UnsetChartOptions
-`func (o *ChartChartOption) UnsetChartOptions()`
-
-UnsetChartOptions ensures that no value is present for ChartOptions, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

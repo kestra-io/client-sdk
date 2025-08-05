@@ -1,4 +1,4 @@
-# KestraApi.BlueprintsApi
+# KestraIoKestraApi.BlueprintsApi
 
 All URIs are relative to *http://localhost*
 
@@ -28,11 +28,11 @@ Creates a new internal (custom) blueprint for the current tenant. Requires BLUEP
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let tenant = "tenant_example"; // String | 
-let blueprintControllerApiBlueprintItemWithSource = new KestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
+let blueprintControllerApiBlueprintItemWithSource = new KestraIoKestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
 apiInstance.createInternalBlueprints(tenant, blueprintControllerApiBlueprintItemWithSource, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -75,9 +75,9 @@ Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRIN
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The internal blueprint id to delete
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteInternalBlueprints(id, tenant, (error, data, response) => {
@@ -122,11 +122,11 @@ Retrieves details of a specific community blueprint.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
-let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
+let kind = new KestraIoKestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
 apiInstance.getBlueprint(id, kind, tenant, (error, data, response) => {
   if (error) {
@@ -171,11 +171,11 @@ Retrieves the topology graph representation of a specific community blueprint.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
-let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
+let kind = new KestraIoKestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
 apiInstance.getBlueprintGraph(id, kind, tenant, (error, data, response) => {
   if (error) {
@@ -220,11 +220,11 @@ Retrieves the YAML source code for a specific community blueprint.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
-let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
+let kind = new KestraIoKestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
 apiInstance.getBlueprintSource(id, kind, tenant, (error, data, response) => {
   if (error) {
@@ -269,9 +269,9 @@ Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let tenant = "tenant_example"; // String | 
 apiInstance.internalBlueprint(id, tenant, (error, data, response) => {
@@ -316,9 +316,9 @@ Retrieves the YAML source code for a specific internal (custom) blueprint. Requi
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The blueprint id
 let tenant = "tenant_example"; // String | 
 apiInstance.internalBlueprintFlow(id, tenant, (error, data, response) => {
@@ -363,12 +363,12 @@ Lists all community blueprints of the specified kind. Community blueprints are s
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let page = 1; // Number | The current page
 let size = 1; // Number | The current page size
-let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
+let kind = new KestraIoKestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
@@ -422,9 +422,9 @@ Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRIN
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let page = 1; // Number | The current page
 let size = 1; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -479,12 +479,12 @@ Updates an existing internal (custom) blueprint for the current tenant. Requires
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraApi from '@kestra-io/kestra-api';
 
-let apiInstance = new KestraApi.BlueprintsApi();
+let apiInstance = new KestraIoKestraApi.BlueprintsApi();
 let id = "id_example"; // String | The id of the internal blueprint to update
 let tenant = "tenant_example"; // String | 
-let blueprintControllerApiBlueprintItemWithSource = new KestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
+let blueprintControllerApiBlueprintItemWithSource = new KestraIoKestraApi.BlueprintControllerApiBlueprintItemWithSource(); // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
 apiInstance.updateInternalBlueprints(id, tenant, blueprintControllerApiBlueprintItemWithSource, (error, data, response) => {
   if (error) {
     console.error(error);

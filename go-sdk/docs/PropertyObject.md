@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expression** | **string** |  | 
-**Value** | Pointer to **interface{}** |  | [optional] 
+**Expression** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewPropertyObject
 
-`func NewPropertyObject(expression string, ) *PropertyObject`
+`func NewPropertyObject() *PropertyObject`
 
 NewPropertyObject instantiates a new PropertyObject object
 This constructor will assign default values to properties that have it defined,
@@ -45,23 +45,28 @@ and a boolean to check if the value has been set.
 
 SetExpression sets Expression field to given value.
 
+### HasExpression
+
+`func (o *PropertyObject) HasExpression() bool`
+
+HasExpression returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *PropertyObject) GetValue() interface{}`
+`func (o *PropertyObject) GetValue() map[string]interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *PropertyObject) GetValueOk() (*interface{}, bool)`
+`func (o *PropertyObject) GetValueOk() (*map[string]interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *PropertyObject) SetValue(v interface{})`
+`func (o *PropertyObject) SetValue(v map[string]interface{})`
 
 SetValue sets Value field to given value.
 
@@ -71,16 +76,6 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
-### SetValueNil
-
-`func (o *PropertyObject) SetValueNil(b bool)`
-
- SetValueNil sets the value for Value to be an explicit nil
-
-### UnsetValue
-`func (o *PropertyObject) UnsetValue()`
-
-UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

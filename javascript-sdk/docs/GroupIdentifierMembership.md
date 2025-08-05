@@ -1,4 +1,4 @@
-# KestraApi.GroupIdentifierMembership
+# KestraIoKestraApi.GroupIdentifierMembership
 
 ## Enum
 

@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -24,21 +23,14 @@ import (
 type NamespacesAPIService service
 
 type ApiAutocompleteNamespacesRequest struct {
-	ctx        context.Context
-	ApiService *NamespacesAPIService
-	tenant     string
-	q          *string
-	apiIds     *ApiIds
+	ctx             context.Context
+	ApiService      *NamespacesAPIService
+	tenant          string
+	apiAutocomplete *ApiAutocomplete
 }
 
-// A string filter
-func (r ApiAutocompleteNamespacesRequest) Q(q string) ApiAutocompleteNamespacesRequest {
-	r.q = &q
-	return r
-}
-
-func (r ApiAutocompleteNamespacesRequest) ApiIds(apiIds ApiIds) ApiAutocompleteNamespacesRequest {
-	r.apiIds = &apiIds
+func (r ApiAutocompleteNamespacesRequest) ApiAutocomplete(apiAutocomplete ApiAutocomplete) ApiAutocompleteNamespacesRequest {
+	r.apiAutocomplete = &apiAutocomplete
 	return r
 }
 
@@ -85,10 +77,10 @@ func (a *NamespacesAPIService) AutocompleteNamespacesExecute(r ApiAutocompleteNa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	if r.apiAutocomplete == nil {
+		return localVarReturnValue, nil, reportError("apiAutocomplete is required and must be specified")
 	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -107,247 +99,7 @@ func (a *NamespacesAPIService) AutocompleteNamespacesExecute(r ApiAutocompleteNa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *NamespacesAPIService
-	resourceTenant string
-	q              *string
-	apiIds         *ApiIds
-}
-
-// A string filter
-func (r ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest) Q(q string) ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-func (r ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest) Execute() ([]string, *http.Response, error) {
-	return r.ApiService.AutocompleteNamespacesWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteNamespacesWithResourceTenantasSuperAdmin List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest
-*/
-func (a *NamespacesAPIService) AutocompleteNamespacesWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest {
-	return ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []string
-func (a *NamespacesAPIService) AutocompleteNamespacesWithResourceTenantasSuperAdminExecute(r ApiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest) ([]string, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.AutocompleteNamespacesWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/namespaces/autocomplete"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAutocompleteNamespacesasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *NamespacesAPIService
-	q          *string
-	apiIds     *ApiIds
-}
-
-// A string filter
-func (r ApiAutocompleteNamespacesasSuperAdminRequest) Q(q string) ApiAutocompleteNamespacesasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-func (r ApiAutocompleteNamespacesasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiAutocompleteNamespacesasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiAutocompleteNamespacesasSuperAdminRequest) Execute() ([]string, *http.Response, error) {
-	return r.ApiService.AutocompleteNamespacesasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteNamespacesasSuperAdmin List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAutocompleteNamespacesasSuperAdminRequest
-*/
-func (a *NamespacesAPIService) AutocompleteNamespacesasSuperAdmin(ctx context.Context) ApiAutocompleteNamespacesasSuperAdminRequest {
-	return ApiAutocompleteNamespacesasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []string
-func (a *NamespacesAPIService) AutocompleteNamespacesasSuperAdminExecute(r ApiAutocompleteNamespacesasSuperAdminRequest) ([]string, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.AutocompleteNamespacesasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/namespaces/autocomplete"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
+	localVarPostBody = r.apiAutocomplete
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1028,7 +780,7 @@ type ApiInheritedVariablesRequest struct {
 	tenant     string
 }
 
-func (r ApiInheritedVariablesRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiInheritedVariablesRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.InheritedVariablesExecute(r)
 }
 
@@ -1051,13 +803,13 @@ func (a *NamespacesAPIService) InheritedVariables(ctx context.Context, id string
 
 // Execute executes the request
 //
-//	@return map[string]interface{}
-func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariablesRequest) (map[string]interface{}, *http.Response, error) {
+//	@return map[string]map[string]interface{}
+func (a *NamespacesAPIService) InheritedVariablesExecute(r ApiInheritedVariablesRequest) (map[string]map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue map[string]map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.InheritedVariables")
@@ -1219,27 +971,9 @@ func (a *NamespacesAPIService) ListNamespaceSecretsExecute(r ApiListNamespaceSec
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
-	{
-		t := *r.filters
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "filters", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "filters", t, "form", "multi")
-		}
-	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "filters", r.filters, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1633,15 +1367,7 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.existing != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")

@@ -4,31 +4,32 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Labels** | [**[]Label**](Label.md) |  | 
+**Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **FlowId** | **string** |  | 
 **FlowRevision** | **int32** |  | 
-**TaskRunList** | [**[]TaskRun**](TaskRun.md) |  | 
-**Inputs** | **map[string]interface{}** |  | 
-**Outputs** | **map[string]interface{}** |  | 
-**Variables** | **map[string]interface{}** |  | 
+**TaskRunList** | Pointer to [**[]TaskRun**](TaskRun.md) |  | [optional] 
+**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **State** | [**State**](State.md) |  | 
-**ParentId** | **string** |  | 
-**OriginalId** | **string** |  | 
-**Trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | 
+**ParentId** | Pointer to **string** |  | [optional] 
+**OriginalId** | Pointer to **string** |  | [optional] 
+**Trigger** | Pointer to [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
 **Deleted** | **bool** |  | 
-**Metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | 
+**Metadata** | Pointer to [**ExecutionMetadata**](ExecutionMetadata.md) |  | [optional] 
 **ScheduleDate** | Pointer to **NullableTime** |  | [optional] 
-**TraceParent** | **string** |  | 
+**TraceParent** | Pointer to **string** |  | [optional] 
 **Fixtures** | Pointer to [**[]TaskFixture**](TaskFixture.md) |  | [optional] 
 **Kind** | Pointer to [**NullableExecutionKind**](ExecutionKind.md) |  | [optional] 
+**Breakpoints** | Pointer to [**[]Breakpoint**](Breakpoint.md) |  | [optional] 
 
 ## Methods
 
 ### NewExecution
 
-`func NewExecution(labels []Label, id string, namespace string, flowId string, flowRevision int32, taskRunList []TaskRun, inputs map[string]interface{}, outputs map[string]interface{}, variables map[string]interface{}, state State, parentId string, originalId string, trigger ExecutionTrigger, deleted bool, metadata ExecutionMetadata, traceParent string, ) *Execution`
+`func NewExecution(id string, namespace string, flowId string, flowRevision int32, state State, deleted bool, ) *Execution`
 
 NewExecution instantiates a new Execution object
 This constructor will assign default values to properties that have it defined,
@@ -62,6 +63,11 @@ and a boolean to check if the value has been set.
 
 SetLabels sets Labels field to given value.
 
+### HasLabels
+
+`func (o *Execution) HasLabels() bool`
+
+HasLabels returns a boolean if a field has been set.
 
 ### GetId
 
@@ -162,66 +168,86 @@ and a boolean to check if the value has been set.
 
 SetTaskRunList sets TaskRunList field to given value.
 
+### HasTaskRunList
+
+`func (o *Execution) HasTaskRunList() bool`
+
+HasTaskRunList returns a boolean if a field has been set.
 
 ### GetInputs
 
-`func (o *Execution) GetInputs() map[string]interface{}`
+`func (o *Execution) GetInputs() map[string]map[string]interface{}`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *Execution) GetInputsOk() (*map[string]interface{}, bool)`
+`func (o *Execution) GetInputsOk() (*map[string]map[string]interface{}, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *Execution) SetInputs(v map[string]interface{})`
+`func (o *Execution) SetInputs(v map[string]map[string]interface{})`
 
 SetInputs sets Inputs field to given value.
 
+### HasInputs
+
+`func (o *Execution) HasInputs() bool`
+
+HasInputs returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *Execution) GetOutputs() map[string]interface{}`
+`func (o *Execution) GetOutputs() map[string]map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *Execution) GetOutputsOk() (*map[string]interface{}, bool)`
+`func (o *Execution) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *Execution) SetOutputs(v map[string]interface{})`
+`func (o *Execution) SetOutputs(v map[string]map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 
+### HasOutputs
+
+`func (o *Execution) HasOutputs() bool`
+
+HasOutputs returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *Execution) GetVariables() map[string]interface{}`
+`func (o *Execution) GetVariables() map[string]map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *Execution) GetVariablesOk() (*map[string]interface{}, bool)`
+`func (o *Execution) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *Execution) SetVariables(v map[string]interface{})`
+`func (o *Execution) SetVariables(v map[string]map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 
+### HasVariables
+
+`func (o *Execution) HasVariables() bool`
+
+HasVariables returns a boolean if a field has been set.
 
 ### GetState
 
@@ -262,6 +288,11 @@ and a boolean to check if the value has been set.
 
 SetParentId sets ParentId field to given value.
 
+### HasParentId
+
+`func (o *Execution) HasParentId() bool`
+
+HasParentId returns a boolean if a field has been set.
 
 ### GetOriginalId
 
@@ -282,6 +313,11 @@ and a boolean to check if the value has been set.
 
 SetOriginalId sets OriginalId field to given value.
 
+### HasOriginalId
+
+`func (o *Execution) HasOriginalId() bool`
+
+HasOriginalId returns a boolean if a field has been set.
 
 ### GetTrigger
 
@@ -302,6 +338,11 @@ and a boolean to check if the value has been set.
 
 SetTrigger sets Trigger field to given value.
 
+### HasTrigger
+
+`func (o *Execution) HasTrigger() bool`
+
+HasTrigger returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -342,6 +383,11 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+### HasMetadata
+
+`func (o *Execution) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 ### GetScheduleDate
 
@@ -397,6 +443,11 @@ and a boolean to check if the value has been set.
 
 SetTraceParent sets TraceParent field to given value.
 
+### HasTraceParent
+
+`func (o *Execution) HasTraceParent() bool`
+
+HasTraceParent returns a boolean if a field has been set.
 
 ### GetFixtures
 
@@ -468,6 +519,41 @@ HasKind returns a boolean if a field has been set.
 `func (o *Execution) UnsetKind()`
 
 UnsetKind ensures that no value is present for Kind, not even an explicit nil
+### GetBreakpoints
+
+`func (o *Execution) GetBreakpoints() []Breakpoint`
+
+GetBreakpoints returns the Breakpoints field if non-nil, zero value otherwise.
+
+### GetBreakpointsOk
+
+`func (o *Execution) GetBreakpointsOk() (*[]Breakpoint, bool)`
+
+GetBreakpointsOk returns a tuple with the Breakpoints field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBreakpoints
+
+`func (o *Execution) SetBreakpoints(v []Breakpoint)`
+
+SetBreakpoints sets Breakpoints field to given value.
+
+### HasBreakpoints
+
+`func (o *Execution) HasBreakpoints() bool`
+
+HasBreakpoints returns a boolean if a field has been set.
+
+### SetBreakpointsNil
+
+`func (o *Execution) SetBreakpointsNil(b bool)`
+
+ SetBreakpointsNil sets the value for Breakpoints to be an explicit nil
+
+### UnsetBreakpoints
+`func (o *Execution) UnsetBreakpoints()`
+
+UnsetBreakpoints ensures that no value is present for Breakpoints, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

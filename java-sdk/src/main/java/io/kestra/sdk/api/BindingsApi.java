@@ -23,7 +23,7 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.BindingType;
 import io.kestra.sdk.model.IAMBindingControllerApiBindingDetail;
 import io.kestra.sdk.model.IAMBindingControllerApiCreateBindingRequest;
-import io.kestra.sdk.model.PagedResultsIAMBindingControllerApiBindingSummary;
+import io.kestra.sdk.model.PagedResultsIAMBindingControllerApiBindingDetail;
 
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class BindingsApi extends BaseApi {
 
   public BindingsApi() {
@@ -382,10 +382,10 @@ public class BindingsApi extends BaseApi {
    * @param type Binding type filter (optional)
    * @param id External id filter (optional)
    * @param namespace A namespace filter (optional)
-   * @return PagedResultsIAMBindingControllerApiBindingSummary
+   * @return PagedResultsIAMBindingControllerApiBindingDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMBindingControllerApiBindingSummary searchBindings(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable BindingType type, @javax.annotation.Nullable String id, @javax.annotation.Nullable String namespace) throws ApiException {
+  public PagedResultsIAMBindingControllerApiBindingDetail searchBindings(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable BindingType type, @javax.annotation.Nullable String id, @javax.annotation.Nullable String namespace) throws ApiException {
     return this.searchBindings(page, size, tenant, q, sort, type, id, namespace, Collections.emptyMap());
   }
 
@@ -402,10 +402,10 @@ public class BindingsApi extends BaseApi {
    * @param id External id filter (optional)
    * @param namespace A namespace filter (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return PagedResultsIAMBindingControllerApiBindingSummary
+   * @return PagedResultsIAMBindingControllerApiBindingDetail
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsIAMBindingControllerApiBindingSummary searchBindings(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable BindingType type, @javax.annotation.Nullable String id, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsIAMBindingControllerApiBindingDetail searchBindings(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable BindingType type, @javax.annotation.Nullable String id, @javax.annotation.Nullable String namespace, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -459,7 +459,7 @@ public class BindingsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<PagedResultsIAMBindingControllerApiBindingSummary> localVarReturnType = new TypeReference<PagedResultsIAMBindingControllerApiBindingSummary>() {};
+    TypeReference<PagedResultsIAMBindingControllerApiBindingDetail> localVarReturnType = new TypeReference<PagedResultsIAMBindingControllerApiBindingDetail>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

@@ -31,7 +31,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	auditLogControllerFindRequest := *openapiclient.NewAuditLogControllerFindRequest(openapiclient.Permission("FLOW"), "TODO", map[string]interface{}{"key": interface{}(123)}) // AuditLogControllerFindRequest | The find request
+	auditLogControllerFindRequest := *openapiclient.NewAuditLogControllerFindRequest() // AuditLogControllerFindRequest | The find request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

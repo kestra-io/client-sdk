@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -21,8 +20,8 @@ var _ MappedNullable = &ExecutionMetadata{}
 
 // ExecutionMetadata struct for ExecutionMetadata
 type ExecutionMetadata struct {
-	AttemptNumber        int32     `json:"attemptNumber"`
-	OriginalCreatedDate  time.Time `json:"originalCreatedDate"`
+	AttemptNumber        *int32     `json:"attemptNumber,omitempty"`
+	OriginalCreatedDate  *time.Time `json:"originalCreatedDate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,10 +31,8 @@ type _ExecutionMetadata ExecutionMetadata
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionMetadata(attemptNumber int32, originalCreatedDate time.Time) *ExecutionMetadata {
+func NewExecutionMetadata() *ExecutionMetadata {
 	this := ExecutionMetadata{}
-	this.AttemptNumber = attemptNumber
-	this.OriginalCreatedDate = originalCreatedDate
 	return &this
 }
 
@@ -47,52 +44,68 @@ func NewExecutionMetadataWithDefaults() *ExecutionMetadata {
 	return &this
 }
 
-// GetAttemptNumber returns the AttemptNumber field value
+// GetAttemptNumber returns the AttemptNumber field value if set, zero value otherwise.
 func (o *ExecutionMetadata) GetAttemptNumber() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.AttemptNumber) {
 		var ret int32
 		return ret
 	}
-
-	return o.AttemptNumber
+	return *o.AttemptNumber
 }
 
-// GetAttemptNumberOk returns a tuple with the AttemptNumber field value
+// GetAttemptNumberOk returns a tuple with the AttemptNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionMetadata) GetAttemptNumberOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AttemptNumber) {
 		return nil, false
 	}
-	return &o.AttemptNumber, true
+	return o.AttemptNumber, true
 }
 
-// SetAttemptNumber sets field value
+// HasAttemptNumber returns a boolean if a field has been set.
+func (o *ExecutionMetadata) HasAttemptNumber() bool {
+	if o != nil && !IsNil(o.AttemptNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttemptNumber gets a reference to the given int32 and assigns it to the AttemptNumber field.
 func (o *ExecutionMetadata) SetAttemptNumber(v int32) {
-	o.AttemptNumber = v
+	o.AttemptNumber = &v
 }
 
-// GetOriginalCreatedDate returns the OriginalCreatedDate field value
+// GetOriginalCreatedDate returns the OriginalCreatedDate field value if set, zero value otherwise.
 func (o *ExecutionMetadata) GetOriginalCreatedDate() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.OriginalCreatedDate) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.OriginalCreatedDate
+	return *o.OriginalCreatedDate
 }
 
-// GetOriginalCreatedDateOk returns a tuple with the OriginalCreatedDate field value
+// GetOriginalCreatedDateOk returns a tuple with the OriginalCreatedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionMetadata) GetOriginalCreatedDateOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.OriginalCreatedDate) {
 		return nil, false
 	}
-	return &o.OriginalCreatedDate, true
+	return o.OriginalCreatedDate, true
 }
 
-// SetOriginalCreatedDate sets field value
+// HasOriginalCreatedDate returns a boolean if a field has been set.
+func (o *ExecutionMetadata) HasOriginalCreatedDate() bool {
+	if o != nil && !IsNil(o.OriginalCreatedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetOriginalCreatedDate gets a reference to the given time.Time and assigns it to the OriginalCreatedDate field.
 func (o *ExecutionMetadata) SetOriginalCreatedDate(v time.Time) {
-	o.OriginalCreatedDate = v
+	o.OriginalCreatedDate = &v
 }
 
 func (o ExecutionMetadata) MarshalJSON() ([]byte, error) {
@@ -105,8 +118,12 @@ func (o ExecutionMetadata) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["attemptNumber"] = o.AttemptNumber
-	toSerialize["originalCreatedDate"] = o.OriginalCreatedDate
+	if !IsNil(o.AttemptNumber) {
+		toSerialize["attemptNumber"] = o.AttemptNumber
+	}
+	if !IsNil(o.OriginalCreatedDate) {
+		toSerialize["originalCreatedDate"] = o.OriginalCreatedDate
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -116,28 +133,6 @@ func (o ExecutionMetadata) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ExecutionMetadata) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"attemptNumber",
-		"originalCreatedDate",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varExecutionMetadata := _ExecutionMetadata{}
 
 	err = json.Unmarshal(data, &varExecutionMetadata)

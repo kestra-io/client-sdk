@@ -1,10 +1,10 @@
-# KestraApi.IAMInvitationControllerApiInvitationRole
+# KestraIoKestraApi.IAMInvitationControllerApiInvitationRole
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
+**id** | **String** |  | 
 **namespaces** | **[String]** |  | [optional] 
 
 

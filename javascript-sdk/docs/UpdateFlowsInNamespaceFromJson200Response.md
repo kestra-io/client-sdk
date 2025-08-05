@@ -1,4 +1,4 @@
-# KestraApi.UpdateFlowsInNamespaceFromJson200Response
+# KestraIoKestraApi.UpdateFlowsInNamespaceFromJson200Response
 
 ## Properties
 

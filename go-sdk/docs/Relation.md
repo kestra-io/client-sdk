@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RelationType** | [**RelationType**](RelationType.md) |  | 
-**Value** | **string** |  | 
+**RelationType** | Pointer to [**RelationType**](RelationType.md) |  | [optional] 
+**Value** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewRelation
 
-`func NewRelation(relationType RelationType, value string, ) *Relation`
+`func NewRelation() *Relation`
 
 NewRelation instantiates a new Relation object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetRelationType sets RelationType field to given value.
 
+### HasRelationType
+
+`func (o *Relation) HasRelationType() bool`
+
+HasRelationType returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *Relation) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

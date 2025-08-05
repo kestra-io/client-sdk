@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the SearchResultFlow type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &SearchResultFlow{}
 
 // SearchResultFlow struct for SearchResultFlow
 type SearchResultFlow struct {
-	Model                Flow     `json:"model"`
-	Fragments            []string `json:"fragments"`
+	Model                *Flow    `json:"model,omitempty"`
+	Fragments            []string `json:"fragments,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _SearchResultFlow SearchResultFlow
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSearchResultFlow(model Flow, fragments []string) *SearchResultFlow {
+func NewSearchResultFlow() *SearchResultFlow {
 	this := SearchResultFlow{}
-	this.Model = model
-	this.Fragments = fragments
 	return &this
 }
 
@@ -46,50 +43,66 @@ func NewSearchResultFlowWithDefaults() *SearchResultFlow {
 	return &this
 }
 
-// GetModel returns the Model field value
+// GetModel returns the Model field value if set, zero value otherwise.
 func (o *SearchResultFlow) GetModel() Flow {
-	if o == nil {
+	if o == nil || IsNil(o.Model) {
 		var ret Flow
 		return ret
 	}
-
-	return o.Model
+	return *o.Model
 }
 
-// GetModelOk returns a tuple with the Model field value
+// GetModelOk returns a tuple with the Model field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SearchResultFlow) GetModelOk() (*Flow, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Model) {
 		return nil, false
 	}
-	return &o.Model, true
+	return o.Model, true
 }
 
-// SetModel sets field value
+// HasModel returns a boolean if a field has been set.
+func (o *SearchResultFlow) HasModel() bool {
+	if o != nil && !IsNil(o.Model) {
+		return true
+	}
+
+	return false
+}
+
+// SetModel gets a reference to the given Flow and assigns it to the Model field.
 func (o *SearchResultFlow) SetModel(v Flow) {
-	o.Model = v
+	o.Model = &v
 }
 
-// GetFragments returns the Fragments field value
+// GetFragments returns the Fragments field value if set, zero value otherwise.
 func (o *SearchResultFlow) GetFragments() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Fragments) {
 		var ret []string
 		return ret
 	}
-
 	return o.Fragments
 }
 
-// GetFragmentsOk returns a tuple with the Fragments field value
+// GetFragmentsOk returns a tuple with the Fragments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SearchResultFlow) GetFragmentsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Fragments) {
 		return nil, false
 	}
 	return o.Fragments, true
 }
 
-// SetFragments sets field value
+// HasFragments returns a boolean if a field has been set.
+func (o *SearchResultFlow) HasFragments() bool {
+	if o != nil && !IsNil(o.Fragments) {
+		return true
+	}
+
+	return false
+}
+
+// SetFragments gets a reference to the given []string and assigns it to the Fragments field.
 func (o *SearchResultFlow) SetFragments(v []string) {
 	o.Fragments = v
 }
@@ -104,8 +117,12 @@ func (o SearchResultFlow) MarshalJSON() ([]byte, error) {
 
 func (o SearchResultFlow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["model"] = o.Model
-	toSerialize["fragments"] = o.Fragments
+	if !IsNil(o.Model) {
+		toSerialize["model"] = o.Model
+	}
+	if !IsNil(o.Fragments) {
+		toSerialize["fragments"] = o.Fragments
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o SearchResultFlow) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SearchResultFlow) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"model",
-		"fragments",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varSearchResultFlow := _SearchResultFlow{}
 
 	err = json.Unmarshal(data, &varSearchResultFlow)

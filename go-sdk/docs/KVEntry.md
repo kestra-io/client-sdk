@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**CreationDate** | **time.Time** |  | 
-**UpdateDate** | **time.Time** |  | 
-**ExpirationDate** | **time.Time** |  | 
+**Key** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**CreationDate** | Pointer to **time.Time** |  | [optional] 
+**UpdateDate** | Pointer to **time.Time** |  | [optional] 
+**ExpirationDate** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewKVEntry
 
-`func NewKVEntry(key string, creationDate time.Time, updateDate time.Time, expirationDate time.Time, ) *KVEntry`
+`func NewKVEntry() *KVEntry`
 
 NewKVEntry instantiates a new KVEntry object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +48,36 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+### HasKey
+
+`func (o *KVEntry) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *KVEntry) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *KVEntry) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *KVEntry) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *KVEntry) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -67,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
+### HasCreationDate
+
+`func (o *KVEntry) HasCreationDate() bool`
+
+HasCreationDate returns a boolean if a field has been set.
 
 ### GetUpdateDate
 
@@ -87,6 +123,11 @@ and a boolean to check if the value has been set.
 
 SetUpdateDate sets UpdateDate field to given value.
 
+### HasUpdateDate
+
+`func (o *KVEntry) HasUpdateDate() bool`
+
+HasUpdateDate returns a boolean if a field has been set.
 
 ### GetExpirationDate
 
@@ -107,6 +148,11 @@ and a boolean to check if the value has been set.
 
 SetExpirationDate sets ExpirationDate field to given value.
 
+### HasExpirationDate
+
+`func (o *KVEntry) HasExpirationDate() bool`
+
+HasExpirationDate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

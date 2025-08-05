@@ -1,4 +1,4 @@
-# KestraApi.Binding
+# KestraIoKestraApi.Binding
 
 ## Properties
 

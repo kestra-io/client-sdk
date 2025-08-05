@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateDashboard**](DashboardsAPI.md#CreateDashboard) | **Post** /api/v1/{tenant}/dashboards | Create a dashboard from yaml source
 [**DeleteDashboard**](DashboardsAPI.md#DeleteDashboard) | **Delete** /api/v1/{tenant}/dashboards/{id} | Delete a dashboard
+[**ExportChartToCsv**](DashboardsAPI.md#ExportChartToCsv) | **Post** /api/v1/{tenant}/dashboards/charts/export/to-csv | Export a table chart data to CSV
+[**ExportDashboardChartDataToCSV**](DashboardsAPI.md#ExportDashboardChartDataToCSV) | **Post** /api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv | Export a dashboard chart data to CSV
 [**GetDashboard**](DashboardsAPI.md#GetDashboard) | **Get** /api/v1/{tenant}/dashboards/{id} | Get a dashboard
 [**GetDashboardChartData**](DashboardsAPI.md#GetDashboardChartData) | **Post** /api/v1/{tenant}/dashboards/{id}/charts/{chartId} | Generate a dashboard chart data
 [**PreviewChart**](DashboardsAPI.md#PreviewChart) | **Post** /api/v1/{tenant}/dashboards/charts/preview | Preview a chart data
@@ -155,6 +157,152 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## ExportChartToCsv
+
+> string ExportChartToCsv(ctx, tenant).DashboardControllerPreviewRequest(dashboardControllerPreviewRequest).Execute()
+
+Export a table chart data to CSV
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	dashboardControllerPreviewRequest := *openapiclient.NewDashboardControllerPreviewRequest("Chart_example") // DashboardControllerPreviewRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DashboardsAPI.ExportChartToCsv(context.Background(), tenant).DashboardControllerPreviewRequest(dashboardControllerPreviewRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ExportChartToCsv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportChartToCsv`: string
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.ExportChartToCsv`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportChartToCsvRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **dashboardControllerPreviewRequest** | [**DashboardControllerPreviewRequest**](DashboardControllerPreviewRequest.md) |  | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ExportDashboardChartDataToCSV
+
+> string ExportDashboardChartDataToCSV(ctx, id, chartId, tenant).ChartFiltersOverrides(chartFiltersOverrides).Execute()
+
+Export a dashboard chart data to CSV
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The dashboard id
+	chartId := "chartId_example" // string | The chart id
+	tenant := "tenant_example" // string | 
+	chartFiltersOverrides := *openapiclient.NewChartFiltersOverrides() // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DashboardsAPI.ExportDashboardChartDataToCSV(context.Background(), id, chartId, tenant).ChartFiltersOverrides(chartFiltersOverrides).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.ExportDashboardChartDataToCSV``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportDashboardChartDataToCSV`: string
+	fmt.Fprintf(os.Stdout, "Response from `DashboardsAPI.ExportDashboardChartDataToCSV`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The dashboard id | 
+**chartId** | **string** | The chart id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExportDashboardChartDataToCSVRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md) | The filters to apply, some can override chart definition like labels &amp; namespace | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetDashboard
 
 > Dashboard GetDashboard(ctx, id, tenant).Execute()
@@ -228,7 +376,7 @@ No authorization required
 
 ## GetDashboardChartData
 
-> PagedResultsMapStringObject GetDashboardChartData(ctx, id, chartId, tenant).GlobalFilter(globalFilter).Execute()
+> PagedResultsMapStringObject GetDashboardChartData(ctx, id, chartId, tenant).ChartFiltersOverrides(chartFiltersOverrides).Execute()
 
 Generate a dashboard chart data
 
@@ -248,11 +396,11 @@ func main() {
 	id := "id_example" // string | The dashboard id
 	chartId := "chartId_example" // string | The chart id
 	tenant := "tenant_example" // string | 
-	globalFilter := *openapiclient.NewGlobalFilter() // GlobalFilter | The filters to apply, some can override chart definition like labels & namespace
+	chartFiltersOverrides := *openapiclient.NewChartFiltersOverrides() // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DashboardsAPI.GetDashboardChartData(context.Background(), id, chartId, tenant).GlobalFilter(globalFilter).Execute()
+	resp, r, err := apiClient.DashboardsAPI.GetDashboardChartData(context.Background(), id, chartId, tenant).ChartFiltersOverrides(chartFiltersOverrides).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DashboardsAPI.GetDashboardChartData``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -282,7 +430,7 @@ Name | Type | Description  | Notes
 
 
 
- **globalFilter** | [**GlobalFilter**](GlobalFilter.md) | The filters to apply, some can override chart definition like labels &amp; namespace | 
+ **chartFiltersOverrides** | [**ChartFiltersOverrides**](ChartFiltersOverrides.md) | The filters to apply, some can override chart definition like labels &amp; namespace | 
 
 ### Return type
 

@@ -35,11 +35,11 @@ type UsageEE struct {
 	Uri                  NullableString       `json:"uri,omitempty"`
 	Environments         []string             `json:"environments,omitempty"`
 	StartTime            time.Time            `json:"startTime"`
-	Host                 HostUsage            `json:"host"`
-	Configurations       ConfigurationUsage   `json:"configurations"`
-	Plugins              []PluginUsage        `json:"plugins"`
-	Flows                FlowUsage            `json:"flows"`
-	Executions           ExecutionUsage       `json:"executions"`
+	Host                 *HostUsage           `json:"host,omitempty"`
+	Configurations       *ConfigurationUsage  `json:"configurations,omitempty"`
+	Plugins              []PluginUsage        `json:"plugins,omitempty"`
+	Flows                *FlowUsage           `json:"flows,omitempty"`
+	Executions           *ExecutionUsage      `json:"executions,omitempty"`
 	Services             NullableServiceUsage `json:"services,omitempty"`
 	PluginMetrics        []PluginMetric       `json:"pluginMetrics,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -51,7 +51,7 @@ type _UsageEE UsageEE
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType ServerType, version string, zoneId string, startTime time.Time, host HostUsage, configurations ConfigurationUsage, plugins []PluginUsage, flows FlowUsage, executions ExecutionUsage) *UsageEE {
+func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType ServerType, version string, zoneId string, startTime time.Time) *UsageEE {
 	this := UsageEE{}
 	this.Uuid = uuid
 	this.StartUuid = startUuid
@@ -60,11 +60,6 @@ func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType S
 	this.Version = version
 	this.ZoneId = zoneId
 	this.StartTime = startTime
-	this.Host = host
-	this.Configurations = configurations
-	this.Plugins = plugins
-	this.Flows = flows
-	this.Executions = executions
 	return &this
 }
 
@@ -480,124 +475,164 @@ func (o *UsageEE) SetStartTime(v time.Time) {
 	o.StartTime = v
 }
 
-// GetHost returns the Host field value
+// GetHost returns the Host field value if set, zero value otherwise.
 func (o *UsageEE) GetHost() HostUsage {
-	if o == nil {
+	if o == nil || IsNil(o.Host) {
 		var ret HostUsage
 		return ret
 	}
-
-	return o.Host
+	return *o.Host
 }
 
-// GetHostOk returns a tuple with the Host field value
+// GetHostOk returns a tuple with the Host field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsageEE) GetHostOk() (*HostUsage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Host) {
 		return nil, false
 	}
-	return &o.Host, true
+	return o.Host, true
 }
 
-// SetHost sets field value
+// HasHost returns a boolean if a field has been set.
+func (o *UsageEE) HasHost() bool {
+	if o != nil && !IsNil(o.Host) {
+		return true
+	}
+
+	return false
+}
+
+// SetHost gets a reference to the given HostUsage and assigns it to the Host field.
 func (o *UsageEE) SetHost(v HostUsage) {
-	o.Host = v
+	o.Host = &v
 }
 
-// GetConfigurations returns the Configurations field value
+// GetConfigurations returns the Configurations field value if set, zero value otherwise.
 func (o *UsageEE) GetConfigurations() ConfigurationUsage {
-	if o == nil {
+	if o == nil || IsNil(o.Configurations) {
 		var ret ConfigurationUsage
 		return ret
 	}
-
-	return o.Configurations
+	return *o.Configurations
 }
 
-// GetConfigurationsOk returns a tuple with the Configurations field value
+// GetConfigurationsOk returns a tuple with the Configurations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsageEE) GetConfigurationsOk() (*ConfigurationUsage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Configurations) {
 		return nil, false
 	}
-	return &o.Configurations, true
+	return o.Configurations, true
 }
 
-// SetConfigurations sets field value
+// HasConfigurations returns a boolean if a field has been set.
+func (o *UsageEE) HasConfigurations() bool {
+	if o != nil && !IsNil(o.Configurations) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigurations gets a reference to the given ConfigurationUsage and assigns it to the Configurations field.
 func (o *UsageEE) SetConfigurations(v ConfigurationUsage) {
-	o.Configurations = v
+	o.Configurations = &v
 }
 
-// GetPlugins returns the Plugins field value
+// GetPlugins returns the Plugins field value if set, zero value otherwise.
 func (o *UsageEE) GetPlugins() []PluginUsage {
-	if o == nil {
+	if o == nil || IsNil(o.Plugins) {
 		var ret []PluginUsage
 		return ret
 	}
-
 	return o.Plugins
 }
 
-// GetPluginsOk returns a tuple with the Plugins field value
+// GetPluginsOk returns a tuple with the Plugins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsageEE) GetPluginsOk() ([]PluginUsage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Plugins) {
 		return nil, false
 	}
 	return o.Plugins, true
 }
 
-// SetPlugins sets field value
+// HasPlugins returns a boolean if a field has been set.
+func (o *UsageEE) HasPlugins() bool {
+	if o != nil && !IsNil(o.Plugins) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlugins gets a reference to the given []PluginUsage and assigns it to the Plugins field.
 func (o *UsageEE) SetPlugins(v []PluginUsage) {
 	o.Plugins = v
 }
 
-// GetFlows returns the Flows field value
+// GetFlows returns the Flows field value if set, zero value otherwise.
 func (o *UsageEE) GetFlows() FlowUsage {
-	if o == nil {
+	if o == nil || IsNil(o.Flows) {
 		var ret FlowUsage
 		return ret
 	}
-
-	return o.Flows
+	return *o.Flows
 }
 
-// GetFlowsOk returns a tuple with the Flows field value
+// GetFlowsOk returns a tuple with the Flows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsageEE) GetFlowsOk() (*FlowUsage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Flows) {
 		return nil, false
 	}
-	return &o.Flows, true
+	return o.Flows, true
 }
 
-// SetFlows sets field value
+// HasFlows returns a boolean if a field has been set.
+func (o *UsageEE) HasFlows() bool {
+	if o != nil && !IsNil(o.Flows) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlows gets a reference to the given FlowUsage and assigns it to the Flows field.
 func (o *UsageEE) SetFlows(v FlowUsage) {
-	o.Flows = v
+	o.Flows = &v
 }
 
-// GetExecutions returns the Executions field value
+// GetExecutions returns the Executions field value if set, zero value otherwise.
 func (o *UsageEE) GetExecutions() ExecutionUsage {
-	if o == nil {
+	if o == nil || IsNil(o.Executions) {
 		var ret ExecutionUsage
 		return ret
 	}
-
-	return o.Executions
+	return *o.Executions
 }
 
-// GetExecutionsOk returns a tuple with the Executions field value
+// GetExecutionsOk returns a tuple with the Executions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UsageEE) GetExecutionsOk() (*ExecutionUsage, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Executions) {
 		return nil, false
 	}
-	return &o.Executions, true
+	return o.Executions, true
 }
 
-// SetExecutions sets field value
+// HasExecutions returns a boolean if a field has been set.
+func (o *UsageEE) HasExecutions() bool {
+	if o != nil && !IsNil(o.Executions) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutions gets a reference to the given ExecutionUsage and assigns it to the Executions field.
 func (o *UsageEE) SetExecutions(v ExecutionUsage) {
-	o.Executions = v
+	o.Executions = &v
 }
 
 // GetServices returns the Services field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -714,11 +749,21 @@ func (o UsageEE) ToMap() (map[string]interface{}, error) {
 		toSerialize["environments"] = o.Environments
 	}
 	toSerialize["startTime"] = o.StartTime
-	toSerialize["host"] = o.Host
-	toSerialize["configurations"] = o.Configurations
-	toSerialize["plugins"] = o.Plugins
-	toSerialize["flows"] = o.Flows
-	toSerialize["executions"] = o.Executions
+	if !IsNil(o.Host) {
+		toSerialize["host"] = o.Host
+	}
+	if !IsNil(o.Configurations) {
+		toSerialize["configurations"] = o.Configurations
+	}
+	if !IsNil(o.Plugins) {
+		toSerialize["plugins"] = o.Plugins
+	}
+	if !IsNil(o.Flows) {
+		toSerialize["flows"] = o.Flows
+	}
+	if !IsNil(o.Executions) {
+		toSerialize["executions"] = o.Executions
+	}
 	if o.Services.IsSet() {
 		toSerialize["services"] = o.Services.Get()
 	}
@@ -745,11 +790,6 @@ func (o *UsageEE) UnmarshalJSON(data []byte) (err error) {
 		"version",
 		"zoneId",
 		"startTime",
-		"host",
-		"configurations",
-		"plugins",
-		"flows",
-		"executions",
 	}
 
 	allProperties := make(map[string]interface{})

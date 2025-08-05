@@ -1,4 +1,4 @@
-# KestraApi.DeletedInterface
+# KestraIoKestraApi.DeletedInterface
 
 ## Properties
 

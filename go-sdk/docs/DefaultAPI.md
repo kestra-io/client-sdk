@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**AcceptInvitation**](DefaultAPI.md#AcceptInvitation) | **Post** /api/v1/invitation/accept/{invitationId} | 
 [**CreateFromInvitation**](DefaultAPI.md#CreateFromInvitation) | **Post** /api/v1/invitation/create/{invitationId} | 
 [**ForgottenPassword**](DefaultAPI.md#ForgottenPassword) | **Get** /api/v1/forgotten-password | Sends an email to reset a password.
+[**Generate**](DefaultAPI.md#Generate) | **Get** /api/v1/{tenant}/stats/generate-reports | 
 [**Login**](DefaultAPI.md#Login) | **Post** /login | 
 [**ResetPassword**](DefaultAPI.md#ResetPassword) | **Post** /api/v1/reset-password | Change a password for given token.
 
@@ -216,6 +217,77 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## Generate
+
+> string Generate(ctx, tenant).From(from).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	from := time.Now() // string | The start date (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DefaultAPI.Generate(context.Background(), tenant).From(from).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.Generate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Generate`: string
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.Generate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGenerateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **from** | **string** | The start date | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## Login
 
 > map[string]interface{} Login(ctx).Username(username).Password(password).Identity(identity).Secret(secret).Execute()
@@ -307,7 +379,7 @@ import (
 )
 
 func main() {
-	authControllerResetPasswordRequest := *openapiclient.NewAuthControllerResetPasswordRequest("Token_example", "Password_example") // AuthControllerResetPasswordRequest | The password
+	authControllerResetPasswordRequest := *openapiclient.NewAuthControllerResetPasswordRequest() // AuthControllerResetPasswordRequest | The password
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

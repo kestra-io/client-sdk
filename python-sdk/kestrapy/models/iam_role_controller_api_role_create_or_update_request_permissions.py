@@ -44,17 +44,14 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(BaseModel):
     app: Optional[List[StrictStr]] = Field(default=None, alias="APP")
     appexecution: Optional[List[StrictStr]] = Field(default=None, alias="APPEXECUTION")
     test: Optional[List[StrictStr]] = Field(default=None, alias="TEST")
-    me: Optional[List[StrictStr]] = Field(default=None, alias="ME")
-    apitoken: Optional[List[StrictStr]] = Field(default=None, alias="APITOKEN")
     dashboard: Optional[List[StrictStr]] = Field(default=None, alias="DASHBOARD")
     tenant_access: Optional[List[StrictStr]] = Field(default=None, alias="TENANT_ACCESS")
-    tenant: Optional[List[StrictStr]] = Field(default=None, alias="TENANT")
     service_account: Optional[List[StrictStr]] = Field(default=None, alias="SERVICE_ACCOUNT")
     invitation: Optional[List[StrictStr]] = Field(default=None, alias="INVITATION")
     group_membership: Optional[List[StrictStr]] = Field(default=None, alias="GROUP_MEMBERSHIP")
     unknown: Optional[List[StrictStr]] = Field(default=None, alias="UNKNOWN")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["FLOW", "BLUEPRINT", "TEMPLATE", "NAMESPACE", "EXECUTION", "USER", "GROUP", "ROLE", "BINDING", "AUDITLOG", "SECRET", "KVSTORE", "IMPERSONATE", "SETTING", "INFRASTRUCTURE", "APP", "APPEXECUTION", "TEST", "ME", "APITOKEN", "DASHBOARD", "TENANT_ACCESS", "TENANT", "SERVICE_ACCOUNT", "INVITATION", "GROUP_MEMBERSHIP", "UNKNOWN"]
+    __properties: ClassVar[List[str]] = ["FLOW", "BLUEPRINT", "TEMPLATE", "NAMESPACE", "EXECUTION", "USER", "GROUP", "ROLE", "BINDING", "AUDITLOG", "SECRET", "KVSTORE", "IMPERSONATE", "SETTING", "INFRASTRUCTURE", "APP", "APPEXECUTION", "TEST", "DASHBOARD", "TENANT_ACCESS", "SERVICE_ACCOUNT", "INVITATION", "GROUP_MEMBERSHIP", "UNKNOWN"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -132,11 +129,8 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions(BaseModel):
             "APP": obj.get("APP"),
             "APPEXECUTION": obj.get("APPEXECUTION"),
             "TEST": obj.get("TEST"),
-            "ME": obj.get("ME"),
-            "APITOKEN": obj.get("APITOKEN"),
             "DASHBOARD": obj.get("DASHBOARD"),
             "TENANT_ACCESS": obj.get("TENANT_ACCESS"),
-            "TENANT": obj.get("TENANT"),
             "SERVICE_ACCOUNT": obj.get("SERVICE_ACCOUNT"),
             "INVITATION": obj.get("INVITATION"),
             "GROUP_MEMBERSHIP": obj.get("GROUP_MEMBERSHIP"),

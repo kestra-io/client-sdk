@@ -20,29 +20,30 @@ type Permission string
 
 // List of Permission
 const (
-	PERMISSION_FLOW           Permission = "FLOW"
-	PERMISSION_BLUEPRINT      Permission = "BLUEPRINT"
-	PERMISSION_TEMPLATE       Permission = "TEMPLATE"
-	PERMISSION_NAMESPACE      Permission = "NAMESPACE"
-	PERMISSION_EXECUTION      Permission = "EXECUTION"
-	PERMISSION_USER           Permission = "USER"
-	PERMISSION_GROUP          Permission = "GROUP"
-	PERMISSION_ROLE           Permission = "ROLE"
-	PERMISSION_BINDING        Permission = "BINDING"
-	PERMISSION_AUDITLOG       Permission = "AUDITLOG"
-	PERMISSION_SECRET         Permission = "SECRET"
-	PERMISSION_KVSTORE        Permission = "KVSTORE"
-	PERMISSION_IMPERSONATE    Permission = "IMPERSONATE"
-	PERMISSION_SETTING        Permission = "SETTING"
-	PERMISSION_INFRASTRUCTURE Permission = "INFRASTRUCTURE"
-	PERMISSION_APP            Permission = "APP"
-	PERMISSION_APPEXECUTION   Permission = "APPEXECUTION"
-	PERMISSION_TEST           Permission = "TEST"
-	PERMISSION_ME             Permission = "ME"
-	PERMISSION_APITOKEN       Permission = "APITOKEN"
-	PERMISSION_DASHBOARD      Permission = "DASHBOARD"
-	PERMISSION_TENANT         Permission = "TENANT"
-	PERMISSION_UNKNOWN        Permission = "UNKNOWN"
+	PERMISSION_FLOW             Permission = "FLOW"
+	PERMISSION_BLUEPRINT        Permission = "BLUEPRINT"
+	PERMISSION_TEMPLATE         Permission = "TEMPLATE"
+	PERMISSION_NAMESPACE        Permission = "NAMESPACE"
+	PERMISSION_EXECUTION        Permission = "EXECUTION"
+	PERMISSION_USER             Permission = "USER"
+	PERMISSION_GROUP            Permission = "GROUP"
+	PERMISSION_ROLE             Permission = "ROLE"
+	PERMISSION_BINDING          Permission = "BINDING"
+	PERMISSION_AUDITLOG         Permission = "AUDITLOG"
+	PERMISSION_SECRET           Permission = "SECRET"
+	PERMISSION_KVSTORE          Permission = "KVSTORE"
+	PERMISSION_IMPERSONATE      Permission = "IMPERSONATE"
+	PERMISSION_SETTING          Permission = "SETTING"
+	PERMISSION_INFRASTRUCTURE   Permission = "INFRASTRUCTURE"
+	PERMISSION_APP              Permission = "APP"
+	PERMISSION_APPEXECUTION     Permission = "APPEXECUTION"
+	PERMISSION_TEST             Permission = "TEST"
+	PERMISSION_DASHBOARD        Permission = "DASHBOARD"
+	PERMISSION_TENANT_ACCESS    Permission = "TENANT_ACCESS"
+	PERMISSION_SERVICE_ACCOUNT  Permission = "SERVICE_ACCOUNT"
+	PERMISSION_INVITATION       Permission = "INVITATION"
+	PERMISSION_GROUP_MEMBERSHIP Permission = "GROUP_MEMBERSHIP"
+	PERMISSION_UNKNOWN          Permission = "UNKNOWN"
 )
 
 // All allowed values of Permission enum
@@ -65,10 +66,11 @@ var AllowedPermissionEnumValues = []Permission{
 	"APP",
 	"APPEXECUTION",
 	"TEST",
-	"ME",
-	"APITOKEN",
 	"DASHBOARD",
-	"TENANT",
+	"TENANT_ACCESS",
+	"SERVICE_ACCOUNT",
+	"INVITATION",
+	"GROUP_MEMBERSHIP",
 	"UNKNOWN",
 }
 

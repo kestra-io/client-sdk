@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateWorkerGroup**](WorkerGroupsAPI.md#CreateWorkerGroup) | **Post** /api/v1/cluster/workergroups | Create a worker group
-[**DeleteWorkerGroupById**](WorkerGroupsAPI.md#DeleteWorkerGroupById) | **Delete** /api/v1/cluster/workergroups/{id} | Delete a worker group
-[**GetWorkerGroupById**](WorkerGroupsAPI.md#GetWorkerGroupById) | **Get** /api/v1/cluster/workergroups/{id} | Retrieve details of a specific worker group
-[**ListWorkerGroups**](WorkerGroupsAPI.md#ListWorkerGroups) | **Get** /api/v1/cluster/workergroups | List all worker groups
-[**UpdateWorkerGroupById**](WorkerGroupsAPI.md#UpdateWorkerGroupById) | **Put** /api/v1/cluster/workergroups/{id} | Update a worker group
+[**CreateWorkerGroup**](WorkerGroupsAPI.md#CreateWorkerGroup) | **Post** /api/v1/instance/workergroups | Create a worker group
+[**DeleteWorkerGroupById**](WorkerGroupsAPI.md#DeleteWorkerGroupById) | **Delete** /api/v1/instance/workergroups/{id} | Delete a worker group
+[**GetWorkerGroupById**](WorkerGroupsAPI.md#GetWorkerGroupById) | **Get** /api/v1/instance/workergroups/{id} | Retrieve details of a specific worker group
+[**ListWorkerGroups**](WorkerGroupsAPI.md#ListWorkerGroups) | **Get** /api/v1/instance/workergroups | List all worker groups
+[**UpdateWorkerGroupById**](WorkerGroupsAPI.md#UpdateWorkerGroupById) | **Put** /api/v1/instance/workergroups/{id} | Update a worker group
 
 
 
 ## CreateWorkerGroup
 
-> ClusterControllerApiWorkerGroup CreateWorkerGroup(ctx).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
+> InstanceControllerApiWorkerGroup CreateWorkerGroup(ctx).InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 
 Create a worker group
 
@@ -33,16 +33,16 @@ import (
 )
 
 func main() {
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorkerGroupsAPI.CreateWorkerGroup(context.Background()).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
+	resp, r, err := apiClient.WorkerGroupsAPI.CreateWorkerGroup(context.Background()).InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkerGroupsAPI.CreateWorkerGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateWorkerGroup`: ClusterControllerApiWorkerGroup
+	// response from `CreateWorkerGroup`: InstanceControllerApiWorkerGroup
 	fmt.Fprintf(os.Stdout, "Response from `WorkerGroupsAPI.CreateWorkerGroup`: %v\n", resp)
 }
 ```
@@ -58,11 +58,11 @@ Other parameters are passed through a pointer to a apiCreateWorkerGroupRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clusterControllerApiCreateOrUpdateWorkerGroupRequest** | [**ClusterControllerApiCreateOrUpdateWorkerGroupRequest**](ClusterControllerApiCreateOrUpdateWorkerGroupRequest.md) | The worker group definition | 
+ **instanceControllerApiCreateOrUpdateWorkerGroupRequest** | [**InstanceControllerApiCreateOrUpdateWorkerGroupRequest**](InstanceControllerApiCreateOrUpdateWorkerGroupRequest.md) | The worker group definition | 
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroup**](ClusterControllerApiWorkerGroup.md)
+[**InstanceControllerApiWorkerGroup**](InstanceControllerApiWorkerGroup.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkerGroupById
 
-> ClusterControllerApiWorkerGroupDetails GetWorkerGroupById(ctx, id).Execute()
+> InstanceControllerApiWorkerGroupDetails GetWorkerGroupById(ctx, id).Execute()
 
 Retrieve details of a specific worker group
 
@@ -178,7 +178,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkerGroupsAPI.GetWorkerGroupById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetWorkerGroupById`: ClusterControllerApiWorkerGroupDetails
+	// response from `GetWorkerGroupById`: InstanceControllerApiWorkerGroupDetails
 	fmt.Fprintf(os.Stdout, "Response from `WorkerGroupsAPI.GetWorkerGroupById`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroupDetails**](ClusterControllerApiWorkerGroupDetails.md)
+[**InstanceControllerApiWorkerGroupDetails**](InstanceControllerApiWorkerGroupDetails.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListWorkerGroups
 
-> ClusterControllerApiWorkerGroupList ListWorkerGroups(ctx).Execute()
+> InstanceControllerApiWorkerGroupList ListWorkerGroups(ctx).Execute()
 
 List all worker groups
 
@@ -247,7 +247,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkerGroupsAPI.ListWorkerGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListWorkerGroups`: ClusterControllerApiWorkerGroupList
+	// response from `ListWorkerGroups`: InstanceControllerApiWorkerGroupList
 	fmt.Fprintf(os.Stdout, "Response from `WorkerGroupsAPI.ListWorkerGroups`: %v\n", resp)
 }
 ```
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiListWorkerGroupsRequest st
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroupList**](ClusterControllerApiWorkerGroupList.md)
+[**InstanceControllerApiWorkerGroupList**](InstanceControllerApiWorkerGroupList.md)
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Other parameters are passed through a pointer to a apiListWorkerGroupsRequest st
 
 ## UpdateWorkerGroupById
 
-> ClusterControllerApiWorkerGroup UpdateWorkerGroupById(ctx, id).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
+> InstanceControllerApiWorkerGroup UpdateWorkerGroupById(ctx, id).InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 
 Update a worker group
 
@@ -301,16 +301,16 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewClusterControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // ClusterControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorkerGroupsAPI.UpdateWorkerGroupById(context.Background(), id).ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
+	resp, r, err := apiClient.WorkerGroupsAPI.UpdateWorkerGroupById(context.Background(), id).InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkerGroupsAPI.UpdateWorkerGroupById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateWorkerGroupById`: ClusterControllerApiWorkerGroup
+	// response from `UpdateWorkerGroupById`: InstanceControllerApiWorkerGroup
 	fmt.Fprintf(os.Stdout, "Response from `WorkerGroupsAPI.UpdateWorkerGroupById`: %v\n", resp)
 }
 ```
@@ -331,11 +331,11 @@ Other parameters are passed through a pointer to a apiUpdateWorkerGroupByIdReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **clusterControllerApiCreateOrUpdateWorkerGroupRequest** | [**ClusterControllerApiCreateOrUpdateWorkerGroupRequest**](ClusterControllerApiCreateOrUpdateWorkerGroupRequest.md) | The worker group definition | 
+ **instanceControllerApiCreateOrUpdateWorkerGroupRequest** | [**InstanceControllerApiCreateOrUpdateWorkerGroupRequest**](InstanceControllerApiCreateOrUpdateWorkerGroupRequest.md) | The worker group definition | 
 
 ### Return type
 
-[**ClusterControllerApiWorkerGroup**](ClusterControllerApiWorkerGroup.md)
+[**InstanceControllerApiWorkerGroup**](InstanceControllerApiWorkerGroup.md)
 
 ### Authorization
 

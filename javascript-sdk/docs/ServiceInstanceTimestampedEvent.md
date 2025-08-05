@@ -1,4 +1,4 @@
-# KestraApi.ServiceInstanceTimestampedEvent
+# KestraIoKestraApi.ServiceInstanceTimestampedEvent
 
 ## Properties
 

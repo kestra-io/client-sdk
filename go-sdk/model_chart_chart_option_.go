@@ -20,9 +20,9 @@ var _ MappedNullable = &ChartChartOption{}
 
 // ChartChartOption struct for ChartChartOption
 type ChartChartOption struct {
-	Id                   string      `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type                 string      `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
-	ChartOptions         interface{} `json:"chartOptions,omitempty"`
+	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
+	Type                 string                 `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	ChartOptions         map[string]interface{} `json:"chartOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -95,10 +95,10 @@ func (o *ChartChartOption) SetType(v string) {
 	o.Type = v
 }
 
-// GetChartOptions returns the ChartOptions field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ChartChartOption) GetChartOptions() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetChartOptions returns the ChartOptions field value if set, zero value otherwise.
+func (o *ChartChartOption) GetChartOptions() map[string]interface{} {
+	if o == nil || IsNil(o.ChartOptions) {
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.ChartOptions
@@ -106,12 +106,11 @@ func (o *ChartChartOption) GetChartOptions() interface{} {
 
 // GetChartOptionsOk returns a tuple with the ChartOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ChartChartOption) GetChartOptionsOk() (*interface{}, bool) {
+func (o *ChartChartOption) GetChartOptionsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.ChartOptions) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.ChartOptions, true
+	return o.ChartOptions, true
 }
 
 // HasChartOptions returns a boolean if a field has been set.
@@ -123,8 +122,8 @@ func (o *ChartChartOption) HasChartOptions() bool {
 	return false
 }
 
-// SetChartOptions gets a reference to the given interface{} and assigns it to the ChartOptions field.
-func (o *ChartChartOption) SetChartOptions(v interface{}) {
+// SetChartOptions gets a reference to the given map[string]interface{} and assigns it to the ChartOptions field.
+func (o *ChartChartOption) SetChartOptions(v map[string]interface{}) {
 	o.ChartOptions = v
 }
 
@@ -140,7 +139,7 @@ func (o ChartChartOption) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
-	if o.ChartOptions != nil {
+	if !IsNil(o.ChartOptions) {
 		toSerialize["chartOptions"] = o.ChartOptions
 	}
 

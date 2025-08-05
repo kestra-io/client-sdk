@@ -31,11 +31,11 @@ type MiscControllerConfiguration struct {
 	Environment               *MiscControllerEnvironment `json:"environment,omitempty"`
 	Url                       *string                    `json:"url,omitempty"`
 	Preview                   *MiscControllerPreview     `json:"preview,omitempty"`
-	IsBasicAuthEnabled        *bool                      `json:"isBasicAuthEnabled,omitempty"`
 	SystemNamespace           *string                    `json:"systemNamespace,omitempty"`
 	HiddenLabelsPrefixes      []string                   `json:"hiddenLabelsPrefixes,omitempty"`
 	ResourceToFilters         []QueryFilterResourceField `json:"resourceToFilters,omitempty"`
 	IsAiEnabled               *bool                      `json:"isAiEnabled,omitempty"`
+	IsBasicAuthInitialized    *bool                      `json:"isBasicAuthInitialized,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -410,38 +410,6 @@ func (o *MiscControllerConfiguration) SetPreview(v MiscControllerPreview) {
 	o.Preview = &v
 }
 
-// GetIsBasicAuthEnabled returns the IsBasicAuthEnabled field value if set, zero value otherwise.
-func (o *MiscControllerConfiguration) GetIsBasicAuthEnabled() bool {
-	if o == nil || IsNil(o.IsBasicAuthEnabled) {
-		var ret bool
-		return ret
-	}
-	return *o.IsBasicAuthEnabled
-}
-
-// GetIsBasicAuthEnabledOk returns a tuple with the IsBasicAuthEnabled field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MiscControllerConfiguration) GetIsBasicAuthEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsBasicAuthEnabled) {
-		return nil, false
-	}
-	return o.IsBasicAuthEnabled, true
-}
-
-// HasIsBasicAuthEnabled returns a boolean if a field has been set.
-func (o *MiscControllerConfiguration) HasIsBasicAuthEnabled() bool {
-	if o != nil && !IsNil(o.IsBasicAuthEnabled) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsBasicAuthEnabled gets a reference to the given bool and assigns it to the IsBasicAuthEnabled field.
-func (o *MiscControllerConfiguration) SetIsBasicAuthEnabled(v bool) {
-	o.IsBasicAuthEnabled = &v
-}
-
 // GetSystemNamespace returns the SystemNamespace field value if set, zero value otherwise.
 func (o *MiscControllerConfiguration) GetSystemNamespace() string {
 	if o == nil || IsNil(o.SystemNamespace) {
@@ -570,6 +538,38 @@ func (o *MiscControllerConfiguration) SetIsAiEnabled(v bool) {
 	o.IsAiEnabled = &v
 }
 
+// GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field value if set, zero value otherwise.
+func (o *MiscControllerConfiguration) GetIsBasicAuthInitialized() bool {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		var ret bool
+		return ret
+	}
+	return *o.IsBasicAuthInitialized
+}
+
+// GetIsBasicAuthInitializedOk returns a tuple with the IsBasicAuthInitialized field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerConfiguration) GetIsBasicAuthInitializedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		return nil, false
+	}
+	return o.IsBasicAuthInitialized, true
+}
+
+// HasIsBasicAuthInitialized returns a boolean if a field has been set.
+func (o *MiscControllerConfiguration) HasIsBasicAuthInitialized() bool {
+	if o != nil && !IsNil(o.IsBasicAuthInitialized) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsBasicAuthInitialized gets a reference to the given bool and assigns it to the IsBasicAuthInitialized field.
+func (o *MiscControllerConfiguration) SetIsBasicAuthInitialized(v bool) {
+	o.IsBasicAuthInitialized = &v
+}
+
 func (o MiscControllerConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -613,9 +613,6 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Preview) {
 		toSerialize["preview"] = o.Preview
 	}
-	if !IsNil(o.IsBasicAuthEnabled) {
-		toSerialize["isBasicAuthEnabled"] = o.IsBasicAuthEnabled
-	}
 	if !IsNil(o.SystemNamespace) {
 		toSerialize["systemNamespace"] = o.SystemNamespace
 	}
@@ -627,6 +624,9 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsAiEnabled) {
 		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
+	if !IsNil(o.IsBasicAuthInitialized) {
+		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -661,11 +661,11 @@ func (o *MiscControllerConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "preview")
-		delete(additionalProperties, "isBasicAuthEnabled")
 		delete(additionalProperties, "systemNamespace")
 		delete(additionalProperties, "hiddenLabelsPrefixes")
 		delete(additionalProperties, "resourceToFilters")
 		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "isBasicAuthInitialized")
 		o.AdditionalProperties = additionalProperties
 	}
 

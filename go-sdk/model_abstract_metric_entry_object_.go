@@ -21,12 +21,12 @@ var _ MappedNullable = &AbstractMetricEntryObject{}
 
 // AbstractMetricEntryObject struct for AbstractMetricEntryObject
 type AbstractMetricEntryObject struct {
-	Type                 *string            `json:"type,omitempty"`
-	Value                interface{}        `json:"value,omitempty"`
-	Name                 string             `json:"name"`
-	Description          *string            `json:"description,omitempty"`
-	Tags                 *map[string]string `json:"tags,omitempty"`
-	Timestamp            *time.Time         `json:"timestamp,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Value                map[string]interface{} `json:"value,omitempty"`
+	Name                 string                 `json:"name"`
+	Description          *string                `json:"description,omitempty"`
+	Tags                 *map[string]string     `json:"tags,omitempty"`
+	Timestamp            *time.Time             `json:"timestamp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,10 +82,10 @@ func (o *AbstractMetricEntryObject) SetType(v string) {
 	o.Type = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AbstractMetricEntryObject) GetValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *AbstractMetricEntryObject) GetValue() map[string]interface{} {
+	if o == nil || IsNil(o.Value) {
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Value
@@ -93,12 +93,11 @@ func (o *AbstractMetricEntryObject) GetValue() interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AbstractMetricEntryObject) GetValueOk() (*interface{}, bool) {
+func (o *AbstractMetricEntryObject) GetValueOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -110,8 +109,8 @@ func (o *AbstractMetricEntryObject) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given interface{} and assigns it to the Value field.
-func (o *AbstractMetricEntryObject) SetValue(v interface{}) {
+// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
+func (o *AbstractMetricEntryObject) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
@@ -248,7 +247,7 @@ func (o AbstractMetricEntryObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 	toSerialize["name"] = o.Name

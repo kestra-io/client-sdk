@@ -1,4 +1,4 @@
-# KestraApi.MetricsApi
+# KestraIoKestraApi.MetricsApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,8 +22,8 @@ Get metrics aggregations for a specific flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -32,7 +32,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let metric = "metric_example"; // String | The metric name
@@ -87,8 +87,8 @@ Get metrics aggregations for a specific flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -97,7 +97,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let taskId = "taskId_example"; // String | The task Id
@@ -154,8 +154,8 @@ Get metrics names for a specific flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -164,7 +164,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let tenant = "tenant_example"; // String | 
@@ -209,8 +209,8 @@ Get metrics names for a specific task in a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -219,7 +219,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let taskId = "taskId_example"; // String | The task Id
@@ -266,8 +266,8 @@ Get tasks id that have metrics for a specific flow, include deleted or renamed t
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -276,7 +276,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow Id
 let tenant = "tenant_example"; // String | 
@@ -321,8 +321,8 @@ Get metrics for a specific execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -331,7 +331,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.MetricsApi();
+let apiInstance = new KestraIoKestraApi.MetricsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let executionId = "executionId_example"; // String | The execution id

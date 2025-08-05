@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsBlueprint
+# KestraIoKestraApi.PagedResultsBlueprint
 
 ## Properties
 

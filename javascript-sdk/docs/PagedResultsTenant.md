@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsTenant
+# KestraIoKestraApi.PagedResultsTenant
 
 ## Properties
 

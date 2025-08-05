@@ -32,18 +32,22 @@ import java.util.StringJoiner;
  */
 @JsonPropertyOrder({
   Role.JSON_PROPERTY_IS_MANAGED,
+  Role.JSON_PROPERTY_PERMISSIONS,
   Role.JSON_PROPERTY_ID,
   Role.JSON_PROPERTY_NAME,
   Role.JSON_PROPERTY_DESCRIPTION,
-  Role.JSON_PROPERTY_PERMISSIONS,
   Role.JSON_PROPERTY_IS_DEFAULT,
   Role.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Role {
   public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
   @javax.annotation.Nonnull
   private Boolean isManaged;
+
+  public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
+  @javax.annotation.Nullable
+  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
 
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable
@@ -56,10 +60,6 @@ public class Role {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @javax.annotation.Nullable
   private String description;
-
-  public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
-  @javax.annotation.Nullable
-  private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
   @javax.annotation.Nullable
@@ -95,6 +95,31 @@ public class Role {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIsManaged(@javax.annotation.Nonnull Boolean isManaged) {
     this.isManaged = isManaged;
+  }
+
+  public Role permissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    
+    this.permissions = permissions;
+    return this;
+  }
+
+  /**
+   * Get permissions
+   * @return permissions
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
+    return permissions;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+    this.permissions = permissions;
   }
 
   public Role id(@javax.annotation.Nullable String id) {
@@ -172,31 +197,6 @@ public class Role {
     this.description = description;
   }
 
-  public Role permissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
-    
-    this.permissions = permissions;
-    return this;
-  }
-
-  /**
-   * Get permissions
-   * @return permissions
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
-    return permissions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPermissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
-    this.permissions = permissions;
-  }
-
   public Role isDefault(@javax.annotation.Nullable Boolean isDefault) {
     
     this.isDefault = isDefault;
@@ -257,17 +257,17 @@ public class Role {
     }
     Role role = (Role) o;
     return Objects.equals(this.isManaged, role.isManaged) &&
+        Objects.equals(this.permissions, role.permissions) &&
         Objects.equals(this.id, role.id) &&
         Objects.equals(this.name, role.name) &&
         Objects.equals(this.description, role.description) &&
-        Objects.equals(this.permissions, role.permissions) &&
         Objects.equals(this.isDefault, role.isDefault) &&
         Objects.equals(this.deleted, role.deleted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isManaged, id, name, description, permissions, isDefault, deleted);
+    return Objects.hash(isManaged, permissions, id, name, description, isDefault, deleted);
   }
 
   @Override
@@ -275,10 +275,10 @@ public class Role {
     StringBuilder sb = new StringBuilder();
     sb.append("class Role {\n");
     sb.append("    isManaged: ").append(toIndentedString(isManaged)).append("\n");
+    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
     sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("}");
@@ -338,6 +338,11 @@ public class Role {
       }
     }
 
+    // add `permissions` to the URL query string
+    if (getPermissions() != null) {
+      joiner.add(getPermissions().toUrlQueryString(prefix + "permissions" + suffix));
+    }
+
     // add `id` to the URL query string
     if (getId() != null) {
       try {
@@ -366,11 +371,6 @@ public class Role {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
       }
-    }
-
-    // add `permissions` to the URL query string
-    if (getPermissions() != null) {
-      joiner.add(getPermissions().toUrlQueryString(prefix + "permissions" + suffix));
     }
 
     // add `isDefault` to the URL query string

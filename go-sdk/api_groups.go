@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -31,7 +30,7 @@ type ApiAddUserToGroupRequest struct {
 	tenant     string
 }
 
-func (r ApiAddUserToGroupRequest) Execute() (*ApiUser, *http.Response, error) {
+func (r ApiAddUserToGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.AddUserToGroupExecute(r)
 }
 
@@ -58,13 +57,13 @@ func (a *GroupsAPIService) AddUserToGroup(ctx context.Context, id string, userId
 
 // Execute executes the request
 //
-//	@return ApiUser
-func (a *GroupsAPIService) AddUserToGroupExecute(r ApiAddUserToGroupRequest) (*ApiUser, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupMember
+func (a *GroupsAPIService) AddUserToGroupExecute(r ApiAddUserToGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ApiUser
+		localVarReturnValue *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AddUserToGroup")
@@ -76,226 +75,6 @@ func (a *GroupsAPIService) AddUserToGroupExecute(r ApiAddUserToGroupRequest) (*A
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAddUserToGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	userId         string
-	resourceTenant string
-}
-
-func (r ApiAddUserToGroupWithResourceTenantasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.AddUserToGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-AddUserToGroupWithResourceTenantasSuperAdmin Add a user to a group
-
-Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to add to the group
-	@param resourceTenant
-	@return ApiAddUserToGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) AddUserToGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, userId string, resourceTenant string) ApiAddUserToGroupWithResourceTenantasSuperAdminRequest {
-	return ApiAddUserToGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		userId:         userId,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) AddUserToGroupWithResourceTenantasSuperAdminExecute(r ApiAddUserToGroupWithResourceTenantasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AddUserToGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAddUserToGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	userId     string
-}
-
-func (r ApiAddUserToGroupasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.AddUserToGroupasSuperAdminExecute(r)
-}
-
-/*
-AddUserToGroupasSuperAdmin Add a user to a group
-
-Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to add to the group
-	@return ApiAddUserToGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) AddUserToGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiAddUserToGroupasSuperAdminRequest {
-	return ApiAddUserToGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) AddUserToGroupasSuperAdminExecute(r ApiAddUserToGroupasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AddUserToGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -368,7 +147,7 @@ func (r ApiAutocompleteGroupsRequest) ApiAutocomplete(apiAutocomplete ApiAutocom
 	return r
 }
 
-func (r ApiAutocompleteGroupsRequest) Execute() ([]Group, *http.Response, error) {
+func (r ApiAutocompleteGroupsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteGroupsExecute(r)
 }
 
@@ -389,13 +168,13 @@ func (a *GroupsAPIService) AutocompleteGroups(ctx context.Context, tenant string
 
 // Execute executes the request
 //
-//	@return []Group
-func (a *GroupsAPIService) AutocompleteGroupsExecute(r ApiAutocompleteGroupsRequest) ([]Group, *http.Response, error) {
+//	@return []ApiGroupSummary
+func (a *GroupsAPIService) AutocompleteGroupsExecute(r ApiAutocompleteGroupsRequest) ([]ApiGroupSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Group
+		localVarReturnValue []ApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AutocompleteGroups")
@@ -469,244 +248,20 @@ func (a *GroupsAPIService) AutocompleteGroupsExecute(r ApiAutocompleteGroupsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest struct {
-	ctx             context.Context
-	ApiService      *GroupsAPIService
-	resourceTenant  string
-	apiAutocomplete *ApiAutocomplete
-}
-
-// Autocomplete request
-func (r ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest) ApiAutocomplete(apiAutocomplete ApiAutocomplete) ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest {
-	r.apiAutocomplete = &apiAutocomplete
-	return r
-}
-
-func (r ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest) Execute() ([]Group, *http.Response, error) {
-	return r.ApiService.AutocompleteGroupsWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteGroupsWithResourceTenantasSuperAdmin List groups for autocomplete
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) AutocompleteGroupsWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest {
-	return ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Group
-func (a *GroupsAPIService) AutocompleteGroupsWithResourceTenantasSuperAdminExecute(r ApiAutocompleteGroupsWithResourceTenantasSuperAdminRequest) ([]Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AutocompleteGroupsWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/autocomplete"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiAutocomplete == nil {
-		return localVarReturnValue, nil, reportError("apiAutocomplete is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiAutocomplete
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAutocompleteGroupsasSuperAdminRequest struct {
-	ctx             context.Context
-	ApiService      *GroupsAPIService
-	apiAutocomplete *ApiAutocomplete
-}
-
-// Autocomplete request
-func (r ApiAutocompleteGroupsasSuperAdminRequest) ApiAutocomplete(apiAutocomplete ApiAutocomplete) ApiAutocompleteGroupsasSuperAdminRequest {
-	r.apiAutocomplete = &apiAutocomplete
-	return r
-}
-
-func (r ApiAutocompleteGroupsasSuperAdminRequest) Execute() ([]Group, *http.Response, error) {
-	return r.ApiService.AutocompleteGroupsasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteGroupsasSuperAdmin List groups for autocomplete
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAutocompleteGroupsasSuperAdminRequest
-*/
-func (a *GroupsAPIService) AutocompleteGroupsasSuperAdmin(ctx context.Context) ApiAutocompleteGroupsasSuperAdminRequest {
-	return ApiAutocompleteGroupsasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Group
-func (a *GroupsAPIService) AutocompleteGroupsasSuperAdminExecute(r ApiAutocompleteGroupsasSuperAdminRequest) ([]Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.AutocompleteGroupsasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/autocomplete"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiAutocomplete == nil {
-		return localVarReturnValue, nil, reportError("apiAutocomplete is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiAutocomplete
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiCreateGroupRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	tenant                                       string
-	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
+	ctx                                     context.Context
+	ApiService                              *GroupsAPIService
+	tenant                                  string
+	iAMGroupControllerApiCreateGroupRequest *IAMGroupControllerApiCreateGroupRequest
 }
 
 // The group
-func (r ApiCreateGroupRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupRequest {
-	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
+func (r ApiCreateGroupRequest) IAMGroupControllerApiCreateGroupRequest(iAMGroupControllerApiCreateGroupRequest IAMGroupControllerApiCreateGroupRequest) ApiCreateGroupRequest {
+	r.iAMGroupControllerApiCreateGroupRequest = &iAMGroupControllerApiCreateGroupRequest
 	return r
 }
 
-func (r ApiCreateGroupRequest) Execute() (*Group, *http.Response, error) {
+func (r ApiCreateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.CreateGroupExecute(r)
 }
 
@@ -727,13 +282,13 @@ func (a *GroupsAPIService) CreateGroup(ctx context.Context, tenant string) ApiCr
 
 // Execute executes the request
 //
-//	@return Group
-func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupDetail
+func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Group
+		localVarReturnValue *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.CreateGroup")
@@ -747,8 +302,8 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiCreateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
+	if r.iAMGroupControllerApiCreateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMGroupControllerApiCreateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -769,231 +324,7 @@ func (a *GroupsAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*Group, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	resourceTenant                               string
-	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
-}
-
-// The group
-func (r ApiCreateGroupWithResourceTenantasSuperAdminRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupWithResourceTenantasSuperAdminRequest {
-	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
-	return r
-}
-
-func (r ApiCreateGroupWithResourceTenantasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.CreateGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-CreateGroupWithResourceTenantasSuperAdmin Create a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiCreateGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) CreateGroupWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiCreateGroupWithResourceTenantasSuperAdminRequest {
-	return ApiCreateGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) CreateGroupWithResourceTenantasSuperAdminExecute(r ApiCreateGroupWithResourceTenantasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.CreateGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiCreateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateGroupasSuperAdminRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	abstractGroupControllerApiCreateGroupRequest *AbstractGroupControllerApiCreateGroupRequest
-}
-
-// The group
-func (r ApiCreateGroupasSuperAdminRequest) AbstractGroupControllerApiCreateGroupRequest(abstractGroupControllerApiCreateGroupRequest AbstractGroupControllerApiCreateGroupRequest) ApiCreateGroupasSuperAdminRequest {
-	r.abstractGroupControllerApiCreateGroupRequest = &abstractGroupControllerApiCreateGroupRequest
-	return r
-}
-
-func (r ApiCreateGroupasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.CreateGroupasSuperAdminExecute(r)
-}
-
-/*
-CreateGroupasSuperAdmin Create a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) CreateGroupasSuperAdmin(ctx context.Context) ApiCreateGroupasSuperAdminRequest {
-	return ApiCreateGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) CreateGroupasSuperAdminExecute(r ApiCreateGroupasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.CreateGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiCreateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiCreateGroupRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.abstractGroupControllerApiCreateGroupRequest
+	localVarPostBody = r.iAMGroupControllerApiCreateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1125,190 +456,6 @@ func (a *GroupsAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*http.Re
 	return localVarHTTPResponse, nil
 }
 
-type ApiDeleteGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiDeleteGroupWithResourceTenantasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-DeleteGroupWithResourceTenantasSuperAdmin Delete a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param resourceTenant
-	@return ApiDeleteGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) DeleteGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiDeleteGroupWithResourceTenantasSuperAdminRequest {
-	return ApiDeleteGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-func (a *GroupsAPIService) DeleteGroupWithResourceTenantasSuperAdminExecute(r ApiDeleteGroupWithResourceTenantasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-}
-
-func (r ApiDeleteGroupasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteGroupasSuperAdminExecute(r)
-}
-
-/*
-DeleteGroupasSuperAdmin Delete a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@return ApiDeleteGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) DeleteGroupasSuperAdmin(ctx context.Context, id string) ApiDeleteGroupasSuperAdminRequest {
-	return ApiDeleteGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *GroupsAPIService) DeleteGroupasSuperAdminExecute(r ApiDeleteGroupasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteGroupasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type ApiDeleteUserFromGroupRequest struct {
 	ctx        context.Context
 	ApiService *GroupsAPIService
@@ -1317,7 +464,7 @@ type ApiDeleteUserFromGroupRequest struct {
 	tenant     string
 }
 
-func (r ApiDeleteUserFromGroupRequest) Execute() (*ApiUser, *http.Response, error) {
+func (r ApiDeleteUserFromGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.DeleteUserFromGroupExecute(r)
 }
 
@@ -1344,13 +491,13 @@ func (a *GroupsAPIService) DeleteUserFromGroup(ctx context.Context, id string, u
 
 // Execute executes the request
 //
-//	@return ApiUser
-func (a *GroupsAPIService) DeleteUserFromGroupExecute(r ApiDeleteUserFromGroupRequest) (*ApiUser, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupMember
+func (a *GroupsAPIService) DeleteUserFromGroupExecute(r ApiDeleteUserFromGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ApiUser
+		localVarReturnValue *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteUserFromGroup")
@@ -1421,226 +568,6 @@ func (a *GroupsAPIService) DeleteUserFromGroupExecute(r ApiDeleteUserFromGroupRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	userId         string
-	resourceTenant string
-}
-
-func (r ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.DeleteUserFromGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-DeleteUserFromGroupWithResourceTenantasSuperAdmin Remove a user from a group
-
-Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to remove from the group
-	@param resourceTenant
-	@return ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) DeleteUserFromGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, userId string, resourceTenant string) ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest {
-	return ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		userId:         userId,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) DeleteUserFromGroupWithResourceTenantasSuperAdminExecute(r ApiDeleteUserFromGroupWithResourceTenantasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteUserFromGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiDeleteUserFromGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	userId     string
-}
-
-func (r ApiDeleteUserFromGroupasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.DeleteUserFromGroupasSuperAdminExecute(r)
-}
-
-/*
-DeleteUserFromGroupasSuperAdmin Remove a user from a group
-
-Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user to remove from the group
-	@return ApiDeleteUserFromGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) DeleteUserFromGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiDeleteUserFromGroupasSuperAdminRequest {
-	return ApiDeleteUserFromGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) DeleteUserFromGroupasSuperAdminExecute(r ApiDeleteUserFromGroupasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.DeleteUserFromGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}/members/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetGroupRequest struct {
 	ctx        context.Context
 	ApiService *GroupsAPIService
@@ -1648,7 +575,7 @@ type ApiGetGroupRequest struct {
 	tenant     string
 }
 
-func (r ApiGetGroupRequest) Execute() (*Group, *http.Response, error) {
+func (r ApiGetGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.GetGroupExecute(r)
 }
 
@@ -1673,13 +600,13 @@ func (a *GroupsAPIService) GetGroup(ctx context.Context, id string, tenant strin
 
 // Execute executes the request
 //
-//	@return Group
-func (a *GroupsAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupDetail
+func (a *GroupsAPIService) GetGroupExecute(r ApiGetGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Group
+		localVarReturnValue *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.GetGroup")
@@ -1690,218 +617,6 @@ func (a *GroupsAPIService) GetGroupExecute(r ApiGetGroupRequest) (*Group, *http.
 	localVarPath := localBasePath + "/api/v1/{tenant}/groups/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiGetGroupWithResourceTenantasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.GetGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-GetGroupWithResourceTenantasSuperAdmin Retrieve a group
-
-Retrieves details of a specific group by its ID within the current tenant.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param resourceTenant
-	@return ApiGetGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) GetGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiGetGroupWithResourceTenantasSuperAdminRequest {
-	return ApiGetGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) GetGroupWithResourceTenantasSuperAdminExecute(r ApiGetGroupWithResourceTenantasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.GetGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-}
-
-func (r ApiGetGroupasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.GetGroupasSuperAdminExecute(r)
-}
-
-/*
-GetGroupasSuperAdmin Retrieve a group
-
-Retrieves details of a specific group by its ID within the current tenant.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@return ApiGetGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) GetGroupasSuperAdmin(ctx context.Context, id string) ApiGetGroupasSuperAdminRequest {
-	return ApiGetGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) GetGroupasSuperAdminExecute(r ApiGetGroupasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.GetGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1974,7 +689,7 @@ func (r ApiListGroupIdsRequest) ApiIds(apiIds ApiIds) ApiListGroupIdsRequest {
 	return r
 }
 
-func (r ApiListGroupIdsRequest) Execute() ([]Group, *http.Response, error) {
+func (r ApiListGroupIdsRequest) Execute() ([]ApiGroupSummary, *http.Response, error) {
 	return r.ApiService.ListGroupIdsExecute(r)
 }
 
@@ -1995,13 +710,13 @@ func (a *GroupsAPIService) ListGroupIds(ctx context.Context, tenant string) ApiL
 
 // Execute executes the request
 //
-//	@return []Group
-func (a *GroupsAPIService) ListGroupIdsExecute(r ApiListGroupIdsRequest) ([]Group, *http.Response, error) {
+//	@return []ApiGroupSummary
+func (a *GroupsAPIService) ListGroupIdsExecute(r ApiListGroupIdsRequest) ([]ApiGroupSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Group
+		localVarReturnValue []ApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.ListGroupIds")
@@ -2011,230 +726,6 @@ func (a *GroupsAPIService) ListGroupIdsExecute(r ApiListGroupIdsRequest) ([]Grou
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/groups/ids"
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiIds == nil {
-		return localVarReturnValue, nil, reportError("apiIds is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListGroupIdsWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	resourceTenant string
-	apiIds         *ApiIds
-}
-
-// The ids that must be present on results
-func (r ApiListGroupIdsWithResourceTenantasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiListGroupIdsWithResourceTenantasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiListGroupIdsWithResourceTenantasSuperAdminRequest) Execute() ([]Group, *http.Response, error) {
-	return r.ApiService.ListGroupIdsWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-ListGroupIdsWithResourceTenantasSuperAdmin List groups by ids
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiListGroupIdsWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) ListGroupIdsWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiListGroupIdsWithResourceTenantasSuperAdminRequest {
-	return ApiListGroupIdsWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Group
-func (a *GroupsAPIService) ListGroupIdsWithResourceTenantasSuperAdminExecute(r ApiListGroupIdsWithResourceTenantasSuperAdminRequest) ([]Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.ListGroupIdsWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiIds == nil {
-		return localVarReturnValue, nil, reportError("apiIds is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListGroupIdsasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	apiIds     *ApiIds
-}
-
-// The ids that must be present on results
-func (r ApiListGroupIdsasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiListGroupIdsasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiListGroupIdsasSuperAdminRequest) Execute() ([]Group, *http.Response, error) {
-	return r.ApiService.ListGroupIdsasSuperAdminExecute(r)
-}
-
-/*
-ListGroupIdsasSuperAdmin List groups by ids
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListGroupIdsasSuperAdminRequest
-*/
-func (a *GroupsAPIService) ListGroupIdsasSuperAdmin(ctx context.Context) ApiListGroupIdsasSuperAdminRequest {
-	return ApiListGroupIdsasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Group
-func (a *GroupsAPIService) ListGroupIdsasSuperAdminExecute(r ApiListGroupIdsasSuperAdminRequest) ([]Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.ListGroupIdsasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/ids"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2334,7 +825,7 @@ func (r ApiSearchGroupMembersRequest) Sort(sort []string) ApiSearchGroupMembersR
 	return r
 }
 
-func (r ApiSearchGroupMembersRequest) Execute() (*PagedResultsApiUser, *http.Response, error) {
+func (r ApiSearchGroupMembersRequest) Execute() (*PagedResultsIAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.SearchGroupMembersExecute(r)
 }
 
@@ -2357,13 +848,13 @@ func (a *GroupsAPIService) SearchGroupMembers(ctx context.Context, id string, te
 
 // Execute executes the request
 //
-//	@return PagedResultsApiUser
-func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequest) (*PagedResultsApiUser, *http.Response, error) {
+//	@return PagedResultsIAMGroupControllerApiGroupMember
+func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequest) (*PagedResultsIAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsApiUser
+		localVarReturnValue *PagedResultsIAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupMembers")
@@ -2391,323 +882,7 @@ func (a *GroupsAPIService) SearchGroupMembersExecute(r ApiSearchGroupMembersRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	page           *int32
-	size           *int32
-	resourceTenant string
-	q              *string
-	sort           *[]string
-}
-
-// The current page
-func (r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) Page(page int32) ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) Size(size int32) ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) Q(q string) ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) Sort(sort []string) ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) Execute() (*PagedResultsApiUser, *http.Response, error) {
-	return r.ApiService.SearchGroupMembersWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-SearchGroupMembersWithResourceTenantasSuperAdmin Search for users in a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param resourceTenant
-	@return ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SearchGroupMembersWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest {
-	return ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsApiUser
-func (a *GroupsAPIService) SearchGroupMembersWithResourceTenantasSuperAdminExecute(r ApiSearchGroupMembersWithResourceTenantasSuperAdminRequest) (*PagedResultsApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupMembersWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchGroupMembersasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	page       *int32
-	size       *int32
-	q          *string
-	sort       *[]string
-}
-
-// The current page
-func (r ApiSearchGroupMembersasSuperAdminRequest) Page(page int32) ApiSearchGroupMembersasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchGroupMembersasSuperAdminRequest) Size(size int32) ApiSearchGroupMembersasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchGroupMembersasSuperAdminRequest) Q(q string) ApiSearchGroupMembersasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchGroupMembersasSuperAdminRequest) Sort(sort []string) ApiSearchGroupMembersasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchGroupMembersasSuperAdminRequest) Execute() (*PagedResultsApiUser, *http.Response, error) {
-	return r.ApiService.SearchGroupMembersasSuperAdminExecute(r)
-}
-
-/*
-SearchGroupMembersasSuperAdmin Search for users in a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@return ApiSearchGroupMembersasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SearchGroupMembersasSuperAdmin(ctx context.Context, id string) ApiSearchGroupMembersasSuperAdminRequest {
-	return ApiSearchGroupMembersasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsApiUser
-func (a *GroupsAPIService) SearchGroupMembersasSuperAdminExecute(r ApiSearchGroupMembersasSuperAdminRequest) (*PagedResultsApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupMembersasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2797,7 +972,7 @@ func (r ApiSearchGroupsRequest) Sort(sort []string) ApiSearchGroupsRequest {
 	return r
 }
 
-func (r ApiSearchGroupsRequest) Execute() (*PagedResultsGroup, *http.Response, error) {
+func (r ApiSearchGroupsRequest) Execute() (*PagedResultsApiGroupSummary, *http.Response, error) {
 	return r.ApiService.SearchGroupsExecute(r)
 }
 
@@ -2818,13 +993,13 @@ func (a *GroupsAPIService) SearchGroups(ctx context.Context, tenant string) ApiS
 
 // Execute executes the request
 //
-//	@return PagedResultsGroup
-func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*PagedResultsGroup, *http.Response, error) {
+//	@return PagedResultsApiGroupSummary
+func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*PagedResultsApiGroupSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsGroup
+		localVarReturnValue *PagedResultsApiGroupSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroups")
@@ -2851,315 +1026,7 @@ func (a *GroupsAPIService) SearchGroupsExecute(r ApiSearchGroupsRequest) (*Paged
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchGroupsWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	page           *int32
-	size           *int32
-	resourceTenant string
-	q              *string
-	sort           *[]string
-}
-
-// The current page
-func (r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) Page(page int32) ApiSearchGroupsWithResourceTenantasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) Size(size int32) ApiSearchGroupsWithResourceTenantasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) Q(q string) ApiSearchGroupsWithResourceTenantasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) Sort(sort []string) ApiSearchGroupsWithResourceTenantasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) Execute() (*PagedResultsGroup, *http.Response, error) {
-	return r.ApiService.SearchGroupsWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-SearchGroupsWithResourceTenantasSuperAdmin Search for groups
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiSearchGroupsWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SearchGroupsWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiSearchGroupsWithResourceTenantasSuperAdminRequest {
-	return ApiSearchGroupsWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsGroup
-func (a *GroupsAPIService) SearchGroupsWithResourceTenantasSuperAdminExecute(r ApiSearchGroupsWithResourceTenantasSuperAdminRequest) (*PagedResultsGroup, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsGroup
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupsWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchGroupsasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	page       *int32
-	size       *int32
-	q          *string
-	sort       *[]string
-}
-
-// The current page
-func (r ApiSearchGroupsasSuperAdminRequest) Page(page int32) ApiSearchGroupsasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchGroupsasSuperAdminRequest) Size(size int32) ApiSearchGroupsasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchGroupsasSuperAdminRequest) Q(q string) ApiSearchGroupsasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchGroupsasSuperAdminRequest) Sort(sort []string) ApiSearchGroupsasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchGroupsasSuperAdminRequest) Execute() (*PagedResultsGroup, *http.Response, error) {
-	return r.ApiService.SearchGroupsasSuperAdminExecute(r)
-}
-
-/*
-SearchGroupsasSuperAdmin Search for groups
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearchGroupsasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SearchGroupsasSuperAdmin(ctx context.Context) ApiSearchGroupsasSuperAdminRequest {
-	return ApiSearchGroupsasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsGroup
-func (a *GroupsAPIService) SearchGroupsasSuperAdminExecute(r ApiSearchGroupsasSuperAdminRequest) (*PagedResultsGroup, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsGroup
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SearchGroupsasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/search"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3230,7 +1097,7 @@ func (r ApiSetUserMembershipForGroupRequest) Membership(membership GroupIdentifi
 	return r
 }
 
-func (r ApiSetUserMembershipForGroupRequest) Execute() (*ApiUser, *http.Response, error) {
+func (r ApiSetUserMembershipForGroupRequest) Execute() (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	return r.ApiService.SetUserMembershipForGroupExecute(r)
 }
 
@@ -3257,13 +1124,13 @@ func (a *GroupsAPIService) SetUserMembershipForGroup(ctx context.Context, id str
 
 // Execute executes the request
 //
-//	@return ApiUser
-func (a *GroupsAPIService) SetUserMembershipForGroupExecute(r ApiSetUserMembershipForGroupRequest) (*ApiUser, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupMember
+func (a *GroupsAPIService) SetUserMembershipForGroupExecute(r ApiSetUserMembershipForGroupRequest) (*IAMGroupControllerApiGroupMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ApiUser
+		localVarReturnValue *IAMGroupControllerApiGroupMember
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SetUserMembershipForGroup")
@@ -3338,263 +1205,21 @@ func (a *GroupsAPIService) SetUserMembershipForGroupExecute(r ApiSetUserMembersh
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *GroupsAPIService
-	id             string
-	userId         string
-	membership     *GroupIdentifierMembership
-	resourceTenant string
-}
-
-// The new membership type to assign to the user.
-func (r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest {
-	r.membership = &membership
-	return r
-}
-
-func (r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.SetUserMembershipForGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-SetUserMembershipForGroupWithResourceTenantasSuperAdmin Update a user's membership type in a group
-
-Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user whose membership is being updated
-	@param resourceTenant
-	@return ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SetUserMembershipForGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, userId string, resourceTenant string) ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest {
-	return ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		userId:         userId,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) SetUserMembershipForGroupWithResourceTenantasSuperAdminExecute(r ApiSetUserMembershipForGroupWithResourceTenantasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SetUserMembershipForGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}/members/membership/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.membership == nil {
-		return localVarReturnValue, nil, reportError("membership is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "membership", r.membership, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSetUserMembershipForGroupasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *GroupsAPIService
-	id         string
-	userId     string
-	membership *GroupIdentifierMembership
-}
-
-// The new membership type to assign to the user.
-func (r ApiSetUserMembershipForGroupasSuperAdminRequest) Membership(membership GroupIdentifierMembership) ApiSetUserMembershipForGroupasSuperAdminRequest {
-	r.membership = &membership
-	return r
-}
-
-func (r ApiSetUserMembershipForGroupasSuperAdminRequest) Execute() (*ApiUser, *http.Response, error) {
-	return r.ApiService.SetUserMembershipForGroupasSuperAdminExecute(r)
-}
-
-/*
-SetUserMembershipForGroupasSuperAdmin Update a user's membership type in a group
-
-Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The ID of the group
-	@param userId The ID of the user whose membership is being updated
-	@return ApiSetUserMembershipForGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) SetUserMembershipForGroupasSuperAdmin(ctx context.Context, id string, userId string) ApiSetUserMembershipForGroupasSuperAdminRequest {
-	return ApiSetUserMembershipForGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-		userId:     userId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ApiUser
-func (a *GroupsAPIService) SetUserMembershipForGroupasSuperAdminExecute(r ApiSetUserMembershipForGroupasSuperAdminRequest) (*ApiUser, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ApiUser
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.SetUserMembershipForGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}/members/membership/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.membership == nil {
-		return localVarReturnValue, nil, reportError("membership is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "membership", r.membership, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiUpdateGroupRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	id                                           string
-	tenant                                       string
-	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
+	ctx                                     context.Context
+	ApiService                              *GroupsAPIService
+	id                                      string
+	tenant                                  string
+	iAMGroupControllerApiUpdateGroupRequest *IAMGroupControllerApiUpdateGroupRequest
 }
 
 // The group
-func (r ApiUpdateGroupRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupRequest {
-	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
+func (r ApiUpdateGroupRequest) IAMGroupControllerApiUpdateGroupRequest(iAMGroupControllerApiUpdateGroupRequest IAMGroupControllerApiUpdateGroupRequest) ApiUpdateGroupRequest {
+	r.iAMGroupControllerApiUpdateGroupRequest = &iAMGroupControllerApiUpdateGroupRequest
 	return r
 }
 
-func (r ApiUpdateGroupRequest) Execute() (*Group, *http.Response, error) {
+func (r ApiUpdateGroupRequest) Execute() (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	return r.ApiService.UpdateGroupExecute(r)
 }
 
@@ -3617,13 +1242,13 @@ func (a *GroupsAPIService) UpdateGroup(ctx context.Context, id string, tenant st
 
 // Execute executes the request
 //
-//	@return Group
-func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, *http.Response, error) {
+//	@return IAMGroupControllerApiGroupDetail
+func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*IAMGroupControllerApiGroupDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Group
+		localVarReturnValue *IAMGroupControllerApiGroupDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.UpdateGroup")
@@ -3638,8 +1263,8 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
+	if r.iAMGroupControllerApiUpdateGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMGroupControllerApiUpdateGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -3660,239 +1285,7 @@ func (a *GroupsAPIService) UpdateGroupExecute(r ApiUpdateGroupRequest) (*Group, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiUpdateGroupWithResourceTenantasSuperAdminRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	id                                           string
-	resourceTenant                               string
-	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
-}
-
-// The group
-func (r ApiUpdateGroupWithResourceTenantasSuperAdminRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupWithResourceTenantasSuperAdminRequest {
-	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
-	return r
-}
-
-func (r ApiUpdateGroupWithResourceTenantasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.UpdateGroupWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-UpdateGroupWithResourceTenantasSuperAdmin Update a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@param resourceTenant
-	@return ApiUpdateGroupWithResourceTenantasSuperAdminRequest
-*/
-func (a *GroupsAPIService) UpdateGroupWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiUpdateGroupWithResourceTenantasSuperAdminRequest {
-	return ApiUpdateGroupWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) UpdateGroupWithResourceTenantasSuperAdminExecute(r ApiUpdateGroupWithResourceTenantasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.UpdateGroupWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiUpdateGroupasSuperAdminRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *GroupsAPIService
-	id                                           string
-	abstractGroupControllerApiUpdateGroupRequest *AbstractGroupControllerApiUpdateGroupRequest
-}
-
-// The group
-func (r ApiUpdateGroupasSuperAdminRequest) AbstractGroupControllerApiUpdateGroupRequest(abstractGroupControllerApiUpdateGroupRequest AbstractGroupControllerApiUpdateGroupRequest) ApiUpdateGroupasSuperAdminRequest {
-	r.abstractGroupControllerApiUpdateGroupRequest = &abstractGroupControllerApiUpdateGroupRequest
-	return r
-}
-
-func (r ApiUpdateGroupasSuperAdminRequest) Execute() (*Group, *http.Response, error) {
-	return r.ApiService.UpdateGroupasSuperAdminExecute(r)
-}
-
-/*
-UpdateGroupasSuperAdmin Update a group
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The group id
-	@return ApiUpdateGroupasSuperAdminRequest
-*/
-func (a *GroupsAPIService) UpdateGroupasSuperAdmin(ctx context.Context, id string) ApiUpdateGroupasSuperAdminRequest {
-	return ApiUpdateGroupasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Group
-func (a *GroupsAPIService) UpdateGroupasSuperAdminExecute(r ApiUpdateGroupasSuperAdminRequest) (*Group, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Group
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupsAPIService.UpdateGroupasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/groups/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.abstractGroupControllerApiUpdateGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("abstractGroupControllerApiUpdateGroupRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.abstractGroupControllerApiUpdateGroupRequest
+	localVarPostBody = r.iAMGroupControllerApiUpdateGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

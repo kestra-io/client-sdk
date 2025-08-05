@@ -48,6 +48,8 @@ type APIClient struct {
 
 	// API Services
 
+	AIAPI *AIAPIService
+
 	AppsAPI *AppsAPIService
 
 	AuditLogsAPI *AuditLogsAPIService
@@ -94,13 +96,19 @@ type APIClient struct {
 
 	RolesAPI *RolesAPIService
 
-	SCIMAPI *SCIMAPIService
-
 	SCIMConfigurationAPI *SCIMConfigurationAPIService
+
+	SCIMGroupsAPI *SCIMGroupsAPIService
+
+	SCIMUsersAPI *SCIMUsersAPIService
 
 	SecurityIntegrationsAPI *SecurityIntegrationsAPIService
 
+	ServiceAccountAPI *ServiceAccountAPIService
+
 	ServicesAPI *ServicesAPIService
+
+	TenantAccessAPI *TenantAccessAPIService
 
 	TenantsAPI *TenantsAPIService
 
@@ -129,6 +137,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AIAPI = (*AIAPIService)(&c.common)
 	c.AppsAPI = (*AppsAPIService)(&c.common)
 	c.AuditLogsAPI = (*AuditLogsAPIService)(&c.common)
 	c.AuthsAPI = (*AuthsAPIService)(&c.common)
@@ -152,10 +161,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NamespacesAPI = (*NamespacesAPIService)(&c.common)
 	c.PluginsAPI = (*PluginsAPIService)(&c.common)
 	c.RolesAPI = (*RolesAPIService)(&c.common)
-	c.SCIMAPI = (*SCIMAPIService)(&c.common)
 	c.SCIMConfigurationAPI = (*SCIMConfigurationAPIService)(&c.common)
+	c.SCIMGroupsAPI = (*SCIMGroupsAPIService)(&c.common)
+	c.SCIMUsersAPI = (*SCIMUsersAPIService)(&c.common)
 	c.SecurityIntegrationsAPI = (*SecurityIntegrationsAPIService)(&c.common)
+	c.ServiceAccountAPI = (*ServiceAccountAPIService)(&c.common)
 	c.ServicesAPI = (*ServicesAPIService)(&c.common)
+	c.TenantAccessAPI = (*TenantAccessAPIService)(&c.common)
 	c.TenantsAPI = (*TenantsAPIService)(&c.common)
 	c.TestSuitesAPI = (*TestSuitesAPIService)(&c.common)
 	c.TriggersAPI = (*TriggersAPIService)(&c.common)

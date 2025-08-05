@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest
+# KestraIoKestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest
 
 ## Properties
 

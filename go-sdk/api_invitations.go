@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -24,19 +23,19 @@ import (
 type InvitationsAPIService service
 
 type ApiCreateInvitationRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	tenant     string
-	invitation *Invitation
+	ctx                                               context.Context
+	ApiService                                        *InvitationsAPIService
+	tenant                                            string
+	iAMInvitationControllerApiInvitationCreateRequest *IAMInvitationControllerApiInvitationCreateRequest
 }
 
 // Create a new invitation, send an email if the server-mail is enabled
-func (r ApiCreateInvitationRequest) Invitation(invitation Invitation) ApiCreateInvitationRequest {
-	r.invitation = &invitation
+func (r ApiCreateInvitationRequest) IAMInvitationControllerApiInvitationCreateRequest(iAMInvitationControllerApiInvitationCreateRequest IAMInvitationControllerApiInvitationCreateRequest) ApiCreateInvitationRequest {
+	r.iAMInvitationControllerApiInvitationCreateRequest = &iAMInvitationControllerApiInvitationCreateRequest
 	return r
 }
 
-func (r ApiCreateInvitationRequest) Execute() (*Invitation, *http.Response, error) {
+func (r ApiCreateInvitationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.CreateInvitationExecute(r)
 }
 
@@ -58,19 +57,16 @@ func (a *InvitationsAPIService) CreateInvitation(ctx context.Context, tenant str
 }
 
 // Execute executes the request
-//
-//	@return Invitation
-func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationRequest) (*Invitation, *http.Response, error) {
+func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Invitation
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.CreateInvitation")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/invitations"
@@ -79,8 +75,8 @@ func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.invitation == nil {
-		return localVarReturnValue, nil, reportError("invitation is required and must be specified")
+	if r.iAMInvitationControllerApiInvitationCreateRequest == nil {
+		return nil, reportError("iAMInvitationControllerApiInvitationCreateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -93,7 +89,7 @@ func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationReq
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -101,22 +97,22 @@ func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.invitation
+	localVarPostBody = r.iAMInvitationControllerApiInvitationCreateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -124,247 +120,10 @@ func (a *InvitationsAPIService) CreateInvitationExecute(r ApiCreateInvitationReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateInvitationWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *InvitationsAPIService
-	resourceTenant string
-	invitation     *Invitation
-}
-
-// Create a new invitation, send an email if the server-mail is enabled
-func (r ApiCreateInvitationWithResourceTenantasSuperAdminRequest) Invitation(invitation Invitation) ApiCreateInvitationWithResourceTenantasSuperAdminRequest {
-	r.invitation = &invitation
-	return r
-}
-
-func (r ApiCreateInvitationWithResourceTenantasSuperAdminRequest) Execute() (*Invitation, *http.Response, error) {
-	return r.ApiService.CreateInvitationWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-CreateInvitationWithResourceTenantasSuperAdmin Create an invitation
-
-Creates a new invitation and sends an email if the mail server is enabled.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiCreateInvitationWithResourceTenantasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) CreateInvitationWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiCreateInvitationWithResourceTenantasSuperAdminRequest {
-	return ApiCreateInvitationWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Invitation
-func (a *InvitationsAPIService) CreateInvitationWithResourceTenantasSuperAdminExecute(r ApiCreateInvitationWithResourceTenantasSuperAdminRequest) (*Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.CreateInvitationWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/invitations"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.invitation == nil {
-		return localVarReturnValue, nil, reportError("invitation is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.invitation
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateInvitationasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	invitation *Invitation
-}
-
-// Create a new invitation, send an email if the server-mail is enabled
-func (r ApiCreateInvitationasSuperAdminRequest) Invitation(invitation Invitation) ApiCreateInvitationasSuperAdminRequest {
-	r.invitation = &invitation
-	return r
-}
-
-func (r ApiCreateInvitationasSuperAdminRequest) Execute() (*Invitation, *http.Response, error) {
-	return r.ApiService.CreateInvitationasSuperAdminExecute(r)
-}
-
-/*
-CreateInvitationasSuperAdmin Create an invitation
-
-Creates a new invitation and sends an email if the mail server is enabled.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateInvitationasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) CreateInvitationasSuperAdmin(ctx context.Context) ApiCreateInvitationasSuperAdminRequest {
-	return ApiCreateInvitationasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Invitation
-func (a *InvitationsAPIService) CreateInvitationasSuperAdminExecute(r ApiCreateInvitationasSuperAdminRequest) (*Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.CreateInvitationasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/invitations"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.invitation == nil {
-		return localVarReturnValue, nil, reportError("invitation is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.invitation
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiDeleteInvitationRequest struct {
@@ -413,194 +172,6 @@ func (a *InvitationsAPIService) DeleteInvitationExecute(r ApiDeleteInvitationReq
 	localVarPath := localBasePath + "/api/v1/{tenant}/invitations/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteInvitationWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *InvitationsAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiDeleteInvitationWithResourceTenantasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteInvitationWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-DeleteInvitationWithResourceTenantasSuperAdmin Delete an invitation
-
-Deletes the invitation by its ID.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The id of the invitation
-	@param resourceTenant
-	@return ApiDeleteInvitationWithResourceTenantasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) DeleteInvitationWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiDeleteInvitationWithResourceTenantasSuperAdminRequest {
-	return ApiDeleteInvitationWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-func (a *InvitationsAPIService) DeleteInvitationWithResourceTenantasSuperAdminExecute(r ApiDeleteInvitationWithResourceTenantasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.DeleteInvitationWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/invitations/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteInvitationasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	id         string
-}
-
-func (r ApiDeleteInvitationasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteInvitationasSuperAdminExecute(r)
-}
-
-/*
-DeleteInvitationasSuperAdmin Delete an invitation
-
-Deletes the invitation by its ID.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The id of the invitation
-	@return ApiDeleteInvitationasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) DeleteInvitationasSuperAdmin(ctx context.Context, id string) ApiDeleteInvitationasSuperAdminRequest {
-	return ApiDeleteInvitationasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *InvitationsAPIService) DeleteInvitationasSuperAdminExecute(r ApiDeleteInvitationasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.DeleteInvitationasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/invitations/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -751,110 +322,6 @@ func (a *InvitationsAPIService) FindAllInvitationsForCurrentUserExecute(r ApiFin
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiFindAllInvitationsForCurrentUserWithTenantRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	tenant     string
-}
-
-func (r ApiFindAllInvitationsForCurrentUserWithTenantRequest) Execute() ([]Invitation, *http.Response, error) {
-	return r.ApiService.FindAllInvitationsForCurrentUserWithTenantExecute(r)
-}
-
-/*
-FindAllInvitationsForCurrentUserWithTenant List invitations for the authenticated user
-
-Returns all invitations for the authenticated user's email across all tenants.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiFindAllInvitationsForCurrentUserWithTenantRequest
-*/
-func (a *InvitationsAPIService) FindAllInvitationsForCurrentUserWithTenant(ctx context.Context, tenant string) ApiFindAllInvitationsForCurrentUserWithTenantRequest {
-	return ApiFindAllInvitationsForCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Invitation
-func (a *InvitationsAPIService) FindAllInvitationsForCurrentUserWithTenantExecute(r ApiFindAllInvitationsForCurrentUserWithTenantRequest) ([]Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.FindAllInvitationsForCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me/invitations"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetInvitationRequest struct {
 	ctx        context.Context
 	ApiService *InvitationsAPIService
@@ -862,7 +329,7 @@ type ApiGetInvitationRequest struct {
 	tenant     string
 }
 
-func (r ApiGetInvitationRequest) Execute() (*Invitation, *http.Response, error) {
+func (r ApiGetInvitationRequest) Execute() (*IAMInvitationControllerApiInvitationDetail, *http.Response, error) {
 	return r.ApiService.GetInvitationExecute(r)
 }
 
@@ -887,13 +354,13 @@ func (a *InvitationsAPIService) GetInvitation(ctx context.Context, id string, te
 
 // Execute executes the request
 //
-//	@return Invitation
-func (a *InvitationsAPIService) GetInvitationExecute(r ApiGetInvitationRequest) (*Invitation, *http.Response, error) {
+//	@return IAMInvitationControllerApiInvitationDetail
+func (a *InvitationsAPIService) GetInvitationExecute(r ApiGetInvitationRequest) (*IAMInvitationControllerApiInvitationDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Invitation
+		localVarReturnValue *IAMInvitationControllerApiInvitationDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.GetInvitation")
@@ -963,241 +430,29 @@ func (a *InvitationsAPIService) GetInvitationExecute(r ApiGetInvitationRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetInvitationWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *InvitationsAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiGetInvitationWithResourceTenantasSuperAdminRequest) Execute() (*Invitation, *http.Response, error) {
-	return r.ApiService.GetInvitationWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-GetInvitationWithResourceTenantasSuperAdmin Retrieve an invitation
-
-Retrieves the invitation by its ID, including the invitation link.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The id of the invitation
-	@param resourceTenant
-	@return ApiGetInvitationWithResourceTenantasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) GetInvitationWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiGetInvitationWithResourceTenantasSuperAdminRequest {
-	return ApiGetInvitationWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Invitation
-func (a *InvitationsAPIService) GetInvitationWithResourceTenantasSuperAdminExecute(r ApiGetInvitationWithResourceTenantasSuperAdminRequest) (*Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.GetInvitationWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/invitations/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetInvitationasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	id         string
-}
-
-func (r ApiGetInvitationasSuperAdminRequest) Execute() (*Invitation, *http.Response, error) {
-	return r.ApiService.GetInvitationasSuperAdminExecute(r)
-}
-
-/*
-GetInvitationasSuperAdmin Retrieve an invitation
-
-Retrieves the invitation by its ID, including the invitation link.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The id of the invitation
-	@return ApiGetInvitationasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) GetInvitationasSuperAdmin(ctx context.Context, id string) ApiGetInvitationasSuperAdminRequest {
-	return ApiGetInvitationasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Invitation
-func (a *InvitationsAPIService) GetInvitationasSuperAdminExecute(r ApiGetInvitationasSuperAdminRequest) (*Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.GetInvitationasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/invitations/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListByEmailRequest struct {
+type ApiListInvitationsByEmailRequest struct {
 	ctx        context.Context
 	ApiService *InvitationsAPIService
 	email      string
 	tenant     string
 }
 
-func (r ApiListByEmailRequest) Execute() ([]Invitation, *http.Response, error) {
-	return r.ApiService.ListByEmailExecute(r)
+func (r ApiListInvitationsByEmailRequest) Execute() ([]IAMInvitationControllerApiInvitationDetail, *http.Response, error) {
+	return r.ApiService.ListInvitationsByEmailExecute(r)
 }
 
 /*
-ListByEmail Retrieve all invitations for a given email
+ListInvitationsByEmail Retrieve all invitations for a given email
 
 Returns all invitations created for a given email address in the current tenant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param email The email address of the invited
 	@param tenant
-	@return ApiListByEmailRequest
+	@return ApiListInvitationsByEmailRequest
 */
-func (a *InvitationsAPIService) ListByEmail(ctx context.Context, email string, tenant string) ApiListByEmailRequest {
-	return ApiListByEmailRequest{
+func (a *InvitationsAPIService) ListInvitationsByEmail(ctx context.Context, email string, tenant string) ApiListInvitationsByEmailRequest {
+	return ApiListInvitationsByEmailRequest{
 		ApiService: a,
 		ctx:        ctx,
 		email:      email,
@@ -1207,16 +462,16 @@ func (a *InvitationsAPIService) ListByEmail(ctx context.Context, email string, t
 
 // Execute executes the request
 //
-//	@return []Invitation
-func (a *InvitationsAPIService) ListByEmailExecute(r ApiListByEmailRequest) ([]Invitation, *http.Response, error) {
+//	@return []IAMInvitationControllerApiInvitationDetail
+func (a *InvitationsAPIService) ListInvitationsByEmailExecute(r ApiListInvitationsByEmailRequest) ([]IAMInvitationControllerApiInvitationDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Invitation
+		localVarReturnValue []IAMInvitationControllerApiInvitationDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.ListByEmail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.ListInvitationsByEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1224,218 +479,6 @@ func (a *InvitationsAPIService) ListByEmailExecute(r ApiListByEmailRequest) ([]I
 	localVarPath := localBasePath + "/api/v1/{tenant}/invitations/email/{email}"
 	localVarPath = strings.Replace(localVarPath, "{"+"email"+"}", url.PathEscape(parameterValueToString(r.email, "email")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListByEmailWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *InvitationsAPIService
-	email          string
-	resourceTenant string
-}
-
-func (r ApiListByEmailWithResourceTenantasSuperAdminRequest) Execute() ([]Invitation, *http.Response, error) {
-	return r.ApiService.ListByEmailWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-ListByEmailWithResourceTenantasSuperAdmin Retrieve all invitations for a given email
-
-Returns all invitations created for a given email address in the current tenant.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param email The email address of the invited
-	@param resourceTenant
-	@return ApiListByEmailWithResourceTenantasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) ListByEmailWithResourceTenantasSuperAdmin(ctx context.Context, email string, resourceTenant string) ApiListByEmailWithResourceTenantasSuperAdminRequest {
-	return ApiListByEmailWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		email:          email,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Invitation
-func (a *InvitationsAPIService) ListByEmailWithResourceTenantasSuperAdminExecute(r ApiListByEmailWithResourceTenantasSuperAdminRequest) ([]Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.ListByEmailWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/invitations/email/{email}"
-	localVarPath = strings.Replace(localVarPath, "{"+"email"+"}", url.PathEscape(parameterValueToString(r.email, "email")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListByEmailasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	email      string
-}
-
-func (r ApiListByEmailasSuperAdminRequest) Execute() ([]Invitation, *http.Response, error) {
-	return r.ApiService.ListByEmailasSuperAdminExecute(r)
-}
-
-/*
-ListByEmailasSuperAdmin Retrieve all invitations for a given email
-
-Returns all invitations created for a given email address in the current tenant.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param email The email address of the invited
-	@return ApiListByEmailasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) ListByEmailasSuperAdmin(ctx context.Context, email string) ApiListByEmailasSuperAdminRequest {
-	return ApiListByEmailasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		email:      email,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Invitation
-func (a *InvitationsAPIService) ListByEmailasSuperAdminExecute(r ApiListByEmailasSuperAdminRequest) ([]Invitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Invitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.ListByEmailasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/invitations/email/{email}"
-	localVarPath = strings.Replace(localVarPath, "{"+"email"+"}", url.PathEscape(parameterValueToString(r.email, "email")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1536,7 +579,7 @@ func (r ApiSearchInvitationsRequest) Sort(sort []string) ApiSearchInvitationsReq
 	return r
 }
 
-func (r ApiSearchInvitationsRequest) Execute() (*PagedResultsInvitation, *http.Response, error) {
+func (r ApiSearchInvitationsRequest) Execute() (*PagedResultsIAMInvitationControllerApiInvitationDetail, *http.Response, error) {
 	return r.ApiService.SearchInvitationsExecute(r)
 }
 
@@ -1559,13 +602,13 @@ func (a *InvitationsAPIService) SearchInvitations(ctx context.Context, tenant st
 
 // Execute executes the request
 //
-//	@return PagedResultsInvitation
-func (a *InvitationsAPIService) SearchInvitationsExecute(r ApiSearchInvitationsRequest) (*PagedResultsInvitation, *http.Response, error) {
+//	@return PagedResultsIAMInvitationControllerApiInvitationDetail
+func (a *InvitationsAPIService) SearchInvitationsExecute(r ApiSearchInvitationsRequest) (*PagedResultsIAMInvitationControllerApiInvitationDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsInvitation
+		localVarReturnValue *PagedResultsIAMInvitationControllerApiInvitationDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.SearchInvitations")
@@ -1595,339 +638,7 @@ func (a *InvitationsAPIService) SearchInvitationsExecute(r ApiSearchInvitationsR
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchInvitationsWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *InvitationsAPIService
-	page           *int32
-	size           *int32
-	resourceTenant string
-	email          *string
-	status         *InvitationInvitationStatus
-	sort           *[]string
-}
-
-// The current page
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Page(page int32) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Size(size int32) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// The email address of the invited
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Email(email string) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	r.email = &email
-	return r
-}
-
-// The current status of the invitations
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Status(status InvitationInvitationStatus) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	r.status = &status
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Sort(sort []string) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) Execute() (*PagedResultsInvitation, *http.Response, error) {
-	return r.ApiService.SearchInvitationsWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-SearchInvitationsWithResourceTenantasSuperAdmin Search for invitations
-
-Search and filter invitations by email, status, and pagination.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiSearchInvitationsWithResourceTenantasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) SearchInvitationsWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiSearchInvitationsWithResourceTenantasSuperAdminRequest {
-	return ApiSearchInvitationsWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsInvitation
-func (a *InvitationsAPIService) SearchInvitationsWithResourceTenantasSuperAdminExecute(r ApiSearchInvitationsWithResourceTenantasSuperAdminRequest) (*PagedResultsInvitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsInvitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.SearchInvitationsWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/invitations/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.email != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "form", "")
-	}
-	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchInvitationsasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *InvitationsAPIService
-	page       *int32
-	size       *int32
-	email      *string
-	status     *InvitationInvitationStatus
-	sort       *[]string
-}
-
-// The current page
-func (r ApiSearchInvitationsasSuperAdminRequest) Page(page int32) ApiSearchInvitationsasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchInvitationsasSuperAdminRequest) Size(size int32) ApiSearchInvitationsasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// The email address of the invited
-func (r ApiSearchInvitationsasSuperAdminRequest) Email(email string) ApiSearchInvitationsasSuperAdminRequest {
-	r.email = &email
-	return r
-}
-
-// The current status of the invitations
-func (r ApiSearchInvitationsasSuperAdminRequest) Status(status InvitationInvitationStatus) ApiSearchInvitationsasSuperAdminRequest {
-	r.status = &status
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchInvitationsasSuperAdminRequest) Sort(sort []string) ApiSearchInvitationsasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchInvitationsasSuperAdminRequest) Execute() (*PagedResultsInvitation, *http.Response, error) {
-	return r.ApiService.SearchInvitationsasSuperAdminExecute(r)
-}
-
-/*
-SearchInvitationsasSuperAdmin Search for invitations
-
-Search and filter invitations by email, status, and pagination.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearchInvitationsasSuperAdminRequest
-*/
-func (a *InvitationsAPIService) SearchInvitationsasSuperAdmin(ctx context.Context) ApiSearchInvitationsasSuperAdminRequest {
-	return ApiSearchInvitationsasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsInvitation
-func (a *InvitationsAPIService) SearchInvitationsasSuperAdminExecute(r ApiSearchInvitationsasSuperAdminRequest) (*PagedResultsInvitation, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsInvitation
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InvitationsAPIService.SearchInvitationsasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/invitations/search"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.email != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "form", "")
-	}
-	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

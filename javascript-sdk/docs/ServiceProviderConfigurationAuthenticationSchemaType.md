@@ -1,4 +1,4 @@
-# KestraApi.ServiceProviderConfigurationAuthenticationSchemaType
+# KestraIoKestraApi.ServiceProviderConfigurationAuthenticationSchemaType
 
 ## Enum
 

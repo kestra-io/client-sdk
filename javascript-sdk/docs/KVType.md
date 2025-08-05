@@ -1,4 +1,4 @@
-# KestraApi.KVType
+# KestraIoKestraApi.KVType
 
 ## Enum
 

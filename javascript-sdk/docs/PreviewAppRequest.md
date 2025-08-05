@@ -1,4 +1,4 @@
-# KestraApi.PreviewAppRequest
+# KestraIoKestraApi.PreviewAppRequest
 
 ## Properties
 

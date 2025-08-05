@@ -1,4 +1,4 @@
-# KestraApi.PluginsApi
+# KestraIoKestraApi.PluginsApi
 
 All URIs are relative to *http://localhost*
 
@@ -35,8 +35,8 @@ Get all types for an inputs
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -45,7 +45,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.getAllInputTypes((error, data, response) => {
   if (error) {
     console.error(error);
@@ -82,8 +82,8 @@ Get plugins group by subgroups
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -92,7 +92,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.getPluginBySubgroups((error, data, response) => {
   if (error) {
     console.error(error);
@@ -129,8 +129,8 @@ Get plugin documentation
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -139,7 +139,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin full class name
 let all = false; // Boolean | Include all the properties
 apiInstance.getPluginDocumentation(cls, all, (error, data, response) => {
@@ -182,8 +182,8 @@ Get plugin documentation
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -192,7 +192,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin type
 let version = "version_example"; // String | The plugin version
 let all = false; // Boolean | Include all the properties
@@ -237,8 +237,8 @@ Get plugins icons
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -247,7 +247,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.getPluginGroupIcons((error, data, response) => {
   if (error) {
     console.error(error);
@@ -284,8 +284,8 @@ Get plugins icons
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -294,7 +294,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.getPluginIcons((error, data, response) => {
   if (error) {
     console.error(error);
@@ -331,8 +331,8 @@ Get all versions for a plugin
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -341,7 +341,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let cls = "cls_example"; // String | The plugin type
 apiInstance.getPluginVersions(cls, (error, data, response) => {
   if (error) {
@@ -384,8 +384,8 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -394,8 +394,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let type = new KestraApi.SchemaType(); // SchemaType | The schema needed
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let type = new KestraIoKestraApi.SchemaType(); // SchemaType | The schema needed
 apiInstance.getPropertiesFromType(type, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -437,8 +437,8 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -447,8 +447,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let type = new KestraApi.Type(); // Type | The schema needed
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let type = new KestraIoKestraApi.Type(); // Type | The schema needed
 apiInstance.getSchemaFromInputType(type, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -490,8 +490,8 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -500,8 +500,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let type = new KestraApi.SchemaType(); // SchemaType | The schema needed
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let type = new KestraIoKestraApi.SchemaType(); // SchemaType | The schema needed
 let arrayOf = false; // Boolean | If schema should be an array of requested type
 apiInstance.getSchemasFromType(type, arrayOf, (error, data, response) => {
   if (error) {
@@ -545,8 +545,8 @@ Superadmin-only. Retrieves metadata and available versions for a given plugin ar
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -555,7 +555,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let groupId = "groupId_example"; // String | 
 let artifactId = "artifactId_example"; // String | 
 apiInstance.getVersionedPluginDetails(groupId, artifactId, (error, data, response) => {
@@ -600,8 +600,8 @@ Superadmin-only. Retrieves metadata for a specific version of a plugin artifact.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -610,7 +610,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let groupId = "groupId_example"; // String | 
 let artifactId = "artifactId_example"; // String | 
 let version = "version_example"; // String | 
@@ -657,8 +657,8 @@ Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -667,8 +667,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let instanceControllerApiPluginListRequest = new KestraIoKestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
 apiInstance.installVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -710,8 +710,8 @@ Superadmin-only. Lists all plugin artifacts available for installation. Requires
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -720,7 +720,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.listAvailableVersionedPlugins((error, data, response) => {
   if (error) {
     console.error(error);
@@ -757,8 +757,8 @@ Get list of plugins
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -767,7 +767,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 apiInstance.listPlugins((error, data, response) => {
   if (error) {
     console.error(error);
@@ -806,8 +806,8 @@ Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRAS
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -816,7 +816,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let opts = {
@@ -867,8 +867,8 @@ Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Re
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -877,8 +877,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let instanceControllerApiPluginListRequest = new KestraIoKestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
 apiInstance.resolveVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -920,8 +920,8 @@ Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTUR
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -930,8 +930,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
-let instanceControllerApiPluginListRequest = new KestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
+let apiInstance = new KestraIoKestraApi.PluginsApi();
+let instanceControllerApiPluginListRequest = new KestraIoKestraApi.InstanceControllerApiPluginListRequest(); // InstanceControllerApiPluginListRequest | List of plugins
 apiInstance.uninstallVersionedPlugins(instanceControllerApiPluginListRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -973,8 +973,8 @@ Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUC
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -983,7 +983,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.PluginsApi();
+let apiInstance = new KestraIoKestraApi.PluginsApi();
 let file = "/path/to/file"; // File | 
 let opts = {
   'forceInstallOnExistingVersions': true // Boolean | 

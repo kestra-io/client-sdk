@@ -9,13 +9,15 @@ Name | Type | Description | Notes
 **Namespace** | **string** |  | 
 **FlowId** | **string** |  | 
 **State** | [**TestState**](TestState.md) |  | 
-**Results** | [**[]UnitTestResult**](UnitTestResult.md) |  | 
+**StartDate** | **time.Time** |  | 
+**EndDate** | **time.Time** |  | 
+**Results** | Pointer to [**[]UnitTestResult**](UnitTestResult.md) |  | [optional] 
 
 ## Methods
 
 ### NewTestSuiteRunResult
 
-`func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, results []UnitTestResult, ) *TestSuiteRunResult`
+`func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time, ) *TestSuiteRunResult`
 
 NewTestSuiteRunResult instantiates a new TestSuiteRunResult object
 This constructor will assign default values to properties that have it defined,
@@ -130,6 +132,46 @@ and a boolean to check if the value has been set.
 SetState sets State field to given value.
 
 
+### GetStartDate
+
+`func (o *TestSuiteRunResult) GetStartDate() time.Time`
+
+GetStartDate returns the StartDate field if non-nil, zero value otherwise.
+
+### GetStartDateOk
+
+`func (o *TestSuiteRunResult) GetStartDateOk() (*time.Time, bool)`
+
+GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartDate
+
+`func (o *TestSuiteRunResult) SetStartDate(v time.Time)`
+
+SetStartDate sets StartDate field to given value.
+
+
+### GetEndDate
+
+`func (o *TestSuiteRunResult) GetEndDate() time.Time`
+
+GetEndDate returns the EndDate field if non-nil, zero value otherwise.
+
+### GetEndDateOk
+
+`func (o *TestSuiteRunResult) GetEndDateOk() (*time.Time, bool)`
+
+GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEndDate
+
+`func (o *TestSuiteRunResult) SetEndDate(v time.Time)`
+
+SetEndDate sets EndDate field to given value.
+
+
 ### GetResults
 
 `func (o *TestSuiteRunResult) GetResults() []UnitTestResult`
@@ -149,6 +191,11 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
+### HasResults
+
+`func (o *TestSuiteRunResult) HasResults() bool`
+
+HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

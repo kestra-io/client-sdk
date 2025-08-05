@@ -1,4 +1,4 @@
-# KestraApi.MiscControllerBasicAuthCredentials
+# KestraIoKestraApi.MiscControllerBasicAuthCredentials
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.UsernamePasswordCredentials
+# KestraIoKestraApi.UsernamePasswordCredentials
 
 ## Properties
 

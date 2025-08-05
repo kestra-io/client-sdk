@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the PluginMetric type satisfies the MappedNullable interface at compile time
@@ -20,10 +19,10 @@ var _ MappedNullable = &PluginMetric{}
 
 // PluginMetric struct for PluginMetric
 type PluginMetric struct {
-	Type                 string  `json:"type"`
-	Count                float64 `json:"count"`
-	TotalTime            float64 `json:"totalTime"`
-	MeanTime             float64 `json:"meanTime"`
+	Type                 *string  `json:"type,omitempty"`
+	Count                *float64 `json:"count,omitempty"`
+	TotalTime            *float64 `json:"totalTime,omitempty"`
+	MeanTime             *float64 `json:"meanTime,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +32,8 @@ type _PluginMetric PluginMetric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPluginMetric(type_ string, count float64, totalTime float64, meanTime float64) *PluginMetric {
+func NewPluginMetric() *PluginMetric {
 	this := PluginMetric{}
-	this.Type = type_
-	this.Count = count
-	this.TotalTime = totalTime
-	this.MeanTime = meanTime
 	return &this
 }
 
@@ -50,100 +45,132 @@ func NewPluginMetricWithDefaults() *PluginMetric {
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *PluginMetric) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PluginMetric) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *PluginMetric) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *PluginMetric) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
-// GetCount returns the Count field value
+// GetCount returns the Count field value if set, zero value otherwise.
 func (o *PluginMetric) GetCount() float64 {
-	if o == nil {
+	if o == nil || IsNil(o.Count) {
 		var ret float64
 		return ret
 	}
-
-	return o.Count
+	return *o.Count
 }
 
-// GetCountOk returns a tuple with the Count field value
+// GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PluginMetric) GetCountOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
-	return &o.Count, true
+	return o.Count, true
 }
 
-// SetCount sets field value
+// HasCount returns a boolean if a field has been set.
+func (o *PluginMetric) HasCount() bool {
+	if o != nil && !IsNil(o.Count) {
+		return true
+	}
+
+	return false
+}
+
+// SetCount gets a reference to the given float64 and assigns it to the Count field.
 func (o *PluginMetric) SetCount(v float64) {
-	o.Count = v
+	o.Count = &v
 }
 
-// GetTotalTime returns the TotalTime field value
+// GetTotalTime returns the TotalTime field value if set, zero value otherwise.
 func (o *PluginMetric) GetTotalTime() float64 {
-	if o == nil {
+	if o == nil || IsNil(o.TotalTime) {
 		var ret float64
 		return ret
 	}
-
-	return o.TotalTime
+	return *o.TotalTime
 }
 
-// GetTotalTimeOk returns a tuple with the TotalTime field value
+// GetTotalTimeOk returns a tuple with the TotalTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PluginMetric) GetTotalTimeOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TotalTime) {
 		return nil, false
 	}
-	return &o.TotalTime, true
+	return o.TotalTime, true
 }
 
-// SetTotalTime sets field value
+// HasTotalTime returns a boolean if a field has been set.
+func (o *PluginMetric) HasTotalTime() bool {
+	if o != nil && !IsNil(o.TotalTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalTime gets a reference to the given float64 and assigns it to the TotalTime field.
 func (o *PluginMetric) SetTotalTime(v float64) {
-	o.TotalTime = v
+	o.TotalTime = &v
 }
 
-// GetMeanTime returns the MeanTime field value
+// GetMeanTime returns the MeanTime field value if set, zero value otherwise.
 func (o *PluginMetric) GetMeanTime() float64 {
-	if o == nil {
+	if o == nil || IsNil(o.MeanTime) {
 		var ret float64
 		return ret
 	}
-
-	return o.MeanTime
+	return *o.MeanTime
 }
 
-// GetMeanTimeOk returns a tuple with the MeanTime field value
+// GetMeanTimeOk returns a tuple with the MeanTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PluginMetric) GetMeanTimeOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MeanTime) {
 		return nil, false
 	}
-	return &o.MeanTime, true
+	return o.MeanTime, true
 }
 
-// SetMeanTime sets field value
+// HasMeanTime returns a boolean if a field has been set.
+func (o *PluginMetric) HasMeanTime() bool {
+	if o != nil && !IsNil(o.MeanTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetMeanTime gets a reference to the given float64 and assigns it to the MeanTime field.
 func (o *PluginMetric) SetMeanTime(v float64) {
-	o.MeanTime = v
+	o.MeanTime = &v
 }
 
 func (o PluginMetric) MarshalJSON() ([]byte, error) {
@@ -156,10 +183,18 @@ func (o PluginMetric) MarshalJSON() ([]byte, error) {
 
 func (o PluginMetric) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
-	toSerialize["count"] = o.Count
-	toSerialize["totalTime"] = o.TotalTime
-	toSerialize["meanTime"] = o.MeanTime
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Count) {
+		toSerialize["count"] = o.Count
+	}
+	if !IsNil(o.TotalTime) {
+		toSerialize["totalTime"] = o.TotalTime
+	}
+	if !IsNil(o.MeanTime) {
+		toSerialize["meanTime"] = o.MeanTime
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -169,30 +204,6 @@ func (o PluginMetric) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PluginMetric) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"type",
-		"count",
-		"totalTime",
-		"meanTime",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varPluginMetric := _PluginMetric{}
 
 	err = json.Unmarshal(data, &varPluginMetric)

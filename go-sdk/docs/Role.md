@@ -5,18 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsManaged** | **bool** |  | 
-**Id** | **string** |  | 
+**Permissions** | Pointer to [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
-**Description** | **string** |  | 
-**Permissions** | [**RolePermissions**](RolePermissions.md) |  | 
-**IsDefault** | **bool** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**IsDefault** | Pointer to **bool** |  | [optional] 
 **Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewRole
 
-`func NewRole(isManaged bool, id string, name string, description string, permissions RolePermissions, isDefault bool, deleted bool, ) *Role`
+`func NewRole(isManaged bool, name string, deleted bool, ) *Role`
 
 NewRole instantiates a new Role object
 This constructor will assign default values to properties that have it defined,
@@ -51,6 +51,31 @@ and a boolean to check if the value has been set.
 SetIsManaged sets IsManaged field to given value.
 
 
+### GetPermissions
+
+`func (o *Role) GetPermissions() IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions`
+
+GetPermissions returns the Permissions field if non-nil, zero value otherwise.
+
+### GetPermissionsOk
+
+`func (o *Role) GetPermissionsOk() (*IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, bool)`
+
+GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermissions
+
+`func (o *Role) SetPermissions(v IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions)`
+
+SetPermissions sets Permissions field to given value.
+
+### HasPermissions
+
+`func (o *Role) HasPermissions() bool`
+
+HasPermissions returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *Role) GetId() string`
@@ -70,6 +95,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *Role) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -110,26 +140,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
 
-### GetPermissions
+`func (o *Role) HasDescription() bool`
 
-`func (o *Role) GetPermissions() RolePermissions`
-
-GetPermissions returns the Permissions field if non-nil, zero value otherwise.
-
-### GetPermissionsOk
-
-`func (o *Role) GetPermissionsOk() (*RolePermissions, bool)`
-
-GetPermissionsOk returns a tuple with the Permissions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPermissions
-
-`func (o *Role) SetPermissions(v RolePermissions)`
-
-SetPermissions sets Permissions field to given value.
-
+HasDescription returns a boolean if a field has been set.
 
 ### GetIsDefault
 
@@ -150,6 +165,11 @@ and a boolean to check if the value has been set.
 
 SetIsDefault sets IsDefault field to given value.
 
+### HasIsDefault
+
+`func (o *Role) HasIsDefault() bool`
+
+HasIsDefault returns a boolean if a field has been set.
 
 ### GetDeleted
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Fields** | [**[]QueryFilterFieldOp**](QueryFilterFieldOp.md) |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Fields** | Pointer to [**[]QueryFilterFieldOp**](QueryFilterFieldOp.md) |  | [optional] 
 
 ## Methods
 
 ### NewQueryFilterResourceField
 
-`func NewQueryFilterResourceField(name string, fields []QueryFilterFieldOp, ) *QueryFilterResourceField`
+`func NewQueryFilterResourceField() *QueryFilterResourceField`
 
 NewQueryFilterResourceField instantiates a new QueryFilterResourceField object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *QueryFilterResourceField) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetFields
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetFields sets Fields field to given value.
 
+### HasFields
+
+`func (o *QueryFilterResourceField) HasFields() bool`
+
+HasFields returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

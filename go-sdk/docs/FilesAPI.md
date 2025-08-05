@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## ExportNamespaceFiles
 
-> []string ExportNamespaceFiles(ctx, namespace, tenant).Execute()
+> string ExportNamespaceFiles(ctx, namespace, tenant).Execute()
 
 Export namespace files as a ZIP
 
@@ -260,7 +260,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FilesAPI.ExportNamespaceFiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ExportNamespaceFiles`: []string
+	// response from `ExportNamespaceFiles`: string
 	fmt.Fprintf(os.Stdout, "Response from `FilesAPI.ExportNamespaceFiles`: %v\n", resp)
 }
 ```
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]string**
+**string**
 
 ### Authorization
 

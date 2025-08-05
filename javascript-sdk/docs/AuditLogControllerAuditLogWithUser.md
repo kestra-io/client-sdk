@@ -1,4 +1,4 @@
-# KestraApi.AuditLogControllerAuditLogWithUser
+# KestraIoKestraApi.AuditLogControllerAuditLogWithUser
 
 ## Properties
 

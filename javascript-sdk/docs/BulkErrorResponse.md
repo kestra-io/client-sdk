@@ -1,4 +1,4 @@
-# KestraApi.BulkErrorResponse
+# KestraIoKestraApi.BulkErrorResponse
 
 ## Properties
 

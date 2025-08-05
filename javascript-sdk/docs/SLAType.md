@@ -1,4 +1,4 @@
-# KestraApi.SLAType
+# KestraIoKestraApi.SLAType
 
 ## Enum
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Value** | Pointer to **string** |  | [optional] 
 **State** | Pointer to [**StateType**](StateType.md) |  | [optional] 
-**Outputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Description** | Pointer to [**string**](PropertyString.md) |  | [optional] 
 
 ## Methods
@@ -101,20 +101,20 @@ HasState returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *TaskFixture) GetOutputs() map[string]interface{}`
+`func (o *TaskFixture) GetOutputs() map[string]map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *TaskFixture) GetOutputsOk() (*map[string]interface{}, bool)`
+`func (o *TaskFixture) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *TaskFixture) SetOutputs(v map[string]interface{})`
+`func (o *TaskFixture) SetOutputs(v map[string]map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 

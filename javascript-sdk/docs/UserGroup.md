@@ -1,4 +1,4 @@
-# KestraApi.UserGroup
+# KestraIoKestraApi.UserGroup
 
 ## Properties
 

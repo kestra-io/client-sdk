@@ -23,18 +23,18 @@ import (
 type WorkerGroupsAPIService service
 
 type ApiCreateWorkerGroupRequest struct {
-	ctx                                                  context.Context
-	ApiService                                           *WorkerGroupsAPIService
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest *ClusterControllerApiCreateOrUpdateWorkerGroupRequest
+	ctx                                                   context.Context
+	ApiService                                            *WorkerGroupsAPIService
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest *InstanceControllerApiCreateOrUpdateWorkerGroupRequest
 }
 
 // The worker group definition
-func (r ApiCreateWorkerGroupRequest) ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest ClusterControllerApiCreateOrUpdateWorkerGroupRequest) ApiCreateWorkerGroupRequest {
-	r.clusterControllerApiCreateOrUpdateWorkerGroupRequest = &clusterControllerApiCreateOrUpdateWorkerGroupRequest
+func (r ApiCreateWorkerGroupRequest) InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest InstanceControllerApiCreateOrUpdateWorkerGroupRequest) ApiCreateWorkerGroupRequest {
+	r.instanceControllerApiCreateOrUpdateWorkerGroupRequest = &instanceControllerApiCreateOrUpdateWorkerGroupRequest
 	return r
 }
 
-func (r ApiCreateWorkerGroupRequest) Execute() (*ClusterControllerApiWorkerGroup, *http.Response, error) {
+func (r ApiCreateWorkerGroupRequest) Execute() (*InstanceControllerApiWorkerGroup, *http.Response, error) {
 	return r.ApiService.CreateWorkerGroupExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *WorkerGroupsAPIService) CreateWorkerGroup(ctx context.Context) ApiCreat
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiWorkerGroup
-func (a *WorkerGroupsAPIService) CreateWorkerGroupExecute(r ApiCreateWorkerGroupRequest) (*ClusterControllerApiWorkerGroup, *http.Response, error) {
+//	@return InstanceControllerApiWorkerGroup
+func (a *WorkerGroupsAPIService) CreateWorkerGroupExecute(r ApiCreateWorkerGroupRequest) (*InstanceControllerApiWorkerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiWorkerGroup
+		localVarReturnValue *InstanceControllerApiWorkerGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkerGroupsAPIService.CreateWorkerGroup")
@@ -69,13 +69,13 @@ func (a *WorkerGroupsAPIService) CreateWorkerGroupExecute(r ApiCreateWorkerGroup
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/workergroups"
+	localVarPath := localBasePath + "/api/v1/instance/workergroups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterControllerApiCreateOrUpdateWorkerGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("clusterControllerApiCreateOrUpdateWorkerGroupRequest is required and must be specified")
+	if r.instanceControllerApiCreateOrUpdateWorkerGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("instanceControllerApiCreateOrUpdateWorkerGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -96,7 +96,7 @@ func (a *WorkerGroupsAPIService) CreateWorkerGroupExecute(r ApiCreateWorkerGroup
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterControllerApiCreateOrUpdateWorkerGroupRequest
+	localVarPostBody = r.instanceControllerApiCreateOrUpdateWorkerGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -177,7 +177,7 @@ func (a *WorkerGroupsAPIService) DeleteWorkerGroupByIdExecute(r ApiDeleteWorkerG
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/workergroups/{id}"
+	localVarPath := localBasePath + "/api/v1/instance/workergroups/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -244,7 +244,7 @@ type ApiGetWorkerGroupByIdRequest struct {
 	id         string
 }
 
-func (r ApiGetWorkerGroupByIdRequest) Execute() (*ClusterControllerApiWorkerGroupDetails, *http.Response, error) {
+func (r ApiGetWorkerGroupByIdRequest) Execute() (*InstanceControllerApiWorkerGroupDetails, *http.Response, error) {
 	return r.ApiService.GetWorkerGroupByIdExecute(r)
 }
 
@@ -267,13 +267,13 @@ func (a *WorkerGroupsAPIService) GetWorkerGroupById(ctx context.Context, id stri
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiWorkerGroupDetails
-func (a *WorkerGroupsAPIService) GetWorkerGroupByIdExecute(r ApiGetWorkerGroupByIdRequest) (*ClusterControllerApiWorkerGroupDetails, *http.Response, error) {
+//	@return InstanceControllerApiWorkerGroupDetails
+func (a *WorkerGroupsAPIService) GetWorkerGroupByIdExecute(r ApiGetWorkerGroupByIdRequest) (*InstanceControllerApiWorkerGroupDetails, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiWorkerGroupDetails
+		localVarReturnValue *InstanceControllerApiWorkerGroupDetails
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkerGroupsAPIService.GetWorkerGroupById")
@@ -281,7 +281,7 @@ func (a *WorkerGroupsAPIService) GetWorkerGroupByIdExecute(r ApiGetWorkerGroupBy
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/workergroups/{id}"
+	localVarPath := localBasePath + "/api/v1/instance/workergroups/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -347,7 +347,7 @@ type ApiListWorkerGroupsRequest struct {
 	ApiService *WorkerGroupsAPIService
 }
 
-func (r ApiListWorkerGroupsRequest) Execute() (*ClusterControllerApiWorkerGroupList, *http.Response, error) {
+func (r ApiListWorkerGroupsRequest) Execute() (*InstanceControllerApiWorkerGroupList, *http.Response, error) {
 	return r.ApiService.ListWorkerGroupsExecute(r)
 }
 
@@ -368,13 +368,13 @@ func (a *WorkerGroupsAPIService) ListWorkerGroups(ctx context.Context) ApiListWo
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiWorkerGroupList
-func (a *WorkerGroupsAPIService) ListWorkerGroupsExecute(r ApiListWorkerGroupsRequest) (*ClusterControllerApiWorkerGroupList, *http.Response, error) {
+//	@return InstanceControllerApiWorkerGroupList
+func (a *WorkerGroupsAPIService) ListWorkerGroupsExecute(r ApiListWorkerGroupsRequest) (*InstanceControllerApiWorkerGroupList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiWorkerGroupList
+		localVarReturnValue *InstanceControllerApiWorkerGroupList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkerGroupsAPIService.ListWorkerGroups")
@@ -382,7 +382,7 @@ func (a *WorkerGroupsAPIService) ListWorkerGroupsExecute(r ApiListWorkerGroupsRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/workergroups"
+	localVarPath := localBasePath + "/api/v1/instance/workergroups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -443,19 +443,19 @@ func (a *WorkerGroupsAPIService) ListWorkerGroupsExecute(r ApiListWorkerGroupsRe
 }
 
 type ApiUpdateWorkerGroupByIdRequest struct {
-	ctx                                                  context.Context
-	ApiService                                           *WorkerGroupsAPIService
-	id                                                   string
-	clusterControllerApiCreateOrUpdateWorkerGroupRequest *ClusterControllerApiCreateOrUpdateWorkerGroupRequest
+	ctx                                                   context.Context
+	ApiService                                            *WorkerGroupsAPIService
+	id                                                    string
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest *InstanceControllerApiCreateOrUpdateWorkerGroupRequest
 }
 
 // The worker group definition
-func (r ApiUpdateWorkerGroupByIdRequest) ClusterControllerApiCreateOrUpdateWorkerGroupRequest(clusterControllerApiCreateOrUpdateWorkerGroupRequest ClusterControllerApiCreateOrUpdateWorkerGroupRequest) ApiUpdateWorkerGroupByIdRequest {
-	r.clusterControllerApiCreateOrUpdateWorkerGroupRequest = &clusterControllerApiCreateOrUpdateWorkerGroupRequest
+func (r ApiUpdateWorkerGroupByIdRequest) InstanceControllerApiCreateOrUpdateWorkerGroupRequest(instanceControllerApiCreateOrUpdateWorkerGroupRequest InstanceControllerApiCreateOrUpdateWorkerGroupRequest) ApiUpdateWorkerGroupByIdRequest {
+	r.instanceControllerApiCreateOrUpdateWorkerGroupRequest = &instanceControllerApiCreateOrUpdateWorkerGroupRequest
 	return r
 }
 
-func (r ApiUpdateWorkerGroupByIdRequest) Execute() (*ClusterControllerApiWorkerGroup, *http.Response, error) {
+func (r ApiUpdateWorkerGroupByIdRequest) Execute() (*InstanceControllerApiWorkerGroup, *http.Response, error) {
 	return r.ApiService.UpdateWorkerGroupByIdExecute(r)
 }
 
@@ -478,13 +478,13 @@ func (a *WorkerGroupsAPIService) UpdateWorkerGroupById(ctx context.Context, id s
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiWorkerGroup
-func (a *WorkerGroupsAPIService) UpdateWorkerGroupByIdExecute(r ApiUpdateWorkerGroupByIdRequest) (*ClusterControllerApiWorkerGroup, *http.Response, error) {
+//	@return InstanceControllerApiWorkerGroup
+func (a *WorkerGroupsAPIService) UpdateWorkerGroupByIdExecute(r ApiUpdateWorkerGroupByIdRequest) (*InstanceControllerApiWorkerGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiWorkerGroup
+		localVarReturnValue *InstanceControllerApiWorkerGroup
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkerGroupsAPIService.UpdateWorkerGroupById")
@@ -492,14 +492,14 @@ func (a *WorkerGroupsAPIService) UpdateWorkerGroupByIdExecute(r ApiUpdateWorkerG
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/workergroups/{id}"
+	localVarPath := localBasePath + "/api/v1/instance/workergroups/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterControllerApiCreateOrUpdateWorkerGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("clusterControllerApiCreateOrUpdateWorkerGroupRequest is required and must be specified")
+	if r.instanceControllerApiCreateOrUpdateWorkerGroupRequest == nil {
+		return localVarReturnValue, nil, reportError("instanceControllerApiCreateOrUpdateWorkerGroupRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -520,7 +520,7 @@ func (a *WorkerGroupsAPIService) UpdateWorkerGroupByIdExecute(r ApiUpdateWorkerG
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterControllerApiCreateOrUpdateWorkerGroupRequest
+	localVarPostBody = r.instanceControllerApiCreateOrUpdateWorkerGroupRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

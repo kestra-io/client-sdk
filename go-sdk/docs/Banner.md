@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Message** | **string** |  | 
 **Type** | Pointer to [**BannerType**](BannerType.md) |  | [optional] 
 **StartDate** | Pointer to **NullableTime** |  | [optional] 
 **EndDate** | Pointer to **NullableTime** |  | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewBanner
 
-`func NewBanner() *Banner`
+`func NewBanner(message string, ) *Banner`
 
 NewBanner instantiates a new Banner object
 This constructor will assign default values to properties that have it defined,
@@ -75,11 +75,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *Banner) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 ### GetType
 

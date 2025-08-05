@@ -20,7 +20,7 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
-import io.kestra.sdk.model.ApiIds;
+import io.kestra.sdk.model.ApiAutocomplete;
 import io.kestra.sdk.model.ApiSecretListResponse;
 import io.kestra.sdk.model.ApiSecretMeta;
 import io.kestra.sdk.model.ApiSecretMetaEE;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class NamespacesApi extends BaseApi {
 
   public NamespacesApi() {
@@ -53,13 +53,12 @@ public class NamespacesApi extends BaseApi {
    * List namespaces for autocomplete
    * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
    * @param tenant  (required)
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
+   * @param apiAutocomplete  (required)
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds) throws ApiException {
-    return this.autocompleteNamespaces(tenant, q, apiIds, Collections.emptyMap());
+  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete) throws ApiException {
+    return this.autocompleteNamespaces(tenant, apiAutocomplete, Collections.emptyMap());
   }
 
 
@@ -67,18 +66,22 @@ public class NamespacesApi extends BaseApi {
    * List namespaces for autocomplete
    * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
    * @param tenant  (required)
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
+   * @param apiAutocomplete  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = apiIds;
+  public List<String> autocompleteNamespaces(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiAutocomplete apiAutocomplete, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = apiAutocomplete;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling autocompleteNamespaces");
+    }
+    
+    // verify the required parameter 'apiAutocomplete' is set
+    if (apiAutocomplete == null) {
+      throw new ApiException(400, "Missing the required parameter 'apiAutocomplete' when calling autocompleteNamespaces");
     }
     
     // create path and map variables
@@ -93,159 +96,6 @@ public class NamespacesApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * List namespaces for autocomplete
-   * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-   * @param resourceTenant  (required)
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> autocompleteNamespacesWithResourceTenantasSuperAdmin(@javax.annotation.Nonnull String resourceTenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds) throws ApiException {
-    return this.autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, q, apiIds, Collections.emptyMap());
-  }
-
-
-  /**
-   * List namespaces for autocomplete
-   * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-   * @param resourceTenant  (required)
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> autocompleteNamespacesWithResourceTenantasSuperAdmin(@javax.annotation.Nonnull String resourceTenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = apiIds;
-    
-    // verify the required parameter 'resourceTenant' is set
-    if (resourceTenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'resourceTenant' when calling autocompleteNamespacesWithResourceTenantasSuperAdmin");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/tenants/{resourceTenant}/namespaces/autocomplete"
-      .replaceAll("\\{" + "resourceTenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(resourceTenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * List namespaces for autocomplete
-   * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> autocompleteNamespacesasSuperAdmin(@javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds) throws ApiException {
-    return this.autocompleteNamespacesasSuperAdmin(q, apiIds, Collections.emptyMap());
-  }
-
-
-  /**
-   * List namespaces for autocomplete
-   * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-   * @param q A string filter (optional)
-   * @param apiIds  (optional)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public List<String> autocompleteNamespacesasSuperAdmin(@javax.annotation.Nullable String q, @javax.annotation.Nullable ApiIds apiIds, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = apiIds;
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/tenants/namespaces/autocomplete";
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

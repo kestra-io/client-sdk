@@ -317,7 +317,7 @@ public class Example {
 
 ## searchBindings
 
-> PagedResultsIAMBindingControllerApiBindingSummary searchBindings(page, size, tenant, q, sort, type, id, namespace)
+> PagedResultsIAMBindingControllerApiBindingDetail searchBindings(page, size, tenant, q, sort, type, id, namespace)
 
 Search for bindings
 
@@ -356,7 +356,7 @@ public class Example {
         String id = "id_example"; // String | External id filter
         String namespace = "namespace_example"; // String | A namespace filter
         try {
-            PagedResultsIAMBindingControllerApiBindingSummary result = apiInstance.searchBindings(page, size, tenant, q, sort, type, id, namespace);
+            PagedResultsIAMBindingControllerApiBindingDetail result = apiInstance.searchBindings(page, size, tenant, q, sort, type, id, namespace);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling BindingsApi#searchBindings");
@@ -385,7 +385,7 @@ public class Example {
 
 ### Return type
 
-[**PagedResultsIAMBindingControllerApiBindingSummary**](PagedResultsIAMBindingControllerApiBindingSummary.md)
+[**PagedResultsIAMBindingControllerApiBindingDetail**](PagedResultsIAMBindingControllerApiBindingDetail.md)
 
 ### Authorization
 

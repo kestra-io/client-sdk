@@ -1,4 +1,4 @@
-# KestraApi.KVApi
+# KestraIoKestraApi.KVApi
 
 All URIs are relative to *http://localhost*
 
@@ -21,8 +21,8 @@ Delete a key-value pair
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -31,7 +31,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.KVApi();
+let apiInstance = new KestraIoKestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
@@ -76,8 +76,8 @@ Bulk-delete multiple key/value pairs from the given namespace.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -86,10 +86,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.KVApi();
+let apiInstance = new KestraIoKestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-let kVControllerApiDeleteBulkRequest = new KestraApi.KVControllerApiDeleteBulkRequest(); // KVControllerApiDeleteBulkRequest | The keys
+let kVControllerApiDeleteBulkRequest = new KestraIoKestraApi.KVControllerApiDeleteBulkRequest(); // KVControllerApiDeleteBulkRequest | The keys
 apiInstance.deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -131,8 +131,8 @@ Get value for a key
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -141,7 +141,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.KVApi();
+let apiInstance = new KestraIoKestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 
@@ -186,8 +186,8 @@ List all keys for a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -196,7 +196,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.KVApi();
+let apiInstance = new KestraIoKestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.listKeys(namespace, tenant, (error, data, response) => {
@@ -239,8 +239,8 @@ Puts a key-value pair in store
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraApi from '@kestra-io/kestra-api';
+let defaultClient = KestraIoKestraApi.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -249,7 +249,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.KVApi();
+let apiInstance = new KestraIoKestraApi.KVApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The key
 let tenant = "tenant_example"; // String | 

@@ -15,11 +15,11 @@ Name | Type | Description | Notes
 **Environment** | Pointer to [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 **Preview** | Pointer to [**MiscControllerPreview**](MiscControllerPreview.md) |  | [optional] 
-**IsBasicAuthEnabled** | Pointer to **bool** |  | [optional] 
 **SystemNamespace** | Pointer to **string** |  | [optional] 
 **HiddenLabelsPrefixes** | Pointer to **[]string** |  | [optional] 
 **ResourceToFilters** | Pointer to [**[]QueryFilterResourceField**](QueryFilterResourceField.md) |  | [optional] 
 **IsAiEnabled** | Pointer to **bool** |  | [optional] 
+**IsBasicAuthInitialized** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -315,31 +315,6 @@ SetPreview sets Preview field to given value.
 
 HasPreview returns a boolean if a field has been set.
 
-### GetIsBasicAuthEnabled
-
-`func (o *MiscControllerConfiguration) GetIsBasicAuthEnabled() bool`
-
-GetIsBasicAuthEnabled returns the IsBasicAuthEnabled field if non-nil, zero value otherwise.
-
-### GetIsBasicAuthEnabledOk
-
-`func (o *MiscControllerConfiguration) GetIsBasicAuthEnabledOk() (*bool, bool)`
-
-GetIsBasicAuthEnabledOk returns a tuple with the IsBasicAuthEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsBasicAuthEnabled
-
-`func (o *MiscControllerConfiguration) SetIsBasicAuthEnabled(v bool)`
-
-SetIsBasicAuthEnabled sets IsBasicAuthEnabled field to given value.
-
-### HasIsBasicAuthEnabled
-
-`func (o *MiscControllerConfiguration) HasIsBasicAuthEnabled() bool`
-
-HasIsBasicAuthEnabled returns a boolean if a field has been set.
-
 ### GetSystemNamespace
 
 `func (o *MiscControllerConfiguration) GetSystemNamespace() string`
@@ -439,6 +414,31 @@ SetIsAiEnabled sets IsAiEnabled field to given value.
 `func (o *MiscControllerConfiguration) HasIsAiEnabled() bool`
 
 HasIsAiEnabled returns a boolean if a field has been set.
+
+### GetIsBasicAuthInitialized
+
+`func (o *MiscControllerConfiguration) GetIsBasicAuthInitialized() bool`
+
+GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field if non-nil, zero value otherwise.
+
+### GetIsBasicAuthInitializedOk
+
+`func (o *MiscControllerConfiguration) GetIsBasicAuthInitializedOk() (*bool, bool)`
+
+GetIsBasicAuthInitializedOk returns a tuple with the IsBasicAuthInitialized field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsBasicAuthInitialized
+
+`func (o *MiscControllerConfiguration) SetIsBasicAuthInitialized(v bool)`
+
+SetIsBasicAuthInitialized sets IsBasicAuthInitialized field to given value.
+
+### HasIsBasicAuthInitialized
+
+`func (o *MiscControllerConfiguration) HasIsBasicAuthInitialized() bool`
+
+HasIsBasicAuthInitialized returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

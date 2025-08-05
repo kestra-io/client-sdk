@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: v1
 
-- Build date: 2025-07-28T12:15:52.743487342Z[Etc/UTC]
+- Build date: 2025-08-05T13:38:05.347663356Z[Etc/UTC]
 
 - Generator version: 7.14.0-SNAPSHOT
 
@@ -325,8 +325,6 @@ Class | Method | HTTP request | Description
 *MiscApi* | [**setupKestra**](docs/MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
 *MiscApi* | [**tenantUsage**](docs/MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 *NamespacesApi* | [**autocompleteNamespaces**](docs/NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-*NamespacesApi* | [**autocompleteNamespacesWithResourceTenantasSuperAdmin**](docs/NamespacesApi.md#autocompleteNamespacesWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
-*NamespacesApi* | [**autocompleteNamespacesasSuperAdmin**](docs/NamespacesApi.md#autocompleteNamespacesasSuperAdmin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 *NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
@@ -365,25 +363,25 @@ Class | Method | HTTP request | Description
 *RolesApi* | [**listRolesFromGivenIds**](docs/RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
 *RolesApi* | [**searchRoles**](docs/RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 *RolesApi* | [**updateRole**](docs/RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
-*ScimApi* | [**createSCIMResourceByIdGroups**](docs/ScimApi.md#createSCIMResourceByIdGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | {@inheritDoc}
-*ScimApi* | [**createSCIMResourceByIdUsers**](docs/ScimApi.md#createSCIMResourceByIdUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | {@inheritDoc}
-*ScimApi* | [**deleteGroups**](docs/ScimApi.md#deleteGroups) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*ScimApi* | [**deleteUsers**](docs/ScimApi.md#deleteUsers) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*ScimApi* | [**findGroups**](docs/ScimApi.md#findGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search | {@inheritDoc}
-*ScimApi* | [**findUsers**](docs/ScimApi.md#findUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search | {@inheritDoc}
-*ScimApi* | [**getSCIMResourceByIdGroups**](docs/ScimApi.md#getSCIMResourceByIdGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*ScimApi* | [**getSCIMResourceByIdUsers**](docs/ScimApi.md#getSCIMResourceByIdUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*ScimApi* | [**patchGroups**](docs/ScimApi.md#patchGroups) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*ScimApi* | [**patchUsers**](docs/ScimApi.md#patchUsers) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*ScimApi* | [**queryGroups**](docs/ScimApi.md#queryGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | {@inheritDoc}
-*ScimApi* | [**queryUsers**](docs/ScimApi.md#queryUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | {@inheritDoc}
-*ScimApi* | [**updateGroups**](docs/ScimApi.md#updateGroups) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*ScimApi* | [**updateUsers**](docs/ScimApi.md#updateUsers) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
 *ScimConfigurationApi* | [**getAllResourceTypes**](docs/ScimConfigurationApi.md#getAllResourceTypes) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes | 
 *ScimConfigurationApi* | [**getAllSchemas**](docs/ScimConfigurationApi.md#getAllSchemas) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas | 
 *ScimConfigurationApi* | [**getResourceType**](docs/ScimConfigurationApi.md#getResourceType) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name} | 
 *ScimConfigurationApi* | [**getSchema**](docs/ScimConfigurationApi.md#getSchema) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri} | 
 *ScimConfigurationApi* | [**getServiceProviderConfiguration**](docs/ScimConfigurationApi.md#getServiceProviderConfiguration) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig | 
+*ScimGroupsApi* | [**createSCIMResourceByIdGroups**](docs/ScimGroupsApi.md#createSCIMResourceByIdGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
+*ScimGroupsApi* | [**deleteGroups**](docs/ScimGroupsApi.md#deleteGroups) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*ScimGroupsApi* | [**findGroups**](docs/ScimGroupsApi.md#findGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search | 
+*ScimGroupsApi* | [**getSCIMResourceByIdGroups**](docs/ScimGroupsApi.md#getSCIMResourceByIdGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*ScimGroupsApi* | [**patchGroups**](docs/ScimGroupsApi.md#patchGroups) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*ScimGroupsApi* | [**queryGroups**](docs/ScimGroupsApi.md#queryGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
+*ScimGroupsApi* | [**updateGroups**](docs/ScimGroupsApi.md#updateGroups) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*ScimUsersApi* | [**createSCIMResourceByIdUsers**](docs/ScimUsersApi.md#createSCIMResourceByIdUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
+*ScimUsersApi* | [**deleteUsers**](docs/ScimUsersApi.md#deleteUsers) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*ScimUsersApi* | [**findUsers**](docs/ScimUsersApi.md#findUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search | 
+*ScimUsersApi* | [**getSCIMResourceByIdUsers**](docs/ScimUsersApi.md#getSCIMResourceByIdUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*ScimUsersApi* | [**patchUsers**](docs/ScimUsersApi.md#patchUsers) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*ScimUsersApi* | [**queryUsers**](docs/ScimUsersApi.md#queryUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
+*ScimUsersApi* | [**updateUsers**](docs/ScimUsersApi.md#updateUsers) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
 *SecurityIntegrationsApi* | [**createSecurityIntegration**](docs/SecurityIntegrationsApi.md#createSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations | Create a security integration
 *SecurityIntegrationsApi* | [**deleteSecurityIntegration**](docs/SecurityIntegrationsApi.md#deleteSecurityIntegration) | **DELETE** /api/v1/{tenant}/security-integrations/{id} | Delete a security integration
 *SecurityIntegrationsApi* | [**disableSecurityIntegration**](docs/SecurityIntegrationsApi.md#disableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/disable | Disable a security integration
@@ -602,7 +600,6 @@ Class | Method | HTTP request | Description
  - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
  - [FlowWithSourceAllOfLabels](docs/FlowWithSourceAllOfLabels.md)
- - [Group](docs/Group.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [GroupUsage](docs/GroupUsage.md)
@@ -613,7 +610,6 @@ Class | Method | HTTP request | Description
  - [HttpParameters](docs/HttpParameters.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
- - [IAMBindingControllerApiBindingSummary](docs/IAMBindingControllerApiBindingSummary.md)
  - [IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
  - [IAMBindingControllerApiCreateBindingRequest](docs/IAMBindingControllerApiCreateBindingRequest.md)
  - [IAMBindingControllerApiRole](docs/IAMBindingControllerApiRole.md)
@@ -722,7 +718,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsDashboard](docs/PagedResultsDashboard.md)
  - [PagedResultsExecution](docs/PagedResultsExecution.md)
  - [PagedResultsFlow](docs/PagedResultsFlow.md)
- - [PagedResultsIAMBindingControllerApiBindingSummary](docs/PagedResultsIAMBindingControllerApiBindingSummary.md)
+ - [PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
  - [PagedResultsIAMInvitationControllerApiInvitationDetail](docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md)
  - [PagedResultsIAMTenantAccessControllerApiUserTenantAccess](docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md)

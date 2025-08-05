@@ -76,7 +76,7 @@ export default class ExecutionsApi {
      * @param {Array.<String>} [labels] The labels as a list of 'key:value'
      * @param {Number} [revision] The flow revision or latest if null
      * @param {Date} [scheduleDate] Schedule the flow on a specific date
-     * @param {String} [breakpoint] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:model/ExecutionKind} [kind] Specific execution kind
      * @param {module:api/ExecutionsApi~createExecutionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/ExecutionControllerExecutionResponse>}
@@ -111,7 +111,7 @@ export default class ExecutionsApi {
         'wait': wait,
         'revision': opts['revision'],
         'scheduleDate': opts['scheduleDate'],
-        'breakpoint': opts['breakpoint'],
+        'breakpoints': opts['breakpoints'],
         'kind': opts['kind']
       };
       let headerParams = {
@@ -1557,7 +1557,7 @@ export default class ExecutionsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [taskRunId] The taskrun id
      * @param {Number} [revision] The flow revision to use for new execution
-     * @param {String} [breakpoint] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:api/ExecutionsApi~replayExecutionCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Execution}
      */
@@ -1580,7 +1580,7 @@ export default class ExecutionsApi {
       let queryParams = {
         'taskRunId': opts['taskRunId'],
         'revision': opts['revision'],
-        'breakpoint': opts['breakpoint']
+        'breakpoints': opts['breakpoints']
       };
       let headerParams = {
       };
@@ -1953,7 +1953,7 @@ export default class ExecutionsApi {
      * @param {String} executionId The execution id
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
-     * @param {String} [breakpoint] \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {String} [breakpoints] \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:api/ExecutionsApi~resumeExecutionFromBreakpointCallback} callback The callback function, accepting three arguments: error, data, response
      */
     resumeExecutionFromBreakpoint(executionId, tenant, opts, callback) {
@@ -1973,7 +1973,7 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'breakpoint': opts['breakpoint']
+        'breakpoints': opts['breakpoints']
       };
       let headerParams = {
       };

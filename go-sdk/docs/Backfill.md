@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **End** | Pointer to **time.Time** |  | [optional] 
 **CurrentDate** | Pointer to **time.Time** |  | [optional] 
 **Paused** | Pointer to **bool** |  | [optional] 
-**Inputs** | Pointer to **map[string]interface{}** |  | [optional] 
+**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **PreviousNextExecutionDate** | Pointer to **time.Time** |  | [optional] 
 
@@ -128,20 +128,20 @@ HasPaused returns a boolean if a field has been set.
 
 ### GetInputs
 
-`func (o *Backfill) GetInputs() map[string]interface{}`
+`func (o *Backfill) GetInputs() map[string]map[string]interface{}`
 
 GetInputs returns the Inputs field if non-nil, zero value otherwise.
 
 ### GetInputsOk
 
-`func (o *Backfill) GetInputsOk() (*map[string]interface{}, bool)`
+`func (o *Backfill) GetInputsOk() (*map[string]map[string]interface{}, bool)`
 
 GetInputsOk returns a tuple with the Inputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInputs
 
-`func (o *Backfill) SetInputs(v map[string]interface{})`
+`func (o *Backfill) SetInputs(v map[string]map[string]interface{})`
 
 SetInputs sets Inputs field to given value.
 

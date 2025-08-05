@@ -1,4 +1,4 @@
-# KestraApi.EventExecutionStatusEvent
+# KestraIoKestraApi.EventExecutionStatusEvent
 
 ## Properties
 

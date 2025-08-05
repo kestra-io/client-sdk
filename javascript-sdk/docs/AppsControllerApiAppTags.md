@@ -1,4 +1,4 @@
-# KestraApi.AppsControllerApiAppTags
+# KestraIoKestraApi.AppsControllerApiAppTags
 
 ## Properties
 

@@ -72,7 +72,7 @@ class ExecutionsApi:
         labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
         _request_timeout: Union[
             None,
@@ -104,8 +104,8 @@ class ExecutionsApi:
         :type revision: int
         :param schedule_date: Schedule the flow on a specific date
         :type schedule_date: datetime
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param kind: Specific execution kind
         :type kind: ExecutionKind
         :param _request_timeout: timeout setting for this request. If one
@@ -138,7 +138,7 @@ class ExecutionsApi:
             labels=labels,
             revision=revision,
             schedule_date=schedule_date,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             kind=kind,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -171,7 +171,7 @@ class ExecutionsApi:
         labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
         _request_timeout: Union[
             None,
@@ -203,8 +203,8 @@ class ExecutionsApi:
         :type revision: int
         :param schedule_date: Schedule the flow on a specific date
         :type schedule_date: datetime
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param kind: Specific execution kind
         :type kind: ExecutionKind
         :param _request_timeout: timeout setting for this request. If one
@@ -237,7 +237,7 @@ class ExecutionsApi:
             labels=labels,
             revision=revision,
             schedule_date=schedule_date,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             kind=kind,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -270,7 +270,7 @@ class ExecutionsApi:
         labels: Annotated[Optional[List[StrictStr]], Field(description="The labels as a list of 'key:value'")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision or latest if null")] = None,
         schedule_date: Annotated[Optional[datetime], Field(description="Schedule the flow on a specific date")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         kind: Annotated[Optional[Any], Field(description="Specific execution kind")] = None,
         _request_timeout: Union[
             None,
@@ -302,8 +302,8 @@ class ExecutionsApi:
         :type revision: int
         :param schedule_date: Schedule the flow on a specific date
         :type schedule_date: datetime
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param kind: Specific execution kind
         :type kind: ExecutionKind
         :param _request_timeout: timeout setting for this request. If one
@@ -336,7 +336,7 @@ class ExecutionsApi:
             labels=labels,
             revision=revision,
             schedule_date=schedule_date,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             kind=kind,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -364,7 +364,7 @@ class ExecutionsApi:
         labels,
         revision,
         schedule_date,
-        breakpoint,
+        breakpoints,
         kind,
         _request_auth,
         _content_type,
@@ -420,9 +420,9 @@ class ExecutionsApi:
             else:
                 _query_params.append(('scheduleDate', schedule_date))
             
-        if breakpoint is not None:
+        if breakpoints is not None:
             
-            _query_params.append(('breakpoint', breakpoint))
+            _query_params.append(('breakpoints', breakpoints))
             
         if kind is not None:
             
@@ -8707,7 +8707,7 @@ class ExecutionsApi:
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8732,8 +8732,8 @@ class ExecutionsApi:
         :type task_run_id: str
         :param revision: The flow revision to use for new execution
         :type revision: int
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8761,7 +8761,7 @@ class ExecutionsApi:
             tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8789,7 +8789,7 @@ class ExecutionsApi:
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8814,8 +8814,8 @@ class ExecutionsApi:
         :type task_run_id: str
         :param revision: The flow revision to use for new execution
         :type revision: int
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8843,7 +8843,7 @@ class ExecutionsApi:
             tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8871,7 +8871,7 @@ class ExecutionsApi:
         tenant: StrictStr,
         task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
         revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8896,8 +8896,8 @@ class ExecutionsApi:
         :type task_run_id: str
         :param revision: The flow revision to use for new execution
         :type revision: int
-        :param breakpoint: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8925,7 +8925,7 @@ class ExecutionsApi:
             tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8948,7 +8948,7 @@ class ExecutionsApi:
         tenant,
         task_run_id,
         revision,
-        breakpoint,
+        breakpoints,
         _request_auth,
         _content_type,
         _headers,
@@ -8983,9 +8983,9 @@ class ExecutionsApi:
             
             _query_params.append(('revision', revision))
             
-        if breakpoint is not None:
+        if breakpoints is not None:
             
-            _query_params.append(('breakpoint', breakpoint))
+            _query_params.append(('breakpoints', breakpoints))
             
         # process the header parameters
         # process the form parameters
@@ -11220,7 +11220,7 @@ class ExecutionsApi:
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
         tenant: StrictStr,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11241,8 +11241,8 @@ class ExecutionsApi:
         :type execution_id: str
         :param tenant: (required)
         :type tenant: str
-        :param breakpoint: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11268,7 +11268,7 @@ class ExecutionsApi:
         _param = self._resume_execution_from_breakpoint_serialize(
             execution_id=execution_id,
             tenant=tenant,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11296,7 +11296,7 @@ class ExecutionsApi:
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
         tenant: StrictStr,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11317,8 +11317,8 @@ class ExecutionsApi:
         :type execution_id: str
         :param tenant: (required)
         :type tenant: str
-        :param breakpoint: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11344,7 +11344,7 @@ class ExecutionsApi:
         _param = self._resume_execution_from_breakpoint_serialize(
             execution_id=execution_id,
             tenant=tenant,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11372,7 +11372,7 @@ class ExecutionsApi:
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
         tenant: StrictStr,
-        breakpoint: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
+        breakpoints: Annotated[Optional[StrictStr], Field(description="\"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -11393,8 +11393,8 @@ class ExecutionsApi:
         :type execution_id: str
         :param tenant: (required)
         :type tenant: str
-        :param breakpoint: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
-        :type breakpoint: str
+        :param breakpoints: \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -11420,7 +11420,7 @@ class ExecutionsApi:
         _param = self._resume_execution_from_breakpoint_serialize(
             execution_id=execution_id,
             tenant=tenant,
-            breakpoint=breakpoint,
+            breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -11443,7 +11443,7 @@ class ExecutionsApi:
         self,
         execution_id,
         tenant,
-        breakpoint,
+        breakpoints,
         _request_auth,
         _content_type,
         _headers,
@@ -11470,9 +11470,9 @@ class ExecutionsApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if breakpoint is not None:
+        if breakpoints is not None:
             
-            _query_params.append(('breakpoint', breakpoint))
+            _query_params.append(('breakpoints', breakpoints))
             
         # process the header parameters
         # process the form parameters

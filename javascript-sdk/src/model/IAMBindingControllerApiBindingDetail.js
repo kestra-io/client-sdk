@@ -12,10 +12,10 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiUser from './ApiUser';
-import Binding from './Binding';
-import Group from './Group';
-import Role from './Role';
+import BindingType from './BindingType';
+import IAMBindingControllerApiBindingGroup from './IAMBindingControllerApiBindingGroup';
+import IAMBindingControllerApiBindingUser from './IAMBindingControllerApiBindingUser';
+import IAMBindingControllerApiRole from './IAMBindingControllerApiRole';
 
 /**
  * The IAMBindingControllerApiBindingDetail model module.
@@ -51,17 +51,23 @@ class IAMBindingControllerApiBindingDetail {
         if (data) {
             obj = obj || new IAMBindingControllerApiBindingDetail();
 
-            if (data.hasOwnProperty('binding')) {
-                obj['binding'] = Binding.constructFromObject(data['binding']);
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            }
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = BindingType.constructFromObject(data['type']);
+            }
+            if (data.hasOwnProperty('namespace')) {
+                obj['namespace'] = ApiClient.convertToType(data['namespace'], 'String');
             }
             if (data.hasOwnProperty('role')) {
-                obj['role'] = Role.constructFromObject(data['role']);
-            }
-            if (data.hasOwnProperty('user')) {
-                obj['user'] = ApiUser.constructFromObject(data['user']);
+                obj['role'] = IAMBindingControllerApiRole.constructFromObject(data['role']);
             }
             if (data.hasOwnProperty('group')) {
-                obj['group'] = Group.constructFromObject(data['group']);
+                obj['group'] = ApiClient.convertToType(data['group'], IAMBindingControllerApiBindingGroup);
+            }
+            if (data.hasOwnProperty('user')) {
+                obj['user'] = ApiClient.convertToType(data['user'], IAMBindingControllerApiBindingUser);
             }
         }
         return obj;
@@ -73,21 +79,25 @@ class IAMBindingControllerApiBindingDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMBindingControllerApiBindingDetail</code>.
      */
     static validateJSON(data) {
-        // validate the optional field `binding`
-        if (data['binding']) { // data not null
-          Binding.validateJSON(data['binding']);
+        // ensure the json data is a string
+        if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
+            throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
+        }
+        // ensure the json data is a string
+        if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
+            throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
         }
         // validate the optional field `role`
         if (data['role']) { // data not null
-          Role.validateJSON(data['role']);
-        }
-        // validate the optional field `user`
-        if (data['user']) { // data not null
-          ApiUser.validateJSON(data['user']);
+          IAMBindingControllerApiRole.validateJSON(data['role']);
         }
         // validate the optional field `group`
         if (data['group']) { // data not null
-          Group.validateJSON(data['group']);
+          IAMBindingControllerApiBindingGroup.validateJSON(data['group']);
+        }
+        // validate the optional field `user`
+        if (data['user']) { // data not null
+          IAMBindingControllerApiBindingUser.validateJSON(data['user']);
         }
 
         return true;
@@ -99,24 +109,34 @@ class IAMBindingControllerApiBindingDetail {
 
 
 /**
- * @member {module:model/Binding} binding
+ * @member {String} id
  */
-IAMBindingControllerApiBindingDetail.prototype['binding'] = undefined;
+IAMBindingControllerApiBindingDetail.prototype['id'] = undefined;
 
 /**
- * @member {module:model/Role} role
+ * @member {module:model/BindingType} type
+ */
+IAMBindingControllerApiBindingDetail.prototype['type'] = undefined;
+
+/**
+ * @member {String} namespace
+ */
+IAMBindingControllerApiBindingDetail.prototype['namespace'] = undefined;
+
+/**
+ * @member {module:model/IAMBindingControllerApiRole} role
  */
 IAMBindingControllerApiBindingDetail.prototype['role'] = undefined;
 
 /**
- * @member {module:model/ApiUser} user
- */
-IAMBindingControllerApiBindingDetail.prototype['user'] = undefined;
-
-/**
- * @member {module:model/Group} group
+ * @member {module:model/IAMBindingControllerApiBindingGroup} group
  */
 IAMBindingControllerApiBindingDetail.prototype['group'] = undefined;
+
+/**
+ * @member {module:model/IAMBindingControllerApiBindingUser} user
+ */
+IAMBindingControllerApiBindingDetail.prototype['user'] = undefined;
 
 
 

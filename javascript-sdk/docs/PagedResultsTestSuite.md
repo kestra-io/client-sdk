@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsTestSuite
+# KestraIoKestraApi.PagedResultsTestSuite
 
 ## Properties
 

@@ -18,11 +18,11 @@ Name | Type | Description | Notes
 **Uri** | Pointer to **NullableString** |  | [optional] 
 **Environments** | Pointer to **[]string** |  | [optional] 
 **StartTime** | **time.Time** |  | 
-**Host** | [**HostUsage**](HostUsage.md) |  | 
-**Configurations** | [**ConfigurationUsage**](ConfigurationUsage.md) |  | 
-**Plugins** | [**[]PluginUsage**](PluginUsage.md) |  | 
-**Flows** | [**FlowUsage**](FlowUsage.md) |  | 
-**Executions** | [**ExecutionUsage**](ExecutionUsage.md) |  | 
+**Host** | Pointer to [**HostUsage**](HostUsage.md) |  | [optional] 
+**Configurations** | Pointer to [**ConfigurationUsage**](ConfigurationUsage.md) |  | [optional] 
+**Plugins** | Pointer to [**[]PluginUsage**](PluginUsage.md) |  | [optional] 
+**Flows** | Pointer to [**FlowUsage**](FlowUsage.md) |  | [optional] 
+**Executions** | Pointer to [**ExecutionUsage**](ExecutionUsage.md) |  | [optional] 
 **Services** | Pointer to [**NullableServiceUsage**](ServiceUsage.md) |  | [optional] 
 **PluginMetrics** | Pointer to [**[]PluginMetric**](PluginMetric.md) |  | [optional] 
 
@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 
 ### NewUsageEE
 
-`func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType ServerType, version string, zoneId string, startTime time.Time, host HostUsage, configurations ConfigurationUsage, plugins []PluginUsage, flows FlowUsage, executions ExecutionUsage, ) *UsageEE`
+`func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType ServerType, version string, zoneId string, startTime time.Time, ) *UsageEE`
 
 NewUsageEE instantiates a new UsageEE object
 This constructor will assign default values to properties that have it defined,
@@ -399,6 +399,11 @@ and a boolean to check if the value has been set.
 
 SetHost sets Host field to given value.
 
+### HasHost
+
+`func (o *UsageEE) HasHost() bool`
+
+HasHost returns a boolean if a field has been set.
 
 ### GetConfigurations
 
@@ -419,6 +424,11 @@ and a boolean to check if the value has been set.
 
 SetConfigurations sets Configurations field to given value.
 
+### HasConfigurations
+
+`func (o *UsageEE) HasConfigurations() bool`
+
+HasConfigurations returns a boolean if a field has been set.
 
 ### GetPlugins
 
@@ -439,6 +449,11 @@ and a boolean to check if the value has been set.
 
 SetPlugins sets Plugins field to given value.
 
+### HasPlugins
+
+`func (o *UsageEE) HasPlugins() bool`
+
+HasPlugins returns a boolean if a field has been set.
 
 ### GetFlows
 
@@ -459,6 +474,11 @@ and a boolean to check if the value has been set.
 
 SetFlows sets Flows field to given value.
 
+### HasFlows
+
+`func (o *UsageEE) HasFlows() bool`
+
+HasFlows returns a boolean if a field has been set.
 
 ### GetExecutions
 
@@ -479,6 +499,11 @@ and a boolean to check if the value has been set.
 
 SetExecutions sets Executions field to given value.
 
+### HasExecutions
+
+`func (o *UsageEE) HasExecutions() bool`
+
+HasExecutions returns a boolean if a field has been set.
 
 ### GetServices
 

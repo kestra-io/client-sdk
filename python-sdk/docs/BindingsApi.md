@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_bindings**
-> PagedResultsIAMBindingControllerApiBindingSummary search_bindings(page, size, tenant, q=q, sort=sort, type=type, id=id, namespace=namespace)
+> PagedResultsIAMBindingControllerApiBindingDetail search_bindings(page, size, tenant, q=q, sort=sort, type=type, id=id, namespace=namespace)
 
 Search for bindings
 
@@ -362,7 +362,7 @@ Search for bindings
 
 ```python
 import kestrapy
-from kestrapy.models.paged_results_iam_binding_controller_api_binding_summary import PagedResultsIAMBindingControllerApiBindingSummary
+from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -428,7 +428,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsIAMBindingControllerApiBindingSummary**](PagedResultsIAMBindingControllerApiBindingSummary.md)
+[**PagedResultsIAMBindingControllerApiBindingDetail**](PagedResultsIAMBindingControllerApiBindingDetail.md)
 
 ### Authorization
 

@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsAuditLogControllerAuditLogWithUser
+# KestraIoKestraApi.PagedResultsAuditLogControllerAuditLogWithUser
 
 ## Properties
 

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Type** | **string** |  | 
-**Description** | **string** |  | 
-**BaseUnit** | **string** |  | 
-**Tags** | [**[]MetricTag**](MetricTag.md) |  | 
-**Value** | **interface{}** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**BaseUnit** | Pointer to **string** |  | [optional] 
+**Tags** | Pointer to [**[]MetricTag**](MetricTag.md) |  | [optional] 
+**Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewMetric
 
-`func NewMetric(name string, type_ string, description string, baseUnit string, tags []MetricTag, value interface{}, ) *Metric`
+`func NewMetric() *Metric`
 
 NewMetric instantiates a new Metric object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *Metric) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *Metric) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *Metric) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetBaseUnit
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetBaseUnit sets BaseUnit field to given value.
 
+### HasBaseUnit
+
+`func (o *Metric) HasBaseUnit() bool`
+
+HasBaseUnit returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -129,37 +149,37 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
+### HasTags
+
+`func (o *Metric) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Metric) GetValue() interface{}`
+`func (o *Metric) GetValue() map[string]interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Metric) GetValueOk() (*interface{}, bool)`
+`func (o *Metric) GetValueOk() (*map[string]interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Metric) SetValue(v interface{})`
+`func (o *Metric) SetValue(v map[string]interface{})`
 
 SetValue sets Value field to given value.
 
+### HasValue
 
-### SetValueNil
+`func (o *Metric) HasValue() bool`
 
-`func (o *Metric) SetValueNil(b bool)`
+HasValue returns a boolean if a field has been set.
 
- SetValueNil sets the value for Value to be an explicit nil
-
-### UnsetValue
-`func (o *Metric) UnsetValue()`
-
-UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

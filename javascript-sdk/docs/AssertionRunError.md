@@ -1,4 +1,4 @@
-# KestraApi.AssertionRunError
+# KestraIoKestraApi.AssertionRunError
 
 ## Properties
 

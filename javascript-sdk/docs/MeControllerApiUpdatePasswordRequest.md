@@ -1,4 +1,4 @@
-# KestraApi.MeControllerApiUpdatePasswordRequest
+# KestraIoKestraApi.MeControllerApiUpdatePasswordRequest
 
 ## Properties
 

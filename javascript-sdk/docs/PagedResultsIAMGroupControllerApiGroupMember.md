@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsIAMGroupControllerApiGroupMember
+# KestraIoKestraApi.PagedResultsIAMGroupControllerApiGroupMember
 
 ## Properties
 

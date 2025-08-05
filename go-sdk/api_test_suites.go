@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -251,6 +250,459 @@ func (a *TestSuitesAPIService) DeleteTestSuiteExecute(r ApiDeleteTestSuiteReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiDeleteTestSuitesByIdsRequest struct {
+	ctx                                     context.Context
+	ApiService                              *TestSuitesAPIService
+	tenant                                  string
+	testSuiteControllerTestSuiteBulkRequest *TestSuiteControllerTestSuiteBulkRequest
+}
+
+func (r ApiDeleteTestSuitesByIdsRequest) TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest TestSuiteControllerTestSuiteBulkRequest) ApiDeleteTestSuitesByIdsRequest {
+	r.testSuiteControllerTestSuiteBulkRequest = &testSuiteControllerTestSuiteBulkRequest
+	return r
+}
+
+func (r ApiDeleteTestSuitesByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+	return r.ApiService.DeleteTestSuitesByIdsExecute(r)
+}
+
+/*
+DeleteTestSuitesByIds Delete multiple tests by id
+
+Deletes a test by namespace and ID. Requires TEST permission with the DELETE action.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiDeleteTestSuitesByIdsRequest
+*/
+func (a *TestSuitesAPIService) DeleteTestSuitesByIds(ctx context.Context, tenant string) ApiDeleteTestSuitesByIdsRequest {
+	return ApiDeleteTestSuitesByIdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BulkResponse
+func (a *TestSuitesAPIService) DeleteTestSuitesByIdsExecute(r ApiDeleteTestSuitesByIdsRequest) (*BulkResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TestSuitesAPIService.DeleteTestSuitesByIds")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/tests/by-ids"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.testSuiteControllerTestSuiteBulkRequest == nil {
+		return localVarReturnValue, nil, reportError("testSuiteControllerTestSuiteBulkRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.testSuiteControllerTestSuiteBulkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDisableTestSuitesByIdsRequest struct {
+	ctx                                     context.Context
+	ApiService                              *TestSuitesAPIService
+	tenant                                  string
+	testSuiteControllerTestSuiteBulkRequest *TestSuiteControllerTestSuiteBulkRequest
+}
+
+func (r ApiDisableTestSuitesByIdsRequest) TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest TestSuiteControllerTestSuiteBulkRequest) ApiDisableTestSuitesByIdsRequest {
+	r.testSuiteControllerTestSuiteBulkRequest = &testSuiteControllerTestSuiteBulkRequest
+	return r
+}
+
+func (r ApiDisableTestSuitesByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+	return r.ApiService.DisableTestSuitesByIdsExecute(r)
+}
+
+/*
+DisableTestSuitesByIds Disable multiple tests by id
+
+Disable a test by namespace and ID. Requires TEST permission with the UPDATE action.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiDisableTestSuitesByIdsRequest
+*/
+func (a *TestSuitesAPIService) DisableTestSuitesByIds(ctx context.Context, tenant string) ApiDisableTestSuitesByIdsRequest {
+	return ApiDisableTestSuitesByIdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BulkResponse
+func (a *TestSuitesAPIService) DisableTestSuitesByIdsExecute(r ApiDisableTestSuitesByIdsRequest) (*BulkResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TestSuitesAPIService.DisableTestSuitesByIds")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/tests/disable/by-ids"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.testSuiteControllerTestSuiteBulkRequest == nil {
+		return localVarReturnValue, nil, reportError("testSuiteControllerTestSuiteBulkRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.testSuiteControllerTestSuiteBulkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiEnableTestSuitesByIdsRequest struct {
+	ctx                                     context.Context
+	ApiService                              *TestSuitesAPIService
+	tenant                                  string
+	testSuiteControllerTestSuiteBulkRequest *TestSuiteControllerTestSuiteBulkRequest
+}
+
+func (r ApiEnableTestSuitesByIdsRequest) TestSuiteControllerTestSuiteBulkRequest(testSuiteControllerTestSuiteBulkRequest TestSuiteControllerTestSuiteBulkRequest) ApiEnableTestSuitesByIdsRequest {
+	r.testSuiteControllerTestSuiteBulkRequest = &testSuiteControllerTestSuiteBulkRequest
+	return r
+}
+
+func (r ApiEnableTestSuitesByIdsRequest) Execute() (*BulkResponse, *http.Response, error) {
+	return r.ApiService.EnableTestSuitesByIdsExecute(r)
+}
+
+/*
+EnableTestSuitesByIds Enable multiple tests by id
+
+Enable a test by namespace and ID. Requires TEST permission with the UPDATE action.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiEnableTestSuitesByIdsRequest
+*/
+func (a *TestSuitesAPIService) EnableTestSuitesByIds(ctx context.Context, tenant string) ApiEnableTestSuitesByIdsRequest {
+	return ApiEnableTestSuitesByIdsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return BulkResponse
+func (a *TestSuitesAPIService) EnableTestSuitesByIdsExecute(r ApiEnableTestSuitesByIdsRequest) (*BulkResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *BulkResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TestSuitesAPIService.EnableTestSuitesByIds")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/tests/enable/by-ids"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.testSuiteControllerTestSuiteBulkRequest == nil {
+		return localVarReturnValue, nil, reportError("testSuiteControllerTestSuiteBulkRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.testSuiteControllerTestSuiteBulkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetTestResultRequest struct {
+	ctx        context.Context
+	ApiService *TestSuitesAPIService
+	id         string
+	tenant     string
+}
+
+func (r ApiGetTestResultRequest) Execute() (*TestSuiteRunResult, *http.Response, error) {
+	return r.ApiService.GetTestResultExecute(r)
+}
+
+/*
+GetTestResult Get a test result
+
+Get a test result once it was run.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The test run ID
+	@param tenant
+	@return ApiGetTestResultRequest
+*/
+func (a *TestSuitesAPIService) GetTestResult(ctx context.Context, id string, tenant string) ApiGetTestResultRequest {
+	return ApiGetTestResultRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TestSuiteRunResult
+func (a *TestSuitesAPIService) GetTestResultExecute(r ApiGetTestResultRequest) (*TestSuiteRunResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TestSuiteRunResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TestSuitesAPIService.GetTestResult")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/tests/results/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetTestSuiteRequest struct {
 	ctx        context.Context
 	ApiService *TestSuitesAPIService
@@ -326,6 +778,121 @@ func (a *TestSuitesAPIService) GetTestSuiteExecute(r ApiGetTestSuiteRequest) (*T
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetTestsLastResultRequest struct {
+	ctx                                      context.Context
+	ApiService                               *TestSuitesAPIService
+	tenant                                   string
+	testSuiteControllerSearchTestsLastResult *TestSuiteControllerSearchTestsLastResult
+}
+
+func (r ApiGetTestsLastResultRequest) TestSuiteControllerSearchTestsLastResult(testSuiteControllerSearchTestsLastResult TestSuiteControllerSearchTestsLastResult) ApiGetTestsLastResultRequest {
+	r.testSuiteControllerSearchTestsLastResult = &testSuiteControllerSearchTestsLastResult
+	return r
+}
+
+func (r ApiGetTestsLastResultRequest) Execute() (*TestSuiteControllerTestsLastResultResponse, *http.Response, error) {
+	return r.ApiService.GetTestsLastResultExecute(r)
+}
+
+/*
+GetTestsLastResult Get tests last result
+
+Get multiple tests last result for a query.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiGetTestsLastResultRequest
+*/
+func (a *TestSuitesAPIService) GetTestsLastResult(ctx context.Context, tenant string) ApiGetTestsLastResultRequest {
+	return ApiGetTestsLastResultRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return TestSuiteControllerTestsLastResultResponse
+func (a *TestSuitesAPIService) GetTestsLastResultExecute(r ApiGetTestsLastResultRequest) (*TestSuiteControllerTestsLastResultResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TestSuiteControllerTestsLastResultResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TestSuitesAPIService.GetTestsLastResult")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/tests/results/search/last"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.testSuiteControllerSearchTestsLastResult == nil {
+		return localVarReturnValue, nil, reportError("testSuiteControllerSearchTestsLastResult is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.testSuiteControllerSearchTestsLastResult
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -575,15 +1142,7 @@ func (a *TestSuitesAPIService) SearchTestSuitesExecute(r ApiSearchTestSuitesRequ
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.namespace != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")

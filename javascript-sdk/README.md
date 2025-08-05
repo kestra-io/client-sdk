@@ -336,8 +336,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraApi.MiscApi* | [**setupKestra**](docs/MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
 *KestraIoKestraApi.MiscApi* | [**tenantUsage**](docs/MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
 *KestraIoKestraApi.NamespacesApi* | [**autocompleteNamespaces**](docs/NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-*KestraIoKestraApi.NamespacesApi* | [**autocompleteNamespacesWithResourceTenantasSuperAdmin**](docs/NamespacesApi.md#autocompleteNamespacesWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
-*KestraIoKestraApi.NamespacesApi* | [**autocompleteNamespacesasSuperAdmin**](docs/NamespacesApi.md#autocompleteNamespacesasSuperAdmin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 *KestraIoKestraApi.NamespacesApi* | [**createNamespace**](docs/NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 *KestraIoKestraApi.NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *KestraIoKestraApi.NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
@@ -376,25 +374,25 @@ Class | Method | HTTP request | Description
 *KestraIoKestraApi.RolesApi* | [**listRolesFromGivenIds**](docs/RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
 *KestraIoKestraApi.RolesApi* | [**searchRoles**](docs/RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 *KestraIoKestraApi.RolesApi* | [**updateRole**](docs/RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
-*KestraIoKestraApi.SCIMApi* | [**createSCIMResourceByIdGroups**](docs/SCIMApi.md#createSCIMResourceByIdGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**createSCIMResourceByIdUsers**](docs/SCIMApi.md#createSCIMResourceByIdUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**deleteGroups**](docs/SCIMApi.md#deleteGroups) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**deleteUsers**](docs/SCIMApi.md#deleteUsers) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**findGroups**](docs/SCIMApi.md#findGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**findUsers**](docs/SCIMApi.md#findUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**getSCIMResourceByIdGroups**](docs/SCIMApi.md#getSCIMResourceByIdGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**getSCIMResourceByIdUsers**](docs/SCIMApi.md#getSCIMResourceByIdUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**patchGroups**](docs/SCIMApi.md#patchGroups) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**patchUsers**](docs/SCIMApi.md#patchUsers) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**queryGroups**](docs/SCIMApi.md#queryGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**queryUsers**](docs/SCIMApi.md#queryUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**updateGroups**](docs/SCIMApi.md#updateGroups) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | {@inheritDoc}
-*KestraIoKestraApi.SCIMApi* | [**updateUsers**](docs/SCIMApi.md#updateUsers) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | {@inheritDoc}
 *KestraIoKestraApi.SCIMConfigurationApi* | [**getAllResourceTypes**](docs/SCIMConfigurationApi.md#getAllResourceTypes) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes | 
 *KestraIoKestraApi.SCIMConfigurationApi* | [**getAllSchemas**](docs/SCIMConfigurationApi.md#getAllSchemas) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas | 
 *KestraIoKestraApi.SCIMConfigurationApi* | [**getResourceType**](docs/SCIMConfigurationApi.md#getResourceType) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ResourceTypes/{name} | 
 *KestraIoKestraApi.SCIMConfigurationApi* | [**getSchema**](docs/SCIMConfigurationApi.md#getSchema) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Schemas/{uri} | 
 *KestraIoKestraApi.SCIMConfigurationApi* | [**getServiceProviderConfiguration**](docs/SCIMConfigurationApi.md#getServiceProviderConfiguration) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/ServiceProviderConfig | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**createSCIMResourceByIdGroups**](docs/SCIMGroupsApi.md#createSCIMResourceByIdGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**deleteGroups**](docs/SCIMGroupsApi.md#deleteGroups) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**findGroups**](docs/SCIMGroupsApi.md#findGroups) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**getSCIMResourceByIdGroups**](docs/SCIMGroupsApi.md#getSCIMResourceByIdGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**patchGroups**](docs/SCIMGroupsApi.md#patchGroups) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**queryGroups**](docs/SCIMGroupsApi.md#queryGroups) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups | 
+*KestraIoKestraApi.SCIMGroupsApi* | [**updateGroups**](docs/SCIMGroupsApi.md#updateGroups) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id} | 
+*KestraIoKestraApi.SCIMUsersApi* | [**createSCIMResourceByIdUsers**](docs/SCIMUsersApi.md#createSCIMResourceByIdUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
+*KestraIoKestraApi.SCIMUsersApi* | [**deleteUsers**](docs/SCIMUsersApi.md#deleteUsers) | **DELETE** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*KestraIoKestraApi.SCIMUsersApi* | [**findUsers**](docs/SCIMUsersApi.md#findUsers) | **POST** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search | 
+*KestraIoKestraApi.SCIMUsersApi* | [**getSCIMResourceByIdUsers**](docs/SCIMUsersApi.md#getSCIMResourceByIdUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*KestraIoKestraApi.SCIMUsersApi* | [**patchUsers**](docs/SCIMUsersApi.md#patchUsers) | **PATCH** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
+*KestraIoKestraApi.SCIMUsersApi* | [**queryUsers**](docs/SCIMUsersApi.md#queryUsers) | **GET** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users | 
+*KestraIoKestraApi.SCIMUsersApi* | [**updateUsers**](docs/SCIMUsersApi.md#updateUsers) | **PUT** /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id} | 
 *KestraIoKestraApi.SecurityIntegrationsApi* | [**createSecurityIntegration**](docs/SecurityIntegrationsApi.md#createSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations | Create a security integration
 *KestraIoKestraApi.SecurityIntegrationsApi* | [**deleteSecurityIntegration**](docs/SecurityIntegrationsApi.md#deleteSecurityIntegration) | **DELETE** /api/v1/{tenant}/security-integrations/{id} | Delete a security integration
 *KestraIoKestraApi.SecurityIntegrationsApi* | [**disableSecurityIntegration**](docs/SecurityIntegrationsApi.md#disableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/disable | Disable a security integration
@@ -613,7 +611,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraApi.FlowUsage](docs/FlowUsage.md)
  - [KestraIoKestraApi.FlowWithSource](docs/FlowWithSource.md)
  - [KestraIoKestraApi.FlowWithSourceAllOfLabels](docs/FlowWithSourceAllOfLabels.md)
- - [KestraIoKestraApi.Group](docs/Group.md)
  - [KestraIoKestraApi.GroupIdentifier](docs/GroupIdentifier.md)
  - [KestraIoKestraApi.GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [KestraIoKestraApi.GroupUsage](docs/GroupUsage.md)
@@ -624,7 +621,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraApi.HttpParameters](docs/HttpParameters.md)
  - [KestraIoKestraApi.IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [KestraIoKestraApi.IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
- - [KestraIoKestraApi.IAMBindingControllerApiBindingSummary](docs/IAMBindingControllerApiBindingSummary.md)
  - [KestraIoKestraApi.IAMBindingControllerApiBindingUser](docs/IAMBindingControllerApiBindingUser.md)
  - [KestraIoKestraApi.IAMBindingControllerApiCreateBindingRequest](docs/IAMBindingControllerApiCreateBindingRequest.md)
  - [KestraIoKestraApi.IAMBindingControllerApiRole](docs/IAMBindingControllerApiRole.md)
@@ -733,7 +729,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraApi.PagedResultsDashboard](docs/PagedResultsDashboard.md)
  - [KestraIoKestraApi.PagedResultsExecution](docs/PagedResultsExecution.md)
  - [KestraIoKestraApi.PagedResultsFlow](docs/PagedResultsFlow.md)
- - [KestraIoKestraApi.PagedResultsIAMBindingControllerApiBindingSummary](docs/PagedResultsIAMBindingControllerApiBindingSummary.md)
+ - [KestraIoKestraApi.PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [KestraIoKestraApi.PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
  - [KestraIoKestraApi.PagedResultsIAMInvitationControllerApiInvitationDetail](docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md)
  - [KestraIoKestraApi.PagedResultsIAMTenantAccessControllerApiUserTenantAccess](docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md)

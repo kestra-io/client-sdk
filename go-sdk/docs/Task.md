@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **LogToFile** | Pointer to **bool** |  | [optional] 
 **RunIf** | Pointer to **string** |  | [optional] 
 **AllowWarning** | Pointer to **bool** |  | [optional] 
+**TaskCache** | Pointer to [**Cache**](Cache.md) |  | [optional] 
 
 ## Methods
 
@@ -351,6 +352,31 @@ SetAllowWarning sets AllowWarning field to given value.
 `func (o *Task) HasAllowWarning() bool`
 
 HasAllowWarning returns a boolean if a field has been set.
+
+### GetTaskCache
+
+`func (o *Task) GetTaskCache() Cache`
+
+GetTaskCache returns the TaskCache field if non-nil, zero value otherwise.
+
+### GetTaskCacheOk
+
+`func (o *Task) GetTaskCacheOk() (*Cache, bool)`
+
+GetTaskCacheOk returns a tuple with the TaskCache field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTaskCache
+
+`func (o *Task) SetTaskCache(v Cache)`
+
+SetTaskCache sets TaskCache field to given value.
+
+### HasTaskCache
+
+`func (o *Task) HasTaskCache() bool`
+
+HasTaskCache returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

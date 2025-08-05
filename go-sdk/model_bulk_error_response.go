@@ -19,8 +19,8 @@ var _ MappedNullable = &BulkErrorResponse{}
 
 // BulkErrorResponse struct for BulkErrorResponse
 type BulkErrorResponse struct {
-	Message              *string     `json:"message,omitempty"`
-	Invalids             interface{} `json:"invalids,omitempty"`
+	Message              *string                `json:"message,omitempty"`
+	Invalids             map[string]interface{} `json:"invalids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,10 +75,10 @@ func (o *BulkErrorResponse) SetMessage(v string) {
 	o.Message = &v
 }
 
-// GetInvalids returns the Invalids field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *BulkErrorResponse) GetInvalids() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetInvalids returns the Invalids field value if set, zero value otherwise.
+func (o *BulkErrorResponse) GetInvalids() map[string]interface{} {
+	if o == nil || IsNil(o.Invalids) {
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Invalids
@@ -86,12 +86,11 @@ func (o *BulkErrorResponse) GetInvalids() interface{} {
 
 // GetInvalidsOk returns a tuple with the Invalids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *BulkErrorResponse) GetInvalidsOk() (*interface{}, bool) {
+func (o *BulkErrorResponse) GetInvalidsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Invalids) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Invalids, true
+	return o.Invalids, true
 }
 
 // HasInvalids returns a boolean if a field has been set.
@@ -103,8 +102,8 @@ func (o *BulkErrorResponse) HasInvalids() bool {
 	return false
 }
 
-// SetInvalids gets a reference to the given interface{} and assigns it to the Invalids field.
-func (o *BulkErrorResponse) SetInvalids(v interface{}) {
+// SetInvalids gets a reference to the given map[string]interface{} and assigns it to the Invalids field.
+func (o *BulkErrorResponse) SetInvalids(v map[string]interface{}) {
 	o.Invalids = v
 }
 
@@ -121,7 +120,7 @@ func (o BulkErrorResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if o.Invalids != nil {
+	if !IsNil(o.Invalids) {
 		toSerialize["invalids"] = o.Invalids
 	}
 

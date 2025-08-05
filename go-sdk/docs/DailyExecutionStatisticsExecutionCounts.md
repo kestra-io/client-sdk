@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **RETRYING** | Pointer to **int64** |  | [optional] 
 **RETRIED** | Pointer to **int64** |  | [optional] 
 **SKIPPED** | Pointer to **int64** |  | [optional] 
+**BREAKPOINT** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -387,6 +388,31 @@ SetSKIPPED sets SKIPPED field to given value.
 `func (o *DailyExecutionStatisticsExecutionCounts) HasSKIPPED() bool`
 
 HasSKIPPED returns a boolean if a field has been set.
+
+### GetBREAKPOINT
+
+`func (o *DailyExecutionStatisticsExecutionCounts) GetBREAKPOINT() int64`
+
+GetBREAKPOINT returns the BREAKPOINT field if non-nil, zero value otherwise.
+
+### GetBREAKPOINTOk
+
+`func (o *DailyExecutionStatisticsExecutionCounts) GetBREAKPOINTOk() (*int64, bool)`
+
+GetBREAKPOINTOk returns a tuple with the BREAKPOINT field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBREAKPOINT
+
+`func (o *DailyExecutionStatisticsExecutionCounts) SetBREAKPOINT(v int64)`
+
+SetBREAKPOINT sets BREAKPOINT field to given value.
+
+### HasBREAKPOINT
+
+`func (o *DailyExecutionStatisticsExecutionCounts) HasBREAKPOINT() bool`
+
+HasBREAKPOINT returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

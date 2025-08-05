@@ -150,7 +150,6 @@ docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
-docs/Group.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
 docs/GroupUsage.md
@@ -162,7 +161,6 @@ docs/HostUsageOs.md
 docs/HttpParameters.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
-docs/IAMBindingControllerApiBindingSummary.md
 docs/IAMBindingControllerApiBindingUser.md
 docs/IAMBindingControllerApiCreateBindingRequest.md
 docs/IAMBindingControllerApiRole.md
@@ -279,7 +277,7 @@ docs/PagedResultsBlueprintControllerApiBlueprintItem.md
 docs/PagedResultsDashboard.md
 docs/PagedResultsExecution.md
 docs/PagedResultsFlow.md
-docs/PagedResultsIAMBindingControllerApiBindingSummary.md
+docs/PagedResultsIAMBindingControllerApiBindingDetail.md
 docs/PagedResultsIAMGroupControllerApiGroupMember.md
 docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md
 docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
@@ -334,8 +332,9 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesApi.md
-docs/SCIMApi.md
 docs/SCIMConfigurationApi.md
+docs/SCIMGroupsApi.md
+docs/SCIMUsersApi.md
 docs/SLA.md
 docs/SLABehavior.md
 docs/SLAType.md
@@ -452,8 +451,9 @@ kestrapy/api/misc_api.py
 kestrapy/api/namespaces_api.py
 kestrapy/api/plugins_api.py
 kestrapy/api/roles_api.py
-kestrapy/api/scim_api.py
 kestrapy/api/scim_configuration_api.py
+kestrapy/api/scim_groups_api.py
+kestrapy/api/scim_users_api.py
 kestrapy/api/security_integrations_api.py
 kestrapy/api/service_account_api.py
 kestrapy/api/services_api.py
@@ -601,7 +601,6 @@ kestrapy/models/flow_topology_graph_edge.py
 kestrapy/models/flow_usage.py
 kestrapy/models/flow_with_source.py
 kestrapy/models/flow_with_source_all_of_labels.py
-kestrapy/models/group.py
 kestrapy/models/group_identifier.py
 kestrapy/models/group_identifier_membership.py
 kestrapy/models/group_usage.py
@@ -612,7 +611,6 @@ kestrapy/models/host_usage_os.py
 kestrapy/models/http_parameters.py
 kestrapy/models/iam_binding_controller_api_binding_detail.py
 kestrapy/models/iam_binding_controller_api_binding_group.py
-kestrapy/models/iam_binding_controller_api_binding_summary.py
 kestrapy/models/iam_binding_controller_api_binding_user.py
 kestrapy/models/iam_binding_controller_api_create_binding_request.py
 kestrapy/models/iam_binding_controller_api_role.py
@@ -722,7 +720,7 @@ kestrapy/models/paged_results_blueprint_controller_api_blueprint_item.py
 kestrapy/models/paged_results_dashboard.py
 kestrapy/models/paged_results_execution.py
 kestrapy/models/paged_results_flow.py
-kestrapy/models/paged_results_iam_binding_controller_api_binding_summary.py
+kestrapy/models/paged_results_iam_binding_controller_api_binding_detail.py
 kestrapy/models/paged_results_iam_group_controller_api_group_member.py
 kestrapy/models/paged_results_iam_invitation_controller_api_invitation_detail.py
 kestrapy/models/paged_results_iam_tenant_access_controller_api_user_tenant_access.py

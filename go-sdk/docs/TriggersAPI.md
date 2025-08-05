@@ -704,7 +704,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
 	workerId := "workerId_example" // string | The identifier of the worker currently evaluating the trigger (optional)

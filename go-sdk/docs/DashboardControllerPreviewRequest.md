@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Chart** | **string** |  | 
-**GlobalFilter** | Pointer to [**NullableGlobalFilter**](GlobalFilter.md) |  | [optional] 
+**GlobalFilter** | Pointer to [**NullableChartFiltersOverrides**](ChartFiltersOverrides.md) |  | [optional] 
 
 ## Methods
 
@@ -48,20 +48,20 @@ SetChart sets Chart field to given value.
 
 ### GetGlobalFilter
 
-`func (o *DashboardControllerPreviewRequest) GetGlobalFilter() GlobalFilter`
+`func (o *DashboardControllerPreviewRequest) GetGlobalFilter() ChartFiltersOverrides`
 
 GetGlobalFilter returns the GlobalFilter field if non-nil, zero value otherwise.
 
 ### GetGlobalFilterOk
 
-`func (o *DashboardControllerPreviewRequest) GetGlobalFilterOk() (*GlobalFilter, bool)`
+`func (o *DashboardControllerPreviewRequest) GetGlobalFilterOk() (*ChartFiltersOverrides, bool)`
 
 GetGlobalFilterOk returns a tuple with the GlobalFilter field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGlobalFilter
 
-`func (o *DashboardControllerPreviewRequest) SetGlobalFilter(v GlobalFilter)`
+`func (o *DashboardControllerPreviewRequest) SetGlobalFilter(v ChartFiltersOverrides)`
 
 SetGlobalFilter sets GlobalFilter field to given value.
 

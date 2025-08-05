@@ -1,4 +1,4 @@
-# KestraApi.AuthControllerResetPasswordRequest
+# KestraIoKestraApi.AuthControllerResetPasswordRequest
 
 ## Properties
 

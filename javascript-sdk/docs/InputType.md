@@ -1,4 +1,4 @@
-# KestraApi.InputType
+# KestraIoKestraApi.InputType
 
 ## Properties
 

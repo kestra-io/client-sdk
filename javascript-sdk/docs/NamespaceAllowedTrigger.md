@@ -1,4 +1,4 @@
-# KestraApi.NamespaceAllowedTrigger
+# KestraIoKestraApi.NamespaceAllowedTrigger
 
 ## Properties
 

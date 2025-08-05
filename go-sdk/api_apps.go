@@ -17,7 +17,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"reflect"
 	"strings"
 )
 
@@ -379,7 +378,7 @@ func (r ApiBulkExportAppsRequest) AppsControllerApiBulkOperationRequest(appsCont
 	return r
 }
 
-func (r ApiBulkExportAppsRequest) Execute() ([]string, *http.Response, error) {
+func (r ApiBulkExportAppsRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.BulkExportAppsExecute(r)
 }
 
@@ -400,13 +399,13 @@ func (a *AppsAPIService) BulkExportApps(ctx context.Context, tenant string) ApiB
 
 // Execute executes the request
 //
-//	@return []string
-func (a *AppsAPIService) BulkExportAppsExecute(r ApiBulkExportAppsRequest) ([]string, *http.Response, error) {
+//	@return string
+func (a *AppsAPIService) BulkExportAppsExecute(r ApiBulkExportAppsRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []string
+		localVarReturnValue string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppsAPIService.BulkExportApps")
@@ -1594,15 +1593,7 @@ func (a *AppsAPIService) GetLogsFromAppExecutionExecute(r ApiGetLogsFromAppExecu
 		parameterAddToHeaderOrQuery(localVarQueryParams, "minLevel", r.minLevel, "form", "")
 	}
 	if r.taskIds != nil {
-		t := *r.taskIds
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "taskIds", r.taskIds, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2216,26 +2207,10 @@ func (a *AppsAPIService) SearchAppsExecute(r ApiSearchAppsRequest) (*PagedResult
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.tags != nil {
-		t := *r.tags
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -2385,15 +2360,7 @@ func (a *AppsAPIService) SearchAppsFromCatalogExecute(r ApiSearchAppsFromCatalog
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.tags != nil {
-		t := *r.tags
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")

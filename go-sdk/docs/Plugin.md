@@ -12,21 +12,21 @@ Name | Type | Description | Notes
 **Group** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 **Manifest** | Pointer to **map[string]string** |  | [optional] 
-**Tasks** | Pointer to **[]string** |  | [optional] 
-**Triggers** | Pointer to **[]string** |  | [optional] 
-**Conditions** | Pointer to **[]string** |  | [optional] 
-**Controllers** | Pointer to **[]string** |  | [optional] 
-**Storages** | Pointer to **[]string** |  | [optional] 
-**Secrets** | Pointer to **[]string** |  | [optional] 
-**TaskRunners** | Pointer to **[]string** |  | [optional] 
 **Guides** | Pointer to **[]string** |  | [optional] 
 **Aliases** | Pointer to **[]string** |  | [optional] 
-**Apps** | Pointer to **[]string** |  | [optional] 
-**AppBlocks** | Pointer to **[]string** |  | [optional] 
-**Charts** | Pointer to **[]string** |  | [optional] 
-**DataFilters** | Pointer to **[]string** |  | [optional] 
-**LogExporters** | Pointer to **[]string** |  | [optional] 
-**AdditionalPlugins** | Pointer to **[]string** |  | [optional] 
+**Tasks** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Triggers** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Conditions** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Controllers** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Storages** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Secrets** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**TaskRunners** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Apps** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**AppBlocks** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**Charts** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**DataFilters** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**LogExporters** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**AdditionalPlugins** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **Categories** | Pointer to [**[]PluginSubGroupPluginCategory**](PluginSubGroupPluginCategory.md) |  | [optional] 
 **SubGroup** | Pointer to **string** |  | [optional] 
 
@@ -249,181 +249,6 @@ SetManifest sets Manifest field to given value.
 
 HasManifest returns a boolean if a field has been set.
 
-### GetTasks
-
-`func (o *Plugin) GetTasks() []string`
-
-GetTasks returns the Tasks field if non-nil, zero value otherwise.
-
-### GetTasksOk
-
-`func (o *Plugin) GetTasksOk() (*[]string, bool)`
-
-GetTasksOk returns a tuple with the Tasks field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTasks
-
-`func (o *Plugin) SetTasks(v []string)`
-
-SetTasks sets Tasks field to given value.
-
-### HasTasks
-
-`func (o *Plugin) HasTasks() bool`
-
-HasTasks returns a boolean if a field has been set.
-
-### GetTriggers
-
-`func (o *Plugin) GetTriggers() []string`
-
-GetTriggers returns the Triggers field if non-nil, zero value otherwise.
-
-### GetTriggersOk
-
-`func (o *Plugin) GetTriggersOk() (*[]string, bool)`
-
-GetTriggersOk returns a tuple with the Triggers field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTriggers
-
-`func (o *Plugin) SetTriggers(v []string)`
-
-SetTriggers sets Triggers field to given value.
-
-### HasTriggers
-
-`func (o *Plugin) HasTriggers() bool`
-
-HasTriggers returns a boolean if a field has been set.
-
-### GetConditions
-
-`func (o *Plugin) GetConditions() []string`
-
-GetConditions returns the Conditions field if non-nil, zero value otherwise.
-
-### GetConditionsOk
-
-`func (o *Plugin) GetConditionsOk() (*[]string, bool)`
-
-GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetConditions
-
-`func (o *Plugin) SetConditions(v []string)`
-
-SetConditions sets Conditions field to given value.
-
-### HasConditions
-
-`func (o *Plugin) HasConditions() bool`
-
-HasConditions returns a boolean if a field has been set.
-
-### GetControllers
-
-`func (o *Plugin) GetControllers() []string`
-
-GetControllers returns the Controllers field if non-nil, zero value otherwise.
-
-### GetControllersOk
-
-`func (o *Plugin) GetControllersOk() (*[]string, bool)`
-
-GetControllersOk returns a tuple with the Controllers field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetControllers
-
-`func (o *Plugin) SetControllers(v []string)`
-
-SetControllers sets Controllers field to given value.
-
-### HasControllers
-
-`func (o *Plugin) HasControllers() bool`
-
-HasControllers returns a boolean if a field has been set.
-
-### GetStorages
-
-`func (o *Plugin) GetStorages() []string`
-
-GetStorages returns the Storages field if non-nil, zero value otherwise.
-
-### GetStoragesOk
-
-`func (o *Plugin) GetStoragesOk() (*[]string, bool)`
-
-GetStoragesOk returns a tuple with the Storages field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStorages
-
-`func (o *Plugin) SetStorages(v []string)`
-
-SetStorages sets Storages field to given value.
-
-### HasStorages
-
-`func (o *Plugin) HasStorages() bool`
-
-HasStorages returns a boolean if a field has been set.
-
-### GetSecrets
-
-`func (o *Plugin) GetSecrets() []string`
-
-GetSecrets returns the Secrets field if non-nil, zero value otherwise.
-
-### GetSecretsOk
-
-`func (o *Plugin) GetSecretsOk() (*[]string, bool)`
-
-GetSecretsOk returns a tuple with the Secrets field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSecrets
-
-`func (o *Plugin) SetSecrets(v []string)`
-
-SetSecrets sets Secrets field to given value.
-
-### HasSecrets
-
-`func (o *Plugin) HasSecrets() bool`
-
-HasSecrets returns a boolean if a field has been set.
-
-### GetTaskRunners
-
-`func (o *Plugin) GetTaskRunners() []string`
-
-GetTaskRunners returns the TaskRunners field if non-nil, zero value otherwise.
-
-### GetTaskRunnersOk
-
-`func (o *Plugin) GetTaskRunnersOk() (*[]string, bool)`
-
-GetTaskRunnersOk returns a tuple with the TaskRunners field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTaskRunners
-
-`func (o *Plugin) SetTaskRunners(v []string)`
-
-SetTaskRunners sets TaskRunners field to given value.
-
-### HasTaskRunners
-
-`func (o *Plugin) HasTaskRunners() bool`
-
-HasTaskRunners returns a boolean if a field has been set.
-
 ### GetGuides
 
 `func (o *Plugin) GetGuides() []string`
@@ -474,22 +299,197 @@ SetAliases sets Aliases field to given value.
 
 HasAliases returns a boolean if a field has been set.
 
+### GetTasks
+
+`func (o *Plugin) GetTasks() []PluginPluginElementMetadata`
+
+GetTasks returns the Tasks field if non-nil, zero value otherwise.
+
+### GetTasksOk
+
+`func (o *Plugin) GetTasksOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetTasksOk returns a tuple with the Tasks field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTasks
+
+`func (o *Plugin) SetTasks(v []PluginPluginElementMetadata)`
+
+SetTasks sets Tasks field to given value.
+
+### HasTasks
+
+`func (o *Plugin) HasTasks() bool`
+
+HasTasks returns a boolean if a field has been set.
+
+### GetTriggers
+
+`func (o *Plugin) GetTriggers() []PluginPluginElementMetadata`
+
+GetTriggers returns the Triggers field if non-nil, zero value otherwise.
+
+### GetTriggersOk
+
+`func (o *Plugin) GetTriggersOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetTriggersOk returns a tuple with the Triggers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTriggers
+
+`func (o *Plugin) SetTriggers(v []PluginPluginElementMetadata)`
+
+SetTriggers sets Triggers field to given value.
+
+### HasTriggers
+
+`func (o *Plugin) HasTriggers() bool`
+
+HasTriggers returns a boolean if a field has been set.
+
+### GetConditions
+
+`func (o *Plugin) GetConditions() []PluginPluginElementMetadata`
+
+GetConditions returns the Conditions field if non-nil, zero value otherwise.
+
+### GetConditionsOk
+
+`func (o *Plugin) GetConditionsOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConditions
+
+`func (o *Plugin) SetConditions(v []PluginPluginElementMetadata)`
+
+SetConditions sets Conditions field to given value.
+
+### HasConditions
+
+`func (o *Plugin) HasConditions() bool`
+
+HasConditions returns a boolean if a field has been set.
+
+### GetControllers
+
+`func (o *Plugin) GetControllers() []PluginPluginElementMetadata`
+
+GetControllers returns the Controllers field if non-nil, zero value otherwise.
+
+### GetControllersOk
+
+`func (o *Plugin) GetControllersOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetControllersOk returns a tuple with the Controllers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetControllers
+
+`func (o *Plugin) SetControllers(v []PluginPluginElementMetadata)`
+
+SetControllers sets Controllers field to given value.
+
+### HasControllers
+
+`func (o *Plugin) HasControllers() bool`
+
+HasControllers returns a boolean if a field has been set.
+
+### GetStorages
+
+`func (o *Plugin) GetStorages() []PluginPluginElementMetadata`
+
+GetStorages returns the Storages field if non-nil, zero value otherwise.
+
+### GetStoragesOk
+
+`func (o *Plugin) GetStoragesOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetStoragesOk returns a tuple with the Storages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStorages
+
+`func (o *Plugin) SetStorages(v []PluginPluginElementMetadata)`
+
+SetStorages sets Storages field to given value.
+
+### HasStorages
+
+`func (o *Plugin) HasStorages() bool`
+
+HasStorages returns a boolean if a field has been set.
+
+### GetSecrets
+
+`func (o *Plugin) GetSecrets() []PluginPluginElementMetadata`
+
+GetSecrets returns the Secrets field if non-nil, zero value otherwise.
+
+### GetSecretsOk
+
+`func (o *Plugin) GetSecretsOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetSecretsOk returns a tuple with the Secrets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecrets
+
+`func (o *Plugin) SetSecrets(v []PluginPluginElementMetadata)`
+
+SetSecrets sets Secrets field to given value.
+
+### HasSecrets
+
+`func (o *Plugin) HasSecrets() bool`
+
+HasSecrets returns a boolean if a field has been set.
+
+### GetTaskRunners
+
+`func (o *Plugin) GetTaskRunners() []PluginPluginElementMetadata`
+
+GetTaskRunners returns the TaskRunners field if non-nil, zero value otherwise.
+
+### GetTaskRunnersOk
+
+`func (o *Plugin) GetTaskRunnersOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetTaskRunnersOk returns a tuple with the TaskRunners field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTaskRunners
+
+`func (o *Plugin) SetTaskRunners(v []PluginPluginElementMetadata)`
+
+SetTaskRunners sets TaskRunners field to given value.
+
+### HasTaskRunners
+
+`func (o *Plugin) HasTaskRunners() bool`
+
+HasTaskRunners returns a boolean if a field has been set.
+
 ### GetApps
 
-`func (o *Plugin) GetApps() []string`
+`func (o *Plugin) GetApps() []PluginPluginElementMetadata`
 
 GetApps returns the Apps field if non-nil, zero value otherwise.
 
 ### GetAppsOk
 
-`func (o *Plugin) GetAppsOk() (*[]string, bool)`
+`func (o *Plugin) GetAppsOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetAppsOk returns a tuple with the Apps field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApps
 
-`func (o *Plugin) SetApps(v []string)`
+`func (o *Plugin) SetApps(v []PluginPluginElementMetadata)`
 
 SetApps sets Apps field to given value.
 
@@ -501,20 +501,20 @@ HasApps returns a boolean if a field has been set.
 
 ### GetAppBlocks
 
-`func (o *Plugin) GetAppBlocks() []string`
+`func (o *Plugin) GetAppBlocks() []PluginPluginElementMetadata`
 
 GetAppBlocks returns the AppBlocks field if non-nil, zero value otherwise.
 
 ### GetAppBlocksOk
 
-`func (o *Plugin) GetAppBlocksOk() (*[]string, bool)`
+`func (o *Plugin) GetAppBlocksOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetAppBlocksOk returns a tuple with the AppBlocks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAppBlocks
 
-`func (o *Plugin) SetAppBlocks(v []string)`
+`func (o *Plugin) SetAppBlocks(v []PluginPluginElementMetadata)`
 
 SetAppBlocks sets AppBlocks field to given value.
 
@@ -526,20 +526,20 @@ HasAppBlocks returns a boolean if a field has been set.
 
 ### GetCharts
 
-`func (o *Plugin) GetCharts() []string`
+`func (o *Plugin) GetCharts() []PluginPluginElementMetadata`
 
 GetCharts returns the Charts field if non-nil, zero value otherwise.
 
 ### GetChartsOk
 
-`func (o *Plugin) GetChartsOk() (*[]string, bool)`
+`func (o *Plugin) GetChartsOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetChartsOk returns a tuple with the Charts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCharts
 
-`func (o *Plugin) SetCharts(v []string)`
+`func (o *Plugin) SetCharts(v []PluginPluginElementMetadata)`
 
 SetCharts sets Charts field to given value.
 
@@ -551,20 +551,20 @@ HasCharts returns a boolean if a field has been set.
 
 ### GetDataFilters
 
-`func (o *Plugin) GetDataFilters() []string`
+`func (o *Plugin) GetDataFilters() []PluginPluginElementMetadata`
 
 GetDataFilters returns the DataFilters field if non-nil, zero value otherwise.
 
 ### GetDataFiltersOk
 
-`func (o *Plugin) GetDataFiltersOk() (*[]string, bool)`
+`func (o *Plugin) GetDataFiltersOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetDataFiltersOk returns a tuple with the DataFilters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDataFilters
 
-`func (o *Plugin) SetDataFilters(v []string)`
+`func (o *Plugin) SetDataFilters(v []PluginPluginElementMetadata)`
 
 SetDataFilters sets DataFilters field to given value.
 
@@ -576,20 +576,20 @@ HasDataFilters returns a boolean if a field has been set.
 
 ### GetLogExporters
 
-`func (o *Plugin) GetLogExporters() []string`
+`func (o *Plugin) GetLogExporters() []PluginPluginElementMetadata`
 
 GetLogExporters returns the LogExporters field if non-nil, zero value otherwise.
 
 ### GetLogExportersOk
 
-`func (o *Plugin) GetLogExportersOk() (*[]string, bool)`
+`func (o *Plugin) GetLogExportersOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetLogExportersOk returns a tuple with the LogExporters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogExporters
 
-`func (o *Plugin) SetLogExporters(v []string)`
+`func (o *Plugin) SetLogExporters(v []PluginPluginElementMetadata)`
 
 SetLogExporters sets LogExporters field to given value.
 
@@ -601,20 +601,20 @@ HasLogExporters returns a boolean if a field has been set.
 
 ### GetAdditionalPlugins
 
-`func (o *Plugin) GetAdditionalPlugins() []string`
+`func (o *Plugin) GetAdditionalPlugins() []PluginPluginElementMetadata`
 
 GetAdditionalPlugins returns the AdditionalPlugins field if non-nil, zero value otherwise.
 
 ### GetAdditionalPluginsOk
 
-`func (o *Plugin) GetAdditionalPluginsOk() (*[]string, bool)`
+`func (o *Plugin) GetAdditionalPluginsOk() (*[]PluginPluginElementMetadata, bool)`
 
 GetAdditionalPluginsOk returns a tuple with the AdditionalPlugins field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdditionalPlugins
 
-`func (o *Plugin) SetAdditionalPlugins(v []string)`
+`func (o *Plugin) SetAdditionalPlugins(v []PluginPluginElementMetadata)`
 
 SetAdditionalPlugins sets AdditionalPlugins field to given value.
 

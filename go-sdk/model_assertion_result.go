@@ -20,13 +20,13 @@ var _ MappedNullable = &AssertionResult{}
 
 // AssertionResult struct for AssertionResult
 type AssertionResult struct {
-	Operator             string      `json:"operator"`
-	Expected             interface{} `json:"expected"`
-	Actual               interface{} `json:"actual"`
-	IsSuccess            bool        `json:"isSuccess"`
-	TaskId               string      `json:"taskId"`
-	Description          string      `json:"description"`
-	ErrorMessage         string      `json:"errorMessage"`
+	Operator             string                 `json:"operator"`
+	Expected             map[string]interface{} `json:"expected"`
+	Actual               map[string]interface{} `json:"actual"`
+	IsSuccess            bool                   `json:"isSuccess"`
+	TaskId               *string                `json:"taskId,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	ErrorMessage         *string                `json:"errorMessage,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,15 +36,12 @@ type _AssertionResult AssertionResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssertionResult(operator string, expected interface{}, actual interface{}, isSuccess bool, taskId string, description string, errorMessage string) *AssertionResult {
+func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool) *AssertionResult {
 	this := AssertionResult{}
 	this.Operator = operator
 	this.Expected = expected
 	this.Actual = actual
 	this.IsSuccess = isSuccess
-	this.TaskId = taskId
-	this.Description = description
-	this.ErrorMessage = errorMessage
 	return &this
 }
 
@@ -81,10 +78,9 @@ func (o *AssertionResult) SetOperator(v string) {
 }
 
 // GetExpected returns the Expected field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *AssertionResult) GetExpected() interface{} {
+func (o *AssertionResult) GetExpected() map[string]interface{} {
 	if o == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -93,24 +89,22 @@ func (o *AssertionResult) GetExpected() interface{} {
 
 // GetExpectedOk returns a tuple with the Expected field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AssertionResult) GetExpectedOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Expected) {
-		return nil, false
+func (o *AssertionResult) GetExpectedOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
-	return &o.Expected, true
+	return o.Expected, true
 }
 
 // SetExpected sets field value
-func (o *AssertionResult) SetExpected(v interface{}) {
+func (o *AssertionResult) SetExpected(v map[string]interface{}) {
 	o.Expected = v
 }
 
 // GetActual returns the Actual field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *AssertionResult) GetActual() interface{} {
+func (o *AssertionResult) GetActual() map[string]interface{} {
 	if o == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 
@@ -119,16 +113,15 @@ func (o *AssertionResult) GetActual() interface{} {
 
 // GetActualOk returns a tuple with the Actual field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AssertionResult) GetActualOk() (*interface{}, bool) {
-	if o == nil || IsNil(o.Actual) {
-		return nil, false
+func (o *AssertionResult) GetActualOk() (map[string]interface{}, bool) {
+	if o == nil {
+		return map[string]interface{}{}, false
 	}
-	return &o.Actual, true
+	return o.Actual, true
 }
 
 // SetActual sets field value
-func (o *AssertionResult) SetActual(v interface{}) {
+func (o *AssertionResult) SetActual(v map[string]interface{}) {
 	o.Actual = v
 }
 
@@ -156,76 +149,100 @@ func (o *AssertionResult) SetIsSuccess(v bool) {
 	o.IsSuccess = v
 }
 
-// GetTaskId returns the TaskId field value
+// GetTaskId returns the TaskId field value if set, zero value otherwise.
 func (o *AssertionResult) GetTaskId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TaskId) {
 		var ret string
 		return ret
 	}
-
-	return o.TaskId
+	return *o.TaskId
 }
 
-// GetTaskIdOk returns a tuple with the TaskId field value
+// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetTaskIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TaskId) {
 		return nil, false
 	}
-	return &o.TaskId, true
+	return o.TaskId, true
 }
 
-// SetTaskId sets field value
+// HasTaskId returns a boolean if a field has been set.
+func (o *AssertionResult) HasTaskId() bool {
+	if o != nil && !IsNil(o.TaskId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskId gets a reference to the given string and assigns it to the TaskId field.
 func (o *AssertionResult) SetTaskId(v string) {
-	o.TaskId = v
+	o.TaskId = &v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AssertionResult) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *AssertionResult) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AssertionResult) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetErrorMessage returns the ErrorMessage field value
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
 func (o *AssertionResult) GetErrorMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.ErrorMessage) {
 		var ret string
 		return ret
 	}
-
-	return o.ErrorMessage
+	return *o.ErrorMessage
 }
 
-// GetErrorMessageOk returns a tuple with the ErrorMessage field value
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssertionResult) GetErrorMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ErrorMessage) {
 		return nil, false
 	}
-	return &o.ErrorMessage, true
+	return o.ErrorMessage, true
 }
 
-// SetErrorMessage sets field value
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *AssertionResult) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
 func (o *AssertionResult) SetErrorMessage(v string) {
-	o.ErrorMessage = v
+	o.ErrorMessage = &v
 }
 
 func (o AssertionResult) MarshalJSON() ([]byte, error) {
@@ -239,16 +256,18 @@ func (o AssertionResult) MarshalJSON() ([]byte, error) {
 func (o AssertionResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["operator"] = o.Operator
-	if o.Expected != nil {
-		toSerialize["expected"] = o.Expected
-	}
-	if o.Actual != nil {
-		toSerialize["actual"] = o.Actual
-	}
+	toSerialize["expected"] = o.Expected
+	toSerialize["actual"] = o.Actual
 	toSerialize["isSuccess"] = o.IsSuccess
-	toSerialize["taskId"] = o.TaskId
-	toSerialize["description"] = o.Description
-	toSerialize["errorMessage"] = o.ErrorMessage
+	if !IsNil(o.TaskId) {
+		toSerialize["taskId"] = o.TaskId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["errorMessage"] = o.ErrorMessage
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -266,9 +285,6 @@ func (o *AssertionResult) UnmarshalJSON(data []byte) (err error) {
 		"expected",
 		"actual",
 		"isSuccess",
-		"taskId",
-		"description",
-		"errorMessage",
 	}
 
 	allProperties := make(map[string]interface{})

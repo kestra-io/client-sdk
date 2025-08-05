@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsTriggerControllerTriggers
+# KestraIoKestraApi.PagedResultsTriggerControllerTriggers
 
 ## Properties
 

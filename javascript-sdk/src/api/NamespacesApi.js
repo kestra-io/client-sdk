@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import ApiIds from '../model/ApiIds';
+import ApiAutocomplete from '../model/ApiAutocomplete';
 import ApiSecretListResponse from '../model/ApiSecretListResponse';
 import ApiSecretMeta from '../model/ApiSecretMeta';
 import ApiSecretMetaEE from '../model/ApiSecretMetaEE';
@@ -54,25 +54,25 @@ export default class NamespacesApi {
      * List namespaces for autocomplete
      * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
      * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {module:model/ApiIds} [apiIds] 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete 
      * @param {module:api/NamespacesApi~autocompleteNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<String>}
      */
-    autocompleteNamespaces(tenant, opts, callback) {
-      opts = opts || {};
-      let postBody = opts['apiIds'];
+    autocompleteNamespaces(tenant, apiAutocomplete, callback) {
+      let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
         throw new Error("Missing the required parameter 'tenant' when calling autocompleteNamespaces");
+      }
+      // verify the required parameter 'apiAutocomplete' is set
+      if (apiAutocomplete === undefined || apiAutocomplete === null) {
+        throw new Error("Missing the required parameter 'apiAutocomplete' when calling autocompleteNamespaces");
       }
 
       let pathParams = {
         'tenant': tenant
       };
       let queryParams = {
-        'q': opts['q']
       };
       let headerParams = {
       };
@@ -85,96 +85,6 @@ export default class NamespacesApi {
       let returnType = ['String'];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteNamespacesWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/NamespacesApi~autocompleteNamespacesWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List namespaces for autocomplete
-     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-     * @param {String} resourceTenant 
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {module:model/ApiIds} [apiIds] 
-     * @param {module:api/NamespacesApi~autocompleteNamespacesWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
-     */
-    autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, opts, callback) {
-      opts = opts || {};
-      let postBody = opts['apiIds'];
-      // verify the required parameter 'resourceTenant' is set
-      if (resourceTenant === undefined || resourceTenant === null) {
-        throw new Error("Missing the required parameter 'resourceTenant' when calling autocompleteNamespacesWithResourceTenantasSuperAdmin");
-      }
-
-      let pathParams = {
-        'resourceTenant': resourceTenant
-      };
-      let queryParams = {
-        'q': opts['q']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ['String'];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/{resourceTenant}/namespaces/autocomplete', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the autocompleteNamespacesasSuperAdmin operation.
-     * @callback module:api/NamespacesApi~autocompleteNamespacesasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List namespaces for autocomplete
-     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-     * @param {Object} opts Optional parameters
-     * @param {String} [q] A string filter
-     * @param {module:model/ApiIds} [apiIds] 
-     * @param {module:api/NamespacesApi~autocompleteNamespacesasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
-     */
-    autocompleteNamespacesasSuperAdmin(opts, callback) {
-      opts = opts || {};
-      let postBody = opts['apiIds'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-        'q': opts['q']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = ['String'];
-      return this.apiClient.callApi(
-        '/api/v1/tenants/namespaces/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

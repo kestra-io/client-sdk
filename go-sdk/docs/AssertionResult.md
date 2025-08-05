@@ -5,18 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Operator** | **string** |  | 
-**Expected** | **interface{}** |  | 
-**Actual** | **interface{}** |  | 
+**Expected** | **map[string]interface{}** |  | 
+**Actual** | **map[string]interface{}** |  | 
 **IsSuccess** | **bool** |  | 
-**TaskId** | **string** |  | 
-**Description** | **string** |  | 
-**ErrorMessage** | **string** |  | 
+**TaskId** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**ErrorMessage** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAssertionResult
 
-`func NewAssertionResult(operator string, expected interface{}, actual interface{}, isSuccess bool, taskId string, description string, errorMessage string, ) *AssertionResult`
+`func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool, ) *AssertionResult`
 
 NewAssertionResult instantiates a new AssertionResult object
 This constructor will assign default values to properties that have it defined,
@@ -53,64 +53,44 @@ SetOperator sets Operator field to given value.
 
 ### GetExpected
 
-`func (o *AssertionResult) GetExpected() interface{}`
+`func (o *AssertionResult) GetExpected() map[string]interface{}`
 
 GetExpected returns the Expected field if non-nil, zero value otherwise.
 
 ### GetExpectedOk
 
-`func (o *AssertionResult) GetExpectedOk() (*interface{}, bool)`
+`func (o *AssertionResult) GetExpectedOk() (*map[string]interface{}, bool)`
 
 GetExpectedOk returns a tuple with the Expected field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpected
 
-`func (o *AssertionResult) SetExpected(v interface{})`
+`func (o *AssertionResult) SetExpected(v map[string]interface{})`
 
 SetExpected sets Expected field to given value.
 
 
-### SetExpectedNil
-
-`func (o *AssertionResult) SetExpectedNil(b bool)`
-
- SetExpectedNil sets the value for Expected to be an explicit nil
-
-### UnsetExpected
-`func (o *AssertionResult) UnsetExpected()`
-
-UnsetExpected ensures that no value is present for Expected, not even an explicit nil
 ### GetActual
 
-`func (o *AssertionResult) GetActual() interface{}`
+`func (o *AssertionResult) GetActual() map[string]interface{}`
 
 GetActual returns the Actual field if non-nil, zero value otherwise.
 
 ### GetActualOk
 
-`func (o *AssertionResult) GetActualOk() (*interface{}, bool)`
+`func (o *AssertionResult) GetActualOk() (*map[string]interface{}, bool)`
 
 GetActualOk returns a tuple with the Actual field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActual
 
-`func (o *AssertionResult) SetActual(v interface{})`
+`func (o *AssertionResult) SetActual(v map[string]interface{})`
 
 SetActual sets Actual field to given value.
 
 
-### SetActualNil
-
-`func (o *AssertionResult) SetActualNil(b bool)`
-
- SetActualNil sets the value for Actual to be an explicit nil
-
-### UnsetActual
-`func (o *AssertionResult) UnsetActual()`
-
-UnsetActual ensures that no value is present for Actual, not even an explicit nil
 ### GetIsSuccess
 
 `func (o *AssertionResult) GetIsSuccess() bool`
@@ -150,6 +130,11 @@ and a boolean to check if the value has been set.
 
 SetTaskId sets TaskId field to given value.
 
+### HasTaskId
+
+`func (o *AssertionResult) HasTaskId() bool`
+
+HasTaskId returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -170,6 +155,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *AssertionResult) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetErrorMessage
 
@@ -190,6 +180,11 @@ and a boolean to check if the value has been set.
 
 SetErrorMessage sets ErrorMessage field to given value.
 
+### HasErrorMessage
+
+`func (o *AssertionResult) HasErrorMessage() bool`
+
+HasErrorMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

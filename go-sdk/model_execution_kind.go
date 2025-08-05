@@ -20,14 +20,16 @@ type ExecutionKind string
 
 // List of ExecutionKind
 const (
-	EXECUTIONKIND_NORMAL ExecutionKind = "NORMAL"
-	EXECUTIONKIND_TEST   ExecutionKind = "TEST"
+	EXECUTIONKIND_NORMAL     ExecutionKind = "NORMAL"
+	EXECUTIONKIND_TEST       ExecutionKind = "TEST"
+	EXECUTIONKIND_PLAYGROUND ExecutionKind = "PLAYGROUND"
 )
 
 // All allowed values of ExecutionKind enum
 var AllowedExecutionKindEnumValues = []ExecutionKind{
 	"NORMAL",
 	"TEST",
+	"PLAYGROUND",
 }
 
 func (v *ExecutionKind) UnmarshalJSON(src []byte) error {

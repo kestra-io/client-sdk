@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   DailyExecutionStatistics.JSON_PROPERTY_EXECUTION_COUNTS,
   DailyExecutionStatistics.JSON_PROPERTY_GROUP_BY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class DailyExecutionStatistics {
   public static final String JSON_PROPERTY_START_DATE = "startDate";
   @javax.annotation.Nonnull

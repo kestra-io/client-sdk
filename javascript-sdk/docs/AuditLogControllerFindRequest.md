@@ -1,4 +1,4 @@
-# KestraApi.AuditLogControllerFindRequest
+# KestraIoKestraApi.AuditLogControllerFindRequest
 
 ## Properties
 

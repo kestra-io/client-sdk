@@ -1,4 +1,4 @@
-# KestraApi.InputObject
+# KestraIoKestraApi.InputObject
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.ScimResource
+# KestraIoKestraApi.ScimResource
 
 ## Properties
 

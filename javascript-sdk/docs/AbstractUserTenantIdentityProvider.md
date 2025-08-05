@@ -1,4 +1,4 @@
-# KestraApi.AbstractUserTenantIdentityProvider
+# KestraIoKestraApi.AbstractUserTenantIdentityProvider
 
 ## Properties
 

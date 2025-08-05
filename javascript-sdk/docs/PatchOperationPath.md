@@ -1,4 +1,4 @@
-# KestraApi.PatchOperationPath
+# KestraIoKestraApi.PatchOperationPath
 
 ## Properties
 
