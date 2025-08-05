@@ -1,4 +1,4 @@
-# KestraApi.BlueprintTagsApi
+# KestraIoKestraSdk.BlueprintTagsApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,9 +20,9 @@ Lists all tags used by internal (custom) blueprints for the current tenant.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.BlueprintTagsApi();
+let apiInstance = new KestraIoKestraSdk.BlueprintTagsApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example" // String | A string filter to get tags with matching blueprints only
@@ -69,10 +69,10 @@ Lists tags for community blueprints of the specified kind, optionally filtered b
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.BlueprintTagsApi();
-let kind = new KestraApi.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
+let apiInstance = new KestraIoKestraSdk.BlueprintTagsApi();
+let kind = new KestraIoKestraSdk.BlueprintControllerKind(); // BlueprintControllerKind | The blueprint kind
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example" // String | A string filter to get tags with matching blueprints only

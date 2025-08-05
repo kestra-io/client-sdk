@@ -5,8 +5,6 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AutocompleteNamespaces**](NamespacesAPI.md#AutocompleteNamespaces) | **Post** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**AutocompleteNamespacesWithResourceTenantasSuperAdmin**](NamespacesAPI.md#AutocompleteNamespacesWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**AutocompleteNamespacesasSuperAdmin**](NamespacesAPI.md#AutocompleteNamespacesasSuperAdmin) | **Post** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 [**CreateNamespace**](NamespacesAPI.md#CreateNamespace) | **Post** /api/v1/{tenant}/namespaces | Create a namespace
 [**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**DeleteSecret**](NamespacesAPI.md#DeleteSecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
@@ -24,7 +22,7 @@ Method | HTTP request | Description
 
 ## AutocompleteNamespaces
 
-> []string AutocompleteNamespaces(ctx, tenant).Q(q).ApiIds(apiIds).Execute()
+> []string AutocompleteNamespaces(ctx, tenant).ApiAutocomplete(apiAutocomplete).Execute()
 
 List namespaces for autocomplete
 
@@ -44,12 +42,11 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
+	apiAutocomplete := *openapiclient.NewApiAutocomplete() // ApiAutocomplete | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.AutocompleteNamespaces(context.Background(), tenant).Q(q).ApiIds(apiIds).Execute()
+	resp, r, err := apiClient.NamespacesAPI.AutocompleteNamespaces(context.Background(), tenant).ApiAutocomplete(apiAutocomplete).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.AutocompleteNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -75,150 +72,7 @@ Other parameters are passed through a pointer to a apiAutocompleteNamespacesRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **q** | **string** | A string filter | 
- **apiIds** | [**ApiIds**](ApiIds.md) |  | 
-
-### Return type
-
-**[]string**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AutocompleteNamespacesWithResourceTenantasSuperAdmin
-
-> []string AutocompleteNamespacesWithResourceTenantasSuperAdmin(ctx, resourceTenant).Q(q).ApiIds(apiIds).Execute()
-
-List namespaces for autocomplete
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	resourceTenant := "resourceTenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.AutocompleteNamespacesWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).Q(q).ApiIds(apiIds).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.AutocompleteNamespacesWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AutocompleteNamespacesWithResourceTenantasSuperAdmin`: []string
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.AutocompleteNamespacesWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAutocompleteNamespacesWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **q** | **string** | A string filter | 
- **apiIds** | [**ApiIds**](ApiIds.md) |  | 
-
-### Return type
-
-**[]string**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AutocompleteNamespacesasSuperAdmin
-
-> []string AutocompleteNamespacesasSuperAdmin(ctx).Q(q).ApiIds(apiIds).Execute()
-
-List namespaces for autocomplete
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	q := "q_example" // string | A string filter (optional)
-	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds |  (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.AutocompleteNamespacesasSuperAdmin(context.Background()).Q(q).ApiIds(apiIds).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.AutocompleteNamespacesasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AutocompleteNamespacesasSuperAdmin`: []string
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.AutocompleteNamespacesasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAutocompleteNamespacesasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **q** | **string** | A string filter | 
- **apiIds** | [**ApiIds**](ApiIds.md) |  | 
+ **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md) |  | 
 
 ### Return type
 
@@ -258,7 +112,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]interface{}{"key": interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]interface{}{"key": interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -666,7 +520,7 @@ Name | Type | Description  | Notes
 
 ## InheritedVariables
 
-> map[string]interface{} InheritedVariables(ctx, id, tenant).Execute()
+> map[string]map[string]interface{} InheritedVariables(ctx, id, tenant).Execute()
 
 List inherited variables
 
@@ -693,7 +547,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.InheritedVariables``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `InheritedVariables`: map[string]interface{}
+	// response from `InheritedVariables`: map[string]map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.InheritedVariables`: %v\n", resp)
 }
 ```
@@ -719,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+**map[string]map[string]interface{}**
 
 ### Authorization
 
@@ -757,7 +611,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
@@ -911,7 +765,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	apiSecretValue := *openapiclient.NewApiSecretValue([]openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example", "Value_example", "Description_example") // ApiSecretValue | 
+	apiSecretValue := *openapiclient.NewApiSecretValue("Key_example", "Value_example") // ApiSecretValue | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1062,7 +916,7 @@ import (
 func main() {
 	id := "id_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]interface{}{"key": interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]interface{}{"key": interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

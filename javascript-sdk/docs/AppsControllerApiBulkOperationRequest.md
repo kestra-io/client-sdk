@@ -1,4 +1,4 @@
-# KestraApi.AppsControllerApiBulkOperationRequest
+# KestraIoKestraSdk.AppsControllerApiBulkOperationRequest
 
 ## Properties
 

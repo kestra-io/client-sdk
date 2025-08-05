@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@kestra-io/kestra-api": "file:..",
     "kestra_api": "file:.."
   }
 }

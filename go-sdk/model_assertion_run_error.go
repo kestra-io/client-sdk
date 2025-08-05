@@ -20,8 +20,8 @@ var _ MappedNullable = &AssertionRunError{}
 
 // AssertionRunError struct for AssertionRunError
 type AssertionRunError struct {
-	Message              string `json:"message"`
-	Details              string `json:"details"`
+	Message              string  `json:"message"`
+	Details              *string `json:"details,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +31,9 @@ type _AssertionRunError AssertionRunError
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAssertionRunError(message string, details string) *AssertionRunError {
+func NewAssertionRunError(message string) *AssertionRunError {
 	this := AssertionRunError{}
 	this.Message = message
-	this.Details = details
 	return &this
 }
 
@@ -70,28 +69,36 @@ func (o *AssertionRunError) SetMessage(v string) {
 	o.Message = v
 }
 
-// GetDetails returns the Details field value
+// GetDetails returns the Details field value if set, zero value otherwise.
 func (o *AssertionRunError) GetDetails() string {
-	if o == nil {
+	if o == nil || IsNil(o.Details) {
 		var ret string
 		return ret
 	}
-
-	return o.Details
+	return *o.Details
 }
 
-// GetDetailsOk returns a tuple with the Details field value
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssertionRunError) GetDetailsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
-	return &o.Details, true
+	return o.Details, true
 }
 
-// SetDetails sets field value
+// HasDetails returns a boolean if a field has been set.
+func (o *AssertionRunError) HasDetails() bool {
+	if o != nil && !IsNil(o.Details) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given string and assigns it to the Details field.
 func (o *AssertionRunError) SetDetails(v string) {
-	o.Details = v
+	o.Details = &v
 }
 
 func (o AssertionRunError) MarshalJSON() ([]byte, error) {
@@ -105,7 +112,9 @@ func (o AssertionRunError) MarshalJSON() ([]byte, error) {
 func (o AssertionRunError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["message"] = o.Message
-	toSerialize["details"] = o.Details
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -120,7 +129,6 @@ func (o *AssertionRunError) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"message",
-		"details",
 	}
 
 	allProperties := make(map[string]interface{})

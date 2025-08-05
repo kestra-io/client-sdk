@@ -20,8 +20,8 @@ var _ MappedNullable = &PagedResultsMapStringObject{}
 
 // PagedResultsMapStringObject struct for PagedResultsMapStringObject
 type PagedResultsMapStringObject struct {
-	Results              []map[string]interface{} `json:"results"`
-	Total                int64                    `json:"total"`
+	Results              []map[string]map[string]interface{} `json:"results"`
+	Total                int64                               `json:"total"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _PagedResultsMapStringObject PagedResultsMapStringObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPagedResultsMapStringObject(results []map[string]interface{}, total int64) *PagedResultsMapStringObject {
+func NewPagedResultsMapStringObject(results []map[string]map[string]interface{}, total int64) *PagedResultsMapStringObject {
 	this := PagedResultsMapStringObject{}
 	this.Results = results
 	this.Total = total
@@ -47,9 +47,9 @@ func NewPagedResultsMapStringObjectWithDefaults() *PagedResultsMapStringObject {
 }
 
 // GetResults returns the Results field value
-func (o *PagedResultsMapStringObject) GetResults() []map[string]interface{} {
+func (o *PagedResultsMapStringObject) GetResults() []map[string]map[string]interface{} {
 	if o == nil {
-		var ret []map[string]interface{}
+		var ret []map[string]map[string]interface{}
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *PagedResultsMapStringObject) GetResults() []map[string]interface{} {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *PagedResultsMapStringObject) GetResultsOk() ([]map[string]interface{}, bool) {
+func (o *PagedResultsMapStringObject) GetResultsOk() ([]map[string]map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *PagedResultsMapStringObject) GetResultsOk() ([]map[string]interface{}, 
 }
 
 // SetResults sets field value
-func (o *PagedResultsMapStringObject) SetResults(v []map[string]interface{}) {
+func (o *PagedResultsMapStringObject) SetResults(v []map[string]map[string]interface{}) {
 	o.Results = v
 }
 

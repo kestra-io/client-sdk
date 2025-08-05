@@ -1,4 +1,4 @@
-# KestraApi.TriggerContext
+# KestraIoKestraSdk.TriggerContext
 
 ## Properties
 

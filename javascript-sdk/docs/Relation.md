@@ -1,4 +1,4 @@
-# KestraApi.Relation
+# KestraIoKestraSdk.Relation
 
 ## Properties
 

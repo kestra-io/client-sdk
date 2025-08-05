@@ -28,7 +28,6 @@ class UserType(str, Enum):
     """
     STANDARD = 'STANDARD'
     SERVICE_ACCOUNT = 'SERVICE_ACCOUNT'
-    SUPER_ADMIN = 'SUPER_ADMIN'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

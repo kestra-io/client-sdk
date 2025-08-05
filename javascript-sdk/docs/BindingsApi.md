@@ -1,4 +1,4 @@
-# KestraApi.BindingsApi
+# KestraIoKestraSdk.BindingsApi
 
 All URIs are relative to *http://localhost*
 
@@ -21,8 +21,8 @@ Create multiple bindings
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -31,9 +31,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BindingsApi();
+let apiInstance = new KestraIoKestraSdk.BindingsApi();
 let tenant = "tenant_example"; // String | 
-let iAMBindingControllerApiCreateBindingRequest = [new KestraApi.IAMBindingControllerApiCreateBindingRequest()]; // [IAMBindingControllerApiCreateBindingRequest] | The bindings
+let iAMBindingControllerApiCreateBindingRequest = [new KestraIoKestraSdk.IAMBindingControllerApiCreateBindingRequest()]; // [IAMBindingControllerApiCreateBindingRequest] | The bindings
 apiInstance.bulkCreateBinding(tenant, iAMBindingControllerApiCreateBindingRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -74,8 +74,8 @@ Create a binding
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -84,9 +84,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BindingsApi();
+let apiInstance = new KestraIoKestraSdk.BindingsApi();
 let tenant = "tenant_example"; // String | 
-let iAMBindingControllerApiCreateBindingRequest = new KestraApi.IAMBindingControllerApiCreateBindingRequest(); // IAMBindingControllerApiCreateBindingRequest | The binding
+let iAMBindingControllerApiCreateBindingRequest = new KestraIoKestraSdk.IAMBindingControllerApiCreateBindingRequest(); // IAMBindingControllerApiCreateBindingRequest | The binding
 apiInstance.createBinding(tenant, iAMBindingControllerApiCreateBindingRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -127,8 +127,8 @@ Delete a binding
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -137,7 +137,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BindingsApi();
+let apiInstance = new KestraIoKestraSdk.BindingsApi();
 let id = "id_example"; // String | The binding id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteBinding(id, tenant, (error, data, response) => {
@@ -180,8 +180,8 @@ Retrieve a binding
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -190,7 +190,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BindingsApi();
+let apiInstance = new KestraIoKestraSdk.BindingsApi();
 let id = "id_example"; // String | The binding id
 let tenant = "tenant_example"; // String | 
 apiInstance.getBinding(id, tenant, (error, data, response) => {
@@ -226,15 +226,15 @@ Name | Type | Description  | Notes
 
 ## searchBindings
 
-> PagedResultsIAMBindingControllerApiBindingSummary searchBindings(page, size, tenant, opts)
+> PagedResultsIAMBindingControllerApiBindingDetail searchBindings(page, size, tenant, opts)
 
 Search for bindings
 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -243,14 +243,14 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.BindingsApi();
+let apiInstance = new KestraIoKestraSdk.BindingsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"], // [String] | The sort of current page
-  'type': new KestraApi.BindingType(), // BindingType | Binding type filter
+  'type': new KestraIoKestraSdk.BindingType(), // BindingType | Binding type filter
   'id': "id_example", // String | External id filter
   'namespace': "namespace_example" // String | A namespace filter
 };
@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsIAMBindingControllerApiBindingSummary**](PagedResultsIAMBindingControllerApiBindingSummary.md)
+[**PagedResultsIAMBindingControllerApiBindingDetail**](PagedResultsIAMBindingControllerApiBindingDetail.md)
 
 ### Authorization
 

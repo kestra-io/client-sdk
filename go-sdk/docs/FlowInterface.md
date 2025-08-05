@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
-**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Concurrency** | Pointer to [**Concurrency**](Concurrency.md) |  | [optional] 
 **Sla** | Pointer to [**[]SLA**](SLA.md) |  | [optional] 
@@ -265,20 +265,20 @@ HasOutputs returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *FlowInterface) GetVariables() map[string]interface{}`
+`func (o *FlowInterface) GetVariables() map[string]map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *FlowInterface) GetVariablesOk() (*map[string]interface{}, bool)`
+`func (o *FlowInterface) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *FlowInterface) SetVariables(v map[string]interface{})`
+`func (o *FlowInterface) SetVariables(v map[string]map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

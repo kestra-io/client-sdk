@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uid** | **string** |  | 
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**Type** | **string** |  | 
-**Namespace** | **string** |  | 
-**Tags** | **[]string** |  | 
-**Enabled** | **bool** |  | 
-**Created** | **time.Time** |  | 
-**Updated** | **time.Time** |  | 
+**Uid** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
+**Namespace** | Pointer to **string** |  | [optional] 
+**Tags** | Pointer to **[]string** |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] 
+**Created** | Pointer to **time.Time** |  | [optional] 
+**Updated** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewAppsControllerApiApp
 
-`func NewAppsControllerApiApp(uid string, id string, name string, type_ string, namespace string, tags []string, enabled bool, created time.Time, updated time.Time, ) *AppsControllerApiApp`
+`func NewAppsControllerApiApp() *AppsControllerApiApp`
 
 NewAppsControllerApiApp instantiates a new AppsControllerApiApp object
 This constructor will assign default values to properties that have it defined,
@@ -52,6 +52,11 @@ and a boolean to check if the value has been set.
 
 SetUid sets Uid field to given value.
 
+### HasUid
+
+`func (o *AppsControllerApiApp) HasUid() bool`
+
+HasUid returns a boolean if a field has been set.
 
 ### GetId
 
@@ -72,6 +77,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *AppsControllerApiApp) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -92,6 +102,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *AppsControllerApiApp) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -112,6 +127,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *AppsControllerApiApp) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -132,6 +152,11 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
+### HasNamespace
+
+`func (o *AppsControllerApiApp) HasNamespace() bool`
+
+HasNamespace returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -152,6 +177,11 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
+### HasTags
+
+`func (o *AppsControllerApiApp) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetEnabled
 
@@ -172,6 +202,11 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
+### HasEnabled
+
+`func (o *AppsControllerApiApp) HasEnabled() bool`
+
+HasEnabled returns a boolean if a field has been set.
 
 ### GetCreated
 
@@ -192,6 +227,11 @@ and a boolean to check if the value has been set.
 
 SetCreated sets Created field to given value.
 
+### HasCreated
+
+`func (o *AppsControllerApiApp) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
@@ -212,6 +252,11 @@ and a boolean to check if the value has been set.
 
 SetUpdated sets Updated field to given value.
 
+### HasUpdated
+
+`func (o *AppsControllerApiApp) HasUpdated() bool`
+
+HasUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -41,15 +41,9 @@
 
 * `TEST` (value: `"TEST"`)
 
-* `ME` (value: `"ME"`)
-
-* `APITOKEN` (value: `"APITOKEN"`)
-
 * `DASHBOARD` (value: `"DASHBOARD"`)
 
 * `TENANT_ACCESS` (value: `"TENANT_ACCESS"`)
-
-* `TENANT` (value: `"TENANT"`)
 
 * `SERVICE_ACCOUNT` (value: `"SERVICE_ACCOUNT"`)
 

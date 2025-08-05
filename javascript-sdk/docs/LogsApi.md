@@ -1,4 +1,4 @@
-# KestraApi.LogsApi
+# KestraIoKestraSdk.LogsApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,8 +22,8 @@ Delete logs for a specific execution, taskrun or task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -32,11 +32,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'minLevel': new KestraApi.Level(), // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level(), // Level | The min log level filter
   'taskRunId': "taskRunId_example", // String | The taskrun id
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
@@ -85,8 +85,8 @@ Delete logs for a specific execution, taskrun or task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -95,7 +95,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow identifier
 let triggerId = "triggerId_example"; // String | The trigger id
@@ -142,8 +142,8 @@ Download logs for a specific execution, taskrun or task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -152,11 +152,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'minLevel': new KestraApi.Level(), // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level(), // Level | The min log level filter
   'taskRunId': "taskRunId_example", // String | The taskrun id
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
@@ -205,8 +205,8 @@ Follow logs for a specific execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -215,11 +215,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'minLevel': new KestraApi.Level() // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level() // Level | The min log level filter
 };
 apiInstance.followLogsFromExecution(executionId, tenant, opts, (error, data, response) => {
   if (error) {
@@ -262,8 +262,8 @@ Get logs for a specific execution, taskrun or task
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -272,11 +272,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let executionId = "executionId_example"; // String | The execution id
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'minLevel': new KestraApi.Level(), // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level(), // Level | The min log level filter
   'taskRunId': "taskRunId_example", // String | The taskrun id
   'taskId': "taskId_example", // String | The task id
   'attempt': 56 // Number | The attempt number
@@ -325,8 +325,8 @@ Search for logs
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -335,18 +335,18 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.LogsApi();
+let apiInstance = new KestraIoKestraSdk.LogsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example", // String | A namespace filter prefix
   'flowId': "flowId_example", // String | A flow id filter
   'triggerId': "triggerId_example", // String | A trigger id filter
-  'minLevel': new KestraApi.Level(), // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level(), // Level | The min log level filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00") // Date | The end datetime
 };

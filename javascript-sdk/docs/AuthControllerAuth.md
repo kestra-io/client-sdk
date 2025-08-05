@@ -1,4 +1,4 @@
-# KestraApi.AuthControllerAuth
+# KestraIoKestraSdk.AuthControllerAuth
 
 ## Properties
 

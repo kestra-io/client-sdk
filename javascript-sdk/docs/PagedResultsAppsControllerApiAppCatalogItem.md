@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsAppsControllerApiAppCatalogItem
+# KestraIoKestraSdk.PagedResultsAppsControllerApiAppCatalogItem
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.GroupsApi
+# KestraIoKestraSdk.GroupsApi
 
 All URIs are relative to *http://localhost*
 
@@ -29,8 +29,8 @@ Adds the specified user to the given group. If the user does not already have ac
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -39,7 +39,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user to add to the group
 let tenant = "tenant_example"; // String | 
@@ -84,8 +84,8 @@ List groups for autocomplete
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -94,9 +94,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
-let apiAutocomplete = new KestraApi.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
+let apiAutocomplete = new KestraIoKestraSdk.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
 apiInstance.autocompleteGroups(tenant, apiAutocomplete, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -137,8 +137,8 @@ Create a group
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -147,9 +147,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
-let iAMGroupControllerApiCreateGroupRequest = new KestraApi.IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
+let iAMGroupControllerApiCreateGroupRequest = new KestraIoKestraSdk.IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
 apiInstance.createGroup(tenant, iAMGroupControllerApiCreateGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -190,8 +190,8 @@ Delete a group
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -200,7 +200,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteGroup(id, tenant, (error, data, response) => {
@@ -245,8 +245,8 @@ Removes the specified user from the given group. If the user has no other group 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -255,7 +255,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user to remove from the group
 let tenant = "tenant_example"; // String | 
@@ -302,8 +302,8 @@ Retrieves details of a specific group by its ID within the current tenant.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -312,7 +312,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
 apiInstance.getGroup(id, tenant, (error, data, response) => {
@@ -355,8 +355,8 @@ List groups by ids
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -365,9 +365,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
-let apiIds = new KestraApi.ApiIds(); // ApiIds | The ids that must be present on results
+let apiIds = new KestraIoKestraSdk.ApiIds(); // ApiIds | The ids that must be present on results
 apiInstance.listGroupIds(tenant, apiIds, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -408,8 +408,8 @@ Search for users in a group
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -418,7 +418,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
@@ -471,8 +471,8 @@ Search for groups
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -481,7 +481,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -534,8 +534,8 @@ Allows a group owner or an authorized user to change the role of a user within a
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -544,10 +544,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user whose membership is being updated
-let membership = new KestraApi.GroupIdentifierMembership(); // GroupIdentifierMembership | The new membership type to assign to the user.
+let membership = new KestraIoKestraSdk.GroupIdentifierMembership(); // GroupIdentifierMembership | The new membership type to assign to the user.
 let tenant = "tenant_example"; // String | 
 apiInstance.setUserMembershipForGroup(id, userId, membership, tenant, (error, data, response) => {
   if (error) {
@@ -591,8 +591,8 @@ Update a group
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -601,10 +601,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.GroupsApi();
+let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
-let iAMGroupControllerApiUpdateGroupRequest = new KestraApi.IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
+let iAMGroupControllerApiUpdateGroupRequest = new KestraIoKestraSdk.IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
 apiInstance.updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);

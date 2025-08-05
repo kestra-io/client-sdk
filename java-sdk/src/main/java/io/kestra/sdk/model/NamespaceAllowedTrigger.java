@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   NamespaceAllowedTrigger.JSON_PROPERTY_FLOW_ID
 })
 @JsonTypeName("Namespace.AllowedTrigger")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class NamespaceAllowedTrigger {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @javax.annotation.Nonnull

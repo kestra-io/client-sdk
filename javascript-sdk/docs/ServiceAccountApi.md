@@ -1,4 +1,4 @@
-# KestraApi.ServiceAccountApi
+# KestraIoKestraSdk.ServiceAccountApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,8 +20,8 @@ Create a user service account
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -30,9 +30,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServiceAccountApi();
+let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let tenant = "tenant_example"; // String | 
-let iAMServiceAccountControllerApiServiceAccountRequest = new KestraApi.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The service account
+let iAMServiceAccountControllerApiServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The service account
 apiInstance.createServiceAccount(tenant, iAMServiceAccountControllerApiServiceAccountRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -73,8 +73,8 @@ Delete a service account
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -83,7 +83,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServiceAccountApi();
+let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteServiceAccount(id, tenant, (error, data, response) => {
@@ -126,8 +126,8 @@ Retrieve a service account
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -136,7 +136,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServiceAccountApi();
+let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 apiInstance.getServiceAccount(id, tenant, (error, data, response) => {
@@ -179,8 +179,8 @@ Update a user service account
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -189,10 +189,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.ServiceAccountApi();
+let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-let iAMServiceAccountControllerApiServiceAccountRequest = new KestraApi.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The user
+let iAMServiceAccountControllerApiServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The user
 apiInstance.updateServiceAccount(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest, (error, data, response) => {
   if (error) {
     console.error(error);

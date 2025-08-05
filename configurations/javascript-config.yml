@@ -7,6 +7,6 @@ globalProperties:
   modelTests: false
 
 additionalProperties:
-  packageName: "@kestra-io/kestra-api"
-  projectName: "@kestra-io/kestra-api"
+  packageName: "@kestra-io/kestra-sdk"
+  projectName: "@kestra-io/kestra-sdk"
   disallowAdditionalPropertiesIfNotPresent: false

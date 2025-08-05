@@ -146,7 +146,6 @@ import FlowTopologyGraphEdge from './model/FlowTopologyGraphEdge';
 import FlowUsage from './model/FlowUsage';
 import FlowWithSource from './model/FlowWithSource';
 import FlowWithSourceAllOfLabels from './model/FlowWithSourceAllOfLabels';
-import Group from './model/Group';
 import GroupIdentifier from './model/GroupIdentifier';
 import GroupIdentifierMembership from './model/GroupIdentifierMembership';
 import GroupUsage from './model/GroupUsage';
@@ -157,7 +156,6 @@ import HostUsageOs from './model/HostUsageOs';
 import HttpParameters from './model/HttpParameters';
 import IAMBindingControllerApiBindingDetail from './model/IAMBindingControllerApiBindingDetail';
 import IAMBindingControllerApiBindingGroup from './model/IAMBindingControllerApiBindingGroup';
-import IAMBindingControllerApiBindingSummary from './model/IAMBindingControllerApiBindingSummary';
 import IAMBindingControllerApiBindingUser from './model/IAMBindingControllerApiBindingUser';
 import IAMBindingControllerApiCreateBindingRequest from './model/IAMBindingControllerApiCreateBindingRequest';
 import IAMBindingControllerApiRole from './model/IAMBindingControllerApiRole';
@@ -266,7 +264,7 @@ import PagedResultsBlueprintControllerApiBlueprintItem from './model/PagedResult
 import PagedResultsDashboard from './model/PagedResultsDashboard';
 import PagedResultsExecution from './model/PagedResultsExecution';
 import PagedResultsFlow from './model/PagedResultsFlow';
-import PagedResultsIAMBindingControllerApiBindingSummary from './model/PagedResultsIAMBindingControllerApiBindingSummary';
+import PagedResultsIAMBindingControllerApiBindingDetail from './model/PagedResultsIAMBindingControllerApiBindingDetail';
 import PagedResultsIAMGroupControllerApiGroupMember from './model/PagedResultsIAMGroupControllerApiGroupMember';
 import PagedResultsIAMInvitationControllerApiInvitationDetail from './model/PagedResultsIAMInvitationControllerApiInvitationDetail';
 import PagedResultsIAMTenantAccessControllerApiUserTenantAccess from './model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess';
@@ -424,8 +422,9 @@ import MiscApi from './api/MiscApi';
 import NamespacesApi from './api/NamespacesApi';
 import PluginsApi from './api/PluginsApi';
 import RolesApi from './api/RolesApi';
-import SCIMApi from './api/SCIMApi';
 import SCIMConfigurationApi from './api/SCIMConfigurationApi';
+import SCIMGroupsApi from './api/SCIMGroupsApi';
+import SCIMUsersApi from './api/SCIMUsersApi';
 import SecurityIntegrationsApi from './api/SecurityIntegrationsApi';
 import ServiceAccountApi from './api/ServiceAccountApi';
 import ServicesApi from './api/ServicesApi';
@@ -438,15 +437,17 @@ import WorkerGroupsApi from './api/WorkerGroupsApi';
 import KestraClient from "./KestraClient";
 
 
+
+
 /**
 * All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.&lt;br/&gt; Endpoints designated as Superadmin-only are not tenant-scoped..<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var KestraIoKestraApi = require('index'); // See note below*.
-* var xxxSvc = new KestraIoKestraApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new KestraIoKestraApi.Yyy(); // Construct a model instance.
+* var KestraIoKestraSdk = require('index'); // See note below*.
+* var xxxSvc = new KestraIoKestraSdk.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new KestraIoKestraSdk.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -458,8 +459,8 @@ import KestraClient from "./KestraClient";
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new KestraIoKestraApi.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new KestraIoKestraApi.Yyy(); // Construct a model instance.
+* var xxxSvc = new KestraIoKestraSdk.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new KestraIoKestraSdk.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -1276,12 +1277,6 @@ export {
     FlowWithSourceAllOfLabels,
 
     /**
-     * The Group model constructor.
-     * @property {module:model/Group}
-     */
-    Group,
-
-    /**
      * The GroupIdentifier model constructor.
      * @property {module:model/GroupIdentifier}
      */
@@ -1340,12 +1335,6 @@ export {
      * @property {module:model/IAMBindingControllerApiBindingGroup}
      */
     IAMBindingControllerApiBindingGroup,
-
-    /**
-     * The IAMBindingControllerApiBindingSummary model constructor.
-     * @property {module:model/IAMBindingControllerApiBindingSummary}
-     */
-    IAMBindingControllerApiBindingSummary,
 
     /**
      * The IAMBindingControllerApiBindingUser model constructor.
@@ -1996,10 +1985,10 @@ export {
     PagedResultsFlow,
 
     /**
-     * The PagedResultsIAMBindingControllerApiBindingSummary model constructor.
-     * @property {module:model/PagedResultsIAMBindingControllerApiBindingSummary}
+     * The PagedResultsIAMBindingControllerApiBindingDetail model constructor.
+     * @property {module:model/PagedResultsIAMBindingControllerApiBindingDetail}
      */
-    PagedResultsIAMBindingControllerApiBindingSummary,
+    PagedResultsIAMBindingControllerApiBindingDetail,
 
     /**
      * The PagedResultsIAMGroupControllerApiGroupMember model constructor.
@@ -2944,16 +2933,22 @@ export {
     RolesApi,
 
     /**
-    * The SCIMApi service constructor.
-    * @property {module:api/SCIMApi}
-    */
-    SCIMApi,
-
-    /**
     * The SCIMConfigurationApi service constructor.
     * @property {module:api/SCIMConfigurationApi}
     */
     SCIMConfigurationApi,
+
+    /**
+    * The SCIMGroupsApi service constructor.
+    * @property {module:api/SCIMGroupsApi}
+    */
+    SCIMGroupsApi,
+
+    /**
+    * The SCIMUsersApi service constructor.
+    * @property {module:api/SCIMUsersApi}
+    */
+    SCIMUsersApi,
 
     /**
     * The SecurityIntegrationsApi service constructor.

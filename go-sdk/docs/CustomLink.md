@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Title** | **string** |  | 
-**Url** | **string** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Title** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewCustomLink
 
-`func NewCustomLink(name string, title string, url string, ) *CustomLink`
+`func NewCustomLink() *CustomLink`
 
 NewCustomLink instantiates a new CustomLink object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *CustomLink) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
+### HasTitle
+
+`func (o *CustomLink) HasTitle() bool`
+
+HasTitle returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
+### HasUrl
+
+`func (o *CustomLink) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

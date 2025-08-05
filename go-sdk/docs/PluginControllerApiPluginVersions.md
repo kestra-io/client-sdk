@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Versions** | **[]string** |  | 
+**Type** | Pointer to **string** |  | [optional] 
+**Versions** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewPluginControllerApiPluginVersions
 
-`func NewPluginControllerApiPluginVersions(type_ string, versions []string, ) *PluginControllerApiPluginVersions`
+`func NewPluginControllerApiPluginVersions() *PluginControllerApiPluginVersions`
 
 NewPluginControllerApiPluginVersions instantiates a new PluginControllerApiPluginVersions object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *PluginControllerApiPluginVersions) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetVersions
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetVersions sets Versions field to given value.
 
+### HasVersions
+
+`func (o *PluginControllerApiPluginVersions) HasVersions() bool`
+
+HasVersions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

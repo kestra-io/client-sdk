@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsInstanceControllerApiPluginArtifact
+# KestraIoKestraSdk.PagedResultsInstanceControllerApiPluginArtifact
 
 ## Properties
 

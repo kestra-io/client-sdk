@@ -1,4 +1,4 @@
-# KestraApi.FlowGenerationPrompt
+# KestraIoKestraSdk.FlowGenerationPrompt
 
 ## Properties
 

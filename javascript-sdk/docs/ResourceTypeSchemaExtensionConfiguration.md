@@ -1,4 +1,4 @@
-# KestraApi.ResourceTypeSchemaExtensionConfiguration
+# KestraIoKestraSdk.ResourceTypeSchemaExtensionConfiguration
 
 ## Properties
 

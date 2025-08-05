@@ -10,19 +10,20 @@ Name | Type | Description | Notes
 **Namespace** | **string** |  | 
 **FlowId** | **string** |  | 
 **TaskId** | **string** |  | 
-**ParentTaskRunId** | **string** |  | 
-**Value** | **string** |  | 
-**Attempts** | [**[]TaskRunAttempt**](TaskRunAttempt.md) |  | 
-**Outputs** | **map[string]interface{}** |  | 
+**ParentTaskRunId** | Pointer to **string** |  | [optional] 
+**Value** | Pointer to **string** |  | [optional] 
+**Attempts** | Pointer to [**[]TaskRunAttempt**](TaskRunAttempt.md) |  | [optional] 
+**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 **State** | [**State**](State.md) |  | 
-**Iteration** | **int32** |  | 
-**Dynamic** | **bool** |  | 
+**Iteration** | Pointer to **int32** |  | [optional] 
+**Dynamic** | Pointer to **bool** |  | [optional] 
+**ForceExecution** | Pointer to **NullableBool** |  | [optional] 
 
 ## Methods
 
 ### NewTaskRun
 
-`func NewTaskRun(id string, executionId string, namespace string, flowId string, taskId string, parentTaskRunId string, value string, attempts []TaskRunAttempt, outputs map[string]interface{}, state State, iteration int32, dynamic bool, ) *TaskRun`
+`func NewTaskRun(id string, executionId string, namespace string, flowId string, taskId string, state State, ) *TaskRun`
 
 NewTaskRun instantiates a new TaskRun object
 This constructor will assign default values to properties that have it defined,
@@ -181,6 +182,11 @@ and a boolean to check if the value has been set.
 
 SetParentTaskRunId sets ParentTaskRunId field to given value.
 
+### HasParentTaskRunId
+
+`func (o *TaskRun) HasParentTaskRunId() bool`
+
+HasParentTaskRunId returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -201,6 +207,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *TaskRun) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 ### GetAttempts
 
@@ -221,26 +232,36 @@ and a boolean to check if the value has been set.
 
 SetAttempts sets Attempts field to given value.
 
+### HasAttempts
+
+`func (o *TaskRun) HasAttempts() bool`
+
+HasAttempts returns a boolean if a field has been set.
 
 ### GetOutputs
 
-`func (o *TaskRun) GetOutputs() map[string]interface{}`
+`func (o *TaskRun) GetOutputs() map[string]map[string]interface{}`
 
 GetOutputs returns the Outputs field if non-nil, zero value otherwise.
 
 ### GetOutputsOk
 
-`func (o *TaskRun) GetOutputsOk() (*map[string]interface{}, bool)`
+`func (o *TaskRun) GetOutputsOk() (*map[string]map[string]interface{}, bool)`
 
 GetOutputsOk returns a tuple with the Outputs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOutputs
 
-`func (o *TaskRun) SetOutputs(v map[string]interface{})`
+`func (o *TaskRun) SetOutputs(v map[string]map[string]interface{})`
 
 SetOutputs sets Outputs field to given value.
 
+### HasOutputs
+
+`func (o *TaskRun) HasOutputs() bool`
+
+HasOutputs returns a boolean if a field has been set.
 
 ### GetState
 
@@ -281,6 +302,11 @@ and a boolean to check if the value has been set.
 
 SetIteration sets Iteration field to given value.
 
+### HasIteration
+
+`func (o *TaskRun) HasIteration() bool`
+
+HasIteration returns a boolean if a field has been set.
 
 ### GetDynamic
 
@@ -301,7 +327,47 @@ and a boolean to check if the value has been set.
 
 SetDynamic sets Dynamic field to given value.
 
+### HasDynamic
 
+`func (o *TaskRun) HasDynamic() bool`
+
+HasDynamic returns a boolean if a field has been set.
+
+### GetForceExecution
+
+`func (o *TaskRun) GetForceExecution() bool`
+
+GetForceExecution returns the ForceExecution field if non-nil, zero value otherwise.
+
+### GetForceExecutionOk
+
+`func (o *TaskRun) GetForceExecutionOk() (*bool, bool)`
+
+GetForceExecutionOk returns a tuple with the ForceExecution field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForceExecution
+
+`func (o *TaskRun) SetForceExecution(v bool)`
+
+SetForceExecution sets ForceExecution field to given value.
+
+### HasForceExecution
+
+`func (o *TaskRun) HasForceExecution() bool`
+
+HasForceExecution returns a boolean if a field has been set.
+
+### SetForceExecutionNil
+
+`func (o *TaskRun) SetForceExecutionNil(b bool)`
+
+ SetForceExecutionNil sets the value for ForceExecution to be an explicit nil
+
+### UnsetForceExecution
+`func (o *TaskRun) UnsetForceExecution()`
+
+UnsetForceExecution ensures that no value is present for ForceExecution, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

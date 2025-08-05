@@ -1,4 +1,4 @@
-# KestraApi.PluginPluginElementMetadata
+# KestraIoKestraSdk.PluginPluginElementMetadata
 
 ## Properties
 

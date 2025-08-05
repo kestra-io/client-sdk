@@ -1,4 +1,4 @@
-# KestraApi.BulkResponse
+# KestraIoKestraSdk.BulkResponse
 
 ## Properties
 

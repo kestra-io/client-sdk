@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the PropertyListString type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &PropertyListString{}
 
 // PropertyListString struct for PropertyListString
 type PropertyListString struct {
-	Expression           string   `json:"expression"`
+	Expression           *string  `json:"expression,omitempty"`
 	Value                []string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,9 +30,8 @@ type _PropertyListString PropertyListString
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPropertyListString(expression string) *PropertyListString {
+func NewPropertyListString() *PropertyListString {
 	this := PropertyListString{}
-	this.Expression = expression
 	return &this
 }
 
@@ -45,28 +43,36 @@ func NewPropertyListStringWithDefaults() *PropertyListString {
 	return &this
 }
 
-// GetExpression returns the Expression field value
+// GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *PropertyListString) GetExpression() string {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
-
-	return o.Expression
+	return *o.Expression
 }
 
-// GetExpressionOk returns a tuple with the Expression field value
+// GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyListString) GetExpressionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
-	return &o.Expression, true
+	return o.Expression, true
 }
 
-// SetExpression sets field value
+// HasExpression returns a boolean if a field has been set.
+func (o *PropertyListString) HasExpression() bool {
+	if o != nil && !IsNil(o.Expression) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpression gets a reference to the given string and assigns it to the Expression field.
 func (o *PropertyListString) SetExpression(v string) {
-	o.Expression = v
+	o.Expression = &v
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
@@ -111,7 +117,9 @@ func (o PropertyListString) MarshalJSON() ([]byte, error) {
 
 func (o PropertyListString) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["expression"] = o.Expression
+	if !IsNil(o.Expression) {
+		toSerialize["expression"] = o.Expression
+	}
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
@@ -124,27 +132,6 @@ func (o PropertyListString) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PropertyListString) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"expression",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varPropertyListString := _PropertyListString{}
 
 	err = json.Unmarshal(data, &varPropertyListString)

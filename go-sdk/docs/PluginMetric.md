@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Count** | **float64** |  | 
-**TotalTime** | **float64** |  | 
-**MeanTime** | **float64** |  | 
+**Type** | Pointer to **string** |  | [optional] 
+**Count** | Pointer to **float64** |  | [optional] 
+**TotalTime** | Pointer to **float64** |  | [optional] 
+**MeanTime** | Pointer to **float64** |  | [optional] 
 
 ## Methods
 
 ### NewPluginMetric
 
-`func NewPluginMetric(type_ string, count float64, totalTime float64, meanTime float64, ) *PluginMetric`
+`func NewPluginMetric() *PluginMetric`
 
 NewPluginMetric instantiates a new PluginMetric object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *PluginMetric) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetCount
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetCount sets Count field to given value.
 
+### HasCount
+
+`func (o *PluginMetric) HasCount() bool`
+
+HasCount returns a boolean if a field has been set.
 
 ### GetTotalTime
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetTotalTime sets TotalTime field to given value.
 
+### HasTotalTime
+
+`func (o *PluginMetric) HasTotalTime() bool`
+
+HasTotalTime returns a boolean if a field has been set.
 
 ### GetMeanTime
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetMeanTime sets MeanTime field to given value.
 
+### HasMeanTime
+
+`func (o *PluginMetric) HasMeanTime() bool`
+
+HasMeanTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

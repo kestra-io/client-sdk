@@ -36,7 +36,7 @@ setup(
     description="Kestra Python SDK",
     author="Kestra.io",
     author_email="contact@kestra.io",
-    url="kestra.io",
+    url="",
     keywords=["OpenAPI", "OpenAPI-Generator", "Kestra EE"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

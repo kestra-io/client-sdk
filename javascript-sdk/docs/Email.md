@@ -1,4 +1,4 @@
-# KestraApi.Email
+# KestraIoKestraSdk.Email
 
 ## Properties
 

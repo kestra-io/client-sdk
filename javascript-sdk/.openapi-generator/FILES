@@ -149,7 +149,6 @@ docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
-docs/Group.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
 docs/GroupUsage.md
@@ -161,7 +160,6 @@ docs/HostUsageOs.md
 docs/HttpParameters.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
-docs/IAMBindingControllerApiBindingSummary.md
 docs/IAMBindingControllerApiBindingUser.md
 docs/IAMBindingControllerApiCreateBindingRequest.md
 docs/IAMBindingControllerApiRole.md
@@ -277,7 +275,7 @@ docs/PagedResultsBlueprintControllerApiBlueprintItem.md
 docs/PagedResultsDashboard.md
 docs/PagedResultsExecution.md
 docs/PagedResultsFlow.md
-docs/PagedResultsIAMBindingControllerApiBindingSummary.md
+docs/PagedResultsIAMBindingControllerApiBindingDetail.md
 docs/PagedResultsIAMGroupControllerApiGroupMember.md
 docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md
 docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
@@ -332,8 +330,9 @@ docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesApi.md
-docs/SCIMApi.md
 docs/SCIMConfigurationApi.md
+docs/SCIMGroupsApi.md
+docs/SCIMUsersApi.md
 docs/SLA.md
 docs/SLABehavior.md
 docs/SLAType.md
@@ -452,8 +451,9 @@ src/api/MiscApi.js
 src/api/NamespacesApi.js
 src/api/PluginsApi.js
 src/api/RolesApi.js
-src/api/SCIMApi.js
 src/api/SCIMConfigurationApi.js
+src/api/SCIMGroupsApi.js
+src/api/SCIMUsersApi.js
 src/api/SecurityIntegrationsApi.js
 src/api/ServiceAccountApi.js
 src/api/ServicesApi.js
@@ -597,7 +597,6 @@ src/model/FlowTopologyGraphEdge.js
 src/model/FlowUsage.js
 src/model/FlowWithSource.js
 src/model/FlowWithSourceAllOfLabels.js
-src/model/Group.js
 src/model/GroupIdentifier.js
 src/model/GroupIdentifierMembership.js
 src/model/GroupUsage.js
@@ -608,7 +607,6 @@ src/model/HostUsageOs.js
 src/model/HttpParameters.js
 src/model/IAMBindingControllerApiBindingDetail.js
 src/model/IAMBindingControllerApiBindingGroup.js
-src/model/IAMBindingControllerApiBindingSummary.js
 src/model/IAMBindingControllerApiBindingUser.js
 src/model/IAMBindingControllerApiCreateBindingRequest.js
 src/model/IAMBindingControllerApiRole.js
@@ -717,7 +715,7 @@ src/model/PagedResultsBlueprintControllerApiBlueprintItem.js
 src/model/PagedResultsDashboard.js
 src/model/PagedResultsExecution.js
 src/model/PagedResultsFlow.js
-src/model/PagedResultsIAMBindingControllerApiBindingSummary.js
+src/model/PagedResultsIAMBindingControllerApiBindingDetail.js
 src/model/PagedResultsIAMGroupControllerApiGroupMember.js
 src/model/PagedResultsIAMInvitationControllerApiInvitationDetail.js
 src/model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.js

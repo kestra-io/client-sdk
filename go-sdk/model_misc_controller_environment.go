@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the MiscControllerEnvironment type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &MiscControllerEnvironment{}
 
 // MiscControllerEnvironment struct for MiscControllerEnvironment
 type MiscControllerEnvironment struct {
-	Name                 string `json:"name"`
-	Color                string `json:"color"`
+	Name                 *string `json:"name,omitempty"`
+	Color                *string `json:"color,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _MiscControllerEnvironment MiscControllerEnvironment
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerEnvironment(name string, color string) *MiscControllerEnvironment {
+func NewMiscControllerEnvironment() *MiscControllerEnvironment {
 	this := MiscControllerEnvironment{}
-	this.Name = name
-	this.Color = color
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewMiscControllerEnvironmentWithDefaults() *MiscControllerEnvironment {
 	return &this
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *MiscControllerEnvironment) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerEnvironment) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *MiscControllerEnvironment) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *MiscControllerEnvironment) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetColor returns the Color field value
+// GetColor returns the Color field value if set, zero value otherwise.
 func (o *MiscControllerEnvironment) GetColor() string {
-	if o == nil {
+	if o == nil || IsNil(o.Color) {
 		var ret string
 		return ret
 	}
-
-	return o.Color
+	return *o.Color
 }
 
-// GetColorOk returns a tuple with the Color field value
+// GetColorOk returns a tuple with the Color field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MiscControllerEnvironment) GetColorOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Color) {
 		return nil, false
 	}
-	return &o.Color, true
+	return o.Color, true
 }
 
-// SetColor sets field value
+// HasColor returns a boolean if a field has been set.
+func (o *MiscControllerEnvironment) HasColor() bool {
+	if o != nil && !IsNil(o.Color) {
+		return true
+	}
+
+	return false
+}
+
+// SetColor gets a reference to the given string and assigns it to the Color field.
 func (o *MiscControllerEnvironment) SetColor(v string) {
-	o.Color = v
+	o.Color = &v
 }
 
 func (o MiscControllerEnvironment) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o MiscControllerEnvironment) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerEnvironment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
-	toSerialize["color"] = o.Color
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Color) {
+		toSerialize["color"] = o.Color
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o MiscControllerEnvironment) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MiscControllerEnvironment) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-		"color",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varMiscControllerEnvironment := _MiscControllerEnvironment{}
 
 	err = json.Unmarshal(data, &varMiscControllerEnvironment)

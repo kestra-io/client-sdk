@@ -1,4 +1,4 @@
-# KestraApi.AIApi
+# KestraIoKestraSdk.AIApi
 
 All URIs are relative to *http://localhost*
 
@@ -17,11 +17,11 @@ Generate or regenerate a flow based on a prompt
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.AIApi();
+let apiInstance = new KestraIoKestraSdk.AIApi();
 let tenant = "tenant_example"; // String | 
-let flowGenerationPrompt = new KestraApi.FlowGenerationPrompt(); // FlowGenerationPrompt | Prompt and context required for flow generation
+let flowGenerationPrompt = new KestraIoKestraSdk.FlowGenerationPrompt(); // FlowGenerationPrompt | Prompt and context required for flow generation
 apiInstance.generateFlow(tenant, flowGenerationPrompt, (error, data, response) => {
   if (error) {
     console.error(error);

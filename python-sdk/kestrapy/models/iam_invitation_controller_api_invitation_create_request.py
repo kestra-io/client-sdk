@@ -27,12 +27,13 @@ class IAMInvitationControllerApiInvitationCreateRequest(BaseModel):
     """
     IAMInvitationControllerApiInvitationCreateRequest
     """ # noqa: E501
+    create_user_if_not_exist: Optional[StrictBool] = Field(default=None, alias="createUserIfNotExist")
     super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
     roles: Optional[List[IAMInvitationControllerApiInvitationRole]] = None
     groups: Optional[List[StrictStr]] = None
     email: StrictStr
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["superAdmin", "roles", "groups", "email"]
+    __properties: ClassVar[List[str]] = ["createUserIfNotExist", "superAdmin", "roles", "groups", "email"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,6 +100,7 @@ class IAMInvitationControllerApiInvitationCreateRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "createUserIfNotExist": obj.get("createUserIfNotExist"),
             "superAdmin": obj.get("superAdmin"),
             "roles": [IAMInvitationControllerApiInvitationRole.from_dict(_item) for _item in obj["roles"]] if obj.get("roles") is not None else None,
             "groups": obj.get("groups"),

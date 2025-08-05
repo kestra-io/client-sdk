@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -355,7 +354,7 @@ type ApiGetBlueprintGraphRequest struct {
 	tenant     string
 }
 
-func (r ApiGetBlueprintGraphRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiGetBlueprintGraphRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetBlueprintGraphExecute(r)
 }
 
@@ -382,13 +381,13 @@ func (a *BlueprintsAPIService) GetBlueprintGraph(ctx context.Context, id string,
 
 // Execute executes the request
 //
-//	@return map[string]interface{}
-func (a *BlueprintsAPIService) GetBlueprintGraphExecute(r ApiGetBlueprintGraphRequest) (map[string]interface{}, *http.Response, error) {
+//	@return map[string]map[string]interface{}
+func (a *BlueprintsAPIService) GetBlueprintGraphExecute(r ApiGetBlueprintGraphRequest) (map[string]map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue map[string]map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlueprintsAPIService.GetBlueprintGraph")
@@ -895,15 +894,7 @@ func (a *BlueprintsAPIService) SearchBlueprintsExecute(r ApiSearchBlueprintsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.tags != nil {
-		t := *r.tags
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
@@ -1059,15 +1050,7 @@ func (a *BlueprintsAPIService) SearchInternalBlueprintsExecute(r ApiSearchIntern
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.tags != nil {
-		t := *r.tags
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "tags", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "tags", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags", r.tags, "form", "csv")
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")

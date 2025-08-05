@@ -1,4 +1,4 @@
-# KestraApi.IAMUserGroupControllerApiUpdateUserGroupsRequest
+# KestraIoKestraSdk.IAMUserGroupControllerApiUpdateUserGroupsRequest
 
 ## Properties
 

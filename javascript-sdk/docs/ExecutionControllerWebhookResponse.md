@@ -1,4 +1,4 @@
-# KestraApi.ExecutionControllerWebhookResponse
+# KestraIoKestraSdk.ExecutionControllerWebhookResponse
 
 ## Properties
 

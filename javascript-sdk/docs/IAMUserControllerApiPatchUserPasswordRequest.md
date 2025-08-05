@@ -1,4 +1,4 @@
-# KestraApi.IAMUserControllerApiPatchUserPasswordRequest
+# KestraIoKestraSdk.IAMUserControllerApiPatchUserPasswordRequest
 
 ## Properties
 

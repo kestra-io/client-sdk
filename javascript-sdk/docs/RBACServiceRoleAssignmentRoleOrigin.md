@@ -1,4 +1,4 @@
-# KestraApi.RBACServiceRoleAssignmentRoleOrigin
+# KestraIoKestraSdk.RBACServiceRoleAssignmentRoleOrigin
 
 ## Enum
 

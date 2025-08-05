@@ -1,4 +1,4 @@
-# KestraApi.TriggerFixture
+# KestraIoKestraSdk.TriggerFixture
 
 ## Properties
 

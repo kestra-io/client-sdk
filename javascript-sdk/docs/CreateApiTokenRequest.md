@@ -1,4 +1,4 @@
-# KestraApi.CreateApiTokenRequest
+# KestraIoKestraSdk.CreateApiTokenRequest
 
 ## Properties
 

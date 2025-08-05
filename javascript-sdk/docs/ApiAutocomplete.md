@@ -1,4 +1,4 @@
-# KestraApi.ApiAutocomplete
+# KestraIoKestraSdk.ApiAutocomplete
 
 ## Properties
 

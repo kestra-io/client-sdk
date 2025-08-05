@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Model** | [**Flow**](Flow.md) |  | 
-**Fragments** | **[]string** |  | 
+**Model** | Pointer to [**Flow**](Flow.md) |  | [optional] 
+**Fragments** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewSearchResultFlow
 
-`func NewSearchResultFlow(model Flow, fragments []string, ) *SearchResultFlow`
+`func NewSearchResultFlow() *SearchResultFlow`
 
 NewSearchResultFlow instantiates a new SearchResultFlow object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetModel sets Model field to given value.
 
+### HasModel
+
+`func (o *SearchResultFlow) HasModel() bool`
+
+HasModel returns a boolean if a field has been set.
 
 ### GetFragments
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetFragments sets Fragments field to given value.
 
+### HasFragments
+
+`func (o *SearchResultFlow) HasFragments() bool`
+
+HasFragments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

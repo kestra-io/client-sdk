@@ -1,4 +1,4 @@
-# KestraApi.ServiceType
+# KestraIoKestraSdk.ServiceType
 
 ## Enum
 

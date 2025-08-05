@@ -17,7 +17,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"reflect"
 	"strings"
 )
 
@@ -123,15 +122,8 @@ func (a *PluginsAPIService) GetAllInputTypesExecute(r ApiGetAllInputTypesRequest
 }
 
 type ApiGetPluginBySubgroupsRequest struct {
-	ctx               context.Context
-	ApiService        *PluginsAPIService
-	includeDeprecated *bool
-}
-
-// Whether to include deprecated plugins
-func (r ApiGetPluginBySubgroupsRequest) IncludeDeprecated(includeDeprecated bool) ApiGetPluginBySubgroupsRequest {
-	r.includeDeprecated = &includeDeprecated
-	return r
+	ctx        context.Context
+	ApiService *PluginsAPIService
 }
 
 func (r ApiGetPluginBySubgroupsRequest) Execute() ([]Plugin, *http.Response, error) {
@@ -172,11 +164,7 @@ func (a *PluginsAPIService) GetPluginBySubgroupsExecute(r ApiGetPluginBySubgroup
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.includeDeprecated == nil {
-		return localVarReturnValue, nil, reportError("includeDeprecated is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "includeDeprecated", r.includeDeprecated, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -759,6 +747,110 @@ func (a *PluginsAPIService) GetPluginVersionsExecute(r ApiGetPluginVersionsReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetPropertiesFromTypeRequest struct {
+	ctx        context.Context
+	ApiService *PluginsAPIService
+	type_      SchemaType
+}
+
+func (r ApiGetPropertiesFromTypeRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
+	return r.ApiService.GetPropertiesFromTypeExecute(r)
+}
+
+/*
+GetPropertiesFromType Get the properties part of the JSON schema for a type
+
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param type_ The schema needed
+	@return ApiGetPropertiesFromTypeRequest
+*/
+func (a *PluginsAPIService) GetPropertiesFromType(ctx context.Context, type_ SchemaType) ApiGetPropertiesFromTypeRequest {
+	return ApiGetPropertiesFromTypeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		type_:      type_,
+	}
+}
+
+// Execute executes the request
+//
+//	@return map[string]map[string]interface{}
+func (a *PluginsAPIService) GetPropertiesFromTypeExecute(r ApiGetPropertiesFromTypeRequest) (map[string]map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.GetPropertiesFromType")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/plugins/properties/{type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSchemaFromInputTypeRequest struct {
 	ctx        context.Context
 	ApiService *PluginsAPIService
@@ -770,9 +862,9 @@ func (r ApiGetSchemaFromInputTypeRequest) Execute() (*DocumentationWithSchema, *
 }
 
 /*
-GetSchemaFromInputType Get json schemas for an input type
+GetSchemaFromInputType Get the JSON schema for an input type
 
-The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param type_ The schema needed
@@ -876,14 +968,14 @@ func (r ApiGetSchemasFromTypeRequest) ArrayOf(arrayOf bool) ApiGetSchemasFromTyp
 	return r
 }
 
-func (r ApiGetSchemasFromTypeRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiGetSchemasFromTypeRequest) Execute() (map[string]map[string]interface{}, *http.Response, error) {
 	return r.ApiService.GetSchemasFromTypeExecute(r)
 }
 
 /*
-GetSchemasFromType Get all json schemas for a type
+GetSchemasFromType Get the JSON schema for a type
 
-The schema will be output as [http://json-schema.org/draft-07/schema](Json Schema Draft 7)
+The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schema)
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param type_ The schema needed
@@ -899,13 +991,13 @@ func (a *PluginsAPIService) GetSchemasFromType(ctx context.Context, type_ Schema
 
 // Execute executes the request
 //
-//	@return map[string]interface{}
-func (a *PluginsAPIService) GetSchemasFromTypeExecute(r ApiGetSchemasFromTypeRequest) (map[string]interface{}, *http.Response, error) {
+//	@return map[string]map[string]interface{}
+func (a *PluginsAPIService) GetSchemasFromTypeExecute(r ApiGetSchemasFromTypeRequest) (map[string]map[string]interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue map[string]map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.GetSchemasFromType")
@@ -985,7 +1077,7 @@ type ApiGetVersionedPluginDetailsRequest struct {
 	artifactId string
 }
 
-func (r ApiGetVersionedPluginDetailsRequest) Execute() (*ClusterControllerApiPluginVersions, *http.Response, error) {
+func (r ApiGetVersionedPluginDetailsRequest) Execute() (*InstanceControllerApiPluginVersions, *http.Response, error) {
 	return r.ApiService.GetVersionedPluginDetailsExecute(r)
 }
 
@@ -1010,13 +1102,13 @@ func (a *PluginsAPIService) GetVersionedPluginDetails(ctx context.Context, group
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiPluginVersions
-func (a *PluginsAPIService) GetVersionedPluginDetailsExecute(r ApiGetVersionedPluginDetailsRequest) (*ClusterControllerApiPluginVersions, *http.Response, error) {
+//	@return InstanceControllerApiPluginVersions
+func (a *PluginsAPIService) GetVersionedPluginDetailsExecute(r ApiGetVersionedPluginDetailsRequest) (*InstanceControllerApiPluginVersions, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiPluginVersions
+		localVarReturnValue *InstanceControllerApiPluginVersions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.GetVersionedPluginDetails")
@@ -1024,7 +1116,7 @@ func (a *PluginsAPIService) GetVersionedPluginDetailsExecute(r ApiGetVersionedPl
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/{groupId}/{artifactId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"artifactId"+"}", url.PathEscape(parameterValueToString(r.artifactId, "artifactId")), -1)
 
@@ -1094,7 +1186,7 @@ type ApiGetVersionedPluginDetailsFromVersionRequest struct {
 	version    string
 }
 
-func (r ApiGetVersionedPluginDetailsFromVersionRequest) Execute() (*ClusterControllerApiPluginVersionDetails, *http.Response, error) {
+func (r ApiGetVersionedPluginDetailsFromVersionRequest) Execute() (*InstanceControllerApiPluginVersionDetails, *http.Response, error) {
 	return r.ApiService.GetVersionedPluginDetailsFromVersionExecute(r)
 }
 
@@ -1121,13 +1213,13 @@ func (a *PluginsAPIService) GetVersionedPluginDetailsFromVersion(ctx context.Con
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiPluginVersionDetails
-func (a *PluginsAPIService) GetVersionedPluginDetailsFromVersionExecute(r ApiGetVersionedPluginDetailsFromVersionRequest) (*ClusterControllerApiPluginVersionDetails, *http.Response, error) {
+//	@return InstanceControllerApiPluginVersionDetails
+func (a *PluginsAPIService) GetVersionedPluginDetailsFromVersionExecute(r ApiGetVersionedPluginDetailsFromVersionRequest) (*InstanceControllerApiPluginVersionDetails, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiPluginVersionDetails
+		localVarReturnValue *InstanceControllerApiPluginVersionDetails
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.GetVersionedPluginDetailsFromVersion")
@@ -1135,7 +1227,7 @@ func (a *PluginsAPIService) GetVersionedPluginDetailsFromVersionExecute(r ApiGet
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/{groupId}/{artifactId}/{version}"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version}"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterValueToString(r.groupId, "groupId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"artifactId"+"}", url.PathEscape(parameterValueToString(r.artifactId, "artifactId")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterValueToString(r.version, "version")), -1)
@@ -1199,18 +1291,18 @@ func (a *PluginsAPIService) GetVersionedPluginDetailsFromVersionExecute(r ApiGet
 }
 
 type ApiInstallVersionedPluginsRequest struct {
-	ctx                                   context.Context
-	ApiService                            *PluginsAPIService
-	clusterControllerApiPluginListRequest *ClusterControllerApiPluginListRequest
+	ctx                                    context.Context
+	ApiService                             *PluginsAPIService
+	instanceControllerApiPluginListRequest *InstanceControllerApiPluginListRequest
 }
 
 // List of plugins
-func (r ApiInstallVersionedPluginsRequest) ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest ClusterControllerApiPluginListRequest) ApiInstallVersionedPluginsRequest {
-	r.clusterControllerApiPluginListRequest = &clusterControllerApiPluginListRequest
+func (r ApiInstallVersionedPluginsRequest) InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest InstanceControllerApiPluginListRequest) ApiInstallVersionedPluginsRequest {
+	r.instanceControllerApiPluginListRequest = &instanceControllerApiPluginListRequest
 	return r
 }
 
-func (r ApiInstallVersionedPluginsRequest) Execute() (*ClusterControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
+func (r ApiInstallVersionedPluginsRequest) Execute() (*InstanceControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
 	return r.ApiService.InstallVersionedPluginsExecute(r)
 }
 
@@ -1231,13 +1323,13 @@ func (a *PluginsAPIService) InstallVersionedPlugins(ctx context.Context) ApiInst
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiPluginArtifactListPluginArtifact
-func (a *PluginsAPIService) InstallVersionedPluginsExecute(r ApiInstallVersionedPluginsRequest) (*ClusterControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
+//	@return InstanceControllerApiPluginArtifactListPluginArtifact
+func (a *PluginsAPIService) InstallVersionedPluginsExecute(r ApiInstallVersionedPluginsRequest) (*InstanceControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiPluginArtifactListPluginArtifact
+		localVarReturnValue *InstanceControllerApiPluginArtifactListPluginArtifact
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.InstallVersionedPlugins")
@@ -1245,13 +1337,13 @@ func (a *PluginsAPIService) InstallVersionedPluginsExecute(r ApiInstallVersioned
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/install"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/install"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterControllerApiPluginListRequest == nil {
-		return localVarReturnValue, nil, reportError("clusterControllerApiPluginListRequest is required and must be specified")
+	if r.instanceControllerApiPluginListRequest == nil {
+		return localVarReturnValue, nil, reportError("instanceControllerApiPluginListRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1272,7 +1364,7 @@ func (a *PluginsAPIService) InstallVersionedPluginsExecute(r ApiInstallVersioned
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterControllerApiPluginListRequest
+	localVarPostBody = r.instanceControllerApiPluginListRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1350,7 +1442,7 @@ func (a *PluginsAPIService) ListAvailableVersionedPluginsExecute(r ApiListAvaila
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/available"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/available"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1541,7 +1633,7 @@ func (r ApiListVersionedPluginRequest) Q(q string) ApiListVersionedPluginRequest
 	return r
 }
 
-func (r ApiListVersionedPluginRequest) Execute() (*PagedResultsClusterControllerApiPluginArtifact, *http.Response, error) {
+func (r ApiListVersionedPluginRequest) Execute() (*PagedResultsInstanceControllerApiPluginArtifact, *http.Response, error) {
 	return r.ApiService.ListVersionedPluginExecute(r)
 }
 
@@ -1562,13 +1654,13 @@ func (a *PluginsAPIService) ListVersionedPlugin(ctx context.Context) ApiListVers
 
 // Execute executes the request
 //
-//	@return PagedResultsClusterControllerApiPluginArtifact
-func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginRequest) (*PagedResultsClusterControllerApiPluginArtifact, *http.Response, error) {
+//	@return PagedResultsInstanceControllerApiPluginArtifact
+func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginRequest) (*PagedResultsInstanceControllerApiPluginArtifact, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsClusterControllerApiPluginArtifact
+		localVarReturnValue *PagedResultsInstanceControllerApiPluginArtifact
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.ListVersionedPlugin")
@@ -1576,7 +1668,7 @@ func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1591,15 +1683,7 @@ func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginR
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -1659,18 +1743,18 @@ func (a *PluginsAPIService) ListVersionedPluginExecute(r ApiListVersionedPluginR
 }
 
 type ApiResolveVersionedPluginsRequest struct {
-	ctx                                   context.Context
-	ApiService                            *PluginsAPIService
-	clusterControllerApiPluginListRequest *ClusterControllerApiPluginListRequest
+	ctx                                    context.Context
+	ApiService                             *PluginsAPIService
+	instanceControllerApiPluginListRequest *InstanceControllerApiPluginListRequest
 }
 
 // List of plugins
-func (r ApiResolveVersionedPluginsRequest) ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest ClusterControllerApiPluginListRequest) ApiResolveVersionedPluginsRequest {
-	r.clusterControllerApiPluginListRequest = &clusterControllerApiPluginListRequest
+func (r ApiResolveVersionedPluginsRequest) InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest InstanceControllerApiPluginListRequest) ApiResolveVersionedPluginsRequest {
+	r.instanceControllerApiPluginListRequest = &instanceControllerApiPluginListRequest
 	return r
 }
 
-func (r ApiResolveVersionedPluginsRequest) Execute() (*ClusterControllerApiPluginArtifactListPluginResolutionResult, *http.Response, error) {
+func (r ApiResolveVersionedPluginsRequest) Execute() (*InstanceControllerApiPluginArtifactListPluginResolutionResult, *http.Response, error) {
 	return r.ApiService.ResolveVersionedPluginsExecute(r)
 }
 
@@ -1691,13 +1775,13 @@ func (a *PluginsAPIService) ResolveVersionedPlugins(ctx context.Context) ApiReso
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiPluginArtifactListPluginResolutionResult
-func (a *PluginsAPIService) ResolveVersionedPluginsExecute(r ApiResolveVersionedPluginsRequest) (*ClusterControllerApiPluginArtifactListPluginResolutionResult, *http.Response, error) {
+//	@return InstanceControllerApiPluginArtifactListPluginResolutionResult
+func (a *PluginsAPIService) ResolveVersionedPluginsExecute(r ApiResolveVersionedPluginsRequest) (*InstanceControllerApiPluginArtifactListPluginResolutionResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiPluginArtifactListPluginResolutionResult
+		localVarReturnValue *InstanceControllerApiPluginArtifactListPluginResolutionResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.ResolveVersionedPlugins")
@@ -1705,13 +1789,13 @@ func (a *PluginsAPIService) ResolveVersionedPluginsExecute(r ApiResolveVersioned
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/resolve"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/resolve"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterControllerApiPluginListRequest == nil {
-		return localVarReturnValue, nil, reportError("clusterControllerApiPluginListRequest is required and must be specified")
+	if r.instanceControllerApiPluginListRequest == nil {
+		return localVarReturnValue, nil, reportError("instanceControllerApiPluginListRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1732,7 +1816,7 @@ func (a *PluginsAPIService) ResolveVersionedPluginsExecute(r ApiResolveVersioned
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterControllerApiPluginListRequest
+	localVarPostBody = r.instanceControllerApiPluginListRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1771,18 +1855,18 @@ func (a *PluginsAPIService) ResolveVersionedPluginsExecute(r ApiResolveVersioned
 }
 
 type ApiUninstallVersionedPluginsRequest struct {
-	ctx                                   context.Context
-	ApiService                            *PluginsAPIService
-	clusterControllerApiPluginListRequest *ClusterControllerApiPluginListRequest
+	ctx                                    context.Context
+	ApiService                             *PluginsAPIService
+	instanceControllerApiPluginListRequest *InstanceControllerApiPluginListRequest
 }
 
 // List of plugins
-func (r ApiUninstallVersionedPluginsRequest) ClusterControllerApiPluginListRequest(clusterControllerApiPluginListRequest ClusterControllerApiPluginListRequest) ApiUninstallVersionedPluginsRequest {
-	r.clusterControllerApiPluginListRequest = &clusterControllerApiPluginListRequest
+func (r ApiUninstallVersionedPluginsRequest) InstanceControllerApiPluginListRequest(instanceControllerApiPluginListRequest InstanceControllerApiPluginListRequest) ApiUninstallVersionedPluginsRequest {
+	r.instanceControllerApiPluginListRequest = &instanceControllerApiPluginListRequest
 	return r
 }
 
-func (r ApiUninstallVersionedPluginsRequest) Execute() (*ClusterControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
+func (r ApiUninstallVersionedPluginsRequest) Execute() (*InstanceControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
 	return r.ApiService.UninstallVersionedPluginsExecute(r)
 }
 
@@ -1803,13 +1887,13 @@ func (a *PluginsAPIService) UninstallVersionedPlugins(ctx context.Context) ApiUn
 
 // Execute executes the request
 //
-//	@return ClusterControllerApiPluginArtifactListPluginArtifact
-func (a *PluginsAPIService) UninstallVersionedPluginsExecute(r ApiUninstallVersionedPluginsRequest) (*ClusterControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
+//	@return InstanceControllerApiPluginArtifactListPluginArtifact
+func (a *PluginsAPIService) UninstallVersionedPluginsExecute(r ApiUninstallVersionedPluginsRequest) (*InstanceControllerApiPluginArtifactListPluginArtifact, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ClusterControllerApiPluginArtifactListPluginArtifact
+		localVarReturnValue *InstanceControllerApiPluginArtifactListPluginArtifact
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PluginsAPIService.UninstallVersionedPlugins")
@@ -1817,13 +1901,13 @@ func (a *PluginsAPIService) UninstallVersionedPluginsExecute(r ApiUninstallVersi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/uninstall"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/uninstall"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.clusterControllerApiPluginListRequest == nil {
-		return localVarReturnValue, nil, reportError("clusterControllerApiPluginListRequest is required and must be specified")
+	if r.instanceControllerApiPluginListRequest == nil {
+		return localVarReturnValue, nil, reportError("instanceControllerApiPluginListRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1844,7 +1928,7 @@ func (a *PluginsAPIService) UninstallVersionedPluginsExecute(r ApiUninstallVersi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.clusterControllerApiPluginListRequest
+	localVarPostBody = r.instanceControllerApiPluginListRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1934,7 +2018,7 @@ func (a *PluginsAPIService) UploadVersionedPluginsExecute(r ApiUploadVersionedPl
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/versioned-plugins/upload"
+	localVarPath := localBasePath + "/api/v1/instance/versioned-plugins/upload"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -31,11 +31,11 @@ type MiscControllerEEConfiguration struct {
 	Environment                     *MiscControllerEnvironment             `json:"environment,omitempty"`
 	Url                             *string                                `json:"url,omitempty"`
 	Preview                         *MiscControllerPreview                 `json:"preview,omitempty"`
-	IsBasicAuthEnabled              *bool                                  `json:"isBasicAuthEnabled,omitempty"`
 	SystemNamespace                 *string                                `json:"systemNamespace,omitempty"`
 	HiddenLabelsPrefixes            []string                               `json:"hiddenLabelsPrefixes,omitempty"`
 	ResourceToFilters               []QueryFilterResourceField             `json:"resourceToFilters,omitempty"`
 	IsAiEnabled                     *bool                                  `json:"isAiEnabled,omitempty"`
+	IsBasicAuthInitialized          *bool                                  `json:"isBasicAuthInitialized,omitempty"`
 	Tenants                         *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
 	SecretsEnabled                  *bool                                  `json:"secretsEnabled,omitempty"`
 	SupportedStorages               []MiscControllerPluginIdAndVersion     `json:"supportedStorages,omitempty"`
@@ -47,6 +47,7 @@ type MiscControllerEEConfiguration struct {
 	OutputsInInternalStorageEnabled *bool                                  `json:"outputsInInternalStorageEnabled,omitempty"`
 	ContextCustomLinks              *map[string]CustomLink                 `json:"contextCustomLinks,omitempty"`
 	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
+	PasswordRegexp                  *string                                `json:"passwordRegexp,omitempty"`
 	AdditionalProperties            map[string]interface{}
 }
 
@@ -421,38 +422,6 @@ func (o *MiscControllerEEConfiguration) SetPreview(v MiscControllerPreview) {
 	o.Preview = &v
 }
 
-// GetIsBasicAuthEnabled returns the IsBasicAuthEnabled field value if set, zero value otherwise.
-func (o *MiscControllerEEConfiguration) GetIsBasicAuthEnabled() bool {
-	if o == nil || IsNil(o.IsBasicAuthEnabled) {
-		var ret bool
-		return ret
-	}
-	return *o.IsBasicAuthEnabled
-}
-
-// GetIsBasicAuthEnabledOk returns a tuple with the IsBasicAuthEnabled field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MiscControllerEEConfiguration) GetIsBasicAuthEnabledOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsBasicAuthEnabled) {
-		return nil, false
-	}
-	return o.IsBasicAuthEnabled, true
-}
-
-// HasIsBasicAuthEnabled returns a boolean if a field has been set.
-func (o *MiscControllerEEConfiguration) HasIsBasicAuthEnabled() bool {
-	if o != nil && !IsNil(o.IsBasicAuthEnabled) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsBasicAuthEnabled gets a reference to the given bool and assigns it to the IsBasicAuthEnabled field.
-func (o *MiscControllerEEConfiguration) SetIsBasicAuthEnabled(v bool) {
-	o.IsBasicAuthEnabled = &v
-}
-
 // GetSystemNamespace returns the SystemNamespace field value if set, zero value otherwise.
 func (o *MiscControllerEEConfiguration) GetSystemNamespace() string {
 	if o == nil || IsNil(o.SystemNamespace) {
@@ -579,6 +548,38 @@ func (o *MiscControllerEEConfiguration) HasIsAiEnabled() bool {
 // SetIsAiEnabled gets a reference to the given bool and assigns it to the IsAiEnabled field.
 func (o *MiscControllerEEConfiguration) SetIsAiEnabled(v bool) {
 	o.IsAiEnabled = &v
+}
+
+// GetIsBasicAuthInitialized returns the IsBasicAuthInitialized field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsBasicAuthInitialized() bool {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		var ret bool
+		return ret
+	}
+	return *o.IsBasicAuthInitialized
+}
+
+// GetIsBasicAuthInitializedOk returns a tuple with the IsBasicAuthInitialized field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsBasicAuthInitializedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsBasicAuthInitialized) {
+		return nil, false
+	}
+	return o.IsBasicAuthInitialized, true
+}
+
+// HasIsBasicAuthInitialized returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsBasicAuthInitialized() bool {
+	if o != nil && !IsNil(o.IsBasicAuthInitialized) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsBasicAuthInitialized gets a reference to the given bool and assigns it to the IsBasicAuthInitialized field.
+func (o *MiscControllerEEConfiguration) SetIsBasicAuthInitialized(v bool) {
+	o.IsBasicAuthInitialized = &v
 }
 
 // GetTenants returns the Tenants field value if set, zero value otherwise.
@@ -933,6 +934,38 @@ func (o *MiscControllerEEConfiguration) SetInMaintenance(v bool) {
 	o.InMaintenance = &v
 }
 
+// GetPasswordRegexp returns the PasswordRegexp field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPasswordRegexp() string {
+	if o == nil || IsNil(o.PasswordRegexp) {
+		var ret string
+		return ret
+	}
+	return *o.PasswordRegexp
+}
+
+// GetPasswordRegexpOk returns a tuple with the PasswordRegexp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPasswordRegexpOk() (*string, bool) {
+	if o == nil || IsNil(o.PasswordRegexp) {
+		return nil, false
+	}
+	return o.PasswordRegexp, true
+}
+
+// HasPasswordRegexp returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPasswordRegexp() bool {
+	if o != nil && !IsNil(o.PasswordRegexp) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordRegexp gets a reference to the given string and assigns it to the PasswordRegexp field.
+func (o *MiscControllerEEConfiguration) SetPasswordRegexp(v string) {
+	o.PasswordRegexp = &v
+}
+
 func (o MiscControllerEEConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -976,9 +1009,6 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Preview) {
 		toSerialize["preview"] = o.Preview
 	}
-	if !IsNil(o.IsBasicAuthEnabled) {
-		toSerialize["isBasicAuthEnabled"] = o.IsBasicAuthEnabled
-	}
 	if !IsNil(o.SystemNamespace) {
 		toSerialize["systemNamespace"] = o.SystemNamespace
 	}
@@ -990,6 +1020,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsAiEnabled) {
 		toSerialize["isAiEnabled"] = o.IsAiEnabled
+	}
+	if !IsNil(o.IsBasicAuthInitialized) {
+		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
 	}
 	if !IsNil(o.Tenants) {
 		toSerialize["tenants"] = o.Tenants
@@ -1024,6 +1057,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InMaintenance) {
 		toSerialize["inMaintenance"] = o.InMaintenance
 	}
+	if !IsNil(o.PasswordRegexp) {
+		toSerialize["passwordRegexp"] = o.PasswordRegexp
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -1057,11 +1093,11 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "preview")
-		delete(additionalProperties, "isBasicAuthEnabled")
 		delete(additionalProperties, "systemNamespace")
 		delete(additionalProperties, "hiddenLabelsPrefixes")
 		delete(additionalProperties, "resourceToFilters")
 		delete(additionalProperties, "isAiEnabled")
+		delete(additionalProperties, "isBasicAuthInitialized")
 		delete(additionalProperties, "tenants")
 		delete(additionalProperties, "secretsEnabled")
 		delete(additionalProperties, "supportedStorages")
@@ -1073,6 +1109,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "outputsInInternalStorageEnabled")
 		delete(additionalProperties, "contextCustomLinks")
 		delete(additionalProperties, "inMaintenance")
+		delete(additionalProperties, "passwordRegexp")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -1,4 +1,4 @@
-# KestraApi.PluginSubGroupPluginCategory
+# KestraIoKestraSdk.PluginSubGroupPluginCategory
 
 ## Enum
 

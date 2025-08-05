@@ -1,4 +1,4 @@
-# KestraApi.Isolation
+# KestraIoKestraSdk.Isolation
 
 ## Properties
 

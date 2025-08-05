@@ -5,8 +5,6 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**autocomplete_namespaces**](NamespacesApi.md#autocomplete_namespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**autocomplete_namespaces_with_resource_tenantas_super_admin**](NamespacesApi.md#autocomplete_namespaces_with_resource_tenantas_super_admin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**autocomplete_namespacesas_super_admin**](NamespacesApi.md#autocomplete_namespacesas_super_admin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 [**create_namespace**](NamespacesApi.md#create_namespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**delete_namespace**](NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**delete_secret**](NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
@@ -22,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **autocomplete_namespaces**
-> List[str] autocomplete_namespaces(tenant, q=q, api_ids=api_ids)
+> List[str] autocomplete_namespaces(tenant, api_autocomplete)
 
 List namespaces for autocomplete
 
@@ -35,7 +33,7 @@ Returns a list of namespaces for use in autocomplete fields, optionally allowing
 
 ```python
 import kestrapy
-from kestrapy.models.api_ids import ApiIds
+from kestrapy.models.api_autocomplete import ApiAutocomplete
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -66,12 +64,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.NamespacesApi(api_client)
     tenant = 'tenant_example' # str | 
-    q = 'q_example' # str | A string filter (optional)
-    api_ids = kestrapy.ApiIds() # ApiIds |  (optional)
+    api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | 
 
     try:
         # List namespaces for autocomplete
-        api_response = api_instance.autocomplete_namespaces(tenant, q=q, api_ids=api_ids)
+        api_response = api_instance.autocomplete_namespaces(tenant, api_autocomplete)
         print("The response of NamespacesApi->autocomplete_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -86,8 +83,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **str**|  | 
- **q** | **str**| A string filter | [optional] 
- **api_ids** | [**ApiIds**](ApiIds.md)|  | [optional] 
+ **api_autocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | 
 
 ### Return type
 
@@ -107,182 +103,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | autocompleteNamespaces 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **autocomplete_namespaces_with_resource_tenantas_super_admin**
-> List[str] autocomplete_namespaces_with_resource_tenantas_super_admin(resource_tenant, q=q, api_ids=api_ids)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.api_ids import ApiIds
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.NamespacesApi(api_client)
-    resource_tenant = 'resource_tenant_example' # str | 
-    q = 'q_example' # str | A string filter (optional)
-    api_ids = kestrapy.ApiIds() # ApiIds |  (optional)
-
-    try:
-        # List namespaces for autocomplete
-        api_response = api_instance.autocomplete_namespaces_with_resource_tenantas_super_admin(resource_tenant, q=q, api_ids=api_ids)
-        print("The response of NamespacesApi->autocomplete_namespaces_with_resource_tenantas_super_admin:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling NamespacesApi->autocomplete_namespaces_with_resource_tenantas_super_admin: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resource_tenant** | **str**|  | 
- **q** | **str**| A string filter | [optional] 
- **api_ids** | [**ApiIds**](ApiIds.md)|  | [optional] 
-
-### Return type
-
-**List[str]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | autocompleteNamespacesWithResourceTenantasSuperAdmin 200 response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **autocomplete_namespacesas_super_admin**
-> List[str] autocomplete_namespacesas_super_admin(q=q, api_ids=api_ids)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
-
-```python
-import kestrapy
-from kestrapy.models.api_ids import ApiIds
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.NamespacesApi(api_client)
-    q = 'q_example' # str | A string filter (optional)
-    api_ids = kestrapy.ApiIds() # ApiIds |  (optional)
-
-    try:
-        # List namespaces for autocomplete
-        api_response = api_instance.autocomplete_namespacesas_super_admin(q=q, api_ids=api_ids)
-        print("The response of NamespacesApi->autocomplete_namespacesas_super_admin:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling NamespacesApi->autocomplete_namespacesas_super_admin: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **q** | **str**| A string filter | [optional] 
- **api_ids** | [**ApiIds**](ApiIds.md)|  | [optional] 
-
-### Return type
-
-**List[str]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | autocompleteNamespacesasSuperAdmin 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

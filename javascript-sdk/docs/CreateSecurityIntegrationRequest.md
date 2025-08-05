@@ -1,4 +1,4 @@
-# KestraApi.CreateSecurityIntegrationRequest
+# KestraIoKestraSdk.CreateSecurityIntegrationRequest
 
 ## Properties
 

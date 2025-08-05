@@ -1,4 +1,4 @@
-# KestraApi.WorkerGroupsApi
+# KestraIoKestraSdk.WorkerGroupsApi
 
 All URIs are relative to *http://localhost*
 
@@ -23,8 +23,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -33,8 +33,8 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.WorkerGroupsApi();
-let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+let apiInstance = new KestraIoKestraSdk.WorkerGroupsApi();
+let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraIoKestraSdk.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 apiInstance.createWorkerGroup(instanceControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -76,8 +76,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -86,7 +86,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.WorkerGroupsApi();
+let apiInstance = new KestraIoKestraSdk.WorkerGroupsApi();
 let id = "id_example"; // String | 
 apiInstance.deleteWorkerGroupById(id, (error, data, response) => {
   if (error) {
@@ -129,8 +129,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -139,7 +139,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.WorkerGroupsApi();
+let apiInstance = new KestraIoKestraSdk.WorkerGroupsApi();
 let id = "id_example"; // String | 
 apiInstance.getWorkerGroupById(id, (error, data, response) => {
   if (error) {
@@ -182,8 +182,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -192,7 +192,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.WorkerGroupsApi();
+let apiInstance = new KestraIoKestraSdk.WorkerGroupsApi();
 apiInstance.listWorkerGroups((error, data, response) => {
   if (error) {
     console.error(error);
@@ -231,8 +231,8 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -241,9 +241,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.WorkerGroupsApi();
+let apiInstance = new KestraIoKestraSdk.WorkerGroupsApi();
 let id = "id_example"; // String | 
-let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraApi.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+let instanceControllerApiCreateOrUpdateWorkerGroupRequest = new KestraIoKestraSdk.InstanceControllerApiCreateOrUpdateWorkerGroupRequest(); // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 apiInstance.updateWorkerGroupById(id, instanceControllerApiCreateOrUpdateWorkerGroupRequest, (error, data, response) => {
   if (error) {
     console.error(error);

@@ -1,4 +1,4 @@
-# KestraApi.AuditLogsApi
+# KestraIoKestraSdk.AuditLogsApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,8 +20,8 @@ Find a specific audit log
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -30,9 +30,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuditLogsApi();
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
 let tenant = "tenant_example"; // String | 
-let auditLogControllerFindRequest = new KestraApi.AuditLogControllerFindRequest(); // AuditLogControllerFindRequest | The find request
+let auditLogControllerFindRequest = new KestraIoKestraSdk.AuditLogControllerFindRequest(); // AuditLogControllerFindRequest | The find request
 apiInstance.findAuditLog(tenant, auditLogControllerFindRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -75,8 +75,8 @@ Retrieves the diff between the current version and a selected previous version o
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -85,7 +85,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuditLogsApi();
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
 let id = "id_example"; // String | The id of the audit log
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -132,8 +132,8 @@ Find all audit logs about a specific resource.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -142,7 +142,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuditLogsApi();
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
 let detailId = "detailId_example"; // String | The resource Id
 let tenant = "tenant_example"; // String | 
 apiInstance.listAuditLogFromResourceId(detailId, tenant, (error, data, response) => {
@@ -185,8 +185,8 @@ Search for audit logs
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -195,7 +195,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AuditLogsApi();
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -207,11 +207,11 @@ let opts = {
   'executionId': "executionId_example", // String | An execution filter
   'userId': "userId_example", // String | A user id filter
   'id': "id_example", // String | A id filter
-  'permission': new KestraApi.Permission(), // Permission | A permission filter
+  'permission': new KestraIoKestraSdk.Permission(), // Permission | A permission filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'details': {key: "null"}, // {String: String} | A list of auditLog details
-  'type': new KestraApi.CrudEventType() // CrudEventType | The event that create the audit log
+  'type': new KestraIoKestraSdk.CrudEventType() // CrudEventType | The event that create the audit log
 };
 apiInstance.searchAuditLogs(page, size, tenant, opts, (error, data, response) => {
   if (error) {

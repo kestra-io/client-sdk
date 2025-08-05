@@ -65,15 +65,9 @@ public enum Permission {
   
   TEST("TEST"),
   
-  ME("ME"),
-  
-  APITOKEN("APITOKEN"),
-  
   DASHBOARD("DASHBOARD"),
   
   TENANT_ACCESS("TENANT_ACCESS"),
-  
-  TENANT("TENANT"),
   
   SERVICE_ACCOUNT("SERVICE_ACCOUNT"),
   

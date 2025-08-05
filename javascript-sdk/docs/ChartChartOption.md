@@ -1,4 +1,4 @@
-# KestraApi.ChartChartOption
+# KestraIoKestraSdk.ChartChartOption
 
 ## Properties
 

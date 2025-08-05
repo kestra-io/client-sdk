@@ -1,4 +1,4 @@
-# KestraApi.DailyExecutionStatistics
+# KestraIoKestraSdk.DailyExecutionStatistics
 
 ## Properties
 

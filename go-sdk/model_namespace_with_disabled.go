@@ -23,21 +23,21 @@ type NamespaceWithDisabled struct {
 	Id      string `json:"id" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
 	Deleted bool   `json:"deleted"`
 	// Deprecated
-	AllowedTriggers          []NamespaceAllowedTrigger   `json:"allowedTriggers,omitempty"`
-	StorageIsolation         *Isolation                  `json:"storageIsolation,omitempty"`
-	SecretIsolation          *Isolation                  `json:"secretIsolation,omitempty"`
-	Description              string                      `json:"description"`
-	Variables                map[string]interface{}      `json:"variables"`
-	PluginDefaults           []PluginDefault             `json:"pluginDefaults"`
-	AllowedNamespaces        []NamespaceAllowedNamespace `json:"allowedNamespaces"`
-	WorkerGroup              WorkerGroup                 `json:"workerGroup"`
-	StorageType              *string                     `json:"storageType,omitempty"`
-	StorageConfiguration     map[string]interface{}      `json:"storageConfiguration,omitempty"`
-	SecretType               *string                     `json:"secretType,omitempty"`
-	SecretReadOnly           *bool                       `json:"secretReadOnly,omitempty"`
-	SecretConfiguration      map[string]interface{}      `json:"secretConfiguration,omitempty"`
-	OutputsInInternalStorage *bool                       `json:"outputsInInternalStorage,omitempty"`
-	Disabled                 bool                        `json:"disabled"`
+	AllowedTriggers          []NamespaceAllowedTrigger         `json:"allowedTriggers,omitempty"`
+	StorageIsolation         *Isolation                        `json:"storageIsolation,omitempty"`
+	SecretIsolation          *Isolation                        `json:"secretIsolation,omitempty"`
+	Description              *string                           `json:"description,omitempty"`
+	Variables                map[string]map[string]interface{} `json:"variables,omitempty"`
+	PluginDefaults           []PluginDefault                   `json:"pluginDefaults,omitempty"`
+	AllowedNamespaces        []NamespaceAllowedNamespace       `json:"allowedNamespaces,omitempty"`
+	WorkerGroup              *WorkerGroup                      `json:"workerGroup,omitempty"`
+	StorageType              *string                           `json:"storageType,omitempty"`
+	StorageConfiguration     map[string]map[string]interface{} `json:"storageConfiguration,omitempty"`
+	SecretType               *string                           `json:"secretType,omitempty"`
+	SecretReadOnly           *bool                             `json:"secretReadOnly,omitempty"`
+	SecretConfiguration      map[string]map[string]interface{} `json:"secretConfiguration,omitempty"`
+	OutputsInInternalStorage *bool                             `json:"outputsInInternalStorage,omitempty"`
+	Disabled                 *bool                             `json:"disabled,omitempty"`
 	AdditionalProperties     map[string]interface{}
 }
 
@@ -47,16 +47,10 @@ type _NamespaceWithDisabled NamespaceWithDisabled
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNamespaceWithDisabled(id string, deleted bool, description string, variables map[string]interface{}, pluginDefaults []PluginDefault, allowedNamespaces []NamespaceAllowedNamespace, workerGroup WorkerGroup, disabled bool) *NamespaceWithDisabled {
+func NewNamespaceWithDisabled(id string, deleted bool) *NamespaceWithDisabled {
 	this := NamespaceWithDisabled{}
 	this.Id = id
 	this.Deleted = deleted
-	this.Description = description
-	this.Variables = variables
-	this.PluginDefaults = pluginDefaults
-	this.AllowedNamespaces = allowedNamespaces
-	this.WorkerGroup = workerGroup
-	this.Disabled = disabled
 	return &this
 }
 
@@ -215,124 +209,164 @@ func (o *NamespaceWithDisabled) SetSecretIsolation(v Isolation) {
 	o.SecretIsolation = &v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *NamespaceWithDisabled) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NamespaceWithDisabled) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
-func (o *NamespaceWithDisabled) SetDescription(v string) {
-	o.Description = v
-}
-
-// GetVariables returns the Variables field value
-func (o *NamespaceWithDisabled) GetVariables() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
+// HasDescription returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
 	}
 
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *NamespaceWithDisabled) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *NamespaceWithDisabled) GetVariables() map[string]map[string]interface{} {
+	if o == nil || IsNil(o.Variables) {
+		var ret map[string]map[string]interface{}
+		return ret
+	}
 	return o.Variables
 }
 
-// GetVariablesOk returns a tuple with the Variables field value
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NamespaceWithDisabled) GetVariablesOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+func (o *NamespaceWithDisabled) GetVariablesOk() (map[string]map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
 
-// SetVariables sets field value
-func (o *NamespaceWithDisabled) SetVariables(v map[string]interface{}) {
+// HasVariables returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
+func (o *NamespaceWithDisabled) SetVariables(v map[string]map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetPluginDefaults returns the PluginDefaults field value
+// GetPluginDefaults returns the PluginDefaults field value if set, zero value otherwise.
 func (o *NamespaceWithDisabled) GetPluginDefaults() []PluginDefault {
-	if o == nil {
+	if o == nil || IsNil(o.PluginDefaults) {
 		var ret []PluginDefault
 		return ret
 	}
-
 	return o.PluginDefaults
 }
 
-// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value
+// GetPluginDefaultsOk returns a tuple with the PluginDefaults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NamespaceWithDisabled) GetPluginDefaultsOk() ([]PluginDefault, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PluginDefaults) {
 		return nil, false
 	}
 	return o.PluginDefaults, true
 }
 
-// SetPluginDefaults sets field value
+// HasPluginDefaults returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasPluginDefaults() bool {
+	if o != nil && !IsNil(o.PluginDefaults) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginDefaults gets a reference to the given []PluginDefault and assigns it to the PluginDefaults field.
 func (o *NamespaceWithDisabled) SetPluginDefaults(v []PluginDefault) {
 	o.PluginDefaults = v
 }
 
-// GetAllowedNamespaces returns the AllowedNamespaces field value
+// GetAllowedNamespaces returns the AllowedNamespaces field value if set, zero value otherwise.
 func (o *NamespaceWithDisabled) GetAllowedNamespaces() []NamespaceAllowedNamespace {
-	if o == nil {
+	if o == nil || IsNil(o.AllowedNamespaces) {
 		var ret []NamespaceAllowedNamespace
 		return ret
 	}
-
 	return o.AllowedNamespaces
 }
 
-// GetAllowedNamespacesOk returns a tuple with the AllowedNamespaces field value
+// GetAllowedNamespacesOk returns a tuple with the AllowedNamespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NamespaceWithDisabled) GetAllowedNamespacesOk() ([]NamespaceAllowedNamespace, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AllowedNamespaces) {
 		return nil, false
 	}
 	return o.AllowedNamespaces, true
 }
 
-// SetAllowedNamespaces sets field value
+// HasAllowedNamespaces returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasAllowedNamespaces() bool {
+	if o != nil && !IsNil(o.AllowedNamespaces) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedNamespaces gets a reference to the given []NamespaceAllowedNamespace and assigns it to the AllowedNamespaces field.
 func (o *NamespaceWithDisabled) SetAllowedNamespaces(v []NamespaceAllowedNamespace) {
 	o.AllowedNamespaces = v
 }
 
-// GetWorkerGroup returns the WorkerGroup field value
+// GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
 func (o *NamespaceWithDisabled) GetWorkerGroup() WorkerGroup {
-	if o == nil {
+	if o == nil || IsNil(o.WorkerGroup) {
 		var ret WorkerGroup
 		return ret
 	}
-
-	return o.WorkerGroup
+	return *o.WorkerGroup
 }
 
-// GetWorkerGroupOk returns a tuple with the WorkerGroup field value
+// GetWorkerGroupOk returns a tuple with the WorkerGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NamespaceWithDisabled) GetWorkerGroupOk() (*WorkerGroup, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.WorkerGroup) {
 		return nil, false
 	}
-	return &o.WorkerGroup, true
+	return o.WorkerGroup, true
 }
 
-// SetWorkerGroup sets field value
+// HasWorkerGroup returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasWorkerGroup() bool {
+	if o != nil && !IsNil(o.WorkerGroup) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkerGroup gets a reference to the given WorkerGroup and assigns it to the WorkerGroup field.
 func (o *NamespaceWithDisabled) SetWorkerGroup(v WorkerGroup) {
-	o.WorkerGroup = v
+	o.WorkerGroup = &v
 }
 
 // GetStorageType returns the StorageType field value if set, zero value otherwise.
@@ -368,9 +402,9 @@ func (o *NamespaceWithDisabled) SetStorageType(v string) {
 }
 
 // GetStorageConfiguration returns the StorageConfiguration field value if set, zero value otherwise.
-func (o *NamespaceWithDisabled) GetStorageConfiguration() map[string]interface{} {
+func (o *NamespaceWithDisabled) GetStorageConfiguration() map[string]map[string]interface{} {
 	if o == nil || IsNil(o.StorageConfiguration) {
-		var ret map[string]interface{}
+		var ret map[string]map[string]interface{}
 		return ret
 	}
 	return o.StorageConfiguration
@@ -378,9 +412,9 @@ func (o *NamespaceWithDisabled) GetStorageConfiguration() map[string]interface{}
 
 // GetStorageConfigurationOk returns a tuple with the StorageConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NamespaceWithDisabled) GetStorageConfigurationOk() (map[string]interface{}, bool) {
+func (o *NamespaceWithDisabled) GetStorageConfigurationOk() (map[string]map[string]interface{}, bool) {
 	if o == nil || IsNil(o.StorageConfiguration) {
-		return map[string]interface{}{}, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.StorageConfiguration, true
 }
@@ -394,8 +428,8 @@ func (o *NamespaceWithDisabled) HasStorageConfiguration() bool {
 	return false
 }
 
-// SetStorageConfiguration gets a reference to the given map[string]interface{} and assigns it to the StorageConfiguration field.
-func (o *NamespaceWithDisabled) SetStorageConfiguration(v map[string]interface{}) {
+// SetStorageConfiguration gets a reference to the given map[string]map[string]interface{} and assigns it to the StorageConfiguration field.
+func (o *NamespaceWithDisabled) SetStorageConfiguration(v map[string]map[string]interface{}) {
 	o.StorageConfiguration = v
 }
 
@@ -464,9 +498,9 @@ func (o *NamespaceWithDisabled) SetSecretReadOnly(v bool) {
 }
 
 // GetSecretConfiguration returns the SecretConfiguration field value if set, zero value otherwise.
-func (o *NamespaceWithDisabled) GetSecretConfiguration() map[string]interface{} {
+func (o *NamespaceWithDisabled) GetSecretConfiguration() map[string]map[string]interface{} {
 	if o == nil || IsNil(o.SecretConfiguration) {
-		var ret map[string]interface{}
+		var ret map[string]map[string]interface{}
 		return ret
 	}
 	return o.SecretConfiguration
@@ -474,9 +508,9 @@ func (o *NamespaceWithDisabled) GetSecretConfiguration() map[string]interface{} 
 
 // GetSecretConfigurationOk returns a tuple with the SecretConfiguration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NamespaceWithDisabled) GetSecretConfigurationOk() (map[string]interface{}, bool) {
+func (o *NamespaceWithDisabled) GetSecretConfigurationOk() (map[string]map[string]interface{}, bool) {
 	if o == nil || IsNil(o.SecretConfiguration) {
-		return map[string]interface{}{}, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.SecretConfiguration, true
 }
@@ -490,8 +524,8 @@ func (o *NamespaceWithDisabled) HasSecretConfiguration() bool {
 	return false
 }
 
-// SetSecretConfiguration gets a reference to the given map[string]interface{} and assigns it to the SecretConfiguration field.
-func (o *NamespaceWithDisabled) SetSecretConfiguration(v map[string]interface{}) {
+// SetSecretConfiguration gets a reference to the given map[string]map[string]interface{} and assigns it to the SecretConfiguration field.
+func (o *NamespaceWithDisabled) SetSecretConfiguration(v map[string]map[string]interface{}) {
 	o.SecretConfiguration = v
 }
 
@@ -527,28 +561,36 @@ func (o *NamespaceWithDisabled) SetOutputsInInternalStorage(v bool) {
 	o.OutputsInInternalStorage = &v
 }
 
-// GetDisabled returns the Disabled field value
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
 func (o *NamespaceWithDisabled) GetDisabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Disabled) {
 		var ret bool
 		return ret
 	}
-
-	return o.Disabled
+	return *o.Disabled
 }
 
-// GetDisabledOk returns a tuple with the Disabled field value
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NamespaceWithDisabled) GetDisabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Disabled) {
 		return nil, false
 	}
-	return &o.Disabled, true
+	return o.Disabled, true
 }
 
-// SetDisabled sets field value
+// HasDisabled returns a boolean if a field has been set.
+func (o *NamespaceWithDisabled) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
 func (o *NamespaceWithDisabled) SetDisabled(v bool) {
-	o.Disabled = v
+	o.Disabled = &v
 }
 
 func (o NamespaceWithDisabled) MarshalJSON() ([]byte, error) {
@@ -572,11 +614,21 @@ func (o NamespaceWithDisabled) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecretIsolation) {
 		toSerialize["secretIsolation"] = o.SecretIsolation
 	}
-	toSerialize["description"] = o.Description
-	toSerialize["variables"] = o.Variables
-	toSerialize["pluginDefaults"] = o.PluginDefaults
-	toSerialize["allowedNamespaces"] = o.AllowedNamespaces
-	toSerialize["workerGroup"] = o.WorkerGroup
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
+	if !IsNil(o.PluginDefaults) {
+		toSerialize["pluginDefaults"] = o.PluginDefaults
+	}
+	if !IsNil(o.AllowedNamespaces) {
+		toSerialize["allowedNamespaces"] = o.AllowedNamespaces
+	}
+	if !IsNil(o.WorkerGroup) {
+		toSerialize["workerGroup"] = o.WorkerGroup
+	}
 	if !IsNil(o.StorageType) {
 		toSerialize["storageType"] = o.StorageType
 	}
@@ -595,7 +647,9 @@ func (o NamespaceWithDisabled) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputsInInternalStorage) {
 		toSerialize["outputsInInternalStorage"] = o.OutputsInInternalStorage
 	}
-	toSerialize["disabled"] = o.Disabled
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -611,12 +665,6 @@ func (o *NamespaceWithDisabled) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"deleted",
-		"description",
-		"variables",
-		"pluginDefaults",
-		"allowedNamespaces",
-		"workerGroup",
-		"disabled",
 	}
 
 	allProperties := make(map[string]interface{})

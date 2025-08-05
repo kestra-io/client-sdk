@@ -1,4 +1,4 @@
-# KestraApi.SLABehavior
+# KestraIoKestraSdk.SLABehavior
 
 ## Enum
 

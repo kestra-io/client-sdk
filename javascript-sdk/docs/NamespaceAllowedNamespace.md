@@ -1,4 +1,4 @@
-# KestraApi.NamespaceAllowedNamespace
+# KestraIoKestraSdk.NamespaceAllowedNamespace
 
 ## Properties
 

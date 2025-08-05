@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
+**id** | **str** |  | 
 **namespaces** | **List[str]** |  | [optional] 
 
 ## Example

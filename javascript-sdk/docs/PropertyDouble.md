@@ -1,4 +1,4 @@
-# KestraApi.PropertyDouble
+# KestraIoKestraSdk.PropertyDouble
 
 ## Properties
 

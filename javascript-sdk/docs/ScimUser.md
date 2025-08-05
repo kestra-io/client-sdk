@@ -1,4 +1,4 @@
-# KestraApi.ScimUser
+# KestraIoKestraSdk.ScimUser
 
 ## Properties
 

@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -231,6 +230,241 @@ func (a *DashboardsAPIService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 	return localVarHTTPResponse, nil
 }
 
+type ApiExportChartToCsvRequest struct {
+	ctx                               context.Context
+	ApiService                        *DashboardsAPIService
+	tenant                            string
+	dashboardControllerPreviewRequest *DashboardControllerPreviewRequest
+}
+
+func (r ApiExportChartToCsvRequest) DashboardControllerPreviewRequest(dashboardControllerPreviewRequest DashboardControllerPreviewRequest) ApiExportChartToCsvRequest {
+	r.dashboardControllerPreviewRequest = &dashboardControllerPreviewRequest
+	return r
+}
+
+func (r ApiExportChartToCsvRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.ExportChartToCsvExecute(r)
+}
+
+/*
+ExportChartToCsv Export a table chart data to CSV
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiExportChartToCsvRequest
+*/
+func (a *DashboardsAPIService) ExportChartToCsv(ctx context.Context, tenant string) ApiExportChartToCsvRequest {
+	return ApiExportChartToCsvRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return string
+func (a *DashboardsAPIService) ExportChartToCsvExecute(r ApiExportChartToCsvRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.ExportChartToCsv")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/dashboards/charts/export/to-csv"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.dashboardControllerPreviewRequest == nil {
+		return localVarReturnValue, nil, reportError("dashboardControllerPreviewRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.dashboardControllerPreviewRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiExportDashboardChartDataToCSVRequest struct {
+	ctx                   context.Context
+	ApiService            *DashboardsAPIService
+	id                    string
+	chartId               string
+	tenant                string
+	chartFiltersOverrides *ChartFiltersOverrides
+}
+
+// The filters to apply, some can override chart definition like labels &amp; namespace
+func (r ApiExportDashboardChartDataToCSVRequest) ChartFiltersOverrides(chartFiltersOverrides ChartFiltersOverrides) ApiExportDashboardChartDataToCSVRequest {
+	r.chartFiltersOverrides = &chartFiltersOverrides
+	return r
+}
+
+func (r ApiExportDashboardChartDataToCSVRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.ExportDashboardChartDataToCSVExecute(r)
+}
+
+/*
+ExportDashboardChartDataToCSV Export a dashboard chart data to CSV
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The dashboard id
+	@param chartId The chart id
+	@param tenant
+	@return ApiExportDashboardChartDataToCSVRequest
+*/
+func (a *DashboardsAPIService) ExportDashboardChartDataToCSV(ctx context.Context, id string, chartId string, tenant string) ApiExportDashboardChartDataToCSVRequest {
+	return ApiExportDashboardChartDataToCSVRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		chartId:    chartId,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return string
+func (a *DashboardsAPIService) ExportDashboardChartDataToCSVExecute(r ApiExportDashboardChartDataToCSVRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsAPIService.ExportDashboardChartDataToCSV")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/dashboards/{id}/charts/{chartId}/export/to-csv"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"chartId"+"}", url.PathEscape(parameterValueToString(r.chartId, "chartId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.chartFiltersOverrides == nil {
+		return localVarReturnValue, nil, reportError("chartFiltersOverrides is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/octet-stream"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.chartFiltersOverrides
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetDashboardRequest struct {
 	ctx        context.Context
 	ApiService *DashboardsAPIService
@@ -338,17 +572,17 @@ func (a *DashboardsAPIService) GetDashboardExecute(r ApiGetDashboardRequest) (*D
 }
 
 type ApiGetDashboardChartDataRequest struct {
-	ctx          context.Context
-	ApiService   *DashboardsAPIService
-	id           string
-	chartId      string
-	tenant       string
-	globalFilter *GlobalFilter
+	ctx                   context.Context
+	ApiService            *DashboardsAPIService
+	id                    string
+	chartId               string
+	tenant                string
+	chartFiltersOverrides *ChartFiltersOverrides
 }
 
 // The filters to apply, some can override chart definition like labels &amp; namespace
-func (r ApiGetDashboardChartDataRequest) GlobalFilter(globalFilter GlobalFilter) ApiGetDashboardChartDataRequest {
-	r.globalFilter = &globalFilter
+func (r ApiGetDashboardChartDataRequest) ChartFiltersOverrides(chartFiltersOverrides ChartFiltersOverrides) ApiGetDashboardChartDataRequest {
+	r.chartFiltersOverrides = &chartFiltersOverrides
 	return r
 }
 
@@ -399,8 +633,8 @@ func (a *DashboardsAPIService) GetDashboardChartDataExecute(r ApiGetDashboardCha
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.globalFilter == nil {
-		return localVarReturnValue, nil, reportError("globalFilter is required and must be specified")
+	if r.chartFiltersOverrides == nil {
+		return localVarReturnValue, nil, reportError("chartFiltersOverrides is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -421,7 +655,7 @@ func (a *DashboardsAPIService) GetDashboardChartDataExecute(r ApiGetDashboardCha
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.globalFilter
+	localVarPostBody = r.chartFiltersOverrides
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -666,15 +900,7 @@ func (a *DashboardsAPIService) SearchDashboardsExecute(r ApiSearchDashboardsRequ
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

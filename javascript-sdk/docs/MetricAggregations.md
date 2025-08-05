@@ -1,4 +1,4 @@
-# KestraApi.MetricAggregations
+# KestraIoKestraSdk.MetricAggregations
 
 ## Properties
 

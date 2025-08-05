@@ -1,4 +1,4 @@
-# KestraApi.WorkerGroup
+# KestraIoKestraSdk.WorkerGroup
 
 ## Properties
 

@@ -33,6 +33,7 @@ type DailyExecutionStatisticsExecutionCounts struct {
 	RETRYING             *int64 `json:"RETRYING,omitempty"`
 	RETRIED              *int64 `json:"RETRIED,omitempty"`
 	SKIPPED              *int64 `json:"SKIPPED,omitempty"`
+	BREAKPOINT           *int64 `json:"BREAKPOINT,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -503,6 +504,38 @@ func (o *DailyExecutionStatisticsExecutionCounts) SetSKIPPED(v int64) {
 	o.SKIPPED = &v
 }
 
+// GetBREAKPOINT returns the BREAKPOINT field value if set, zero value otherwise.
+func (o *DailyExecutionStatisticsExecutionCounts) GetBREAKPOINT() int64 {
+	if o == nil || IsNil(o.BREAKPOINT) {
+		var ret int64
+		return ret
+	}
+	return *o.BREAKPOINT
+}
+
+// GetBREAKPOINTOk returns a tuple with the BREAKPOINT field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DailyExecutionStatisticsExecutionCounts) GetBREAKPOINTOk() (*int64, bool) {
+	if o == nil || IsNil(o.BREAKPOINT) {
+		return nil, false
+	}
+	return o.BREAKPOINT, true
+}
+
+// HasBREAKPOINT returns a boolean if a field has been set.
+func (o *DailyExecutionStatisticsExecutionCounts) HasBREAKPOINT() bool {
+	if o != nil && !IsNil(o.BREAKPOINT) {
+		return true
+	}
+
+	return false
+}
+
+// SetBREAKPOINT gets a reference to the given int64 and assigns it to the BREAKPOINT field.
+func (o *DailyExecutionStatisticsExecutionCounts) SetBREAKPOINT(v int64) {
+	o.BREAKPOINT = &v
+}
+
 func (o DailyExecutionStatisticsExecutionCounts) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -555,6 +588,9 @@ func (o DailyExecutionStatisticsExecutionCounts) ToMap() (map[string]interface{}
 	if !IsNil(o.SKIPPED) {
 		toSerialize["SKIPPED"] = o.SKIPPED
 	}
+	if !IsNil(o.BREAKPOINT) {
+		toSerialize["BREAKPOINT"] = o.BREAKPOINT
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -591,6 +627,7 @@ func (o *DailyExecutionStatisticsExecutionCounts) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "RETRYING")
 		delete(additionalProperties, "RETRIED")
 		delete(additionalProperties, "SKIPPED")
+		delete(additionalProperties, "BREAKPOINT")
 		o.AdditionalProperties = additionalProperties
 	}
 

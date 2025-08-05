@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
+**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetType sets Type field to given value.
 
 ### GetVariables
 
-`func (o *TriggerFixture) GetVariables() map[string]interface{}`
+`func (o *TriggerFixture) GetVariables() map[string]map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *TriggerFixture) GetVariablesOk() (*map[string]interface{}, bool)`
+`func (o *TriggerFixture) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *TriggerFixture) SetVariables(v map[string]interface{})`
+`func (o *TriggerFixture) SetVariables(v map[string]map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

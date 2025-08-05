@@ -1,4 +1,4 @@
-# KestraApi.DefaultApi
+# KestraIoKestraSdk.DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,9 +22,9 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DefaultApi();
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
 let invitationId = "invitationId_example"; // String | 
 apiInstance.acceptInvitation(invitationId, (error, data, response) => {
   if (error) {
@@ -65,11 +65,11 @@ No authorization required
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DefaultApi();
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
 let invitationId = "invitationId_example"; // String | 
-let authControllerInvitationUserRequest = new KestraApi.AuthControllerInvitationUserRequest(); // AuthControllerInvitationUserRequest | The basic information to create an account from an invitation
+let authControllerInvitationUserRequest = new KestraIoKestraSdk.AuthControllerInvitationUserRequest(); // AuthControllerInvitationUserRequest | The basic information to create an account from an invitation
 apiInstance.createFromInvitation(invitationId, authControllerInvitationUserRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -112,9 +112,9 @@ Sends an email to reset a password. Note that whatever the username is found or 
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DefaultApi();
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
 let username = "username_example"; // String | User that has forgotten his password
 apiInstance.forgottenPassword(username, (error, data, response) => {
   if (error) {
@@ -155,8 +155,8 @@ No authorization required
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -165,7 +165,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.DefaultApi();
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
 let tenant = "tenant_example"; // String | 
 let opts = {
   'from': new Date("2013-10-20") // Date | The start date
@@ -210,9 +210,9 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DefaultApi();
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
 let username = "username_example"; // String | 
 let password = "password_example"; // String | 
 let opts = {
@@ -263,10 +263,10 @@ Change a password for given token. If password does not match password policy, u
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DefaultApi();
-let authControllerResetPasswordRequest = new KestraApi.AuthControllerResetPasswordRequest(); // AuthControllerResetPasswordRequest | The password
+let apiInstance = new KestraIoKestraSdk.DefaultApi();
+let authControllerResetPasswordRequest = new KestraIoKestraSdk.AuthControllerResetPasswordRequest(); // AuthControllerResetPasswordRequest | The password
 apiInstance.resetPassword(authControllerResetPasswordRequest, (error, data, response) => {
   if (error) {
     console.error(error);

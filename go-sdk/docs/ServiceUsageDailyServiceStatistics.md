@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
-**Values** | [**[]ServiceUsageDailyStatistics**](ServiceUsageDailyStatistics.md) |  | 
+**Type** | Pointer to **string** |  | [optional] 
+**Values** | Pointer to [**[]ServiceUsageDailyStatistics**](ServiceUsageDailyStatistics.md) |  | [optional] 
 
 ## Methods
 
 ### NewServiceUsageDailyServiceStatistics
 
-`func NewServiceUsageDailyServiceStatistics(type_ string, values []ServiceUsageDailyStatistics, ) *ServiceUsageDailyServiceStatistics`
+`func NewServiceUsageDailyServiceStatistics() *ServiceUsageDailyServiceStatistics`
 
 NewServiceUsageDailyServiceStatistics instantiates a new ServiceUsageDailyServiceStatistics object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *ServiceUsageDailyServiceStatistics) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetValues
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
+### HasValues
+
+`func (o *ServiceUsageDailyServiceStatistics) HasValues() bool`
+
+HasValues returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

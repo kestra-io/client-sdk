@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsMetricEntry
+# KestraIoKestraSdk.PagedResultsMetricEntry
 
 ## Properties
 

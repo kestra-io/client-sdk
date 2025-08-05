@@ -1,4 +1,4 @@
-# KestraApi.MapObjectObject
+# KestraIoKestraSdk.MapObjectObject
 
 ## Properties
 

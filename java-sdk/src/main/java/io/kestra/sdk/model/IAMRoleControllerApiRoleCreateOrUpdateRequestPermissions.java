@@ -51,18 +51,15 @@ import java.util.StringJoiner;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_S_T,
-  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_M_E,
-  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_A_P_I_T_O_K_E_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_D_A_S_H_B_O_A_R_D,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S,
-  IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_T_E_N_A_N_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P,
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
 })
 @JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   public static final String JSON_PROPERTY_F_L_O_W = "FLOW";
   @javax.annotation.Nullable
@@ -136,14 +133,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   @javax.annotation.Nullable
   private List<String> TEST = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_M_E = "ME";
-  @javax.annotation.Nullable
-  private List<String> ME = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_A_P_I_T_O_K_E_N = "APITOKEN";
-  @javax.annotation.Nullable
-  private List<String> APITOKEN = new ArrayList<>();
-
   public static final String JSON_PROPERTY_D_A_S_H_B_O_A_R_D = "DASHBOARD";
   @javax.annotation.Nullable
   private List<String> DASHBOARD = new ArrayList<>();
@@ -151,10 +140,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   public static final String JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S = "TENANT_ACCESS";
   @javax.annotation.Nullable
   private List<String> TENANT_ACCESS = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_T_E_N_A_N_T = "TENANT";
-  @javax.annotation.Nullable
-  private List<String> TENANT = new ArrayList<>();
 
   public static final String JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T = "SERVICE_ACCOUNT";
   @javax.annotation.Nullable
@@ -769,72 +754,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     this.TEST = TEST;
   }
 
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions ME(@javax.annotation.Nullable List<String> ME) {
-    
-    this.ME = ME;
-    return this;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addMEItem(String MEItem) {
-    if (this.ME == null) {
-      this.ME = new ArrayList<>();
-    }
-    this.ME.add(MEItem);
-    return this;
-  }
-
-  /**
-   * Get ME
-   * @return ME
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_M_E)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getME() {
-    return ME;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_M_E)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setME(@javax.annotation.Nullable List<String> ME) {
-    this.ME = ME;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions APITOKEN(@javax.annotation.Nullable List<String> APITOKEN) {
-    
-    this.APITOKEN = APITOKEN;
-    return this;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addAPITOKENItem(String APITOKENItem) {
-    if (this.APITOKEN == null) {
-      this.APITOKEN = new ArrayList<>();
-    }
-    this.APITOKEN.add(APITOKENItem);
-    return this;
-  }
-
-  /**
-   * Get APITOKEN
-   * @return APITOKEN
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_A_P_I_T_O_K_E_N)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getAPITOKEN() {
-    return APITOKEN;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_A_P_I_T_O_K_E_N)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAPITOKEN(@javax.annotation.Nullable List<String> APITOKEN) {
-    this.APITOKEN = APITOKEN;
-  }
-
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions DASHBOARD(@javax.annotation.Nullable List<String> DASHBOARD) {
     
     this.DASHBOARD = DASHBOARD;
@@ -899,39 +818,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTENANTACCESS(@javax.annotation.Nullable List<String> TENANT_ACCESS) {
     this.TENANT_ACCESS = TENANT_ACCESS;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions TENANT(@javax.annotation.Nullable List<String> TENANT) {
-    
-    this.TENANT = TENANT;
-    return this;
-  }
-
-  public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions addTENANTItem(String TENANTItem) {
-    if (this.TENANT == null) {
-      this.TENANT = new ArrayList<>();
-    }
-    this.TENANT.add(TENANTItem);
-    return this;
-  }
-
-  /**
-   * Get TENANT
-   * @return TENANT
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getTENANT() {
-    return TENANT;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTENANT(@javax.annotation.Nullable List<String> TENANT) {
-    this.TENANT = TENANT;
   }
 
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions SERVICE_ACCOUNT(@javax.annotation.Nullable List<String> SERVICE_ACCOUNT) {
@@ -1093,11 +979,8 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
         Objects.equals(this.APP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APP) &&
         Objects.equals(this.APPEXECUTION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APPEXECUTION) &&
         Objects.equals(this.TEST, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TEST) &&
-        Objects.equals(this.ME, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.ME) &&
-        Objects.equals(this.APITOKEN, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.APITOKEN) &&
         Objects.equals(this.DASHBOARD, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.DASHBOARD) &&
         Objects.equals(this.TENANT_ACCESS, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TENANT_ACCESS) &&
-        Objects.equals(this.TENANT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.TENANT) &&
         Objects.equals(this.SERVICE_ACCOUNT, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.SERVICE_ACCOUNT) &&
         Objects.equals(this.INVITATION, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.INVITATION) &&
         Objects.equals(this.GROUP_MEMBERSHIP, iaMRoleControllerApiRoleCreateOrUpdateRequestPermissions.GROUP_MEMBERSHIP) &&
@@ -1106,7 +989,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, INFRASTRUCTURE, APP, APPEXECUTION, TEST, ME, APITOKEN, DASHBOARD, TENANT_ACCESS, TENANT, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN);
+    return Objects.hash(FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, INFRASTRUCTURE, APP, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN);
   }
 
   @Override
@@ -1131,11 +1014,8 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
     sb.append("    APP: ").append(toIndentedString(APP)).append("\n");
     sb.append("    APPEXECUTION: ").append(toIndentedString(APPEXECUTION)).append("\n");
     sb.append("    TEST: ").append(toIndentedString(TEST)).append("\n");
-    sb.append("    ME: ").append(toIndentedString(ME)).append("\n");
-    sb.append("    APITOKEN: ").append(toIndentedString(APITOKEN)).append("\n");
     sb.append("    DASHBOARD: ").append(toIndentedString(DASHBOARD)).append("\n");
     sb.append("    TENANT_ACCESS: ").append(toIndentedString(TENANT_ACCESS)).append("\n");
-    sb.append("    TENANT: ").append(toIndentedString(TENANT)).append("\n");
     sb.append("    SERVICE_ACCOUNT: ").append(toIndentedString(SERVICE_ACCOUNT)).append("\n");
     sb.append("    INVITATION: ").append(toIndentedString(INVITATION)).append("\n");
     sb.append("    GROUP_MEMBERSHIP: ").append(toIndentedString(GROUP_MEMBERSHIP)).append("\n");
@@ -1439,34 +1319,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
       }
     }
 
-    // add `ME` to the URL query string
-    if (getME() != null) {
-      for (int i = 0; i < getME().size(); i++) {
-        try {
-          joiner.add(String.format("%sME%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getME().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `APITOKEN` to the URL query string
-    if (getAPITOKEN() != null) {
-      for (int i = 0; i < getAPITOKEN().size(); i++) {
-        try {
-          joiner.add(String.format("%sAPITOKEN%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getAPITOKEN().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
     // add `DASHBOARD` to the URL query string
     if (getDASHBOARD() != null) {
       for (int i = 0; i < getDASHBOARD().size(); i++) {
@@ -1488,20 +1340,6 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
           joiner.add(String.format("%sTENANT_ACCESS%s%s=%s", prefix, suffix,
               "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
               URLEncoder.encode(String.valueOf(getTENANTACCESS().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `TENANT` to the URL query string
-    if (getTENANT() != null) {
-      for (int i = 0; i < getTENANT().size(); i++) {
-        try {
-          joiner.add(String.format("%sTENANT%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getTENANT().get(i)), "UTF-8").replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported
           throw new RuntimeException(e);

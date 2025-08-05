@@ -9,17 +9,17 @@ Name | Type | Description | Notes
 **Detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **Date** | **time.Time** |  | 
 **UserId** | **string** |  | 
-**IpAddress** | **string** |  | 
-**ImpersonatedBy** | **string** |  | 
-**Deleted** | **bool** |  | 
-**AppliedPatch** | **[]map[string]interface{}** |  | 
-**RevertPatch** | **[]map[string]interface{}** |  | 
+**IpAddress** | Pointer to **string** |  | [optional] 
+**ImpersonatedBy** | Pointer to **string** |  | [optional] 
+**Deleted** | Pointer to **bool** |  | [optional] 
+**AppliedPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**RevertPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewAuditLog
 
-`func NewAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ipAddress string, impersonatedBy string, deleted bool, appliedPatch []map[string]interface{}, revertPatch []map[string]interface{}, ) *AuditLog`
+`func NewAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ) *AuditLog`
 
 NewAuditLog instantiates a new AuditLog object
 This constructor will assign default values to properties that have it defined,
@@ -153,6 +153,11 @@ and a boolean to check if the value has been set.
 
 SetIpAddress sets IpAddress field to given value.
 
+### HasIpAddress
+
+`func (o *AuditLog) HasIpAddress() bool`
+
+HasIpAddress returns a boolean if a field has been set.
 
 ### GetImpersonatedBy
 
@@ -173,6 +178,11 @@ and a boolean to check if the value has been set.
 
 SetImpersonatedBy sets ImpersonatedBy field to given value.
 
+### HasImpersonatedBy
+
+`func (o *AuditLog) HasImpersonatedBy() bool`
+
+HasImpersonatedBy returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -193,6 +203,11 @@ and a boolean to check if the value has been set.
 
 SetDeleted sets Deleted field to given value.
 
+### HasDeleted
+
+`func (o *AuditLog) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 ### GetAppliedPatch
 
@@ -213,6 +228,11 @@ and a boolean to check if the value has been set.
 
 SetAppliedPatch sets AppliedPatch field to given value.
 
+### HasAppliedPatch
+
+`func (o *AuditLog) HasAppliedPatch() bool`
+
+HasAppliedPatch returns a boolean if a field has been set.
 
 ### GetRevertPatch
 
@@ -233,6 +253,11 @@ and a boolean to check if the value has been set.
 
 SetRevertPatch sets RevertPatch field to given value.
 
+### HasRevertPatch
+
+`func (o *AuditLog) HasRevertPatch() bool`
+
+HasRevertPatch returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

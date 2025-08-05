@@ -1,4 +1,4 @@
-# KestraApi.AppResponseUILayout
+# KestraIoKestraSdk.AppResponseUILayout
 
 ## Properties
 

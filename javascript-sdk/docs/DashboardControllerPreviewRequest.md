@@ -1,4 +1,4 @@
-# KestraApi.DashboardControllerPreviewRequest
+# KestraIoKestraSdk.DashboardControllerPreviewRequest
 
 ## Properties
 

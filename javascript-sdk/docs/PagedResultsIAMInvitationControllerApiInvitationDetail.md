@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsIAMInvitationControllerApiInvitationDetail
+# KestraIoKestraSdk.PagedResultsIAMInvitationControllerApiInvitationDetail
 
 ## Properties
 

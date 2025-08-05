@@ -1,4 +1,4 @@
-# KestraApi.AppsControllerApiAppSource
+# KestraIoKestraSdk.AppsControllerApiAppSource
 
 ## Properties
 

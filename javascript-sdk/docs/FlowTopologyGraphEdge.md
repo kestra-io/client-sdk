@@ -1,4 +1,4 @@
-# KestraApi.FlowTopologyGraphEdge
+# KestraIoKestraSdk.FlowTopologyGraphEdge
 
 ## Properties
 

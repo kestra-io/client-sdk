@@ -1,4 +1,4 @@
-# KestraApi.IAMRoleControllerApiRoleDetail
+# KestraIoKestraSdk.IAMRoleControllerApiRoleDetail
 
 ## Properties
 

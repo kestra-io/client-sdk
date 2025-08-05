@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsFlow
+# KestraIoKestraSdk.PagedResultsFlow
 
 ## Properties
 

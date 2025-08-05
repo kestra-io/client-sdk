@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**Delete**](TenantsAPI.md#Delete) | **Delete** /api/v1/tenants/{id} | Delete a tenant and all its resources
 [**Find**](TenantsAPI.md#Find) | **Get** /api/v1/tenants/search | Search for tenants
 [**Get**](TenantsAPI.md#Get) | **Get** /api/v1/tenants/{id} | Retrieve a tenant
+[**GetFlowDependenciesFromTenant**](TenantsAPI.md#GetFlowDependenciesFromTenant) | **Get** /api/v1/{tenant}/dependencies | Get tenant dependencies
 [**SetLogo**](TenantsAPI.md#SetLogo) | **Post** /api/v1/tenants/{id}/logo | Set a tenant logo
 [**Update**](TenantsAPI.md#Update) | **Put** /api/v1/tenants/{id} | Update a tenant
 
@@ -34,7 +35,7 @@ import (
 )
 
 func main() {
-	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false) // Tenant | 
+	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -289,6 +290,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetFlowDependenciesFromTenant
+
+> FlowTopologyGraph GetFlowDependenciesFromTenant(ctx, tenant).DestinationOnly(destinationOnly).Execute()
+
+Get tenant dependencies
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	destinationOnly := true // bool | if true, list only destination dependencies, otherwise list also source dependencies (default to false)
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TenantsAPI.GetFlowDependenciesFromTenant(context.Background(), tenant).DestinationOnly(destinationOnly).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TenantsAPI.GetFlowDependenciesFromTenant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlowDependenciesFromTenant`: FlowTopologyGraph
+	fmt.Fprintf(os.Stdout, "Response from `TenantsAPI.GetFlowDependenciesFromTenant`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFlowDependenciesFromTenantRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **destinationOnly** | **bool** | if true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+
+
+### Return type
+
+[**FlowTopologyGraph**](FlowTopologyGraph.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## SetLogo
 
 > ApiTenant SetLogo(ctx, id).Logo(logo).Execute()
@@ -383,7 +454,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The tenant id
-	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]interface{}{"key": interface{}(123)}, "SecretType_example", false, map[string]interface{}{"key": interface{}(123)}, false, false) // Tenant | 
+	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

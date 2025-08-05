@@ -31,9 +31,7 @@ public enum UserType {
   
   STANDARD("STANDARD"),
   
-  SERVICE_ACCOUNT("SERVICE_ACCOUNT"),
-  
-  SUPER_ADMIN("SUPER_ADMIN");
+  SERVICE_ACCOUNT("SERVICE_ACCOUNT");
 
   private String value;
 

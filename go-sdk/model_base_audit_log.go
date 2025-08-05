@@ -26,9 +26,9 @@ type BaseAuditLog struct {
 	Detail               AuditLogDetail `json:"detail"`
 	Date                 time.Time      `json:"date"`
 	UserId               string         `json:"userId"`
-	IpAddress            string         `json:"ipAddress"`
-	ImpersonatedBy       string         `json:"impersonatedBy"`
-	Deleted              bool           `json:"deleted"`
+	IpAddress            *string        `json:"ipAddress,omitempty"`
+	ImpersonatedBy       *string        `json:"impersonatedBy,omitempty"`
+	Deleted              *bool          `json:"deleted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,16 +38,13 @@ type _BaseAuditLog BaseAuditLog
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBaseAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ipAddress string, impersonatedBy string, deleted bool) *BaseAuditLog {
+func NewBaseAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string) *BaseAuditLog {
 	this := BaseAuditLog{}
 	this.Id = id
 	this.Type = type_
 	this.Detail = detail
 	this.Date = date
 	this.UserId = userId
-	this.IpAddress = ipAddress
-	this.ImpersonatedBy = impersonatedBy
-	this.Deleted = deleted
 	return &this
 }
 
@@ -179,76 +176,100 @@ func (o *BaseAuditLog) SetUserId(v string) {
 	o.UserId = v
 }
 
-// GetIpAddress returns the IpAddress field value
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
 func (o *BaseAuditLog) GetIpAddress() string {
-	if o == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		var ret string
 		return ret
 	}
-
-	return o.IpAddress
+	return *o.IpAddress
 }
 
-// GetIpAddressOk returns a tuple with the IpAddress field value
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseAuditLog) GetIpAddressOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		return nil, false
 	}
-	return &o.IpAddress, true
+	return o.IpAddress, true
 }
 
-// SetIpAddress sets field value
+// HasIpAddress returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
 func (o *BaseAuditLog) SetIpAddress(v string) {
-	o.IpAddress = v
+	o.IpAddress = &v
 }
 
-// GetImpersonatedBy returns the ImpersonatedBy field value
+// GetImpersonatedBy returns the ImpersonatedBy field value if set, zero value otherwise.
 func (o *BaseAuditLog) GetImpersonatedBy() string {
-	if o == nil {
+	if o == nil || IsNil(o.ImpersonatedBy) {
 		var ret string
 		return ret
 	}
-
-	return o.ImpersonatedBy
+	return *o.ImpersonatedBy
 }
 
-// GetImpersonatedByOk returns a tuple with the ImpersonatedBy field value
+// GetImpersonatedByOk returns a tuple with the ImpersonatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseAuditLog) GetImpersonatedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ImpersonatedBy) {
 		return nil, false
 	}
-	return &o.ImpersonatedBy, true
+	return o.ImpersonatedBy, true
 }
 
-// SetImpersonatedBy sets field value
+// HasImpersonatedBy returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasImpersonatedBy() bool {
+	if o != nil && !IsNil(o.ImpersonatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetImpersonatedBy gets a reference to the given string and assigns it to the ImpersonatedBy field.
 func (o *BaseAuditLog) SetImpersonatedBy(v string) {
-	o.ImpersonatedBy = v
+	o.ImpersonatedBy = &v
 }
 
-// GetDeleted returns the Deleted field value
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
 func (o *BaseAuditLog) GetDeleted() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Deleted) {
 		var ret bool
 		return ret
 	}
-
-	return o.Deleted
+	return *o.Deleted
 }
 
-// GetDeletedOk returns a tuple with the Deleted field value
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseAuditLog) GetDeletedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Deleted) {
 		return nil, false
 	}
-	return &o.Deleted, true
+	return o.Deleted, true
 }
 
-// SetDeleted sets field value
+// HasDeleted returns a boolean if a field has been set.
+func (o *BaseAuditLog) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
 func (o *BaseAuditLog) SetDeleted(v bool) {
-	o.Deleted = v
+	o.Deleted = &v
 }
 
 func (o BaseAuditLog) MarshalJSON() ([]byte, error) {
@@ -266,9 +287,15 @@ func (o BaseAuditLog) ToMap() (map[string]interface{}, error) {
 	toSerialize["detail"] = o.Detail
 	toSerialize["date"] = o.Date
 	toSerialize["userId"] = o.UserId
-	toSerialize["ipAddress"] = o.IpAddress
-	toSerialize["impersonatedBy"] = o.ImpersonatedBy
-	toSerialize["deleted"] = o.Deleted
+	if !IsNil(o.IpAddress) {
+		toSerialize["ipAddress"] = o.IpAddress
+	}
+	if !IsNil(o.ImpersonatedBy) {
+		toSerialize["impersonatedBy"] = o.ImpersonatedBy
+	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -287,9 +314,6 @@ func (o *BaseAuditLog) UnmarshalJSON(data []byte) (err error) {
 		"detail",
 		"date",
 		"userId",
-		"ipAddress",
-		"impersonatedBy",
-		"deleted",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -1,4 +1,4 @@
-# KestraApi.FileAttributesFileType
+# KestraIoKestraSdk.FileAttributesFileType
 
 ## Enum
 

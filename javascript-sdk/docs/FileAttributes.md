@@ -1,4 +1,4 @@
-# KestraApi.FileAttributes
+# KestraIoKestraSdk.FileAttributes
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.TestSuiteControllerTestSuiteApiId
+# KestraIoKestraSdk.TestSuiteControllerTestSuiteApiId
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
+# KestraIoKestraSdk.IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 
 ## Properties
 
@@ -22,11 +22,8 @@ Name | Type | Description | Notes
 **APP** | **[String]** |  | [optional] 
 **APPEXECUTION** | **[String]** |  | [optional] 
 **TEST** | **[String]** |  | [optional] 
-**ME** | **[String]** |  | [optional] 
-**APITOKEN** | **[String]** |  | [optional] 
 **DASHBOARD** | **[String]** |  | [optional] 
 **TENANT_ACCESS** | **[String]** |  | [optional] 
-**TENANT** | **[String]** |  | [optional] 
 **SERVICE_ACCOUNT** | **[String]** |  | [optional] 
 **INVITATION** | **[String]** |  | [optional] 
 **GROUP_MEMBERSHIP** | **[String]** |  | [optional] 

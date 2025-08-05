@@ -101,20 +101,11 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
             if (data.hasOwnProperty('TEST')) {
                 obj['TEST'] = ApiClient.convertToType(data['TEST'], ['String']);
             }
-            if (data.hasOwnProperty('ME')) {
-                obj['ME'] = ApiClient.convertToType(data['ME'], ['String']);
-            }
-            if (data.hasOwnProperty('APITOKEN')) {
-                obj['APITOKEN'] = ApiClient.convertToType(data['APITOKEN'], ['String']);
-            }
             if (data.hasOwnProperty('DASHBOARD')) {
                 obj['DASHBOARD'] = ApiClient.convertToType(data['DASHBOARD'], ['String']);
             }
             if (data.hasOwnProperty('TENANT_ACCESS')) {
                 obj['TENANT_ACCESS'] = ApiClient.convertToType(data['TENANT_ACCESS'], ['String']);
-            }
-            if (data.hasOwnProperty('TENANT')) {
-                obj['TENANT'] = ApiClient.convertToType(data['TENANT'], ['String']);
             }
             if (data.hasOwnProperty('SERVICE_ACCOUNT')) {
                 obj['SERVICE_ACCOUNT'] = ApiClient.convertToType(data['SERVICE_ACCOUNT'], ['String']);
@@ -211,24 +202,12 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
             throw new Error("Expected the field `TEST` to be an array in the JSON data but got " + data['TEST']);
         }
         // ensure the json data is an array
-        if (!Array.isArray(data['ME'])) {
-            throw new Error("Expected the field `ME` to be an array in the JSON data but got " + data['ME']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['APITOKEN'])) {
-            throw new Error("Expected the field `APITOKEN` to be an array in the JSON data but got " + data['APITOKEN']);
-        }
-        // ensure the json data is an array
         if (!Array.isArray(data['DASHBOARD'])) {
             throw new Error("Expected the field `DASHBOARD` to be an array in the JSON data but got " + data['DASHBOARD']);
         }
         // ensure the json data is an array
         if (!Array.isArray(data['TENANT_ACCESS'])) {
             throw new Error("Expected the field `TENANT_ACCESS` to be an array in the JSON data but got " + data['TENANT_ACCESS']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['TENANT'])) {
-            throw new Error("Expected the field `TENANT` to be an array in the JSON data but got " + data['TENANT']);
         }
         // ensure the json data is an array
         if (!Array.isArray(data['SERVICE_ACCOUNT'])) {
@@ -346,16 +325,6 @@ IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['APPEXECUTION
 IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['TEST'] = undefined;
 
 /**
- * @member {Array.<String>} ME
- */
-IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['ME'] = undefined;
-
-/**
- * @member {Array.<String>} APITOKEN
- */
-IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['APITOKEN'] = undefined;
-
-/**
  * @member {Array.<String>} DASHBOARD
  */
 IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['DASHBOARD'] = undefined;
@@ -364,11 +333,6 @@ IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['DASHBOARD'] 
  * @member {Array.<String>} TENANT_ACCESS
  */
 IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['TENANT_ACCESS'] = undefined;
-
-/**
- * @member {Array.<String>} TENANT
- */
-IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.prototype['TENANT'] = undefined;
 
 /**
  * @member {Array.<String>} SERVICE_ACCOUNT

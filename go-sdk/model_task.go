@@ -33,6 +33,7 @@ type Task struct {
 	LogToFile            *bool                  `json:"logToFile,omitempty"`
 	RunIf                *string                `json:"runIf,omitempty"`
 	AllowWarning         *bool                  `json:"allowWarning,omitempty"`
+	TaskCache            *Cache                 `json:"taskCache,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -457,6 +458,38 @@ func (o *Task) SetAllowWarning(v bool) {
 	o.AllowWarning = &v
 }
 
+// GetTaskCache returns the TaskCache field value if set, zero value otherwise.
+func (o *Task) GetTaskCache() Cache {
+	if o == nil || IsNil(o.TaskCache) {
+		var ret Cache
+		return ret
+	}
+	return *o.TaskCache
+}
+
+// GetTaskCacheOk returns a tuple with the TaskCache field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetTaskCacheOk() (*Cache, bool) {
+	if o == nil || IsNil(o.TaskCache) {
+		return nil, false
+	}
+	return o.TaskCache, true
+}
+
+// HasTaskCache returns a boolean if a field has been set.
+func (o *Task) HasTaskCache() bool {
+	if o != nil && !IsNil(o.TaskCache) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskCache gets a reference to the given Cache and assigns it to the TaskCache field.
+func (o *Task) SetTaskCache(v Cache) {
+	o.TaskCache = &v
+}
+
 func (o Task) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -501,6 +534,9 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AllowWarning) {
 		toSerialize["allowWarning"] = o.AllowWarning
+	}
+	if !IsNil(o.TaskCache) {
+		toSerialize["taskCache"] = o.TaskCache
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -559,6 +595,7 @@ func (o *Task) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "logToFile")
 		delete(additionalProperties, "runIf")
 		delete(additionalProperties, "allowWarning")
+		delete(additionalProperties, "taskCache")
 		o.AdditionalProperties = additionalProperties
 	}
 

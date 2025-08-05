@@ -319,7 +319,7 @@ public class Example {
 | **executionId** | **String**| An execution filter | [optional] |
 | **userId** | **String**| A user id filter | [optional] |
 | **id** | **String**| A id filter | [optional] |
-| **permission** | [**Permission**](.md)| A permission filter | [optional] [enum: FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, INFRASTRUCTURE, APP, APPEXECUTION, TEST, ME, APITOKEN, DASHBOARD, TENANT_ACCESS, TENANT, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN] |
+| **permission** | [**Permission**](.md)| A permission filter | [optional] [enum: FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, INFRASTRUCTURE, APP, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN] |
 | **startDate** | **OffsetDateTime**| The start datetime | [optional] |
 | **endDate** | **OffsetDateTime**| The end datetime | [optional] |
 | **details** | [**Map&lt;String, String&gt;**](String.md)| A list of auditLog details | [optional] |

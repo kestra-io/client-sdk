@@ -1,4 +1,4 @@
-# KestraApi.GroupIdentifier
+# KestraIoKestraSdk.GroupIdentifier
 
 ## Properties
 

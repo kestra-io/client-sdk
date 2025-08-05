@@ -1,4 +1,4 @@
-# KestraApi.MiscControllerPluginIdAndVersion
+# KestraIoKestraSdk.MiscControllerPluginIdAndVersion
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.Blueprint
+# KestraIoKestraSdk.Blueprint
 
 ## Properties
 

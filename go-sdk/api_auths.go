@@ -131,119 +131,6 @@ func (a *AuthsAPIService) CreateApiTokenForCurrentUserExecute(r ApiCreateApiToke
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCreateApiTokenForCurrentUserWithTenantRequest struct {
-	ctx                   context.Context
-	ApiService            *AuthsAPIService
-	tenant                string
-	createApiTokenRequest *CreateApiTokenRequest
-}
-
-func (r ApiCreateApiTokenForCurrentUserWithTenantRequest) CreateApiTokenRequest(createApiTokenRequest CreateApiTokenRequest) ApiCreateApiTokenForCurrentUserWithTenantRequest {
-	r.createApiTokenRequest = &createApiTokenRequest
-	return r
-}
-
-func (r ApiCreateApiTokenForCurrentUserWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
-	return r.ApiService.CreateApiTokenForCurrentUserWithTenantExecute(r)
-}
-
-/*
-CreateApiTokenForCurrentUserWithTenant Create API token for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiCreateApiTokenForCurrentUserWithTenantRequest
-*/
-func (a *AuthsAPIService) CreateApiTokenForCurrentUserWithTenant(ctx context.Context, tenant string) ApiCreateApiTokenForCurrentUserWithTenantRequest {
-	return ApiCreateApiTokenForCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *AuthsAPIService) CreateApiTokenForCurrentUserWithTenantExecute(r ApiCreateApiTokenForCurrentUserWithTenantRequest) (map[string]interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.CreateApiTokenForCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me/api-tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.createApiTokenRequest == nil {
-		return localVarReturnValue, nil, reportError("createApiTokenRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.createApiTokenRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiDeleteApiTokenForCurrentUserRequest struct {
 	ctx        context.Context
 	ApiService *AuthsAPIService
@@ -346,118 +233,12 @@ func (a *AuthsAPIService) DeleteApiTokenForCurrentUserExecute(r ApiDeleteApiToke
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteApiTokenForCurrentUserWithTenantRequest struct {
-	ctx        context.Context
-	ApiService *AuthsAPIService
-	tokenId    string
-	tenant     string
-}
-
-func (r ApiDeleteApiTokenForCurrentUserWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
-	return r.ApiService.DeleteApiTokenForCurrentUserWithTenantExecute(r)
-}
-
-/*
-DeleteApiTokenForCurrentUserWithTenant Delete API token for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tokenId The token id
-	@param tenant
-	@return ApiDeleteApiTokenForCurrentUserWithTenantRequest
-*/
-func (a *AuthsAPIService) DeleteApiTokenForCurrentUserWithTenant(ctx context.Context, tokenId string, tenant string) ApiDeleteApiTokenForCurrentUserWithTenantRequest {
-	return ApiDeleteApiTokenForCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tokenId:    tokenId,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *AuthsAPIService) DeleteApiTokenForCurrentUserWithTenantExecute(r ApiDeleteApiTokenForCurrentUserWithTenantRequest) (map[string]interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.DeleteApiTokenForCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me/api-tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetCurrentUserRequest struct {
 	ctx        context.Context
 	ApiService *AuthsAPIService
 }
 
-func (r ApiGetCurrentUserRequest) Execute() (*MeControllerMe, *http.Response, error) {
+func (r ApiGetCurrentUserRequest) Execute() (*MeControllerApiMe, *http.Response, error) {
 	return r.ApiService.GetCurrentUserExecute(r)
 }
 
@@ -478,13 +259,13 @@ func (a *AuthsAPIService) GetCurrentUser(ctx context.Context) ApiGetCurrentUserR
 
 // Execute executes the request
 //
-//	@return MeControllerMe
-func (a *AuthsAPIService) GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*MeControllerMe, *http.Response, error) {
+//	@return MeControllerApiMe
+func (a *AuthsAPIService) GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*MeControllerApiMe, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *MeControllerMe
+		localVarReturnValue *MeControllerApiMe
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.GetCurrentUser")
@@ -493,110 +274,6 @@ func (a *AuthsAPIService) GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*Me
 	}
 
 	localVarPath := localBasePath + "/api/v1/me"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetCurrentUserWithTenantRequest struct {
-	ctx        context.Context
-	ApiService *AuthsAPIService
-	tenant     string
-}
-
-func (r ApiGetCurrentUserWithTenantRequest) Execute() (*MeControllerMe, *http.Response, error) {
-	return r.ApiService.GetCurrentUserWithTenantExecute(r)
-}
-
-/*
-GetCurrentUserWithTenant Get details about the authenticated user
-
-Requires the ME permission.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiGetCurrentUserWithTenantRequest
-*/
-func (a *AuthsAPIService) GetCurrentUserWithTenant(ctx context.Context, tenant string) ApiGetCurrentUserWithTenantRequest {
-	return ApiGetCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return MeControllerMe
-func (a *AuthsAPIService) GetCurrentUserWithTenantExecute(r ApiGetCurrentUserWithTenantRequest) (*MeControllerMe, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *MeControllerMe
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.GetCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -854,119 +531,15 @@ func (a *AuthsAPIService) ListApiTokensForCurrentUserExecute(r ApiListApiTokensF
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListApiTokensForCurrentUserWithTenantRequest struct {
-	ctx        context.Context
-	ApiService *AuthsAPIService
-	tenant     string
-}
-
-func (r ApiListApiTokensForCurrentUserWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
-	return r.ApiService.ListApiTokensForCurrentUserWithTenantExecute(r)
-}
-
-/*
-ListApiTokensForCurrentUserWithTenant List API tokens for authenticated user
-
-Returns all API tokens belonging to the authenticated user.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiListApiTokensForCurrentUserWithTenantRequest
-*/
-func (a *AuthsAPIService) ListApiTokensForCurrentUserWithTenant(ctx context.Context, tenant string) ApiListApiTokensForCurrentUserWithTenantRequest {
-	return ApiListApiTokensForCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *AuthsAPIService) ListApiTokensForCurrentUserWithTenantExecute(r ApiListApiTokensForCurrentUserWithTenantRequest) (map[string]interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.ListApiTokensForCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me/api-tokens"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiPatchCurrentUserRequest struct {
-	ctx                            context.Context
-	ApiService                     *AuthsAPIService
-	meControllerUserDetailsRequest *MeControllerUserDetailsRequest
+	ctx                               context.Context
+	ApiService                        *AuthsAPIService
+	meControllerApiUserDetailsRequest *MeControllerApiUserDetailsRequest
 }
 
 // The user details
-func (r ApiPatchCurrentUserRequest) MeControllerUserDetailsRequest(meControllerUserDetailsRequest MeControllerUserDetailsRequest) ApiPatchCurrentUserRequest {
-	r.meControllerUserDetailsRequest = &meControllerUserDetailsRequest
+func (r ApiPatchCurrentUserRequest) MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest MeControllerApiUserDetailsRequest) ApiPatchCurrentUserRequest {
+	r.meControllerApiUserDetailsRequest = &meControllerApiUserDetailsRequest
 	return r
 }
 
@@ -1010,8 +583,8 @@ func (a *AuthsAPIService) PatchCurrentUserExecute(r ApiPatchCurrentUserRequest) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.meControllerUserDetailsRequest == nil {
-		return localVarReturnValue, nil, reportError("meControllerUserDetailsRequest is required and must be specified")
+	if r.meControllerApiUserDetailsRequest == nil {
+		return localVarReturnValue, nil, reportError("meControllerApiUserDetailsRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1032,123 +605,7 @@ func (a *AuthsAPIService) PatchCurrentUserExecute(r ApiPatchCurrentUserRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.meControllerUserDetailsRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPatchCurrentUserWithTenantRequest struct {
-	ctx                            context.Context
-	ApiService                     *AuthsAPIService
-	tenant                         string
-	meControllerUserDetailsRequest *MeControllerUserDetailsRequest
-}
-
-// The user details
-func (r ApiPatchCurrentUserWithTenantRequest) MeControllerUserDetailsRequest(meControllerUserDetailsRequest MeControllerUserDetailsRequest) ApiPatchCurrentUserWithTenantRequest {
-	r.meControllerUserDetailsRequest = &meControllerUserDetailsRequest
-	return r
-}
-
-func (r ApiPatchCurrentUserWithTenantRequest) Execute() (map[string]interface{}, *http.Response, error) {
-	return r.ApiService.PatchCurrentUserWithTenantExecute(r)
-}
-
-/*
-PatchCurrentUserWithTenant Update authenticated user details
-
-Updates the authenticated user's profile information and returns the updated user.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenant
-	@return ApiPatchCurrentUserWithTenantRequest
-*/
-func (a *AuthsAPIService) PatchCurrentUserWithTenant(ctx context.Context, tenant string) ApiPatchCurrentUserWithTenantRequest {
-	return ApiPatchCurrentUserWithTenantRequest{
-		ApiService: a,
-		ctx:        ctx,
-		tenant:     tenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return map[string]interface{}
-func (a *AuthsAPIService) PatchCurrentUserWithTenantExecute(r ApiPatchCurrentUserWithTenantRequest) (map[string]interface{}, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthsAPIService.PatchCurrentUserWithTenant")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/{tenant}/me"
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.meControllerUserDetailsRequest == nil {
-		return localVarReturnValue, nil, reportError("meControllerUserDetailsRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.meControllerUserDetailsRequest
+	localVarPostBody = r.meControllerApiUserDetailsRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

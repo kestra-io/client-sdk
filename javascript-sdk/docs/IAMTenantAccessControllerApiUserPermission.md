@@ -1,4 +1,4 @@
-# KestraApi.IAMTenantAccessControllerApiUserPermission
+# KestraIoKestraSdk.IAMTenantAccessControllerApiUserPermission
 
 ## Properties
 

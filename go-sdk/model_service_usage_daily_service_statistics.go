@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ServiceUsageDailyServiceStatistics type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &ServiceUsageDailyServiceStatistics{}
 
 // ServiceUsageDailyServiceStatistics struct for ServiceUsageDailyServiceStatistics
 type ServiceUsageDailyServiceStatistics struct {
-	Type                 string                        `json:"type"`
-	Values               []ServiceUsageDailyStatistics `json:"values"`
+	Type                 *string                       `json:"type,omitempty"`
+	Values               []ServiceUsageDailyStatistics `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _ServiceUsageDailyServiceStatistics ServiceUsageDailyServiceStatistics
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewServiceUsageDailyServiceStatistics(type_ string, values []ServiceUsageDailyStatistics) *ServiceUsageDailyServiceStatistics {
+func NewServiceUsageDailyServiceStatistics() *ServiceUsageDailyServiceStatistics {
 	this := ServiceUsageDailyServiceStatistics{}
-	this.Type = type_
-	this.Values = values
 	return &this
 }
 
@@ -46,50 +43,66 @@ func NewServiceUsageDailyServiceStatisticsWithDefaults() *ServiceUsageDailyServi
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *ServiceUsageDailyServiceStatistics) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyServiceStatistics) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *ServiceUsageDailyServiceStatistics) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *ServiceUsageDailyServiceStatistics) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
-// GetValues returns the Values field value
+// GetValues returns the Values field value if set, zero value otherwise.
 func (o *ServiceUsageDailyServiceStatistics) GetValues() []ServiceUsageDailyStatistics {
-	if o == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []ServiceUsageDailyStatistics
 		return ret
 	}
-
 	return o.Values
 }
 
-// GetValuesOk returns a tuple with the Values field value
+// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceUsageDailyServiceStatistics) GetValuesOk() ([]ServiceUsageDailyStatistics, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
 }
 
-// SetValues sets field value
+// HasValues returns a boolean if a field has been set.
+func (o *ServiceUsageDailyServiceStatistics) HasValues() bool {
+	if o != nil && !IsNil(o.Values) {
+		return true
+	}
+
+	return false
+}
+
+// SetValues gets a reference to the given []ServiceUsageDailyStatistics and assigns it to the Values field.
 func (o *ServiceUsageDailyServiceStatistics) SetValues(v []ServiceUsageDailyStatistics) {
 	o.Values = v
 }
@@ -104,8 +117,12 @@ func (o ServiceUsageDailyServiceStatistics) MarshalJSON() ([]byte, error) {
 
 func (o ServiceUsageDailyServiceStatistics) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
-	toSerialize["values"] = o.Values
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Values) {
+		toSerialize["values"] = o.Values
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o ServiceUsageDailyServiceStatistics) ToMap() (map[string]interface{}, err
 }
 
 func (o *ServiceUsageDailyServiceStatistics) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"type",
-		"values",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varServiceUsageDailyServiceStatistics := _ServiceUsageDailyServiceStatistics{}
 
 	err = json.Unmarshal(data, &varServiceUsageDailyServiceStatistics)

@@ -1,4 +1,4 @@
-# KestraApi.AttributeReference
+# KestraIoKestraSdk.AttributeReference
 
 ## Properties
 

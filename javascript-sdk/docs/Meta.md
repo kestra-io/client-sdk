@@ -1,4 +1,4 @@
-# KestraApi.Meta
+# KestraIoKestraSdk.Meta
 
 ## Properties
 

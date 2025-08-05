@@ -1,4 +1,4 @@
-# KestraApi.SchemaAttributeMutability
+# KestraIoKestraSdk.SchemaAttributeMutability
 
 ## Enum
 

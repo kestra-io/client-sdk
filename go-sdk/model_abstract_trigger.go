@@ -33,6 +33,7 @@ type AbstractTrigger struct {
 	Labels               *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
 	StopAfter            []StateType                           `json:"stopAfter,omitempty"`
 	LogToFile            *bool                                 `json:"logToFile,omitempty"`
+	FailOnTriggerError   *bool                                 `json:"failOnTriggerError,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -421,6 +422,38 @@ func (o *AbstractTrigger) SetLogToFile(v bool) {
 	o.LogToFile = &v
 }
 
+// GetFailOnTriggerError returns the FailOnTriggerError field value if set, zero value otherwise.
+func (o *AbstractTrigger) GetFailOnTriggerError() bool {
+	if o == nil || IsNil(o.FailOnTriggerError) {
+		var ret bool
+		return ret
+	}
+	return *o.FailOnTriggerError
+}
+
+// GetFailOnTriggerErrorOk returns a tuple with the FailOnTriggerError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AbstractTrigger) GetFailOnTriggerErrorOk() (*bool, bool) {
+	if o == nil || IsNil(o.FailOnTriggerError) {
+		return nil, false
+	}
+	return o.FailOnTriggerError, true
+}
+
+// HasFailOnTriggerError returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasFailOnTriggerError() bool {
+	if o != nil && !IsNil(o.FailOnTriggerError) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailOnTriggerError gets a reference to the given bool and assigns it to the FailOnTriggerError field.
+func (o *AbstractTrigger) SetFailOnTriggerError(v bool) {
+	o.FailOnTriggerError = &v
+}
+
 func (o AbstractTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -460,6 +493,9 @@ func (o AbstractTrigger) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LogToFile) {
 		toSerialize["logToFile"] = o.LogToFile
+	}
+	if !IsNil(o.FailOnTriggerError) {
+		toSerialize["failOnTriggerError"] = o.FailOnTriggerError
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -518,6 +554,7 @@ func (o *AbstractTrigger) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "stopAfter")
 		delete(additionalProperties, "logToFile")
+		delete(additionalProperties, "failOnTriggerError")
 		o.AdditionalProperties = additionalProperties
 	}
 

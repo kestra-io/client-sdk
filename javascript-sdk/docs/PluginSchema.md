@@ -1,4 +1,4 @@
-# KestraApi.PluginSchema
+# KestraIoKestraSdk.PluginSchema
 
 ## Properties
 

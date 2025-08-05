@@ -22,7 +22,7 @@ var _ MappedNullable = &ApiSecretListResponse{}
 type ApiSecretListResponse struct {
 	ReadOnly             bool            `json:"readOnly"`
 	Results              []ApiSecretMeta `json:"results"`
-	Total                int64           `json:"total"`
+	Total                *int64          `json:"total,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +32,10 @@ type _ApiSecretListResponse ApiSecretListResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiSecretListResponse(readOnly bool, results []ApiSecretMeta, total int64) *ApiSecretListResponse {
+func NewApiSecretListResponse(readOnly bool, results []ApiSecretMeta) *ApiSecretListResponse {
 	this := ApiSecretListResponse{}
 	this.ReadOnly = readOnly
 	this.Results = results
-	this.Total = total
 	return &this
 }
 
@@ -96,28 +95,36 @@ func (o *ApiSecretListResponse) SetResults(v []ApiSecretMeta) {
 	o.Results = v
 }
 
-// GetTotal returns the Total field value
+// GetTotal returns the Total field value if set, zero value otherwise.
 func (o *ApiSecretListResponse) GetTotal() int64 {
-	if o == nil {
+	if o == nil || IsNil(o.Total) {
 		var ret int64
 		return ret
 	}
-
-	return o.Total
+	return *o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value
+// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiSecretListResponse) GetTotalOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
-	return &o.Total, true
+	return o.Total, true
 }
 
-// SetTotal sets field value
+// HasTotal returns a boolean if a field has been set.
+func (o *ApiSecretListResponse) HasTotal() bool {
+	if o != nil && !IsNil(o.Total) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotal gets a reference to the given int64 and assigns it to the Total field.
 func (o *ApiSecretListResponse) SetTotal(v int64) {
-	o.Total = v
+	o.Total = &v
 }
 
 func (o ApiSecretListResponse) MarshalJSON() ([]byte, error) {
@@ -132,7 +139,9 @@ func (o ApiSecretListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["readOnly"] = o.ReadOnly
 	toSerialize["results"] = o.Results
-	toSerialize["total"] = o.Total
+	if !IsNil(o.Total) {
+		toSerialize["total"] = o.Total
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -148,7 +157,6 @@ func (o *ApiSecretListResponse) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"readOnly",
 		"results",
-		"total",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -26,7 +26,7 @@ class IAMInvitationControllerApiInvitationRole(BaseModel):
     """
     IAMInvitationControllerApiInvitationRole
     """ # noqa: E501
-    id: Optional[StrictStr] = None
+    id: StrictStr
     namespaces: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "namespaces"]

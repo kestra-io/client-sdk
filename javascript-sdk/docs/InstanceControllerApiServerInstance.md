@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiServerInstance
+# KestraIoKestraSdk.InstanceControllerApiServerInstance
 
 ## Properties
 

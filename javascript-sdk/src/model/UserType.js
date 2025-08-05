@@ -33,13 +33,6 @@ export default class UserType {
         "SERVICE_ACCOUNT" = "SERVICE_ACCOUNT";
 
     
-        /**
-         * value: "SUPER_ADMIN"
-         * @const
-         */
-        "SUPER_ADMIN" = "SUPER_ADMIN";
-
-    
 
     /**
     * Returns a <code>UserType</code> enum value from a Javascript object name.

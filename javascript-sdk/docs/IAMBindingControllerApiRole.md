@@ -1,4 +1,4 @@
-# KestraApi.IAMBindingControllerApiRole
+# KestraIoKestraSdk.IAMBindingControllerApiRole
 
 ## Properties
 

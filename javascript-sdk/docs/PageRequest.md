@@ -1,4 +1,4 @@
-# KestraApi.PageRequest
+# KestraIoKestraSdk.PageRequest
 
 ## Properties
 

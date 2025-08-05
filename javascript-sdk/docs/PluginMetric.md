@@ -1,4 +1,4 @@
-# KestraApi.PluginMetric
+# KestraIoKestraSdk.PluginMetric
 
 ## Properties
 

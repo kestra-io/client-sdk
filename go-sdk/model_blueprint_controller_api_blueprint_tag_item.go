@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -21,9 +20,9 @@ var _ MappedNullable = &BlueprintControllerApiBlueprintTagItem{}
 
 // BlueprintControllerApiBlueprintTagItem struct for BlueprintControllerApiBlueprintTagItem
 type BlueprintControllerApiBlueprintTagItem struct {
-	Id                   string    `json:"id"`
-	Name                 string    `json:"name"`
-	PublishedAt          time.Time `json:"publishedAt"`
+	Id                   *string    `json:"id,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	PublishedAt          *time.Time `json:"publishedAt,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,11 +32,8 @@ type _BlueprintControllerApiBlueprintTagItem BlueprintControllerApiBlueprintTagI
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlueprintControllerApiBlueprintTagItem(id string, name string, publishedAt time.Time) *BlueprintControllerApiBlueprintTagItem {
+func NewBlueprintControllerApiBlueprintTagItem() *BlueprintControllerApiBlueprintTagItem {
 	this := BlueprintControllerApiBlueprintTagItem{}
-	this.Id = id
-	this.Name = name
-	this.PublishedAt = publishedAt
 	return &this
 }
 
@@ -49,76 +45,100 @@ func NewBlueprintControllerApiBlueprintTagItemWithDefaults() *BlueprintControlle
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *BlueprintControllerApiBlueprintTagItem) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintTagItem) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *BlueprintControllerApiBlueprintTagItem) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *BlueprintControllerApiBlueprintTagItem) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *BlueprintControllerApiBlueprintTagItem) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintTagItem) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *BlueprintControllerApiBlueprintTagItem) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *BlueprintControllerApiBlueprintTagItem) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetPublishedAt returns the PublishedAt field value
+// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
 func (o *BlueprintControllerApiBlueprintTagItem) GetPublishedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.PublishedAt
+	return *o.PublishedAt
 }
 
-// GetPublishedAtOk returns a tuple with the PublishedAt field value
+// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintControllerApiBlueprintTagItem) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		return nil, false
 	}
-	return &o.PublishedAt, true
+	return o.PublishedAt, true
 }
 
-// SetPublishedAt sets field value
+// HasPublishedAt returns a boolean if a field has been set.
+func (o *BlueprintControllerApiBlueprintTagItem) HasPublishedAt() bool {
+	if o != nil && !IsNil(o.PublishedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
 func (o *BlueprintControllerApiBlueprintTagItem) SetPublishedAt(v time.Time) {
-	o.PublishedAt = v
+	o.PublishedAt = &v
 }
 
 func (o BlueprintControllerApiBlueprintTagItem) MarshalJSON() ([]byte, error) {
@@ -131,9 +151,15 @@ func (o BlueprintControllerApiBlueprintTagItem) MarshalJSON() ([]byte, error) {
 
 func (o BlueprintControllerApiBlueprintTagItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["publishedAt"] = o.PublishedAt
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.PublishedAt) {
+		toSerialize["publishedAt"] = o.PublishedAt
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -143,29 +169,6 @@ func (o BlueprintControllerApiBlueprintTagItem) ToMap() (map[string]interface{},
 }
 
 func (o *BlueprintControllerApiBlueprintTagItem) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"publishedAt",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varBlueprintControllerApiBlueprintTagItem := _BlueprintControllerApiBlueprintTagItem{}
 
 	err = json.Unmarshal(data, &varBlueprintControllerApiBlueprintTagItem)

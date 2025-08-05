@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Color** | **string** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Color** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewMiscControllerEnvironment
 
-`func NewMiscControllerEnvironment(name string, color string, ) *MiscControllerEnvironment`
+`func NewMiscControllerEnvironment() *MiscControllerEnvironment`
 
 NewMiscControllerEnvironment instantiates a new MiscControllerEnvironment object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *MiscControllerEnvironment) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetColor
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetColor sets Color field to given value.
 
+### HasColor
+
+`func (o *MiscControllerEnvironment) HasColor() bool`
+
+HasColor returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

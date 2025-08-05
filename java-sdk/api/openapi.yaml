@@ -1405,44 +1405,6 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /api/v1/tenants/namespaces/autocomplete:
-    post:
-      description: "Returns a list of namespaces for use in autocomplete fields, optionally\
-        \ allowing to filter by query and ids. Used especially for binding creation."
-      operationId: autocompleteNamespacesasSuperAdmin
-      parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ApiIds"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-          description: autocompleteNamespacesasSuperAdmin 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: List namespaces for autocomplete
-      tags:
-      - Namespaces
-      x-content-type: application/json
-      x-accepts:
-      - application/json
   /api/v1/tenants/search:
     get:
       description: Superadmin-only.
@@ -1612,51 +1574,6 @@ paths:
       tags:
       - Tenants
       x-content-type: multipart/form-data
-      x-accepts:
-      - application/json
-  /api/v1/tenants/{resourceTenant}/namespaces/autocomplete:
-    post:
-      description: "Returns a list of namespaces for use in autocomplete fields, optionally\
-        \ allowing to filter by query and ids. Used especially for binding creation."
-      operationId: autocompleteNamespacesWithResourceTenantasSuperAdmin
-      parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
-      - explode: false
-        in: path
-        name: resourceTenant
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ApiIds"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-          description: autocompleteNamespacesWithResourceTenantasSuperAdmin 200 response
-      security:
-      - bearerAuth: []
-      - basicAuth: []
-      summary: List namespaces for autocomplete
-      tags:
-      - Namespaces
-      x-content-type: application/json
       x-accepts:
       - application/json
   /api/v1/users:
@@ -3691,7 +3608,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_IAMBindingController.ApiBindingSummary_"
+                $ref: "#/components/schemas/PagedResults_IAMBindingController.ApiBindingDetail_"
           description: searchBindings 200 response
       security:
       - bearerAuth: []
@@ -8104,7 +8021,7 @@ paths:
           \ by a coma."
         explode: false
         in: query
-        name: breakpoint
+        name: breakpoints
         required: false
         schema:
           nullable: true
@@ -8242,7 +8159,7 @@ paths:
           \ by a coma."
         explode: false
         in: query
-        name: breakpoint
+        name: breakpoints
         required: false
         schema:
           nullable: true
@@ -8470,7 +8387,7 @@ paths:
           \ by a coma."
         explode: false
         in: query
-        name: breakpoint
+        name: breakpoints
         required: false
         schema:
           nullable: true
@@ -10745,9 +10662,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-accepts:
       - application/scim+json
     post:
@@ -10805,21 +10721,10 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: createSCIMResourceByIdGroups 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-content-type: application/scim+json
       x-accepts:
-      - application/json
       - application/scim+json
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search:
     post:
@@ -10859,9 +10764,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-content-type: application/scim+json
       x-accepts:
       - application/scim+json
@@ -10902,21 +10806,10 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: deleteGroups 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-accepts:
       - application/json
-      - application/scim+json
     get:
       description: Find by id
       operationId: getSCIMResourceByIdGroups
@@ -10973,9 +10866,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-accepts:
       - application/scim+json
     patch:
@@ -11036,22 +10928,11 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: patchGroups 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-content-type: application/scim+json
       x-accepts:
       - application/json
-      - application/scim+json
     put:
       description: Update
       operationId: updateGroups
@@ -11112,9 +10993,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Groups
       x-content-type: application/scim+json
       x-accepts:
       - application/scim+json
@@ -11379,9 +11259,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-accepts:
       - application/scim+json
     post:
@@ -11439,21 +11318,10 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: createSCIMResourceByIdUsers 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-content-type: application/scim+json
       x-accepts:
-      - application/json
       - application/scim+json
   /api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search:
     post:
@@ -11493,9 +11361,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-content-type: application/scim+json
       x-accepts:
       - application/scim+json
@@ -11536,21 +11403,10 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: deleteUsers 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-accepts:
       - application/json
-      - application/scim+json
     get:
       description: Find by id
       operationId: getSCIMResourceByIdUsers
@@ -11607,9 +11463,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-accepts:
       - application/scim+json
     patch:
@@ -11670,22 +11525,11 @@ paths:
           description: Internal Server Error
         "501":
           description: Not Implemented
-        "200":
-          content:
-            application/scim+json:
-              schema:
-                type: object
-            application/json:
-              schema:
-                type: object
-          description: patchUsers 200 response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-content-type: application/scim+json
       x-accepts:
       - application/json
-      - application/scim+json
     put:
       description: Update
       operationId: updateUsers
@@ -11746,9 +11590,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ScimResource"
           description: OK response
-      summary: "{@inheritDoc}"
       tags:
-      - SCIM
+      - SCIM-Users
       x-content-type: application/scim+json
       x-accepts:
       - application/scim+json
@@ -11776,6 +11619,8 @@ paths:
       responses:
         "201":
           description: Invitation successfully created
+        "204":
+          description: Tenant access granted to the user
         "403":
           description: Insufficient privileges to invite a Superadmin user
         "409":
@@ -12853,15 +12698,6 @@ paths:
         \ allowing to filter by query and ids. Used especially for binding creation."
       operationId: autocompleteNamespaces
       parameters:
-      - description: A string filter
-        explode: false
-        in: query
-        name: q
-        required: false
-        schema:
-          nullable: true
-          type: string
-        style: form
       - explode: false
         in: path
         name: tenant
@@ -12873,7 +12709,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ApiIds"
+              $ref: "#/components/schemas/ApiAutocomplete"
+        required: true
       responses:
         "200":
           content:
@@ -21046,33 +20883,6 @@ components:
       - id
       - namespace
       type: object
-    Group:
-      example:
-        deleted: true
-        provider:
-          securityIntegrationId: securityIntegrationId
-          externalId: externalId
-          attributes:
-            key: "{}"
-          securityIntegrationName: securityIntegrationName
-        name: name
-        description: description
-        id: id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        deleted:
-          type: boolean
-        provider:
-          $ref: "#/components/schemas/IdentityProvider"
-      required:
-      - deleted
-      - name
-      type: object
     GroupIdentifier:
       example:
         groupId: groupId
@@ -21196,210 +21006,40 @@ components:
     IAMBindingController.ApiBindingDetail:
       example:
         role:
-          isDefault: true
-          deleted: true
-          permissions:
-            NAMESPACE:
-            - NAMESPACE
-            - NAMESPACE
-            APPEXECUTION:
-            - APPEXECUTION
-            - APPEXECUTION
-            APP:
-            - APP
-            - APP
-            TENANT_ACCESS:
-            - TENANT_ACCESS
-            - TENANT_ACCESS
-            SERVICE_ACCOUNT:
-            - SERVICE_ACCOUNT
-            - SERVICE_ACCOUNT
-            BLUEPRINT:
-            - BLUEPRINT
-            - BLUEPRINT
-            FLOW:
-            - FLOW
-            - FLOW
-            ROLE:
-            - ROLE
-            - ROLE
-            GROUP:
-            - GROUP
-            - GROUP
-            DASHBOARD:
-            - DASHBOARD
-            - DASHBOARD
-            ME:
-            - ME
-            - ME
-            IMPERSONATE:
-            - IMPERSONATE
-            - IMPERSONATE
-            TEMPLATE:
-            - TEMPLATE
-            - TEMPLATE
-            AUDITLOG:
-            - AUDITLOG
-            - AUDITLOG
-            SETTING:
-            - SETTING
-            - SETTING
-            KVSTORE:
-            - KVSTORE
-            - KVSTORE
-            EXECUTION:
-            - EXECUTION
-            - EXECUTION
-            APITOKEN:
-            - APITOKEN
-            - APITOKEN
-            USER:
-            - USER
-            - USER
-            TENANT:
-            - TENANT
-            - TENANT
-            GROUP_MEMBERSHIP:
-            - GROUP_MEMBERSHIP
-            - GROUP_MEMBERSHIP
-            INVITATION:
-            - INVITATION
-            - INVITATION
-            TEST:
-            - TEST
-            - TEST
-            INFRASTRUCTURE:
-            - INFRASTRUCTURE
-            - INFRASTRUCTURE
-            UNKNOWN:
-            - UNKNOWN
-            - UNKNOWN
-            BINDING:
-            - BINDING
-            - BINDING
-            SECRET:
-            - SECRET
-            - SECRET
-          name: name
-          description: description
-          id: id
-          isManaged: true
-        binding:
-          deleted: true
-          namespaceId: namespaceId
-          roleId: roleId
-          externalId: externalId
-          id: id
-          type: USER
-        user:
-          lastName: lastName
-          auths:
-          - uid: uid
-            name: name
-            type: type
-          - uid: uid
-            name: name
-            type: type
-          groups:
-          - "{}"
-          - "{}"
-          description: description
-          groupList:
-          - groupId: groupId
-            tenantId: tenantId
-            managedExternally: true
-            membership: OWNER
-          - groupId: groupId
-            tenantId: tenantId
-            managedExternally: true
-            membership: OWNER
-          type: STANDARD
-          firstName: firstName
-          name: name
-          id: id
-          superAdmin: true
-          email: email
-          providers:
-          - securityIntegrationId: securityIntegrationId
-            tenantId: tenantId
-            externalId: externalId
-            attributes:
-              key: "{}"
-            securityIntegrationName: securityIntegrationName
-          - securityIntegrationId: securityIntegrationId
-            tenantId: tenantId
-            externalId: externalId
-            attributes:
-              key: "{}"
-            securityIntegrationName: securityIntegrationName
-          username: username
-        group:
-          deleted: true
-          provider:
-            securityIntegrationId: securityIntegrationId
-            externalId: externalId
-            attributes:
-              key: "{}"
-            securityIntegrationName: securityIntegrationName
-          name: name
-          description: description
-          id: id
-      properties:
-        binding:
-          $ref: "#/components/schemas/Binding"
-        role:
-          $ref: "#/components/schemas/Role"
-        user:
-          $ref: "#/components/schemas/ApiUser"
-        group:
-          $ref: "#/components/schemas/Group"
-      type: object
-    IAMBindingController.ApiBindingGroup:
-      example:
-        name: name
-        id: id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    IAMBindingController.ApiBindingSummary:
-      example:
-        role:
           name: name
           id: id
         namespace: namespace
         id: id
         type: USER
-        user:
-          displayName: displayName
-          id: id
-          type: STANDARD
-          username: username
-        group:
-          name: name
-          id: id
+        user: ""
+        group: ""
       properties:
         id:
           type: string
         type:
           $ref: "#/components/schemas/Binding.Type"
         namespace:
+          nullable: true
           type: string
         role:
           $ref: "#/components/schemas/IAMBindingController.ApiRole"
         group:
-          $ref: "#/components/schemas/IAMBindingController.ApiBindingGroup"
+          allOf:
+          - $ref: "#/components/schemas/IAMBindingController.ApiBindingGroup"
+          nullable: true
         user:
-          $ref: "#/components/schemas/IAMBindingController.ApiBindingUser"
+          allOf:
+          - $ref: "#/components/schemas/IAMBindingController.ApiBindingUser"
+          nullable: true
+      type: object
+    IAMBindingController.ApiBindingGroup:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
       type: object
     IAMBindingController.ApiBindingUser:
-      example:
-        displayName: displayName
-        id: id
-        type: STANDARD
-        username: username
       properties:
         id:
           type: string
@@ -21419,6 +21059,7 @@ components:
         roleId:
           type: string
         namespaceId:
+          nullable: true
           type: string
       required:
       - externalId
@@ -21517,6 +21158,8 @@ components:
       type: object
     IAMInvitationController.ApiInvitationCreateRequest:
       properties:
+        createUserIfNotExist:
+          type: boolean
         superAdmin:
           type: boolean
         roles:
@@ -21596,6 +21239,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - id
       type: object
     IAMRoleController.ApiRoleCreateOrUpdateRequest:
       properties:
@@ -21633,21 +21278,33 @@ components:
           BLUEPRINT:
           - BLUEPRINT
           - BLUEPRINT
+          EXECUTION:
+          - EXECUTION
+          - EXECUTION
+          USER:
+          - USER
+          - USER
           FLOW:
           - FLOW
           - FLOW
+          GROUP_MEMBERSHIP:
+          - GROUP_MEMBERSHIP
+          - GROUP_MEMBERSHIP
           ROLE:
           - ROLE
           - ROLE
+          INVITATION:
+          - INVITATION
+          - INVITATION
           GROUP:
           - GROUP
           - GROUP
+          TEST:
+          - TEST
+          - TEST
           DASHBOARD:
           - DASHBOARD
           - DASHBOARD
-          ME:
-          - ME
-          - ME
           IMPERSONATE:
           - IMPERSONATE
           - IMPERSONATE
@@ -21660,33 +21317,12 @@ components:
           SETTING:
           - SETTING
           - SETTING
-          KVSTORE:
-          - KVSTORE
-          - KVSTORE
-          EXECUTION:
-          - EXECUTION
-          - EXECUTION
-          APITOKEN:
-          - APITOKEN
-          - APITOKEN
-          USER:
-          - USER
-          - USER
-          TENANT:
-          - TENANT
-          - TENANT
-          GROUP_MEMBERSHIP:
-          - GROUP_MEMBERSHIP
-          - GROUP_MEMBERSHIP
-          INVITATION:
-          - INVITATION
-          - INVITATION
-          TEST:
-          - TEST
-          - TEST
           INFRASTRUCTURE:
           - INFRASTRUCTURE
           - INFRASTRUCTURE
+          KVSTORE:
+          - KVSTORE
+          - KVSTORE
           UNKNOWN:
           - UNKNOWN
           - UNKNOWN
@@ -22142,12 +21778,6 @@ components:
           type: string
       type: object
     IdentityProvider:
-      example:
-        securityIntegrationId: securityIntegrationId
-        externalId: externalId
-        attributes:
-          key: "{}"
-        securityIntegrationName: securityIntegrationName
       properties:
         attributes:
           additionalProperties:
@@ -25332,7 +24962,7 @@ components:
       - results
       - total
       type: object
-    PagedResults_IAMBindingController.ApiBindingSummary_:
+    PagedResults_IAMBindingController.ApiBindingDetail_:
       example:
         total: 0
         results:
@@ -25342,32 +24972,20 @@ components:
           namespace: namespace
           id: id
           type: USER
-          user:
-            displayName: displayName
-            id: id
-            type: STANDARD
-            username: username
-          group:
-            name: name
-            id: id
+          user: ""
+          group: ""
         - role:
             name: name
             id: id
           namespace: namespace
           id: id
           type: USER
-          user:
-            displayName: displayName
-            id: id
-            type: STANDARD
-            username: username
-          group:
-            name: name
-            id: id
+          user: ""
+          group: ""
       properties:
         results:
           items:
-            $ref: "#/components/schemas/IAMBindingController.ApiBindingSummary"
+            $ref: "#/components/schemas/IAMBindingController.ApiBindingDetail"
           type: array
         total:
           format: int64
@@ -27632,11 +27250,8 @@ components:
       - APP
       - APPEXECUTION
       - TEST
-      - ME
-      - APITOKEN
       - DASHBOARD
       - TENANT_ACCESS
-      - TENANT
       - SERVICE_ACCOUNT
       - INVITATION
       - GROUP_MEMBERSHIP
@@ -27644,9 +27259,6 @@ components:
       type: string
       x-deprecated:
       - INFRASTRUCTURE
-      - ME
-      - APITOKEN
-      - TENANT
     Plugin:
       example:
         longDescription: longDescription
@@ -28233,21 +27845,33 @@ components:
           BLUEPRINT:
           - BLUEPRINT
           - BLUEPRINT
+          EXECUTION:
+          - EXECUTION
+          - EXECUTION
+          USER:
+          - USER
+          - USER
           FLOW:
           - FLOW
           - FLOW
+          GROUP_MEMBERSHIP:
+          - GROUP_MEMBERSHIP
+          - GROUP_MEMBERSHIP
           ROLE:
           - ROLE
           - ROLE
+          INVITATION:
+          - INVITATION
+          - INVITATION
           GROUP:
           - GROUP
           - GROUP
+          TEST:
+          - TEST
+          - TEST
           DASHBOARD:
           - DASHBOARD
           - DASHBOARD
-          ME:
-          - ME
-          - ME
           IMPERSONATE:
           - IMPERSONATE
           - IMPERSONATE
@@ -28260,33 +27884,12 @@ components:
           SETTING:
           - SETTING
           - SETTING
-          KVSTORE:
-          - KVSTORE
-          - KVSTORE
-          EXECUTION:
-          - EXECUTION
-          - EXECUTION
-          APITOKEN:
-          - APITOKEN
-          - APITOKEN
-          USER:
-          - USER
-          - USER
-          TENANT:
-          - TENANT
-          - TENANT
-          GROUP_MEMBERSHIP:
-          - GROUP_MEMBERSHIP
-          - GROUP_MEMBERSHIP
-          INVITATION:
-          - INVITATION
-          - INVITATION
-          TEST:
-          - TEST
-          - TEST
           INFRASTRUCTURE:
           - INFRASTRUCTURE
           - INFRASTRUCTURE
+          KVSTORE:
+          - KVSTORE
+          - KVSTORE
           UNKNOWN:
           - UNKNOWN
           - UNKNOWN
@@ -28303,14 +27906,14 @@ components:
       properties:
         isManaged:
           type: boolean
+        permissions:
+          $ref: "#/components/schemas/IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions"
         id:
           type: string
         name:
           type: string
         description:
           type: string
-        permissions:
-          $ref: "#/components/schemas/IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions"
         isDefault:
           type: boolean
         deleted:
@@ -31250,10 +30853,7 @@ components:
       enum:
       - STANDARD
       - SERVICE_ACCOUNT
-      - SUPER_ADMIN
       type: string
-      x-deprecated:
-      - SUPER_ADMIN
     UserUsage:
       example:
         count: 6
@@ -31548,21 +31148,33 @@ components:
         BLUEPRINT:
         - BLUEPRINT
         - BLUEPRINT
+        EXECUTION:
+        - EXECUTION
+        - EXECUTION
+        USER:
+        - USER
+        - USER
         FLOW:
         - FLOW
         - FLOW
+        GROUP_MEMBERSHIP:
+        - GROUP_MEMBERSHIP
+        - GROUP_MEMBERSHIP
         ROLE:
         - ROLE
         - ROLE
+        INVITATION:
+        - INVITATION
+        - INVITATION
         GROUP:
         - GROUP
         - GROUP
+        TEST:
+        - TEST
+        - TEST
         DASHBOARD:
         - DASHBOARD
         - DASHBOARD
-        ME:
-        - ME
-        - ME
         IMPERSONATE:
         - IMPERSONATE
         - IMPERSONATE
@@ -31575,33 +31187,12 @@ components:
         SETTING:
         - SETTING
         - SETTING
-        KVSTORE:
-        - KVSTORE
-        - KVSTORE
-        EXECUTION:
-        - EXECUTION
-        - EXECUTION
-        APITOKEN:
-        - APITOKEN
-        - APITOKEN
-        USER:
-        - USER
-        - USER
-        TENANT:
-        - TENANT
-        - TENANT
-        GROUP_MEMBERSHIP:
-        - GROUP_MEMBERSHIP
-        - GROUP_MEMBERSHIP
-        INVITATION:
-        - INVITATION
-        - INVITATION
-        TEST:
-        - TEST
-        - TEST
         INFRASTRUCTURE:
         - INFRASTRUCTURE
         - INFRASTRUCTURE
+        KVSTORE:
+        - KVSTORE
+        - KVSTORE
         UNKNOWN:
         - UNKNOWN
         - UNKNOWN
@@ -31702,27 +31293,12 @@ components:
             description: TODO default missing array inner type to string
             type: string
           type: array
-        ME:
-          items:
-            description: TODO default missing array inner type to string
-            type: string
-          type: array
-        APITOKEN:
-          items:
-            description: TODO default missing array inner type to string
-            type: string
-          type: array
         DASHBOARD:
           items:
             description: TODO default missing array inner type to string
             type: string
           type: array
         TENANT_ACCESS:
-          items:
-            description: TODO default missing array inner type to string
-            type: string
-          type: array
-        TENANT:
           items:
             description: TODO default missing array inner type to string
             type: string

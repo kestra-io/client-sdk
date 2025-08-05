@@ -1,4 +1,4 @@
-# KestraApi.InvitationInvitationStatus
+# KestraIoKestraSdk.InvitationInvitationStatus
 
 ## Enum
 

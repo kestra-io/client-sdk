@@ -57,6 +57,9 @@ class Role {
             if (data.hasOwnProperty('isManaged')) {
                 obj['isManaged'] = ApiClient.convertToType(data['isManaged'], 'Boolean');
             }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.constructFromObject(data['permissions']);
+            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -65,9 +68,6 @@ class Role {
             }
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.constructFromObject(data['permissions']);
             }
             if (data.hasOwnProperty('isDefault')) {
                 obj['isDefault'] = ApiClient.convertToType(data['isDefault'], 'Boolean');
@@ -91,6 +91,10 @@ class Role {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
         }
+        // validate the optional field `permissions`
+        if (data['permissions']) { // data not null
+          IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.validateJSON(data['permissions']);
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -102,10 +106,6 @@ class Role {
         // ensure the json data is a string
         if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
             throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
-        }
-        // validate the optional field `permissions`
-        if (data['permissions']) { // data not null
-          IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.validateJSON(data['permissions']);
         }
 
         return true;
@@ -122,6 +122,11 @@ Role.RequiredProperties = ["isManaged", "name", "deleted"];
 Role.prototype['isManaged'] = undefined;
 
 /**
+ * @member {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
+ */
+Role.prototype['permissions'] = undefined;
+
+/**
  * @member {String} id
  */
 Role.prototype['id'] = undefined;
@@ -135,11 +140,6 @@ Role.prototype['name'] = undefined;
  * @member {String} description
  */
 Role.prototype['description'] = undefined;
-
-/**
- * @member {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions
- */
-Role.prototype['permissions'] = undefined;
 
 /**
  * @member {Boolean} isDefault

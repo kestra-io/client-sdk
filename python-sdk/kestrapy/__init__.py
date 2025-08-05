@@ -41,8 +41,9 @@ __all__ = [
     "NamespacesApi",
     "PluginsApi",
     "RolesApi",
-    "SCIMApi",
     "SCIMConfigurationApi",
+    "SCIMGroupsApi",
+    "SCIMUsersApi",
     "SecurityIntegrationsApi",
     "ServiceAccountApi",
     "ServicesApi",
@@ -195,7 +196,6 @@ __all__ = [
     "FlowUsage",
     "FlowWithSource",
     "FlowWithSourceAllOfLabels",
-    "Group",
     "GroupIdentifier",
     "GroupIdentifierMembership",
     "GroupUsage",
@@ -206,7 +206,6 @@ __all__ = [
     "HttpParameters",
     "IAMBindingControllerApiBindingDetail",
     "IAMBindingControllerApiBindingGroup",
-    "IAMBindingControllerApiBindingSummary",
     "IAMBindingControllerApiBindingUser",
     "IAMBindingControllerApiCreateBindingRequest",
     "IAMBindingControllerApiRole",
@@ -316,7 +315,7 @@ __all__ = [
     "PagedResultsDashboard",
     "PagedResultsExecution",
     "PagedResultsFlow",
-    "PagedResultsIAMBindingControllerApiBindingSummary",
+    "PagedResultsIAMBindingControllerApiBindingDetail",
     "PagedResultsIAMGroupControllerApiGroupMember",
     "PagedResultsIAMInvitationControllerApiInvitationDetail",
     "PagedResultsIAMTenantAccessControllerApiUserTenantAccess",
@@ -475,8 +474,9 @@ from kestrapy.api.misc_api import MiscApi as MiscApi
 from kestrapy.api.namespaces_api import NamespacesApi as NamespacesApi
 from kestrapy.api.plugins_api import PluginsApi as PluginsApi
 from kestrapy.api.roles_api import RolesApi as RolesApi
-from kestrapy.api.scim_api import SCIMApi as SCIMApi
 from kestrapy.api.scim_configuration_api import SCIMConfigurationApi as SCIMConfigurationApi
+from kestrapy.api.scim_groups_api import SCIMGroupsApi as SCIMGroupsApi
+from kestrapy.api.scim_users_api import SCIMUsersApi as SCIMUsersApi
 from kestrapy.api.security_integrations_api import SecurityIntegrationsApi as SecurityIntegrationsApi
 from kestrapy.api.service_account_api import ServiceAccountApi as ServiceAccountApi
 from kestrapy.api.services_api import ServicesApi as ServicesApi
@@ -633,7 +633,6 @@ from kestrapy.models.flow_topology_graph_edge import FlowTopologyGraphEdge as Fl
 from kestrapy.models.flow_usage import FlowUsage as FlowUsage
 from kestrapy.models.flow_with_source import FlowWithSource as FlowWithSource
 from kestrapy.models.flow_with_source_all_of_labels import FlowWithSourceAllOfLabels as FlowWithSourceAllOfLabels
-from kestrapy.models.group import Group as Group
 from kestrapy.models.group_identifier import GroupIdentifier as GroupIdentifier
 from kestrapy.models.group_identifier_membership import GroupIdentifierMembership as GroupIdentifierMembership
 from kestrapy.models.group_usage import GroupUsage as GroupUsage
@@ -644,7 +643,6 @@ from kestrapy.models.host_usage_os import HostUsageOs as HostUsageOs
 from kestrapy.models.http_parameters import HttpParameters as HttpParameters
 from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail as IAMBindingControllerApiBindingDetail
 from kestrapy.models.iam_binding_controller_api_binding_group import IAMBindingControllerApiBindingGroup as IAMBindingControllerApiBindingGroup
-from kestrapy.models.iam_binding_controller_api_binding_summary import IAMBindingControllerApiBindingSummary as IAMBindingControllerApiBindingSummary
 from kestrapy.models.iam_binding_controller_api_binding_user import IAMBindingControllerApiBindingUser as IAMBindingControllerApiBindingUser
 from kestrapy.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest as IAMBindingControllerApiCreateBindingRequest
 from kestrapy.models.iam_binding_controller_api_role import IAMBindingControllerApiRole as IAMBindingControllerApiRole
@@ -754,7 +752,7 @@ from kestrapy.models.paged_results_blueprint_controller_api_blueprint_item impor
 from kestrapy.models.paged_results_dashboard import PagedResultsDashboard as PagedResultsDashboard
 from kestrapy.models.paged_results_execution import PagedResultsExecution as PagedResultsExecution
 from kestrapy.models.paged_results_flow import PagedResultsFlow as PagedResultsFlow
-from kestrapy.models.paged_results_iam_binding_controller_api_binding_summary import PagedResultsIAMBindingControllerApiBindingSummary as PagedResultsIAMBindingControllerApiBindingSummary
+from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail as PagedResultsIAMBindingControllerApiBindingDetail
 from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember as PagedResultsIAMGroupControllerApiGroupMember
 from kestrapy.models.paged_results_iam_invitation_controller_api_invitation_detail import PagedResultsIAMInvitationControllerApiInvitationDetail as PagedResultsIAMInvitationControllerApiInvitationDetail
 from kestrapy.models.paged_results_iam_tenant_access_controller_api_user_tenant_access import PagedResultsIAMTenantAccessControllerApiUserTenantAccess as PagedResultsIAMTenantAccessControllerApiUserTenantAccess

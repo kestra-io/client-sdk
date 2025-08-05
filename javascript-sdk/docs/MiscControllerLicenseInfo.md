@@ -1,4 +1,4 @@
-# KestraApi.MiscControllerLicenseInfo
+# KestraIoKestraSdk.MiscControllerLicenseInfo
 
 ## Properties
 

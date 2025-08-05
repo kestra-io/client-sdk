@@ -1,4 +1,4 @@
-# KestraApi.AppsControllerApiAppCatalogItem
+# KestraIoKestraSdk.AppsControllerApiAppCatalogItem
 
 ## Properties
 

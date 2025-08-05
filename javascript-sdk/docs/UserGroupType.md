@@ -1,4 +1,4 @@
-# KestraApi.UserGroupType
+# KestraIoKestraSdk.UserGroupType
 
 ## Enum
 

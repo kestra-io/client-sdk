@@ -17,12 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from kestrapy.models.api_user import ApiUser
-from kestrapy.models.binding import Binding
-from kestrapy.models.group import Group
-from kestrapy.models.role import Role
+from kestrapy.models.binding_type import BindingType
+from kestrapy.models.iam_binding_controller_api_binding_group import IAMBindingControllerApiBindingGroup
+from kestrapy.models.iam_binding_controller_api_binding_user import IAMBindingControllerApiBindingUser
+from kestrapy.models.iam_binding_controller_api_role import IAMBindingControllerApiRole
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,12 +30,14 @@ class IAMBindingControllerApiBindingDetail(BaseModel):
     """
     IAMBindingControllerApiBindingDetail
     """ # noqa: E501
-    binding: Optional[Binding] = None
-    role: Optional[Role] = None
-    user: Optional[ApiUser] = None
-    group: Optional[Group] = None
+    id: Optional[StrictStr] = None
+    type: Optional[BindingType] = None
+    namespace: Optional[StrictStr] = None
+    role: Optional[IAMBindingControllerApiRole] = None
+    group: Optional[IAMBindingControllerApiBindingGroup] = None
+    user: Optional[IAMBindingControllerApiBindingUser] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["binding", "role", "user", "group"]
+    __properties: ClassVar[List[str]] = ["id", "type", "namespace", "role", "group", "user"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,22 +80,34 @@ class IAMBindingControllerApiBindingDetail(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of binding
-        if self.binding:
-            _dict['binding'] = self.binding.to_dict()
         # override the default output from pydantic by calling `to_dict()` of role
         if self.role:
             _dict['role'] = self.role.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of user
-        if self.user:
-            _dict['user'] = self.user.to_dict()
         # override the default output from pydantic by calling `to_dict()` of group
         if self.group:
             _dict['group'] = self.group.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of user
+        if self.user:
+            _dict['user'] = self.user.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
+
+        # set to None if namespace (nullable) is None
+        # and model_fields_set contains the field
+        if self.namespace is None and "namespace" in self.model_fields_set:
+            _dict['namespace'] = None
+
+        # set to None if group (nullable) is None
+        # and model_fields_set contains the field
+        if self.group is None and "group" in self.model_fields_set:
+            _dict['group'] = None
+
+        # set to None if user (nullable) is None
+        # and model_fields_set contains the field
+        if self.user is None and "user" in self.model_fields_set:
+            _dict['user'] = None
 
         return _dict
 
@@ -107,10 +121,12 @@ class IAMBindingControllerApiBindingDetail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "binding": Binding.from_dict(obj["binding"]) if obj.get("binding") is not None else None,
-            "role": Role.from_dict(obj["role"]) if obj.get("role") is not None else None,
-            "user": ApiUser.from_dict(obj["user"]) if obj.get("user") is not None else None,
-            "group": Group.from_dict(obj["group"]) if obj.get("group") is not None else None
+            "id": obj.get("id"),
+            "type": obj.get("type"),
+            "namespace": obj.get("namespace"),
+            "role": IAMBindingControllerApiRole.from_dict(obj["role"]) if obj.get("role") is not None else None,
+            "group": IAMBindingControllerApiBindingGroup.from_dict(obj["group"]) if obj.get("group") is not None else None,
+            "user": IAMBindingControllerApiBindingUser.from_dict(obj["user"]) if obj.get("user") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -34,14 +34,19 @@ import java.util.StringJoiner;
  * IAMInvitationControllerApiInvitationCreateRequest
  */
 @JsonPropertyOrder({
+  IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_SUPER_ADMIN,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_ROLES,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_GROUPS,
   IAMInvitationControllerApiInvitationCreateRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationCreateRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMInvitationControllerApiInvitationCreateRequest {
+  public static final String JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST = "createUserIfNotExist";
+  @javax.annotation.Nullable
+  private Boolean createUserIfNotExist;
+
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
   @javax.annotation.Nullable
   private Boolean superAdmin;
@@ -59,6 +64,31 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
   private String email;
 
   public IAMInvitationControllerApiInvitationCreateRequest() {
+  }
+
+  public IAMInvitationControllerApiInvitationCreateRequest createUserIfNotExist(@javax.annotation.Nullable Boolean createUserIfNotExist) {
+    
+    this.createUserIfNotExist = createUserIfNotExist;
+    return this;
+  }
+
+  /**
+   * Get createUserIfNotExist
+   * @return createUserIfNotExist
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCreateUserIfNotExist() {
+    return createUserIfNotExist;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATE_USER_IF_NOT_EXIST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreateUserIfNotExist(@javax.annotation.Nullable Boolean createUserIfNotExist) {
+    this.createUserIfNotExist = createUserIfNotExist;
   }
 
   public IAMInvitationControllerApiInvitationCreateRequest superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
@@ -186,7 +216,8 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
       return false;
     }
     IAMInvitationControllerApiInvitationCreateRequest iaMInvitationControllerApiInvitationCreateRequest = (IAMInvitationControllerApiInvitationCreateRequest) o;
-    return Objects.equals(this.superAdmin, iaMInvitationControllerApiInvitationCreateRequest.superAdmin) &&
+    return Objects.equals(this.createUserIfNotExist, iaMInvitationControllerApiInvitationCreateRequest.createUserIfNotExist) &&
+        Objects.equals(this.superAdmin, iaMInvitationControllerApiInvitationCreateRequest.superAdmin) &&
         Objects.equals(this.roles, iaMInvitationControllerApiInvitationCreateRequest.roles) &&
         Objects.equals(this.groups, iaMInvitationControllerApiInvitationCreateRequest.groups) &&
         Objects.equals(this.email, iaMInvitationControllerApiInvitationCreateRequest.email);
@@ -194,13 +225,14 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(superAdmin, roles, groups, email);
+    return Objects.hash(createUserIfNotExist, superAdmin, roles, groups, email);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IAMInvitationControllerApiInvitationCreateRequest {\n");
+    sb.append("    createUserIfNotExist: ").append(toIndentedString(createUserIfNotExist)).append("\n");
     sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
@@ -251,6 +283,16 @@ public class IAMInvitationControllerApiInvitationCreateRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `createUserIfNotExist` to the URL query string
+    if (getCreateUserIfNotExist() != null) {
+      try {
+        joiner.add(String.format("%screateUserIfNotExist%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreateUserIfNotExist()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
 
     // add `superAdmin` to the URL query string
     if (getSuperAdmin() != null) {

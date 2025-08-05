@@ -1,4 +1,4 @@
-# KestraApi.IAMTenantAccessControllerUserApiAutocomplete
+# KestraIoKestraSdk.IAMTenantAccessControllerUserApiAutocomplete
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.ApiIds
+# KestraIoKestraSdk.ApiIds
 
 ## Properties
 

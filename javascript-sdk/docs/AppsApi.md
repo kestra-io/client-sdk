@@ -1,4 +1,4 @@
-# KestraApi.AppsApi
+# KestraIoKestraSdk.AppsApi
 
 All URIs are relative to *http://localhost*
 
@@ -37,8 +37,8 @@ Delete existing apps
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -47,9 +47,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
-let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
+let appsControllerApiBulkOperationRequest = new KestraIoKestraSdk.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
 apiInstance.bulkDeleteApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -90,8 +90,8 @@ Disable existing apps
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -100,9 +100,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
-let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
+let appsControllerApiBulkOperationRequest = new KestraIoKestraSdk.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
 apiInstance.bulkDisableApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -143,8 +143,8 @@ Enable existing apps
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -153,9 +153,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
-let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
+let appsControllerApiBulkOperationRequest = new KestraIoKestraSdk.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
 apiInstance.bulkEnableApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -196,8 +196,8 @@ Export apps as a ZIP archive of YAML sources.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -206,9 +206,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
-let appsControllerApiBulkOperationRequest = new KestraApi.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
+let appsControllerApiBulkOperationRequest = new KestraIoKestraSdk.AppsControllerApiBulkOperationRequest(); // AppsControllerApiBulkOperationRequest | The list of Apps UID
 apiInstance.bulkExportApps(tenant, appsControllerApiBulkOperationRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -249,8 +249,8 @@ Create a new app
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -259,7 +259,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The app
 apiInstance.createApp(tenant, body, (error, data, response) => {
@@ -302,8 +302,8 @@ Delete an existing app
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -312,7 +312,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteApp(uid, tenant, (error, data, response) => {
@@ -355,8 +355,8 @@ Disable the app.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -365,7 +365,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of app
 let tenant = "tenant_example"; // String | 
 apiInstance.disableApp(uid, tenant, (error, data, response) => {
@@ -408,8 +408,8 @@ Dispatch for a given app.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -418,12 +418,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let dispatch = "dispatch_example"; // String | The ID to dispatch
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'parameters': new KestraApi.HttpParameters() // HttpParameters | 
+  'parameters': new KestraIoKestraSdk.HttpParameters() // HttpParameters | 
 };
 apiInstance.dispatchApp(id, dispatch, tenant, opts, (error, data, response) => {
   if (error) {
@@ -467,8 +467,8 @@ Download file from an app execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -477,7 +477,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -522,8 +522,8 @@ Enable the app.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -532,7 +532,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of app
 let tenant = "tenant_example"; // String | 
 apiInstance.enableApp(uid, tenant, (error, data, response) => {
@@ -575,8 +575,8 @@ Retrieve an app
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -585,7 +585,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
 apiInstance.getApp(uid, tenant, (error, data, response) => {
@@ -628,8 +628,8 @@ Get file meta information from an app execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -638,7 +638,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -683,8 +683,8 @@ Get file preview from an app execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -693,7 +693,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let path = "path_example"; // String | The internal storage uri
 let encoding = "ISO-8859-1"; // String | The file encoding as Java charset name. Defaults to UTF-8
@@ -744,8 +744,8 @@ Download logs for an app execution
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -754,12 +754,12 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of the app.
 let executionId = "executionId_example"; // String | The ID of the execution.
 let tenant = "tenant_example"; // String | 
 let opts = {
-  'minLevel': new KestraApi.Level(), // Level | The min log level filter
+  'minLevel': new KestraIoKestraSdk.Level(), // Level | The min log level filter
   'taskIds': ["null"] // [String] | The tasks' IDs
 };
 apiInstance.getLogsFromAppExecution(uid, executionId, tenant, opts, (error, data, response) => {
@@ -805,8 +805,8 @@ Get an event stream from a given app.
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -815,7 +815,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let id = "id_example"; // String | The ID of the app.
 let stream = "stream_example"; // String | The ID of the stream to get
 let parameters = {key: null}; // HttpParameters | 
@@ -862,8 +862,8 @@ Get all the app tags
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -872,7 +872,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
 apiInstance.listTags(tenant, (error, data, response) => {
   if (error) {
@@ -913,8 +913,8 @@ Open an app
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -923,7 +923,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let parameters = {key: null}; // HttpParameters | 
 let tenant = "tenant_example"; // String | 
@@ -968,8 +968,8 @@ Open the app for the given source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -978,9 +978,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let tenant = "tenant_example"; // String | 
-let previewAppRequest = new KestraApi.PreviewAppRequest(); // PreviewAppRequest | The app
+let previewAppRequest = new KestraIoKestraSdk.PreviewAppRequest(); // PreviewAppRequest | The app
 apiInstance.previewApp(tenant, previewAppRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -1021,8 +1021,8 @@ Search for apps
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1031,7 +1031,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -1088,8 +1088,8 @@ Search for apps from catalog
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1098,7 +1098,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -1149,8 +1149,8 @@ Update an existing app
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1159,7 +1159,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.AppsApi();
+let apiInstance = new KestraIoKestraSdk.AppsApi();
 let uid = "uid_example"; // String | The ID of the app
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The app

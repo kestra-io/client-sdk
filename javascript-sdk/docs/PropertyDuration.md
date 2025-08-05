@@ -1,4 +1,4 @@
-# KestraApi.PropertyDuration
+# KestraIoKestraSdk.PropertyDuration
 
 ## Properties
 

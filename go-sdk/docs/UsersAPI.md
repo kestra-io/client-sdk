@@ -4,62 +4,33 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AutocompleteUsers**](UsersAPI.md#AutocompleteUsers) | **Post** /api/v1/{tenant}/users/autocomplete | List users for autocomplete
-[**AutocompleteUsersWithResourceTenantasSuperAdmin**](UsersAPI.md#AutocompleteUsersWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/users/autocomplete | List users for autocomplete
-[**AutocompleteUsersasSuperAdmin**](UsersAPI.md#AutocompleteUsersasSuperAdmin) | **Post** /api/v1/tenants/users/autocomplete | List users for autocomplete
-[**CreateApiTokensForUser**](UsersAPI.md#CreateApiTokensForUser) | **Post** /api/v1/{tenant}/users/{id}/api-tokens | Create new API Token for a specific user
-[**CreateApiTokensForUserWithResourceTenantasSuperAdmin**](UsersAPI.md#CreateApiTokensForUserWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | Create new API Token for a specific user
-[**CreateApiTokensForUserasSuperAdmin**](UsersAPI.md#CreateApiTokensForUserasSuperAdmin) | **Post** /api/v1/tenants/users/{id}/api-tokens | Create new API Token for a specific user
-[**CreateServiceAccount**](UsersAPI.md#CreateServiceAccount) | **Post** /api/v1/{tenant}/users/service-accounts | Create a user service account
-[**CreateServiceAccountWithResourceTenantasSuperAdmin**](UsersAPI.md#CreateServiceAccountWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/users/service-accounts | Create a user service account
-[**CreateServiceAccountasSuperAdmin**](UsersAPI.md#CreateServiceAccountasSuperAdmin) | **Post** /api/v1/tenants/users/service-accounts | Create a user service account
-[**CreateUser**](UsersAPI.md#CreateUser) | **Post** /api/v1/{tenant}/users | Create a standard user
-[**CreateUserBasicAuth**](UsersAPI.md#CreateUserBasicAuth) | **Put** /api/v1/{tenant}/users/{id}/password | Create a basic auth password for a standard user
-[**CreateUserBasicAuthWithResourceTenantasSuperAdmin**](UsersAPI.md#CreateUserBasicAuthWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/users/{id}/password | Create a basic auth password for a standard user
-[**CreateUserBasicAuthasSuperAdmin**](UsersAPI.md#CreateUserBasicAuthasSuperAdmin) | **Put** /api/v1/tenants/users/{id}/password | Create a basic auth password for a standard user
-[**CreateUserWithResourceTenantasSuperAdmin**](UsersAPI.md#CreateUserWithResourceTenantasSuperAdmin) | **Post** /api/v1/tenants/{resourceTenant}/users | Create a standard user
-[**CreateUserasSuperAdmin**](UsersAPI.md#CreateUserasSuperAdmin) | **Post** /api/v1/tenants/users | Create a standard user
-[**DeleteApiToken**](UsersAPI.md#DeleteApiToken) | **Delete** /api/v1/{tenant}/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**DeleteApiTokenWithResourceTenantasSuperAdmin**](UsersAPI.md#DeleteApiTokenWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**DeleteApiTokenasSuperAdmin**](UsersAPI.md#DeleteApiTokenasSuperAdmin) | **Delete** /api/v1/tenants/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**DeleteAuth**](UsersAPI.md#DeleteAuth) | **Delete** /api/v1/{tenant}/users/{id}/auths/{uid} | Delete an Auth for a user
-[**DeleteAuthWithResourceTenantasSuperAdmin**](UsersAPI.md#DeleteAuthWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/users/{id}/auths/{uid} | Delete an Auth for a user
-[**DeleteAuthasSuperAdmin**](UsersAPI.md#DeleteAuthasSuperAdmin) | **Delete** /api/v1/tenants/users/{id}/auths/{uid} | Delete an Auth for a user
-[**DeleteRefreshToken**](UsersAPI.md#DeleteRefreshToken) | **Delete** /api/v1/{tenant}/users/{id}/refresh-token | Delete a user refresh token
-[**DeleteRefreshTokenWithResourceTenantasSuperAdmin**](UsersAPI.md#DeleteRefreshTokenWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/users/{id}/refresh-token | Delete a user refresh token
-[**DeleteRefreshTokenasSuperAdmin**](UsersAPI.md#DeleteRefreshTokenasSuperAdmin) | **Delete** /api/v1/tenants/users/{id}/refresh-token | Delete a user refresh token
-[**DeleteUser**](UsersAPI.md#DeleteUser) | **Delete** /api/v1/{tenant}/users/{id} | Delete a user
-[**DeleteUserWithResourceTenantasSuperAdmin**](UsersAPI.md#DeleteUserWithResourceTenantasSuperAdmin) | **Delete** /api/v1/tenants/{resourceTenant}/users/{id} | Delete a user
-[**DeleteUserasSuperAdmin**](UsersAPI.md#DeleteUserasSuperAdmin) | **Delete** /api/v1/tenants/users/{id} | Delete a user
-[**FindAllForAllTenants**](UsersAPI.md#FindAllForAllTenants) | **Get** /api/v1/tenants/users/instance | List all users in the instance
-[**FindAllForAllTenantsWithResourceTenant**](UsersAPI.md#FindAllForAllTenantsWithResourceTenant) | **Get** /api/v1/tenants/{resourceTenant}/users/instance | List all users in the instance
-[**GetUser**](UsersAPI.md#GetUser) | **Get** /api/v1/{tenant}/users/{id} | Retrieve a user
-[**GetUserWithResourceTenantasSuperAdmin**](UsersAPI.md#GetUserWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id} | Retrieve a user
-[**GetUserasSuperAdmin**](UsersAPI.md#GetUserasSuperAdmin) | **Get** /api/v1/tenants/users/{id} | Retrieve a user
-[**Impersonate**](UsersAPI.md#Impersonate) | **Post** /api/v1/tenants/users/{id}/impersonate | Impersonate a user
-[**ImpersonateWithResourceTenant**](UsersAPI.md#ImpersonateWithResourceTenant) | **Post** /api/v1/tenants/{resourceTenant}/users/{id}/impersonate | Impersonate a user
-[**ListApiTokens**](UsersAPI.md#ListApiTokens) | **Get** /api/v1/{tenant}/users/{id}/api-tokens | List API tokens for a specific user
-[**ListApiTokensWithResourceTenantasSuperAdmin**](UsersAPI.md#ListApiTokensWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/{id}/api-tokens | List API tokens for a specific user
-[**ListApiTokensasSuperAdmin**](UsersAPI.md#ListApiTokensasSuperAdmin) | **Get** /api/v1/tenants/users/{id}/api-tokens | List API tokens for a specific user
-[**SearchUsers**](UsersAPI.md#SearchUsers) | **Get** /api/v1/{tenant}/users/search | Search for users
-[**SearchUsersWithResourceTenantasSuperAdmin**](UsersAPI.md#SearchUsersWithResourceTenantasSuperAdmin) | **Get** /api/v1/tenants/{resourceTenant}/users/search | Search for users
-[**SearchUsersasSuperAdmin**](UsersAPI.md#SearchUsersasSuperAdmin) | **Get** /api/v1/tenants/users/search | Search for users
-[**SetSuperAdmin**](UsersAPI.md#SetSuperAdmin) | **Put** /api/v1/tenants/users/{id}/set-superadmin | Update user superadmin status
-[**SetSuperAdminWithResourceTenant**](UsersAPI.md#SetSuperAdminWithResourceTenant) | **Put** /api/v1/tenants/{resourceTenant}/users/{id}/set-superadmin | Update user superadmin status
+[**AutocompleteUsers**](UsersAPI.md#AutocompleteUsers) | **Post** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
+[**CreateApiTokensForUser**](UsersAPI.md#CreateApiTokensForUser) | **Post** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
+[**CreateApiTokensForUser1**](UsersAPI.md#CreateApiTokensForUser1) | **Post** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+[**CreateUser**](UsersAPI.md#CreateUser) | **Post** /api/v1/users | Create a new user account
+[**DeleteApiToken**](UsersAPI.md#DeleteApiToken) | **Delete** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**DeleteApiToken1**](UsersAPI.md#DeleteApiToken1) | **Delete** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**DeleteRefreshToken**](UsersAPI.md#DeleteRefreshToken) | **Delete** /api/v1/users/{id}/refresh-token | Delete a user refresh token
+[**DeleteUser**](UsersAPI.md#DeleteUser) | **Delete** /api/v1/users/{id} | Delete a user
+[**DeleteUserAuthMethod**](UsersAPI.md#DeleteUserAuthMethod) | **Delete** /api/v1/users/{id}/auths/{auth} | Update user password
+[**GetUser**](UsersAPI.md#GetUser) | **Get** /api/v1/users/{id} | Get a user
+[**Impersonate**](UsersAPI.md#Impersonate) | **Post** /api/v1/users/{id}/impersonate | Impersonate a user
+[**ListApiTokens**](UsersAPI.md#ListApiTokens) | **Get** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
+[**ListApiTokens1**](UsersAPI.md#ListApiTokens1) | **Get** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+[**ListUsers**](UsersAPI.md#ListUsers) | **Get** /api/v1/users | Retrieve users
+[**PatchUser**](UsersAPI.md#PatchUser) | **Patch** /api/v1/users/{id} | Update user details
+[**PatchUserDemo**](UsersAPI.md#PatchUserDemo) | **Patch** /api/v1/users/{id}/restricted | Update user demo
+[**PatchUserPassword**](UsersAPI.md#PatchUserPassword) | **Patch** /api/v1/users/{id}/password | Update user password
+[**PatchUserSuperAdmin**](UsersAPI.md#PatchUserSuperAdmin) | **Patch** /api/v1/users/{id}/superadmin | Update user superadmin privileges
 [**UpdateCurrentUserPassword**](UsersAPI.md#UpdateCurrentUserPassword) | **Put** /api/v1/me/password | Update authenticated user password
-[**UpdateCurrentUserPasswordWithTenant**](UsersAPI.md#UpdateCurrentUserPasswordWithTenant) | **Put** /api/v1/{tenant}/me/password | Update authenticated user password
-[**UpdateServiceAccount**](UsersAPI.md#UpdateServiceAccount) | **Put** /api/v1/{tenant}/users/service-accounts/{id} | Update a user service account
-[**UpdateServiceAccountWithResourceTenantasSuperAdmin**](UsersAPI.md#UpdateServiceAccountWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/users/service-accounts/{id} | Update a user service account
-[**UpdateServiceAccountasSuperAdmin**](UsersAPI.md#UpdateServiceAccountasSuperAdmin) | **Put** /api/v1/tenants/users/service-accounts/{id} | Update a user service account
-[**UpdateUser**](UsersAPI.md#UpdateUser) | **Put** /api/v1/{tenant}/users/{id} | Update a standard user
-[**UpdateUserWithResourceTenantasSuperAdmin**](UsersAPI.md#UpdateUserWithResourceTenantasSuperAdmin) | **Put** /api/v1/tenants/{resourceTenant}/users/{id} | Update a standard user
-[**UpdateUserasSuperAdmin**](UsersAPI.md#UpdateUserasSuperAdmin) | **Put** /api/v1/tenants/users/{id} | Update a standard user
+[**UpdateUser**](UsersAPI.md#UpdateUser) | **Put** /api/v1/users/{id} | Update a user account
+[**UpdateUserGroups**](UsersAPI.md#UpdateUserGroups) | **Put** /api/v1/{tenant}/users/{id}/groups | Update the list of groups a user belongs to for the given tenant
 
 
 
 ## AutocompleteUsers
 
-> []ApiUser AutocompleteUsers(ctx, tenant).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
+> []IAMTenantAccessControllerApiUserTenantAccess AutocompleteUsers(ctx, tenant).IAMTenantAccessControllerUserApiAutocomplete(iAMTenantAccessControllerUserApiAutocomplete).Execute()
 
 List users for autocomplete
 
@@ -77,16 +48,16 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	abstractUserControllerUserApiAutocomplete := *openapiclient.NewAbstractUserControllerUserApiAutocomplete() // AbstractUserControllerUserApiAutocomplete | Autocomplete request
+	iAMTenantAccessControllerUserApiAutocomplete := *openapiclient.NewIAMTenantAccessControllerUserApiAutocomplete() // IAMTenantAccessControllerUserApiAutocomplete | Autocomplete request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.AutocompleteUsers(context.Background(), tenant).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
+	resp, r, err := apiClient.UsersAPI.AutocompleteUsers(context.Background(), tenant).IAMTenantAccessControllerUserApiAutocomplete(iAMTenantAccessControllerUserApiAutocomplete).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.AutocompleteUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AutocompleteUsers`: []ApiUser
+	// response from `AutocompleteUsers`: []IAMTenantAccessControllerApiUserTenantAccess
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.AutocompleteUsers`: %v\n", resp)
 }
 ```
@@ -107,145 +78,11 @@ Other parameters are passed through a pointer to a apiAutocompleteUsersRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md) | Autocomplete request | 
+ **iAMTenantAccessControllerUserApiAutocomplete** | [**IAMTenantAccessControllerUserApiAutocomplete**](IAMTenantAccessControllerUserApiAutocomplete.md) | Autocomplete request | 
 
 ### Return type
 
-[**[]ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AutocompleteUsersWithResourceTenantasSuperAdmin
-
-> []ApiUser AutocompleteUsersWithResourceTenantasSuperAdmin(ctx, resourceTenant).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
-
-List users for autocomplete
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	resourceTenant := "resourceTenant_example" // string | 
-	abstractUserControllerUserApiAutocomplete := *openapiclient.NewAbstractUserControllerUserApiAutocomplete() // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.AutocompleteUsersWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.AutocompleteUsersWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AutocompleteUsersWithResourceTenantasSuperAdmin`: []ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.AutocompleteUsersWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAutocompleteUsersWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md) | Autocomplete request | 
-
-### Return type
-
-[**[]ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## AutocompleteUsersasSuperAdmin
-
-> []ApiUser AutocompleteUsersasSuperAdmin(ctx).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
-
-List users for autocomplete
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	abstractUserControllerUserApiAutocomplete := *openapiclient.NewAbstractUserControllerUserApiAutocomplete() // AbstractUserControllerUserApiAutocomplete | Autocomplete request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.AutocompleteUsersasSuperAdmin(context.Background()).AbstractUserControllerUserApiAutocomplete(abstractUserControllerUserApiAutocomplete).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.AutocompleteUsersasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AutocompleteUsersasSuperAdmin`: []ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.AutocompleteUsersasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAutocompleteUsersasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **abstractUserControllerUserApiAutocomplete** | [**AbstractUserControllerUserApiAutocomplete**](AbstractUserControllerUserApiAutocomplete.md) | Autocomplete request | 
-
-### Return type
-
-[**[]ApiUser**](ApiUser.md)
+[**[]IAMTenantAccessControllerApiUserTenantAccess**](IAMTenantAccessControllerApiUserTenantAccess.md)
 
 ### Authorization
 
@@ -263,9 +100,11 @@ Name | Type | Description  | Notes
 
 ## CreateApiTokensForUser
 
-> map[string]interface{} CreateApiTokensForUser(ctx, id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
+> CreateApiTokenResponse CreateApiTokensForUser(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
 
 Create new API Token for a specific user
+
+
 
 ### Example
 
@@ -281,17 +120,16 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUser(context.Background(), id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUser(context.Background(), id).CreateApiTokenRequest(createApiTokenRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApiTokensForUser`: map[string]interface{}
+	// response from `CreateApiTokensForUser`: CreateApiTokenResponse
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUser`: %v\n", resp)
 }
 ```
@@ -303,7 +141,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -313,12 +150,11 @@ Other parameters are passed through a pointer to a apiCreateApiTokensForUserRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
  **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
 
 ### Return type
 
-**map[string]interface{}**
+[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
 
 ### Authorization
 
@@ -334,9 +170,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreateApiTokensForUserWithResourceTenantasSuperAdmin
+## CreateApiTokensForUser1
 
-> map[string]interface{} CreateApiTokensForUserWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
+> map[string]interface{} CreateApiTokensForUser1(ctx, id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
 
 Create new API Token for a specific user
 
@@ -354,160 +190,18 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUserWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUserWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApiTokensForUserWithResourceTenantasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUserWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApiTokensForUserWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateApiTokensForUserasSuperAdmin
-
-> map[string]interface{} CreateApiTokensForUserasSuperAdmin(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
-
-Create new API Token for a specific user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUserasSuperAdmin(context.Background(), id).CreateApiTokenRequest(createApiTokenRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUserasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApiTokensForUserasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUserasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApiTokensForUserasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateServiceAccount
-
-> ApiServiceAccount CreateServiceAccount(ctx, tenant).ApiServiceAccount(apiServiceAccount).Execute()
-
-Create a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
 	tenant := "tenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateServiceAccount(context.Background(), tenant).ApiServiceAccount(apiServiceAccount).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUser1(context.Background(), id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateServiceAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUser1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateServiceAccount`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateServiceAccount`: %v\n", resp)
+	// response from `CreateApiTokensForUser1`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUser1`: %v\n", resp)
 }
 ```
 
@@ -517,155 +211,23 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateServiceAccountRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreateApiTokensForUser1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The service account | 
+
+ **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
 
 ### Return type
 
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateServiceAccountWithResourceTenantasSuperAdmin
-
-> ApiServiceAccount CreateServiceAccountWithResourceTenantasSuperAdmin(ctx, resourceTenant).ApiServiceAccount(apiServiceAccount).Execute()
-
-Create a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	resourceTenant := "resourceTenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateServiceAccountWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).ApiServiceAccount(apiServiceAccount).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateServiceAccountWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateServiceAccountWithResourceTenantasSuperAdmin`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateServiceAccountWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateServiceAccountWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The service account | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateServiceAccountasSuperAdmin
-
-> ApiServiceAccount CreateServiceAccountasSuperAdmin(ctx).ApiServiceAccount(apiServiceAccount).Execute()
-
-Create a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The service account
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateServiceAccountasSuperAdmin(context.Background()).ApiServiceAccount(apiServiceAccount).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateServiceAccountasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateServiceAccountasSuperAdmin`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateServiceAccountasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateServiceAccountasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The service account | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -683,9 +245,11 @@ Name | Type | Description  | Notes
 
 ## CreateUser
 
-> ApiUser CreateUser(ctx, tenant).ApiUser(apiUser).Execute()
+> CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 
-Create a standard user
+Create a new user account
+
+
 
 ### Example
 
@@ -700,28 +264,21 @@ import (
 )
 
 func main() {
-	tenant := "tenant_example" // string | 
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
+	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest("Email_example") // IAMUserControllerApiCreateOrUpdateUserRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUser(context.Background(), tenant).ApiUser(apiUser).Execute()
+	r, err := apiClient.UsersAPI.CreateUser(context.Background()).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateUser`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUser`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -730,12 +287,11 @@ Other parameters are passed through a pointer to a apiCreateUserRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
+ **iAMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md) |  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+ (empty response body)
 
 ### Authorization
 
@@ -744,357 +300,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUserBasicAuth
-
-> ApiUser CreateUserBasicAuth(ctx, id, tenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-
-Create a basic auth password for a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuth(context.Background(), id, tenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuth``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserBasicAuth`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUserBasicAuth`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserBasicAuthRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUserBasicAuthWithResourceTenantasSuperAdmin
-
-> ApiUser CreateUserBasicAuthWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-
-Create a basic auth password for a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserBasicAuthWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUserBasicAuthWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserBasicAuthWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUserBasicAuthasSuperAdmin
-
-> ApiUser CreateUserBasicAuthasSuperAdmin(ctx, id).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-
-Create a basic auth password for a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	abstractUserControllerApiPasswordRequest := *openapiclient.NewAbstractUserControllerApiPasswordRequest("Password_example") // AbstractUserControllerApiPasswordRequest | The password
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserBasicAuthasSuperAdmin(context.Background(), id).AbstractUserControllerApiPasswordRequest(abstractUserControllerApiPasswordRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserBasicAuthasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserBasicAuthasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUserBasicAuthasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserBasicAuthasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **abstractUserControllerApiPasswordRequest** | [**AbstractUserControllerApiPasswordRequest**](AbstractUserControllerApiPasswordRequest.md) | The password | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUserWithResourceTenantasSuperAdmin
-
-> ApiUser CreateUserWithResourceTenantasSuperAdmin(ctx, resourceTenant).ApiUser(apiUser).Execute()
-
-Create a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	resourceTenant := "resourceTenant_example" // string | 
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).ApiUser(apiUser).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUserWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateUserasSuperAdmin
-
-> ApiUser CreateUserasSuperAdmin(ctx).ApiUser(apiUser).Execute()
-
-Create a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateUserasSuperAdmin(context.Background()).ApiUser(apiUser).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUserasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUserasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateUserasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1103,9 +309,11 @@ Name | Type | Description  | Notes
 
 ## DeleteApiToken
 
-> map[string]interface{} DeleteApiToken(ctx, id, tokenId, tenant).Execute()
+> DeleteApiToken(ctx, id, tokenId).Execute()
 
 Delete an API Token for specific user and token id
+
+
 
 ### Example
 
@@ -1122,17 +330,14 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tokenId := "tokenId_example" // string | The token id
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteApiToken(context.Background(), id, tokenId, tenant).Execute()
+	r, err := apiClient.UsersAPI.DeleteApiToken(context.Background(), id, tokenId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApiToken`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiToken`: %v\n", resp)
 }
 ```
 
@@ -1144,7 +349,6 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
 **tokenId** | **string** | The token id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -1156,10 +360,9 @@ Name | Type | Description  | Notes
 
 
 
-
 ### Return type
 
-**map[string]interface{}**
+ (empty response body)
 
 ### Authorization
 
@@ -1168,16 +371,16 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## DeleteApiTokenWithResourceTenantasSuperAdmin
+## DeleteApiToken1
 
-> map[string]interface{} DeleteApiTokenWithResourceTenantasSuperAdmin(ctx, id, tokenId, resourceTenant).Execute()
+> map[string]interface{} DeleteApiToken1(ctx, id, tokenId, tenant).Execute()
 
 Delete an API Token for specific user and token id
 
@@ -1196,162 +399,17 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tokenId := "tokenId_example" // string | The token id
-	resourceTenant := "resourceTenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteApiTokenWithResourceTenantasSuperAdmin(context.Background(), id, tokenId, resourceTenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiTokenWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteApiTokenWithResourceTenantasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiTokenWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tokenId** | **string** | The token id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiTokenWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteApiTokenasSuperAdmin
-
-> map[string]interface{} DeleteApiTokenasSuperAdmin(ctx, id, tokenId).Execute()
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tokenId := "tokenId_example" // string | The token id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteApiTokenasSuperAdmin(context.Background(), id, tokenId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiTokenasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteApiTokenasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiTokenasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tokenId** | **string** | The token id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiTokenasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteAuth
-
-> ApiUser DeleteAuth(ctx, id, uid, tenant).Execute()
-
-Delete an Auth for a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	uid := "uid_example" // string | The auth id
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteAuth(context.Background(), id, uid, tenant).Execute()
+	resp, r, err := apiClient.UsersAPI.DeleteApiToken1(context.Background(), id, tokenId, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteAuth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiToken1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteAuth`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteAuth`: %v\n", resp)
+	// response from `DeleteApiToken1`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiToken1`: %v\n", resp)
 }
 ```
 
@@ -1362,12 +420,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**uid** | **string** | The auth id | 
+**tokenId** | **string** | The token id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteAuthRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteApiToken1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1378,152 +436,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteAuthWithResourceTenantasSuperAdmin
-
-> ApiUser DeleteAuthWithResourceTenantasSuperAdmin(ctx, id, uid, resourceTenant).Execute()
-
-Delete an Auth for a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	uid := "uid_example" // string | The auth id
-	resourceTenant := "resourceTenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteAuthWithResourceTenantasSuperAdmin(context.Background(), id, uid, resourceTenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteAuthWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteAuthWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteAuthWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**uid** | **string** | The auth id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteAuthWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteAuthasSuperAdmin
-
-> ApiUser DeleteAuthasSuperAdmin(ctx, id, uid).Execute()
-
-Delete an Auth for a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	uid := "uid_example" // string | The auth id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteAuthasSuperAdmin(context.Background(), id, uid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteAuthasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteAuthasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteAuthasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**uid** | **string** | The auth id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteAuthasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -1541,7 +454,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRefreshToken
 
-> ApiUser DeleteRefreshToken(ctx, id, tenant).Execute()
+> DeleteRefreshToken(ctx, id).Execute()
 
 Delete a user refresh token
 
@@ -1559,17 +472,14 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteRefreshToken(context.Background(), id, tenant).Execute()
+	r, err := apiClient.UsersAPI.DeleteRefreshToken(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteRefreshToken``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRefreshToken`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteRefreshToken`: %v\n", resp)
 }
 ```
 
@@ -1580,7 +490,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -1591,10 +500,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+ (empty response body)
 
 ### Authorization
 
@@ -1603,146 +511,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteRefreshTokenWithResourceTenantasSuperAdmin
-
-> ApiUser DeleteRefreshTokenWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
-
-Delete a user refresh token
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteRefreshTokenWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteRefreshTokenWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteRefreshTokenWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteRefreshTokenWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteRefreshTokenWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteRefreshTokenasSuperAdmin
-
-> ApiUser DeleteRefreshTokenasSuperAdmin(ctx, id).Execute()
-
-Delete a user refresh token
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteRefreshTokenasSuperAdmin(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteRefreshTokenasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteRefreshTokenasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteRefreshTokenasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteRefreshTokenasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1751,9 +520,11 @@ Name | Type | Description  | Notes
 
 ## DeleteUser
 
-> DeleteUser(ctx, id, tenant).Execute()
+> DeleteUser(ctx, id).Execute()
 
 Delete a user
+
+
 
 ### Example
 
@@ -1769,11 +540,10 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UsersAPI.DeleteUser(context.Background(), id, tenant).Execute()
+	r, err := apiClient.UsersAPI.DeleteUser(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1788,7 +558,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -1799,7 +568,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
  (empty response body)
@@ -1818,11 +586,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteUserWithResourceTenantasSuperAdmin
+## DeleteUserAuthMethod
 
-> DeleteUserWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
+> IAMUserControllerApiUser DeleteUserAuthMethod(ctx, id, auth).Execute()
 
-Delete a user
+Update user password
+
+
 
 ### Example
 
@@ -1838,15 +608,17 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
+	auth := "auth_example" // string | The user auth method id
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UsersAPI.DeleteUserWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).Execute()
+	resp, r, err := apiClient.UsersAPI.DeleteUserAuthMethod(context.Background(), id, auth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteUserWithResourceTenantasSuperAdmin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteUserAuthMethod``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteUserAuthMethod`: IAMUserControllerApiUser
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteUserAuthMethod`: %v\n", resp)
 }
 ```
 
@@ -1857,11 +629,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
+**auth** | **string** | The user auth method id | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteUserWithResourceTenantasSuperAdminRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteUserAuthMethodRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1871,227 +643,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteUserasSuperAdmin
-
-> DeleteUserasSuperAdmin(ctx, id).Execute()
-
-Delete a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UsersAPI.DeleteUserasSuperAdmin(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteUserasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteUserasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## FindAllForAllTenants
-
-> PagedResultsApiUser FindAllForAllTenants(ctx).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
-
-List all users in the instance
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	q := "q_example" // string | A string filter (optional)
-	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.FindAllForAllTenants(context.Background()).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.FindAllForAllTenants``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `FindAllForAllTenants`: PagedResultsApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.FindAllForAllTenants`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiFindAllForAllTenantsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
- **q** | **string** | A string filter | 
- **type_** | [**UserType**](UserType.md) | The type of user | 
- **sort** | **[]string** | The sort of current page | 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## FindAllForAllTenantsWithResourceTenant
-
-> PagedResultsApiUser FindAllForAllTenantsWithResourceTenant(ctx, resourceTenant).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
-
-List all users in the instance
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	resourceTenant := "resourceTenant_example" // string | 
-	size := int32(56) // int32 | The current page size (default to 10)
-	q := "q_example" // string | A string filter (optional)
-	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.FindAllForAllTenantsWithResourceTenant(context.Background(), resourceTenant).Page(page).Size(size).Q(q).Type_(type_).Sort(sort).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.FindAllForAllTenantsWithResourceTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `FindAllForAllTenantsWithResourceTenant`: PagedResultsApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.FindAllForAllTenantsWithResourceTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiFindAllForAllTenantsWithResourceTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
-
- **size** | **int32** | The current page size | [default to 10]
- **q** | **string** | A string filter | 
- **type_** | [**UserType**](UserType.md) | The type of user | 
- **sort** | **[]string** | The sort of current page | 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -2109,9 +661,11 @@ Name | Type | Description  | Notes
 
 ## GetUser
 
-> ApiUser GetUser(ctx, id, tenant).Execute()
+> IAMUserControllerApiUser GetUser(ctx, id).Execute()
 
-Retrieve a user
+Get a user
+
+
 
 ### Example
 
@@ -2127,16 +681,15 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.GetUser(context.Background(), id, tenant).Execute()
+	resp, r, err := apiClient.UsersAPI.GetUser(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.GetUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUser`: ApiUser
+	// response from `GetUser`: IAMUserControllerApiUser
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.GetUser`: %v\n", resp)
 }
 ```
@@ -2148,7 +701,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -2159,149 +711,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUserWithResourceTenantasSuperAdmin
-
-> ApiUser GetUserWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
-
-Retrieve a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.GetUserWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.GetUserWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.GetUserWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUserasSuperAdmin
-
-> ApiUser GetUserasSuperAdmin(ctx, id).Execute()
-
-Retrieve a user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.GetUserasSuperAdmin(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.GetUserasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.GetUserasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -2387,85 +799,14 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ImpersonateWithResourceTenant
-
-> map[string]interface{} ImpersonateWithResourceTenant(ctx, resourceTenant, id).Execute()
-
-Impersonate a user
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	resourceTenant := "resourceTenant_example" // string | 
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ImpersonateWithResourceTenant(context.Background(), resourceTenant, id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ImpersonateWithResourceTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ImpersonateWithResourceTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ImpersonateWithResourceTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiImpersonateWithResourceTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListApiTokens
 
-> map[string]interface{} ListApiTokens(ctx, id, tenant).Execute()
+> map[string]interface{} ListApiTokens(ctx, id).Execute()
 
 List API tokens for a specific user
 
+
+
 ### Example
 
 ```go
@@ -2480,11 +821,10 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokens(context.Background(), id, tenant).Execute()
+	resp, r, err := apiClient.UsersAPI.ListApiTokens(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokens``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2501,7 +841,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -2512,7 +851,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
 ### Return type
 
 **map[string]interface{}**
@@ -2531,9 +869,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListApiTokensWithResourceTenantasSuperAdmin
+## ListApiTokens1
 
-> map[string]interface{} ListApiTokensWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).Execute()
+> map[string]interface{} ListApiTokens1(ctx, id, tenant).Execute()
 
 List API tokens for a specific user
 
@@ -2551,160 +889,17 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokensWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokensWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApiTokensWithResourceTenantasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokensWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListApiTokensWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListApiTokensasSuperAdmin
-
-> map[string]interface{} ListApiTokensasSuperAdmin(ctx, id).Execute()
-
-List API tokens for a specific user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokensasSuperAdmin(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokensasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApiTokensasSuperAdmin`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokensasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListApiTokensasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchUsers
-
-> PagedResultsApiUser SearchUsers(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
-
-Search for users
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.SearchUsers(context.Background(), tenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
+	resp, r, err := apiClient.UsersAPI.ListApiTokens1(context.Background(), id, tenant).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.SearchUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokens1``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchUsers`: PagedResultsApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.SearchUsers`: %v\n", resp)
+	// response from `ListApiTokens1`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokens1`: %v\n", resp)
 }
 ```
 
@@ -2714,25 +909,22 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearchUsersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListApiTokens1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
 
- **q** | **string** | A string filter | 
- **sort** | **[]string** | The sort of current page | 
- **type_** | [**UserType**](UserType.md) | The type of user | 
+
 
 ### Return type
 
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -2748,89 +940,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## SearchUsersWithResourceTenantasSuperAdmin
+## ListUsers
 
-> PagedResultsApiUser SearchUsersWithResourceTenantasSuperAdmin(ctx, resourceTenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
+> PagedResultsIAMUserControllerApiUserSummary ListUsers(ctx).Page(page).Size(size).Q(q).Sort(sort).Execute()
 
-Search for users
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	page := int32(56) // int32 | The current page (default to 1)
-	size := int32(56) // int32 | The current page size (default to 10)
-	resourceTenant := "resourceTenant_example" // string | 
-	q := "q_example" // string | A string filter (optional)
-	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.SearchUsersWithResourceTenantasSuperAdmin(context.Background(), resourceTenant).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.SearchUsersWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `SearchUsersWithResourceTenantasSuperAdmin`: PagedResultsApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.SearchUsersWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSearchUsersWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | The current page | [default to 1]
- **size** | **int32** | The current page size | [default to 10]
-
- **q** | **string** | A string filter | 
- **sort** | **[]string** | The sort of current page | 
- **type_** | [**UserType**](UserType.md) | The type of user | 
-
-### Return type
-
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SearchUsersasSuperAdmin
-
-> PagedResultsApiUser SearchUsersasSuperAdmin(ctx).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
-
-Search for users
+Retrieve users
 
 ### Example
 
@@ -2849,17 +963,16 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	q := "q_example" // string | A string filter (optional)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	type_ := openapiclient.UserType("STANDARD") // UserType | The type of user (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.SearchUsersasSuperAdmin(context.Background()).Page(page).Size(size).Q(q).Sort(sort).Type_(type_).Execute()
+	resp, r, err := apiClient.UsersAPI.ListUsers(context.Background()).Page(page).Size(size).Q(q).Sort(sort).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.SearchUsersasSuperAdmin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchUsersasSuperAdmin`: PagedResultsApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.SearchUsersasSuperAdmin`: %v\n", resp)
+	// response from `ListUsers`: PagedResultsIAMUserControllerApiUserSummary
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListUsers`: %v\n", resp)
 }
 ```
 
@@ -2869,7 +982,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSearchUsersasSuperAdminRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListUsersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2878,11 +991,10 @@ Name | Type | Description  | Notes
  **size** | **int32** | The current page size | [default to 10]
  **q** | **string** | A string filter | 
  **sort** | **[]string** | The sort of current page | 
- **type_** | [**UserType**](UserType.md) | The type of user | 
 
 ### Return type
 
-[**PagedResultsApiUser**](PagedResultsApiUser.md)
+[**PagedResultsIAMUserControllerApiUserSummary**](PagedResultsIAMUserControllerApiUserSummary.md)
 
 ### Authorization
 
@@ -2898,11 +1010,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## SetSuperAdmin
+## PatchUser
 
-> ApiUser SetSuperAdmin(ctx, id).Body(body).Execute()
+> IAMUserControllerApiUser PatchUser(ctx, id).MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest).Execute()
 
-Update user superadmin status
+Update user details
 
 
 
@@ -2920,17 +1032,17 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	body := true // bool | 
+	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest() // MeControllerApiUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.SetSuperAdmin(context.Background(), id).Body(body).Execute()
+	resp, r, err := apiClient.UsersAPI.PatchUser(context.Background(), id).MeControllerApiUserDetailsRequest(meControllerApiUserDetailsRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.SetSuperAdmin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.PatchUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SetSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.SetSuperAdmin`: %v\n", resp)
+	// response from `PatchUser`: IAMUserControllerApiUser
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.PatchUser`: %v\n", resp)
 }
 ```
 
@@ -2944,17 +1056,17 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSetSuperAdminRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **body** | **bool** |  | 
+ **meControllerApiUserDetailsRequest** | [**MeControllerApiUserDetailsRequest**](MeControllerApiUserDetailsRequest.md) | The user details | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -2970,11 +1082,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## SetSuperAdminWithResourceTenant
+## PatchUserDemo
 
-> ApiUser SetSuperAdminWithResourceTenant(ctx, resourceTenant, id).Body(body).Execute()
+> PatchUserDemo(ctx, id).IAMUserControllerApiPatchRestrictedRequest(iAMUserControllerApiPatchRestrictedRequest).Execute()
 
-Update user superadmin status
+Update user demo
 
 
 
@@ -2991,19 +1103,16 @@ import (
 )
 
 func main() {
-	resourceTenant := "resourceTenant_example" // string | 
 	id := "id_example" // string | The user id
-	body := true // bool | 
+	iAMUserControllerApiPatchRestrictedRequest := *openapiclient.NewIAMUserControllerApiPatchRestrictedRequest(false) // IAMUserControllerApiPatchRestrictedRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.SetSuperAdminWithResourceTenant(context.Background(), resourceTenant, id).Body(body).Execute()
+	r, err := apiClient.UsersAPI.PatchUserDemo(context.Background(), id).IAMUserControllerApiPatchRestrictedRequest(iAMUserControllerApiPatchRestrictedRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.SetSuperAdminWithResourceTenant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.PatchUserDemo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SetSuperAdminWithResourceTenant`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.SetSuperAdminWithResourceTenant`: %v\n", resp)
 }
 ```
 
@@ -3013,23 +1122,93 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceTenant** | **string** |  | 
 **id** | **string** | The user id | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiSetSuperAdminWithResourceTenantRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchUserDemoRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **body** | **bool** |  | 
+ **iAMUserControllerApiPatchRestrictedRequest** | [**IAMUserControllerApiPatchRestrictedRequest**](IAMUserControllerApiPatchRestrictedRequest.md) |  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+ (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchUserPassword
+
+> map[string]interface{} PatchUserPassword(ctx, id).IAMUserControllerApiPatchUserPasswordRequest(iAMUserControllerApiPatchUserPasswordRequest).Execute()
+
+Update user password
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	iAMUserControllerApiPatchUserPasswordRequest := *openapiclient.NewIAMUserControllerApiPatchUserPasswordRequest("Password_example") // IAMUserControllerApiPatchUserPasswordRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsersAPI.PatchUserPassword(context.Background(), id).IAMUserControllerApiPatchUserPasswordRequest(iAMUserControllerApiPatchUserPasswordRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.PatchUserPassword``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchUserPassword`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.PatchUserPassword`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchUserPasswordRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **iAMUserControllerApiPatchUserPasswordRequest** | [**IAMUserControllerApiPatchUserPasswordRequest**](IAMUserControllerApiPatchUserPasswordRequest.md) |  | 
+
+### Return type
+
+**map[string]interface{}**
 
 ### Authorization
 
@@ -3039,6 +1218,76 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchUserSuperAdmin
+
+> PatchUserSuperAdmin(ctx, id).IAMUserControllerApiPatchSuperAdminRequest(iAMUserControllerApiPatchSuperAdminRequest).Execute()
+
+Update user superadmin privileges
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	id := "id_example" // string | The user id
+	iAMUserControllerApiPatchSuperAdminRequest := *openapiclient.NewIAMUserControllerApiPatchSuperAdminRequest(false) // IAMUserControllerApiPatchSuperAdminRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UsersAPI.PatchUserSuperAdmin(context.Background(), id).IAMUserControllerApiPatchSuperAdminRequest(iAMUserControllerApiPatchSuperAdminRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.PatchUserSuperAdmin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The user id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchUserSuperAdminRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **iAMUserControllerApiPatchSuperAdminRequest** | [**IAMUserControllerApiPatchSuperAdminRequest**](IAMUserControllerApiPatchSuperAdminRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3066,7 +1315,7 @@ import (
 )
 
 func main() {
-	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest("OldPassword_example", "NewPassword_example") // MeControllerApiUpdatePasswordRequest | 
+	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest() // MeControllerApiUpdatePasswordRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3111,299 +1360,13 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## UpdateCurrentUserPasswordWithTenant
-
-> map[string]interface{} UpdateCurrentUserPasswordWithTenant(ctx, tenant).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
-
-Update authenticated user password
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	tenant := "tenant_example" // string | 
-	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest("OldPassword_example", "NewPassword_example") // MeControllerApiUpdatePasswordRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateCurrentUserPasswordWithTenant(context.Background(), tenant).MeControllerApiUpdatePasswordRequest(meControllerApiUpdatePasswordRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateCurrentUserPasswordWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateCurrentUserPasswordWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateCurrentUserPasswordWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateCurrentUserPasswordWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **meControllerApiUpdatePasswordRequest** | [**MeControllerApiUpdatePasswordRequest**](MeControllerApiUpdatePasswordRequest.md) |  | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateServiceAccount
-
-> ApiServiceAccount UpdateServiceAccount(ctx, id, tenant).ApiServiceAccount(apiServiceAccount).Execute()
-
-Update a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateServiceAccount(context.Background(), id, tenant).ApiServiceAccount(apiServiceAccount).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateServiceAccount``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateServiceAccount`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateServiceAccount`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateServiceAccountRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateServiceAccountWithResourceTenantasSuperAdmin
-
-> ApiServiceAccount UpdateServiceAccountWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).ApiServiceAccount(apiServiceAccount).Execute()
-
-Update a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateServiceAccountWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).ApiServiceAccount(apiServiceAccount).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateServiceAccountWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateServiceAccountWithResourceTenantasSuperAdmin`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateServiceAccountWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateServiceAccountWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateServiceAccountasSuperAdmin
-
-> ApiServiceAccount UpdateServiceAccountasSuperAdmin(ctx, id).ApiServiceAccount(apiServiceAccount).Execute()
-
-Update a user service account
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	apiServiceAccount := *openapiclient.NewApiServiceAccount("Id_example", "Name_example", "Description_example", []openapiclient.GroupIdentifier{*openapiclient.NewGroupIdentifier("TenantId_example", "GroupId_example", openapiclient.GroupIdentifier.Membership("OWNER"), false)}, false) // ApiServiceAccount | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateServiceAccountasSuperAdmin(context.Background(), id).ApiServiceAccount(apiServiceAccount).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateServiceAccountasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateServiceAccountasSuperAdmin`: ApiServiceAccount
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateServiceAccountasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateServiceAccountasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **apiServiceAccount** | [**ApiServiceAccount**](ApiServiceAccount.md) | The user | 
-
-### Return type
-
-[**ApiServiceAccount**](ApiServiceAccount.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## UpdateUser
 
-> ApiUser UpdateUser(ctx, id, tenant).ApiUser(apiUser).Execute()
+> IAMUserControllerApiUser UpdateUser(ctx, id).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 
-Update a standard user
+Update a user account
+
+
 
 ### Example
 
@@ -3419,17 +1382,16 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
+	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest("Email_example") // IAMUserControllerApiCreateOrUpdateUserRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateUser(context.Background(), id, tenant).ApiUser(apiUser).Execute()
+	resp, r, err := apiClient.UsersAPI.UpdateUser(context.Background(), id).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateUser`: ApiUser
+	// response from `UpdateUser`: IAMUserControllerApiUser
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateUser`: %v\n", resp)
 }
 ```
@@ -3441,7 +1403,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **id** | **string** | The user id | 
-**tenant** | **string** |  | 
 
 ### Other Parameters
 
@@ -3451,12 +1412,11 @@ Other parameters are passed through a pointer to a apiUpdateUserRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
+ **iAMUserControllerApiCreateOrUpdateUserRequest** | [**IAMUserControllerApiCreateOrUpdateUserRequest**](IAMUserControllerApiCreateOrUpdateUserRequest.md) |  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -3472,84 +1432,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## UpdateUserWithResourceTenantasSuperAdmin
+## UpdateUserGroups
 
-> ApiUser UpdateUserWithResourceTenantasSuperAdmin(ctx, id, resourceTenant).ApiUser(apiUser).Execute()
+> UpdateUserGroups(ctx, id, tenant).IAMUserGroupControllerApiUpdateUserGroupsRequest(iAMUserGroupControllerApiUpdateUserGroupsRequest).Execute()
 
-Update a standard user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	resourceTenant := "resourceTenant_example" // string | 
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateUserWithResourceTenantasSuperAdmin(context.Background(), id, resourceTenant).ApiUser(apiUser).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateUserWithResourceTenantasSuperAdmin``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateUserWithResourceTenantasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateUserWithResourceTenantasSuperAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**resourceTenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateUserWithResourceTenantasSuperAdminRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
-
-### Return type
-
-[**ApiUser**](ApiUser.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## UpdateUserasSuperAdmin
-
-> ApiUser UpdateUserasSuperAdmin(ctx, id).ApiUser(apiUser).Execute()
-
-Update a standard user
+Update the list of groups a user belongs to for the given tenant
 
 ### Example
 
@@ -3564,18 +1451,17 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The user id
-	apiUser := *openapiclient.NewApiUser(openapiclient.UserType("STANDARD"), "Username_example", "Email_example") // ApiUser | The user
+	id := "id_example" // string | The user ID
+	tenant := "tenant_example" // string | 
+	iAMUserGroupControllerApiUpdateUserGroupsRequest := *openapiclient.NewIAMUserGroupControllerApiUpdateUserGroupsRequest() // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.UpdateUserasSuperAdmin(context.Background(), id).ApiUser(apiUser).Execute()
+	r, err := apiClient.UsersAPI.UpdateUserGroups(context.Background(), id, tenant).IAMUserGroupControllerApiUpdateUserGroupsRequest(iAMUserGroupControllerApiUpdateUserGroupsRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateUserasSuperAdmin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.UpdateUserGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateUserasSuperAdmin`: ApiUser
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.UpdateUserasSuperAdmin`: %v\n", resp)
 }
 ```
 
@@ -3585,21 +1471,23 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
+**id** | **string** | The user ID | 
+**tenant** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiUpdateUserasSuperAdminRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateUserGroupsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **apiUser** | [**ApiUser**](ApiUser.md) | The user | 
+
+ **iAMUserGroupControllerApiUpdateUserGroupsRequest** | [**IAMUserGroupControllerApiUpdateUserGroupsRequest**](IAMUserGroupControllerApiUpdateUserGroupsRequest.md) |  | 
 
 ### Return type
 
-[**ApiUser**](ApiUser.md)
+ (empty response body)
 
 ### Authorization
 
@@ -3608,7 +1496,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

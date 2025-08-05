@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiPluginListRequest
+# KestraIoKestraSdk.InstanceControllerApiPluginListRequest
 
 ## Properties
 

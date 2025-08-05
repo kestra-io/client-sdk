@@ -1,4 +1,4 @@
-# KestraApi.TimeWindow
+# KestraIoKestraSdk.TimeWindow
 
 ## Properties
 

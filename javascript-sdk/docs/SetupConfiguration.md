@@ -1,4 +1,4 @@
-# KestraApi.SetupConfiguration
+# KestraIoKestraSdk.SetupConfiguration
 
 ## Properties
 

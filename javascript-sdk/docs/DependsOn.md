@@ -1,4 +1,4 @@
-# KestraApi.DependsOn
+# KestraIoKestraSdk.DependsOn
 
 ## Properties
 

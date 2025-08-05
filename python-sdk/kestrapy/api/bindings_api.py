@@ -21,7 +21,7 @@ from typing import Any, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
 from kestrapy.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest
-from kestrapy.models.paged_results_iam_binding_controller_api_binding_summary import PagedResultsIAMBindingControllerApiBindingSummary
+from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail
 
 from kestrapy.api_client import ApiClient, RequestSerialized
 from kestrapy.api_response import ApiResponse
@@ -1180,7 +1180,7 @@ class BindingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsIAMBindingControllerApiBindingSummary:
+    ) -> PagedResultsIAMBindingControllerApiBindingDetail:
         """Search for bindings
 
 
@@ -1238,7 +1238,7 @@ class BindingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsIAMBindingControllerApiBindingSummary",
+            '200': "PagedResultsIAMBindingControllerApiBindingDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1274,7 +1274,7 @@ class BindingsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsIAMBindingControllerApiBindingSummary]:
+    ) -> ApiResponse[PagedResultsIAMBindingControllerApiBindingDetail]:
         """Search for bindings
 
 
@@ -1332,7 +1332,7 @@ class BindingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsIAMBindingControllerApiBindingSummary",
+            '200': "PagedResultsIAMBindingControllerApiBindingDetail",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1426,7 +1426,7 @@ class BindingsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsIAMBindingControllerApiBindingSummary",
+            '200': "PagedResultsIAMBindingControllerApiBindingDetail",
         }
         response_data = self.api_client.call_api(
             *_param,

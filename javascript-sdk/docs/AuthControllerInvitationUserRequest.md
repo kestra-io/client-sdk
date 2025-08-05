@@ -1,4 +1,4 @@
-# KestraApi.AuthControllerInvitationUserRequest
+# KestraIoKestraSdk.AuthControllerInvitationUserRequest
 
 ## Properties
 

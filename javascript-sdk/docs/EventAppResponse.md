@@ -1,4 +1,4 @@
-# KestraApi.EventAppResponse
+# KestraIoKestraSdk.EventAppResponse
 
 ## Properties
 

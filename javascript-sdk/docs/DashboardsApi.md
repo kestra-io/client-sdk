@@ -1,4 +1,4 @@
-# KestraApi.DashboardsApi
+# KestraIoKestraSdk.DashboardsApi
 
 All URIs are relative to *http://localhost*
 
@@ -27,9 +27,9 @@ Create a dashboard from yaml source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
 apiInstance.createDashboard(tenant, body, (error, data, response) => {
@@ -72,9 +72,9 @@ Delete a dashboard
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteDashboard(id, tenant, (error, data, response) => {
@@ -117,11 +117,11 @@ Export a table chart data to CSV
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let tenant = "tenant_example"; // String | 
-let dashboardControllerPreviewRequest = new KestraApi.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+let dashboardControllerPreviewRequest = new KestraIoKestraSdk.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
 apiInstance.exportChartToCsv(tenant, dashboardControllerPreviewRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -162,13 +162,13 @@ Export a dashboard chart data to CSV
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let chartId = "chartId_example"; // String | The chart id
 let tenant = "tenant_example"; // String | 
-let chartFiltersOverrides = new KestraApi.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+let chartFiltersOverrides = new KestraIoKestraSdk.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
 apiInstance.exportDashboardChartDataToCSV(id, chartId, tenant, chartFiltersOverrides, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -211,9 +211,9 @@ Get a dashboard
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
 apiInstance.getDashboard(id, tenant, (error, data, response) => {
@@ -256,13 +256,13 @@ Generate a dashboard chart data
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let chartId = "chartId_example"; // String | The chart id
 let tenant = "tenant_example"; // String | 
-let chartFiltersOverrides = new KestraApi.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+let chartFiltersOverrides = new KestraIoKestraSdk.ChartFiltersOverrides(); // ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
 apiInstance.getDashboardChartData(id, chartId, tenant, chartFiltersOverrides, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -305,11 +305,11 @@ Preview a chart data
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let tenant = "tenant_example"; // String | 
-let dashboardControllerPreviewRequest = new KestraApi.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
+let dashboardControllerPreviewRequest = new KestraIoKestraSdk.DashboardControllerPreviewRequest(); // DashboardControllerPreviewRequest | 
 apiInstance.previewChart(tenant, dashboardControllerPreviewRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -350,9 +350,9 @@ Search for dashboards
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -403,9 +403,9 @@ Update a dashboard
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let id = "id_example"; // String | The dashboard id
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
@@ -450,9 +450,9 @@ Validate a chart from yaml source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The chart definition as YAML
 apiInstance.validateChart(tenant, body, (error, data, response) => {
@@ -495,9 +495,9 @@ Validate dashboard from yaml source
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 
-let apiInstance = new KestraApi.DashboardsApi();
+let apiInstance = new KestraIoKestraSdk.DashboardsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The dashboard definition as YAML
 apiInstance.validateDashboard(tenant, body, (error, data, response) => {

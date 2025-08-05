@@ -16,7 +16,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -36,7 +35,7 @@ func (r ApiAutocompleteRolesRequest) ApiAutocomplete(apiAutocomplete ApiAutocomp
 	return r
 }
 
-func (r ApiAutocompleteRolesRequest) Execute() ([]Role, *http.Response, error) {
+func (r ApiAutocompleteRolesRequest) Execute() ([]ApiRoleSummary, *http.Response, error) {
 	return r.ApiService.AutocompleteRolesExecute(r)
 }
 
@@ -57,13 +56,13 @@ func (a *RolesAPIService) AutocompleteRoles(ctx context.Context, tenant string) 
 
 // Execute executes the request
 //
-//	@return []Role
-func (a *RolesAPIService) AutocompleteRolesExecute(r ApiAutocompleteRolesRequest) ([]Role, *http.Response, error) {
+//	@return []ApiRoleSummary
+func (a *RolesAPIService) AutocompleteRolesExecute(r ApiAutocompleteRolesRequest) ([]ApiRoleSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []Role
+		localVarReturnValue []ApiRoleSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.AutocompleteRoles")
@@ -137,243 +136,19 @@ func (a *RolesAPIService) AutocompleteRolesExecute(r ApiAutocompleteRolesRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest struct {
-	ctx             context.Context
-	ApiService      *RolesAPIService
-	resourceTenant  string
-	apiAutocomplete *ApiAutocomplete
-}
-
-// Autocomplete request
-func (r ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest) ApiAutocomplete(apiAutocomplete ApiAutocomplete) ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest {
-	r.apiAutocomplete = &apiAutocomplete
-	return r
-}
-
-func (r ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest) Execute() ([]Role, *http.Response, error) {
-	return r.ApiService.AutocompleteRolesWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteRolesWithResourceTenantasSuperAdmin List roles for autocomplete
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) AutocompleteRolesWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest {
-	return ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Role
-func (a *RolesAPIService) AutocompleteRolesWithResourceTenantasSuperAdminExecute(r ApiAutocompleteRolesWithResourceTenantasSuperAdminRequest) ([]Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.AutocompleteRolesWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/autocomplete"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiAutocomplete == nil {
-		return localVarReturnValue, nil, reportError("apiAutocomplete is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiAutocomplete
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiAutocompleteRolesasSuperAdminRequest struct {
-	ctx             context.Context
-	ApiService      *RolesAPIService
-	apiAutocomplete *ApiAutocomplete
-}
-
-// Autocomplete request
-func (r ApiAutocompleteRolesasSuperAdminRequest) ApiAutocomplete(apiAutocomplete ApiAutocomplete) ApiAutocompleteRolesasSuperAdminRequest {
-	r.apiAutocomplete = &apiAutocomplete
-	return r
-}
-
-func (r ApiAutocompleteRolesasSuperAdminRequest) Execute() ([]Role, *http.Response, error) {
-	return r.ApiService.AutocompleteRolesasSuperAdminExecute(r)
-}
-
-/*
-AutocompleteRolesasSuperAdmin List roles for autocomplete
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAutocompleteRolesasSuperAdminRequest
-*/
-func (a *RolesAPIService) AutocompleteRolesasSuperAdmin(ctx context.Context) ApiAutocompleteRolesasSuperAdminRequest {
-	return ApiAutocompleteRolesasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Role
-func (a *RolesAPIService) AutocompleteRolesasSuperAdminExecute(r ApiAutocompleteRolesasSuperAdminRequest) ([]Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.AutocompleteRolesasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/autocomplete"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiAutocomplete == nil {
-		return localVarReturnValue, nil, reportError("apiAutocomplete is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiAutocomplete
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiCreateRoleRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	tenant     string
-	role       *Role
+	ctx                                           context.Context
+	ApiService                                    *RolesAPIService
+	tenant                                        string
+	iAMRoleControllerApiRoleCreateOrUpdateRequest *IAMRoleControllerApiRoleCreateOrUpdateRequest
 }
 
-func (r ApiCreateRoleRequest) Role(role Role) ApiCreateRoleRequest {
-	r.role = &role
+func (r ApiCreateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest IAMRoleControllerApiRoleCreateOrUpdateRequest) ApiCreateRoleRequest {
+	r.iAMRoleControllerApiRoleCreateOrUpdateRequest = &iAMRoleControllerApiRoleCreateOrUpdateRequest
 	return r
 }
 
-func (r ApiCreateRoleRequest) Execute() (*Role, *http.Response, error) {
+func (r ApiCreateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.CreateRoleExecute(r)
 }
 
@@ -394,13 +169,13 @@ func (a *RolesAPIService) CreateRole(ctx context.Context, tenant string) ApiCrea
 
 // Execute executes the request
 //
-//	@return Role
-func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*Role, *http.Response, error) {
+//	@return IAMRoleControllerApiRoleDetail
+func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Role
+		localVarReturnValue *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.CreateRole")
@@ -414,8 +189,8 @@ func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*Role, *htt
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
+	if r.iAMRoleControllerApiRoleCreateOrUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMRoleControllerApiRoleCreateOrUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -436,229 +211,7 @@ func (a *RolesAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*Role, *htt
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.role
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateRoleWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	resourceTenant string
-	role           *Role
-}
-
-func (r ApiCreateRoleWithResourceTenantasSuperAdminRequest) Role(role Role) ApiCreateRoleWithResourceTenantasSuperAdminRequest {
-	r.role = &role
-	return r
-}
-
-func (r ApiCreateRoleWithResourceTenantasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.CreateRoleWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-CreateRoleWithResourceTenantasSuperAdmin Create a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiCreateRoleWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) CreateRoleWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiCreateRoleWithResourceTenantasSuperAdminRequest {
-	return ApiCreateRoleWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) CreateRoleWithResourceTenantasSuperAdminExecute(r ApiCreateRoleWithResourceTenantasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.CreateRoleWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.role
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiCreateRoleasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	role       *Role
-}
-
-func (r ApiCreateRoleasSuperAdminRequest) Role(role Role) ApiCreateRoleasSuperAdminRequest {
-	r.role = &role
-	return r
-}
-
-func (r ApiCreateRoleasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.CreateRoleasSuperAdminExecute(r)
-}
-
-/*
-CreateRoleasSuperAdmin Create a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRoleasSuperAdminRequest
-*/
-func (a *RolesAPIService) CreateRoleasSuperAdmin(ctx context.Context) ApiCreateRoleasSuperAdminRequest {
-	return ApiCreateRoleasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) CreateRoleasSuperAdminExecute(r ApiCreateRoleasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.CreateRoleasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.role
+	localVarPostBody = r.iAMRoleControllerApiRoleCreateOrUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -790,190 +343,6 @@ func (a *RolesAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*http.Respo
 	return localVarHTTPResponse, nil
 }
 
-type ApiDeleteRoleWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiDeleteRoleWithResourceTenantasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteRoleWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-DeleteRoleWithResourceTenantasSuperAdmin Delete a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param resourceTenant
-	@return ApiDeleteRoleWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) DeleteRoleWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiDeleteRoleWithResourceTenantasSuperAdminRequest {
-	return ApiDeleteRoleWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-func (a *RolesAPIService) DeleteRoleWithResourceTenantasSuperAdminExecute(r ApiDeleteRoleWithResourceTenantasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.DeleteRoleWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteRoleasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	id         string
-}
-
-func (r ApiDeleteRoleasSuperAdminRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteRoleasSuperAdminExecute(r)
-}
-
-/*
-DeleteRoleasSuperAdmin Delete a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@return ApiDeleteRoleasSuperAdminRequest
-*/
-func (a *RolesAPIService) DeleteRoleasSuperAdmin(ctx context.Context, id string) ApiDeleteRoleasSuperAdminRequest {
-	return ApiDeleteRoleasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-func (a *RolesAPIService) DeleteRoleasSuperAdminExecute(r ApiDeleteRoleasSuperAdminRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.DeleteRoleasSuperAdmin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type ApiGetRoleRequest struct {
 	ctx        context.Context
 	ApiService *RolesAPIService
@@ -981,7 +350,7 @@ type ApiGetRoleRequest struct {
 	tenant     string
 }
 
-func (r ApiGetRoleRequest) Execute() (*Role, *http.Response, error) {
+func (r ApiGetRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.GetRoleExecute(r)
 }
 
@@ -1004,13 +373,13 @@ func (a *RolesAPIService) GetRole(ctx context.Context, id string, tenant string)
 
 // Execute executes the request
 //
-//	@return Role
-func (a *RolesAPIService) GetRoleExecute(r ApiGetRoleRequest) (*Role, *http.Response, error) {
+//	@return IAMRoleControllerApiRoleDetail
+func (a *RolesAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Role
+		localVarReturnValue *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.GetRole")
@@ -1021,214 +390,6 @@ func (a *RolesAPIService) GetRoleExecute(r ApiGetRoleRequest) (*Role, *http.Resp
 	localVarPath := localBasePath + "/api/v1/{tenant}/roles/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetRoleWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	id             string
-	resourceTenant string
-}
-
-func (r ApiGetRoleWithResourceTenantasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.GetRoleWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-GetRoleWithResourceTenantasSuperAdmin Retrieve a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param resourceTenant
-	@return ApiGetRoleWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) GetRoleWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiGetRoleWithResourceTenantasSuperAdminRequest {
-	return ApiGetRoleWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) GetRoleWithResourceTenantasSuperAdminExecute(r ApiGetRoleWithResourceTenantasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.GetRoleWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetRoleasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	id         string
-}
-
-func (r ApiGetRoleasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.GetRoleasSuperAdminExecute(r)
-}
-
-/*
-GetRoleasSuperAdmin Retrieve a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@return ApiGetRoleasSuperAdminRequest
-*/
-func (a *RolesAPIService) GetRoleasSuperAdmin(ctx context.Context, id string) ApiGetRoleasSuperAdminRequest {
-	return ApiGetRoleasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) GetRoleasSuperAdminExecute(r ApiGetRoleasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.GetRoleasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1402,230 +563,6 @@ func (a *RolesAPIService) ListRolesFromGivenIdsExecute(r ApiListRolesFromGivenId
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	resourceTenant string
-	apiIds         *ApiIds
-}
-
-// The ids that must be present on results
-func (r ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest) Execute() ([]Role, *http.Response, error) {
-	return r.ApiService.ListRolesFromGivenIdsWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-ListRolesFromGivenIdsWithResourceTenantasSuperAdmin List roles by ids
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) ListRolesFromGivenIdsWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest {
-	return ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Role
-func (a *RolesAPIService) ListRolesFromGivenIdsWithResourceTenantasSuperAdminExecute(r ApiListRolesFromGivenIdsWithResourceTenantasSuperAdminRequest) ([]Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.ListRolesFromGivenIdsWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/ids"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiIds == nil {
-		return localVarReturnValue, nil, reportError("apiIds is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListRolesFromGivenIdsasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	apiIds     *ApiIds
-}
-
-// The ids that must be present on results
-func (r ApiListRolesFromGivenIdsasSuperAdminRequest) ApiIds(apiIds ApiIds) ApiListRolesFromGivenIdsasSuperAdminRequest {
-	r.apiIds = &apiIds
-	return r
-}
-
-func (r ApiListRolesFromGivenIdsasSuperAdminRequest) Execute() ([]Role, *http.Response, error) {
-	return r.ApiService.ListRolesFromGivenIdsasSuperAdminExecute(r)
-}
-
-/*
-ListRolesFromGivenIdsasSuperAdmin List roles by ids
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRolesFromGivenIdsasSuperAdminRequest
-*/
-func (a *RolesAPIService) ListRolesFromGivenIdsasSuperAdmin(ctx context.Context) ApiListRolesFromGivenIdsasSuperAdminRequest {
-	return ApiListRolesFromGivenIdsasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return []Role
-func (a *RolesAPIService) ListRolesFromGivenIdsasSuperAdminExecute(r ApiListRolesFromGivenIdsasSuperAdminRequest) ([]Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.ListRolesFromGivenIdsasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/ids"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.apiIds == nil {
-		return localVarReturnValue, nil, reportError("apiIds is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.apiIds
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiSearchRolesRequest struct {
 	ctx        context.Context
 	ApiService *RolesAPIService
@@ -1660,7 +597,7 @@ func (r ApiSearchRolesRequest) Sort(sort []string) ApiSearchRolesRequest {
 	return r
 }
 
-func (r ApiSearchRolesRequest) Execute() (*PagedResultsRole, *http.Response, error) {
+func (r ApiSearchRolesRequest) Execute() (*PagedResultsApiRoleSummary, *http.Response, error) {
 	return r.ApiService.SearchRolesExecute(r)
 }
 
@@ -1681,13 +618,13 @@ func (a *RolesAPIService) SearchRoles(ctx context.Context, tenant string) ApiSea
 
 // Execute executes the request
 //
-//	@return PagedResultsRole
-func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedResultsRole, *http.Response, error) {
+//	@return PagedResultsApiRoleSummary
+func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedResultsApiRoleSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsRole
+		localVarReturnValue *PagedResultsApiRoleSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.SearchRoles")
@@ -1714,315 +651,7 @@ func (a *RolesAPIService) SearchRolesExecute(r ApiSearchRolesRequest) (*PagedRes
 	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
 	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchRolesWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	page           *int32
-	size           *int32
-	resourceTenant string
-	q              *string
-	sort           *[]string
-}
-
-// The current page
-func (r ApiSearchRolesWithResourceTenantasSuperAdminRequest) Page(page int32) ApiSearchRolesWithResourceTenantasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchRolesWithResourceTenantasSuperAdminRequest) Size(size int32) ApiSearchRolesWithResourceTenantasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchRolesWithResourceTenantasSuperAdminRequest) Q(q string) ApiSearchRolesWithResourceTenantasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchRolesWithResourceTenantasSuperAdminRequest) Sort(sort []string) ApiSearchRolesWithResourceTenantasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchRolesWithResourceTenantasSuperAdminRequest) Execute() (*PagedResultsRole, *http.Response, error) {
-	return r.ApiService.SearchRolesWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-SearchRolesWithResourceTenantasSuperAdmin Search for roles
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceTenant
-	@return ApiSearchRolesWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) SearchRolesWithResourceTenantasSuperAdmin(ctx context.Context, resourceTenant string) ApiSearchRolesWithResourceTenantasSuperAdminRequest {
-	return ApiSearchRolesWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsRole
-func (a *RolesAPIService) SearchRolesWithResourceTenantasSuperAdminExecute(r ApiSearchRolesWithResourceTenantasSuperAdminRequest) (*PagedResultsRole, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsRole
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.SearchRolesWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/search"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiSearchRolesasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	page       *int32
-	size       *int32
-	q          *string
-	sort       *[]string
-}
-
-// The current page
-func (r ApiSearchRolesasSuperAdminRequest) Page(page int32) ApiSearchRolesasSuperAdminRequest {
-	r.page = &page
-	return r
-}
-
-// The current page size
-func (r ApiSearchRolesasSuperAdminRequest) Size(size int32) ApiSearchRolesasSuperAdminRequest {
-	r.size = &size
-	return r
-}
-
-// A string filter
-func (r ApiSearchRolesasSuperAdminRequest) Q(q string) ApiSearchRolesasSuperAdminRequest {
-	r.q = &q
-	return r
-}
-
-// The sort of current page
-func (r ApiSearchRolesasSuperAdminRequest) Sort(sort []string) ApiSearchRolesasSuperAdminRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiSearchRolesasSuperAdminRequest) Execute() (*PagedResultsRole, *http.Response, error) {
-	return r.ApiService.SearchRolesasSuperAdminExecute(r)
-}
-
-/*
-SearchRolesasSuperAdmin Search for roles
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSearchRolesasSuperAdminRequest
-*/
-func (a *RolesAPIService) SearchRolesasSuperAdmin(ctx context.Context) ApiSearchRolesasSuperAdminRequest {
-	return ApiSearchRolesasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//
-//	@return PagedResultsRole
-func (a *RolesAPIService) SearchRolesasSuperAdminExecute(r ApiSearchRolesasSuperAdminRequest) (*PagedResultsRole, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PagedResultsRole
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.SearchRolesasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/search"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.page == nil {
-		return localVarReturnValue, nil, reportError("page is required and must be specified")
-	}
-	if r.size == nil {
-		return localVarReturnValue, nil, reportError("size is required and must be specified")
-	}
-
-	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
-	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
-	if r.sort != nil {
-		t := *r.sort
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2079,19 +708,19 @@ func (a *RolesAPIService) SearchRolesasSuperAdminExecute(r ApiSearchRolesasSuper
 }
 
 type ApiUpdateRoleRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	id         string
-	tenant     string
-	role       *Role
+	ctx                                           context.Context
+	ApiService                                    *RolesAPIService
+	id                                            string
+	tenant                                        string
+	iAMRoleControllerApiRoleCreateOrUpdateRequest *IAMRoleControllerApiRoleCreateOrUpdateRequest
 }
 
-func (r ApiUpdateRoleRequest) Role(role Role) ApiUpdateRoleRequest {
-	r.role = &role
+func (r ApiUpdateRoleRequest) IAMRoleControllerApiRoleCreateOrUpdateRequest(iAMRoleControllerApiRoleCreateOrUpdateRequest IAMRoleControllerApiRoleCreateOrUpdateRequest) ApiUpdateRoleRequest {
+	r.iAMRoleControllerApiRoleCreateOrUpdateRequest = &iAMRoleControllerApiRoleCreateOrUpdateRequest
 	return r
 }
 
-func (r ApiUpdateRoleRequest) Execute() (*Role, *http.Response, error) {
+func (r ApiUpdateRoleRequest) Execute() (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	return r.ApiService.UpdateRoleExecute(r)
 }
 
@@ -2114,13 +743,13 @@ func (a *RolesAPIService) UpdateRole(ctx context.Context, id string, tenant stri
 
 // Execute executes the request
 //
-//	@return Role
-func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*Role, *http.Response, error) {
+//	@return IAMRoleControllerApiRoleDetail
+func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*IAMRoleControllerApiRoleDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Role
+		localVarReturnValue *IAMRoleControllerApiRoleDetail
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.UpdateRole")
@@ -2135,8 +764,8 @@ func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*Role, *htt
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
+	if r.iAMRoleControllerApiRoleCreateOrUpdateRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMRoleControllerApiRoleCreateOrUpdateRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2157,237 +786,7 @@ func (a *RolesAPIService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*Role, *htt
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.role
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiUpdateRoleWithResourceTenantasSuperAdminRequest struct {
-	ctx            context.Context
-	ApiService     *RolesAPIService
-	id             string
-	resourceTenant string
-	role           *Role
-}
-
-func (r ApiUpdateRoleWithResourceTenantasSuperAdminRequest) Role(role Role) ApiUpdateRoleWithResourceTenantasSuperAdminRequest {
-	r.role = &role
-	return r
-}
-
-func (r ApiUpdateRoleWithResourceTenantasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.UpdateRoleWithResourceTenantasSuperAdminExecute(r)
-}
-
-/*
-UpdateRoleWithResourceTenantasSuperAdmin Update a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@param resourceTenant
-	@return ApiUpdateRoleWithResourceTenantasSuperAdminRequest
-*/
-func (a *RolesAPIService) UpdateRoleWithResourceTenantasSuperAdmin(ctx context.Context, id string, resourceTenant string) ApiUpdateRoleWithResourceTenantasSuperAdminRequest {
-	return ApiUpdateRoleWithResourceTenantasSuperAdminRequest{
-		ApiService:     a,
-		ctx:            ctx,
-		id:             id,
-		resourceTenant: resourceTenant,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) UpdateRoleWithResourceTenantasSuperAdminExecute(r ApiUpdateRoleWithResourceTenantasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.UpdateRoleWithResourceTenantasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/{resourceTenant}/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceTenant"+"}", url.PathEscape(parameterValueToString(r.resourceTenant, "resourceTenant")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.role
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiUpdateRoleasSuperAdminRequest struct {
-	ctx        context.Context
-	ApiService *RolesAPIService
-	id         string
-	role       *Role
-}
-
-func (r ApiUpdateRoleasSuperAdminRequest) Role(role Role) ApiUpdateRoleasSuperAdminRequest {
-	r.role = &role
-	return r
-}
-
-func (r ApiUpdateRoleasSuperAdminRequest) Execute() (*Role, *http.Response, error) {
-	return r.ApiService.UpdateRoleasSuperAdminExecute(r)
-}
-
-/*
-UpdateRoleasSuperAdmin Update a role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The role id
-	@return ApiUpdateRoleasSuperAdminRequest
-*/
-func (a *RolesAPIService) UpdateRoleasSuperAdmin(ctx context.Context, id string) ApiUpdateRoleasSuperAdminRequest {
-	return ApiUpdateRoleasSuperAdminRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return Role
-func (a *RolesAPIService) UpdateRoleasSuperAdminExecute(r ApiUpdateRoleasSuperAdminRequest) (*Role, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Role
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RolesAPIService.UpdateRoleasSuperAdmin")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/tenants/roles/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.role == nil {
-		return localVarReturnValue, nil, reportError("role is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.role
+	localVarPostBody = r.iAMRoleControllerApiRoleCreateOrUpdateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

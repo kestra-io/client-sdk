@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiWorkerGroupItem
+# KestraIoKestraSdk.InstanceControllerApiWorkerGroupItem
 
 ## Properties
 

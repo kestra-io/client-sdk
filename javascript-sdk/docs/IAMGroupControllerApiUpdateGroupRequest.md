@@ -1,4 +1,4 @@
-# KestraApi.IAMGroupControllerApiUpdateGroupRequest
+# KestraIoKestraSdk.IAMGroupControllerApiUpdateGroupRequest
 
 ## Properties
 

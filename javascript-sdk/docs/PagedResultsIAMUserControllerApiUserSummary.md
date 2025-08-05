@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsIAMUserControllerApiUserSummary
+# KestraIoKestraSdk.PagedResultsIAMUserControllerApiUserSummary
 
 ## Properties
 

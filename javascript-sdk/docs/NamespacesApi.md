@@ -1,12 +1,10 @@
-# KestraApi.NamespacesApi
+# KestraIoKestraSdk.NamespacesApi
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**autocompleteNamespaces**](NamespacesApi.md#autocompleteNamespaces) | **POST** /api/v1/{tenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**autocompleteNamespacesWithResourceTenantasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesWithResourceTenantasSuperAdmin) | **POST** /api/v1/tenants/{resourceTenant}/namespaces/autocomplete | List namespaces for autocomplete
-[**autocompleteNamespacesasSuperAdmin**](NamespacesApi.md#autocompleteNamespacesasSuperAdmin) | **POST** /api/v1/tenants/namespaces/autocomplete | List namespaces for autocomplete
 [**createNamespace**](NamespacesApi.md#createNamespace) | **POST** /api/v1/{tenant}/namespaces | Create a namespace
 [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
@@ -24,7 +22,7 @@ Method | HTTP request | Description
 
 ## autocompleteNamespaces
 
-> [String] autocompleteNamespaces(tenant, opts)
+> [String] autocompleteNamespaces(tenant, apiAutocomplete)
 
 List namespaces for autocomplete
 
@@ -33,8 +31,8 @@ Returns a list of namespaces for use in autocomplete fields, optionally allowing
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -43,13 +41,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let tenant = "tenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'apiIds': new KestraApi.ApiIds() // ApiIds | 
-};
-apiInstance.autocompleteNamespaces(tenant, opts, (error, data, response) => {
+let apiAutocomplete = new KestraIoKestraSdk.ApiAutocomplete(); // ApiAutocomplete | 
+apiInstance.autocompleteNamespaces(tenant, apiAutocomplete, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -64,124 +59,7 @@ apiInstance.autocompleteNamespaces(tenant, opts, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] 
-
-### Return type
-
-**[String]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteNamespacesWithResourceTenantasSuperAdmin
-
-> [String] autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, opts)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.NamespacesApi();
-let resourceTenant = "resourceTenant_example"; // String | 
-let opts = {
-  'q': "q_example", // String | A string filter
-  'apiIds': new KestraApi.ApiIds() // ApiIds | 
-};
-apiInstance.autocompleteNamespacesWithResourceTenantasSuperAdmin(resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **resourceTenant** | **String**|  | 
- **q** | **String**| A string filter | [optional] 
- **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] 
-
-### Return type
-
-**[String]**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## autocompleteNamespacesasSuperAdmin
-
-> [String] autocompleteNamespacesasSuperAdmin(opts)
-
-List namespaces for autocomplete
-
-Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-### Example
-
-```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraApi.NamespacesApi();
-let opts = {
-  'q': "q_example", // String | A string filter
-  'apiIds': new KestraApi.ApiIds() // ApiIds | 
-};
-apiInstance.autocompleteNamespacesasSuperAdmin(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **q** | **String**| A string filter | [optional] 
- **apiIds** | [**ApiIds**](ApiIds.md)|  | [optional] 
+ **apiAutocomplete** | [**ApiAutocomplete**](ApiAutocomplete.md)|  | 
 
 ### Return type
 
@@ -206,8 +84,8 @@ Create a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -216,9 +94,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let tenant = "tenant_example"; // String | 
-let namespace = new KestraApi.Namespace(); // Namespace | The namespace
+let namespace = new KestraIoKestraSdk.Namespace(); // Namespace | The namespace
 apiInstance.createNamespace(tenant, namespace, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -259,8 +137,8 @@ Delete a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -269,7 +147,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.deleteNamespace(id, tenant, (error, data, response) => {
@@ -312,8 +190,8 @@ Delete a secret for a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -322,7 +200,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The secret key
 let tenant = "tenant_example"; // String | 
@@ -367,8 +245,8 @@ List inherited secrets
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -377,7 +255,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.getInheritedSecrets(namespace, tenant, (error, data, response) => {
@@ -420,8 +298,8 @@ Retrieve namespace details
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -430,7 +308,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.getNamespace(id, tenant, (error, data, response) => {
@@ -473,8 +351,8 @@ List inherited plugin defaults
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -483,7 +361,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.inheritedPluginDefaults(id, tenant, (error, data, response) => {
@@ -526,8 +404,8 @@ List inherited variables
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -536,7 +414,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.inheritedVariables(id, tenant, (error, data, response) => {
@@ -579,8 +457,8 @@ Get secrets for a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -589,11 +467,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
-let filters = [new KestraApi.QueryFilter()]; // [QueryFilter] | Filters
+let filters = [new KestraIoKestraSdk.QueryFilter()]; // [QueryFilter] | Filters
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"] // [String] | The sort of current page
@@ -642,8 +520,8 @@ Patch a secret metadata for a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -652,11 +530,11 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let key = "key_example"; // String | 
-let apiSecretMetaEE = new KestraApi.ApiSecretMetaEE(); // ApiSecretMetaEE | 
+let apiSecretMetaEE = new KestraIoKestraSdk.ApiSecretMetaEE(); // ApiSecretMetaEE | 
 apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -699,8 +577,8 @@ Update secrets for a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -709,10 +587,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-let apiSecretValue = new KestraApi.ApiSecretValue(); // ApiSecretValue | 
+let apiSecretValue = new KestraIoKestraSdk.ApiSecretValue(); // ApiSecretValue | 
 apiInstance.putSecrets(namespace, tenant, apiSecretValue, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -754,8 +632,8 @@ Search for namespaces
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -764,7 +642,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
@@ -817,8 +695,8 @@ Update a namespace
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -827,10 +705,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.NamespacesApi();
+let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-let namespace = new KestraApi.Namespace(); // Namespace | The namespace
+let namespace = new KestraIoKestraSdk.Namespace(); // Namespace | The namespace
 apiInstance.updateNamespace(id, tenant, namespace, (error, data, response) => {
   if (error) {
     console.error(error);

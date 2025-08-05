@@ -1,4 +1,4 @@
-# KestraApi.MeControllerApiProfile
+# KestraIoKestraSdk.MeControllerApiProfile
 
 ## Properties
 

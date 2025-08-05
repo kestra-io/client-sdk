@@ -1,4 +1,4 @@
-# KestraApi.KVEntry
+# KestraIoKestraSdk.KVEntry
 
 ## Properties
 

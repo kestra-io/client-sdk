@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsInstanceControllerApiServiceInstance
+# KestraIoKestraSdk.PagedResultsInstanceControllerApiServiceInstance
 
 ## Properties
 

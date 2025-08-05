@@ -1,4 +1,4 @@
-# KestraApi.SchemaAttributeType
+# KestraIoKestraSdk.SchemaAttributeType
 
 ## Enum
 

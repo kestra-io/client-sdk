@@ -58,7 +58,7 @@ func (a *MaintenanceAPIService) EnterMaintenanceExecute(r ApiEnterMaintenanceReq
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/maintenance/enter"
+	localVarPath := localBasePath + "/api/v1/instance/maintenance/enter"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -146,7 +146,7 @@ func (a *MaintenanceAPIService) ExitMaintenanceExecute(r ApiExitMaintenanceReque
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/cluster/maintenance/exit"
+	localVarPath := localBasePath + "/api/v1/instance/maintenance/exit"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

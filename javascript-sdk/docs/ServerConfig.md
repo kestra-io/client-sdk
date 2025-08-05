@@ -1,4 +1,4 @@
-# KestraApi.ServerConfig
+# KestraIoKestraSdk.ServerConfig
 
 ## Properties
 

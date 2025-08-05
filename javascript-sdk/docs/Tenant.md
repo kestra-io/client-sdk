@@ -1,4 +1,4 @@
-# KestraApi.Tenant
+# KestraIoKestraSdk.Tenant
 
 ## Properties
 

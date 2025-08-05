@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetActiveServices**](ServicesAPI.md#GetActiveServices) | **Get** /api/v1/cluster/services/active | List all active services
-[**GetService**](ServicesAPI.md#GetService) | **Get** /api/v1/cluster/services/{id} | Retrieve details of a specific service
-[**SearchServices**](ServicesAPI.md#SearchServices) | **Get** /api/v1/cluster/services/search | Search for a service (e.g. Worker, Executor, etc)
+[**GetActiveServices**](ServicesAPI.md#GetActiveServices) | **Get** /api/v1/instance/services/active | List all active services
+[**GetService**](ServicesAPI.md#GetService) | **Get** /api/v1/instance/services/{id} | Retrieve details of a specific service
+[**SearchServices**](ServicesAPI.md#SearchServices) | **Get** /api/v1/instance/services/search | Search for a service (e.g. Worker, Executor, etc)
 
 
 
 ## GetActiveServices
 
-> ClusterControllerApiActiveServiceList GetActiveServices(ctx).Execute()
+> InstanceControllerApiActiveServiceList GetActiveServices(ctx).Execute()
 
 List all active services
 
@@ -39,7 +39,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServicesAPI.GetActiveServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetActiveServices`: ClusterControllerApiActiveServiceList
+	// response from `GetActiveServices`: InstanceControllerApiActiveServiceList
 	fmt.Fprintf(os.Stdout, "Response from `ServicesAPI.GetActiveServices`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetActiveServicesRequest s
 
 ### Return type
 
-[**ClusterControllerApiActiveServiceList**](ClusterControllerApiActiveServiceList.md)
+[**InstanceControllerApiActiveServiceList**](InstanceControllerApiActiveServiceList.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ## SearchServices
 
-> PagedResultsClusterControllerApiServiceInstance SearchServices(ctx).Page(page).Size(size).Sort(sort).State(state).Type_(type_).Execute()
+> PagedResultsInstanceControllerApiServiceInstance SearchServices(ctx).Page(page).Size(size).Sort(sort).State(state).Type_(type_).Execute()
 
 Search for a service (e.g. Worker, Executor, etc)
 
@@ -175,7 +175,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ServicesAPI.SearchServices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchServices`: PagedResultsClusterControllerApiServiceInstance
+	// response from `SearchServices`: PagedResultsInstanceControllerApiServiceInstance
 	fmt.Fprintf(os.Stdout, "Response from `ServicesAPI.SearchServices`: %v\n", resp)
 }
 ```
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsClusterControllerApiServiceInstance**](PagedResultsClusterControllerApiServiceInstance.md)
+[**PagedResultsInstanceControllerApiServiceInstance**](PagedResultsInstanceControllerApiServiceInstance.md)
 
 ### Authorization
 

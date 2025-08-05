@@ -1,4 +1,4 @@
-# KestraApi.KVControllerApiDeleteBulkRequest
+# KestraIoKestraSdk.KVControllerApiDeleteBulkRequest
 
 ## Properties
 

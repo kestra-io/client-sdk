@@ -50,6 +50,9 @@ class IAMInvitationControllerApiInvitationCreateRequest {
         if (data) {
             obj = obj || new IAMInvitationControllerApiInvitationCreateRequest();
 
+            if (data.hasOwnProperty('createUserIfNotExist')) {
+                obj['createUserIfNotExist'] = ApiClient.convertToType(data['createUserIfNotExist'], 'Boolean');
+            }
             if (data.hasOwnProperty('superAdmin')) {
                 obj['superAdmin'] = ApiClient.convertToType(data['superAdmin'], 'Boolean');
             }
@@ -104,6 +107,11 @@ class IAMInvitationControllerApiInvitationCreateRequest {
 }
 
 IAMInvitationControllerApiInvitationCreateRequest.RequiredProperties = ["email"];
+
+/**
+ * @member {Boolean} createUserIfNotExist
+ */
+IAMInvitationControllerApiInvitationCreateRequest.prototype['createUserIfNotExist'] = undefined;
 
 /**
  * @member {Boolean} superAdmin

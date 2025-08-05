@@ -1,4 +1,4 @@
-# KestraApi.KVControllerTypedValue
+# KestraIoKestraSdk.KVControllerTypedValue
 
 ## Properties
 

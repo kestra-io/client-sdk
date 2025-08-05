@@ -1,4 +1,4 @@
-# KestraApi.LogEntry
+# KestraIoKestraSdk.LogEntry
 
 ## Properties
 

@@ -48,7 +48,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -118,7 +118,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -188,7 +188,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -240,7 +240,7 @@ Name | Type | Description  | Notes
 
 ## BulkExportApps
 
-> []string BulkExportApps(ctx, tenant).AppsControllerApiBulkOperationRequest(appsControllerApiBulkOperationRequest).Execute()
+> string BulkExportApps(ctx, tenant).AppsControllerApiBulkOperationRequest(appsControllerApiBulkOperationRequest).Execute()
 
 Export apps as a ZIP archive of YAML sources.
 
@@ -258,7 +258,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -267,7 +267,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AppsAPI.BulkExportApps``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `BulkExportApps`: []string
+	// response from `BulkExportApps`: string
 	fmt.Fprintf(os.Stdout, "Response from `AppsAPI.BulkExportApps`: %v\n", resp)
 }
 ```
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]string**
+**string**
 
 ### Authorization
 

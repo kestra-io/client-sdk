@@ -1,4 +1,4 @@
-# KestraApi.ScimExtension
+# KestraIoKestraSdk.ScimExtension
 
 ## Properties
 

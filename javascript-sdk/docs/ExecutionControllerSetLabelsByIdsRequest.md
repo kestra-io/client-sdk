@@ -1,4 +1,4 @@
-# KestraApi.ExecutionControllerSetLabelsByIdsRequest
+# KestraIoKestraSdk.ExecutionControllerSetLabelsByIdsRequest
 
 ## Properties
 

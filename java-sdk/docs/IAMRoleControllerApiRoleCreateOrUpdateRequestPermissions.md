@@ -25,11 +25,8 @@
 |**APP** | **List&lt;String&gt;** |  |  [optional] |
 |**APPEXECUTION** | **List&lt;String&gt;** |  |  [optional] |
 |**TEST** | **List&lt;String&gt;** |  |  [optional] |
-|**ME** | **List&lt;String&gt;** |  |  [optional] |
-|**APITOKEN** | **List&lt;String&gt;** |  |  [optional] |
 |**DASHBOARD** | **List&lt;String&gt;** |  |  [optional] |
 |**TENANT_ACCESS** | **List&lt;String&gt;** |  |  [optional] |
-|**TENANT** | **List&lt;String&gt;** |  |  [optional] |
 |**SERVICE_ACCOUNT** | **List&lt;String&gt;** |  |  [optional] |
 |**INVITATION** | **List&lt;String&gt;** |  |  [optional] |
 |**GROUP_MEMBERSHIP** | **List&lt;String&gt;** |  |  [optional] |

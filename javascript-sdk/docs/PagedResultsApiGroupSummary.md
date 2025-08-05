@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsApiGroupSummary
+# KestraIoKestraSdk.PagedResultsApiGroupSummary
 
 ## Properties
 

@@ -27,21 +27,21 @@ type Plugin struct {
 	Group                *string                        `json:"group,omitempty"`
 	Version              *string                        `json:"version,omitempty"`
 	Manifest             *map[string]string             `json:"manifest,omitempty"`
-	Tasks                []string                       `json:"tasks,omitempty"`
-	Triggers             []string                       `json:"triggers,omitempty"`
-	Conditions           []string                       `json:"conditions,omitempty"`
-	Controllers          []string                       `json:"controllers,omitempty"`
-	Storages             []string                       `json:"storages,omitempty"`
-	Secrets              []string                       `json:"secrets,omitempty"`
-	TaskRunners          []string                       `json:"taskRunners,omitempty"`
 	Guides               []string                       `json:"guides,omitempty"`
 	Aliases              []string                       `json:"aliases,omitempty"`
-	Apps                 []string                       `json:"apps,omitempty"`
-	AppBlocks            []string                       `json:"appBlocks,omitempty"`
-	Charts               []string                       `json:"charts,omitempty"`
-	DataFilters          []string                       `json:"dataFilters,omitempty"`
-	LogExporters         []string                       `json:"logExporters,omitempty"`
-	AdditionalPlugins    []string                       `json:"additionalPlugins,omitempty"`
+	Tasks                []PluginPluginElementMetadata  `json:"tasks,omitempty"`
+	Triggers             []PluginPluginElementMetadata  `json:"triggers,omitempty"`
+	Conditions           []PluginPluginElementMetadata  `json:"conditions,omitempty"`
+	Controllers          []PluginPluginElementMetadata  `json:"controllers,omitempty"`
+	Storages             []PluginPluginElementMetadata  `json:"storages,omitempty"`
+	Secrets              []PluginPluginElementMetadata  `json:"secrets,omitempty"`
+	TaskRunners          []PluginPluginElementMetadata  `json:"taskRunners,omitempty"`
+	Apps                 []PluginPluginElementMetadata  `json:"apps,omitempty"`
+	AppBlocks            []PluginPluginElementMetadata  `json:"appBlocks,omitempty"`
+	Charts               []PluginPluginElementMetadata  `json:"charts,omitempty"`
+	DataFilters          []PluginPluginElementMetadata  `json:"dataFilters,omitempty"`
+	LogExporters         []PluginPluginElementMetadata  `json:"logExporters,omitempty"`
+	AdditionalPlugins    []PluginPluginElementMetadata  `json:"additionalPlugins,omitempty"`
 	Categories           []PluginSubGroupPluginCategory `json:"categories,omitempty"`
 	SubGroup             *string                        `json:"subGroup,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -322,230 +322,6 @@ func (o *Plugin) SetManifest(v map[string]string) {
 	o.Manifest = &v
 }
 
-// GetTasks returns the Tasks field value if set, zero value otherwise.
-func (o *Plugin) GetTasks() []string {
-	if o == nil || IsNil(o.Tasks) {
-		var ret []string
-		return ret
-	}
-	return o.Tasks
-}
-
-// GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetTasksOk() ([]string, bool) {
-	if o == nil || IsNil(o.Tasks) {
-		return nil, false
-	}
-	return o.Tasks, true
-}
-
-// HasTasks returns a boolean if a field has been set.
-func (o *Plugin) HasTasks() bool {
-	if o != nil && !IsNil(o.Tasks) {
-		return true
-	}
-
-	return false
-}
-
-// SetTasks gets a reference to the given []string and assigns it to the Tasks field.
-func (o *Plugin) SetTasks(v []string) {
-	o.Tasks = v
-}
-
-// GetTriggers returns the Triggers field value if set, zero value otherwise.
-func (o *Plugin) GetTriggers() []string {
-	if o == nil || IsNil(o.Triggers) {
-		var ret []string
-		return ret
-	}
-	return o.Triggers
-}
-
-// GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetTriggersOk() ([]string, bool) {
-	if o == nil || IsNil(o.Triggers) {
-		return nil, false
-	}
-	return o.Triggers, true
-}
-
-// HasTriggers returns a boolean if a field has been set.
-func (o *Plugin) HasTriggers() bool {
-	if o != nil && !IsNil(o.Triggers) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggers gets a reference to the given []string and assigns it to the Triggers field.
-func (o *Plugin) SetTriggers(v []string) {
-	o.Triggers = v
-}
-
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *Plugin) GetConditions() []string {
-	if o == nil || IsNil(o.Conditions) {
-		var ret []string
-		return ret
-	}
-	return o.Conditions
-}
-
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetConditionsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Conditions) {
-		return nil, false
-	}
-	return o.Conditions, true
-}
-
-// HasConditions returns a boolean if a field has been set.
-func (o *Plugin) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
-		return true
-	}
-
-	return false
-}
-
-// SetConditions gets a reference to the given []string and assigns it to the Conditions field.
-func (o *Plugin) SetConditions(v []string) {
-	o.Conditions = v
-}
-
-// GetControllers returns the Controllers field value if set, zero value otherwise.
-func (o *Plugin) GetControllers() []string {
-	if o == nil || IsNil(o.Controllers) {
-		var ret []string
-		return ret
-	}
-	return o.Controllers
-}
-
-// GetControllersOk returns a tuple with the Controllers field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetControllersOk() ([]string, bool) {
-	if o == nil || IsNil(o.Controllers) {
-		return nil, false
-	}
-	return o.Controllers, true
-}
-
-// HasControllers returns a boolean if a field has been set.
-func (o *Plugin) HasControllers() bool {
-	if o != nil && !IsNil(o.Controllers) {
-		return true
-	}
-
-	return false
-}
-
-// SetControllers gets a reference to the given []string and assigns it to the Controllers field.
-func (o *Plugin) SetControllers(v []string) {
-	o.Controllers = v
-}
-
-// GetStorages returns the Storages field value if set, zero value otherwise.
-func (o *Plugin) GetStorages() []string {
-	if o == nil || IsNil(o.Storages) {
-		var ret []string
-		return ret
-	}
-	return o.Storages
-}
-
-// GetStoragesOk returns a tuple with the Storages field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetStoragesOk() ([]string, bool) {
-	if o == nil || IsNil(o.Storages) {
-		return nil, false
-	}
-	return o.Storages, true
-}
-
-// HasStorages returns a boolean if a field has been set.
-func (o *Plugin) HasStorages() bool {
-	if o != nil && !IsNil(o.Storages) {
-		return true
-	}
-
-	return false
-}
-
-// SetStorages gets a reference to the given []string and assigns it to the Storages field.
-func (o *Plugin) SetStorages(v []string) {
-	o.Storages = v
-}
-
-// GetSecrets returns the Secrets field value if set, zero value otherwise.
-func (o *Plugin) GetSecrets() []string {
-	if o == nil || IsNil(o.Secrets) {
-		var ret []string
-		return ret
-	}
-	return o.Secrets
-}
-
-// GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetSecretsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Secrets) {
-		return nil, false
-	}
-	return o.Secrets, true
-}
-
-// HasSecrets returns a boolean if a field has been set.
-func (o *Plugin) HasSecrets() bool {
-	if o != nil && !IsNil(o.Secrets) {
-		return true
-	}
-
-	return false
-}
-
-// SetSecrets gets a reference to the given []string and assigns it to the Secrets field.
-func (o *Plugin) SetSecrets(v []string) {
-	o.Secrets = v
-}
-
-// GetTaskRunners returns the TaskRunners field value if set, zero value otherwise.
-func (o *Plugin) GetTaskRunners() []string {
-	if o == nil || IsNil(o.TaskRunners) {
-		var ret []string
-		return ret
-	}
-	return o.TaskRunners
-}
-
-// GetTaskRunnersOk returns a tuple with the TaskRunners field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Plugin) GetTaskRunnersOk() ([]string, bool) {
-	if o == nil || IsNil(o.TaskRunners) {
-		return nil, false
-	}
-	return o.TaskRunners, true
-}
-
-// HasTaskRunners returns a boolean if a field has been set.
-func (o *Plugin) HasTaskRunners() bool {
-	if o != nil && !IsNil(o.TaskRunners) {
-		return true
-	}
-
-	return false
-}
-
-// SetTaskRunners gets a reference to the given []string and assigns it to the TaskRunners field.
-func (o *Plugin) SetTaskRunners(v []string) {
-	o.TaskRunners = v
-}
-
 // GetGuides returns the Guides field value if set, zero value otherwise.
 func (o *Plugin) GetGuides() []string {
 	if o == nil || IsNil(o.Guides) {
@@ -610,10 +386,234 @@ func (o *Plugin) SetAliases(v []string) {
 	o.Aliases = v
 }
 
+// GetTasks returns the Tasks field value if set, zero value otherwise.
+func (o *Plugin) GetTasks() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Tasks) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Tasks
+}
+
+// GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetTasksOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Tasks) {
+		return nil, false
+	}
+	return o.Tasks, true
+}
+
+// HasTasks returns a boolean if a field has been set.
+func (o *Plugin) HasTasks() bool {
+	if o != nil && !IsNil(o.Tasks) {
+		return true
+	}
+
+	return false
+}
+
+// SetTasks gets a reference to the given []PluginPluginElementMetadata and assigns it to the Tasks field.
+func (o *Plugin) SetTasks(v []PluginPluginElementMetadata) {
+	o.Tasks = v
+}
+
+// GetTriggers returns the Triggers field value if set, zero value otherwise.
+func (o *Plugin) GetTriggers() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Triggers) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Triggers
+}
+
+// GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetTriggersOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Triggers) {
+		return nil, false
+	}
+	return o.Triggers, true
+}
+
+// HasTriggers returns a boolean if a field has been set.
+func (o *Plugin) HasTriggers() bool {
+	if o != nil && !IsNil(o.Triggers) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggers gets a reference to the given []PluginPluginElementMetadata and assigns it to the Triggers field.
+func (o *Plugin) SetTriggers(v []PluginPluginElementMetadata) {
+	o.Triggers = v
+}
+
+// GetConditions returns the Conditions field value if set, zero value otherwise.
+func (o *Plugin) GetConditions() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Conditions) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Conditions
+}
+
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetConditionsOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Conditions) {
+		return nil, false
+	}
+	return o.Conditions, true
+}
+
+// HasConditions returns a boolean if a field has been set.
+func (o *Plugin) HasConditions() bool {
+	if o != nil && !IsNil(o.Conditions) {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given []PluginPluginElementMetadata and assigns it to the Conditions field.
+func (o *Plugin) SetConditions(v []PluginPluginElementMetadata) {
+	o.Conditions = v
+}
+
+// GetControllers returns the Controllers field value if set, zero value otherwise.
+func (o *Plugin) GetControllers() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Controllers) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Controllers
+}
+
+// GetControllersOk returns a tuple with the Controllers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetControllersOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Controllers) {
+		return nil, false
+	}
+	return o.Controllers, true
+}
+
+// HasControllers returns a boolean if a field has been set.
+func (o *Plugin) HasControllers() bool {
+	if o != nil && !IsNil(o.Controllers) {
+		return true
+	}
+
+	return false
+}
+
+// SetControllers gets a reference to the given []PluginPluginElementMetadata and assigns it to the Controllers field.
+func (o *Plugin) SetControllers(v []PluginPluginElementMetadata) {
+	o.Controllers = v
+}
+
+// GetStorages returns the Storages field value if set, zero value otherwise.
+func (o *Plugin) GetStorages() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Storages) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Storages
+}
+
+// GetStoragesOk returns a tuple with the Storages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetStoragesOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Storages) {
+		return nil, false
+	}
+	return o.Storages, true
+}
+
+// HasStorages returns a boolean if a field has been set.
+func (o *Plugin) HasStorages() bool {
+	if o != nil && !IsNil(o.Storages) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorages gets a reference to the given []PluginPluginElementMetadata and assigns it to the Storages field.
+func (o *Plugin) SetStorages(v []PluginPluginElementMetadata) {
+	o.Storages = v
+}
+
+// GetSecrets returns the Secrets field value if set, zero value otherwise.
+func (o *Plugin) GetSecrets() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.Secrets) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.Secrets
+}
+
+// GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetSecretsOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.Secrets) {
+		return nil, false
+	}
+	return o.Secrets, true
+}
+
+// HasSecrets returns a boolean if a field has been set.
+func (o *Plugin) HasSecrets() bool {
+	if o != nil && !IsNil(o.Secrets) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecrets gets a reference to the given []PluginPluginElementMetadata and assigns it to the Secrets field.
+func (o *Plugin) SetSecrets(v []PluginPluginElementMetadata) {
+	o.Secrets = v
+}
+
+// GetTaskRunners returns the TaskRunners field value if set, zero value otherwise.
+func (o *Plugin) GetTaskRunners() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.TaskRunners) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.TaskRunners
+}
+
+// GetTaskRunnersOk returns a tuple with the TaskRunners field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetTaskRunnersOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.TaskRunners) {
+		return nil, false
+	}
+	return o.TaskRunners, true
+}
+
+// HasTaskRunners returns a boolean if a field has been set.
+func (o *Plugin) HasTaskRunners() bool {
+	if o != nil && !IsNil(o.TaskRunners) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskRunners gets a reference to the given []PluginPluginElementMetadata and assigns it to the TaskRunners field.
+func (o *Plugin) SetTaskRunners(v []PluginPluginElementMetadata) {
+	o.TaskRunners = v
+}
+
 // GetApps returns the Apps field value if set, zero value otherwise.
-func (o *Plugin) GetApps() []string {
+func (o *Plugin) GetApps() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.Apps) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.Apps
@@ -621,7 +621,7 @@ func (o *Plugin) GetApps() []string {
 
 // GetAppsOk returns a tuple with the Apps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetAppsOk() ([]string, bool) {
+func (o *Plugin) GetAppsOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.Apps) {
 		return nil, false
 	}
@@ -637,15 +637,15 @@ func (o *Plugin) HasApps() bool {
 	return false
 }
 
-// SetApps gets a reference to the given []string and assigns it to the Apps field.
-func (o *Plugin) SetApps(v []string) {
+// SetApps gets a reference to the given []PluginPluginElementMetadata and assigns it to the Apps field.
+func (o *Plugin) SetApps(v []PluginPluginElementMetadata) {
 	o.Apps = v
 }
 
 // GetAppBlocks returns the AppBlocks field value if set, zero value otherwise.
-func (o *Plugin) GetAppBlocks() []string {
+func (o *Plugin) GetAppBlocks() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.AppBlocks) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.AppBlocks
@@ -653,7 +653,7 @@ func (o *Plugin) GetAppBlocks() []string {
 
 // GetAppBlocksOk returns a tuple with the AppBlocks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetAppBlocksOk() ([]string, bool) {
+func (o *Plugin) GetAppBlocksOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.AppBlocks) {
 		return nil, false
 	}
@@ -669,15 +669,15 @@ func (o *Plugin) HasAppBlocks() bool {
 	return false
 }
 
-// SetAppBlocks gets a reference to the given []string and assigns it to the AppBlocks field.
-func (o *Plugin) SetAppBlocks(v []string) {
+// SetAppBlocks gets a reference to the given []PluginPluginElementMetadata and assigns it to the AppBlocks field.
+func (o *Plugin) SetAppBlocks(v []PluginPluginElementMetadata) {
 	o.AppBlocks = v
 }
 
 // GetCharts returns the Charts field value if set, zero value otherwise.
-func (o *Plugin) GetCharts() []string {
+func (o *Plugin) GetCharts() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.Charts) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.Charts
@@ -685,7 +685,7 @@ func (o *Plugin) GetCharts() []string {
 
 // GetChartsOk returns a tuple with the Charts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetChartsOk() ([]string, bool) {
+func (o *Plugin) GetChartsOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.Charts) {
 		return nil, false
 	}
@@ -701,15 +701,15 @@ func (o *Plugin) HasCharts() bool {
 	return false
 }
 
-// SetCharts gets a reference to the given []string and assigns it to the Charts field.
-func (o *Plugin) SetCharts(v []string) {
+// SetCharts gets a reference to the given []PluginPluginElementMetadata and assigns it to the Charts field.
+func (o *Plugin) SetCharts(v []PluginPluginElementMetadata) {
 	o.Charts = v
 }
 
 // GetDataFilters returns the DataFilters field value if set, zero value otherwise.
-func (o *Plugin) GetDataFilters() []string {
+func (o *Plugin) GetDataFilters() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.DataFilters) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.DataFilters
@@ -717,7 +717,7 @@ func (o *Plugin) GetDataFilters() []string {
 
 // GetDataFiltersOk returns a tuple with the DataFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetDataFiltersOk() ([]string, bool) {
+func (o *Plugin) GetDataFiltersOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.DataFilters) {
 		return nil, false
 	}
@@ -733,15 +733,15 @@ func (o *Plugin) HasDataFilters() bool {
 	return false
 }
 
-// SetDataFilters gets a reference to the given []string and assigns it to the DataFilters field.
-func (o *Plugin) SetDataFilters(v []string) {
+// SetDataFilters gets a reference to the given []PluginPluginElementMetadata and assigns it to the DataFilters field.
+func (o *Plugin) SetDataFilters(v []PluginPluginElementMetadata) {
 	o.DataFilters = v
 }
 
 // GetLogExporters returns the LogExporters field value if set, zero value otherwise.
-func (o *Plugin) GetLogExporters() []string {
+func (o *Plugin) GetLogExporters() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.LogExporters) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.LogExporters
@@ -749,7 +749,7 @@ func (o *Plugin) GetLogExporters() []string {
 
 // GetLogExportersOk returns a tuple with the LogExporters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetLogExportersOk() ([]string, bool) {
+func (o *Plugin) GetLogExportersOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.LogExporters) {
 		return nil, false
 	}
@@ -765,15 +765,15 @@ func (o *Plugin) HasLogExporters() bool {
 	return false
 }
 
-// SetLogExporters gets a reference to the given []string and assigns it to the LogExporters field.
-func (o *Plugin) SetLogExporters(v []string) {
+// SetLogExporters gets a reference to the given []PluginPluginElementMetadata and assigns it to the LogExporters field.
+func (o *Plugin) SetLogExporters(v []PluginPluginElementMetadata) {
 	o.LogExporters = v
 }
 
 // GetAdditionalPlugins returns the AdditionalPlugins field value if set, zero value otherwise.
-func (o *Plugin) GetAdditionalPlugins() []string {
+func (o *Plugin) GetAdditionalPlugins() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.AdditionalPlugins) {
-		var ret []string
+		var ret []PluginPluginElementMetadata
 		return ret
 	}
 	return o.AdditionalPlugins
@@ -781,7 +781,7 @@ func (o *Plugin) GetAdditionalPlugins() []string {
 
 // GetAdditionalPluginsOk returns a tuple with the AdditionalPlugins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Plugin) GetAdditionalPluginsOk() ([]string, bool) {
+func (o *Plugin) GetAdditionalPluginsOk() ([]PluginPluginElementMetadata, bool) {
 	if o == nil || IsNil(o.AdditionalPlugins) {
 		return nil, false
 	}
@@ -797,8 +797,8 @@ func (o *Plugin) HasAdditionalPlugins() bool {
 	return false
 }
 
-// SetAdditionalPlugins gets a reference to the given []string and assigns it to the AdditionalPlugins field.
-func (o *Plugin) SetAdditionalPlugins(v []string) {
+// SetAdditionalPlugins gets a reference to the given []PluginPluginElementMetadata and assigns it to the AdditionalPlugins field.
+func (o *Plugin) SetAdditionalPlugins(v []PluginPluginElementMetadata) {
 	o.AdditionalPlugins = v
 }
 
@@ -900,6 +900,12 @@ func (o Plugin) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Manifest) {
 		toSerialize["manifest"] = o.Manifest
 	}
+	if !IsNil(o.Guides) {
+		toSerialize["guides"] = o.Guides
+	}
+	if !IsNil(o.Aliases) {
+		toSerialize["aliases"] = o.Aliases
+	}
 	if !IsNil(o.Tasks) {
 		toSerialize["tasks"] = o.Tasks
 	}
@@ -920,12 +926,6 @@ func (o Plugin) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TaskRunners) {
 		toSerialize["taskRunners"] = o.TaskRunners
-	}
-	if !IsNil(o.Guides) {
-		toSerialize["guides"] = o.Guides
-	}
-	if !IsNil(o.Aliases) {
-		toSerialize["aliases"] = o.Aliases
 	}
 	if !IsNil(o.Apps) {
 		toSerialize["apps"] = o.Apps
@@ -981,6 +981,8 @@ func (o *Plugin) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "group")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "manifest")
+		delete(additionalProperties, "guides")
+		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "tasks")
 		delete(additionalProperties, "triggers")
 		delete(additionalProperties, "conditions")
@@ -988,8 +990,6 @@ func (o *Plugin) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "storages")
 		delete(additionalProperties, "secrets")
 		delete(additionalProperties, "taskRunners")
-		delete(additionalProperties, "guides")
-		delete(additionalProperties, "aliases")
 		delete(additionalProperties, "apps")
 		delete(additionalProperties, "appBlocks")
 		delete(additionalProperties, "charts")

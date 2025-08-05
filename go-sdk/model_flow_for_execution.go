@@ -26,7 +26,7 @@ type FlowForExecution struct {
 	Inputs               []InputObject                 `json:"inputs,omitempty"`
 	Outputs              []Output                      `json:"outputs,omitempty"`
 	Disabled             bool                          `json:"disabled"`
-	Labels               map[string]interface{}        `json:"labels,omitempty"`
+	Labels               *FlowForExecutionAllOfLabels  `json:"labels,omitempty"`
 	Variables            map[string]interface{}        `json:"variables,omitempty"`
 	WorkerGroup          *WorkerGroup                  `json:"workerGroup,omitempty"`
 	Deleted              bool                          `json:"deleted"`
@@ -231,19 +231,19 @@ func (o *FlowForExecution) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *FlowForExecution) GetLabels() map[string]interface{} {
+func (o *FlowForExecution) GetLabels() FlowForExecutionAllOfLabels {
 	if o == nil || IsNil(o.Labels) {
-		var ret map[string]interface{}
+		var ret FlowForExecutionAllOfLabels
 		return ret
 	}
-	return o.Labels
+	return *o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowForExecution) GetLabelsOk() (map[string]interface{}, bool) {
+func (o *FlowForExecution) GetLabelsOk() (*FlowForExecutionAllOfLabels, bool) {
 	if o == nil || IsNil(o.Labels) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Labels, true
 }
@@ -257,9 +257,9 @@ func (o *FlowForExecution) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given map[string]interface{} and assigns it to the Labels field.
-func (o *FlowForExecution) SetLabels(v map[string]interface{}) {
-	o.Labels = v
+// SetLabels gets a reference to the given FlowForExecutionAllOfLabels and assigns it to the Labels field.
+func (o *FlowForExecution) SetLabels(v FlowForExecutionAllOfLabels) {
+	o.Labels = &v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.

@@ -1,4 +1,4 @@
-# KestraApi.CrudEventType
+# KestraIoKestraSdk.CrudEventType
 
 ## Enum
 

@@ -1,4 +1,4 @@
-# KestraApi.SecurityIntegrationType
+# KestraIoKestraSdk.SecurityIntegrationType
 
 ## Enum
 

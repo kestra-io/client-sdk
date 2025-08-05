@@ -1,4 +1,4 @@
-# KestraApi.TriggersApi
+# KestraIoKestraSdk.TriggersApi
 
 All URIs are relative to *http://localhost*
 
@@ -34,8 +34,8 @@ Delete a backfill
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -44,9 +44,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = new KestraApi.Trigger(); // Trigger | 
+let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
 apiInstance.deleteBackfill(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -87,8 +87,8 @@ Delete backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -97,9 +97,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = [new KestraApi.Trigger()]; // [Trigger] | 
+let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
 apiInstance.deleteBackfillByIds(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -140,8 +140,8 @@ Delete backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -150,9 +150,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
@@ -199,8 +199,8 @@ Disable/enable given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -209,9 +209,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let triggerControllerSetDisabledRequest = new KestraApi.TriggerControllerSetDisabledRequest(); // TriggerControllerSetDisabledRequest | 
+let triggerControllerSetDisabledRequest = new KestraIoKestraSdk.TriggerControllerSetDisabledRequest(); // TriggerControllerSetDisabledRequest | 
 apiInstance.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -252,8 +252,8 @@ Disable/enable triggers by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -262,10 +262,10 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let disabled = true; // Boolean | The disabled state
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
@@ -313,8 +313,8 @@ Pause a backfill
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -323,9 +323,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = new KestraApi.Trigger(); // Trigger | 
+let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
 apiInstance.pauseBackfill(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -366,8 +366,8 @@ Pause backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -376,9 +376,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = [new KestraApi.Trigger()]; // [Trigger] | 
+let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
 apiInstance.pauseBackfillByIds(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -419,8 +419,8 @@ Pause backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -429,9 +429,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
@@ -478,8 +478,8 @@ Restart a trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -488,7 +488,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
@@ -535,8 +535,8 @@ Search for triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -545,13 +545,13 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraApi.QueryFilter()], // [QueryFilter] | Filters
+  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example", // String | A namespace filter prefix
   'workerId': "workerId_example", // String | The identifier of the worker currently evaluating the trigger
@@ -604,8 +604,8 @@ Get all triggers for a flow
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -614,7 +614,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
 let namespace = "namespace_example"; // String | The namespace
@@ -669,8 +669,8 @@ Unlock a trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -679,7 +679,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
@@ -726,8 +726,8 @@ Unlock given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -736,9 +736,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = [new KestraApi.Trigger()]; // [Trigger] | 
+let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
 apiInstance.unlockTriggersByIds(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -779,8 +779,8 @@ Unlock triggers by query parameters
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -789,9 +789,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
@@ -838,8 +838,8 @@ Unpause a backfill
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -848,9 +848,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = new KestraApi.Trigger(); // Trigger | 
+let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
 apiInstance.unpauseBackfill(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -891,8 +891,8 @@ Unpause backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -901,9 +901,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = [new KestraApi.Trigger()]; // [Trigger] | 
+let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
 apiInstance.unpauseBackfillByIds(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -944,8 +944,8 @@ Unpause backfill for given triggers
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -954,9 +954,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let deleteExecutionsByQueryRequest = new KestraApi.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
+let deleteExecutionsByQueryRequest = new KestraIoKestraSdk.DeleteExecutionsByQueryRequest(); // DeleteExecutionsByQueryRequest | 
 let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
@@ -1003,8 +1003,8 @@ Update a trigger
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -1013,9 +1013,9 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.TriggersApi();
+let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
-let trigger = new KestraApi.Trigger(); // Trigger | 
+let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
 apiInstance.updateTrigger(tenant, trigger, (error, data, response) => {
   if (error) {
     console.error(error);

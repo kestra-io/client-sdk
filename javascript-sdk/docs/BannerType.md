@@ -1,4 +1,4 @@
-# KestraApi.BannerType
+# KestraIoKestraSdk.BannerType
 
 ## Enum
 

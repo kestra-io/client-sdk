@@ -1,4 +1,4 @@
-# KestraApi.IdentityProvider
+# KestraIoKestraSdk.IdentityProvider
 
 ## Properties
 

@@ -64,7 +64,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> List&lt;ExecutionControllerExecutionResponse&gt; createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoint, kind)
+> List&lt;ExecutionControllerExecutionResponse&gt; createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind)
 
 Create a new execution for a flow
 
@@ -101,10 +101,10 @@ public class Example {
         List<String> labels = Arrays.asList(); // List<String> | The labels as a list of 'key:value'
         Integer revision = 56; // Integer | The flow revision or latest if null
         OffsetDateTime scheduleDate = OffsetDateTime.now(); // OffsetDateTime | Schedule the flow on a specific date
-        String breakpoint = "breakpoint_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            List<ExecutionControllerExecutionResponse> result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoint, kind);
+            List<ExecutionControllerExecutionResponse> result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -129,7 +129,7 @@ public class Example {
 | **labels** | [**List&lt;String&gt;**](String.md)| The labels as a list of &#39;key:value&#39; | [optional] |
 | **revision** | **Integer**| The flow revision or latest if null | [optional] |
 | **scheduleDate** | **OffsetDateTime**| Schedule the flow on a specific date | [optional] |
-| **breakpoint** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
+| **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 | **kind** | [**ExecutionKind**](.md)| Specific execution kind | [optional] [enum: NORMAL, TEST, PLAYGROUND] |
 
 ### Return type
@@ -2197,7 +2197,7 @@ public class Example {
 
 ## replayExecution
 
-> Execution replayExecution(executionId, tenant, taskRunId, revision, breakpoint)
+> Execution replayExecution(executionId, tenant, taskRunId, revision, breakpoints)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2231,9 +2231,9 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
         Integer revision = 56; // Integer | The flow revision to use for new execution
-        String breakpoint = "breakpoint_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = apiInstance.replayExecution(executionId, tenant, taskRunId, revision, breakpoint);
+            Execution result = apiInstance.replayExecution(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecution");
@@ -2255,7 +2255,7 @@ public class Example {
 | **tenant** | **String**|  | |
 | **taskRunId** | **String**| The taskrun id | [optional] |
 | **revision** | **Integer**| The flow revision to use for new execution | [optional] |
-| **breakpoint** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
+| **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 
 ### Return type
 
@@ -2789,7 +2789,7 @@ public class Example {
 
 ## resumeExecutionFromBreakpoint
 
-> resumeExecutionFromBreakpoint(executionId, tenant, breakpoint)
+> resumeExecutionFromBreakpoint(executionId, tenant, breakpoints)
 
 Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 
@@ -2821,9 +2821,9 @@ public class Example {
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | The execution id
         String tenant = "tenant_example"; // String | 
-        String breakpoint = "breakpoint_example"; // String | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+        String breakpoints = "breakpoints_example"; // String | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            apiInstance.resumeExecutionFromBreakpoint(executionId, tenant, breakpoint);
+            apiInstance.resumeExecutionFromBreakpoint(executionId, tenant, breakpoints);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#resumeExecutionFromBreakpoint");
             System.err.println("Status code: " + e.getCode());
@@ -2842,7 +2842,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| The execution id | |
 | **tenant** | **String**|  | |
-| **breakpoint** | **String**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
+| **breakpoints** | **String**| \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 
 ### Return type
 

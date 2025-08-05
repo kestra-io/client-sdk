@@ -1,4 +1,4 @@
-# KestraApi.AuditLogControllerAuditLogOption
+# KestraIoKestraSdk.AuditLogControllerAuditLogOption
 
 ## Properties
 

@@ -152,7 +152,6 @@ docs/FlowUsage.md
 docs/FlowWithSource.md
 docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
-docs/Group.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
 docs/GroupUsage.md
@@ -164,7 +163,6 @@ docs/HostUsageOs.md
 docs/HttpParameters.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
-docs/IAMBindingControllerApiBindingSummary.md
 docs/IAMBindingControllerApiBindingUser.md
 docs/IAMBindingControllerApiCreateBindingRequest.md
 docs/IAMBindingControllerApiRole.md
@@ -280,7 +278,7 @@ docs/PagedResultsBlueprintControllerApiBlueprintItem.md
 docs/PagedResultsDashboard.md
 docs/PagedResultsExecution.md
 docs/PagedResultsFlow.md
-docs/PagedResultsIAMBindingControllerApiBindingSummary.md
+docs/PagedResultsIAMBindingControllerApiBindingDetail.md
 docs/PagedResultsIAMGroupControllerApiGroupMember.md
 docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md
 docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
@@ -345,12 +343,13 @@ docs/SchemaAttributeReturned.md
 docs/SchemaAttributeType.md
 docs/SchemaAttributeUniqueness.md
 docs/SchemaType.md
-docs/ScimApi.md
 docs/ScimConfigurationApi.md
 docs/ScimExtension.md
+docs/ScimGroupsApi.md
 docs/ScimResource.md
 docs/ScimResourceWithOptionalId.md
 docs/ScimUser.md
+docs/ScimUsersApi.md
 docs/SearchRequest.md
 docs/SearchResultFlow.md
 docs/SecurityIntegrationType.md
@@ -460,8 +459,9 @@ src/main/java/io/kestra/sdk/api/MiscApi.java
 src/main/java/io/kestra/sdk/api/NamespacesApi.java
 src/main/java/io/kestra/sdk/api/PluginsApi.java
 src/main/java/io/kestra/sdk/api/RolesApi.java
-src/main/java/io/kestra/sdk/api/ScimApi.java
 src/main/java/io/kestra/sdk/api/ScimConfigurationApi.java
+src/main/java/io/kestra/sdk/api/ScimGroupsApi.java
+src/main/java/io/kestra/sdk/api/ScimUsersApi.java
 src/main/java/io/kestra/sdk/api/SecurityIntegrationsApi.java
 src/main/java/io/kestra/sdk/api/ServiceAccountApi.java
 src/main/java/io/kestra/sdk/api/ServicesApi.java
@@ -620,7 +620,6 @@ src/main/java/io/kestra/sdk/model/FlowTopologyGraphEdge.java
 src/main/java/io/kestra/sdk/model/FlowUsage.java
 src/main/java/io/kestra/sdk/model/FlowWithSource.java
 src/main/java/io/kestra/sdk/model/FlowWithSourceAllOfLabels.java
-src/main/java/io/kestra/sdk/model/Group.java
 src/main/java/io/kestra/sdk/model/GroupIdentifier.java
 src/main/java/io/kestra/sdk/model/GroupIdentifierMembership.java
 src/main/java/io/kestra/sdk/model/GroupUsage.java
@@ -631,7 +630,6 @@ src/main/java/io/kestra/sdk/model/HostUsageOs.java
 src/main/java/io/kestra/sdk/model/HttpParameters.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingGroup.java
-src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingSummary.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingUser.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiCreateBindingRequest.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiRole.java
@@ -740,7 +738,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsBlueprintControllerApiBlueprintIte
 src/main/java/io/kestra/sdk/model/PagedResultsDashboard.java
 src/main/java/io/kestra/sdk/model/PagedResultsExecution.java
 src/main/java/io/kestra/sdk/model/PagedResultsFlow.java
-src/main/java/io/kestra/sdk/model/PagedResultsIAMBindingControllerApiBindingSummary.java
+src/main/java/io/kestra/sdk/model/PagedResultsIAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMGroupControllerApiGroupMember.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMInvitationControllerApiInvitationDetail.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.java

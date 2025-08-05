@@ -1,4 +1,4 @@
-# KestraApi.PropertyBoolean
+# KestraIoKestraSdk.PropertyBoolean
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.BlueprintControllerApiBlueprintItemWithSource
+# KestraIoKestraSdk.BlueprintControllerApiBlueprintItemWithSource
 
 ## Properties
 

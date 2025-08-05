@@ -1,4 +1,4 @@
-# KestraApi.Banner
+# KestraIoKestraSdk.Banner
 
 ## Properties
 

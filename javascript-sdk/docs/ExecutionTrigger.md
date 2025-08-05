@@ -1,4 +1,4 @@
-# KestraApi.ExecutionTrigger
+# KestraIoKestraSdk.ExecutionTrigger
 
 ## Properties
 

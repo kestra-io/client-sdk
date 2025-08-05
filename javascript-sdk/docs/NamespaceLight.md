@@ -1,4 +1,4 @@
-# KestraApi.NamespaceLight
+# KestraIoKestraSdk.NamespaceLight
 
 ## Properties
 

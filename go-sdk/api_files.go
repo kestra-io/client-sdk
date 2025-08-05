@@ -366,7 +366,7 @@ type ApiExportNamespaceFilesRequest struct {
 	tenant     string
 }
 
-func (r ApiExportNamespaceFilesRequest) Execute() ([]string, *http.Response, error) {
+func (r ApiExportNamespaceFilesRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.ExportNamespaceFilesExecute(r)
 }
 
@@ -389,13 +389,13 @@ func (a *FilesAPIService) ExportNamespaceFiles(ctx context.Context, namespace st
 
 // Execute executes the request
 //
-//	@return []string
-func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesRequest) ([]string, *http.Response, error) {
+//	@return string
+func (a *FilesAPIService) ExportNamespaceFilesExecute(r ApiExportNamespaceFilesRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []string
+		localVarReturnValue string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FilesAPIService.ExportNamespaceFiles")

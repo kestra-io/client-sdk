@@ -34,13 +34,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -239,7 +238,7 @@ No authorization required
 
 ## GetBlueprintGraph
 
-> map[string]interface{} GetBlueprintGraph(ctx, id, kind, tenant).Execute()
+> map[string]map[string]interface{} GetBlueprintGraph(ctx, id, kind, tenant).Execute()
 
 Retrieve a blueprint graph
 
@@ -269,7 +268,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BlueprintsAPI.GetBlueprintGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBlueprintGraph`: map[string]interface{}
+	// response from `GetBlueprintGraph`: map[string]map[string]interface{}
 	fmt.Fprintf(os.Stdout, "Response from `BlueprintsAPI.GetBlueprintGraph`: %v\n", resp)
 }
 ```
@@ -297,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+**map[string]map[string]interface{}**
 
 ### Authorization
 
@@ -715,14 +714,13 @@ import (
 	"context"
 	"fmt"
 	"os"
-    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	id := "id_example" // string | The id of the internal blueprint to update
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

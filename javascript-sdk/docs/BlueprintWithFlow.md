@@ -1,4 +1,4 @@
-# KestraApi.BlueprintWithFlow
+# KestraIoKestraSdk.BlueprintWithFlow
 
 ## Properties
 

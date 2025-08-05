@@ -1,4 +1,4 @@
-# KestraApi.ExecutionControllerApiValidateExecutionInputsResponseApiInputError
+# KestraIoKestraSdk.ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 
 ## Properties
 

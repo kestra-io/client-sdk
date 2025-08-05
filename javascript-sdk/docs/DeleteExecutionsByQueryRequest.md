@@ -1,4 +1,4 @@
-# KestraApi.DeleteExecutionsByQueryRequest
+# KestraIoKestraSdk.DeleteExecutionsByQueryRequest
 
 ## Properties
 

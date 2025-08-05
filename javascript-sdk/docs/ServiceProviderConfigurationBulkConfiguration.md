@@ -1,4 +1,4 @@
-# KestraApi.ServiceProviderConfigurationBulkConfiguration
+# KestraIoKestraSdk.ServiceProviderConfigurationBulkConfiguration
 
 ## Properties
 

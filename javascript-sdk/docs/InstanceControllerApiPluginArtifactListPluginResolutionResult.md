@@ -1,4 +1,4 @@
-# KestraApi.InstanceControllerApiPluginArtifactListPluginResolutionResult
+# KestraIoKestraSdk.InstanceControllerApiPluginArtifactListPluginResolutionResult
 
 ## Properties
 

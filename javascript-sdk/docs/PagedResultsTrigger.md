@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsTrigger
+# KestraIoKestraSdk.PagedResultsTrigger
 
 ## Properties
 

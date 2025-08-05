@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Labels** | Pointer to [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 
 **StopAfter** | Pointer to [**[]StateType**](StateType.md) |  | [optional] 
 **LogToFile** | Pointer to **bool** |  | [optional] 
+**FailOnTriggerError** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -320,6 +321,31 @@ SetLogToFile sets LogToFile field to given value.
 `func (o *AbstractTrigger) HasLogToFile() bool`
 
 HasLogToFile returns a boolean if a field has been set.
+
+### GetFailOnTriggerError
+
+`func (o *AbstractTrigger) GetFailOnTriggerError() bool`
+
+GetFailOnTriggerError returns the FailOnTriggerError field if non-nil, zero value otherwise.
+
+### GetFailOnTriggerErrorOk
+
+`func (o *AbstractTrigger) GetFailOnTriggerErrorOk() (*bool, bool)`
+
+GetFailOnTriggerErrorOk returns a tuple with the FailOnTriggerError field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFailOnTriggerError
+
+`func (o *AbstractTrigger) SetFailOnTriggerError(v bool)`
+
+SetFailOnTriggerError sets FailOnTriggerError field to given value.
+
+### HasFailOnTriggerError
+
+`func (o *AbstractTrigger) HasFailOnTriggerError() bool`
+
+HasFailOnTriggerError returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

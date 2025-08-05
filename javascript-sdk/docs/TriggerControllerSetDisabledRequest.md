@@ -1,4 +1,4 @@
-# KestraApi.TriggerControllerSetDisabledRequest
+# KestraIoKestraSdk.TriggerControllerSetDisabledRequest
 
 ## Properties
 

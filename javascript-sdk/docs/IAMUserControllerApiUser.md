@@ -1,4 +1,4 @@
-# KestraApi.IAMUserControllerApiUser
+# KestraIoKestraSdk.IAMUserControllerApiUser
 
 ## Properties
 

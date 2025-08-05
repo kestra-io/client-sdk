@@ -1,4 +1,4 @@
-# KestraApi.ChartFiltersOverrides
+# KestraIoKestraSdk.ChartFiltersOverrides
 
 ## Properties
 

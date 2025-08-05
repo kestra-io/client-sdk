@@ -1,4 +1,4 @@
-# KestraApi.AuditLogControllerAuditLogDiff
+# KestraIoKestraSdk.AuditLogControllerAuditLogDiff
 
 ## Properties
 

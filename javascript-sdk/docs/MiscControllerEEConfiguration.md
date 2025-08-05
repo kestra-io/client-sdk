@@ -1,4 +1,4 @@
-# KestraApi.MiscControllerEEConfiguration
+# KestraIoKestraSdk.MiscControllerEEConfiguration
 
 ## Properties
 

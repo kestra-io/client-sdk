@@ -1,4 +1,4 @@
-# KestraApi.QueryFilterOp
+# KestraIoKestraSdk.QueryFilterOp
 
 ## Enum
 

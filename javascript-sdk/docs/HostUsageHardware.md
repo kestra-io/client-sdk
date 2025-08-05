@@ -1,4 +1,4 @@
-# KestraApi.HostUsageHardware
+# KestraIoKestraSdk.HostUsageHardware
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.ServiceUsageDailyStatistics
+# KestraIoKestraSdk.ServiceUsageDailyStatistics
 
 ## Properties
 

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the PropertyObject type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &PropertyObject{}
 
 // PropertyObject struct for PropertyObject
 type PropertyObject struct {
-	Expression           string      `json:"expression"`
-	Value                interface{} `json:"value,omitempty"`
+	Expression           *string                `json:"expression,omitempty"`
+	Value                map[string]interface{} `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,9 +30,8 @@ type _PropertyObject PropertyObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPropertyObject(expression string) *PropertyObject {
+func NewPropertyObject() *PropertyObject {
 	this := PropertyObject{}
-	this.Expression = expression
 	return &this
 }
 
@@ -45,34 +43,42 @@ func NewPropertyObjectWithDefaults() *PropertyObject {
 	return &this
 }
 
-// GetExpression returns the Expression field value
+// GetExpression returns the Expression field value if set, zero value otherwise.
 func (o *PropertyObject) GetExpression() string {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		var ret string
 		return ret
 	}
-
-	return o.Expression
+	return *o.Expression
 }
 
-// GetExpressionOk returns a tuple with the Expression field value
+// GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyObject) GetExpressionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Expression) {
 		return nil, false
 	}
-	return &o.Expression, true
+	return o.Expression, true
 }
 
-// SetExpression sets field value
+// HasExpression returns a boolean if a field has been set.
+func (o *PropertyObject) HasExpression() bool {
+	if o != nil && !IsNil(o.Expression) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpression gets a reference to the given string and assigns it to the Expression field.
 func (o *PropertyObject) SetExpression(v string) {
-	o.Expression = v
+	o.Expression = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PropertyObject) GetValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *PropertyObject) GetValue() map[string]interface{} {
+	if o == nil || IsNil(o.Value) {
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Value
@@ -80,12 +86,11 @@ func (o *PropertyObject) GetValue() interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PropertyObject) GetValueOk() (*interface{}, bool) {
+func (o *PropertyObject) GetValueOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Value) {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
@@ -97,8 +102,8 @@ func (o *PropertyObject) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given interface{} and assigns it to the Value field.
-func (o *PropertyObject) SetValue(v interface{}) {
+// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
+func (o *PropertyObject) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
@@ -112,8 +117,10 @@ func (o PropertyObject) MarshalJSON() ([]byte, error) {
 
 func (o PropertyObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["expression"] = o.Expression
-	if o.Value != nil {
+	if !IsNil(o.Expression) {
+		toSerialize["expression"] = o.Expression
+	}
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -125,27 +132,6 @@ func (o PropertyObject) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PropertyObject) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"expression",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varPropertyObject := _PropertyObject{}
 
 	err = json.Unmarshal(data, &varPropertyObject)

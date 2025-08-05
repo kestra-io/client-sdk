@@ -1,4 +1,4 @@
-# KestraApi.ApiSecretListResponse
+# KestraIoKestraSdk.ApiSecretListResponse
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# KestraApi.PropertyObject
+# KestraIoKestraSdk.PropertyObject
 
 ## Properties
 

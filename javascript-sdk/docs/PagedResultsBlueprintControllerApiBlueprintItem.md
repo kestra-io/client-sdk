@@ -1,4 +1,4 @@
-# KestraApi.PagedResultsBlueprintControllerApiBlueprintItem
+# KestraIoKestraSdk.PagedResultsBlueprintControllerApiBlueprintItem
 
 ## Properties
 

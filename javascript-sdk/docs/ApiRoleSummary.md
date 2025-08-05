@@ -1,4 +1,4 @@
-# KestraApi.ApiRoleSummary
+# KestraIoKestraSdk.ApiRoleSummary
 
 ## Properties
 

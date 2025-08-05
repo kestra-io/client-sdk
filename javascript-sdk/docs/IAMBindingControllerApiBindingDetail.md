@@ -1,12 +1,14 @@
-# KestraApi.IAMBindingControllerApiBindingDetail
+# KestraIoKestraSdk.IAMBindingControllerApiBindingDetail
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**binding** | [**Binding**](Binding.md) |  | [optional] 
-**role** | [**Role**](Role.md) |  | [optional] 
-**user** | [**ApiUser**](ApiUser.md) |  | [optional] 
-**group** | [**Group**](Group.md) |  | [optional] 
+**id** | **String** |  | [optional] 
+**type** | [**BindingType**](BindingType.md) |  | [optional] 
+**namespace** | **String** |  | [optional] 
+**role** | [**IAMBindingControllerApiRole**](IAMBindingControllerApiRole.md) |  | [optional] 
+**group** | [**IAMBindingControllerApiBindingGroup**](IAMBindingControllerApiBindingGroup.md) |  | [optional] 
+**user** | [**IAMBindingControllerApiBindingUser**](IAMBindingControllerApiBindingUser.md) |  | [optional] 
 
 

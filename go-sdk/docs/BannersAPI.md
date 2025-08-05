@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	banner := *openapiclient.NewBanner() // Banner | The announcement banner to create
+	banner := *openapiclient.NewBanner("Message_example") // Banner | The announcement banner to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -228,7 +228,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The banner id
-	banner := *openapiclient.NewBanner() // Banner | The banner to update
+	banner := *openapiclient.NewBanner("Message_example") // Banner | The banner to update
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

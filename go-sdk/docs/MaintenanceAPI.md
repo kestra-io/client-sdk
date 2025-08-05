@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EnterMaintenance**](MaintenanceAPI.md#EnterMaintenance) | **Post** /api/v1/cluster/maintenance/enter | Enter cluster maintenance mode
-[**ExitMaintenance**](MaintenanceAPI.md#ExitMaintenance) | **Post** /api/v1/cluster/maintenance/exit | Exit cluster maintenance mode
+[**EnterMaintenance**](MaintenanceAPI.md#EnterMaintenance) | **Post** /api/v1/instance/maintenance/enter | Enter cluster maintenance mode
+[**ExitMaintenance**](MaintenanceAPI.md#ExitMaintenance) | **Post** /api/v1/instance/maintenance/exit | Exit cluster maintenance mode
 
 
 

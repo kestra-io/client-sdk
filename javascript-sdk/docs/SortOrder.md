@@ -1,4 +1,4 @@
-# KestraApi.SortOrder
+# KestraIoKestraSdk.SortOrder
 
 ## Enum
 

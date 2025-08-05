@@ -1,4 +1,4 @@
-# KestraApi.IAMGroupControllerApiGroupMember
+# KestraIoKestraSdk.IAMGroupControllerApiGroupMember
 
 ## Properties
 

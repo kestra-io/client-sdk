@@ -1,4 +1,4 @@
-# KestraApi.AbstractGraph
+# KestraIoKestraSdk.AbstractGraph
 
 ## Properties
 

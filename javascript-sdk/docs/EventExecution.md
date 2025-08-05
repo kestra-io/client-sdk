@@ -1,4 +1,4 @@
-# KestraApi.EventExecution
+# KestraIoKestraSdk.EventExecution
 
 ## Properties
 

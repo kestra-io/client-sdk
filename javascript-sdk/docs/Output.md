@@ -1,4 +1,4 @@
-# KestraApi.Output
+# KestraIoKestraSdk.Output
 
 ## Properties
 

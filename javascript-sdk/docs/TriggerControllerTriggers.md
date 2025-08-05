@@ -1,4 +1,4 @@
-# KestraApi.TriggerControllerTriggers
+# KestraIoKestraSdk.TriggerControllerTriggers
 
 ## Properties
 

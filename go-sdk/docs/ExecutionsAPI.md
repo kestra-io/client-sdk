@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**DeleteExecutionsByQuery**](ExecutionsAPI.md#DeleteExecutionsByQuery) | **Delete** /api/v1/{tenant}/executions/by-query | Delete executions filter by query parameters
 [**DownloadFileFromExecution**](ExecutionsAPI.md#DownloadFileFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file | Download file for an execution
 [**EvalTaskRunExpression**](ExecutionsAPI.md#EvalTaskRunExpression) | **Post** /api/v1/{tenant}/executions/{executionId}/eval/{taskRunId} | Evaluate a variable expression for this taskrun
+[**FollowDependenciesExecutions**](ExecutionsAPI.md#FollowDependenciesExecutions) | **Get** /api/v1/{tenant}/executions/{executionId}/follow-dependencies | Follow all execution dependencies executions
 [**FollowExecution**](ExecutionsAPI.md#FollowExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/follow | Follow an execution
 [**ForceRunByIds**](ExecutionsAPI.md#ForceRunByIds) | **Post** /api/v1/{tenant}/executions/force-run/by-ids | Force run a list of executions
 [**ForceRunExecution**](ExecutionsAPI.md#ForceRunExecution) | **Post** /api/v1/{tenant}/executions/{executionId}/force-run | Force run an execution
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**GetFileMetadatasFromExecution**](ExecutionsAPI.md#GetFileMetadatasFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file/metas | Get file meta information for an execution
 [**GetFlowFromExecution**](ExecutionsAPI.md#GetFlowFromExecution) | **Get** /api/v1/{tenant}/executions/flows/{namespace}/{flowId} | Get flow information&#39;s for an execution
 [**GetFlowFromExecutionById**](ExecutionsAPI.md#GetFlowFromExecutionById) | **Get** /api/v1/{tenant}/executions/{executionId}/flow | Get flow information&#39;s for an execution
+[**GetLatestExecutions**](ExecutionsAPI.md#GetLatestExecutions) | **Post** /api/v1/{tenant}/executions/latest | Get the latest execution for given flows
 [**KillExecution**](ExecutionsAPI.md#KillExecution) | **Delete** /api/v1/{tenant}/executions/{executionId}/kill | Kill an execution
 [**KillExecutionsByIds**](ExecutionsAPI.md#KillExecutionsByIds) | **Delete** /api/v1/{tenant}/executions/kill/by-ids | Kill a list of executions
 [**KillExecutionsByQuery**](ExecutionsAPI.md#KillExecutionsByQuery) | **Delete** /api/v1/{tenant}/executions/kill/by-query | Kill executions filter by query parameters
@@ -35,6 +37,7 @@ Method | HTTP request | Description
 [**RestartExecutionsByIds**](ExecutionsAPI.md#RestartExecutionsByIds) | **Post** /api/v1/{tenant}/executions/restart/by-ids | Restart a list of executions
 [**RestartExecutionsByQuery**](ExecutionsAPI.md#RestartExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/restart/by-query | Restart executions filter by query parameters
 [**ResumeExecution**](ExecutionsAPI.md#ResumeExecution) | **Post** /api/v1/{tenant}/executions/{executionId}/resume | Resume a paused execution.
+[**ResumeExecutionFromBreakpoint**](ExecutionsAPI.md#ResumeExecutionFromBreakpoint) | **Post** /api/v1/{tenant}/executions/{executionId}/resume-from-breakpoint | Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
 [**ResumeExecutionsByIds**](ExecutionsAPI.md#ResumeExecutionsByIds) | **Post** /api/v1/{tenant}/executions/resume/by-ids | Resume a list of paused executions
 [**ResumeExecutionsByQuery**](ExecutionsAPI.md#ResumeExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 [**SearchExecutions**](ExecutionsAPI.md#SearchExecutions) | **Get** /api/v1/{tenant}/executions/search | Search for executions
@@ -61,7 +64,7 @@ Method | HTTP request | Description
 
 ## CreateExecution
 
-> []ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Execute()
+> []ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
 
 Create a new execution for a flow
 
@@ -86,10 +89,12 @@ func main() {
 	labels := []string{"Inner_example"} // []string | The labels as a list of 'key:value' (optional)
 	revision := int32(56) // int32 | The flow revision or latest if null (optional)
 	scheduleDate := time.Now() // time.Time | Schedule the flow on a specific date (optional)
+	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+	kind := openapiclient.ExecutionKind("NORMAL") // ExecutionKind | Specific execution kind (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.CreateExecution(context.Background(), namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.CreateExecution(context.Background(), namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.CreateExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,6 +128,8 @@ Name | Type | Description  | Notes
  **labels** | **[]string** | The labels as a list of &#39;key:value&#39; | 
  **revision** | **int32** | The flow revision or latest if null | 
  **scheduleDate** | **time.Time** | Schedule the flow on a specific date | 
+ **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
+ **kind** | [**ExecutionKind**](ExecutionKind.md) | Specific execution kind | 
 
 ### Return type
 
@@ -539,6 +546,81 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: text/plain
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FollowDependenciesExecutions
+
+> EventExecutionStatusEvent FollowDependenciesExecutions(ctx, executionId, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+
+Follow all execution dependencies executions
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	executionId := "executionId_example" // string | The execution id
+	destinationOnly := true // bool | If true, list only destination dependencies, otherwise list also source dependencies (default to false)
+	expandAll := true // bool | If true, expand all dependencies recursively (default to false)
+	tenant := "tenant_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.FollowDependenciesExecutions(context.Background(), executionId, tenant).DestinationOnly(destinationOnly).ExpandAll(expandAll).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.FollowDependenciesExecutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FollowDependenciesExecutions`: EventExecutionStatusEvent
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.FollowDependenciesExecutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**executionId** | **string** | The execution id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFollowDependenciesExecutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **destinationOnly** | **bool** | If true, list only destination dependencies, otherwise list also source dependencies | [default to false]
+ **expandAll** | **bool** | If true, expand all dependencies recursively | [default to false]
+
+
+### Return type
+
+[**EventExecutionStatusEvent**](EventExecutionStatusEvent.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1207,6 +1289,76 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetLatestExecutions
+
+> []ExecutionControllerLastExecutionResponse GetLatestExecutions(ctx, tenant).ExecutionRepositoryInterfaceFlowFilter(executionRepositoryInterfaceFlowFilter).Execute()
+
+Get the latest execution for given flows
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	executionRepositoryInterfaceFlowFilter := []openapiclient.ExecutionRepositoryInterfaceFlowFilter{*openapiclient.NewExecutionRepositoryInterfaceFlowFilter("Namespace_example", "Id_example")} // []ExecutionRepositoryInterfaceFlowFilter | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.GetLatestExecutions(context.Background(), tenant).ExecutionRepositoryInterfaceFlowFilter(executionRepositoryInterfaceFlowFilter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.GetLatestExecutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLatestExecutions`: []ExecutionControllerLastExecutionResponse
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.GetLatestExecutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLatestExecutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **executionRepositoryInterfaceFlowFilter** | [**[]ExecutionRepositoryInterfaceFlowFilter**](ExecutionRepositoryInterfaceFlowFilter.md) |  | 
+
+### Return type
+
+[**[]ExecutionControllerLastExecutionResponse**](ExecutionControllerLastExecutionResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1900,7 +2052,7 @@ Name | Type | Description  | Notes
 
 ## ReplayExecution
 
-> Execution ReplayExecution(ctx, executionId, tenant).TaskRunId(taskRunId).Revision(revision).Execute()
+> Execution ReplayExecution(ctx, executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1921,10 +2073,11 @@ func main() {
 	tenant := "tenant_example" // string | 
 	taskRunId := "taskRunId_example" // string | The taskrun id (optional)
 	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
+	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.ReplayExecution(context.Background(), executionId, tenant).TaskRunId(taskRunId).Revision(revision).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.ReplayExecution(context.Background(), executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ReplayExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1954,6 +2107,7 @@ Name | Type | Description  | Notes
 
  **taskRunId** | **string** | The taskrun id | 
  **revision** | **int32** | The flow revision to use for new execution | 
+ **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
 
 ### Return type
 
@@ -2447,6 +2601,77 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ResumeExecutionFromBreakpoint
+
+> ResumeExecutionFromBreakpoint(ctx, executionId, tenant).Breakpoints(breakpoints).Execute()
+
+Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	executionId := "executionId_example" // string | The execution id
+	tenant := "tenant_example" // string | 
+	breakpoints := "breakpoints_example" // string | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ExecutionsAPI.ResumeExecutionFromBreakpoint(context.Background(), executionId, tenant).Breakpoints(breakpoints).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ResumeExecutionFromBreakpoint``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**executionId** | **string** | The execution id | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResumeExecutionFromBreakpointRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **breakpoints** | **string** | \&quot;Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ResumeExecutionsByIds
 
 > BulkResponse ResumeExecutionsByIds(ctx, tenant).RequestBody(requestBody).Execute()
@@ -2634,7 +2859,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the executions to include (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
@@ -2809,7 +3034,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), interface{}(123))} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
 	flowId := "flowId_example" // string | A flow id filter (optional)
@@ -2975,7 +3200,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest([]string{"ExecutionsId_example"}, []openapiclient.Label{*openapiclient.NewLabel("Key_example", "Value_example")}) // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
+	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest() // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3200,7 +3425,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByGetWebhook
 
-> Execution TriggerExecutionByGetWebhook(ctx, namespace, id, key, tenant).Execute()
+> ExecutionControllerWebhookResponse TriggerExecutionByGetWebhook(ctx, namespace, id, key, tenant).Execute()
 
 Trigger a new execution by GET webhook trigger
 
@@ -3229,7 +3454,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByGetWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TriggerExecutionByGetWebhook`: Execution
+	// response from `TriggerExecutionByGetWebhook`: ExecutionControllerWebhookResponse
 	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByGetWebhook`: %v\n", resp)
 }
 ```
@@ -3259,7 +3484,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -3277,7 +3502,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByPostWebhook
 
-> Execution TriggerExecutionByPostWebhook(ctx, namespace, id, key, tenant).Execute()
+> ExecutionControllerWebhookResponse TriggerExecutionByPostWebhook(ctx, namespace, id, key, tenant).Execute()
 
 Trigger a new execution by POST webhook trigger
 
@@ -3306,7 +3531,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPostWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TriggerExecutionByPostWebhook`: Execution
+	// response from `TriggerExecutionByPostWebhook`: ExecutionControllerWebhookResponse
 	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByPostWebhook`: %v\n", resp)
 }
 ```
@@ -3336,7 +3561,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -3354,7 +3579,7 @@ Name | Type | Description  | Notes
 
 ## TriggerExecutionByPutWebhook
 
-> Execution TriggerExecutionByPutWebhook(ctx, namespace, id, key, tenant).Execute()
+> ExecutionControllerWebhookResponse TriggerExecutionByPutWebhook(ctx, namespace, id, key, tenant).Execute()
 
 Trigger a new execution by PUT webhook trigger
 
@@ -3383,7 +3608,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.TriggerExecutionByPutWebhook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `TriggerExecutionByPutWebhook`: Execution
+	// response from `TriggerExecutionByPutWebhook`: ExecutionControllerWebhookResponse
 	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.TriggerExecutionByPutWebhook`: %v\n", resp)
 }
 ```
@@ -3413,7 +3638,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Execution**](Execution.md)
+[**ExecutionControllerWebhookResponse**](ExecutionControllerWebhookResponse.md)
 
 ### Authorization
 
@@ -3431,7 +3656,7 @@ Name | Type | Description  | Notes
 
 ## UnqueueExecution
 
-> Execution UnqueueExecution(ctx, executionId, tenant).Execute()
+> Execution UnqueueExecution(ctx, executionId, tenant).State(state).Execute()
 
 Unqueue an execution
 
@@ -3449,11 +3674,12 @@ import (
 
 func main() {
 	executionId := "executionId_example" // string | The execution id
+	state := openapiclient.State.Type("CREATED") // StateType | The new state of the execution
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecution(context.Background(), executionId, tenant).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecution(context.Background(), executionId, tenant).State(state).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.UnqueueExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3480,6 +3706,7 @@ Other parameters are passed through a pointer to a apiUnqueueExecutionRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **state** | [**StateType**](StateType.md) | The new state of the execution | 
 
 
 ### Return type
@@ -3502,7 +3729,7 @@ Name | Type | Description  | Notes
 
 ## UnqueueExecutionsByIds
 
-> BulkResponse UnqueueExecutionsByIds(ctx, tenant).RequestBody(requestBody).Execute()
+> BulkResponse UnqueueExecutionsByIds(ctx, tenant).State(state).RequestBody(requestBody).Execute()
 
 Unqueue a list of executions
 
@@ -3519,12 +3746,13 @@ import (
 )
 
 func main() {
+	state := openapiclient.State.Type("CREATED") // StateType | The new state of the unqueued executions
 	tenant := "tenant_example" // string | 
 	requestBody := []string{"Property_example"} // []string | The list of executions id
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecutionsByIds(context.Background(), tenant).RequestBody(requestBody).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecutionsByIds(context.Background(), tenant).State(state).RequestBody(requestBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.UnqueueExecutionsByIds``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3549,6 +3777,7 @@ Other parameters are passed through a pointer to a apiUnqueueExecutionsByIdsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **state** | [**StateType**](StateType.md) | The new state of the unqueued executions | 
 
  **requestBody** | **[]string** | The list of executions id | 
 
@@ -3572,7 +3801,7 @@ Name | Type | Description  | Notes
 
 ## UnqueueExecutionsByQuery
 
-> map[string]interface{} UnqueueExecutionsByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).FlowId(flowId).StartDate(startDate).EndDate(endDate).TimeRange(timeRange).State(state).Labels(labels).TriggerExecutionId(triggerExecutionId).ChildFilter(childFilter).Execute()
+> map[string]interface{} UnqueueExecutionsByQuery(ctx, tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).FlowId(flowId).StartDate(startDate).EndDate(endDate).TimeRange(timeRange).State(state).Labels(labels).TriggerExecutionId(triggerExecutionId).ChildFilter(childFilter).NewState(newState).Execute()
 
 Unqueue executions filter by query parameters
 
@@ -3603,10 +3832,11 @@ func main() {
 	labels := []string{"Inner_example"} // []string | A labels filter as a list of 'key:value' (optional)
 	triggerExecutionId := "triggerExecutionId_example" // string | The trigger execution id (optional)
 	childFilter := openapiclient.ExecutionRepositoryInterface.ChildFilter("CHILD") // ExecutionRepositoryInterfaceChildFilter | A execution child filter (optional)
+	newState := openapiclient.State.Type("CREATED") // StateType | The new state of the unqueued executions (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecutionsByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).FlowId(flowId).StartDate(startDate).EndDate(endDate).TimeRange(timeRange).State(state).Labels(labels).TriggerExecutionId(triggerExecutionId).ChildFilter(childFilter).Execute()
+	resp, r, err := apiClient.ExecutionsAPI.UnqueueExecutionsByQuery(context.Background(), tenant).DeleteExecutionsByQueryRequest(deleteExecutionsByQueryRequest).Q(q).Scope(scope).Namespace(namespace).FlowId(flowId).StartDate(startDate).EndDate(endDate).TimeRange(timeRange).State(state).Labels(labels).TriggerExecutionId(triggerExecutionId).ChildFilter(childFilter).NewState(newState).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.UnqueueExecutionsByQuery``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3644,6 +3874,7 @@ Name | Type | Description  | Notes
  **labels** | **[]string** | A labels filter as a list of &#39;key:value&#39; | 
  **triggerExecutionId** | **string** | The trigger execution id | 
  **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](ExecutionRepositoryInterfaceChildFilter.md) | A execution child filter | 
+ **newState** | [**StateType**](StateType.md) | The new state of the unqueued executions | 
 
 ### Return type
 
@@ -3924,7 +4155,7 @@ import (
 func main() {
 	executionId := "executionId_example" // string | The execution id
 	tenant := "tenant_example" // string | 
-	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest("TaskRunId_example", openapiclient.State.Type("CREATED")) // ExecutionControllerStateRequest | the taskRun id and state to apply
+	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest() // ExecutionControllerStateRequest | the taskRun id and state to apply
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

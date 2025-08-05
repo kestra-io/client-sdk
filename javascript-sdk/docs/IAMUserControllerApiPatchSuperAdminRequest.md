@@ -1,4 +1,4 @@
-# KestraApi.IAMUserControllerApiPatchSuperAdminRequest
+# KestraIoKestraSdk.IAMUserControllerApiPatchSuperAdminRequest
 
 ## Properties
 

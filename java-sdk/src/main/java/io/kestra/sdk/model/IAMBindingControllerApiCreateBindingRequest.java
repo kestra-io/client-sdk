@@ -21,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.BindingType;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -37,7 +41,7 @@ import java.util.StringJoiner;
   IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_NAMESPACE_ID
 })
 @JsonTypeName("IAMBindingController.ApiCreateBindingRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-28T12:15:52.743487342Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMBindingControllerApiCreateBindingRequest {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
@@ -53,7 +57,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
 
   public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
   @javax.annotation.Nullable
-  private String namespaceId;
+  private JsonNullable<String> namespaceId = JsonNullable.<String>undefined();
 
   public IAMBindingControllerApiCreateBindingRequest() {
   }
@@ -134,8 +138,8 @@ public class IAMBindingControllerApiCreateBindingRequest {
   }
 
   public IAMBindingControllerApiCreateBindingRequest namespaceId(@javax.annotation.Nullable String namespaceId) {
+    this.namespaceId = JsonNullable.<String>of(namespaceId);
     
-    this.namespaceId = namespaceId;
     return this;
   }
 
@@ -144,18 +148,26 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * @return namespaceId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
   public String getNamespaceId() {
-    return namespaceId;
+        return namespaceId.orElse(null);
   }
-
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaceId(@javax.annotation.Nullable String namespaceId) {
+
+  public JsonNullable<String> getNamespaceId_JsonNullable() {
+    return namespaceId;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  public void setNamespaceId_JsonNullable(JsonNullable<String> namespaceId) {
     this.namespaceId = namespaceId;
+  }
+
+  public void setNamespaceId(@javax.annotation.Nullable String namespaceId) {
+    this.namespaceId = JsonNullable.<String>of(namespaceId);
   }
 
   @Override
@@ -170,12 +182,23 @@ public class IAMBindingControllerApiCreateBindingRequest {
     return Objects.equals(this.type, iaMBindingControllerApiCreateBindingRequest.type) &&
         Objects.equals(this.externalId, iaMBindingControllerApiCreateBindingRequest.externalId) &&
         Objects.equals(this.roleId, iaMBindingControllerApiCreateBindingRequest.roleId) &&
-        Objects.equals(this.namespaceId, iaMBindingControllerApiCreateBindingRequest.namespaceId);
+        equalsNullable(this.namespaceId, iaMBindingControllerApiCreateBindingRequest.namespaceId);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, externalId, roleId, namespaceId);
+    return Objects.hash(type, externalId, roleId, hashCodeNullable(namespaceId));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

@@ -1,4 +1,4 @@
-# KestraApi.IAMRoleControllerApiRoleCreateOrUpdateRequest
+# KestraIoKestraSdk.IAMRoleControllerApiRoleCreateOrUpdateRequest
 
 ## Properties
 

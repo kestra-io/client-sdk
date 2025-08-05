@@ -1,4 +1,4 @@
-# KestraApi.IAMTenantAccessControllerApiRoleAssignment
+# KestraIoKestraSdk.IAMTenantAccessControllerApiRoleAssignment
 
 ## Properties
 

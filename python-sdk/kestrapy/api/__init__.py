@@ -24,8 +24,9 @@ from kestrapy.api.misc_api import MiscApi
 from kestrapy.api.namespaces_api import NamespacesApi
 from kestrapy.api.plugins_api import PluginsApi
 from kestrapy.api.roles_api import RolesApi
-from kestrapy.api.scim_api import SCIMApi
 from kestrapy.api.scim_configuration_api import SCIMConfigurationApi
+from kestrapy.api.scim_groups_api import SCIMGroupsApi
+from kestrapy.api.scim_users_api import SCIMUsersApi
 from kestrapy.api.security_integrations_api import SecurityIntegrationsApi
 from kestrapy.api.service_account_api import ServiceAccountApi
 from kestrapy.api.services_api import ServicesApi

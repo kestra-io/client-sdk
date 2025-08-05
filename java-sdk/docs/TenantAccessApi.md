@@ -388,7 +388,7 @@ public class Example {
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **type** | [**UserType**](.md)| The type of user | [optional] [enum: STANDARD, SERVICE_ACCOUNT, SUPER_ADMIN] |
+| **type** | [**UserType**](.md)| The type of user | [optional] [enum: STANDARD, SERVICE_ACCOUNT] |
 
 ### Return type
 

@@ -1,4 +1,4 @@
-# KestraApi.FilesApi
+# KestraIoKestraSdk.FilesApi
 
 All URIs are relative to *http://localhost*
 
@@ -25,8 +25,8 @@ Create a directory
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -35,7 +35,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -82,8 +82,8 @@ Create a file
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -92,7 +92,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -141,8 +141,8 @@ Delete a file or directory
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -151,7 +151,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let path = "path_example"; // String | The internal storage uri of the file / directory to delete
 let tenant = "tenant_example"; // String | 
@@ -196,8 +196,8 @@ Export namespace files as a ZIP
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -206,7 +206,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 apiInstance.exportNamespaceFiles(namespace, tenant, (error, data, response) => {
@@ -249,8 +249,8 @@ Get namespace file content
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -259,7 +259,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
@@ -304,8 +304,8 @@ Get namespace file stats such as size, creation &amp; modification dates and typ
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -314,7 +314,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -361,8 +361,8 @@ List directory content
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -371,7 +371,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let opts = {
@@ -418,8 +418,8 @@ Move a file or directory
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -428,7 +428,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let from = "from_example"; // String | The internal storage uri to move from
 let to = "to_example"; // String | The internal storage uri to move to
@@ -475,8 +475,8 @@ Find files which path contain the given string in their URI
 ### Example
 
 ```javascript
-import KestraApi from 'kestra_api';
-let defaultClient = KestraApi.ApiClient.instance;
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
 // Configure HTTP basic authorization: basicAuth
 let basicAuth = defaultClient.authentications['basicAuth'];
 basicAuth.username = 'YOUR USERNAME';
@@ -485,7 +485,7 @@ basicAuth.password = 'YOUR PASSWORD';
 let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
-let apiInstance = new KestraApi.FilesApi();
+let apiInstance = new KestraIoKestraSdk.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let q = "q_example"; // String | The string the file path should contain
 let tenant = "tenant_example"; // String | 
