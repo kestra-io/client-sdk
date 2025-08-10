@@ -36,22 +36,14 @@ export default class InvitationsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createInvitation operation.
-     * @callback module:api/InvitationsApi~createInvitationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create an invitation
      * @param {String} tenant 
      * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
-     * @param {module:api/InvitationsApi~createInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    createInvitation(tenant, invitation, callback) {
+    createInvitationWithHttpInfo(tenant, invitation) {
       let postBody = invitation;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -79,26 +71,31 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~createInvitationWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create an invitation
+     * @param {String} tenant 
+     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    createInvitation(tenant, invitation) {
+      return this.createInvitationWithHttpInfo(tenant, invitation)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create an invitation
      * @param {String} resourceTenant 
      * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
-     * @param {module:api/InvitationsApi~createInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    createInvitationWithResourceTenantasSuperAdmin(resourceTenant, invitation, callback) {
+    createInvitationWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, invitation) {
       let postBody = invitation;
       // verify the required parameter 'resourceTenant' is set
       if (resourceTenant === undefined || resourceTenant === null) {
@@ -126,25 +123,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/invitations', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~createInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create an invitation
+     * @param {String} resourceTenant 
+     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    createInvitationWithResourceTenantasSuperAdmin(resourceTenant, invitation) {
+      return this.createInvitationWithResourceTenantasSuperAdminWithHttpInfo(resourceTenant, invitation)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create an invitation
      * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
-     * @param {module:api/InvitationsApi~createInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    createInvitationasSuperAdmin(invitation, callback) {
+    createInvitationasSuperAdminWithHttpInfo(invitation) {
       let postBody = invitation;
       // verify the required parameter 'invitation' is set
       if (invitation === undefined || invitation === null) {
@@ -167,25 +169,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/invitations', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteInvitation operation.
-     * @callback module:api/InvitationsApi~deleteInvitationCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create an invitation
+     * @param {module:model/Invitation} invitation Create a new invitation, send an email if the server-mail is enabled
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    createInvitationasSuperAdmin(invitation) {
+      return this.createInvitationasSuperAdminWithHttpInfo(invitation)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an invitation
      * @param {String} id The id of the invitation
      * @param {String} tenant 
-     * @param {module:api/InvitationsApi~deleteInvitationCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteInvitation(id, tenant, callback) {
+    deleteInvitationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -214,25 +221,31 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~deleteInvitationWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete an invitation
+     * @param {String} id The id of the invitation
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteInvitation(id, tenant) {
+      return this.deleteInvitationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an invitation
      * @param {String} id The id of the invitation
      * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~deleteInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    deleteInvitationWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -261,24 +274,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/invitations/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~deleteInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete an invitation
+     * @param {String} id The id of the invitation
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteInvitationWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.deleteInvitationWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an invitation
      * @param {String} id The id of the invitation
-     * @param {module:api/InvitationsApi~deleteInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteInvitationasSuperAdmin(id, callback) {
+    deleteInvitationasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -302,24 +321,28 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/invitations/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findAllInvitationsForCurrentUser operation.
-     * @callback module:api/InvitationsApi~findAllInvitationsForCurrentUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an invitation
+     * @param {String} id The id of the invitation
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteInvitationasSuperAdmin(id) {
+      return this.deleteInvitationasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all invitations for a given email
-     * @param {module:api/InvitationsApi~findAllInvitationsForCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Invitation>} and HTTP response
      */
-    findAllInvitationsForCurrentUser(callback) {
+    findAllInvitationsForCurrentUserWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -338,25 +361,28 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/me/invitations', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findAllInvitationsForCurrentUserWithTenant operation.
-     * @callback module:api/InvitationsApi~findAllInvitationsForCurrentUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all invitations for a given email
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Invitation>}
      */
+    findAllInvitationsForCurrentUser() {
+      return this.findAllInvitationsForCurrentUserWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all invitations for a given email
      * @param {String} tenant 
-     * @param {module:api/InvitationsApi~findAllInvitationsForCurrentUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Invitation>} and HTTP response
      */
-    findAllInvitationsForCurrentUserWithTenant(tenant, callback) {
+    findAllInvitationsForCurrentUserWithTenantWithHttpInfo(tenant) {
       let postBody = null;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -380,26 +406,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/me/invitations', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getInvitation operation.
-     * @callback module:api/InvitationsApi~getInvitationCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all invitations for a given email
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Invitation>}
      */
+    findAllInvitationsForCurrentUserWithTenant(tenant) {
+      return this.findAllInvitationsForCurrentUserWithTenantWithHttpInfo(tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an invitation
      * @param {String} id The id of the invitation
      * @param {String} tenant 
-     * @param {module:api/InvitationsApi~getInvitationCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    getInvitation(id, tenant, callback) {
+    getInvitationWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -428,26 +458,31 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getInvitationWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~getInvitationWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an invitation
+     * @param {String} id The id of the invitation
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    getInvitation(id, tenant) {
+      return this.getInvitationWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an invitation
      * @param {String} id The id of the invitation
      * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~getInvitationWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    getInvitationWithResourceTenantasSuperAdmin(id, resourceTenant, callback) {
+    getInvitationWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -476,25 +511,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/invitations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getInvitationasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~getInvitationasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Invitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an invitation
+     * @param {String} id The id of the invitation
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    getInvitationWithResourceTenantasSuperAdmin(id, resourceTenant) {
+      return this.getInvitationWithResourceTenantasSuperAdminWithHttpInfo(id, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get an invitation
      * @param {String} id The id of the invitation
-     * @param {module:api/InvitationsApi~getInvitationasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Invitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Invitation} and HTTP response
      */
-    getInvitationasSuperAdmin(id, callback) {
+    getInvitationasSuperAdminWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -518,26 +558,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/invitations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listByEmail operation.
-     * @callback module:api/InvitationsApi~listByEmailCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get an invitation
+     * @param {String} id The id of the invitation
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Invitation}
      */
+    getInvitationasSuperAdmin(id) {
+      return this.getInvitationasSuperAdminWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all invitations for a given email
      * @param {String} email The email address of the invited
      * @param {String} tenant 
-     * @param {module:api/InvitationsApi~listByEmailCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Invitation>} and HTTP response
      */
-    listByEmail(email, tenant, callback) {
+    listByEmailWithHttpInfo(email, tenant) {
       let postBody = null;
       // verify the required parameter 'email' is set
       if (email === undefined || email === null) {
@@ -566,26 +610,31 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/email/{email}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listByEmailWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~listByEmailWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all invitations for a given email
+     * @param {String} email The email address of the invited
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Invitation>}
      */
+    listByEmail(email, tenant) {
+      return this.listByEmailWithHttpInfo(email, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all invitations for a given email
      * @param {String} email The email address of the invited
      * @param {String} resourceTenant 
-     * @param {module:api/InvitationsApi~listByEmailWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Invitation>} and HTTP response
      */
-    listByEmailWithResourceTenantasSuperAdmin(email, resourceTenant, callback) {
+    listByEmailWithResourceTenantasSuperAdminWithHttpInfo(email, resourceTenant) {
       let postBody = null;
       // verify the required parameter 'email' is set
       if (email === undefined || email === null) {
@@ -614,25 +663,30 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/invitations/email/{email}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listByEmailasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~listByEmailasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Invitation>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all invitations for a given email
+     * @param {String} email The email address of the invited
+     * @param {String} resourceTenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Invitation>}
      */
+    listByEmailWithResourceTenantasSuperAdmin(email, resourceTenant) {
+      return this.listByEmailWithResourceTenantasSuperAdminWithHttpInfo(email, resourceTenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get all invitations for a given email
      * @param {String} email The email address of the invited
-     * @param {module:api/InvitationsApi~listByEmailasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Invitation>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Invitation>} and HTTP response
      */
-    listByEmailasSuperAdmin(email, callback) {
+    listByEmailasSuperAdminWithHttpInfo(email) {
       let postBody = null;
       // verify the required parameter 'email' is set
       if (email === undefined || email === null) {
@@ -656,17 +710,22 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/invitations/email/{email}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchInvitations operation.
-     * @callback module:api/InvitationsApi~searchInvitationsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get all invitations for a given email
+     * @param {String} email The email address of the invited
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Invitation>}
      */
+    listByEmailasSuperAdmin(email) {
+      return this.listByEmailasSuperAdminWithHttpInfo(email)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for invitations
@@ -677,10 +736,9 @@ export default class InvitationsApi {
      * @param {String} [email] The email address of the invited
      * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/InvitationsApi~searchInvitationsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsInvitation} and HTTP response
      */
-    searchInvitations(page, size, tenant, opts, callback) {
+    searchInvitationsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -718,17 +776,28 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/invitations/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchInvitationsWithResourceTenantasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~searchInvitationsWithResourceTenantasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for invitations
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.email The email address of the invited
+     * @param {module:model/InvitationInvitationStatus} opts.status The current status of the invitations
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsInvitation}
      */
+    searchInvitations(page, size, tenant, opts) {
+      return this.searchInvitationsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for invitations
@@ -739,10 +808,9 @@ export default class InvitationsApi {
      * @param {String} [email] The email address of the invited
      * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/InvitationsApi~searchInvitationsWithResourceTenantasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsInvitation} and HTTP response
      */
-    searchInvitationsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts, callback) {
+    searchInvitationsWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -780,17 +848,28 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/{resourceTenant}/invitations/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchInvitationsasSuperAdmin operation.
-     * @callback module:api/InvitationsApi~searchInvitationsasSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsInvitation} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for invitations
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} resourceTenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.email The email address of the invited
+     * @param {module:model/InvitationInvitationStatus} opts.status The current status of the invitations
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsInvitation}
      */
+    searchInvitationsWithResourceTenantasSuperAdmin(page, size, resourceTenant, opts) {
+      return this.searchInvitationsWithResourceTenantasSuperAdminWithHttpInfo(page, size, resourceTenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for invitations
@@ -800,10 +879,9 @@ export default class InvitationsApi {
      * @param {String} [email] The email address of the invited
      * @param {module:model/InvitationInvitationStatus} [status] The current status of the invitations
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/InvitationsApi~searchInvitationsasSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsInvitation}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsInvitation} and HTTP response
      */
-    searchInvitationsasSuperAdmin(page, size, opts, callback) {
+    searchInvitationsasSuperAdminWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -836,8 +914,25 @@ export default class InvitationsApi {
       return this.apiClient.callApi(
         '/api/v1/tenants/invitations/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Search for invitations
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.email The email address of the invited
+     * @param {module:model/InvitationInvitationStatus} opts.status The current status of the invitations
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsInvitation}
+     */
+    searchInvitationsasSuperAdmin(page, size, opts) {
+      return this.searchInvitationsasSuperAdminWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

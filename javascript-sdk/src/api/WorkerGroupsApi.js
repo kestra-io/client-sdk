@@ -37,21 +37,13 @@ export default class WorkerGroupsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createWorkerGroup operation.
-     * @callback module:api/WorkerGroupsApi~createWorkerGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Create a new worker group.
      * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
-     * @param {module:api/WorkerGroupsApi~createWorkerGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroup}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiWorkerGroup} and HTTP response
      */
-    createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
+    createWorkerGroupWithHttpInfo(clusterControllerApiCreateOrUpdateWorkerGroupRequest) {
       let postBody = clusterControllerApiCreateOrUpdateWorkerGroupRequest;
       // verify the required parameter 'clusterControllerApiCreateOrUpdateWorkerGroupRequest' is set
       if (clusterControllerApiCreateOrUpdateWorkerGroupRequest === undefined || clusterControllerApiCreateOrUpdateWorkerGroupRequest === null) {
@@ -74,25 +66,29 @@ export default class WorkerGroupsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/workergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteWorkerGroupById operation.
-     * @callback module:api/WorkerGroupsApi~deleteWorkerGroupByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create a new worker group.
+     * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiWorkerGroup}
      */
+    createWorkerGroup(clusterControllerApiCreateOrUpdateWorkerGroupRequest) {
+      return this.createWorkerGroupWithHttpInfo(clusterControllerApiCreateOrUpdateWorkerGroupRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an existing worker group.
      * @param {String} id 
-     * @param {module:api/WorkerGroupsApi~deleteWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteWorkerGroupById(id, callback) {
+    deleteWorkerGroupByIdWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -116,25 +112,29 @@ export default class WorkerGroupsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/workergroups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getWorkerGroupById operation.
-     * @callback module:api/WorkerGroupsApi~getWorkerGroupByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroupDetails} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete an existing worker group.
+     * @param {String} id 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteWorkerGroupById(id) {
+      return this.deleteWorkerGroupByIdWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get details about a worker group.
      * @param {String} id 
-     * @param {module:api/WorkerGroupsApi~getWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroupDetails}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiWorkerGroupDetails} and HTTP response
      */
-    getWorkerGroupById(id, callback) {
+    getWorkerGroupByIdWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -158,24 +158,28 @@ export default class WorkerGroupsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/workergroups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listWorkerGroups operation.
-     * @callback module:api/WorkerGroupsApi~listWorkerGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroupList} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get details about a worker group.
+     * @param {String} id 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiWorkerGroupDetails}
      */
+    getWorkerGroupById(id) {
+      return this.getWorkerGroupByIdWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all Worker Groups
-     * @param {module:api/WorkerGroupsApi~listWorkerGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroupList}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiWorkerGroupList} and HTTP response
      */
-    listWorkerGroups(callback) {
+    listWorkerGroupsWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -194,26 +198,29 @@ export default class WorkerGroupsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/workergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateWorkerGroupById operation.
-     * @callback module:api/WorkerGroupsApi~updateWorkerGroupByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiWorkerGroup} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all Worker Groups
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiWorkerGroupList}
      */
+    listWorkerGroups() {
+      return this.listWorkerGroupsWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update an existing worker group.
      * @param {String} id 
      * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
-     * @param {module:api/WorkerGroupsApi~updateWorkerGroupByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiWorkerGroup}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiWorkerGroup} and HTTP response
      */
-    updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest, callback) {
+    updateWorkerGroupByIdWithHttpInfo(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest) {
       let postBody = clusterControllerApiCreateOrUpdateWorkerGroupRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -241,8 +248,21 @@ export default class WorkerGroupsApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/workergroups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update an existing worker group.
+     * @param {String} id 
+     * @param {module:model/ClusterControllerApiCreateOrUpdateWorkerGroupRequest} clusterControllerApiCreateOrUpdateWorkerGroupRequest The worker group definition
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiWorkerGroup}
+     */
+    updateWorkerGroupById(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest) {
+      return this.updateWorkerGroupByIdWithHttpInfo(id, clusterControllerApiCreateOrUpdateWorkerGroupRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

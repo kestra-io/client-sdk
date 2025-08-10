@@ -28,13 +28,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getAllResourceTypes(integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllResourceTypes(integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -75,13 +74,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getAllSchemas(integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllSchemas(integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -123,13 +121,12 @@ let apiInstance = new KestraApi.SCIMConfigurationApi();
 let name = "name_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getResourceType(name, integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getResourceType(name, integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -172,13 +169,12 @@ let apiInstance = new KestraApi.SCIMConfigurationApi();
 let uri = "uri_example"; // String | 
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getSchema(uri, integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getSchema(uri, integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -220,13 +216,12 @@ import KestraApi from 'kestra_api';
 let apiInstance = new KestraApi.SCIMConfigurationApi();
 let integration = "integration_example"; // String | 
 let tenant = "tenant_example"; // String | 
-apiInstance.getServiceProviderConfiguration(integration, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getServiceProviderConfiguration(integration, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

@@ -39,13 +39,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let tenant = "tenant_example"; // String | 
 let binding = [new KestraApi.Binding()]; // [Binding] | The bindings
-apiInstance.bulkCreateBinding(tenant, binding, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateBinding(tenant, binding).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -92,13 +91,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let binding = [new KestraApi.Binding()]; // [Binding] | The bindings
-apiInstance.bulkCreateBindingapsSuperAdmin(resourceTenant, binding, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateBindingapsSuperAdmin(resourceTenant, binding).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -145,13 +143,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let tenant = "tenant_example"; // String | 
 let binding = new KestraApi.Binding(); // Binding | The binding
-apiInstance.createBinding(tenant, binding, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createBinding(tenant, binding).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -198,13 +195,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let resourceTenant = "resourceTenant_example"; // String | 
 let binding = new KestraApi.Binding(); // Binding | The binding
-apiInstance.createBindingapsSuperAdmin(resourceTenant, binding, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createBindingapsSuperAdmin(resourceTenant, binding).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -251,13 +247,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let id = "id_example"; // String | The binding id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteBinding(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteBinding(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -304,13 +299,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let id = "id_example"; // String | The binding id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.deleteBindingapsSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteBindingapsSuperAdmin(id, resourceTenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -357,13 +351,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let id = "id_example"; // String | The binding id
 let tenant = "tenant_example"; // String | 
-apiInstance.getBinding(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getBinding(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -410,13 +403,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.BindingsApi();
 let id = "id_example"; // String | The binding id
 let resourceTenant = "resourceTenant_example"; // String | 
-apiInstance.getBindingapsSuperAdmin(id, resourceTenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getBindingapsSuperAdmin(id, resourceTenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -471,13 +463,12 @@ let opts = {
   'id': "id_example", // String | External id filter
   'namespace': "namespace_example" // String | A namespace filter
 };
-apiInstance.searchBindings(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchBindings(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -538,13 +529,12 @@ let opts = {
   'id': "id_example", // String | External id filter
   'namespace': "namespace_example" // String | A namespace filter
 };
-apiInstance.searchBindingsapsSuperAdmin(page, size, resourceTenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchBindingsapsSuperAdmin(page, size, resourceTenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

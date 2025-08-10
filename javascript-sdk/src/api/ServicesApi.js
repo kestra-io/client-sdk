@@ -38,20 +38,12 @@ export default class ServicesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the getActiveServices operation.
-     * @callback module:api/ServicesApi~getActiveServicesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ClusterControllerApiActiveServiceList} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Get details about active services
-     * @param {module:api/ServicesApi~getActiveServicesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ClusterControllerApiActiveServiceList}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClusterControllerApiActiveServiceList} and HTTP response
      */
-    getActiveServices(callback) {
+    getActiveServicesWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -70,25 +62,28 @@ export default class ServicesApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/services/active', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getService operation.
-     * @callback module:api/ServicesApi~getServiceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ServiceInstance} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get details about active services
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClusterControllerApiActiveServiceList}
      */
+    getActiveServices() {
+      return this.getActiveServicesWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get details about a service
      * @param {String} id 
-     * @param {module:api/ServicesApi~getServiceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ServiceInstance}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ServiceInstance} and HTTP response
      */
-    getService(id, callback) {
+    getServiceWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -112,17 +107,22 @@ export default class ServicesApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/services/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchServices operation.
-     * @callback module:api/ServicesApi~searchServicesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsClusterControllerApiServiceInstance} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get details about a service
+     * @param {String} id 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ServiceInstance}
      */
+    getService(id) {
+      return this.getServiceWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for service
@@ -132,10 +132,9 @@ export default class ServicesApi {
      * @param {Array.<String>} [sort] The sort of current page
      * @param {Array.<module:model/ServiceServiceState>} [state] The state filter
      * @param {Array.<module:model/ServiceType>} [type] The server type filter
-     * @param {module:api/ServicesApi~searchServicesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsClusterControllerApiServiceInstance}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsClusterControllerApiServiceInstance} and HTTP response
      */
-    searchServices(page, size, opts, callback) {
+    searchServicesWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -168,8 +167,25 @@ export default class ServicesApi {
       return this.apiClient.callApi(
         '/api/v1/cluster/services/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Search for service
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @param {Array.<module:model/ServiceServiceState>} opts.state The state filter
+     * @param {Array.<module:model/ServiceType>} opts.type The server type filter
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsClusterControllerApiServiceInstance}
+     */
+    searchServices(page, size, opts) {
+      return this.searchServicesWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -25,13 +25,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'q': "q_example" // String | A string filter to get tags with matching blueprints only
 };
-apiInstance.internalBlueprintTags(tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.internalBlueprintTags(tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -73,13 +72,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'q': "q_example" // String | A string filter to get tags with matching blueprints only
 };
-apiInstance.listBlueprintTags(kind, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listBlueprintTags(kind, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

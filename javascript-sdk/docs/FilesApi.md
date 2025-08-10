@@ -41,13 +41,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'path': "path_example" // String | The internal storage uri
 };
-apiInstance.createNamespaceDirectory(namespace, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.createNamespaceDirectory(namespace, tenant, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -99,13 +98,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'fileContent': "/path/to/file" // File | The file to upload
 };
-apiInstance.createNamespaceFile(namespace, path, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.createNamespaceFile(namespace, path, tenant, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -155,13 +153,12 @@ let apiInstance = new KestraApi.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let path = "path_example"; // String | The internal storage uri of the file / directory to delete
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteFileDirectory(namespace, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteFileDirectory(namespace, path, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -209,13 +206,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraApi.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.exportNamespaceFiles(namespace, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.exportNamespaceFiles(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -263,13 +259,12 @@ let apiInstance = new KestraApi.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let path = "path_example"; // String | The internal storage uri
 let tenant = "tenant_example"; // String | 
-apiInstance.getFileContent(namespace, path, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFileContent(namespace, path, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -320,13 +315,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'path': "path_example" // String | The internal storage uri
 };
-apiInstance.getFileMetadatas(namespace, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFileMetadatas(namespace, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -377,13 +371,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'path': "path_example" // String | The internal storage uri
 };
-apiInstance.listNamespaceDirectoryFiles(namespace, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listNamespaceDirectoryFiles(namespace, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -433,13 +426,12 @@ let namespace = "namespace_example"; // String | The namespace id
 let from = "from_example"; // String | The internal storage uri to move from
 let to = "to_example"; // String | The internal storage uri to move to
 let tenant = "tenant_example"; // String | 
-apiInstance.moveFileDirectory(namespace, from, to, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.moveFileDirectory(namespace, from, to, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -489,13 +481,12 @@ let apiInstance = new KestraApi.FilesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let q = "q_example"; // String | The string the file path should contain
 let tenant = "tenant_example"; // String | 
-apiInstance.searchNamespaceFiles(namespace, q, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchNamespaceFiles(namespace, q, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

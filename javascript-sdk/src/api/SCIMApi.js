@@ -38,13 +38,6 @@ export default class SCIMApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the createSCIMResourceByIdGroups operation.
-     * @callback module:api/SCIMApi~createSCIMResourceByIdGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * {@inheritDoc}
@@ -55,10 +48,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~createSCIMResourceByIdGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createSCIMResourceByIdGroups(integration, tenant, scimUser, opts, callback) {
+    createSCIMResourceByIdGroupsWithHttpInfo(integration, tenant, scimUser, opts) {
       opts = opts || {};
       let postBody = scimUser;
       // verify the required parameter 'integration' is set
@@ -94,17 +86,28 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createSCIMResourceByIdUsers operation.
-     * @callback module:api/SCIMApi~createSCIMResourceByIdUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Create
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/ScimUser} scimUser 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createSCIMResourceByIdGroups(integration, tenant, scimUser, opts) {
+      return this.createSCIMResourceByIdGroupsWithHttpInfo(integration, tenant, scimUser, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -115,10 +118,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~createSCIMResourceByIdUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    createSCIMResourceByIdUsers(integration, tenant, scimUser, opts, callback) {
+    createSCIMResourceByIdUsersWithHttpInfo(integration, tenant, scimUser, opts) {
       opts = opts || {};
       let postBody = scimUser;
       // verify the required parameter 'integration' is set
@@ -154,17 +156,28 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteGroups operation.
-     * @callback module:api/SCIMApi~deleteGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Create
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/ScimUser} scimUser 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    createSCIMResourceByIdUsers(integration, tenant, scimUser, opts) {
+      return this.createSCIMResourceByIdUsersWithHttpInfo(integration, tenant, scimUser, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -172,10 +185,9 @@ export default class SCIMApi {
      * @param {String} id 
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMApi~deleteGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteGroups(id, integration, tenant, callback) {
+    deleteGroupsWithHttpInfo(id, integration, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -209,17 +221,9 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the deleteUsers operation.
-     * @callback module:api/SCIMApi~deleteUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * {@inheritDoc}
@@ -227,10 +231,25 @@ export default class SCIMApi {
      * @param {String} id 
      * @param {String} integration 
      * @param {String} tenant 
-     * @param {module:api/SCIMApi~deleteUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    deleteUsers(id, integration, tenant, callback) {
+    deleteGroups(id, integration, tenant) {
+      return this.deleteGroupsWithHttpInfo(id, integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * Delete from the backing store
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    deleteUsersWithHttpInfo(id, integration, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -264,17 +283,25 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findGroups operation.
-     * @callback module:api/SCIMApi~findGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Delete from the backing store
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteUsers(id, integration, tenant) {
+      return this.deleteUsersWithHttpInfo(id, integration, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -282,10 +309,9 @@ export default class SCIMApi {
      * @param {String} integration 
      * @param {String} tenant 
      * @param {module:model/SearchRequest} searchRequest 
-     * @param {module:api/SCIMApi~findGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    findGroups(integration, tenant, searchRequest, callback) {
+    findGroupsWithHttpInfo(integration, tenant, searchRequest) {
       let postBody = searchRequest;
       // verify the required parameter 'integration' is set
       if (integration === undefined || integration === null) {
@@ -318,17 +344,9 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/.search', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
-
-    /**
-     * Callback function to receive the result of the findUsers operation.
-     * @callback module:api/SCIMApi~findUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * {@inheritDoc}
@@ -336,10 +354,25 @@ export default class SCIMApi {
      * @param {String} integration 
      * @param {String} tenant 
      * @param {module:model/SearchRequest} searchRequest 
-     * @param {module:api/SCIMApi~findUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
-    findUsers(integration, tenant, searchRequest, callback) {
+    findGroups(integration, tenant, searchRequest) {
+      return this.findGroupsWithHttpInfo(integration, tenant, searchRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * Search
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/SearchRequest} searchRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
+     */
+    findUsersWithHttpInfo(integration, tenant, searchRequest) {
       let postBody = searchRequest;
       // verify the required parameter 'integration' is set
       if (integration === undefined || integration === null) {
@@ -372,17 +405,25 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users/.search', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSCIMResourceByIdGroups operation.
-     * @callback module:api/SCIMApi~getSCIMResourceByIdGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Search
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/SearchRequest} searchRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    findUsers(integration, tenant, searchRequest) {
+      return this.findUsersWithHttpInfo(integration, tenant, searchRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -393,10 +434,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~getSCIMResourceByIdGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    getSCIMResourceByIdGroups(id, integration, tenant, opts, callback) {
+    getSCIMResourceByIdGroupsWithHttpInfo(id, integration, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -433,17 +473,28 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getSCIMResourceByIdUsers operation.
-     * @callback module:api/SCIMApi~getSCIMResourceByIdUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Find by id
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    getSCIMResourceByIdGroups(id, integration, tenant, opts) {
+      return this.getSCIMResourceByIdGroupsWithHttpInfo(id, integration, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -454,10 +505,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~getSCIMResourceByIdUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    getSCIMResourceByIdUsers(id, integration, tenant, opts, callback) {
+    getSCIMResourceByIdUsersWithHttpInfo(id, integration, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -494,17 +544,28 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchGroups operation.
-     * @callback module:api/SCIMApi~patchGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Find by id
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    getSCIMResourceByIdUsers(id, integration, tenant, opts) {
+      return this.getSCIMResourceByIdUsersWithHttpInfo(id, integration, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -516,10 +577,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~patchGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    patchGroups(id, integration, tenant, patchRequest, opts, callback) {
+    patchGroupsWithHttpInfo(id, integration, tenant, patchRequest, opts) {
       opts = opts || {};
       let postBody = patchRequest;
       // verify the required parameter 'id' is set
@@ -560,17 +620,29 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchUsers operation.
-     * @callback module:api/SCIMApi~patchUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Patch a portion of the backing store
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/PatchRequest} patchRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    patchGroups(id, integration, tenant, patchRequest, opts) {
+      return this.patchGroupsWithHttpInfo(id, integration, tenant, patchRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -582,10 +654,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~patchUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    patchUsers(id, integration, tenant, patchRequest, opts, callback) {
+    patchUsersWithHttpInfo(id, integration, tenant, patchRequest, opts) {
       opts = opts || {};
       let postBody = patchRequest;
       // verify the required parameter 'id' is set
@@ -626,17 +697,29 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the queryGroups operation.
-     * @callback module:api/SCIMApi~queryGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Patch a portion of the backing store
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/PatchRequest} patchRequest 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    patchUsers(id, integration, tenant, patchRequest, opts) {
+      return this.patchUsersWithHttpInfo(id, integration, tenant, patchRequest, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -651,10 +734,9 @@ export default class SCIMApi {
      * @param {module:model/SortOrder} [sortOrder] 
      * @param {Number} [startIndex] 
      * @param {Number} [count] 
-     * @param {module:api/SCIMApi~queryGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    queryGroups(integration, tenant, opts, callback) {
+    queryGroupsWithHttpInfo(integration, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'integration' is set
@@ -691,17 +773,32 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the queryUsers operation.
-     * @callback module:api/SCIMApi~queryUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Find by a combination of query parameters
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @param {String} opts.filter 
+     * @param {String} opts.sortBy 
+     * @param {module:model/SortOrder} opts.sortOrder 
+     * @param {Number} opts.startIndex 
+     * @param {Number} opts.count 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    queryGroups(integration, tenant, opts) {
+      return this.queryGroupsWithHttpInfo(integration, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -716,10 +813,9 @@ export default class SCIMApi {
      * @param {module:model/SortOrder} [sortOrder] 
      * @param {Number} [startIndex] 
      * @param {Number} [count] 
-     * @param {module:api/SCIMApi~queryUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    queryUsers(integration, tenant, opts, callback) {
+    queryUsersWithHttpInfo(integration, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'integration' is set
@@ -756,17 +852,32 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateGroups operation.
-     * @callback module:api/SCIMApi~updateGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Find by a combination of query parameters
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @param {String} opts.filter 
+     * @param {String} opts.sortBy 
+     * @param {module:model/SortOrder} opts.sortOrder 
+     * @param {Number} opts.startIndex 
+     * @param {Number} opts.count 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    queryUsers(integration, tenant, opts) {
+      return this.queryUsersWithHttpInfo(integration, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -778,10 +889,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~updateGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    updateGroups(id, integration, tenant, scimResource, opts, callback) {
+    updateGroupsWithHttpInfo(id, integration, tenant, scimResource, opts) {
       opts = opts || {};
       let postBody = scimResource;
       // verify the required parameter 'id' is set
@@ -822,17 +932,29 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUsers operation.
-     * @callback module:api/SCIMApi~updateUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ScimResource} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * {@inheritDoc}
+     * Update
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/ScimResource} scimResource 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
      */
+    updateGroups(id, integration, tenant, scimResource, opts) {
+      return this.updateGroupsWithHttpInfo(id, integration, tenant, scimResource, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * {@inheritDoc}
@@ -844,10 +966,9 @@ export default class SCIMApi {
      * @param {Object} opts Optional parameters
      * @param {String} [attributes] 
      * @param {String} [excludedAttributes] 
-     * @param {module:api/SCIMApi~updateUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ScimResource}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ScimResource} and HTTP response
      */
-    updateUsers(id, integration, tenant, scimResource, opts, callback) {
+    updateUsersWithHttpInfo(id, integration, tenant, scimResource, opts) {
       opts = opts || {};
       let postBody = scimResource;
       // verify the required parameter 'id' is set
@@ -888,8 +1009,27 @@ export default class SCIMApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/integrations/{integration}/scim/v2/Users/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * {@inheritDoc}
+     * Update
+     * @param {String} id 
+     * @param {String} integration 
+     * @param {String} tenant 
+     * @param {module:model/ScimResource} scimResource 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.attributes 
+     * @param {String} opts.excludedAttributes 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ScimResource}
+     */
+    updateUsers(id, integration, tenant, scimResource, opts) {
+      return this.updateUsersWithHttpInfo(id, integration, tenant, scimResource, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 
