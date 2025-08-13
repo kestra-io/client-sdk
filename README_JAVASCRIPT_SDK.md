@@ -2,32 +2,30 @@
 
 ## Steps to generate the SDK
 
-1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
+1. Update the `kestra-ee.yml` with the latest OpenSpec API changes (if necessary).
 
-  - As of 29/07/25, `the kestra-ee.yml` has been generated and used without modifications.
+  - As of 2025-07-29, the `kestra-ee.yml` file has been generated and used without modifications.
   - Micronaut OpenAPI version `6.17.3` was used
 
-2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
+2. **Generate the SDK** using the `generate-sdks.sh` script, which utilizes the `openapi-generator-cli` Docker image.
 
-3.
-## Step to use
+## How to use
 
-The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
-Use the `import {KestraClient} from "kestra_api";` manually written that gather everything in one client.
+The OpenAPI generator creates one API per controller. To simplify usage, use the manually written `KestraClient` (`import {KestraClient} from "kestra_api";`) that consolidates all APIs into a single client.
 
-Then you can instantiate the client with the following code:
+### Instantiate the client:
 
 ```javascript
 const kestraClient = new KestraClient(host, token, username, password);
  ```
 
-Then simply use the client to call the API:
+### Make API calls:
 
 ```javascript
 kestraClient.flowsApi.searchFlows()
 ```
 
-Each method of the API will expect a callback with the following signature:
+Each method of the API expects a callback function with the following signature:
 
 ```javascript
 callback (error, data, response)
