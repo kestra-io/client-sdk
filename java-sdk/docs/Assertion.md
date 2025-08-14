@@ -7,23 +7,23 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**value** | [**PropertyObject**](PropertyObject.md) |  |  |
+|**value** | [**String**](PropertyObject.md) |  |  |
 |**taskId** | **String** |  |  [optional] |
-|**errorMessage** | [**PropertyString**](PropertyString.md) |  |  [optional] |
-|**description** | [**PropertyString**](PropertyString.md) |  |  [optional] |
-|**endsWith** | [**PropertyString**](PropertyString.md) |  |  [optional] |
-|**startsWith** | [**PropertyString**](PropertyString.md) |  |  [optional] |
-|**contains** | [**PropertyString**](PropertyString.md) |  |  [optional] |
-|**equalTo** | [**PropertyObject**](PropertyObject.md) |  |  [optional] |
-|**notEqualTo** | [**PropertyObject**](PropertyObject.md) |  |  [optional] |
-|**greaterThan** | [**PropertyDouble**](PropertyDouble.md) |  |  [optional] |
-|**greaterThanOrEqualTo** | [**PropertyDouble**](PropertyDouble.md) |  |  [optional] |
-|**lessThan** | [**PropertyDouble**](PropertyDouble.md) |  |  [optional] |
-|**lessThanOrEqualTo** | [**PropertyDouble**](PropertyDouble.md) |  |  [optional] |
-|**in** | [**PropertyListString**](PropertyListString.md) |  |  [optional] |
-|**notIn** | [**PropertyListString**](PropertyListString.md) |  |  [optional] |
-|**isNull** | [**PropertyBoolean**](PropertyBoolean.md) |  |  [optional] |
-|**isNotNull** | [**PropertyBoolean**](PropertyBoolean.md) |  |  [optional] |
+|**errorMessage** | [**String**](PropertyString.md) |  |  [optional] |
+|**description** | [**String**](PropertyString.md) |  |  [optional] |
+|**endsWith** | [**String**](PropertyString.md) |  |  [optional] |
+|**startsWith** | [**String**](PropertyString.md) |  |  [optional] |
+|**contains** | [**String**](PropertyString.md) |  |  [optional] |
+|**equalTo** | [**String**](PropertyObject.md) |  |  [optional] |
+|**notEqualTo** | [**String**](PropertyObject.md) |  |  [optional] |
+|**greaterThan** | [**String**](PropertyDouble.md) |  |  [optional] |
+|**greaterThanOrEqualTo** | [**String**](PropertyDouble.md) |  |  [optional] |
+|**lessThan** | [**String**](PropertyDouble.md) |  |  [optional] |
+|**lessThanOrEqualTo** | [**String**](PropertyDouble.md) |  |  [optional] |
+|**in** | [**String**](PropertyListString.md) |  |  [optional] |
+|**notIn** | [**String**](PropertyListString.md) |  |  [optional] |
+|**isNull** | [**String**](PropertyBoolean.md) |  |  [optional] |
+|**isNotNull** | [**String**](PropertyBoolean.md) |  |  [optional] |
 
 
 

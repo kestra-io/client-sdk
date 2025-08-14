@@ -33,7 +33,7 @@ import java.util.StringJoiner;
   FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
   FlowGenerationPrompt.JSON_PROPERTY_FLOW_YAML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class FlowGenerationPrompt {
   public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
   @javax.annotation.Nonnull

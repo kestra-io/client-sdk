@@ -43,7 +43,7 @@ import java.util.StringJoiner;
   InstanceControllerApiPluginVersionDetails.JSON_PROPERTY_CLASSES
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiPluginVersionDetails {
   public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
   @javax.annotation.Nullable

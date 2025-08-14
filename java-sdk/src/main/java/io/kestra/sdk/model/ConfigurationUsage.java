@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   ConfigurationUsage.JSON_PROPERTY_SECRET_TYPE,
   ConfigurationUsage.JSON_PROPERTY_JAVA_SECURITY_ENABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ConfigurationUsage {
   public static final String JSON_PROPERTY_REPOSITORY_TYPE = "repositoryType";
   @javax.annotation.Nullable

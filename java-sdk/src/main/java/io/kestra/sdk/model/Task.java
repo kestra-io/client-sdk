@@ -49,7 +49,7 @@ import java.util.StringJoiner;
   Task.JSON_PROPERTY_ALLOW_WARNING,
   Task.JSON_PROPERTY_TASK_CACHE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Task {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -73,7 +73,7 @@ public class Task {
 
   public static final String JSON_PROPERTY_TIMEOUT = "timeout";
   @javax.annotation.Nullable
-  private PropertyDuration timeout;
+  private String timeout;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @javax.annotation.Nullable
@@ -235,7 +235,7 @@ public class Task {
     this.retry = retry;
   }
 
-  public Task timeout(@javax.annotation.Nullable PropertyDuration timeout) {
+  public Task timeout(@javax.annotation.Nullable String timeout) {
     
     this.timeout = timeout;
     return this;
@@ -249,14 +249,14 @@ public class Task {
   @JsonProperty(JSON_PROPERTY_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PropertyDuration getTimeout() {
+  public String getTimeout() {
     return timeout;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TIMEOUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimeout(@javax.annotation.Nullable PropertyDuration timeout) {
+  public void setTimeout(@javax.annotation.Nullable String timeout) {
     this.timeout = timeout;
   }
 

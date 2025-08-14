@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   SearchResultFlow.JSON_PROPERTY_FRAGMENTS
 })
 @JsonTypeName("SearchResult_Flow_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SearchResultFlow {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nullable
