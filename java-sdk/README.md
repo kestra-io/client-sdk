@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: v1
 
-- Build date: 2025-08-05T13:38:05.347663356Z[Etc/UTC]
+- Build date: 2025-08-14T16:34:14.833468251Z[Etc/UTC]
 
 - Generator version: 7.14.0-SNAPSHOT
 
@@ -45,7 +45,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>v0.24.0</version>
+  <version>v0.24.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:v0.24.0"
+compile "io.kestra:kestra-api-client:v0.24.1"
 ```
 
 ### Others
@@ -68,7 +68,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-v0.24.0.jar`
+- `target/kestra-api-client-v0.24.1.jar`
 - `target/lib/*.jar`
 
 ## Getting Started

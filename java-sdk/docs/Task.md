@@ -12,7 +12,7 @@
 |**version** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
 |**retry** | **Object** |  |  [optional] |
-|**timeout** | [**PropertyDuration**](PropertyDuration.md) |  |  [optional] |
+|**timeout** | [**String**](PropertyDuration.md) |  |  [optional] |
 |**disabled** | **Boolean** |  |  [optional] |
 |**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
 |**logLevel** | **Level** |  |  [optional] |

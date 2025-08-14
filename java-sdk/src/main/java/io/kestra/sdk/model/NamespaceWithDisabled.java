@@ -58,7 +58,7 @@ import java.util.StringJoiner;
   NamespaceWithDisabled.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE,
   NamespaceWithDisabled.JSON_PROPERTY_DISABLED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class NamespaceWithDisabled {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull

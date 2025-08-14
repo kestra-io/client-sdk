@@ -15,3 +15,11 @@ modelPackage: io.kestra.sdk.model
 apiPackage: io.kestra.sdk.api
 groupId: io.kestra
 artifactId: kestra-api-client
+
+typeMappings:
+  PropertyDuration: String
+  PropertyString: String
+  PropertyBoolean: String
+  PropertyDouble: String
+  PropertyListString: String
+  PropertyObject: String

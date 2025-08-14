@@ -40,7 +40,7 @@ import java.util.StringJoiner;
   TaskFixture.JSON_PROPERTY_OUTPUTS,
   TaskFixture.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class TaskFixture {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -60,7 +60,7 @@ public class TaskFixture {
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @javax.annotation.Nullable
-  private PropertyString description;
+  private String description;
 
   public TaskFixture() {
   }
@@ -173,7 +173,7 @@ public class TaskFixture {
     this.outputs = outputs;
   }
 
-  public TaskFixture description(@javax.annotation.Nullable PropertyString description) {
+  public TaskFixture description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -187,14 +187,14 @@ public class TaskFixture {
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public PropertyString getDescription() {
+  public String getDescription() {
     return description;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable PropertyString description) {
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 

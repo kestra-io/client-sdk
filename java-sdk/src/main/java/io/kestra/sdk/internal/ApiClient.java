@@ -81,7 +81,7 @@ import io.kestra.sdk.internal.auth.Authentication;
 import io.kestra.sdk.internal.auth.HttpBasicAuth;
 import io.kestra.sdk.internal.auth.HttpBearerAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -128,7 +128,7 @@ public class ApiClient extends JavaTimeFormatter {
     dateFormat = ApiClient.buildDefaultDateFormat();
 
     // Set default User-Agent.
-    setUserAgent("OpenAPI-Generator/v0.24.0/java");
+    setUserAgent("OpenAPI-Generator/v0.24.1/java");
 
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
@@ -596,32 +596,31 @@ public class ApiClient extends JavaTimeFormatter {
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
-    public boolean isYamlMime(String mime) {
-        // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
-        String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
-        return mime != null && mime.matches(yamlMime);
+  public boolean isYamlMime(String mime) {
+    // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
+    String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
+    return mime != null && mime.matches(yamlMime);
+  }
+  /**
+   * Select the Accept header's value from the given accepts array:
+   *   if JSON exists in the given array, use it;
+   *   otherwise use all of them (joining into a string)
+   *
+   * @param accepts The accepts array to select from
+   * @return The Accept header to use. If the given array is empty,
+   *   null will be returned (not to set the Accept header explicitly).
+   */
+  public String selectHeaderAccept(String[] accepts) {
+    if (accepts.length == 0) {
+      return null;
     }
-
-    /**
-     * Select the Accept header's value from the given accepts array:
-     * if JSON exists in the given array, use it;
-     * otherwise use all of them (joining into a string)
-     *
-     * @param accepts The accepts array to select from
-     * @return The Accept header to use. If the given array is empty,
-     * null will be returned (not to set the Accept header explicitly).
-     */
-    public String selectHeaderAccept(String[] accepts) {
-        if (accepts.length == 0) {
-            return null;
-        }
-        for (String accept : accepts) {
-            if (isJsonMime(accept)) {
-                return accept;
-            }
-        }
-        return StringUtil.join(accepts, ",");
+    for (String accept : accepts) {
+      if (isJsonMime(accept)) {
+        return accept;
+      }
     }
+    return StringUtil.join(accepts, ",");
+  }
 
   /**
    * Select the Content-Type header's value from the given array:

@@ -11,7 +11,7 @@
 |**value** | **String** |  |  [optional] |
 |**state** | **StateType** |  |  [optional] |
 |**outputs** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**description** | [**PropertyString**](PropertyString.md) |  |  [optional] |
+|**description** | [**String**](PropertyString.md) |  |  [optional] |
 
 
 
