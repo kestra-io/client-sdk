@@ -25,7 +25,7 @@ jobs:
       run:
         working-directory: ./python-sdk
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v4
