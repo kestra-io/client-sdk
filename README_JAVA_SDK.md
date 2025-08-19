@@ -14,6 +14,7 @@
     ```groovy
     implementation "io.swagger.core.v3:swagger-annotations:$swagger_v3_annotations_version"
     ```
+    note: you may only need to rollback all the build.gradle and bump gradle.properties
     - Enforce the SLF4J version to > 2.0
       ```groovy
       configurations.all {
