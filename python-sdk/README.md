@@ -48,38 +48,56 @@ Execute `pytest` to run the tests.
 
 ## Getting Started
 
-Please follow the [installation procedure](#installation--usage) and then run the following:
+Please follow the [installation procedure](#installation--usage) and then run the following. This example assumes you have a Kestra instance running and accessible via the KESTRA_HOST environment variable, along with your username and password set in .env file such as:
+
+```text
+KESTRA_HOST=http://localhost:8080
+KESTRA_USERNAME=admin@kestra.io
+KESTRA_PASSWORD=Admin1234
+```
+
+> Note: be sure to have `pip install python-dotenv` for loading auth environment variables from .env file
+
+Now, use the following Python script to create or update a flow that logs a message:
 
 ```python
-
-import kestrapy
-from kestrapy.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
+import kestra_api_client
+from dotenv import load_dotenv
+import os
+import json
+load_dotenv()
+configuration = kestra_api_client.Configuration(
+    host = os.environ.get("KESTRA_HOST"),
+    username = os.environ.get("KESTRA_USERNAME"),
+    password = os.environ.get("KESTRA_PASSWORD")
 )
-
-
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.AIApi(api_client)
-    tenant = 'tenant_example' # str | 
-    flow_generation_prompt = kestrapy.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
-
-    try:
-        # Generate or regenerate a flow based on a prompt
-        api_response = api_instance.generate_flow(tenant, flow_generation_prompt)
-        print("The response of AIApi->generate_flow:\n")
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling AIApi->generate_flow: %s\n" % e)
-
+api_client = kestra_api_client.ApiClient(configuration)
+api_instance = kestra_api_client.FlowsApi(api_client)
+tenant = 'main'
+flow_id = 'sdk'
+namespace = 'demo'
+body = f"""id: {flow_id}
+namespace: {namespace}
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from the SDK! 👋
+"""
+try:
+    api_response = api_instance.create_flow(tenant, body)
+    print(api_response)
+except kestra_api_client.rest.ApiException as e:
+    if e.status == 422 and "Flow id already exists" in json.loads(e.body).get("message", ""):
+        try:
+            api_response = api_instance.update_flow(flow_id, namespace, tenant, body)
+            print(api_response)
+        except ValueError:
+            print("Flow updated successfully")
+    else:
+        print(e)
 ```
+
+In the Kestra UI, there will now be a flow with the ID sdk that logs the hello message.
 
 ## Documentation for API Endpoints
 
