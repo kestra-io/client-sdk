@@ -29,9 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * IAMInvitationControllerApiInvitationDetail
@@ -50,7 +47,7 @@ import java.util.StringJoiner;
   IAMInvitationControllerApiInvitationDetail.JSON_PROPERTY_LINK
 })
 @JsonTypeName("IAMInvitationController.ApiInvitationDetail")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMInvitationControllerApiInvitationDetail {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable
@@ -445,151 +442,6 @@ public class IAMInvitationControllerApiInvitationDetail {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      try {
-        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `roles` to the URL query string
-    if (getRoles() != null) {
-      for (int i = 0; i < getRoles().size(); i++) {
-        if (getRoles().get(i) != null) {
-          joiner.add(getRoles().get(i).toUrlQueryString(String.format("%sroles%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `groups` to the URL query string
-    if (getGroups() != null) {
-      for (int i = 0; i < getGroups().size(); i++) {
-        if (getGroups().get(i) != null) {
-          joiner.add(getGroups().get(i).toUrlQueryString(String.format("%sgroups%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `tenantId` to the URL query string
-    if (getTenantId() != null) {
-      try {
-        joiner.add(String.format("%stenantId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTenantId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `email` to the URL query string
-    if (getEmail() != null) {
-      try {
-        joiner.add(String.format("%semail%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEmail()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `status` to the URL query string
-    if (getStatus() != null) {
-      try {
-        joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `sentAt` to the URL query string
-    if (getSentAt() != null) {
-      try {
-        joiner.add(String.format("%ssentAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSentAt()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `expiredAt` to the URL query string
-    if (getExpiredAt() != null) {
-      try {
-        joiner.add(String.format("%sexpiredAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExpiredAt()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `acceptedAt` to the URL query string
-    if (getAcceptedAt() != null) {
-      try {
-        joiner.add(String.format("%sacceptedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAcceptedAt()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `superAdmin` to the URL query string
-    if (getSuperAdmin() != null) {
-      try {
-        joiner.add(String.format("%ssuperAdmin%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSuperAdmin()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `link` to the URL query string
-    if (getLink() != null) {
-      try {
-        joiner.add(String.format("%slink%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLink()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

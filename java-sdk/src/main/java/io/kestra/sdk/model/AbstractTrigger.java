@@ -30,9 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * AbstractTrigger
@@ -52,7 +49,7 @@ import java.util.StringJoiner;
   AbstractTrigger.JSON_PROPERTY_LOG_TO_FILE,
   AbstractTrigger.JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AbstractTrigger {
   public static final String JSON_PROPERTY_MIN_LOG_LEVEL = "minLogLevel";
   @javax.annotation.Nullable
@@ -511,167 +508,6 @@ public class AbstractTrigger {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `minLogLevel` to the URL query string
-    if (getMinLogLevel() != null) {
-      try {
-        joiner.add(String.format("%sminLogLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMinLogLevel()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      try {
-        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `type` to the URL query string
-    if (getType() != null) {
-      try {
-        joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `version` to the URL query string
-    if (getVersion() != null) {
-      try {
-        joiner.add(String.format("%sversion%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVersion()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `description` to the URL query string
-    if (getDescription() != null) {
-      try {
-        joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `conditions` to the URL query string
-    if (getConditions() != null) {
-      for (int i = 0; i < getConditions().size(); i++) {
-        if (getConditions().get(i) != null) {
-          joiner.add(getConditions().get(i).toUrlQueryString(String.format("%sconditions%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `disabled` to the URL query string
-    if (getDisabled() != null) {
-      try {
-        joiner.add(String.format("%sdisabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDisabled()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `workerGroup` to the URL query string
-    if (getWorkerGroup() != null) {
-      joiner.add(getWorkerGroup().toUrlQueryString(prefix + "workerGroup" + suffix));
-    }
-
-    // add `logLevel` to the URL query string
-    if (getLogLevel() != null) {
-      try {
-        joiner.add(String.format("%slogLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogLevel()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `labels` to the URL query string
-    if (getLabels() != null) {
-      joiner.add(getLabels().toUrlQueryString(prefix + "labels" + suffix));
-    }
-
-    // add `stopAfter` to the URL query string
-    if (getStopAfter() != null) {
-      for (int i = 0; i < getStopAfter().size(); i++) {
-        if (getStopAfter().get(i) != null) {
-          try {
-            joiner.add(String.format("%sstopAfter%s%s=%s", prefix, suffix,
-                "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-                URLEncoder.encode(String.valueOf(getStopAfter().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-          } catch (UnsupportedEncodingException e) {
-            // Should never happen, UTF-8 is always supported
-            throw new RuntimeException(e);
-          }
-        }
-      }
-    }
-
-    // add `logToFile` to the URL query string
-    if (getLogToFile() != null) {
-      try {
-        joiner.add(String.format("%slogToFile%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogToFile()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `failOnTriggerError` to the URL query string
-    if (getFailOnTriggerError() != null) {
-      try {
-        joiner.add(String.format("%sfailOnTriggerError%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFailOnTriggerError()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

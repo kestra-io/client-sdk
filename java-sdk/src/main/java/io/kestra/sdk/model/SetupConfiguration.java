@@ -22,9 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * SetupConfiguration
@@ -37,7 +34,7 @@ import java.util.StringJoiner;
   SetupConfiguration.JSON_PROPERTY_SECRET_TYPE,
   SetupConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SetupConfiguration {
   public static final String JSON_PROPERTY_DONE = "done";
   @javax.annotation.Nullable
@@ -261,101 +258,6 @@ public class SetupConfiguration {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `done` to the URL query string
-    if (getDone() != null) {
-      try {
-        joiner.add(String.format("%sdone%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDone()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `repositoryType` to the URL query string
-    if (getRepositoryType() != null) {
-      try {
-        joiner.add(String.format("%srepositoryType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRepositoryType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `queueType` to the URL query string
-    if (getQueueType() != null) {
-      try {
-        joiner.add(String.format("%squeueType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getQueueType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `storageType` to the URL query string
-    if (getStorageType() != null) {
-      try {
-        joiner.add(String.format("%sstorageType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStorageType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `secretType` to the URL query string
-    if (getSecretType() != null) {
-      try {
-        joiner.add(String.format("%ssecretType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSecretType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `passwordRegexp` to the URL query string
-    if (getPasswordRegexp() != null) {
-      try {
-        joiner.add(String.format("%spasswordRegexp%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPasswordRegexp()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

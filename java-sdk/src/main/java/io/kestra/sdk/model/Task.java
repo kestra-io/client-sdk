@@ -26,9 +26,6 @@ import io.kestra.sdk.model.PropertyDuration;
 import io.kestra.sdk.model.WorkerGroup;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * Task
@@ -49,7 +46,7 @@ import java.util.StringJoiner;
   Task.JSON_PROPERTY_ALLOW_WARNING,
   Task.JSON_PROPERTY_TASK_CACHE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Task {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -521,166 +518,6 @@ public class Task {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      try {
-        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `type` to the URL query string
-    if (getType() != null) {
-      try {
-        joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `version` to the URL query string
-    if (getVersion() != null) {
-      try {
-        joiner.add(String.format("%sversion%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVersion()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `description` to the URL query string
-    if (getDescription() != null) {
-      try {
-        joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `retry` to the URL query string
-    if (getRetry() != null) {
-      try {
-        joiner.add(String.format("%sretry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRetry()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `timeout` to the URL query string
-    if (getTimeout() != null) {
-      joiner.add(getTimeout().toUrlQueryString(prefix + "timeout" + suffix));
-    }
-
-    // add `disabled` to the URL query string
-    if (getDisabled() != null) {
-      try {
-        joiner.add(String.format("%sdisabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDisabled()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `workerGroup` to the URL query string
-    if (getWorkerGroup() != null) {
-      joiner.add(getWorkerGroup().toUrlQueryString(prefix + "workerGroup" + suffix));
-    }
-
-    // add `logLevel` to the URL query string
-    if (getLogLevel() != null) {
-      try {
-        joiner.add(String.format("%slogLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogLevel()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `allowFailure` to the URL query string
-    if (getAllowFailure() != null) {
-      try {
-        joiner.add(String.format("%sallowFailure%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAllowFailure()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `logToFile` to the URL query string
-    if (getLogToFile() != null) {
-      try {
-        joiner.add(String.format("%slogToFile%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogToFile()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `runIf` to the URL query string
-    if (getRunIf() != null) {
-      try {
-        joiner.add(String.format("%srunIf%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRunIf()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `allowWarning` to the URL query string
-    if (getAllowWarning() != null) {
-      try {
-        joiner.add(String.format("%sallowWarning%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAllowWarning()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `taskCache` to the URL query string
-    if (getTaskCache() != null) {
-      joiner.add(getTaskCache().toUrlQueryString(prefix + "taskCache" + suffix));
-    }
-
-    return joiner.toString();
   }
 
 }

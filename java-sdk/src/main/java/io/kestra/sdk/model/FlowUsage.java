@@ -24,9 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * FlowUsage
@@ -38,7 +35,7 @@ import java.util.StringJoiner;
   FlowUsage.JSON_PROPERTY_TRIGGER_TYPE_COUNT,
   FlowUsage.JSON_PROPERTY_TASK_RUNNER_TYPE_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class FlowUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
   @javax.annotation.Nullable
@@ -255,103 +252,6 @@ public class FlowUsage {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `count` to the URL query string
-    if (getCount() != null) {
-      try {
-        joiner.add(String.format("%scount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCount()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `namespacesCount` to the URL query string
-    if (getNamespacesCount() != null) {
-      try {
-        joiner.add(String.format("%snamespacesCount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNamespacesCount()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `taskTypeCount` to the URL query string
-    if (getTaskTypeCount() != null) {
-      for (String _key : getTaskTypeCount().keySet()) {
-        try {
-          joiner.add(String.format("%staskTypeCount%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getTaskTypeCount().get(_key), URLEncoder.encode(String.valueOf(getTaskTypeCount().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `triggerTypeCount` to the URL query string
-    if (getTriggerTypeCount() != null) {
-      for (String _key : getTriggerTypeCount().keySet()) {
-        try {
-          joiner.add(String.format("%striggerTypeCount%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getTriggerTypeCount().get(_key), URLEncoder.encode(String.valueOf(getTriggerTypeCount().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `taskRunnerTypeCount` to the URL query string
-    if (getTaskRunnerTypeCount() != null) {
-      for (String _key : getTaskRunnerTypeCount().keySet()) {
-        try {
-          joiner.add(String.format("%staskRunnerTypeCount%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getTaskRunnerTypeCount().get(_key), URLEncoder.encode(String.valueOf(getTaskRunnerTypeCount().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

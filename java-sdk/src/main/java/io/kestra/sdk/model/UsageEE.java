@@ -43,9 +43,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * UsageEE
@@ -73,7 +70,7 @@ import java.util.StringJoiner;
   UsageEE.JSON_PROPERTY_SERVICES,
   UsageEE.JSON_PROPERTY_PLUGIN_METRICS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class UsageEE {
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @javax.annotation.Nullable
@@ -837,180 +834,6 @@ public class UsageEE {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `uuid` to the URL query string
-    if (getUuid() != null) {
-      try {
-        joiner.add(String.format("%suuid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUuid()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `startUuid` to the URL query string
-    if (getStartUuid() != null) {
-      try {
-        joiner.add(String.format("%sstartUuid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStartUuid()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `instanceUuid` to the URL query string
-    if (getInstanceUuid() != null) {
-      try {
-        joiner.add(String.format("%sinstanceUuid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getInstanceUuid()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `serverType` to the URL query string
-    if (getServerType() != null) {
-      try {
-        joiner.add(String.format("%sserverType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getServerType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `version` to the URL query string
-    if (getVersion() != null) {
-      try {
-        joiner.add(String.format("%sversion%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVersion()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `zoneId` to the URL query string
-    if (getZoneId() != null) {
-      try {
-        joiner.add(String.format("%szoneId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getZoneId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `uri` to the URL query string
-    if (getUri() != null) {
-      try {
-        joiner.add(String.format("%suri%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUri()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `environments` to the URL query string
-    if (getEnvironments() != null) {
-      for (int i = 0; i < getEnvironments().size(); i++) {
-        try {
-          joiner.add(String.format("%senvironments%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getEnvironments().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `startTime` to the URL query string
-    if (getStartTime() != null) {
-      try {
-        joiner.add(String.format("%sstartTime%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStartTime()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `host` to the URL query string
-    if (getHost() != null) {
-      joiner.add(getHost().toUrlQueryString(prefix + "host" + suffix));
-    }
-
-    // add `configurations` to the URL query string
-    if (getConfigurations() != null) {
-      joiner.add(getConfigurations().toUrlQueryString(prefix + "configurations" + suffix));
-    }
-
-    // add `plugins` to the URL query string
-    if (getPlugins() != null) {
-      for (int i = 0; i < getPlugins().size(); i++) {
-        if (getPlugins().get(i) != null) {
-          joiner.add(getPlugins().get(i).toUrlQueryString(String.format("%splugins%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `flows` to the URL query string
-    if (getFlows() != null) {
-      joiner.add(getFlows().toUrlQueryString(prefix + "flows" + suffix));
-    }
-
-    // add `executions` to the URL query string
-    if (getExecutions() != null) {
-      joiner.add(getExecutions().toUrlQueryString(prefix + "executions" + suffix));
-    }
-
-    // add `services` to the URL query string
-    if (getServices() != null) {
-      joiner.add(getServices().toUrlQueryString(prefix + "services" + suffix));
-    }
-
-    // add `pluginMetrics` to the URL query string
-    if (getPluginMetrics() != null) {
-      for (int i = 0; i < getPluginMetrics().size(); i++) {
-        if (getPluginMetrics().get(i) != null) {
-          joiner.add(getPluginMetrics().get(i).toUrlQueryString(String.format("%spluginMetrics%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

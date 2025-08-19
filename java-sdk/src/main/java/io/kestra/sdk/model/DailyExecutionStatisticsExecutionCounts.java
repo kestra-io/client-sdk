@@ -22,9 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * DailyExecutionStatisticsExecutionCounts
@@ -47,7 +44,7 @@ import java.util.StringJoiner;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T
 })
 @JsonTypeName("DailyExecutionStatistics_executionCounts")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_C_R_E_A_T_E_D = "CREATED";
   @javax.annotation.Nullable
@@ -550,191 +547,6 @@ public class DailyExecutionStatisticsExecutionCounts {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `CREATED` to the URL query string
-    if (getCREATED() != null) {
-      try {
-        joiner.add(String.format("%sCREATED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCREATED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `RUNNING` to the URL query string
-    if (getRUNNING() != null) {
-      try {
-        joiner.add(String.format("%sRUNNING%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRUNNING()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `PAUSED` to the URL query string
-    if (getPAUSED() != null) {
-      try {
-        joiner.add(String.format("%sPAUSED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPAUSED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `RESTARTED` to the URL query string
-    if (getRESTARTED() != null) {
-      try {
-        joiner.add(String.format("%sRESTARTED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRESTARTED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `KILLING` to the URL query string
-    if (getKILLING() != null) {
-      try {
-        joiner.add(String.format("%sKILLING%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getKILLING()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `SUCCESS` to the URL query string
-    if (getSUCCESS() != null) {
-      try {
-        joiner.add(String.format("%sSUCCESS%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSUCCESS()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `WARNING` to the URL query string
-    if (getWARNING() != null) {
-      try {
-        joiner.add(String.format("%sWARNING%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getWARNING()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `FAILED` to the URL query string
-    if (getFAILED() != null) {
-      try {
-        joiner.add(String.format("%sFAILED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFAILED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `KILLED` to the URL query string
-    if (getKILLED() != null) {
-      try {
-        joiner.add(String.format("%sKILLED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getKILLED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `CANCELLED` to the URL query string
-    if (getCANCELLED() != null) {
-      try {
-        joiner.add(String.format("%sCANCELLED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCANCELLED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `QUEUED` to the URL query string
-    if (getQUEUED() != null) {
-      try {
-        joiner.add(String.format("%sQUEUED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getQUEUED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `RETRYING` to the URL query string
-    if (getRETRYING() != null) {
-      try {
-        joiner.add(String.format("%sRETRYING%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRETRYING()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `RETRIED` to the URL query string
-    if (getRETRIED() != null) {
-      try {
-        joiner.add(String.format("%sRETRIED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRETRIED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `SKIPPED` to the URL query string
-    if (getSKIPPED() != null) {
-      try {
-        joiner.add(String.format("%sSKIPPED%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSKIPPED()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `BREAKPOINT` to the URL query string
-    if (getBREAKPOINT() != null) {
-      try {
-        joiner.add(String.format("%sBREAKPOINT%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBREAKPOINT()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

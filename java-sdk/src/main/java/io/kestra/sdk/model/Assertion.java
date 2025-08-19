@@ -27,9 +27,6 @@ import io.kestra.sdk.model.PropertyObject;
 import io.kestra.sdk.model.PropertyString;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * Assertion
@@ -53,7 +50,7 @@ import java.util.StringJoiner;
   Assertion.JSON_PROPERTY_IS_NULL,
   Assertion.JSON_PROPERTY_IS_NOT_NULL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Assertion {
   public static final String JSON_PROPERTY_VALUE = "value";
   @javax.annotation.Nonnull
@@ -618,131 +615,6 @@ public class Assertion {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `value` to the URL query string
-    if (getValue() != null) {
-      joiner.add(getValue().toUrlQueryString(prefix + "value" + suffix));
-    }
-
-    // add `taskId` to the URL query string
-    if (getTaskId() != null) {
-      try {
-        joiner.add(String.format("%staskId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTaskId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `errorMessage` to the URL query string
-    if (getErrorMessage() != null) {
-      joiner.add(getErrorMessage().toUrlQueryString(prefix + "errorMessage" + suffix));
-    }
-
-    // add `description` to the URL query string
-    if (getDescription() != null) {
-      joiner.add(getDescription().toUrlQueryString(prefix + "description" + suffix));
-    }
-
-    // add `endsWith` to the URL query string
-    if (getEndsWith() != null) {
-      joiner.add(getEndsWith().toUrlQueryString(prefix + "endsWith" + suffix));
-    }
-
-    // add `startsWith` to the URL query string
-    if (getStartsWith() != null) {
-      joiner.add(getStartsWith().toUrlQueryString(prefix + "startsWith" + suffix));
-    }
-
-    // add `contains` to the URL query string
-    if (getContains() != null) {
-      joiner.add(getContains().toUrlQueryString(prefix + "contains" + suffix));
-    }
-
-    // add `equalTo` to the URL query string
-    if (getEqualTo() != null) {
-      joiner.add(getEqualTo().toUrlQueryString(prefix + "equalTo" + suffix));
-    }
-
-    // add `notEqualTo` to the URL query string
-    if (getNotEqualTo() != null) {
-      joiner.add(getNotEqualTo().toUrlQueryString(prefix + "notEqualTo" + suffix));
-    }
-
-    // add `greaterThan` to the URL query string
-    if (getGreaterThan() != null) {
-      joiner.add(getGreaterThan().toUrlQueryString(prefix + "greaterThan" + suffix));
-    }
-
-    // add `greaterThanOrEqualTo` to the URL query string
-    if (getGreaterThanOrEqualTo() != null) {
-      joiner.add(getGreaterThanOrEqualTo().toUrlQueryString(prefix + "greaterThanOrEqualTo" + suffix));
-    }
-
-    // add `lessThan` to the URL query string
-    if (getLessThan() != null) {
-      joiner.add(getLessThan().toUrlQueryString(prefix + "lessThan" + suffix));
-    }
-
-    // add `lessThanOrEqualTo` to the URL query string
-    if (getLessThanOrEqualTo() != null) {
-      joiner.add(getLessThanOrEqualTo().toUrlQueryString(prefix + "lessThanOrEqualTo" + suffix));
-    }
-
-    // add `in` to the URL query string
-    if (getIn() != null) {
-      joiner.add(getIn().toUrlQueryString(prefix + "in" + suffix));
-    }
-
-    // add `notIn` to the URL query string
-    if (getNotIn() != null) {
-      joiner.add(getNotIn().toUrlQueryString(prefix + "notIn" + suffix));
-    }
-
-    // add `isNull` to the URL query string
-    if (getIsNull() != null) {
-      joiner.add(getIsNull().toUrlQueryString(prefix + "isNull" + suffix));
-    }
-
-    // add `isNotNull` to the URL query string
-    if (getIsNotNull() != null) {
-      joiner.add(getIsNotNull().toUrlQueryString(prefix + "isNotNull" + suffix));
-    }
-
-    return joiner.toString();
   }
 
 }

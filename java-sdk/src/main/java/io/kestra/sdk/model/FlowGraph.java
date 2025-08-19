@@ -28,9 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * FlowGraph
@@ -41,7 +38,7 @@ import java.util.StringJoiner;
   FlowGraph.JSON_PROPERTY_CLUSTERS,
   FlowGraph.JSON_PROPERTY_FLOWABLES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class FlowGraph {
   public static final String JSON_PROPERTY_NODES = "nodes";
   @javax.annotation.Nullable
@@ -235,85 +232,6 @@ public class FlowGraph {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `nodes` to the URL query string
-    if (getNodes() != null) {
-      for (int i = 0; i < getNodes().size(); i++) {
-        if (getNodes().get(i) != null) {
-          joiner.add(getNodes().get(i).toUrlQueryString(String.format("%snodes%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `edges` to the URL query string
-    if (getEdges() != null) {
-      for (int i = 0; i < getEdges().size(); i++) {
-        if (getEdges().get(i) != null) {
-          joiner.add(getEdges().get(i).toUrlQueryString(String.format("%sedges%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `clusters` to the URL query string
-    if (getClusters() != null) {
-      for (int i = 0; i < getClusters().size(); i++) {
-        if (getClusters().get(i) != null) {
-          joiner.add(getClusters().get(i).toUrlQueryString(String.format("%sclusters%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `flowables` to the URL query string
-    if (getFlowables() != null) {
-      for (int i = 0; i < getFlowables().size(); i++) {
-        try {
-          joiner.add(String.format("%sflowables%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getFlowables().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

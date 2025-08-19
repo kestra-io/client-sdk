@@ -30,9 +30,6 @@ import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * SearchRequest
@@ -49,7 +46,7 @@ import java.util.StringJoiner;
   SearchRequest.JSON_PROPERTY_START_INDEX,
   SearchRequest.JSON_PROPERTY_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SearchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable
@@ -421,125 +418,6 @@ public class SearchRequest {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `schemas` to the URL query string
-    if (getSchemas() != null) {
-      for (int i = 0; i < getSchemas().size(); i++) {
-        try {
-          joiner.add(String.format("%sschemas%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getSchemas().get(i)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `pageRequest` to the URL query string
-    if (getPageRequest() != null) {
-      joiner.add(getPageRequest().toUrlQueryString(prefix + "pageRequest" + suffix));
-    }
-
-    // add `sortRequest` to the URL query string
-    if (getSortRequest() != null) {
-      joiner.add(getSortRequest().toUrlQueryString(prefix + "sortRequest" + suffix));
-    }
-
-    // add `attributes` to the URL query string
-    if (getAttributes() != null) {
-      for (int i = 0; i < getAttributes().size(); i++) {
-        if (getAttributes().get(i) != null) {
-          joiner.add(getAttributes().get(i).toUrlQueryString(String.format("%sattributes%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `excludedAttributes` to the URL query string
-    if (getExcludedAttributes() != null) {
-      for (int i = 0; i < getExcludedAttributes().size(); i++) {
-        if (getExcludedAttributes().get(i) != null) {
-          joiner.add(getExcludedAttributes().get(i).toUrlQueryString(String.format("%sexcludedAttributes%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `filter` to the URL query string
-    if (getFilter() != null) {
-      joiner.add(getFilter().toUrlQueryString(prefix + "filter" + suffix));
-    }
-
-    // add `sortBy` to the URL query string
-    if (getSortBy() != null) {
-      joiner.add(getSortBy().toUrlQueryString(prefix + "sortBy" + suffix));
-    }
-
-    // add `sortOrder` to the URL query string
-    if (getSortOrder() != null) {
-      try {
-        joiner.add(String.format("%ssortOrder%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSortOrder()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `startIndex` to the URL query string
-    if (getStartIndex() != null) {
-      try {
-        joiner.add(String.format("%sstartIndex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStartIndex()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `count` to the URL query string
-    if (getCount() != null) {
-      try {
-        joiner.add(String.format("%scount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCount()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

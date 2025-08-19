@@ -26,9 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * Tenant
@@ -48,7 +45,7 @@ import java.util.StringJoiner;
   Tenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Tenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
   @javax.annotation.Nullable
@@ -505,164 +502,6 @@ public class Tenant {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `storageIsolation` to the URL query string
-    if (getStorageIsolation() != null) {
-      joiner.add(getStorageIsolation().toUrlQueryString(prefix + "storageIsolation" + suffix));
-    }
-
-    // add `secretIsolation` to the URL query string
-    if (getSecretIsolation() != null) {
-      joiner.add(getSecretIsolation().toUrlQueryString(prefix + "secretIsolation" + suffix));
-    }
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      try {
-        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `name` to the URL query string
-    if (getName() != null) {
-      try {
-        joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `deleted` to the URL query string
-    if (getDeleted() != null) {
-      try {
-        joiner.add(String.format("%sdeleted%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDeleted()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `workerGroup` to the URL query string
-    if (getWorkerGroup() != null) {
-      joiner.add(getWorkerGroup().toUrlQueryString(prefix + "workerGroup" + suffix));
-    }
-
-    // add `storageType` to the URL query string
-    if (getStorageType() != null) {
-      try {
-        joiner.add(String.format("%sstorageType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStorageType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `storageConfiguration` to the URL query string
-    if (getStorageConfiguration() != null) {
-      for (String _key : getStorageConfiguration().keySet()) {
-        try {
-          joiner.add(String.format("%sstorageConfiguration%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getStorageConfiguration().get(_key), URLEncoder.encode(String.valueOf(getStorageConfiguration().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `secretType` to the URL query string
-    if (getSecretType() != null) {
-      try {
-        joiner.add(String.format("%ssecretType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSecretType()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `secretReadOnly` to the URL query string
-    if (getSecretReadOnly() != null) {
-      try {
-        joiner.add(String.format("%ssecretReadOnly%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSecretReadOnly()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `secretConfiguration` to the URL query string
-    if (getSecretConfiguration() != null) {
-      for (String _key : getSecretConfiguration().keySet()) {
-        try {
-          joiner.add(String.format("%ssecretConfiguration%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getSecretConfiguration().get(_key), URLEncoder.encode(String.valueOf(getSecretConfiguration().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `requireExistingNamespace` to the URL query string
-    if (getRequireExistingNamespace() != null) {
-      try {
-        joiner.add(String.format("%srequireExistingNamespace%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequireExistingNamespace()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `outputsInInternalStorage` to the URL query string
-    if (getOutputsInInternalStorage() != null) {
-      try {
-        joiner.add(String.format("%soutputsInInternalStorage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOutputsInInternalStorage()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    return joiner.toString();
   }
 
 }

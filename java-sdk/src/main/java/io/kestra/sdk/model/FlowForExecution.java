@@ -33,9 +33,6 @@ import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.StringJoiner;
 
 /**
  * FlowForExecution
@@ -57,7 +54,7 @@ import java.util.StringJoiner;
   FlowForExecution.JSON_PROPERTY_AFTER_EXECUTION,
   FlowForExecution.JSON_PROPERTY_TRIGGERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-14T16:34:14.833468251Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class FlowForExecution {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -625,185 +622,6 @@ public class FlowForExecution {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
-    }
-
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      try {
-        joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `namespace` to the URL query string
-    if (getNamespace() != null) {
-      try {
-        joiner.add(String.format("%snamespace%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNamespace()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `revision` to the URL query string
-    if (getRevision() != null) {
-      try {
-        joiner.add(String.format("%srevision%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRevision()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `inputs` to the URL query string
-    if (getInputs() != null) {
-      for (int i = 0; i < getInputs().size(); i++) {
-        if (getInputs().get(i) != null) {
-          joiner.add(getInputs().get(i).toUrlQueryString(String.format("%sinputs%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `outputs` to the URL query string
-    if (getOutputs() != null) {
-      for (int i = 0; i < getOutputs().size(); i++) {
-        if (getOutputs().get(i) != null) {
-          joiner.add(getOutputs().get(i).toUrlQueryString(String.format("%soutputs%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `disabled` to the URL query string
-    if (getDisabled() != null) {
-      try {
-        joiner.add(String.format("%sdisabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDisabled()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `labels` to the URL query string
-    if (getLabels() != null) {
-      joiner.add(getLabels().toUrlQueryString(prefix + "labels" + suffix));
-    }
-
-    // add `variables` to the URL query string
-    if (getVariables() != null) {
-      for (String _key : getVariables().keySet()) {
-        try {
-          joiner.add(String.format("%svariables%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-              getVariables().get(_key), URLEncoder.encode(String.valueOf(getVariables().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
-        } catch (UnsupportedEncodingException e) {
-          // Should never happen, UTF-8 is always supported
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    // add `workerGroup` to the URL query string
-    if (getWorkerGroup() != null) {
-      joiner.add(getWorkerGroup().toUrlQueryString(prefix + "workerGroup" + suffix));
-    }
-
-    // add `deleted` to the URL query string
-    if (getDeleted() != null) {
-      try {
-        joiner.add(String.format("%sdeleted%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDeleted()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
-    }
-
-    // add `tasks` to the URL query string
-    if (getTasks() != null) {
-      for (int i = 0; i < getTasks().size(); i++) {
-        if (getTasks().get(i) != null) {
-          joiner.add(getTasks().get(i).toUrlQueryString(String.format("%stasks%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `errors` to the URL query string
-    if (getErrors() != null) {
-      for (int i = 0; i < getErrors().size(); i++) {
-        if (getErrors().get(i) != null) {
-          joiner.add(getErrors().get(i).toUrlQueryString(String.format("%serrors%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `finally` to the URL query string
-    if (getFinally() != null) {
-      for (int i = 0; i < getFinally().size(); i++) {
-        if (getFinally().get(i) != null) {
-          joiner.add(getFinally().get(i).toUrlQueryString(String.format("%sfinally%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `afterExecution` to the URL query string
-    if (getAfterExecution() != null) {
-      for (int i = 0; i < getAfterExecution().size(); i++) {
-        if (getAfterExecution().get(i) != null) {
-          joiner.add(getAfterExecution().get(i).toUrlQueryString(String.format("%safterExecution%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `triggers` to the URL query string
-    if (getTriggers() != null) {
-      for (int i = 0; i < getTriggers().size(); i++) {
-        if (getTriggers().get(i) != null) {
-          joiner.add(getTriggers().get(i).toUrlQueryString(String.format("%striggers%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    return joiner.toString();
   }
 
 }
