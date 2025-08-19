@@ -41,8 +41,6 @@
       }
       ```
 
-  - Replace everywhere `Map<Task>` by `List<Task>`, this is a side effect of the openapi generator because we added "additionalProperties".
-
 ## Step to use
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.

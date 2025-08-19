@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   NamespaceAllowedNamespace.JSON_PROPERTY_NAMESPACE
 })
 @JsonTypeName("Namespace.AllowedNamespace")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class NamespaceAllowedNamespace {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @javax.annotation.Nonnull

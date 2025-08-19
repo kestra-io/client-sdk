@@ -16,6 +16,7 @@ apiPackage: io.kestra.sdk.api
 groupId: io.kestra
 artifactId: kestra-api-client
 
+hideGenerationTimestamp: true
 supportUrlQuery: false
 
 typeMappings:

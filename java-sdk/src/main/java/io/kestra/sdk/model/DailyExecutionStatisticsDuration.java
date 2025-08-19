@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsDuration.JSON_PROPERTY_COUNT
 })
 @JsonTypeName("DailyExecutionStatistics.Duration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class DailyExecutionStatisticsDuration {
   public static final String JSON_PROPERTY_MIN = "min";
   @javax.annotation.Nonnull

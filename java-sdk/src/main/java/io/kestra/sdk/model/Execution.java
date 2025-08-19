@@ -66,7 +66,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Execution.JSON_PROPERTY_KIND,
   Execution.JSON_PROPERTY_BREAKPOINTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Execution {
   public static final String JSON_PROPERTY_LABELS = "labels";
   @javax.annotation.Nullable

@@ -70,7 +70,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsageEE.JSON_PROPERTY_SERVICES,
   UsageEE.JSON_PROPERTY_PLUGIN_METRICS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class UsageEE {
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @javax.annotation.Nullable

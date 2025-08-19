@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginMetric.JSON_PROPERTY_TOTAL_TIME,
   PluginMetric.JSON_PROPERTY_MEAN_TIME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PluginMetric {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nullable

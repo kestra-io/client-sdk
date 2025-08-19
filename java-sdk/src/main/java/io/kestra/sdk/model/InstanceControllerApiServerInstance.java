@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiServerInstance.JSON_PROPERTY_HOSTNAME
 })
 @JsonTypeName("InstanceController.ApiServerInstance")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiServerInstance {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable

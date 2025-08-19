@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventAppResponse.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_AppResponse_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class EventAppResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   @javax.annotation.Nullable

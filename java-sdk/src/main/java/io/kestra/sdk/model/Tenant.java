@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Tenant.JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE,
   Tenant.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Tenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
   @javax.annotation.Nullable

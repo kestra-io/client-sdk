@@ -4,8 +4,6 @@ Kestra EE
 
 - API version: v1
 
-- Build date: 2025-08-19T08:56:01.503545549Z[Etc/UTC]
-
 - Generator version: 7.14.0-SNAPSHOT
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>

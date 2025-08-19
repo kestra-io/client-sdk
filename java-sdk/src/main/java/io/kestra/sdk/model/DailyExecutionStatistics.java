@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatistics.JSON_PROPERTY_EXECUTION_COUNTS,
   DailyExecutionStatistics.JSON_PROPERTY_GROUP_BY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class DailyExecutionStatistics {
   public static final String JSON_PROPERTY_START_DATE = "startDate";
   @javax.annotation.Nonnull

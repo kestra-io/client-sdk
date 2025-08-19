@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionUsage.JSON_PROPERTY_DAILY_EXECUTIONS_COUNT,
   ExecutionUsage.JSON_PROPERTY_DAILY_TASK_RUNS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionUsage {
   public static final String JSON_PROPERTY_DAILY_EXECUTIONS_COUNT = "dailyExecutionsCount";
   @javax.annotation.Nullable

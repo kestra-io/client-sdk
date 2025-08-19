@@ -22,9 +22,17 @@ fi
 
 # Generate Java SDK
 if [[ ",$LANGUAGES," == *",java,"* ]]; then
+rm -rf ./java-sdk/docs
+rm -rf ./java-sdk/src/main/java/io/kestra/sdk/api
+rm -rf ./java-sdk/src/main/java/io/kestra/sdk/internal
+rm -rf ./java-sdk/src/main/java/io/kestra/sdk/model
+
 docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
      -c /local/configurations/java-config.yml --artifact-version $VERSION \
       --skip-validate-spec
+
+find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
+
 fi
 
 # Generate Python SDK

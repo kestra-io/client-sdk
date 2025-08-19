@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsAppsControllerApiApp.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_AppsController.ApiApp_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PagedResultsAppsControllerApiApp {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nonnull

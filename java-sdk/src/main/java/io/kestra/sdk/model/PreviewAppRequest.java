@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PreviewAppRequest.JSON_PROPERTY_PARAMETERS
 })
 @JsonTypeName("previewApp_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-19T08:56:01.503545549Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PreviewAppRequest {
   public static final String JSON_PROPERTY_PARAMETERS = "parameters";
   @javax.annotation.Nullable
