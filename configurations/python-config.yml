@@ -6,6 +6,8 @@ globalProperties:
   apiTests: false
   modelTests: false
 
+hideGenerationTimestamp: true
+
 additionalProperties:
   packageName: kestrapy
   projectName: "@kestra-io/kestrapy"

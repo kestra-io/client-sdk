@@ -15,6 +15,7 @@ additionalProperties:
 gitUserId: kestra-io
 gitRepoId: client-sdk/go-sdk
 
+hideGenerationTimestamp: true
 
 typeMappings:
   PropertyDuration: string
