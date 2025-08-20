@@ -39,6 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractFlow.JSON_PROPERTY_ID,
   AbstractFlow.JSON_PROPERTY_NAMESPACE,
   AbstractFlow.JSON_PROPERTY_REVISION,
+  AbstractFlow.JSON_PROPERTY_DESCRIPTION,
   AbstractFlow.JSON_PROPERTY_INPUTS,
   AbstractFlow.JSON_PROPERTY_OUTPUTS,
   AbstractFlow.JSON_PROPERTY_DISABLED,
@@ -60,6 +61,10 @@ public class AbstractFlow {
   public static final String JSON_PROPERTY_REVISION = "revision";
   @javax.annotation.Nullable
   private Integer revision;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @javax.annotation.Nullable
+  private String description;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @javax.annotation.Nullable
@@ -166,6 +171,31 @@ public class AbstractFlow {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
+  }
+
+  public AbstractFlow description(@javax.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
+    this.description = description;
   }
 
   public AbstractFlow inputs(@javax.annotation.Nullable List<InputObject> inputs) {
@@ -379,6 +409,7 @@ public class AbstractFlow {
     return Objects.equals(this.id, abstractFlow.id) &&
         Objects.equals(this.namespace, abstractFlow.namespace) &&
         Objects.equals(this.revision, abstractFlow.revision) &&
+        Objects.equals(this.description, abstractFlow.description) &&
         Objects.equals(this.inputs, abstractFlow.inputs) &&
         Objects.equals(this.outputs, abstractFlow.outputs) &&
         Objects.equals(this.disabled, abstractFlow.disabled) &&
@@ -390,7 +421,7 @@ public class AbstractFlow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, inputs, outputs, disabled, labels, variables, workerGroup, deleted);
+    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted);
   }
 
   @Override
@@ -400,6 +431,7 @@ public class AbstractFlow {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");

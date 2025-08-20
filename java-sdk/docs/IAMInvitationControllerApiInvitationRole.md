@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
-|**namespaces** | **List&lt;String&gt;** |  |  [optional] |
+|**namespaces** | **List&lt;String&gt;** |  |  |
 
 
 

@@ -142,6 +142,10 @@ public class KestraClient {
         return new TenantsApi(this.apiClient);
     }
 
+    public TestSuitesApi testSuites() {
+        return new TestSuitesApi(this.apiClient);
+    }
+
     public TriggersApi triggers() {
         return new TriggersApi(this.apiClient);
     }

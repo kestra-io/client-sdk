@@ -44,33 +44,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MeControllerApiMe {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean restricted;
 
   public static final String JSON_PROPERTY_PROFILE = "profile";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private MeControllerApiProfile profile;
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<MeControllerApiTenant> tenants = new ArrayList<>();
 
   public MeControllerApiMe() {
   }
 
-  public MeControllerApiMe id(@javax.annotation.Nullable String id) {
+  public MeControllerApiMe id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -80,9 +80,9 @@ public class MeControllerApiMe {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -90,12 +90,12 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public MeControllerApiMe superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public MeControllerApiMe superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -105,9 +105,9 @@ public class MeControllerApiMe {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
@@ -115,12 +115,12 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 
-  public MeControllerApiMe restricted(@javax.annotation.Nullable Boolean restricted) {
+  public MeControllerApiMe restricted(@javax.annotation.Nonnull Boolean restricted) {
     
     this.restricted = restricted;
     return this;
@@ -130,9 +130,9 @@ public class MeControllerApiMe {
    * Get restricted
    * @return restricted
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RESTRICTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getRestricted() {
     return restricted;
@@ -140,12 +140,12 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_RESTRICTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRestricted(@javax.annotation.Nullable Boolean restricted) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRestricted(@javax.annotation.Nonnull Boolean restricted) {
     this.restricted = restricted;
   }
 
-  public MeControllerApiMe profile(@javax.annotation.Nullable MeControllerApiProfile profile) {
+  public MeControllerApiMe profile(@javax.annotation.Nonnull MeControllerApiProfile profile) {
     
     this.profile = profile;
     return this;
@@ -155,9 +155,9 @@ public class MeControllerApiMe {
    * Get profile
    * @return profile
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PROFILE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public MeControllerApiProfile getProfile() {
     return profile;
@@ -165,12 +165,12 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_PROFILE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProfile(@javax.annotation.Nullable MeControllerApiProfile profile) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setProfile(@javax.annotation.Nonnull MeControllerApiProfile profile) {
     this.profile = profile;
   }
 
-  public MeControllerApiMe auths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+  public MeControllerApiMe auths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
     
     this.auths = auths;
     return this;
@@ -188,9 +188,9 @@ public class MeControllerApiMe {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
     return auths;
@@ -198,12 +198,12 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAuths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAuths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
     this.auths = auths;
   }
 
-  public MeControllerApiMe tenants(@javax.annotation.Nullable List<MeControllerApiTenant> tenants) {
+  public MeControllerApiMe tenants(@javax.annotation.Nonnull List<MeControllerApiTenant> tenants) {
     
     this.tenants = tenants;
     return this;
@@ -221,9 +221,9 @@ public class MeControllerApiMe {
    * Get tenants
    * @return tenants
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<MeControllerApiTenant> getTenants() {
     return tenants;
@@ -231,8 +231,8 @@ public class MeControllerApiMe {
 
 
   @JsonProperty(JSON_PROPERTY_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenants(@javax.annotation.Nullable List<MeControllerApiTenant> tenants) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenants(@javax.annotation.Nonnull List<MeControllerApiTenant> tenants) {
     this.tenants = tenants;
   }
 

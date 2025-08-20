@@ -34,7 +34,9 @@ public enum ServiceType {
   
   WEBSERVER("WEBSERVER"),
   
-  WORKER("WORKER");
+  WORKER("WORKER"),
+  
+  INVALID("INVALID");
 
   private String value;
 

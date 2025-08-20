@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**readOnly** | **Boolean** |  |  |
 |**results** | [**List&lt;ApiSecretMeta&gt;**](ApiSecretMeta.md) |  |  |
-|**total** | **Long** |  |  [optional] |
+|**total** | **Long** |  |  |
 
 
 

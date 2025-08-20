@@ -39,21 +39,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class QueryFilterFieldOp {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String value;
 
   public static final String JSON_PROPERTY_OPERATIONS = "operations";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<QueryFilterOperation> operations = new ArrayList<>();
 
   public QueryFilterFieldOp() {
   }
 
-  public QueryFilterFieldOp name(@javax.annotation.Nullable String name) {
+  public QueryFilterFieldOp name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -63,9 +63,9 @@ public class QueryFilterFieldOp {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -73,12 +73,12 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public QueryFilterFieldOp value(@javax.annotation.Nullable String value) {
+  public QueryFilterFieldOp value(@javax.annotation.Nonnull String value) {
     
     this.value = value;
     return this;
@@ -88,9 +88,9 @@ public class QueryFilterFieldOp {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
     return value;
@@ -98,12 +98,12 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull String value) {
     this.value = value;
   }
 
-  public QueryFilterFieldOp operations(@javax.annotation.Nullable List<QueryFilterOperation> operations) {
+  public QueryFilterFieldOp operations(@javax.annotation.Nonnull List<QueryFilterOperation> operations) {
     
     this.operations = operations;
     return this;
@@ -121,9 +121,9 @@ public class QueryFilterFieldOp {
    * Get operations
    * @return operations
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<QueryFilterOperation> getOperations() {
     return operations;
@@ -131,8 +131,8 @@ public class QueryFilterFieldOp {
 
 
   @JsonProperty(JSON_PROPERTY_OPERATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOperations(@javax.annotation.Nullable List<QueryFilterOperation> operations) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOperations(@javax.annotation.Nonnull List<QueryFilterOperation> operations) {
     this.operations = operations;
   }
 

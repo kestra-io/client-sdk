@@ -34,21 +34,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class CustomLink {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String url;
 
   public CustomLink() {
   }
 
-  public CustomLink name(@javax.annotation.Nullable String name) {
+  public CustomLink name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -58,9 +58,9 @@ public class CustomLink {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -68,12 +68,12 @@ public class CustomLink {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public CustomLink title(@javax.annotation.Nullable String title) {
+  public CustomLink title(@javax.annotation.Nonnull String title) {
     
     this.title = title;
     return this;
@@ -83,9 +83,9 @@ public class CustomLink {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
     return title;
@@ -93,12 +93,12 @@ public class CustomLink {
 
 
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
-  public CustomLink url(@javax.annotation.Nullable String url) {
+  public CustomLink url(@javax.annotation.Nonnull String url) {
     
     this.url = url;
     return this;
@@ -108,9 +108,9 @@ public class CustomLink {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUrl() {
     return url;
@@ -118,8 +118,8 @@ public class CustomLink {
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrl(@javax.annotation.Nullable String url) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUrl(@javax.annotation.Nonnull String url) {
     this.url = url;
   }
 

@@ -40,7 +40,7 @@ public class NamespaceAllowedTrigger {
   private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String flowId;
 
   public NamespaceAllowedTrigger() {
@@ -71,7 +71,7 @@ public class NamespaceAllowedTrigger {
     this.namespace = namespace;
   }
 
-  public NamespaceAllowedTrigger flowId(@javax.annotation.Nullable String flowId) {
+  public NamespaceAllowedTrigger flowId(@javax.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -81,9 +81,9 @@ public class NamespaceAllowedTrigger {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
     return flowId;
@@ -91,8 +91,8 @@ public class NamespaceAllowedTrigger {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 

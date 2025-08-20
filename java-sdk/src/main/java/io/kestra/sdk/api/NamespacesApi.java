@@ -26,7 +26,7 @@ import io.kestra.sdk.model.ApiSecretMeta;
 import io.kestra.sdk.model.ApiSecretMetaEE;
 import io.kestra.sdk.model.ApiSecretValue;
 import io.kestra.sdk.model.Namespace;
-import io.kestra.sdk.model.PagedResultsNamespaceWithDisabled;
+import io.kestra.sdk.model.PagedResultsNamespace;
 import io.kestra.sdk.model.PluginDefault;
 import io.kestra.sdk.model.QueryFilter;
 
@@ -468,7 +468,7 @@ public class NamespacesApi extends BaseApi {
   }
 
   /**
-   * Retrieve namespace details
+   * Get a namespace
    * 
    * @param id The namespace id (required)
    * @param tenant  (required)
@@ -481,7 +481,7 @@ public class NamespacesApi extends BaseApi {
 
 
   /**
-   * Retrieve namespace details
+   * Get a namespace
    * 
    * @param id The namespace id (required)
    * @param tenant  (required)
@@ -1019,15 +1019,15 @@ public class NamespacesApi extends BaseApi {
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param existing Return only existing namespace (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
-   * @param existing Return only existing namespace (optional, default to false)
-   * @return PagedResultsNamespaceWithDisabled
+   * @return PagedResultsNamespace
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsNamespaceWithDisabled searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable Boolean existing) throws ApiException {
-    return this.searchNamespaces(page, size, tenant, q, sort, existing, Collections.emptyMap());
+  public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+    return this.searchNamespaces(page, size, existing, tenant, q, sort, Collections.emptyMap());
   }
 
 
@@ -1036,15 +1036,15 @@ public class NamespacesApi extends BaseApi {
    * 
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param existing Return only existing namespace (required)
    * @param tenant  (required)
    * @param q A string filter (optional)
    * @param sort The sort of current page (optional)
-   * @param existing Return only existing namespace (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
-   * @return PagedResultsNamespaceWithDisabled
+   * @return PagedResultsNamespace
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsNamespaceWithDisabled searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable Boolean existing, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsNamespace searchNamespaces(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean existing, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -1055,6 +1055,11 @@ public class NamespacesApi extends BaseApi {
     // verify the required parameter 'size' is set
     if (size == null) {
       throw new ApiException(400, "Missing the required parameter 'size' when calling searchNamespaces");
+    }
+    
+    // verify the required parameter 'existing' is set
+    if (existing == null) {
+      throw new ApiException(400, "Missing the required parameter 'existing' when calling searchNamespaces");
     }
     
     // verify the required parameter 'tenant' is set
@@ -1096,7 +1101,7 @@ public class NamespacesApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<PagedResultsNamespaceWithDisabled> localVarReturnType = new TypeReference<PagedResultsNamespaceWithDisabled>() {};
+    TypeReference<PagedResultsNamespace> localVarReturnType = new TypeReference<PagedResultsNamespace>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

@@ -38,17 +38,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SearchResultFlow {
   public static final String JSON_PROPERTY_MODEL = "model";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Flow model;
 
   public static final String JSON_PROPERTY_FRAGMENTS = "fragments";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> fragments = new ArrayList<>();
 
   public SearchResultFlow() {
   }
 
-  public SearchResultFlow model(@javax.annotation.Nullable Flow model) {
+  public SearchResultFlow model(@javax.annotation.Nonnull Flow model) {
     
     this.model = model;
     return this;
@@ -58,9 +58,9 @@ public class SearchResultFlow {
    * Get model
    * @return model
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Flow getModel() {
     return model;
@@ -68,12 +68,12 @@ public class SearchResultFlow {
 
 
   @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setModel(@javax.annotation.Nullable Flow model) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setModel(@javax.annotation.Nonnull Flow model) {
     this.model = model;
   }
 
-  public SearchResultFlow fragments(@javax.annotation.Nullable List<String> fragments) {
+  public SearchResultFlow fragments(@javax.annotation.Nonnull List<String> fragments) {
     
     this.fragments = fragments;
     return this;
@@ -91,9 +91,9 @@ public class SearchResultFlow {
    * Get fragments
    * @return fragments
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FRAGMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getFragments() {
     return fragments;
@@ -101,8 +101,8 @@ public class SearchResultFlow {
 
 
   @JsonProperty(JSON_PROPERTY_FRAGMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFragments(@javax.annotation.Nullable List<String> fragments) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFragments(@javax.annotation.Nonnull List<String> fragments) {
     this.fragments = fragments;
   }
 

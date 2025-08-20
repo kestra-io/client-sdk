@@ -20,27 +20,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.ConfigurationUsage;
 import io.kestra.sdk.model.ExecutionUsage;
 import io.kestra.sdk.model.FlowUsage;
 import io.kestra.sdk.model.GroupUsage;
-import io.kestra.sdk.model.HostUsage;
-import io.kestra.sdk.model.NamespaceUsage;
-import io.kestra.sdk.model.PluginMetric;
-import io.kestra.sdk.model.PluginUsage;
 import io.kestra.sdk.model.RoleUsage;
-import io.kestra.sdk.model.ServerType;
-import io.kestra.sdk.model.ServiceUsage;
 import io.kestra.sdk.model.TenantUsage;
 import io.kestra.sdk.model.UserUsage;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -51,24 +36,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsageEE.JSON_PROPERTY_GROUPS,
   UsageEE.JSON_PROPERTY_USERS,
   UsageEE.JSON_PROPERTY_ROLES,
-  UsageEE.JSON_PROPERTY_NAMESPACES,
   UsageEE.JSON_PROPERTY_TENANTS,
-  UsageEE.JSON_PROPERTY_UUID,
-  UsageEE.JSON_PROPERTY_START_UUID,
-  UsageEE.JSON_PROPERTY_INSTANCE_UUID,
-  UsageEE.JSON_PROPERTY_SERVER_TYPE,
-  UsageEE.JSON_PROPERTY_VERSION,
-  UsageEE.JSON_PROPERTY_ZONE_ID,
-  UsageEE.JSON_PROPERTY_URI,
-  UsageEE.JSON_PROPERTY_ENVIRONMENTS,
-  UsageEE.JSON_PROPERTY_START_TIME,
-  UsageEE.JSON_PROPERTY_HOST,
-  UsageEE.JSON_PROPERTY_CONFIGURATIONS,
-  UsageEE.JSON_PROPERTY_PLUGINS,
   UsageEE.JSON_PROPERTY_FLOWS,
-  UsageEE.JSON_PROPERTY_EXECUTIONS,
-  UsageEE.JSON_PROPERTY_SERVICES,
-  UsageEE.JSON_PROPERTY_PLUGIN_METRICS
+  UsageEE.JSON_PROPERTY_EXECUTIONS
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class UsageEE {
@@ -84,61 +54,9 @@ public class UsageEE {
   @javax.annotation.Nullable
   private RoleUsage roles;
 
-  public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
-  @javax.annotation.Nullable
-  private NamespaceUsage namespaces;
-
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @javax.annotation.Nullable
   private TenantUsage tenants;
-
-  public static final String JSON_PROPERTY_UUID = "uuid";
-  @javax.annotation.Nonnull
-  private String uuid;
-
-  public static final String JSON_PROPERTY_START_UUID = "startUuid";
-  @javax.annotation.Nonnull
-  private String startUuid;
-
-  public static final String JSON_PROPERTY_INSTANCE_UUID = "instanceUuid";
-  @javax.annotation.Nonnull
-  private String instanceUuid;
-
-  public static final String JSON_PROPERTY_SERVER_TYPE = "serverType";
-  @javax.annotation.Nonnull
-  private ServerType serverType;
-
-  public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nonnull
-  private String version;
-
-  public static final String JSON_PROPERTY_ZONE_ID = "zoneId";
-  @javax.annotation.Nonnull
-  private String zoneId;
-
-  public static final String JSON_PROPERTY_URI = "uri";
-  @javax.annotation.Nullable
-  private JsonNullable<String> uri = JsonNullable.<String>undefined();
-
-  public static final String JSON_PROPERTY_ENVIRONMENTS = "environments";
-  @javax.annotation.Nullable
-  private JsonNullable<List<String>> environments = JsonNullable.<List<String>>undefined();
-
-  public static final String JSON_PROPERTY_START_TIME = "startTime";
-  @javax.annotation.Nonnull
-  private OffsetDateTime startTime;
-
-  public static final String JSON_PROPERTY_HOST = "host";
-  @javax.annotation.Nullable
-  private HostUsage host;
-
-  public static final String JSON_PROPERTY_CONFIGURATIONS = "configurations";
-  @javax.annotation.Nullable
-  private ConfigurationUsage configurations;
-
-  public static final String JSON_PROPERTY_PLUGINS = "plugins";
-  @javax.annotation.Nullable
-  private List<PluginUsage> plugins = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FLOWS = "flows";
   @javax.annotation.Nullable
@@ -147,14 +65,6 @@ public class UsageEE {
   public static final String JSON_PROPERTY_EXECUTIONS = "executions";
   @javax.annotation.Nullable
   private ExecutionUsage executions;
-
-  public static final String JSON_PROPERTY_SERVICES = "services";
-  @javax.annotation.Nullable
-  private JsonNullable<ServiceUsage> services = JsonNullable.<ServiceUsage>undefined();
-
-  public static final String JSON_PROPERTY_PLUGIN_METRICS = "pluginMetrics";
-  @javax.annotation.Nullable
-  private JsonNullable<List<PluginMetric>> pluginMetrics = JsonNullable.<List<PluginMetric>>undefined();
 
   public UsageEE() {
   }
@@ -234,31 +144,6 @@ public class UsageEE {
     this.roles = roles;
   }
 
-  public UsageEE namespaces(@javax.annotation.Nullable NamespaceUsage namespaces) {
-    
-    this.namespaces = namespaces;
-    return this;
-  }
-
-  /**
-   * Get namespaces
-   * @return namespaces
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public NamespaceUsage getNamespaces() {
-    return namespaces;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaces(@javax.annotation.Nullable NamespaceUsage namespaces) {
-    this.namespaces = namespaces;
-  }
-
   public UsageEE tenants(@javax.annotation.Nullable TenantUsage tenants) {
     
     this.tenants = tenants;
@@ -282,342 +167,6 @@ public class UsageEE {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenants(@javax.annotation.Nullable TenantUsage tenants) {
     this.tenants = tenants;
-  }
-
-  public UsageEE uuid(@javax.annotation.Nonnull String uuid) {
-    
-    this.uuid = uuid;
-    return this;
-  }
-
-  /**
-   * Get uuid
-   * @return uuid
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getUuid() {
-    return uuid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUuid(@javax.annotation.Nonnull String uuid) {
-    this.uuid = uuid;
-  }
-
-  public UsageEE startUuid(@javax.annotation.Nonnull String startUuid) {
-    
-    this.startUuid = startUuid;
-    return this;
-  }
-
-  /**
-   * Get startUuid
-   * @return startUuid
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getStartUuid() {
-    return startUuid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartUuid(@javax.annotation.Nonnull String startUuid) {
-    this.startUuid = startUuid;
-  }
-
-  public UsageEE instanceUuid(@javax.annotation.Nonnull String instanceUuid) {
-    
-    this.instanceUuid = instanceUuid;
-    return this;
-  }
-
-  /**
-   * Get instanceUuid
-   * @return instanceUuid
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INSTANCE_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getInstanceUuid() {
-    return instanceUuid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INSTANCE_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setInstanceUuid(@javax.annotation.Nonnull String instanceUuid) {
-    this.instanceUuid = instanceUuid;
-  }
-
-  public UsageEE serverType(@javax.annotation.Nonnull ServerType serverType) {
-    
-    this.serverType = serverType;
-    return this;
-  }
-
-  /**
-   * Get serverType
-   * @return serverType
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SERVER_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public ServerType getServerType() {
-    return serverType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SERVER_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServerType(@javax.annotation.Nonnull ServerType serverType) {
-    this.serverType = serverType;
-  }
-
-  public UsageEE version(@javax.annotation.Nonnull String version) {
-    
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Get version
-   * @return version
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getVersion() {
-    return version;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVersion(@javax.annotation.Nonnull String version) {
-    this.version = version;
-  }
-
-  public UsageEE zoneId(@javax.annotation.Nonnull String zoneId) {
-    
-    this.zoneId = zoneId;
-    return this;
-  }
-
-  /**
-   * Get zoneId
-   * @return zoneId
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ZONE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getZoneId() {
-    return zoneId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ZONE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setZoneId(@javax.annotation.Nonnull String zoneId) {
-    this.zoneId = zoneId;
-  }
-
-  public UsageEE uri(@javax.annotation.Nullable String uri) {
-    this.uri = JsonNullable.<String>of(uri);
-    
-    return this;
-  }
-
-  /**
-   * Get uri
-   * @return uri
-   */
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public String getUri() {
-        return uri.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_URI)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<String> getUri_JsonNullable() {
-    return uri;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_URI)
-  public void setUri_JsonNullable(JsonNullable<String> uri) {
-    this.uri = uri;
-  }
-
-  public void setUri(@javax.annotation.Nullable String uri) {
-    this.uri = JsonNullable.<String>of(uri);
-  }
-
-  public UsageEE environments(@javax.annotation.Nullable List<String> environments) {
-    this.environments = JsonNullable.<List<String>>of(environments);
-    
-    return this;
-  }
-
-  public UsageEE addEnvironmentsItem(String environmentsItem) {
-    if (this.environments == null || !this.environments.isPresent()) {
-      this.environments = JsonNullable.<List<String>>of(new ArrayList<>());
-    }
-    try {
-      this.environments.get().add(environmentsItem);
-    } catch (java.util.NoSuchElementException e) {
-      // this can never happen, as we make sure above that the value is present
-    }
-    return this;
-  }
-
-  /**
-   * Get environments
-   * @return environments
-   */
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public List<String> getEnvironments() {
-        return environments.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_ENVIRONMENTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<List<String>> getEnvironments_JsonNullable() {
-    return environments;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_ENVIRONMENTS)
-  public void setEnvironments_JsonNullable(JsonNullable<List<String>> environments) {
-    this.environments = environments;
-  }
-
-  public void setEnvironments(@javax.annotation.Nullable List<String> environments) {
-    this.environments = JsonNullable.<List<String>>of(environments);
-  }
-
-  public UsageEE startTime(@javax.annotation.Nonnull OffsetDateTime startTime) {
-    
-    this.startTime = startTime;
-    return this;
-  }
-
-  /**
-   * Get startTime
-   * @return startTime
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_TIME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public OffsetDateTime getStartTime() {
-    return startTime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_START_TIME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStartTime(@javax.annotation.Nonnull OffsetDateTime startTime) {
-    this.startTime = startTime;
-  }
-
-  public UsageEE host(@javax.annotation.Nullable HostUsage host) {
-    
-    this.host = host;
-    return this;
-  }
-
-  /**
-   * Get host
-   * @return host
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HOST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public HostUsage getHost() {
-    return host;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HOST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHost(@javax.annotation.Nullable HostUsage host) {
-    this.host = host;
-  }
-
-  public UsageEE configurations(@javax.annotation.Nullable ConfigurationUsage configurations) {
-    
-    this.configurations = configurations;
-    return this;
-  }
-
-  /**
-   * Get configurations
-   * @return configurations
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONFIGURATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ConfigurationUsage getConfigurations() {
-    return configurations;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONFIGURATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConfigurations(@javax.annotation.Nullable ConfigurationUsage configurations) {
-    this.configurations = configurations;
-  }
-
-  public UsageEE plugins(@javax.annotation.Nullable List<PluginUsage> plugins) {
-    
-    this.plugins = plugins;
-    return this;
-  }
-
-  public UsageEE addPluginsItem(PluginUsage pluginsItem) {
-    if (this.plugins == null) {
-      this.plugins = new ArrayList<>();
-    }
-    this.plugins.add(pluginsItem);
-    return this;
-  }
-
-  /**
-   * Get plugins
-   * @return plugins
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<PluginUsage> getPlugins() {
-    return plugins;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPlugins(@javax.annotation.Nullable List<PluginUsage> plugins) {
-    this.plugins = plugins;
   }
 
   public UsageEE flows(@javax.annotation.Nullable FlowUsage flows) {
@@ -670,84 +219,6 @@ public class UsageEE {
     this.executions = executions;
   }
 
-  public UsageEE services(@javax.annotation.Nullable ServiceUsage services) {
-    this.services = JsonNullable.<ServiceUsage>of(services);
-    
-    return this;
-  }
-
-  /**
-   * Get services
-   * @return services
-   */
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public ServiceUsage getServices() {
-        return services.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_SERVICES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<ServiceUsage> getServices_JsonNullable() {
-    return services;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_SERVICES)
-  public void setServices_JsonNullable(JsonNullable<ServiceUsage> services) {
-    this.services = services;
-  }
-
-  public void setServices(@javax.annotation.Nullable ServiceUsage services) {
-    this.services = JsonNullable.<ServiceUsage>of(services);
-  }
-
-  public UsageEE pluginMetrics(@javax.annotation.Nullable List<PluginMetric> pluginMetrics) {
-    this.pluginMetrics = JsonNullable.<List<PluginMetric>>of(pluginMetrics);
-    
-    return this;
-  }
-
-  public UsageEE addPluginMetricsItem(PluginMetric pluginMetricsItem) {
-    if (this.pluginMetrics == null || !this.pluginMetrics.isPresent()) {
-      this.pluginMetrics = JsonNullable.<List<PluginMetric>>of(new ArrayList<>());
-    }
-    try {
-      this.pluginMetrics.get().add(pluginMetricsItem);
-    } catch (java.util.NoSuchElementException e) {
-      // this can never happen, as we make sure above that the value is present
-    }
-    return this;
-  }
-
-  /**
-   * Get pluginMetrics
-   * @return pluginMetrics
-   */
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public List<PluginMetric> getPluginMetrics() {
-        return pluginMetrics.orElse(null);
-  }
-
-  @JsonProperty(JSON_PROPERTY_PLUGIN_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public JsonNullable<List<PluginMetric>> getPluginMetrics_JsonNullable() {
-    return pluginMetrics;
-  }
-  
-  @JsonProperty(JSON_PROPERTY_PLUGIN_METRICS)
-  public void setPluginMetrics_JsonNullable(JsonNullable<List<PluginMetric>> pluginMetrics) {
-    this.pluginMetrics = pluginMetrics;
-  }
-
-  public void setPluginMetrics(@javax.annotation.Nullable List<PluginMetric> pluginMetrics) {
-    this.pluginMetrics = JsonNullable.<List<PluginMetric>>of(pluginMetrics);
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -760,40 +231,14 @@ public class UsageEE {
     return Objects.equals(this.groups, usageEE.groups) &&
         Objects.equals(this.users, usageEE.users) &&
         Objects.equals(this.roles, usageEE.roles) &&
-        Objects.equals(this.namespaces, usageEE.namespaces) &&
         Objects.equals(this.tenants, usageEE.tenants) &&
-        Objects.equals(this.uuid, usageEE.uuid) &&
-        Objects.equals(this.startUuid, usageEE.startUuid) &&
-        Objects.equals(this.instanceUuid, usageEE.instanceUuid) &&
-        Objects.equals(this.serverType, usageEE.serverType) &&
-        Objects.equals(this.version, usageEE.version) &&
-        Objects.equals(this.zoneId, usageEE.zoneId) &&
-        equalsNullable(this.uri, usageEE.uri) &&
-        equalsNullable(this.environments, usageEE.environments) &&
-        Objects.equals(this.startTime, usageEE.startTime) &&
-        Objects.equals(this.host, usageEE.host) &&
-        Objects.equals(this.configurations, usageEE.configurations) &&
-        Objects.equals(this.plugins, usageEE.plugins) &&
         Objects.equals(this.flows, usageEE.flows) &&
-        Objects.equals(this.executions, usageEE.executions) &&
-        equalsNullable(this.services, usageEE.services) &&
-        equalsNullable(this.pluginMetrics, usageEE.pluginMetrics);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+        Objects.equals(this.executions, usageEE.executions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groups, users, roles, namespaces, tenants, uuid, startUuid, instanceUuid, serverType, version, zoneId, hashCodeNullable(uri), hashCodeNullable(environments), startTime, host, configurations, plugins, flows, executions, hashCodeNullable(services), hashCodeNullable(pluginMetrics));
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(groups, users, roles, tenants, flows, executions);
   }
 
   @Override
@@ -803,24 +248,9 @@ public class UsageEE {
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    users: ").append(toIndentedString(users)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
-    sb.append("    namespaces: ").append(toIndentedString(namespaces)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    startUuid: ").append(toIndentedString(startUuid)).append("\n");
-    sb.append("    instanceUuid: ").append(toIndentedString(instanceUuid)).append("\n");
-    sb.append("    serverType: ").append(toIndentedString(serverType)).append("\n");
-    sb.append("    version: ").append(toIndentedString(version)).append("\n");
-    sb.append("    zoneId: ").append(toIndentedString(zoneId)).append("\n");
-    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-    sb.append("    environments: ").append(toIndentedString(environments)).append("\n");
-    sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");
-    sb.append("    host: ").append(toIndentedString(host)).append("\n");
-    sb.append("    configurations: ").append(toIndentedString(configurations)).append("\n");
-    sb.append("    plugins: ").append(toIndentedString(plugins)).append("\n");
     sb.append("    flows: ").append(toIndentedString(flows)).append("\n");
     sb.append("    executions: ").append(toIndentedString(executions)).append("\n");
-    sb.append("    services: ").append(toIndentedString(services)).append("\n");
-    sb.append("    pluginMetrics: ").append(toIndentedString(pluginMetrics)).append("\n");
     sb.append("}");
     return sb.toString();
   }

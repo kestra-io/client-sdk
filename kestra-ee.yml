@@ -401,6 +401,42 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/instance/versioned-plugins/available/secrets-managers:
+    get:
+      tags:
+        - Plugins
+      summary: List available plugin artifacts for Kestra Secret Manager
+      description: Superadmin-only. Lists all secret managers available for installation.
+        Requires INFRASTRUCTURE permission.
+      operationId: listAvailableVersionedPluginsForSecretManager
+      responses:
+        "200":
+          description: listAvailableVersionedPluginsForSecretManager 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/instance/versioned-plugins/available/storages:
+    get:
+      tags:
+        - Plugins
+      summary: List available plugin artifacts for Kestra Internal Storage
+      description: Superadmin-only. Lists all internal storages available for installation.
+        Requires INFRASTRUCTURE permission.
+      operationId: listAvailableVersionedPluginsForStorage
+      responses:
+        "200":
+          description: listAvailableVersionedPluginsForStorage 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/instance/versioned-plugins/install:
     post:
       tags:
@@ -10761,10 +10797,10 @@ paths:
         - name: existing
           in: query
           description: Return only existing namespace
+          required: true
           explode: false
           schema:
             type: boolean
-            nullable: true
             default: false
         - name: tenant
           in: path
@@ -10777,7 +10813,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_NamespaceWithDisabled_"
+                $ref: "#/components/schemas/PagedResults_Namespace_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -10785,7 +10821,7 @@ paths:
     get:
       tags:
         - Namespaces
-      summary: Retrieve namespace details
+      summary: Get a namespace
       operationId: getNamespace
       parameters:
         - name: id
@@ -11375,6 +11411,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/KVController.ApiDeleteBulkResponse"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance:
+    get:
+      tags:
+        - KV
+      summary: List all keys for a namespace and parent namespaces
+      operationId: listKeysWithInheritence
+      parameters:
+        - name: namespace
+          in: path
+          description: The namespace id
+          required: true
+          schema:
+            type: string
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: listKeysWithInheritence 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KVEntry"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13047,15 +13113,18 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteController.RunRequest"
       responses:
         "200":
           description: runTestSuite 200 response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/TestSuiteRunResult"
+                $ref: "#/components/schemas/TestSuiteRunResult"
   /api/v1/{tenant}/triggers:
     put:
       tags:
@@ -13853,7 +13922,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Usage"
+                $ref: "#/components/schemas/UsageEE"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13934,6 +14003,8 @@ components:
           minimum: 1
           type: integer
           format: int32
+        description:
+          type: string
         inputs:
           type: array
           items:
@@ -14122,6 +14193,10 @@ components:
         - UPDATE
         - DELETE
     ApiAuth:
+      required:
+        - name
+        - type
+        - uid
       type: object
       properties:
         uid:
@@ -14141,7 +14216,12 @@ components:
           nullable: true
           items:
             type: string
+        existingOnly:
+          type: boolean
     ApiGroupSummary:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -14149,6 +14229,8 @@ components:
         name:
           type: string
     ApiIds:
+      required:
+        - ids
       type: object
       properties:
         ids:
@@ -14156,6 +14238,11 @@ components:
           items:
             type: string
     ApiRoleSummary:
+      required:
+        - id
+        - isDefault
+        - isManaged
+        - name
       type: object
       properties:
         id:
@@ -14170,6 +14257,7 @@ components:
       required:
         - readOnly
         - results
+        - total
       type: object
       properties:
         readOnly:
@@ -14214,7 +14302,9 @@ components:
           type: string
     ApiSecretValue:
       required:
+        - description
         - key
+        - tags
         - value
       type: object
       properties:
@@ -14233,6 +14323,7 @@ components:
     ApiTenant:
       required:
         - deleted
+        - logo
       type: object
       allOf:
         - $ref: "#/components/schemas/Tenant"
@@ -14253,6 +14344,10 @@ components:
               items:
                 $ref: "#/components/schemas/ApiAuth"
     AppResponse:
+      required:
+        - dispatch
+        - layout
+        - stream
       type: object
       properties:
         dispatch:
@@ -14264,6 +14359,8 @@ components:
     AppResponse.UIBlock:
       type: object
     AppResponse.UILayout:
+      required:
+        - blocks
       type: object
       properties:
         blocks:
@@ -14271,6 +14368,16 @@ components:
           items:
             $ref: "#/components/schemas/AppResponse.UIBlock"
     AppsController.ApiApp:
+      required:
+        - created
+        - enabled
+        - id
+        - name
+        - namespace
+        - tags
+        - type
+        - uid
+        - updated
       type: object
       properties:
         uid:
@@ -14296,6 +14403,12 @@ components:
           type: string
           format: date-time
     AppsController.ApiAppCatalogItem:
+      required:
+        - description
+        - name
+        - tags
+        - type
+        - uid
       type: object
       properties:
         uid:
@@ -14311,6 +14424,15 @@ components:
           items:
             type: string
     AppsController.ApiAppSource:
+      required:
+        - created
+        - disabled
+        - name
+        - namespace
+        - source
+        - tags
+        - uid
+        - updated
       type: object
       properties:
         uid:
@@ -14334,6 +14456,8 @@ components:
           type: string
           format: date-time
     AppsController.ApiAppTags:
+      required:
+        - tags
       type: object
       properties:
         tags:
@@ -14341,6 +14465,9 @@ components:
           items:
             type: string
     AppsController.ApiBulkImportResponse:
+      required:
+        - errors
+        - success
       type: object
       properties:
         success:
@@ -14352,6 +14479,9 @@ components:
           items:
             $ref: "#/components/schemas/AppsController.ApiBulkImportResponse.Error"
     AppsController.ApiBulkImportResponse.Error:
+      required:
+        - message
+        - source
       type: object
       properties:
         source:
@@ -14359,6 +14489,8 @@ components:
         message:
           type: string
     AppsController.ApiBulkOperationRequest:
+      required:
+        - uids
       type: object
       properties:
         uids:
@@ -14407,9 +14539,12 @@ components:
     AssertionResult:
       required:
         - actual
+        - description
+        - errorMessage
         - expected
         - isSuccess
         - operator
+        - taskId
       type: object
       properties:
         operator:
@@ -14428,6 +14563,7 @@ components:
           type: string
     AssertionRunError:
       required:
+        - details
         - message
       type: object
       properties:
@@ -14451,6 +14587,9 @@ components:
         subAttributeName:
           type: string
     AuditLog:
+      required:
+        - appliedPatch
+        - revertPatch
       type: object
       allOf:
         - $ref: "#/components/schemas/BaseAuditLog"
@@ -14467,6 +14606,9 @@ components:
               items:
                 type: object
     AuditLogController.AuditLogDiff:
+      required:
+        - after
+        - before
       type: object
       properties:
         before:
@@ -14474,6 +14616,10 @@ components:
         after:
           type: string
     AuditLogController.AuditLogOption:
+      required:
+        - date
+        - id
+        - username
       type: object
       properties:
         id:
@@ -14484,6 +14630,9 @@ components:
         username:
           type: string
     AuditLogController.AuditLogWithUser:
+      required:
+        - auditLog
+        - user
       type: object
       properties:
         auditLog:
@@ -14491,6 +14640,9 @@ components:
         user:
           $ref: "#/components/schemas/ApiUser"
     AuditLogController.FindRequest:
+      required:
+        - detail
+        - permission
       type: object
       properties:
         permission:
@@ -14543,6 +14695,9 @@ components:
         password:
           type: string
     AuthController.ResetPasswordRequest:
+      required:
+        - password
+        - token
       type: object
       properties:
         token:
@@ -14617,8 +14772,11 @@ components:
     BaseAuditLog:
       required:
         - date
+        - deleted
         - detail
         - id
+        - impersonatedBy
+        - ipAddress
         - type
         - userId
       type: object
@@ -14668,6 +14826,8 @@ components:
       required:
         - deleted
         - externalId
+        - id
+        - namespaceId
         - roleId
         - type
       type: object
@@ -14692,6 +14852,11 @@ components:
     Blueprint:
       required:
         - deleted
+        - description
+        - id
+        - includedTasks
+        - publishedAt
+        - tags
         - title
       type: object
       properties:
@@ -14717,6 +14882,13 @@ components:
         deleted:
           type: boolean
     BlueprintController.ApiBlueprintItem:
+      required:
+        - description
+        - id
+        - includedTasks
+        - publishedAt
+        - tags
+        - title
       type: object
       properties:
         id:
@@ -14747,6 +14919,10 @@ components:
             kind:
               $ref: "#/components/schemas/BlueprintController.Kind"
     BlueprintController.ApiBlueprintTagItem:
+      required:
+        - id
+        - name
+        - publishedAt
       type: object
       properties:
         id:
@@ -14877,19 +15053,6 @@ components:
           pattern: "\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*(\\.\\\
             p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)*"
           type: string
-    ConfigurationUsage:
-      type: object
-      properties:
-        repositoryType:
-          type: string
-        queueType:
-          type: string
-        storageType:
-          type: string
-        secretType:
-          type: string
-        javaSecurityEnabled:
-          type: boolean
     ConversionService:
       type: object
     ConversionServiceProvider:
@@ -14920,6 +15083,9 @@ components:
               $ref: "#/components/schemas/ConversionService"
     CreateApiTokenRequest:
       required:
+        - description
+        - extended
+        - maxAge
         - name
       type: object
       properties:
@@ -14933,6 +15099,10 @@ components:
         extended:
           type: boolean
     CreateApiTokenResponse:
+      required:
+        - fullToken
+        - id
+        - name
       type: object
       properties:
         id:
@@ -14971,6 +15141,10 @@ components:
         - LOGIN_FAILURE
         - ACCOUNT_LOCKED
     CustomLink:
+      required:
+        - name
+        - title
+        - url
       type: object
       properties:
         name:
@@ -14982,6 +15156,8 @@ components:
     DailyExecutionStatistics:
       required:
         - duration
+        - executionCounts
+        - groupBy
         - startDate
       type: object
       properties:
@@ -15176,6 +15352,9 @@ components:
         retry:
           type: string
     ExecutableTask.SubflowId:
+      required:
+        - flowId
+        - namespace
       type: object
       properties:
         namespace:
@@ -15192,8 +15371,18 @@ components:
         - flowId
         - flowRevision
         - id
+        - inputs
+        - labels
+        - metadata
         - namespace
+        - originalId
+        - outputs
+        - parentId
         - state
+        - taskRunList
+        - traceParent
+        - trigger
+        - variables
       type: object
       properties:
         labels:
@@ -15258,6 +15447,10 @@ components:
           items:
             $ref: "#/components/schemas/Breakpoint"
     ExecutionController.ApiValidateExecutionInputsResponse:
+      required:
+        - id
+        - inputs
+        - namespace
       type: object
       properties:
         id:
@@ -15269,6 +15462,11 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
+      required:
+        - enabled
+        - errors
+        - input
+        - value
       type: object
       properties:
         input:
@@ -15282,6 +15480,8 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
+      required:
+        - message
       type: object
       properties:
         message:
@@ -15298,6 +15498,7 @@ components:
     ExecutionController.ExecutionResponse:
       required:
         - deleted
+        - url
       type: object
       allOf:
         - $ref: "#/components/schemas/Execution"
@@ -15309,6 +15510,12 @@ components:
               type: string
               format: uri
     ExecutionController.LastExecutionResponse:
+      required:
+        - flowId
+        - id
+        - namespace
+        - startDate
+        - status
       type: object
       properties:
         id:
@@ -15323,6 +15530,9 @@ components:
         status:
           $ref: "#/components/schemas/State.Type"
     ExecutionController.SetLabelsByIdsRequest:
+      required:
+        - executionLabels
+        - executionsId
       type: object
       properties:
         executionsId:
@@ -15334,6 +15544,9 @@ components:
           items:
             $ref: "#/components/schemas/Label"
     ExecutionController.StateRequest:
+      required:
+        - state
+        - taskRunId
       type: object
       properties:
         taskRunId:
@@ -15341,6 +15554,17 @@ components:
         state:
           $ref: "#/components/schemas/State.Type"
     ExecutionController.WebhookResponse:
+      required:
+        - flowId
+        - flowRevision
+        - id
+        - labels
+        - namespace
+        - outputs
+        - state
+        - tenantId
+        - trigger
+        - url
       type: object
       properties:
         tenantId:
@@ -15376,6 +15600,9 @@ components:
         - TEST
         - PLAYGROUND
     ExecutionMetadata:
+      required:
+        - attemptNumber
+        - originalCreatedDate
       type: object
       properties:
         attemptNumber:
@@ -15400,6 +15627,12 @@ components:
         id:
           type: string
     ExecutionStatusEvent:
+      required:
+        - executionId
+        - flowId
+        - namespace
+        - state
+        - tenantId
       type: object
       properties:
         executionId:
@@ -15415,7 +15648,9 @@ components:
     ExecutionTrigger:
       required:
         - id
+        - logFile
         - type
+        - variables
       type: object
       properties:
         id:
@@ -15477,6 +15712,8 @@ components:
           type: integer
           format: int64
     Filter:
+      required:
+        - filter
       type: object
       properties:
         filter:
@@ -15527,6 +15764,8 @@ components:
               minimum: 1
               type: integer
               format: int32
+            description:
+              type: string
             inputs:
               type: array
               items:
@@ -15550,8 +15789,6 @@ components:
               deprecated: true
               items:
                 $ref: "#/components/schemas/PluginDefault"
-            description:
-              type: string
             variables:
               type: object
               additionalProperties:
@@ -15630,6 +15867,8 @@ components:
               minimum: 1
               type: integer
               format: int32
+            description:
+              type: string
             inputs:
               type: array
               items:
@@ -15683,6 +15922,11 @@ components:
         flowYaml:
           type: string
     FlowGraph:
+      required:
+        - clusters
+        - edges
+        - flowables
+        - nodes
       type: object
       properties:
         nodes:
@@ -15702,6 +15946,12 @@ components:
           items:
             type: string
     FlowGraph.Cluster:
+      required:
+        - cluster
+        - end
+        - nodes
+        - parents
+        - start
       type: object
       properties:
         cluster:
@@ -15719,6 +15969,10 @@ components:
         end:
           type: string
     FlowGraph.Edge:
+      required:
+        - relation
+        - source
+        - target
       type: object
       properties:
         source:
@@ -15747,6 +16001,8 @@ components:
         - $ref: "#/components/schemas/TenantInterface"
         - type: object
           properties:
+            description:
+              type: string
             disabled:
               type: boolean
             deleted:
@@ -15779,6 +16035,8 @@ components:
               type: string
     FlowNode:
       required:
+        - id
+        - namespace
         - uid
       type: object
       properties:
@@ -15799,6 +16057,9 @@ components:
         - USER
         - SYSTEM
     FlowTopologyGraph:
+      required:
+        - edges
+        - nodes
       type: object
       properties:
         nodes:
@@ -15810,6 +16071,10 @@ components:
           items:
             $ref: "#/components/schemas/FlowTopologyGraph.Edge"
     FlowTopologyGraph.Edge:
+      required:
+        - relation
+        - source
+        - target
       type: object
       properties:
         source:
@@ -15868,6 +16133,8 @@ components:
               minimum: 1
               type: integer
               format: int32
+            description:
+              type: string
             inputs:
               type: array
               items:
@@ -15901,6 +16168,11 @@ components:
               items:
                 $ref: "#/components/schemas/SLA"
     GroupIdentifier:
+      required:
+        - groupId
+        - managedExternally
+        - membership
+        - tenantId
       type: object
       properties:
         tenantId:
@@ -15923,56 +16195,6 @@ components:
         count:
           type: integer
           format: int64
-    HostUsage:
-      type: object
-      properties:
-        uuid:
-          type: string
-        hardware:
-          $ref: "#/components/schemas/HostUsage.Hardware"
-        os:
-          $ref: "#/components/schemas/HostUsage.Os"
-        jvm:
-          $ref: "#/components/schemas/HostUsage.Jvm"
-    HostUsage.Hardware:
-      type: object
-      properties:
-        logicalProcessorCount:
-          type: integer
-          format: int32
-        physicalProcessorCount:
-          type: integer
-          format: int64
-        maxFreq:
-          type: integer
-          format: int64
-        memory:
-          type: integer
-          format: int64
-        knownVmMacAddr:
-          type: boolean
-        knownDockerMacAddr:
-          type: boolean
-    HostUsage.Jvm:
-      type: object
-      properties:
-        name:
-          type: string
-        vendor:
-          type: string
-        version:
-          type: string
-    HostUsage.Os:
-      type: object
-      properties:
-        family:
-          type: string
-        version:
-          type: string
-        codeName:
-          type: string
-        buildNumber:
-          type: string
     HttpParameters:
       type: object
       allOf:
@@ -15980,6 +16202,10 @@ components:
         - $ref: "#/components/schemas/ConvertibleValues_List_String__"
         - $ref: "#/components/schemas/ConversionServiceProvider"
     IAMBindingController.ApiBindingDetail:
+      required:
+        - id
+        - role
+        - type
       type: object
       properties:
         id:
@@ -16000,6 +16226,9 @@ components:
           allOf:
             - $ref: "#/components/schemas/IAMBindingController.ApiBindingUser"
     IAMBindingController.ApiBindingGroup:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16007,6 +16236,11 @@ components:
         name:
           type: string
     IAMBindingController.ApiBindingUser:
+      required:
+        - displayName
+        - id
+        - type
+        - username
       type: object
       properties:
         id:
@@ -16034,6 +16268,9 @@ components:
           type: string
           nullable: true
     IAMBindingController.ApiRole:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16042,6 +16279,8 @@ components:
           type: string
     IAMGroupController.ApiCreateGroupRequest:
       required:
+        - description
+        - membersId
         - name
       type: object
       properties:
@@ -16054,6 +16293,10 @@ components:
           items:
             type: string
     IAMGroupController.ApiGroupDetail:
+      required:
+        - description
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16063,6 +16306,11 @@ components:
         description:
           type: string
     IAMGroupController.ApiGroupMember:
+      required:
+        - displayName
+        - groups
+        - id
+        - username
       type: object
       properties:
         id:
@@ -16076,6 +16324,11 @@ components:
           items:
             $ref: "#/components/schemas/IAMGroupController.ApiGroupMembership"
     IAMGroupController.ApiGroupMembership:
+      required:
+        - external
+        - id
+        - membership
+        - name
       type: object
       properties:
         id:
@@ -16088,6 +16341,7 @@ components:
           $ref: "#/components/schemas/GroupIdentifier.Membership"
     IAMGroupController.ApiUpdateGroupRequest:
       required:
+        - description
         - name
       type: object
       properties:
@@ -16100,7 +16354,11 @@ components:
       description: Represents updatable properties for a Group.
     IAMInvitationController.ApiInvitationCreateRequest:
       required:
+        - createUserIfNotExist
         - email
+        - groups
+        - roles
+        - superAdmin
       type: object
       properties:
         createUserIfNotExist:
@@ -16118,6 +16376,18 @@ components:
         email:
           type: string
     IAMInvitationController.ApiInvitationDetail:
+      required:
+        - acceptedAt
+        - email
+        - expiredAt
+        - groups
+        - id
+        - link
+        - roles
+        - sentAt
+        - status
+        - superAdmin
+        - tenantId
       type: object
       properties:
         id:
@@ -16152,6 +16422,7 @@ components:
     IAMInvitationController.ApiInvitationRole:
       required:
         - id
+        - namespaces
       type: object
       properties:
         id:
@@ -16162,6 +16433,8 @@ components:
             type: string
     IAMRoleController.ApiRoleCreateOrUpdateRequest:
       required:
+        - description
+        - isDefault
         - name
         - permissions
       type: object
@@ -16224,6 +16497,13 @@ components:
         isDefault:
           type: boolean
     IAMRoleController.ApiRoleDetail:
+      required:
+        - description
+        - id
+        - isDefault
+        - isManaged
+        - name
+        - permissions
       type: object
       properties:
         id:
@@ -16288,13 +16568,18 @@ components:
         isManaged:
           type: boolean
     IAMServiceAccountController.ApiGroup:
+      required:
+        - id
       type: object
       properties:
         id:
           type: string
     IAMServiceAccountController.ApiServiceAccountRequest:
       required:
+        - description
+        - groups
         - name
+        - superAdmin
       type: object
       properties:
         groups:
@@ -16311,7 +16596,11 @@ components:
       description: A User Service Account.
     IAMServiceAccountController.ApiServiceAccountResponse:
       required:
+        - description
+        - groups
+        - id
         - name
+        - superAdmin
       type: object
       properties:
         id:
@@ -16332,6 +16621,9 @@ components:
           type: boolean
       description: A User Service Account.
     IAMTenantAccessController.ApiAuthentication:
+      required:
+        - name
+        - type
       type: object
       properties:
         name:
@@ -16346,6 +16638,10 @@ components:
         email:
           type: string
     IAMTenantAccessController.ApiGroup:
+      required:
+        - external
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16355,6 +16651,13 @@ components:
         external:
           type: boolean
     IAMTenantAccessController.ApiRoleAssignment:
+      required:
+        - id
+        - name
+        - namespace
+        - origin
+        - permissions
+        - sourceId
       type: object
       properties:
         id:
@@ -16372,6 +16675,14 @@ components:
           items:
             $ref: "#/components/schemas/IAMTenantAccessController.ApiUserPermission"
     IAMTenantAccessController.ApiTenantAccess:
+      required:
+        - displayName
+        - groups
+        - roles
+        - superAdmin
+        - tenantId
+        - userId
+        - username
       type: object
       properties:
         tenantId:
@@ -16393,6 +16704,9 @@ components:
         superAdmin:
           type: boolean
     IAMTenantAccessController.ApiUserPermission:
+      required:
+        - actions
+        - permission
       type: object
       properties:
         permission:
@@ -16402,6 +16716,13 @@ components:
           items:
             $ref: "#/components/schemas/Action"
     IAMTenantAccessController.ApiUserTenantAccess:
+      required:
+        - auths
+        - description
+        - displayName
+        - groups
+        - id
+        - username
       type: object
       properties:
         id:
@@ -16432,6 +16753,13 @@ components:
     IAMUserController.ApiCreateOrUpdateUserRequest:
       required:
         - email
+        - firstName
+        - groups
+        - lastName
+        - password
+        - restricted
+        - superAdmin
+        - tenants
       type: object
       properties:
         tenants:
@@ -16455,6 +16783,9 @@ components:
         restricted:
           type: boolean
     IAMUserController.ApiGroup:
+      required:
+        - id
+        - tenantId
       type: object
       properties:
         id:
@@ -16483,6 +16814,9 @@ components:
         password:
           type: string
     IAMUserController.ApiTenant:
+      required:
+        - id
+        - name
       type: object
       properties:
         id:
@@ -16490,6 +16824,18 @@ components:
         name:
           type: string
     IAMUserController.ApiUser:
+      required:
+        - auths
+        - displayName
+        - email
+        - firstName
+        - groups
+        - id
+        - lastName
+        - restricted
+        - superAdmin
+        - tenants
+        - username
       type: object
       properties:
         id:
@@ -16521,6 +16867,10 @@ components:
         restricted:
           type: boolean
     IAMUserController.ApiUserAuth:
+      required:
+        - id
+        - name
+        - type
       type: object
       properties:
         id:
@@ -16530,6 +16880,13 @@ components:
         type:
           type: string
     IAMUserController.ApiUserSummary:
+      required:
+        - auths
+        - displayName
+        - id
+        - superAdmin
+        - tenants
+        - username
       type: object
       properties:
         id:
@@ -16549,6 +16906,8 @@ components:
         superAdmin:
           type: boolean
     IAMUserGroupController.ApiUpdateUserGroupsRequest:
+      required:
+        - groupIds
       type: object
       properties:
         groupIds:
@@ -16563,6 +16922,11 @@ components:
         id:
           type: string
     IdentityProvider:
+      required:
+        - attributes
+        - externalId
+        - securityIntegrationId
+        - securityIntegrationName
       type: object
       properties:
         attributes:
@@ -16576,6 +16940,9 @@ components:
         securityIntegrationName:
           type: string
     InputType:
+      required:
+        - cls
+        - type
       type: object
       properties:
         type:
@@ -16616,6 +16983,9 @@ components:
           title: The display name of the input.
           type: string
     InstanceController.ApiActiveService:
+      required:
+        - total
+        - type
       type: object
       properties:
         type:
@@ -16624,6 +16994,9 @@ components:
           type: integer
           format: int64
     InstanceController.ApiActiveServiceList:
+      required:
+        - services
+        - total
       type: object
       properties:
         total:
@@ -16635,6 +17008,8 @@ components:
             $ref: "#/components/schemas/InstanceController.ApiActiveService"
     InstanceController.ApiCreateOrUpdateWorkerGroupRequest:
       required:
+        - allowedTenants
+        - description
         - key
       type: object
       properties:
@@ -16650,6 +17025,12 @@ components:
             type: string
       description: ApiCreateWorkerGroupRequest.
     InstanceController.ApiPluginArtifact:
+      required:
+        - artifactId
+        - groupId
+        - icon
+        - title
+        - versions
       type: object
       properties:
         title:
@@ -16665,6 +17046,9 @@ components:
           items:
             type: string
     InstanceController.ApiPluginArtifactList_PluginArtifact_:
+      required:
+        - results
+        - total
       type: object
       properties:
         total:
@@ -16675,6 +17059,9 @@ components:
           items:
             type: object
     InstanceController.ApiPluginArtifactList_PluginResolutionResult_:
+      required:
+        - results
+        - total
       type: object
       properties:
         total:
@@ -16685,6 +17072,8 @@ components:
           items:
             type: object
     InstanceController.ApiPluginListRequest:
+      required:
+        - plugins
       type: object
       properties:
         plugins:
@@ -16692,6 +17081,14 @@ components:
           items:
             type: string
     InstanceController.ApiPluginVersionDetails:
+      required:
+        - artifactId
+        - classes
+        - description
+        - groupId
+        - icon
+        - title
+        - version
       type: object
       properties:
         artifactId:
@@ -16711,6 +17108,9 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersionDetails.ApiPluginClasses"
     InstanceController.ApiPluginVersionDetails.ApiPluginClass:
+      required:
+        - icon
+        - name
       type: object
       properties:
         name:
@@ -16718,6 +17118,9 @@ components:
         icon:
           type: string
     InstanceController.ApiPluginVersionDetails.ApiPluginClasses:
+      required:
+        - classes
+        - type
       type: object
       properties:
         type:
@@ -16727,6 +17130,10 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersionDetails.ApiPluginClass"
     InstanceController.ApiPluginVersions:
+      required:
+        - artifactId
+        - groupId
+        - versions
       type: object
       properties:
         groupId:
@@ -16738,6 +17145,9 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata"
     InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata:
+      required:
+        - metadata
+        - version
       type: object
       properties:
         version:
@@ -16745,6 +17155,11 @@ components:
         metadata:
           $ref: "#/components/schemas/PluginArtifactMetadata"
     InstanceController.ApiServerInstance:
+      required:
+        - hostname
+        - id
+        - type
+        - version
       type: object
       properties:
         id:
@@ -16756,6 +17171,13 @@ components:
         hostname:
           type: string
     InstanceController.ApiServiceInstance:
+      required:
+        - createdAt
+        - id
+        - server
+        - state
+        - type
+        - updatedAt
       type: object
       properties:
         id:
@@ -16773,6 +17195,11 @@ components:
           type: string
           format: date-time
     InstanceController.ApiWorkerGroup:
+      required:
+        - allowedTenants
+        - description
+        - id
+        - key
       type: object
       properties:
         id:
@@ -16790,6 +17217,12 @@ components:
             type: string
       description: ApiWorkerGroup.
     InstanceController.ApiWorkerGroupDetails:
+      required:
+        - allowedTenants
+        - description
+        - id
+        - key
+        - workers
       type: object
       properties:
         id:
@@ -16812,6 +17245,11 @@ components:
             $ref: "#/components/schemas/ServiceInstance"
       description: ApiWorkerGroupDetails.
     InstanceController.ApiWorkerGroupItem:
+      required:
+        - activeWorkers
+        - description
+        - id
+        - key
       type: object
       properties:
         id:
@@ -16829,6 +17267,8 @@ components:
           format: int32
       description: ApiWorkerGroup.
     InstanceController.ApiWorkerGroupList:
+      required:
+        - workerGroups
       type: object
       properties:
         workerGroups:
@@ -16839,8 +17279,20 @@ components:
       description: ApiWorkerGroupList.
     Invitation:
       required:
+        - acceptedAt
+        - bindings
         - deleted
         - email
+        - expiredAt
+        - groupIds
+        - id
+        - isExpired
+        - link
+        - sentAt
+        - status
+        - superAdmin
+        - tenantId
+        - userType
       type: object
       properties:
         isExpired:
@@ -16886,6 +17338,9 @@ components:
         - ACCEPTED
         - EXPIRED
     Isolation:
+      required:
+        - deniedServices
+        - enabled
       type: object
       properties:
         deniedServices:
@@ -16895,6 +17350,8 @@ components:
         enabled:
           type: boolean
     KVController.ApiDeleteBulkRequest:
+      required:
+        - keys
       type: object
       properties:
         keys:
@@ -16902,6 +17359,8 @@ components:
           items:
             type: string
     KVController.ApiDeleteBulkResponse:
+      required:
+        - keys
       type: object
       properties:
         keys:
@@ -16909,6 +17368,9 @@ components:
           items:
             type: string
     KVController.TypedValue:
+      required:
+        - type
+        - value
       type: object
       properties:
         type:
@@ -16916,6 +17378,12 @@ components:
         value:
           type: object
     KVEntry:
+      required:
+        - creationDate
+        - description
+        - expirationDate
+        - key
+        - updateDate
       type: object
       properties:
         key:
@@ -16961,6 +17429,8 @@ components:
         - TRACE
     Listener:
       required:
+        - conditions
+        - description
         - tasks
       type: object
       properties:
@@ -16979,7 +17449,11 @@ components:
       required:
         - deleted
         - flowId
+        - level
+        - message
         - namespace
+        - thread
+        - timestamp
       type: object
       properties:
         namespace:
@@ -17023,6 +17497,13 @@ components:
         empty:
           type: boolean
     MeController.ApiMe:
+      required:
+        - auths
+        - id
+        - profile
+        - restricted
+        - superAdmin
+        - tenants
       type: object
       properties:
         id:
@@ -17042,6 +17523,11 @@ components:
           items:
             $ref: "#/components/schemas/MeController.ApiTenant"
     MeController.ApiProfile:
+      required:
+        - email
+        - firstName
+        - lastName
+        - username
       type: object
       properties:
         email:
@@ -17053,6 +17539,10 @@ components:
         username:
           type: string
     MeController.ApiTenant:
+      required:
+        - id
+        - logo
+        - name
       type: object
       properties:
         id:
@@ -17062,6 +17552,9 @@ components:
         logo:
           type: string
     MeController.ApiUpdatePasswordRequest:
+      required:
+        - newPassword
+        - oldPassword
       type: object
       properties:
         oldPassword:
@@ -17069,6 +17562,10 @@ components:
         newPassword:
           type: string
     MeController.ApiUserDetailsRequest:
+      required:
+        - email
+        - firstName
+        - lastName
       type: object
       properties:
         firstName:
@@ -17094,6 +17591,13 @@ components:
         version:
           type: string
     Metric:
+      required:
+        - baseUnit
+        - description
+        - name
+        - tags
+        - type
+        - value
       type: object
       properties:
         name:
@@ -17111,6 +17615,9 @@ components:
         value:
           type: object
     Metric.Tag:
+      required:
+        - key
+        - value
       type: object
       properties:
         key:
@@ -17121,6 +17628,7 @@ components:
       required:
         - date
         - name
+        - value
       type: object
       properties:
         name:
@@ -17188,7 +17696,18 @@ components:
           nullable: true
           allOf:
             - $ref: "#/components/schemas/ExecutionKind"
+    MiscController.ApiUsage:
+      type: object
+      properties:
+        flows:
+          $ref: "#/components/schemas/FlowUsage"
+        executions:
+          $ref: "#/components/schemas/ExecutionUsage"
     MiscController.BasicAuthCredentials:
+      required:
+        - password
+        - uid
+        - username
       type: object
       properties:
         uid:
@@ -17274,6 +17793,9 @@ components:
             passwordRegexp:
               type: string
     MiscController.Environment:
+      required:
+        - color
+        - name
       type: object
       properties:
         name:
@@ -17281,6 +17803,13 @@ components:
         color:
           type: string
     MiscController.LicenseInfo:
+      required:
+        - expired
+        - expiry
+        - maxServers
+        - standalone
+        - type
+        - workerGroups
       type: object
       properties:
         type:
@@ -17298,6 +17827,9 @@ components:
         workerGroups:
           type: boolean
     MiscController.PluginIdAndVersion:
+      required:
+        - id
+        - version
       type: object
       properties:
         id:
@@ -17305,6 +17837,9 @@ components:
         version:
           type: string
     MiscController.Preview:
+      required:
+        - initial
+        - max
       type: object
       properties:
         initial:
@@ -17314,6 +17849,9 @@ components:
           type: integer
           format: int32
     MiscController.TenantConfigurationInfo:
+      required:
+        - secretByTenant
+        - storageByTenant
       type: object
       properties:
         storageByTenant:
@@ -17330,8 +17868,13 @@ components:
       description: Scim core schema.
     Namespace:
       required:
+        - allowedNamespaces
         - deleted
+        - description
         - id
+        - pluginDefaults
+        - variables
+        - workerGroup
       type: object
       properties:
         id:
@@ -17393,6 +17936,7 @@ components:
           type: string
     Namespace.AllowedTrigger:
       required:
+        - flowId
         - namespace
       type: object
       properties:
@@ -17412,45 +17956,6 @@ components:
           type: string
         deleted:
           type: boolean
-    NamespaceUsage:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-    NamespaceWithDisabled:
-      required:
-        - deleted
-        - id
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/Namespace"
-        - $ref: "#/components/schemas/NamespaceLight"
-        - type: object
-          properties:
-            id:
-              pattern: "^[a-z0-9][a-z0-9._-]*"
-              type: string
-            deleted:
-              type: boolean
-            description:
-              type: string
-            variables:
-              type: object
-              additionalProperties:
-                type: object
-            pluginDefaults:
-              type: array
-              items:
-                $ref: "#/components/schemas/PluginDefault"
-            allowedNamespaces:
-              type: array
-              items:
-                $ref: "#/components/schemas/Namespace.AllowedNamespace"
-            workerGroup:
-              $ref: "#/components/schemas/WorkerGroup"
-            disabled:
-              type: boolean
     Output:
       required:
         - id
@@ -17741,7 +18246,7 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_NamespaceWithDisabled_:
+    PagedResults_Namespace_:
       required:
         - results
         - total
@@ -17750,7 +18255,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/NamespaceWithDisabled"
+            $ref: "#/components/schemas/Namespace"
         total:
           type: integer
           format: int64
@@ -17848,6 +18353,8 @@ components:
         - REMOVE
         - REPLACE
     PatchOperationPath:
+      required:
+        - valuePathExpression
       type: object
       properties:
         valuePathExpression:
@@ -17979,6 +18486,9 @@ components:
         subGroup:
           type: string
     Plugin.PluginElementMetadata:
+      required:
+        - cls
+        - deprecated
       type: object
       properties:
         cls:
@@ -17986,6 +18496,13 @@ components:
         deprecated:
           type: boolean
     PluginArtifact:
+      required:
+        - artifactId
+        - classifier
+        - extension
+        - groupId
+        - uri
+        - version
       type: object
       properties:
         groupId:
@@ -18002,6 +18519,12 @@ components:
           type: string
           format: uri
     PluginArtifactMetadata:
+      required:
+        - creationTime
+        - lastModifiedTime
+        - name
+        - size
+        - uri
       type: object
       properties:
         uri:
@@ -18019,6 +18542,9 @@ components:
           type: integer
           format: int64
     PluginController.ApiPluginVersions:
+      required:
+        - type
+        - versions
       type: object
       properties:
         type:
@@ -18029,7 +18555,9 @@ components:
             type: string
     PluginDefault:
       required:
+        - forced
         - type
+        - values
       type: object
       properties:
         type:
@@ -18049,20 +18577,6 @@ components:
           type: string
         flowable:
           type: boolean
-    PluginMetric:
-      type: object
-      properties:
-        type:
-          type: string
-        count:
-          type: number
-          format: double
-        totalTime:
-          type: number
-          format: double
-        meanTime:
-          type: number
-          format: double
     PluginSchema:
       type: object
       properties:
@@ -18095,14 +18609,9 @@ components:
         - CORE
         - INGESTION
         - BI
-    PluginUsage:
-      type: object
-      properties:
-        manifest:
-          type: object
-          additionalProperties:
-            type: string
     Property_Boolean_:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18110,6 +18619,8 @@ components:
         value:
           type: boolean
     Property_Double_:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18118,6 +18629,8 @@ components:
           type: number
           format: double
     Property_Duration_:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18125,6 +18638,8 @@ components:
         value:
           type: string
     Property_List_String__:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18134,6 +18649,8 @@ components:
           items:
             type: string
     Property_Object_:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18141,6 +18658,8 @@ components:
         value:
           type: object
     Property_String_:
+      required:
+        - expression
       type: object
       properties:
         expression:
@@ -18148,6 +18667,10 @@ components:
         value:
           type: string
     QueryFilter:
+      required:
+        - field
+        - operation
+        - value
       type: object
       properties:
         field:
@@ -18170,12 +18693,17 @@ components:
         - TIME_RANGE
         - TRIGGER_EXECUTION_ID
         - TRIGGER_ID
+        - EXECUTION_ID
         - CHILD_FILTER
         - WORKER_ID
         - EXISTING_ONLY
         - MIN_LEVEL
       x-type: String
     QueryFilter.FieldOp:
+      required:
+        - name
+        - operations
+        - value
       type: object
       properties:
         name:
@@ -18203,6 +18731,9 @@ components:
         - REGEX
         - PREFIX
     QueryFilter.Operation:
+      required:
+        - name
+        - value
       type: object
       properties:
         name:
@@ -18210,6 +18741,9 @@ components:
         value:
           type: string
     QueryFilter.ResourceField:
+      required:
+        - fields
+        - name
       type: object
       properties:
         name:
@@ -18224,6 +18758,9 @@ components:
         - BINDING
         - GROUP
     Relation:
+      required:
+        - relationType
+        - value
       type: object
       properties:
         relationType:
@@ -18276,8 +18813,12 @@ components:
     Role:
       required:
         - deleted
+        - description
+        - id
+        - isDefault
         - isManaged
         - name
+        - permissions
       type: object
       properties:
         isManaged:
@@ -18495,6 +19036,7 @@ components:
     ScimResource:
       required:
         - meta
+        - resourceType
       type: object
       allOf:
         - $ref: "#/components/schemas/BaseResource_ScimResource_"
@@ -18581,6 +19123,9 @@ components:
               type: integer
               format: int32
     SearchResult_Flow_:
+      required:
+        - fragments
+        - model
       type: object
       properties:
         model:
@@ -18595,6 +19140,7 @@ components:
         - SCIM
     ServerConfig:
       required:
+        - liveness
         - terminationGracePeriod
       type: object
       properties:
@@ -18632,6 +19178,13 @@ components:
           type: string
           default: 3s
     ServerInstance:
+      required:
+        - hostname
+        - id
+        - metrics
+        - props
+        - type
+        - version
       type: object
       properties:
         id:
@@ -18655,15 +19208,6 @@ components:
       enum:
         - SERVER
         - STANDALONE
-    ServerType:
-      type: string
-      enum:
-        - EXECUTOR
-        - INDEXER
-        - SCHEDULER
-        - STANDALONE
-        - WEBSERVER
-        - WORKER
     Service.ServiceState:
       type: string
       enum:
@@ -18678,6 +19222,18 @@ components:
         - EMPTY
         - MAINTENANCE
     ServiceInstance:
+      required:
+        - config
+        - createdAt
+        - events
+        - id
+        - metrics
+        - props
+        - seqId
+        - server
+        - state
+        - type
+        - updatedAt
       type: object
       properties:
         server:
@@ -18712,6 +19268,11 @@ components:
           type: integer
           format: int64
     ServiceInstance.TimestampedEvent:
+      required:
+        - state
+        - ts
+        - type
+        - value
       type: object
       properties:
         ts:
@@ -18806,38 +19367,11 @@ components:
         - SCHEDULER
         - WEBSERVER
         - WORKER
-    ServiceUsage:
-      type: object
-      properties:
-        dailyStatistics:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceUsage.DailyServiceStatistics"
-    ServiceUsage.DailyServiceStatistics:
-      type: object
-      properties:
-        type:
-          type: string
-        values:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceUsage.DailyStatistics"
-    ServiceUsage.DailyStatistics:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        min:
-          type: integer
-          format: int64
-        max:
-          type: integer
-          format: int64
-        avg:
-          type: integer
-          format: int64
+        - INVALID
     SetupConfiguration:
+      required:
+        - done
+        - passwordRegexp
       type: object
       properties:
         done:
@@ -18853,6 +19387,10 @@ components:
         passwordRegexp:
           type: string
     SetupConfiguration.SetupData:
+      required:
+        - password
+        - tenant
+        - username
       type: object
       properties:
         username:
@@ -19018,12 +19556,18 @@ components:
           $ref: "#/components/schemas/ExecutableTask.SubflowId"
     TaskRun:
       required:
+        - attempts
+        - dynamic
         - executionId
         - flowId
         - id
+        - iteration
         - namespace
+        - outputs
+        - parentTaskRunId
         - state
         - taskId
+        - value
       type: object
       properties:
         items:
@@ -19085,6 +19629,16 @@ components:
         - deleted
         - id
         - name
+        - outputsInInternalStorage
+        - requireExistingNamespace
+        - secretConfiguration
+        - secretIsolation
+        - secretReadOnly
+        - secretType
+        - storageConfiguration
+        - storageIsolation
+        - storageType
+        - workerGroup
       type: object
       properties:
         storageIsolation:
@@ -19171,7 +19725,18 @@ components:
           type: boolean
         disabled:
           type: boolean
+    TestSuiteController.RunRequest:
+      required:
+        - testCases
+      type: object
+      properties:
+        testCases:
+          type: array
+          items:
+            type: string
     TestSuiteController.SearchTestsLastResult:
+      required:
+        - testSuiteIds
       type: object
       properties:
         testSuiteIds:
@@ -19201,6 +19766,8 @@ components:
           items:
             $ref: "#/components/schemas/TestSuiteController.TestSuiteApiId"
     TestSuiteController.TestsLastResultResponse:
+      required:
+        - results
       type: object
       properties:
         results:
@@ -19213,6 +19780,7 @@ components:
         - flowId
         - id
         - namespace
+        - results
         - startDate
         - state
         - testSuiteId
@@ -19314,6 +19882,9 @@ components:
         disabled:
           type: boolean
     TriggerController.Triggers:
+      required:
+        - abstractTrigger
+        - triggerContext
       type: object
       properties:
         abstractTrigger:
@@ -19381,9 +19952,12 @@ components:
       required:
         - assertionResults
         - errors
+        - executionId
+        - fixtures
         - state
         - testId
         - testType
+        - url
       type: object
       properties:
         testId:
@@ -19407,61 +19981,6 @@ components:
             $ref: "#/components/schemas/AssertionRunError"
         fixtures:
           $ref: "#/components/schemas/Fixtures"
-    Usage:
-      required:
-        - instanceUuid
-        - serverType
-        - startTime
-        - startUuid
-        - uuid
-        - version
-        - zoneId
-      type: object
-      properties:
-        uuid:
-          type: string
-        startUuid:
-          type: string
-        instanceUuid:
-          type: string
-        serverType:
-          $ref: "#/components/schemas/ServerType"
-        version:
-          type: string
-        zoneId:
-          type: string
-        uri:
-          type: string
-          nullable: true
-        environments:
-          type: array
-          nullable: true
-          items:
-            type: string
-        startTime:
-          type: string
-          format: date-time
-        host:
-          $ref: "#/components/schemas/HostUsage"
-        configurations:
-          $ref: "#/components/schemas/ConfigurationUsage"
-        plugins:
-          type: array
-          items:
-            $ref: "#/components/schemas/PluginUsage"
-        flows:
-          $ref: "#/components/schemas/FlowUsage"
-        executions:
-          $ref: "#/components/schemas/ExecutionUsage"
-        services:
-          nullable: true
-          allOf:
-            - $ref: "#/components/schemas/ServiceUsage"
-        pluginMetrics:
-          type: array
-          nullable: true
-          items:
-            $ref: "#/components/schemas/PluginMetric"
     UsageEE:
       type: object
       properties:
@@ -19471,12 +19990,10 @@ components:
           $ref: "#/components/schemas/UserUsage"
         roles:
           $ref: "#/components/schemas/RoleUsage"
-        namespaces:
-          $ref: "#/components/schemas/NamespaceUsage"
         tenants:
           $ref: "#/components/schemas/TenantUsage"
       allOf:
-        - $ref: "#/components/schemas/Usage"
+        - $ref: "#/components/schemas/MiscController.ApiUsage"
     UserGroup:
       type: object
       properties:
@@ -19538,7 +20055,14 @@ components:
           nullable: true
     ValidateConstraintViolation:
       required:
+        - constraints
+        - deprecationPaths
+        - flow
         - index
+        - infos
+        - namespace
+        - outdated
+        - warnings
       type: object
       properties:
         flow:
@@ -19565,6 +20089,8 @@ components:
           items:
             type: string
     ValuePathExpression:
+      required:
+        - attributePath
       type: object
       properties:
         attributePath:

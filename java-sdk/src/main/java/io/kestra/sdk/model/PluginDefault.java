@@ -40,11 +40,11 @@ public class PluginDefault {
   private String type;
 
   public static final String JSON_PROPERTY_FORCED = "forced";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean forced;
 
   public static final String JSON_PROPERTY_VALUES = "values";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> values = new HashMap<>();
 
   public PluginDefault() {
@@ -75,7 +75,7 @@ public class PluginDefault {
     this.type = type;
   }
 
-  public PluginDefault forced(@javax.annotation.Nullable Boolean forced) {
+  public PluginDefault forced(@javax.annotation.Nonnull Boolean forced) {
     
     this.forced = forced;
     return this;
@@ -85,9 +85,9 @@ public class PluginDefault {
    * Get forced
    * @return forced
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FORCED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getForced() {
     return forced;
@@ -95,21 +95,18 @@ public class PluginDefault {
 
 
   @JsonProperty(JSON_PROPERTY_FORCED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setForced(@javax.annotation.Nullable Boolean forced) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setForced(@javax.annotation.Nonnull Boolean forced) {
     this.forced = forced;
   }
 
-  public PluginDefault values(@javax.annotation.Nullable Map<String, Object> values) {
+  public PluginDefault values(@javax.annotation.Nonnull Map<String, Object> values) {
     
     this.values = values;
     return this;
   }
 
   public PluginDefault putValuesItem(String key, Object valuesItem) {
-    if (this.values == null) {
-      this.values = new HashMap<>();
-    }
     this.values.put(key, valuesItem);
     return this;
   }
@@ -118,9 +115,9 @@ public class PluginDefault {
    * Get values
    * @return values
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getValues() {
     return values;
@@ -128,8 +125,8 @@ public class PluginDefault {
 
 
   @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValues(@javax.annotation.Nullable Map<String, Object> values) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValues(@javax.annotation.Nonnull Map<String, Object> values) {
     this.values = values;
   }
 

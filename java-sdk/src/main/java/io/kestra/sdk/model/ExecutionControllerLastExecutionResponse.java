@@ -39,29 +39,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionControllerLastExecutionResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String flowId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String namespace;
 
   public static final String JSON_PROPERTY_START_DATE = "startDate";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime startDate;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private StateType status;
 
   public ExecutionControllerLastExecutionResponse() {
   }
 
-  public ExecutionControllerLastExecutionResponse id(@javax.annotation.Nullable String id) {
+  public ExecutionControllerLastExecutionResponse id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -71,9 +71,9 @@ public class ExecutionControllerLastExecutionResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -81,12 +81,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ExecutionControllerLastExecutionResponse flowId(@javax.annotation.Nullable String flowId) {
+  public ExecutionControllerLastExecutionResponse flowId(@javax.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -96,9 +96,9 @@ public class ExecutionControllerLastExecutionResponse {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
     return flowId;
@@ -106,12 +106,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public ExecutionControllerLastExecutionResponse namespace(@javax.annotation.Nullable String namespace) {
+  public ExecutionControllerLastExecutionResponse namespace(@javax.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -121,9 +121,9 @@ public class ExecutionControllerLastExecutionResponse {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
     return namespace;
@@ -131,12 +131,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionControllerLastExecutionResponse startDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  public ExecutionControllerLastExecutionResponse startDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -146,9 +146,9 @@ public class ExecutionControllerLastExecutionResponse {
    * Get startDate
    * @return startDate
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
     return startDate;
@@ -156,12 +156,12 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_START_DATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStartDate(@javax.annotation.Nullable OffsetDateTime startDate) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStartDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
   }
 
-  public ExecutionControllerLastExecutionResponse status(@javax.annotation.Nullable StateType status) {
+  public ExecutionControllerLastExecutionResponse status(@javax.annotation.Nonnull StateType status) {
     
     this.status = status;
     return this;
@@ -171,9 +171,9 @@ public class ExecutionControllerLastExecutionResponse {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getStatus() {
     return status;
@@ -181,8 +181,8 @@ public class ExecutionControllerLastExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(@javax.annotation.Nullable StateType status) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@javax.annotation.Nonnull StateType status) {
     this.status = status;
   }
 

@@ -35,17 +35,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiActiveService {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ServiceType type;
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Long total;
 
   public InstanceControllerApiActiveService() {
   }
 
-  public InstanceControllerApiActiveService type(@javax.annotation.Nullable ServiceType type) {
+  public InstanceControllerApiActiveService type(@javax.annotation.Nonnull ServiceType type) {
     
     this.type = type;
     return this;
@@ -55,9 +55,9 @@ public class InstanceControllerApiActiveService {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServiceType getType() {
     return type;
@@ -65,12 +65,12 @@ public class InstanceControllerApiActiveService {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable ServiceType type) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@javax.annotation.Nonnull ServiceType type) {
     this.type = type;
   }
 
-  public InstanceControllerApiActiveService total(@javax.annotation.Nullable Long total) {
+  public InstanceControllerApiActiveService total(@javax.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -80,9 +80,9 @@ public class InstanceControllerApiActiveService {
    * Get total
    * @return total
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
     return total;
@@ -90,8 +90,8 @@ public class InstanceControllerApiActiveService {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotal(@javax.annotation.Nullable Long total) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(@javax.annotation.Nonnull Long total) {
     this.total = total;
   }
 

@@ -5,7 +5,7 @@
     <artifactId>kestra-api-client</artifactId>
     <packaging>jar</packaging>
     <name>kestra-api-client</name>
-    <version>v0.24.1</version>
+    <version>1.0.0-beta1</version>
     <url>https://github.com/openapitools/openapi-generator</url>
     <description>OpenAPI Java</description>
     <scm>

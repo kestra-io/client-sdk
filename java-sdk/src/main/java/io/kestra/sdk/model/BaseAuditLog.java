@@ -62,15 +62,15 @@ public class BaseAuditLog {
   private String userId;
 
   public static final String JSON_PROPERTY_IP_ADDRESS = "ipAddress";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String ipAddress;
 
   public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String impersonatedBy;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean deleted;
 
   public BaseAuditLog() {
@@ -201,7 +201,7 @@ public class BaseAuditLog {
     this.userId = userId;
   }
 
-  public BaseAuditLog ipAddress(@javax.annotation.Nullable String ipAddress) {
+  public BaseAuditLog ipAddress(@javax.annotation.Nonnull String ipAddress) {
     
     this.ipAddress = ipAddress;
     return this;
@@ -211,9 +211,9 @@ public class BaseAuditLog {
    * Get ipAddress
    * @return ipAddress
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getIpAddress() {
     return ipAddress;
@@ -221,12 +221,12 @@ public class BaseAuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIpAddress(@javax.annotation.Nullable String ipAddress) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIpAddress(@javax.annotation.Nonnull String ipAddress) {
     this.ipAddress = ipAddress;
   }
 
-  public BaseAuditLog impersonatedBy(@javax.annotation.Nullable String impersonatedBy) {
+  public BaseAuditLog impersonatedBy(@javax.annotation.Nonnull String impersonatedBy) {
     
     this.impersonatedBy = impersonatedBy;
     return this;
@@ -236,9 +236,9 @@ public class BaseAuditLog {
    * Get impersonatedBy
    * @return impersonatedBy
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getImpersonatedBy() {
     return impersonatedBy;
@@ -246,12 +246,12 @@ public class BaseAuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setImpersonatedBy(@javax.annotation.Nullable String impersonatedBy) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setImpersonatedBy(@javax.annotation.Nonnull String impersonatedBy) {
     this.impersonatedBy = impersonatedBy;
   }
 
-  public BaseAuditLog deleted(@javax.annotation.Nullable Boolean deleted) {
+  public BaseAuditLog deleted(@javax.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -261,9 +261,9 @@ public class BaseAuditLog {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
     return deleted;
@@ -271,8 +271,8 @@ public class BaseAuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 

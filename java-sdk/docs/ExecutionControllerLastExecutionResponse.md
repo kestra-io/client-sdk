@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**flowId** | **String** |  |  [optional] |
-|**namespace** | **String** |  |  [optional] |
-|**startDate** | **OffsetDateTime** |  |  [optional] |
-|**status** | **StateType** |  |  [optional] |
+|**id** | **String** |  |  |
+|**flowId** | **String** |  |  |
+|**namespace** | **String** |  |  |
+|**startDate** | **OffsetDateTime** |  |  |
+|**status** | **StateType** |  |  |
 
 
 

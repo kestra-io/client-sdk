@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**name** | **String** |  |  [optional] |
-|**namespace** | **String** |  |  [optional] |
-|**origin** | **RBACServiceRoleAssignmentRoleOrigin** |  |  [optional] |
-|**sourceId** | **String** |  |  [optional] |
-|**permissions** | [**List&lt;IAMTenantAccessControllerApiUserPermission&gt;**](IAMTenantAccessControllerApiUserPermission.md) |  |  [optional] |
+|**id** | **String** |  |  |
+|**name** | **String** |  |  |
+|**namespace** | **String** |  |  |
+|**origin** | **RBACServiceRoleAssignmentRoleOrigin** |  |  |
+|**sourceId** | **String** |  |  |
+|**permissions** | [**List&lt;IAMTenantAccessControllerApiUserPermission&gt;**](IAMTenantAccessControllerApiUserPermission.md) |  |  |
 
 
 

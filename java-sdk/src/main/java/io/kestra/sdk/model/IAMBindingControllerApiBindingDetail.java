@@ -46,11 +46,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMBindingControllerApiBindingDetail {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private BindingType type;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
@@ -58,7 +58,7 @@ public class IAMBindingControllerApiBindingDetail {
   private JsonNullable<String> namespace = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_ROLE = "role";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private IAMBindingControllerApiRole role;
 
   public static final String JSON_PROPERTY_GROUP = "group";
@@ -72,7 +72,7 @@ public class IAMBindingControllerApiBindingDetail {
   public IAMBindingControllerApiBindingDetail() {
   }
 
-  public IAMBindingControllerApiBindingDetail id(@javax.annotation.Nullable String id) {
+  public IAMBindingControllerApiBindingDetail id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -82,9 +82,9 @@ public class IAMBindingControllerApiBindingDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -92,12 +92,12 @@ public class IAMBindingControllerApiBindingDetail {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public IAMBindingControllerApiBindingDetail type(@javax.annotation.Nullable BindingType type) {
+  public IAMBindingControllerApiBindingDetail type(@javax.annotation.Nonnull BindingType type) {
     
     this.type = type;
     return this;
@@ -107,9 +107,9 @@ public class IAMBindingControllerApiBindingDetail {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public BindingType getType() {
     return type;
@@ -117,8 +117,8 @@ public class IAMBindingControllerApiBindingDetail {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable BindingType type) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@javax.annotation.Nonnull BindingType type) {
     this.type = type;
   }
 
@@ -155,7 +155,7 @@ public class IAMBindingControllerApiBindingDetail {
     this.namespace = JsonNullable.<String>of(namespace);
   }
 
-  public IAMBindingControllerApiBindingDetail role(@javax.annotation.Nullable IAMBindingControllerApiRole role) {
+  public IAMBindingControllerApiBindingDetail role(@javax.annotation.Nonnull IAMBindingControllerApiRole role) {
     
     this.role = role;
     return this;
@@ -165,9 +165,9 @@ public class IAMBindingControllerApiBindingDetail {
    * Get role
    * @return role
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public IAMBindingControllerApiRole getRole() {
     return role;
@@ -175,8 +175,8 @@ public class IAMBindingControllerApiBindingDetail {
 
 
   @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRole(@javax.annotation.Nullable IAMBindingControllerApiRole role) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRole(@javax.annotation.Nonnull IAMBindingControllerApiRole role) {
     this.role = role;
   }
 

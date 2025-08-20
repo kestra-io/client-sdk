@@ -37,13 +37,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class TestSuiteControllerSearchTestsLastResult {
   public static final String JSON_PROPERTY_TEST_SUITE_IDS = "testSuiteIds";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<TestSuiteControllerTestSuiteApiId> testSuiteIds = new ArrayList<>();
 
   public TestSuiteControllerSearchTestsLastResult() {
   }
 
-  public TestSuiteControllerSearchTestsLastResult testSuiteIds(@javax.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+  public TestSuiteControllerSearchTestsLastResult testSuiteIds(@javax.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
     
     this.testSuiteIds = testSuiteIds;
     return this;
@@ -61,9 +61,9 @@ public class TestSuiteControllerSearchTestsLastResult {
    * Get testSuiteIds
    * @return testSuiteIds
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteControllerTestSuiteApiId> getTestSuiteIds() {
     return testSuiteIds;
@@ -71,8 +71,8 @@ public class TestSuiteControllerSearchTestsLastResult {
 
 
   @JsonProperty(JSON_PROPERTY_TEST_SUITE_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTestSuiteIds(@javax.annotation.Nullable List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestSuiteIds(@javax.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> testSuiteIds) {
     this.testSuiteIds = testSuiteIds;
   }
 

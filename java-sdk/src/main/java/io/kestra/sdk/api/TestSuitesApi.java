@@ -23,6 +23,7 @@ import io.kestra.sdk.internal.Pair;
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.PagedResultsTestSuite;
 import io.kestra.sdk.model.TestSuite;
+import io.kestra.sdk.model.TestSuiteControllerRunRequest;
 import io.kestra.sdk.model.TestSuiteControllerSearchTestsLastResult;
 import io.kestra.sdk.model.TestSuiteControllerTestSuiteBulkRequest;
 import io.kestra.sdk.model.TestSuiteControllerTestsLastResultResponse;
@@ -729,11 +730,12 @@ public class TestSuitesApi extends BaseApi {
    * @param namespace The TestSuite namespace (required)
    * @param id The TestSuite ID (required)
    * @param tenant  (required)
-   * @return List&lt;TestSuiteRunResult&gt;
+   * @param testSuiteControllerRunRequest  (optional)
+   * @return TestSuiteRunResult
    * @throws ApiException if fails to make API call
    */
-  public List<TestSuiteRunResult> runTestSuite(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.runTestSuite(namespace, id, tenant, Collections.emptyMap());
+  public TestSuiteRunResult runTestSuite(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable TestSuiteControllerRunRequest testSuiteControllerRunRequest) throws ApiException {
+    return this.runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest, Collections.emptyMap());
   }
 
 
@@ -743,12 +745,13 @@ public class TestSuitesApi extends BaseApi {
    * @param namespace The TestSuite namespace (required)
    * @param id The TestSuite ID (required)
    * @param tenant  (required)
+   * @param testSuiteControllerRunRequest  (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;TestSuiteRunResult&gt;
+   * @return TestSuiteRunResult
    * @throws ApiException if fails to make API call
    */
-  public List<TestSuiteRunResult> runTestSuite(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
+  public TestSuiteRunResult runTestSuite(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable TestSuiteControllerRunRequest testSuiteControllerRunRequest, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = testSuiteControllerRunRequest;
     
     // verify the required parameter 'namespace' is set
     if (namespace == null) {
@@ -790,13 +793,13 @@ public class TestSuitesApi extends BaseApi {
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
     final String[] localVarContentTypes = {
-      
+      "application/json"
     };
     final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
     String[] localVarAuthNames = new String[] {  };
 
-    TypeReference<List<TestSuiteRunResult>> localVarReturnType = new TypeReference<List<TestSuiteRunResult>>() {};
+    TypeReference<TestSuiteRunResult> localVarReturnType = new TypeReference<TestSuiteRunResult>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",

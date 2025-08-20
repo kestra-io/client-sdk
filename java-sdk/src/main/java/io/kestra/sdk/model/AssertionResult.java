@@ -54,15 +54,15 @@ public class AssertionResult {
   private Boolean isSuccess;
 
   public static final String JSON_PROPERTY_TASK_ID = "taskId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String taskId;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String errorMessage;
 
   public AssertionResult() {
@@ -168,7 +168,7 @@ public class AssertionResult {
     this.isSuccess = isSuccess;
   }
 
-  public AssertionResult taskId(@javax.annotation.Nullable String taskId) {
+  public AssertionResult taskId(@javax.annotation.Nonnull String taskId) {
     
     this.taskId = taskId;
     return this;
@@ -178,9 +178,9 @@ public class AssertionResult {
    * Get taskId
    * @return taskId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTaskId() {
     return taskId;
@@ -188,12 +188,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_TASK_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaskId(@javax.annotation.Nullable String taskId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTaskId(@javax.annotation.Nonnull String taskId) {
     this.taskId = taskId;
   }
 
-  public AssertionResult description(@javax.annotation.Nullable String description) {
+  public AssertionResult description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -203,9 +203,9 @@ public class AssertionResult {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -213,12 +213,12 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public AssertionResult errorMessage(@javax.annotation.Nullable String errorMessage) {
+  public AssertionResult errorMessage(@javax.annotation.Nonnull String errorMessage) {
     
     this.errorMessage = errorMessage;
     return this;
@@ -228,9 +228,9 @@ public class AssertionResult {
    * Get errorMessage
    * @return errorMessage
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getErrorMessage() {
     return errorMessage;
@@ -238,8 +238,8 @@ public class AssertionResult {
 
 
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrorMessage(@javax.annotation.Nullable String errorMessage) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setErrorMessage(@javax.annotation.Nonnull String errorMessage) {
     this.errorMessage = errorMessage;
   }
 

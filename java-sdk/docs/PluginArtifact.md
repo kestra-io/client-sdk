@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**groupId** | **String** |  |  [optional] |
-|**artifactId** | **String** |  |  [optional] |
-|**extension** | **String** |  |  [optional] |
-|**classifier** | **String** |  |  [optional] |
-|**version** | **String** |  |  [optional] |
-|**uri** | **URI** |  |  [optional] |
+|**groupId** | **String** |  |  |
+|**artifactId** | **String** |  |  |
+|**extension** | **String** |  |  |
+|**classifier** | **String** |  |  |
+|**version** | **String** |  |  |
+|**uri** | **URI** |  |  |
 
 
 

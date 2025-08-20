@@ -14,7 +14,7 @@ Scim core schema.
 |**meta** | [**Meta**](Meta.md) |  |  |
 |**id** | **String** |  |  [optional] |
 |**externalId** | **String** |  |  [optional] |
-|**resourceType** | **String** |  |  [optional] |
+|**resourceType** | **String** |  |  |
 |**primaryEmailAddress** | [**Email**](Email.md) |  |  [optional] |
 |**active** | **Boolean** |  |  [optional] |
 |**emails** | [**List&lt;Email&gt;**](Email.md) |  |  [optional] |

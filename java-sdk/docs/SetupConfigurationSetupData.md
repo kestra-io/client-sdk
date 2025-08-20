@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**username** | **String** |  |  [optional] |
-|**password** | **String** |  |  [optional] |
-|**tenant** | [**Tenant**](Tenant.md) |  |  [optional] |
+|**username** | **String** |  |  |
+|**password** | **String** |  |  |
+|**tenant** | [**Tenant**](Tenant.md) |  |  |
 
 
 

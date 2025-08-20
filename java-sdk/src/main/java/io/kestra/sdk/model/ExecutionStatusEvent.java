@@ -37,29 +37,29 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionStatusEvent {
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String executionId;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String tenantId;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String flowId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private State state;
 
   public ExecutionStatusEvent() {
   }
 
-  public ExecutionStatusEvent executionId(@javax.annotation.Nullable String executionId) {
+  public ExecutionStatusEvent executionId(@javax.annotation.Nonnull String executionId) {
     
     this.executionId = executionId;
     return this;
@@ -69,9 +69,9 @@ public class ExecutionStatusEvent {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExecutionId() {
     return executionId;
@@ -79,12 +79,12 @@ public class ExecutionStatusEvent {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExecutionId(@javax.annotation.Nullable String executionId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionId(@javax.annotation.Nonnull String executionId) {
     this.executionId = executionId;
   }
 
-  public ExecutionStatusEvent tenantId(@javax.annotation.Nullable String tenantId) {
+  public ExecutionStatusEvent tenantId(@javax.annotation.Nonnull String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -94,9 +94,9 @@ public class ExecutionStatusEvent {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTenantId() {
     return tenantId;
@@ -104,12 +104,12 @@ public class ExecutionStatusEvent {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public ExecutionStatusEvent namespace(@javax.annotation.Nullable String namespace) {
+  public ExecutionStatusEvent namespace(@javax.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -119,9 +119,9 @@ public class ExecutionStatusEvent {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
     return namespace;
@@ -129,12 +129,12 @@ public class ExecutionStatusEvent {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutionStatusEvent flowId(@javax.annotation.Nullable String flowId) {
+  public ExecutionStatusEvent flowId(@javax.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -144,9 +144,9 @@ public class ExecutionStatusEvent {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
     return flowId;
@@ -154,12 +154,12 @@ public class ExecutionStatusEvent {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 
-  public ExecutionStatusEvent state(@javax.annotation.Nullable State state) {
+  public ExecutionStatusEvent state(@javax.annotation.Nonnull State state) {
     
     this.state = state;
     return this;
@@ -169,9 +169,9 @@ public class ExecutionStatusEvent {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
     return state;
@@ -179,8 +179,8 @@ public class ExecutionStatusEvent {
 
 
   @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(@javax.annotation.Nullable State state) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@javax.annotation.Nonnull State state) {
     this.state = state;
   }
 

@@ -46,11 +46,11 @@ public class DailyExecutionStatistics {
   private DailyExecutionStatisticsDuration duration;
 
   public static final String JSON_PROPERTY_EXECUTION_COUNTS = "executionCounts";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private DailyExecutionStatisticsExecutionCounts executionCounts;
 
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String groupBy;
 
   public DailyExecutionStatistics() {
@@ -106,7 +106,7 @@ public class DailyExecutionStatistics {
     this.duration = duration;
   }
 
-  public DailyExecutionStatistics executionCounts(@javax.annotation.Nullable DailyExecutionStatisticsExecutionCounts executionCounts) {
+  public DailyExecutionStatistics executionCounts(@javax.annotation.Nonnull DailyExecutionStatisticsExecutionCounts executionCounts) {
     
     this.executionCounts = executionCounts;
     return this;
@@ -116,9 +116,9 @@ public class DailyExecutionStatistics {
    * Get executionCounts
    * @return executionCounts
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXECUTION_COUNTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DailyExecutionStatisticsExecutionCounts getExecutionCounts() {
     return executionCounts;
@@ -126,12 +126,12 @@ public class DailyExecutionStatistics {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_COUNTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExecutionCounts(@javax.annotation.Nullable DailyExecutionStatisticsExecutionCounts executionCounts) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionCounts(@javax.annotation.Nonnull DailyExecutionStatisticsExecutionCounts executionCounts) {
     this.executionCounts = executionCounts;
   }
 
-  public DailyExecutionStatistics groupBy(@javax.annotation.Nullable String groupBy) {
+  public DailyExecutionStatistics groupBy(@javax.annotation.Nonnull String groupBy) {
     
     this.groupBy = groupBy;
     return this;
@@ -141,9 +141,9 @@ public class DailyExecutionStatistics {
    * Get groupBy
    * @return groupBy
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_GROUP_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGroupBy() {
     return groupBy;
@@ -151,8 +151,8 @@ public class DailyExecutionStatistics {
 
 
   @JsonProperty(JSON_PROPERTY_GROUP_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroupBy(@javax.annotation.Nullable String groupBy) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGroupBy(@javax.annotation.Nonnull String groupBy) {
     this.groupBy = groupBy;
   }
 

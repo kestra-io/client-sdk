@@ -39,7 +39,7 @@ public class MetricAggregation {
   private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Double value;
 
   public static final String JSON_PROPERTY_DATE = "date";
@@ -74,7 +74,7 @@ public class MetricAggregation {
     this.name = name;
   }
 
-  public MetricAggregation value(@javax.annotation.Nullable Double value) {
+  public MetricAggregation value(@javax.annotation.Nonnull Double value) {
     
     this.value = value;
     return this;
@@ -84,9 +84,9 @@ public class MetricAggregation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Double getValue() {
     return value;
@@ -94,8 +94,8 @@ public class MetricAggregation {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable Double value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull Double value) {
     this.value = value;
   }
 

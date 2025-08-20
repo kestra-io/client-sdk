@@ -42,33 +42,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class BlueprintControllerApiBlueprintItem {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> includedTasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime publishedAt;
 
   public BlueprintControllerApiBlueprintItem() {
   }
 
-  public BlueprintControllerApiBlueprintItem id(@javax.annotation.Nullable String id) {
+  public BlueprintControllerApiBlueprintItem id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -78,9 +78,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -88,12 +88,12 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public BlueprintControllerApiBlueprintItem title(@javax.annotation.Nullable String title) {
+  public BlueprintControllerApiBlueprintItem title(@javax.annotation.Nonnull String title) {
     
     this.title = title;
     return this;
@@ -103,9 +103,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get title
    * @return title
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
     return title;
@@ -113,12 +113,12 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTitle(@javax.annotation.Nullable String title) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
   }
 
-  public BlueprintControllerApiBlueprintItem description(@javax.annotation.Nullable String description) {
+  public BlueprintControllerApiBlueprintItem description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -128,9 +128,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -138,12 +138,12 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public BlueprintControllerApiBlueprintItem includedTasks(@javax.annotation.Nullable List<String> includedTasks) {
+  public BlueprintControllerApiBlueprintItem includedTasks(@javax.annotation.Nonnull List<String> includedTasks) {
     
     this.includedTasks = includedTasks;
     return this;
@@ -161,9 +161,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get includedTasks
    * @return includedTasks
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getIncludedTasks() {
     return includedTasks;
@@ -171,12 +171,12 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIncludedTasks(@javax.annotation.Nullable List<String> includedTasks) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIncludedTasks(@javax.annotation.Nonnull List<String> includedTasks) {
     this.includedTasks = includedTasks;
   }
 
-  public BlueprintControllerApiBlueprintItem tags(@javax.annotation.Nullable List<String> tags) {
+  public BlueprintControllerApiBlueprintItem tags(@javax.annotation.Nonnull List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -194,9 +194,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getTags() {
     return tags;
@@ -204,12 +204,12 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTags(@javax.annotation.Nullable List<String> tags) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTags(@javax.annotation.Nonnull List<String> tags) {
     this.tags = tags;
   }
 
-  public BlueprintControllerApiBlueprintItem publishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
+  public BlueprintControllerApiBlueprintItem publishedAt(@javax.annotation.Nonnull OffsetDateTime publishedAt) {
     
     this.publishedAt = publishedAt;
     return this;
@@ -219,9 +219,9 @@ public class BlueprintControllerApiBlueprintItem {
    * Get publishedAt
    * @return publishedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getPublishedAt() {
     return publishedAt;
@@ -229,8 +229,8 @@ public class BlueprintControllerApiBlueprintItem {
 
 
   @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPublishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPublishedAt(@javax.annotation.Nonnull OffsetDateTime publishedAt) {
     this.publishedAt = publishedAt;
   }
 

@@ -35,17 +35,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String version;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private PluginArtifactMetadata metadata;
 
   public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata() {
   }
 
-  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata version(@javax.annotation.Nullable String version) {
+  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata version(@javax.annotation.Nonnull String version) {
     
     this.version = version;
     return this;
@@ -55,9 +55,9 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getVersion() {
     return version;
@@ -65,12 +65,12 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
 
 
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersion(@javax.annotation.Nonnull String version) {
     this.version = version;
   }
 
-  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata metadata(@javax.annotation.Nullable PluginArtifactMetadata metadata) {
+  public InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata metadata(@javax.annotation.Nonnull PluginArtifactMetadata metadata) {
     
     this.metadata = metadata;
     return this;
@@ -80,9 +80,9 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PluginArtifactMetadata getMetadata() {
     return metadata;
@@ -90,8 +90,8 @@ public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
 
 
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadata(@javax.annotation.Nullable PluginArtifactMetadata metadata) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetadata(@javax.annotation.Nonnull PluginArtifactMetadata metadata) {
     this.metadata = metadata;
   }
 

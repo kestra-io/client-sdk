@@ -36,21 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class FlowGraphEdge {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String source;
 
   public static final String JSON_PROPERTY_TARGET = "target";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String target;
 
   public static final String JSON_PROPERTY_RELATION = "relation";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Relation relation;
 
   public FlowGraphEdge() {
   }
 
-  public FlowGraphEdge source(@javax.annotation.Nullable String source) {
+  public FlowGraphEdge source(@javax.annotation.Nonnull String source) {
     
     this.source = source;
     return this;
@@ -60,9 +60,9 @@ public class FlowGraphEdge {
    * Get source
    * @return source
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getSource() {
     return source;
@@ -70,12 +70,12 @@ public class FlowGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSource(@javax.annotation.Nullable String source) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSource(@javax.annotation.Nonnull String source) {
     this.source = source;
   }
 
-  public FlowGraphEdge target(@javax.annotation.Nullable String target) {
+  public FlowGraphEdge target(@javax.annotation.Nonnull String target) {
     
     this.target = target;
     return this;
@@ -85,9 +85,9 @@ public class FlowGraphEdge {
    * Get target
    * @return target
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTarget() {
     return target;
@@ -95,12 +95,12 @@ public class FlowGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTarget(@javax.annotation.Nullable String target) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTarget(@javax.annotation.Nonnull String target) {
     this.target = target;
   }
 
-  public FlowGraphEdge relation(@javax.annotation.Nullable Relation relation) {
+  public FlowGraphEdge relation(@javax.annotation.Nonnull Relation relation) {
     
     this.relation = relation;
     return this;
@@ -110,9 +110,9 @@ public class FlowGraphEdge {
    * Get relation
    * @return relation
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Relation getRelation() {
     return relation;
@@ -120,8 +120,8 @@ public class FlowGraphEdge {
 
 
   @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRelation(@javax.annotation.Nullable Relation relation) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRelation(@javax.annotation.Nonnull Relation relation) {
     this.relation = relation;
   }
 

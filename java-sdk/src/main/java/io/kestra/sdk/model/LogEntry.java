@@ -79,19 +79,19 @@ public class LogEntry {
   private JsonNullable<String> triggerId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime timestamp;
 
   public static final String JSON_PROPERTY_LEVEL = "level";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Level level;
 
   public static final String JSON_PROPERTY_THREAD = "thread";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String thread;
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String message;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -320,7 +320,7 @@ public class LogEntry {
     this.triggerId = JsonNullable.<String>of(triggerId);
   }
 
-  public LogEntry timestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
+  public LogEntry timestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
     
     this.timestamp = timestamp;
     return this;
@@ -330,9 +330,9 @@ public class LogEntry {
    * Get timestamp
    * @return timestamp
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getTimestamp() {
     return timestamp;
@@ -340,12 +340,12 @@ public class LogEntry {
 
 
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTimestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
     this.timestamp = timestamp;
   }
 
-  public LogEntry level(@javax.annotation.Nullable Level level) {
+  public LogEntry level(@javax.annotation.Nonnull Level level) {
     
     this.level = level;
     return this;
@@ -355,9 +355,9 @@ public class LogEntry {
    * Get level
    * @return level
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Level getLevel() {
     return level;
@@ -365,12 +365,12 @@ public class LogEntry {
 
 
   @JsonProperty(JSON_PROPERTY_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLevel(@javax.annotation.Nullable Level level) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLevel(@javax.annotation.Nonnull Level level) {
     this.level = level;
   }
 
-  public LogEntry thread(@javax.annotation.Nullable String thread) {
+  public LogEntry thread(@javax.annotation.Nonnull String thread) {
     
     this.thread = thread;
     return this;
@@ -380,9 +380,9 @@ public class LogEntry {
    * Get thread
    * @return thread
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_THREAD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getThread() {
     return thread;
@@ -390,12 +390,12 @@ public class LogEntry {
 
 
   @JsonProperty(JSON_PROPERTY_THREAD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setThread(@javax.annotation.Nullable String thread) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setThread(@javax.annotation.Nonnull String thread) {
     this.thread = thread;
   }
 
-  public LogEntry message(@javax.annotation.Nullable String message) {
+  public LogEntry message(@javax.annotation.Nonnull String message) {
     
     this.message = message;
     return this;
@@ -405,9 +405,9 @@ public class LogEntry {
    * Get message
    * @return message
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMessage() {
     return message;
@@ -415,8 +415,8 @@ public class LogEntry {
 
 
   @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(@javax.annotation.Nullable String message) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMessage(@javax.annotation.Nonnull String message) {
     this.message = message;
   }
 

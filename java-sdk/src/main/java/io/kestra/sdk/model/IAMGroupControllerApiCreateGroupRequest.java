@@ -42,11 +42,11 @@ public class IAMGroupControllerApiCreateGroupRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_MEMBERS_ID = "membersId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> membersId = new ArrayList<>();
 
   public IAMGroupControllerApiCreateGroupRequest() {
@@ -77,7 +77,7 @@ public class IAMGroupControllerApiCreateGroupRequest {
     this.name = name;
   }
 
-  public IAMGroupControllerApiCreateGroupRequest description(@javax.annotation.Nullable String description) {
+  public IAMGroupControllerApiCreateGroupRequest description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -87,9 +87,9 @@ public class IAMGroupControllerApiCreateGroupRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -97,12 +97,12 @@ public class IAMGroupControllerApiCreateGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public IAMGroupControllerApiCreateGroupRequest membersId(@javax.annotation.Nullable List<String> membersId) {
+  public IAMGroupControllerApiCreateGroupRequest membersId(@javax.annotation.Nonnull List<String> membersId) {
     
     this.membersId = membersId;
     return this;
@@ -120,9 +120,9 @@ public class IAMGroupControllerApiCreateGroupRequest {
    * Get membersId
    * @return membersId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getMembersId() {
     return membersId;
@@ -130,8 +130,8 @@ public class IAMGroupControllerApiCreateGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMembersId(@javax.annotation.Nullable List<String> membersId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMembersId(@javax.annotation.Nonnull List<String> membersId) {
     this.membersId = membersId;
   }
 

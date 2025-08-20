@@ -32,7 +32,7 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
       --skip-validate-spec
 
 find ./java-sdk/src/main/java -type f -name "*.java" -exec sed -i.bak 's/Map<Task>/List<Task>/g' {} + && find ./java-sdk/src/main/java -name "*.bak" -delete
-
+echo "version=$VERSION" > ./java-sdk/gradle.properties
 fi
 
 # Generate Python SDK

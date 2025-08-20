@@ -37,25 +37,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMGroupControllerApiGroupMembership {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_EXTERNAL = "external";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean external;
 
   public static final String JSON_PROPERTY_MEMBERSHIP = "membership";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private GroupIdentifierMembership membership;
 
   public IAMGroupControllerApiGroupMembership() {
   }
 
-  public IAMGroupControllerApiGroupMembership id(@javax.annotation.Nullable String id) {
+  public IAMGroupControllerApiGroupMembership id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -65,9 +65,9 @@ public class IAMGroupControllerApiGroupMembership {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -75,12 +75,12 @@ public class IAMGroupControllerApiGroupMembership {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public IAMGroupControllerApiGroupMembership name(@javax.annotation.Nullable String name) {
+  public IAMGroupControllerApiGroupMembership name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -90,9 +90,9 @@ public class IAMGroupControllerApiGroupMembership {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -100,12 +100,12 @@ public class IAMGroupControllerApiGroupMembership {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMGroupControllerApiGroupMembership external(@javax.annotation.Nullable Boolean external) {
+  public IAMGroupControllerApiGroupMembership external(@javax.annotation.Nonnull Boolean external) {
     
     this.external = external;
     return this;
@@ -115,9 +115,9 @@ public class IAMGroupControllerApiGroupMembership {
    * Get external
    * @return external
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXTERNAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getExternal() {
     return external;
@@ -125,12 +125,12 @@ public class IAMGroupControllerApiGroupMembership {
 
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternal(@javax.annotation.Nullable Boolean external) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExternal(@javax.annotation.Nonnull Boolean external) {
     this.external = external;
   }
 
-  public IAMGroupControllerApiGroupMembership membership(@javax.annotation.Nullable GroupIdentifierMembership membership) {
+  public IAMGroupControllerApiGroupMembership membership(@javax.annotation.Nonnull GroupIdentifierMembership membership) {
     
     this.membership = membership;
     return this;
@@ -140,9 +140,9 @@ public class IAMGroupControllerApiGroupMembership {
    * Get membership
    * @return membership
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public GroupIdentifierMembership getMembership() {
     return membership;
@@ -150,8 +150,8 @@ public class IAMGroupControllerApiGroupMembership {
 
 
   @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMembership(@javax.annotation.Nullable GroupIdentifierMembership membership) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMembership(@javax.annotation.Nonnull GroupIdentifierMembership membership) {
     this.membership = membership;
   }
 

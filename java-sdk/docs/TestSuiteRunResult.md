@@ -14,7 +14,7 @@
 |**state** | **TestState** |  |  |
 |**startDate** | **OffsetDateTime** |  |  |
 |**endDate** | **OffsetDateTime** |  |  |
-|**results** | [**List&lt;UnitTestResult&gt;**](UnitTestResult.md) |  |  [optional] |
+|**results** | [**List&lt;UnitTestResult&gt;**](UnitTestResult.md) |  |  |
 
 
 

@@ -36,13 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AppResponseUILayout {
   public static final String JSON_PROPERTY_BLOCKS = "blocks";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Object> blocks = new ArrayList<>();
 
   public AppResponseUILayout() {
   }
 
-  public AppResponseUILayout blocks(@javax.annotation.Nullable List<Object> blocks) {
+  public AppResponseUILayout blocks(@javax.annotation.Nonnull List<Object> blocks) {
     
     this.blocks = blocks;
     return this;
@@ -60,9 +60,9 @@ public class AppResponseUILayout {
    * Get blocks
    * @return blocks
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_BLOCKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Object> getBlocks() {
     return blocks;
@@ -70,8 +70,8 @@ public class AppResponseUILayout {
 
 
   @JsonProperty(JSON_PROPERTY_BLOCKS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBlocks(@javax.annotation.Nullable List<Object> blocks) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setBlocks(@javax.annotation.Nonnull List<Object> blocks) {
     this.blocks = blocks;
   }
 

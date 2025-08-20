@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**model** | [**Flow**](Flow.md) |  |  [optional] |
-|**fragments** | **List&lt;String&gt;** |  |  [optional] |
+|**model** | [**Flow**](Flow.md) |  |  |
+|**fragments** | **List&lt;String&gt;** |  |  |
 
 
 

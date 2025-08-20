@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**plugins** | **List&lt;String&gt;** |  |  [optional] |
+|**plugins** | **List&lt;String&gt;** |  |  |
 
 
 

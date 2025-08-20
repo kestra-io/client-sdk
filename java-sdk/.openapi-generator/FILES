@@ -82,7 +82,6 @@ docs/ClusterApi.md
 docs/Concurrency.md
 docs/ConcurrencyBehavior.md
 docs/Condition.md
-docs/ConfigurationUsage.md
 docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
@@ -156,10 +155,6 @@ docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
 docs/GroupUsage.md
 docs/GroupsApi.md
-docs/HostUsage.md
-docs/HostUsageHardware.md
-docs/HostUsageJvm.md
-docs/HostUsageOs.md
 docs/HttpParameters.md
 docs/IAMBindingControllerApiBindingDetail.md
 docs/IAMBindingControllerApiBindingGroup.md
@@ -250,6 +245,7 @@ docs/MetricEntry.md
 docs/MetricTag.md
 docs/MetricsApi.md
 docs/MiscApi.md
+docs/MiscControllerApiUsage.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
@@ -263,8 +259,6 @@ docs/Namespace.md
 docs/NamespaceAllowedNamespace.md
 docs/NamespaceAllowedTrigger.md
 docs/NamespaceLight.md
-docs/NamespaceUsage.md
-docs/NamespaceWithDisabled.md
 docs/NamespacesApi.md
 docs/Output.md
 docs/PageRequest.md
@@ -288,7 +282,7 @@ docs/PagedResultsInstanceControllerApiServiceInstance.md
 docs/PagedResultsLogEntry.md
 docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
-docs/PagedResultsNamespaceWithDisabled.md
+docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
 docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
@@ -306,11 +300,9 @@ docs/PluginArtifactMetadata.md
 docs/PluginControllerApiPluginVersions.md
 docs/PluginDefault.md
 docs/PluginIcon.md
-docs/PluginMetric.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
 docs/PluginSubGroupPluginCategory.md
-docs/PluginUsage.md
 docs/PluginsApi.md
 docs/PreviewAppRequest.md
 docs/PropertyBoolean.md
@@ -358,7 +350,6 @@ docs/ServerConfig.md
 docs/ServerConfigLiveness.md
 docs/ServerInstance.md
 docs/ServerInstanceType.md
-docs/ServerType.md
 docs/ServiceAccountApi.md
 docs/ServiceInstance.md
 docs/ServiceInstanceTimestampedEvent.md
@@ -370,9 +361,6 @@ docs/ServiceProviderConfigurationFilterConfiguration.md
 docs/ServiceProviderConfigurationSupportedConfiguration.md
 docs/ServiceServiceState.md
 docs/ServiceType.md
-docs/ServiceUsage.md
-docs/ServiceUsageDailyServiceStatistics.md
-docs/ServiceUsageDailyStatistics.md
 docs/ServicesApi.md
 docs/SetupConfiguration.md
 docs/SetupConfigurationSetupData.md
@@ -393,6 +381,7 @@ docs/TenantUsage.md
 docs/TenantsApi.md
 docs/TestState.md
 docs/TestSuite.md
+docs/TestSuiteControllerRunRequest.md
 docs/TestSuiteControllerSearchTestsLastResult.md
 docs/TestSuiteControllerTestSuiteApiId.md
 docs/TestSuiteControllerTestSuiteBulkRequest.md
@@ -412,7 +401,6 @@ docs/UnitTest.md
 docs/UnitTestResult.md
 docs/UpdateFlow200Response.md
 docs/UpdateFlowsInNamespaceFromJson200Response.md
-docs/Usage.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -555,7 +543,6 @@ src/main/java/io/kestra/sdk/model/ChartFiltersOverrides.java
 src/main/java/io/kestra/sdk/model/Concurrency.java
 src/main/java/io/kestra/sdk/model/ConcurrencyBehavior.java
 src/main/java/io/kestra/sdk/model/Condition.java
-src/main/java/io/kestra/sdk/model/ConfigurationUsage.java
 src/main/java/io/kestra/sdk/model/ConversionServiceProvider.java
 src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
 src/main/java/io/kestra/sdk/model/ConvertibleValuesListString.java
@@ -623,10 +610,6 @@ src/main/java/io/kestra/sdk/model/FlowWithSourceAllOfLabels.java
 src/main/java/io/kestra/sdk/model/GroupIdentifier.java
 src/main/java/io/kestra/sdk/model/GroupIdentifierMembership.java
 src/main/java/io/kestra/sdk/model/GroupUsage.java
-src/main/java/io/kestra/sdk/model/HostUsage.java
-src/main/java/io/kestra/sdk/model/HostUsageHardware.java
-src/main/java/io/kestra/sdk/model/HostUsageJvm.java
-src/main/java/io/kestra/sdk/model/HostUsageOs.java
 src/main/java/io/kestra/sdk/model/HttpParameters.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/IAMBindingControllerApiBindingGroup.java
@@ -711,6 +694,7 @@ src/main/java/io/kestra/sdk/model/MetricAggregation.java
 src/main/java/io/kestra/sdk/model/MetricAggregations.java
 src/main/java/io/kestra/sdk/model/MetricEntry.java
 src/main/java/io/kestra/sdk/model/MetricTag.java
+src/main/java/io/kestra/sdk/model/MiscControllerApiUsage.java
 src/main/java/io/kestra/sdk/model/MiscControllerBasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
@@ -724,8 +708,6 @@ src/main/java/io/kestra/sdk/model/Namespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedNamespace.java
 src/main/java/io/kestra/sdk/model/NamespaceAllowedTrigger.java
 src/main/java/io/kestra/sdk/model/NamespaceLight.java
-src/main/java/io/kestra/sdk/model/NamespaceUsage.java
-src/main/java/io/kestra/sdk/model/NamespaceWithDisabled.java
 src/main/java/io/kestra/sdk/model/Output.java
 src/main/java/io/kestra/sdk/model/PageRequest.java
 src/main/java/io/kestra/sdk/model/PagedResultsApiGroupSummary.java
@@ -748,7 +730,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsInstanceControllerApiServiceInstan
 src/main/java/io/kestra/sdk/model/PagedResultsLogEntry.java
 src/main/java/io/kestra/sdk/model/PagedResultsMapStringObject.java
 src/main/java/io/kestra/sdk/model/PagedResultsMetricEntry.java
-src/main/java/io/kestra/sdk/model/PagedResultsNamespaceWithDisabled.java
+src/main/java/io/kestra/sdk/model/PagedResultsNamespace.java
 src/main/java/io/kestra/sdk/model/PagedResultsSearchResultFlow.java
 src/main/java/io/kestra/sdk/model/PagedResultsTaskRun.java
 src/main/java/io/kestra/sdk/model/PagedResultsTenant.java
@@ -766,11 +748,9 @@ src/main/java/io/kestra/sdk/model/PluginArtifactMetadata.java
 src/main/java/io/kestra/sdk/model/PluginControllerApiPluginVersions.java
 src/main/java/io/kestra/sdk/model/PluginDefault.java
 src/main/java/io/kestra/sdk/model/PluginIcon.java
-src/main/java/io/kestra/sdk/model/PluginMetric.java
 src/main/java/io/kestra/sdk/model/PluginPluginElementMetadata.java
 src/main/java/io/kestra/sdk/model/PluginSchema.java
 src/main/java/io/kestra/sdk/model/PluginSubGroupPluginCategory.java
-src/main/java/io/kestra/sdk/model/PluginUsage.java
 src/main/java/io/kestra/sdk/model/PreviewAppRequest.java
 src/main/java/io/kestra/sdk/model/PropertyBoolean.java
 src/main/java/io/kestra/sdk/model/PropertyDouble.java
@@ -812,7 +792,6 @@ src/main/java/io/kestra/sdk/model/ServerConfig.java
 src/main/java/io/kestra/sdk/model/ServerConfigLiveness.java
 src/main/java/io/kestra/sdk/model/ServerInstance.java
 src/main/java/io/kestra/sdk/model/ServerInstanceType.java
-src/main/java/io/kestra/sdk/model/ServerType.java
 src/main/java/io/kestra/sdk/model/ServiceInstance.java
 src/main/java/io/kestra/sdk/model/ServiceInstanceTimestampedEvent.java
 src/main/java/io/kestra/sdk/model/ServiceProviderConfiguration.java
@@ -823,9 +802,6 @@ src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationFilterConfiguratio
 src/main/java/io/kestra/sdk/model/ServiceProviderConfigurationSupportedConfiguration.java
 src/main/java/io/kestra/sdk/model/ServiceServiceState.java
 src/main/java/io/kestra/sdk/model/ServiceType.java
-src/main/java/io/kestra/sdk/model/ServiceUsage.java
-src/main/java/io/kestra/sdk/model/ServiceUsageDailyServiceStatistics.java
-src/main/java/io/kestra/sdk/model/ServiceUsageDailyStatistics.java
 src/main/java/io/kestra/sdk/model/SetupConfiguration.java
 src/main/java/io/kestra/sdk/model/SetupConfigurationSetupData.java
 src/main/java/io/kestra/sdk/model/SortOrder.java
@@ -843,6 +819,7 @@ src/main/java/io/kestra/sdk/model/TenantInterface.java
 src/main/java/io/kestra/sdk/model/TenantUsage.java
 src/main/java/io/kestra/sdk/model/TestState.java
 src/main/java/io/kestra/sdk/model/TestSuite.java
+src/main/java/io/kestra/sdk/model/TestSuiteControllerRunRequest.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerSearchTestsLastResult.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteApiId.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteBulkRequest.java
@@ -860,7 +837,6 @@ src/main/java/io/kestra/sdk/model/UnitTest.java
 src/main/java/io/kestra/sdk/model/UnitTestResult.java
 src/main/java/io/kestra/sdk/model/UpdateFlow200Response.java
 src/main/java/io/kestra/sdk/model/UpdateFlowsInNamespaceFromJson200Response.java
-src/main/java/io/kestra/sdk/model/Usage.java
 src/main/java/io/kestra/sdk/model/UsageEE.java
 src/main/java/io/kestra/sdk/model/UserGroup.java
 src/main/java/io/kestra/sdk/model/UserGroupType.java

@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**tenantId** | **String** |  |  [optional] |
+|**id** | **String** |  |  |
+|**tenantId** | **String** |  |  |
 
 
 

@@ -35,21 +35,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMTenantAccessControllerApiGroup {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_EXTERNAL = "external";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean external;
 
   public IAMTenantAccessControllerApiGroup() {
   }
 
-  public IAMTenantAccessControllerApiGroup id(@javax.annotation.Nullable String id) {
+  public IAMTenantAccessControllerApiGroup id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -59,9 +59,9 @@ public class IAMTenantAccessControllerApiGroup {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -69,12 +69,12 @@ public class IAMTenantAccessControllerApiGroup {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public IAMTenantAccessControllerApiGroup name(@javax.annotation.Nullable String name) {
+  public IAMTenantAccessControllerApiGroup name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -84,9 +84,9 @@ public class IAMTenantAccessControllerApiGroup {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -94,12 +94,12 @@ public class IAMTenantAccessControllerApiGroup {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMTenantAccessControllerApiGroup external(@javax.annotation.Nullable Boolean external) {
+  public IAMTenantAccessControllerApiGroup external(@javax.annotation.Nonnull Boolean external) {
     
     this.external = external;
     return this;
@@ -109,9 +109,9 @@ public class IAMTenantAccessControllerApiGroup {
    * Get external
    * @return external
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXTERNAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getExternal() {
     return external;
@@ -119,8 +119,8 @@ public class IAMTenantAccessControllerApiGroup {
 
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternal(@javax.annotation.Nullable Boolean external) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExternal(@javax.annotation.Nonnull Boolean external) {
     this.external = external;
   }
 

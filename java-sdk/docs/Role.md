@@ -8,11 +8,11 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**isManaged** | **Boolean** |  |  |
-|**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  |  [optional] |
-|**id** | **String** |  |  [optional] |
+|**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  |  |
+|**id** | **String** |  |  |
 |**name** | **String** |  |  |
-|**description** | **String** |  |  [optional] |
-|**isDefault** | **Boolean** |  |  [optional] |
+|**description** | **String** |  |  |
+|**isDefault** | **Boolean** |  |  |
 |**deleted** | **Boolean** |  |  |
 
 

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Filter {
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String filter;
 
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
@@ -43,7 +43,7 @@ public class Filter {
   public Filter() {
   }
 
-  public Filter filter(@javax.annotation.Nullable String filter) {
+  public Filter filter(@javax.annotation.Nonnull String filter) {
     
     this.filter = filter;
     return this;
@@ -53,9 +53,9 @@ public class Filter {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFilter() {
     return filter;
@@ -63,8 +63,8 @@ public class Filter {
 
 
   @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFilter(@javax.annotation.Nullable String filter) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFilter(@javax.annotation.Nonnull String filter) {
     this.filter = filter;
   }
 

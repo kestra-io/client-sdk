@@ -7,17 +7,17 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**roles** | [**List&lt;ApiRoleSummary&gt;**](ApiRoleSummary.md) |  |  [optional] |
-|**groups** | [**List&lt;ApiGroupSummary&gt;**](ApiGroupSummary.md) |  |  [optional] |
-|**tenantId** | **String** |  |  [optional] |
-|**email** | **String** |  |  [optional] |
-|**status** | **InvitationInvitationStatus** |  |  [optional] |
-|**sentAt** | **OffsetDateTime** |  |  [optional] |
-|**expiredAt** | **OffsetDateTime** |  |  [optional] |
-|**acceptedAt** | **OffsetDateTime** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
-|**link** | **String** |  |  [optional] |
+|**id** | **String** |  |  |
+|**roles** | [**List&lt;ApiRoleSummary&gt;**](ApiRoleSummary.md) |  |  |
+|**groups** | [**List&lt;ApiGroupSummary&gt;**](ApiGroupSummary.md) |  |  |
+|**tenantId** | **String** |  |  |
+|**email** | **String** |  |  |
+|**status** | **InvitationInvitationStatus** |  |  |
+|**sentAt** | **OffsetDateTime** |  |  |
+|**expiredAt** | **OffsetDateTime** |  |  |
+|**acceptedAt** | **OffsetDateTime** |  |  |
+|**superAdmin** | **Boolean** |  |  |
+|**link** | **String** |  |  |
 
 
 

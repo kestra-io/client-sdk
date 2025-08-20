@@ -39,21 +39,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiPluginVersions {
   public static final String JSON_PROPERTY_GROUP_ID = "groupId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String groupId;
 
   public static final String JSON_PROPERTY_ARTIFACT_ID = "artifactId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String artifactId;
 
   public static final String JSON_PROPERTY_VERSIONS = "versions";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> versions = new ArrayList<>();
 
   public InstanceControllerApiPluginVersions() {
   }
 
-  public InstanceControllerApiPluginVersions groupId(@javax.annotation.Nullable String groupId) {
+  public InstanceControllerApiPluginVersions groupId(@javax.annotation.Nonnull String groupId) {
     
     this.groupId = groupId;
     return this;
@@ -63,9 +63,9 @@ public class InstanceControllerApiPluginVersions {
    * Get groupId
    * @return groupId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGroupId() {
     return groupId;
@@ -73,12 +73,12 @@ public class InstanceControllerApiPluginVersions {
 
 
   @JsonProperty(JSON_PROPERTY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroupId(@javax.annotation.Nullable String groupId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGroupId(@javax.annotation.Nonnull String groupId) {
     this.groupId = groupId;
   }
 
-  public InstanceControllerApiPluginVersions artifactId(@javax.annotation.Nullable String artifactId) {
+  public InstanceControllerApiPluginVersions artifactId(@javax.annotation.Nonnull String artifactId) {
     
     this.artifactId = artifactId;
     return this;
@@ -88,9 +88,9 @@ public class InstanceControllerApiPluginVersions {
    * Get artifactId
    * @return artifactId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getArtifactId() {
     return artifactId;
@@ -98,12 +98,12 @@ public class InstanceControllerApiPluginVersions {
 
 
   @JsonProperty(JSON_PROPERTY_ARTIFACT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setArtifactId(@javax.annotation.Nullable String artifactId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setArtifactId(@javax.annotation.Nonnull String artifactId) {
     this.artifactId = artifactId;
   }
 
-  public InstanceControllerApiPluginVersions versions(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> versions) {
+  public InstanceControllerApiPluginVersions versions(@javax.annotation.Nonnull List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> versions) {
     
     this.versions = versions;
     return this;
@@ -121,9 +121,9 @@ public class InstanceControllerApiPluginVersions {
    * Get versions
    * @return versions
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VERSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> getVersions() {
     return versions;
@@ -131,8 +131,8 @@ public class InstanceControllerApiPluginVersions {
 
 
   @JsonProperty(JSON_PROPERTY_VERSIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersions(@javax.annotation.Nullable List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> versions) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersions(@javax.annotation.Nonnull List<InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata> versions) {
     this.versions = versions;
   }
 

@@ -34,17 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_ICON = "icon";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String icon;
 
   public InstanceControllerApiPluginVersionDetailsApiPluginClass() {
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@javax.annotation.Nullable String name) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -54,9 +54,9 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -64,12 +64,12 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@javax.annotation.Nullable String icon) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@javax.annotation.Nonnull String icon) {
     
     this.icon = icon;
     return this;
@@ -79,9 +79,9 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get icon
    * @return icon
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ICON)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getIcon() {
     return icon;
@@ -89,8 +89,8 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
 
 
   @JsonProperty(JSON_PROPERTY_ICON)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIcon(@javax.annotation.Nullable String icon) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIcon(@javax.annotation.Nonnull String icon) {
     this.icon = icon;
   }
 

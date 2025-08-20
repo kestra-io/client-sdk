@@ -9,8 +9,8 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** |  |  |
 |**type** | **String** |  |  |
-|**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
-|**logFile** | **URI** |  |  [optional] |
+|**variables** | **Map&lt;String, Object&gt;** |  |  |
+|**logFile** | **URI** |  |  |
 
 
 

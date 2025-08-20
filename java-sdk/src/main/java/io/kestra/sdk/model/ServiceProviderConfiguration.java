@@ -81,7 +81,7 @@ public class ServiceProviderConfiguration {
   private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String resourceType;
 
   public static final String JSON_PROPERTY_DOCUMENTATION_URL = "documentationUrl";
@@ -285,7 +285,7 @@ public class ServiceProviderConfiguration {
     this.externalId = externalId;
   }
 
-  public ServiceProviderConfiguration resourceType(@javax.annotation.Nullable String resourceType) {
+  public ServiceProviderConfiguration resourceType(@javax.annotation.Nonnull String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -295,9 +295,9 @@ public class ServiceProviderConfiguration {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getResourceType() {
     return resourceType;
@@ -305,8 +305,8 @@ public class ServiceProviderConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceType(@javax.annotation.Nullable String resourceType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
     this.resourceType = resourceType;
   }
 

@@ -1121,6 +1121,140 @@ public class PluginsApi extends BaseApi {
   }
 
   /**
+   * List available plugin artifacts for Kestra Secret Manager
+   * Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+   * @return Object
+   * @throws ApiException if fails to make API call
+   */
+  public Object listAvailableVersionedPluginsForSecretManager() throws ApiException {
+    return this.listAvailableVersionedPluginsForSecretManager(Collections.emptyMap());
+  }
+
+
+  /**
+   * List available plugin artifacts for Kestra Secret Manager
+   * Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+   * @param additionalHeaders additionalHeaders for this call
+   * @return Object
+   * @throws ApiException if fails to make API call
+   */
+  public Object listAvailableVersionedPluginsForSecretManager(Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/instance/versioned-plugins/available/secrets-managers";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * List available plugin artifacts for Kestra Internal Storage
+   * Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+   * @return Object
+   * @throws ApiException if fails to make API call
+   */
+  public Object listAvailableVersionedPluginsForStorage() throws ApiException {
+    return this.listAvailableVersionedPluginsForStorage(Collections.emptyMap());
+  }
+
+
+  /**
+   * List available plugin artifacts for Kestra Internal Storage
+   * Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+   * @param additionalHeaders additionalHeaders for this call
+   * @return Object
+   * @throws ApiException if fails to make API call
+   */
+  public Object listAvailableVersionedPluginsForStorage(Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/instance/versioned-plugins/available/storages";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Get list of plugins
    * 
    * @return List&lt;Plugin&gt;

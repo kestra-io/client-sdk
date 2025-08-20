@@ -48,7 +48,7 @@ public class ServerConfig {
   private String terminationGracePeriod = "5m";
 
   public static final String JSON_PROPERTY_LIVENESS = "liveness";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ServerConfigLiveness liveness;
 
   public ServerConfig() {
@@ -112,7 +112,7 @@ public class ServerConfig {
     this.terminationGracePeriod = terminationGracePeriod;
   }
 
-  public ServerConfig liveness(@javax.annotation.Nullable ServerConfigLiveness liveness) {
+  public ServerConfig liveness(@javax.annotation.Nonnull ServerConfigLiveness liveness) {
     
     this.liveness = liveness;
     return this;
@@ -122,9 +122,9 @@ public class ServerConfig {
    * Get liveness
    * @return liveness
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LIVENESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServerConfigLiveness getLiveness() {
     return liveness;
@@ -132,8 +132,8 @@ public class ServerConfig {
 
 
   @JsonProperty(JSON_PROPERTY_LIVENESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLiveness(@javax.annotation.Nullable ServerConfigLiveness liveness) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLiveness(@javax.annotation.Nonnull ServerConfigLiveness liveness) {
     this.liveness = liveness;
   }
 

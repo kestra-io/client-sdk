@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uri** | **URI** |  |  [optional] |
-|**name** | **String** |  |  [optional] |
-|**size** | **Long** |  |  [optional] |
-|**lastModifiedTime** | **Long** |  |  [optional] |
-|**creationTime** | **Long** |  |  [optional] |
+|**uri** | **URI** |  |  |
+|**name** | **String** |  |  |
+|**size** | **Long** |  |  |
+|**lastModifiedTime** | **Long** |  |  |
+|**creationTime** | **Long** |  |  |
 
 
 

@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.NamespaceWithDisabled;
+import io.kestra.sdk.model.Namespace;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,33 +28,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * PagedResultsNamespaceWithDisabled
+ * PagedResultsNamespace
  */
 @JsonPropertyOrder({
-  PagedResultsNamespaceWithDisabled.JSON_PROPERTY_RESULTS,
-  PagedResultsNamespaceWithDisabled.JSON_PROPERTY_TOTAL
+  PagedResultsNamespace.JSON_PROPERTY_RESULTS,
+  PagedResultsNamespace.JSON_PROPERTY_TOTAL
 })
-@JsonTypeName("PagedResults_NamespaceWithDisabled_")
+@JsonTypeName("PagedResults_Namespace_")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
-public class PagedResultsNamespaceWithDisabled {
+public class PagedResultsNamespace {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nonnull
-  private List<NamespaceWithDisabled> results = new ArrayList<>();
+  private List<Namespace> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
   @javax.annotation.Nonnull
   private Long total;
 
-  public PagedResultsNamespaceWithDisabled() {
+  public PagedResultsNamespace() {
   }
 
-  public PagedResultsNamespaceWithDisabled results(@javax.annotation.Nonnull List<NamespaceWithDisabled> results) {
+  public PagedResultsNamespace results(@javax.annotation.Nonnull List<Namespace> results) {
     
     this.results = results;
     return this;
   }
 
-  public PagedResultsNamespaceWithDisabled addResultsItem(NamespaceWithDisabled resultsItem) {
+  public PagedResultsNamespace addResultsItem(Namespace resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }
@@ -70,18 +70,18 @@ public class PagedResultsNamespaceWithDisabled {
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<NamespaceWithDisabled> getResults() {
+  public List<Namespace> getResults() {
     return results;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<NamespaceWithDisabled> results) {
+  public void setResults(@javax.annotation.Nonnull List<Namespace> results) {
     this.results = results;
   }
 
-  public PagedResultsNamespaceWithDisabled total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsNamespace total(@javax.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -114,9 +114,9 @@ public class PagedResultsNamespaceWithDisabled {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PagedResultsNamespaceWithDisabled pagedResultsNamespaceWithDisabled = (PagedResultsNamespaceWithDisabled) o;
-    return Objects.equals(this.results, pagedResultsNamespaceWithDisabled.results) &&
-        Objects.equals(this.total, pagedResultsNamespaceWithDisabled.total);
+    PagedResultsNamespace pagedResultsNamespace = (PagedResultsNamespace) o;
+    return Objects.equals(this.results, pagedResultsNamespace.results) &&
+        Objects.equals(this.total, pagedResultsNamespace.total);
   }
 
   @Override
@@ -127,7 +127,7 @@ public class PagedResultsNamespaceWithDisabled {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PagedResultsNamespaceWithDisabled {\n");
+    sb.append("class PagedResultsNamespace {\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");

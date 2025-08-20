@@ -12,6 +12,7 @@
 |**revision** | **Integer** |  |  [optional] |
 |**tenantId** | **String** |  |  [optional] |
 |**deleted** | **Boolean** |  |  [optional] |
+|**description** | **String** |  |  [optional] |
 |**disabled** | **Boolean** |  |  [optional] |
 |**labels** | [**List&lt;Label&gt;**](Label.md) |  |  [optional] |
 |**inputs** | [**List&lt;InputObject&gt;**](InputObject.md) |  |  [optional] |

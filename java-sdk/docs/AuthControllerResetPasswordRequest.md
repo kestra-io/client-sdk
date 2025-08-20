@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**token** | **String** |  |  [optional] |
-|**password** | **String** |  |  [optional] |
+|**token** | **String** |  |  |
+|**password** | **String** |  |  |
 
 
 

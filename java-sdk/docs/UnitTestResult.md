@@ -9,12 +9,12 @@
 |------------ | ------------- | ------------- | -------------|
 |**testId** | **String** |  |  |
 |**testType** | **String** |  |  |
-|**executionId** | **String** |  |  [optional] |
-|**url** | **URI** |  |  [optional] |
+|**executionId** | **String** |  |  |
+|**url** | **URI** |  |  |
 |**state** | **TestState** |  |  |
 |**assertionResults** | [**List&lt;AssertionResult&gt;**](AssertionResult.md) |  |  |
 |**errors** | [**List&lt;AssertionRunError&gt;**](AssertionRunError.md) |  |  |
-|**fixtures** | [**Fixtures**](Fixtures.md) |  |  [optional] |
+|**fixtures** | [**Fixtures**](Fixtures.md) |  |  |
 
 
 

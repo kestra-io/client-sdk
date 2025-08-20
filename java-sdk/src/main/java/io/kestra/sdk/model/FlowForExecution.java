@@ -41,6 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowForExecution.JSON_PROPERTY_ID,
   FlowForExecution.JSON_PROPERTY_NAMESPACE,
   FlowForExecution.JSON_PROPERTY_REVISION,
+  FlowForExecution.JSON_PROPERTY_DESCRIPTION,
   FlowForExecution.JSON_PROPERTY_INPUTS,
   FlowForExecution.JSON_PROPERTY_OUTPUTS,
   FlowForExecution.JSON_PROPERTY_DISABLED,
@@ -67,6 +68,10 @@ public class FlowForExecution {
   public static final String JSON_PROPERTY_REVISION = "revision";
   @javax.annotation.Nullable
   private Integer revision;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @javax.annotation.Nullable
+  private String description;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @javax.annotation.Nullable
@@ -193,6 +198,31 @@ public class FlowForExecution {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
+  }
+
+  public FlowForExecution description(@javax.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
+    this.description = description;
   }
 
   public FlowForExecution inputs(@javax.annotation.Nullable List<InputObject> inputs) {
@@ -571,6 +601,7 @@ public class FlowForExecution {
     return Objects.equals(this.id, flowForExecution.id) &&
         Objects.equals(this.namespace, flowForExecution.namespace) &&
         Objects.equals(this.revision, flowForExecution.revision) &&
+        Objects.equals(this.description, flowForExecution.description) &&
         Objects.equals(this.inputs, flowForExecution.inputs) &&
         Objects.equals(this.outputs, flowForExecution.outputs) &&
         Objects.equals(this.disabled, flowForExecution.disabled) &&
@@ -587,7 +618,7 @@ public class FlowForExecution {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, inputs, outputs, disabled, labels, variables, workerGroup, deleted, tasks, errors, _finally, afterExecution, triggers);
+    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, tasks, errors, _finally, afterExecution, triggers);
   }
 
   @Override
@@ -597,6 +628,7 @@ public class FlowForExecution {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");

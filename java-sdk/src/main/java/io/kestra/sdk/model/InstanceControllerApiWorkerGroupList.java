@@ -37,13 +37,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiWorkerGroupList {
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
 
   public InstanceControllerApiWorkerGroupList() {
   }
 
-  public InstanceControllerApiWorkerGroupList workerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  public InstanceControllerApiWorkerGroupList workerGroups(@javax.annotation.Nonnull List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     
     this.workerGroups = workerGroups;
     return this;
@@ -61,9 +61,9 @@ public class InstanceControllerApiWorkerGroupList {
    * The list of worker groups.
    * @return workerGroups
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<InstanceControllerApiWorkerGroupItem> getWorkerGroups() {
     return workerGroups;
@@ -71,8 +71,8 @@ public class InstanceControllerApiWorkerGroupList {
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWorkerGroups(@javax.annotation.Nonnull List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     this.workerGroups = workerGroups;
   }
 

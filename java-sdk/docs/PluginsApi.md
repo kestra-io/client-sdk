@@ -18,6 +18,8 @@ All URIs are relative to *http://localhost*
 | [**getVersionedPluginDetailsFromVersion**](PluginsApi.md#getVersionedPluginDetailsFromVersion) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version |
 | [**installVersionedPlugins**](PluginsApi.md#installVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts |
 | [**listAvailableVersionedPlugins**](PluginsApi.md#listAvailableVersionedPlugins) | **GET** /api/v1/instance/versioned-plugins/available | List available plugin artifacts |
+| [**listAvailableVersionedPluginsForSecretManager**](PluginsApi.md#listAvailableVersionedPluginsForSecretManager) | **GET** /api/v1/instance/versioned-plugins/available/secrets-managers | List available plugin artifacts for Kestra Secret Manager |
+| [**listAvailableVersionedPluginsForStorage**](PluginsApi.md#listAvailableVersionedPluginsForStorage) | **GET** /api/v1/instance/versioned-plugins/available/storages | List available plugin artifacts for Kestra Internal Storage |
 | [**listPlugins**](PluginsApi.md#listPlugins) | **GET** /api/v1/plugins | Get list of plugins |
 | [**listVersionedPlugin**](PluginsApi.md#listVersionedPlugin) | **GET** /api/v1/instance/versioned-plugins | List installed plugin artifacts |
 | [**resolveVersionedPlugins**](PluginsApi.md#resolveVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts |
@@ -1068,6 +1070,150 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | listAvailableVersionedPlugins 200 response |  -  |
+
+
+## listAvailableVersionedPluginsForSecretManager
+
+> Object listAvailableVersionedPluginsForSecretManager()
+
+List available plugin artifacts for Kestra Secret Manager
+
+Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.PluginsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+        
+        // Configure HTTP basic authorization: basicAuth
+        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+        basicAuth.setUsername("YOUR USERNAME");
+        basicAuth.setPassword("YOUR PASSWORD");
+
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PluginsApi apiInstance = new PluginsApi(defaultClient);
+        try {
+            Object result = apiInstance.listAvailableVersionedPluginsForSecretManager();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PluginsApi#listAvailableVersionedPluginsForSecretManager");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | listAvailableVersionedPluginsForSecretManager 200 response |  -  |
+
+
+## listAvailableVersionedPluginsForStorage
+
+> Object listAvailableVersionedPluginsForStorage()
+
+List available plugin artifacts for Kestra Internal Storage
+
+Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.auth.*;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.PluginsApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+        
+        // Configure HTTP basic authorization: basicAuth
+        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
+        basicAuth.setUsername("YOUR USERNAME");
+        basicAuth.setPassword("YOUR PASSWORD");
+
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        PluginsApi apiInstance = new PluginsApi(defaultClient);
+        try {
+            Object result = apiInstance.listAvailableVersionedPluginsForStorage();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PluginsApi#listAvailableVersionedPluginsForStorage");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | listAvailableVersionedPluginsForStorage 200 response |  -  |
 
 
 ## listPlugins

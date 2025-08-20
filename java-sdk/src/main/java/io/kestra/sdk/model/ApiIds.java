@@ -35,13 +35,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ApiIds {
   public static final String JSON_PROPERTY_IDS = "ids";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> ids = new ArrayList<>();
 
   public ApiIds() {
   }
 
-  public ApiIds ids(@javax.annotation.Nullable List<String> ids) {
+  public ApiIds ids(@javax.annotation.Nonnull List<String> ids) {
     
     this.ids = ids;
     return this;
@@ -59,9 +59,9 @@ public class ApiIds {
    * Get ids
    * @return ids
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getIds() {
     return ids;
@@ -69,8 +69,8 @@ public class ApiIds {
 
 
   @JsonProperty(JSON_PROPERTY_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIds(@javax.annotation.Nullable List<String> ids) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIds(@javax.annotation.Nonnull List<String> ids) {
     this.ids = ids;
   }
 

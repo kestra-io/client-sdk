@@ -7,14 +7,14 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**flow** | **String** |  |  [optional] |
-|**namespace** | **String** |  |  [optional] |
+|**flow** | **String** |  |  |
+|**namespace** | **String** |  |  |
 |**index** | **Integer** |  |  |
-|**constraints** | **String** |  |  [optional] |
-|**outdated** | **Boolean** |  |  [optional] |
-|**deprecationPaths** | **List&lt;String&gt;** |  |  [optional] |
-|**warnings** | **List&lt;String&gt;** |  |  [optional] |
-|**infos** | **List&lt;String&gt;** |  |  [optional] |
+|**constraints** | **String** |  |  |
+|**outdated** | **Boolean** |  |  |
+|**deprecationPaths** | **List&lt;String&gt;** |  |  |
+|**warnings** | **List&lt;String&gt;** |  |  |
+|**infos** | **List&lt;String&gt;** |  |  |
 
 
 

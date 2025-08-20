@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **String** |  |  [optional] |
-|**classes** | [**List&lt;InstanceControllerApiPluginVersionDetailsApiPluginClass&gt;**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  |  [optional] |
+|**type** | **String** |  |  |
+|**classes** | [**List&lt;InstanceControllerApiPluginVersionDetailsApiPluginClass&gt;**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  |  |
 
 
 

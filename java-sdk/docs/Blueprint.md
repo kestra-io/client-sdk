@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
+|**id** | **String** |  |  |
 |**title** | **String** |  |  |
-|**description** | **String** |  |  [optional] |
-|**tags** | **List&lt;String&gt;** |  |  [optional] |
-|**includedTasks** | **List&lt;String&gt;** |  |  [optional] |
-|**publishedAt** | **OffsetDateTime** |  |  [optional] |
+|**description** | **String** |  |  |
+|**tags** | **List&lt;String&gt;** |  |  |
+|**includedTasks** | **List&lt;String&gt;** |  |  |
+|**publishedAt** | **OffsetDateTime** |  |  |
 |**deleted** | **Boolean** |  |  |
 
 

@@ -569,7 +569,7 @@ No authorization required
 
 ## runTestSuite
 
-> List&lt;TestSuiteRunResult&gt; runTestSuite(namespace, id, tenant)
+> TestSuiteRunResult runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest)
 
 Run a full test
 
@@ -594,8 +594,9 @@ public class Example {
         String namespace = "namespace_example"; // String | The TestSuite namespace
         String id = "id_example"; // String | The TestSuite ID
         String tenant = "tenant_example"; // String | 
+        TestSuiteControllerRunRequest testSuiteControllerRunRequest = new TestSuiteControllerRunRequest(); // TestSuiteControllerRunRequest | 
         try {
-            List<TestSuiteRunResult> result = apiInstance.runTestSuite(namespace, id, tenant);
+            TestSuiteRunResult result = apiInstance.runTestSuite(namespace, id, tenant, testSuiteControllerRunRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#runTestSuite");
@@ -616,10 +617,11 @@ public class Example {
 | **namespace** | **String**| The TestSuite namespace | |
 | **id** | **String**| The TestSuite ID | |
 | **tenant** | **String**|  | |
+| **testSuiteControllerRunRequest** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md)|  | [optional] |
 
 ### Return type
 
-[**List&lt;TestSuiteRunResult&gt;**](TestSuiteRunResult.md)
+[**TestSuiteRunResult**](TestSuiteRunResult.md)
 
 ### Authorization
 
@@ -627,7 +629,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

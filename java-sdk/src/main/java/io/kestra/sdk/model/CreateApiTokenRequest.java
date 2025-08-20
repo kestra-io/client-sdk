@@ -39,15 +39,15 @@ public class CreateApiTokenRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_MAX_AGE = "maxAge";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String maxAge;
 
   public static final String JSON_PROPERTY_EXTENDED = "extended";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean extended;
 
   public CreateApiTokenRequest() {
@@ -78,7 +78,7 @@ public class CreateApiTokenRequest {
     this.name = name;
   }
 
-  public CreateApiTokenRequest description(@javax.annotation.Nullable String description) {
+  public CreateApiTokenRequest description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -88,9 +88,9 @@ public class CreateApiTokenRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -98,12 +98,12 @@ public class CreateApiTokenRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public CreateApiTokenRequest maxAge(@javax.annotation.Nullable String maxAge) {
+  public CreateApiTokenRequest maxAge(@javax.annotation.Nonnull String maxAge) {
     
     this.maxAge = maxAge;
     return this;
@@ -113,9 +113,9 @@ public class CreateApiTokenRequest {
    * Get maxAge
    * @return maxAge
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MAX_AGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMaxAge() {
     return maxAge;
@@ -123,12 +123,12 @@ public class CreateApiTokenRequest {
 
 
   @JsonProperty(JSON_PROPERTY_MAX_AGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMaxAge(@javax.annotation.Nullable String maxAge) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMaxAge(@javax.annotation.Nonnull String maxAge) {
     this.maxAge = maxAge;
   }
 
-  public CreateApiTokenRequest extended(@javax.annotation.Nullable Boolean extended) {
+  public CreateApiTokenRequest extended(@javax.annotation.Nonnull Boolean extended) {
     
     this.extended = extended;
     return this;
@@ -138,9 +138,9 @@ public class CreateApiTokenRequest {
    * Get extended
    * @return extended
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXTENDED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getExtended() {
     return extended;
@@ -148,8 +148,8 @@ public class CreateApiTokenRequest {
 
 
   @JsonProperty(JSON_PROPERTY_EXTENDED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExtended(@javax.annotation.Nullable Boolean extended) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExtended(@javax.annotation.Nonnull Boolean extended) {
     this.extended = extended;
   }
 

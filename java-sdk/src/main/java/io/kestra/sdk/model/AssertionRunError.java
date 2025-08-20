@@ -37,7 +37,7 @@ public class AssertionRunError {
   private String message;
 
   public static final String JSON_PROPERTY_DETAILS = "details";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String details;
 
   public AssertionRunError() {
@@ -68,7 +68,7 @@ public class AssertionRunError {
     this.message = message;
   }
 
-  public AssertionRunError details(@javax.annotation.Nullable String details) {
+  public AssertionRunError details(@javax.annotation.Nonnull String details) {
     
     this.details = details;
     return this;
@@ -78,9 +78,9 @@ public class AssertionRunError {
    * Get details
    * @return details
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDetails() {
     return details;
@@ -88,8 +88,8 @@ public class AssertionRunError {
 
 
   @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDetails(@javax.annotation.Nullable String details) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDetails(@javax.annotation.Nonnull String details) {
     this.details = details;
   }
 

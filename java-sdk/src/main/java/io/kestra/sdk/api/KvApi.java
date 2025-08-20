@@ -400,6 +400,89 @@ public class KvApi extends BaseApi {
   }
 
   /**
+   * List all keys for a namespace and parent namespaces
+   * 
+   * @param namespace The namespace id (required)
+   * @param tenant  (required)
+   * @return List&lt;KVEntry&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return this.listKeysWithInheritence(namespace, tenant, Collections.emptyMap());
+  }
+
+
+  /**
+   * List all keys for a namespace and parent namespaces
+   * 
+   * @param namespace The namespace id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return List&lt;KVEntry&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<KVEntry> listKeysWithInheritence(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'namespace' is set
+    if (namespace == null) {
+      throw new ApiException(400, "Missing the required parameter 'namespace' when calling listKeysWithInheritence");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listKeysWithInheritence");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/kv/inheritance"
+      .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<List<KVEntry>> localVarReturnType = new TypeReference<List<KVEntry>>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Puts a key-value pair in store
    * 
    * @param namespace The namespace id (required)

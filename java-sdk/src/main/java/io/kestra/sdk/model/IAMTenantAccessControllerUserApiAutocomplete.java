@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_Q,
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_IDS,
+  IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_EXISTING_ONLY,
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("IAMTenantAccessController.UserApiAutocomplete")
@@ -48,6 +49,10 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
   public static final String JSON_PROPERTY_IDS = "ids";
   @javax.annotation.Nullable
   private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
+
+  public static final String JSON_PROPERTY_EXISTING_ONLY = "existingOnly";
+  @javax.annotation.Nullable
+  private Boolean existingOnly;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
   @javax.annotation.Nullable
@@ -134,6 +139,31 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     this.ids = JsonNullable.<List<String>>of(ids);
   }
 
+  public IAMTenantAccessControllerUserApiAutocomplete existingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+    
+    this.existingOnly = existingOnly;
+    return this;
+  }
+
+  /**
+   * Get existingOnly
+   * @return existingOnly
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getExistingOnly() {
+    return existingOnly;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+    this.existingOnly = existingOnly;
+  }
+
   public IAMTenantAccessControllerUserApiAutocomplete username(@javax.annotation.Nullable String username) {
     this.username = JsonNullable.<String>of(username);
     
@@ -178,6 +208,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete = (IAMTenantAccessControllerUserApiAutocomplete) o;
     return equalsNullable(this.q, iaMTenantAccessControllerUserApiAutocomplete.q) &&
         equalsNullable(this.ids, iaMTenantAccessControllerUserApiAutocomplete.ids) &&
+        Objects.equals(this.existingOnly, iaMTenantAccessControllerUserApiAutocomplete.existingOnly) &&
         equalsNullable(this.username, iaMTenantAccessControllerUserApiAutocomplete.username);
   }
 
@@ -187,7 +218,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(q), hashCodeNullable(ids), hashCodeNullable(username));
+    return Objects.hash(hashCodeNullable(q), hashCodeNullable(ids), existingOnly, hashCodeNullable(username));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -203,6 +234,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
     sb.append("class IAMTenantAccessControllerUserApiAutocomplete {\n");
     sb.append("    q: ").append(toIndentedString(q)).append("\n");
     sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+    sb.append("    existingOnly: ").append(toIndentedString(existingOnly)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();

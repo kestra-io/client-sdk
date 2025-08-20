@@ -36,25 +36,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiWorkerGroupItem {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_ACTIVE_WORKERS = "activeWorkers";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Integer activeWorkers;
 
   public InstanceControllerApiWorkerGroupItem() {
   }
 
-  public InstanceControllerApiWorkerGroupItem id(@javax.annotation.Nullable String id) {
+  public InstanceControllerApiWorkerGroupItem id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -64,9 +64,9 @@ public class InstanceControllerApiWorkerGroupItem {
    * The ID of worker group.
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -74,12 +74,12 @@ public class InstanceControllerApiWorkerGroupItem {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public InstanceControllerApiWorkerGroupItem key(@javax.annotation.Nullable String key) {
+  public InstanceControllerApiWorkerGroupItem key(@javax.annotation.Nonnull String key) {
     
     this.key = key;
     return this;
@@ -89,9 +89,9 @@ public class InstanceControllerApiWorkerGroupItem {
    * The key of the worker group.
    * @return key
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
     return key;
@@ -99,12 +99,12 @@ public class InstanceControllerApiWorkerGroupItem {
 
 
   @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKey(@javax.annotation.Nullable String key) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@javax.annotation.Nonnull String key) {
     this.key = key;
   }
 
-  public InstanceControllerApiWorkerGroupItem description(@javax.annotation.Nullable String description) {
+  public InstanceControllerApiWorkerGroupItem description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -114,9 +114,9 @@ public class InstanceControllerApiWorkerGroupItem {
    * The description of the worker group.
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -124,12 +124,12 @@ public class InstanceControllerApiWorkerGroupItem {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public InstanceControllerApiWorkerGroupItem activeWorkers(@javax.annotation.Nullable Integer activeWorkers) {
+  public InstanceControllerApiWorkerGroupItem activeWorkers(@javax.annotation.Nonnull Integer activeWorkers) {
     
     this.activeWorkers = activeWorkers;
     return this;
@@ -139,9 +139,9 @@ public class InstanceControllerApiWorkerGroupItem {
    * The number of active workers for the group.
    * @return activeWorkers
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACTIVE_WORKERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getActiveWorkers() {
     return activeWorkers;
@@ -149,8 +149,8 @@ public class InstanceControllerApiWorkerGroupItem {
 
 
   @JsonProperty(JSON_PROPERTY_ACTIVE_WORKERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setActiveWorkers(@javax.annotation.Nullable Integer activeWorkers) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setActiveWorkers(@javax.annotation.Nonnull Integer activeWorkers) {
     this.activeWorkers = activeWorkers;
   }
 

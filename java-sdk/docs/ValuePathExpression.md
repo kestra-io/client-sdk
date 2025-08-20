@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**attributePath** | [**AttributeReference**](AttributeReference.md) |  |  [optional] |
+|**attributePath** | [**AttributeReference**](AttributeReference.md) |  |  |
 |**attributeExpression** | **Object** |  |  [optional] |
 
 

@@ -52,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Invitation {
   public static final String JSON_PROPERTY_IS_EXPIRED = "isExpired";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean isExpired;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
@@ -60,35 +60,35 @@ public class Invitation {
   private String email;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_BINDINGS = "bindings";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Binding> bindings = new ArrayList<>();
 
   public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> groupIds = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String tenantId;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private InvitationInvitationStatus status;
 
   public static final String JSON_PROPERTY_SENT_AT = "sentAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime sentAt;
 
   public static final String JSON_PROPERTY_EXPIRED_AT = "expiredAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime expiredAt;
 
   public static final String JSON_PROPERTY_ACCEPTED_AT = "acceptedAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime acceptedAt;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -96,21 +96,21 @@ public class Invitation {
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_USER_TYPE = "userType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private UserType userType;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean superAdmin;
 
   public static final String JSON_PROPERTY_LINK = "link";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String link;
 
   public Invitation() {
   }
 
-  public Invitation isExpired(@javax.annotation.Nullable Boolean isExpired) {
+  public Invitation isExpired(@javax.annotation.Nonnull Boolean isExpired) {
     
     this.isExpired = isExpired;
     return this;
@@ -120,9 +120,9 @@ public class Invitation {
    * Get isExpired
    * @return isExpired
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IS_EXPIRED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIsExpired() {
     return isExpired;
@@ -130,8 +130,8 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_IS_EXPIRED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsExpired(@javax.annotation.Nullable Boolean isExpired) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsExpired(@javax.annotation.Nonnull Boolean isExpired) {
     this.isExpired = isExpired;
   }
 
@@ -160,7 +160,7 @@ public class Invitation {
     this.email = email;
   }
 
-  public Invitation id(@javax.annotation.Nullable String id) {
+  public Invitation id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -170,9 +170,9 @@ public class Invitation {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -180,12 +180,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Invitation bindings(@javax.annotation.Nullable List<Binding> bindings) {
+  public Invitation bindings(@javax.annotation.Nonnull List<Binding> bindings) {
     
     this.bindings = bindings;
     return this;
@@ -203,9 +203,9 @@ public class Invitation {
    * Get bindings
    * @return bindings
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_BINDINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Binding> getBindings() {
     return bindings;
@@ -213,12 +213,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_BINDINGS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBindings(@javax.annotation.Nullable List<Binding> bindings) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setBindings(@javax.annotation.Nonnull List<Binding> bindings) {
     this.bindings = bindings;
   }
 
-  public Invitation groupIds(@javax.annotation.Nullable List<String> groupIds) {
+  public Invitation groupIds(@javax.annotation.Nonnull List<String> groupIds) {
     
     this.groupIds = groupIds;
     return this;
@@ -236,9 +236,9 @@ public class Invitation {
    * Get groupIds
    * @return groupIds
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getGroupIds() {
     return groupIds;
@@ -246,12 +246,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroupIds(@javax.annotation.Nullable List<String> groupIds) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGroupIds(@javax.annotation.Nonnull List<String> groupIds) {
     this.groupIds = groupIds;
   }
 
-  public Invitation tenantId(@javax.annotation.Nullable String tenantId) {
+  public Invitation tenantId(@javax.annotation.Nonnull String tenantId) {
     
     this.tenantId = tenantId;
     return this;
@@ -261,9 +261,9 @@ public class Invitation {
    * Get tenantId
    * @return tenantId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTenantId() {
     return tenantId;
@@ -271,12 +271,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
     this.tenantId = tenantId;
   }
 
-  public Invitation status(@javax.annotation.Nullable InvitationInvitationStatus status) {
+  public Invitation status(@javax.annotation.Nonnull InvitationInvitationStatus status) {
     
     this.status = status;
     return this;
@@ -286,9 +286,9 @@ public class Invitation {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public InvitationInvitationStatus getStatus() {
     return status;
@@ -296,12 +296,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(@javax.annotation.Nullable InvitationInvitationStatus status) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(@javax.annotation.Nonnull InvitationInvitationStatus status) {
     this.status = status;
   }
 
-  public Invitation sentAt(@javax.annotation.Nullable OffsetDateTime sentAt) {
+  public Invitation sentAt(@javax.annotation.Nonnull OffsetDateTime sentAt) {
     
     this.sentAt = sentAt;
     return this;
@@ -311,9 +311,9 @@ public class Invitation {
    * Get sentAt
    * @return sentAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SENT_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getSentAt() {
     return sentAt;
@@ -321,12 +321,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_SENT_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSentAt(@javax.annotation.Nullable OffsetDateTime sentAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSentAt(@javax.annotation.Nonnull OffsetDateTime sentAt) {
     this.sentAt = sentAt;
   }
 
-  public Invitation expiredAt(@javax.annotation.Nullable OffsetDateTime expiredAt) {
+  public Invitation expiredAt(@javax.annotation.Nonnull OffsetDateTime expiredAt) {
     
     this.expiredAt = expiredAt;
     return this;
@@ -336,9 +336,9 @@ public class Invitation {
    * Get expiredAt
    * @return expiredAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getExpiredAt() {
     return expiredAt;
@@ -346,12 +346,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpiredAt(@javax.annotation.Nullable OffsetDateTime expiredAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExpiredAt(@javax.annotation.Nonnull OffsetDateTime expiredAt) {
     this.expiredAt = expiredAt;
   }
 
-  public Invitation acceptedAt(@javax.annotation.Nullable OffsetDateTime acceptedAt) {
+  public Invitation acceptedAt(@javax.annotation.Nonnull OffsetDateTime acceptedAt) {
     
     this.acceptedAt = acceptedAt;
     return this;
@@ -361,9 +361,9 @@ public class Invitation {
    * Get acceptedAt
    * @return acceptedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getAcceptedAt() {
     return acceptedAt;
@@ -371,8 +371,8 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_ACCEPTED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAcceptedAt(@javax.annotation.Nullable OffsetDateTime acceptedAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAcceptedAt(@javax.annotation.Nonnull OffsetDateTime acceptedAt) {
     this.acceptedAt = acceptedAt;
   }
 
@@ -401,7 +401,7 @@ public class Invitation {
     this.deleted = deleted;
   }
 
-  public Invitation userType(@javax.annotation.Nullable UserType userType) {
+  public Invitation userType(@javax.annotation.Nonnull UserType userType) {
     
     this.userType = userType;
     return this;
@@ -411,9 +411,9 @@ public class Invitation {
    * Get userType
    * @return userType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USER_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public UserType getUserType() {
     return userType;
@@ -421,12 +421,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_USER_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserType(@javax.annotation.Nullable UserType userType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUserType(@javax.annotation.Nonnull UserType userType) {
     this.userType = userType;
   }
 
-  public Invitation superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  public Invitation superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -436,9 +436,9 @@ public class Invitation {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
@@ -446,12 +446,12 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 
-  public Invitation link(@javax.annotation.Nullable String link) {
+  public Invitation link(@javax.annotation.Nonnull String link) {
     
     this.link = link;
     return this;
@@ -461,9 +461,9 @@ public class Invitation {
    * Get link
    * @return link
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LINK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLink() {
     return link;
@@ -471,8 +471,8 @@ public class Invitation {
 
 
   @JsonProperty(JSON_PROPERTY_LINK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLink(@javax.annotation.Nullable String link) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLink(@javax.annotation.Nonnull String link) {
     this.link = link;
   }
 

@@ -34,17 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MeControllerApiUpdatePasswordRequest {
   public static final String JSON_PROPERTY_OLD_PASSWORD = "oldPassword";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String oldPassword;
 
   public static final String JSON_PROPERTY_NEW_PASSWORD = "newPassword";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String newPassword;
 
   public MeControllerApiUpdatePasswordRequest() {
   }
 
-  public MeControllerApiUpdatePasswordRequest oldPassword(@javax.annotation.Nullable String oldPassword) {
+  public MeControllerApiUpdatePasswordRequest oldPassword(@javax.annotation.Nonnull String oldPassword) {
     
     this.oldPassword = oldPassword;
     return this;
@@ -54,9 +54,9 @@ public class MeControllerApiUpdatePasswordRequest {
    * Get oldPassword
    * @return oldPassword
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOldPassword() {
     return oldPassword;
@@ -64,12 +64,12 @@ public class MeControllerApiUpdatePasswordRequest {
 
 
   @JsonProperty(JSON_PROPERTY_OLD_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOldPassword(@javax.annotation.Nullable String oldPassword) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOldPassword(@javax.annotation.Nonnull String oldPassword) {
     this.oldPassword = oldPassword;
   }
 
-  public MeControllerApiUpdatePasswordRequest newPassword(@javax.annotation.Nullable String newPassword) {
+  public MeControllerApiUpdatePasswordRequest newPassword(@javax.annotation.Nonnull String newPassword) {
     
     this.newPassword = newPassword;
     return this;
@@ -79,9 +79,9 @@ public class MeControllerApiUpdatePasswordRequest {
    * Get newPassword
    * @return newPassword
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNewPassword() {
     return newPassword;
@@ -89,8 +89,8 @@ public class MeControllerApiUpdatePasswordRequest {
 
 
   @JsonProperty(JSON_PROPERTY_NEW_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNewPassword(@javax.annotation.Nullable String newPassword) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNewPassword(@javax.annotation.Nonnull String newPassword) {
     this.newPassword = newPassword;
   }
 

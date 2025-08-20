@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **KVType** |  |  [optional] |
-|**value** | **Object** |  |  [optional] |
+|**type** | **KVType** |  |  |
+|**value** | **Object** |  |  |
 
 
 

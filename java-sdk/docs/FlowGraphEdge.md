@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**source** | **String** |  |  [optional] |
-|**target** | **String** |  |  [optional] |
-|**relation** | [**Relation**](Relation.md) |  |  [optional] |
+|**source** | **String** |  |  |
+|**target** | **String** |  |  |
+|**relation** | [**Relation**](Relation.md) |  |  |
 
 
 

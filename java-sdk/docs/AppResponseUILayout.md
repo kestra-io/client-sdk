@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**blocks** | **List&lt;Object&gt;** |  |  [optional] |
+|**blocks** | **List&lt;Object&gt;** |  |  |
 
 
 

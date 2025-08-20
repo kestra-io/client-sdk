@@ -39,11 +39,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutableTaskSubflowId {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String flowId;
 
   public static final String JSON_PROPERTY_REVISION = "revision";
@@ -53,7 +53,7 @@ public class ExecutableTaskSubflowId {
   public ExecutableTaskSubflowId() {
   }
 
-  public ExecutableTaskSubflowId namespace(@javax.annotation.Nullable String namespace) {
+  public ExecutableTaskSubflowId namespace(@javax.annotation.Nonnull String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -63,9 +63,9 @@ public class ExecutableTaskSubflowId {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
     return namespace;
@@ -73,12 +73,12 @@ public class ExecutableTaskSubflowId {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespace(@javax.annotation.Nullable String namespace) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutableTaskSubflowId flowId(@javax.annotation.Nullable String flowId) {
+  public ExecutableTaskSubflowId flowId(@javax.annotation.Nonnull String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -88,9 +88,9 @@ public class ExecutableTaskSubflowId {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
     return flowId;
@@ -98,8 +98,8 @@ public class ExecutableTaskSubflowId {
 
 
   @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFlowId(@javax.annotation.Nullable String flowId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
   }
 

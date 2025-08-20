@@ -72,7 +72,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionControllerExecutionResponse {
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ID = "id";
@@ -92,19 +92,19 @@ public class ExecutionControllerExecutionResponse {
   private Integer flowRevision;
 
   public static final String JSON_PROPERTY_TASK_RUN_LIST = "taskRunList";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<TaskRun> taskRunList = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> inputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_STATE = "state";
@@ -112,15 +112,15 @@ public class ExecutionControllerExecutionResponse {
   private State state;
 
   public static final String JSON_PROPERTY_PARENT_ID = "parentId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String parentId;
 
   public static final String JSON_PROPERTY_ORIGINAL_ID = "originalId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String originalId;
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ExecutionTrigger trigger;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -128,7 +128,7 @@ public class ExecutionControllerExecutionResponse {
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ExecutionMetadata metadata;
 
   public static final String JSON_PROPERTY_SCHEDULE_DATE = "scheduleDate";
@@ -136,7 +136,7 @@ public class ExecutionControllerExecutionResponse {
   private JsonNullable<OffsetDateTime> scheduleDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_TRACE_PARENT = "traceParent";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String traceParent;
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
@@ -152,13 +152,13 @@ public class ExecutionControllerExecutionResponse {
   private JsonNullable<List<Breakpoint>> breakpoints = JsonNullable.<List<Breakpoint>>undefined();
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private URI url;
 
   public ExecutionControllerExecutionResponse() {
   }
 
-  public ExecutionControllerExecutionResponse labels(@javax.annotation.Nullable List<Label> labels) {
+  public ExecutionControllerExecutionResponse labels(@javax.annotation.Nonnull List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -176,9 +176,9 @@ public class ExecutionControllerExecutionResponse {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Label> getLabels() {
     return labels;
@@ -186,8 +186,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable List<Label> labels) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLabels(@javax.annotation.Nonnull List<Label> labels) {
     this.labels = labels;
   }
 
@@ -291,7 +291,7 @@ public class ExecutionControllerExecutionResponse {
     this.flowRevision = flowRevision;
   }
 
-  public ExecutionControllerExecutionResponse taskRunList(@javax.annotation.Nullable List<TaskRun> taskRunList) {
+  public ExecutionControllerExecutionResponse taskRunList(@javax.annotation.Nonnull List<TaskRun> taskRunList) {
     
     this.taskRunList = taskRunList;
     return this;
@@ -309,9 +309,9 @@ public class ExecutionControllerExecutionResponse {
    * Get taskRunList
    * @return taskRunList
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TaskRun> getTaskRunList() {
     return taskRunList;
@@ -319,21 +319,18 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTaskRunList(@javax.annotation.Nullable List<TaskRun> taskRunList) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTaskRunList(@javax.annotation.Nonnull List<TaskRun> taskRunList) {
     this.taskRunList = taskRunList;
   }
 
-  public ExecutionControllerExecutionResponse inputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  public ExecutionControllerExecutionResponse inputs(@javax.annotation.Nonnull Map<String, Object> inputs) {
     
     this.inputs = inputs;
     return this;
   }
 
   public ExecutionControllerExecutionResponse putInputsItem(String key, Object inputsItem) {
-    if (this.inputs == null) {
-      this.inputs = new HashMap<>();
-    }
     this.inputs.put(key, inputsItem);
     return this;
   }
@@ -342,9 +339,9 @@ public class ExecutionControllerExecutionResponse {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getInputs() {
     return inputs;
@@ -352,21 +349,18 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInputs(@javax.annotation.Nonnull Map<String, Object> inputs) {
     this.inputs = inputs;
   }
 
-  public ExecutionControllerExecutionResponse outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  public ExecutionControllerExecutionResponse outputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
     
     this.outputs = outputs;
     return this;
   }
 
   public ExecutionControllerExecutionResponse putOutputsItem(String key, Object outputsItem) {
-    if (this.outputs == null) {
-      this.outputs = new HashMap<>();
-    }
     this.outputs.put(key, outputsItem);
     return this;
   }
@@ -375,9 +369,9 @@ public class ExecutionControllerExecutionResponse {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getOutputs() {
     return outputs;
@@ -385,21 +379,18 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOutputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
     this.outputs = outputs;
   }
 
-  public ExecutionControllerExecutionResponse variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public ExecutionControllerExecutionResponse variables(@javax.annotation.Nonnull Map<String, Object> variables) {
     
     this.variables = variables;
     return this;
   }
 
   public ExecutionControllerExecutionResponse putVariablesItem(String key, Object variablesItem) {
-    if (this.variables == null) {
-      this.variables = new HashMap<>();
-    }
     this.variables.put(key, variablesItem);
     return this;
   }
@@ -408,9 +399,9 @@ public class ExecutionControllerExecutionResponse {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getVariables() {
     return variables;
@@ -418,8 +409,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVariables(@javax.annotation.Nonnull Map<String, Object> variables) {
     this.variables = variables;
   }
 
@@ -448,7 +439,7 @@ public class ExecutionControllerExecutionResponse {
     this.state = state;
   }
 
-  public ExecutionControllerExecutionResponse parentId(@javax.annotation.Nullable String parentId) {
+  public ExecutionControllerExecutionResponse parentId(@javax.annotation.Nonnull String parentId) {
     
     this.parentId = parentId;
     return this;
@@ -458,9 +449,9 @@ public class ExecutionControllerExecutionResponse {
    * Get parentId
    * @return parentId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PARENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getParentId() {
     return parentId;
@@ -468,12 +459,12 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_PARENT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParentId(@javax.annotation.Nullable String parentId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setParentId(@javax.annotation.Nonnull String parentId) {
     this.parentId = parentId;
   }
 
-  public ExecutionControllerExecutionResponse originalId(@javax.annotation.Nullable String originalId) {
+  public ExecutionControllerExecutionResponse originalId(@javax.annotation.Nonnull String originalId) {
     
     this.originalId = originalId;
     return this;
@@ -483,9 +474,9 @@ public class ExecutionControllerExecutionResponse {
    * Get originalId
    * @return originalId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getOriginalId() {
     return originalId;
@@ -493,12 +484,12 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOriginalId(@javax.annotation.Nullable String originalId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOriginalId(@javax.annotation.Nonnull String originalId) {
     this.originalId = originalId;
   }
 
-  public ExecutionControllerExecutionResponse trigger(@javax.annotation.Nullable ExecutionTrigger trigger) {
+  public ExecutionControllerExecutionResponse trigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
     
     this.trigger = trigger;
     return this;
@@ -508,9 +499,9 @@ public class ExecutionControllerExecutionResponse {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ExecutionTrigger getTrigger() {
     return trigger;
@@ -518,8 +509,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTrigger(@javax.annotation.Nullable ExecutionTrigger trigger) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTrigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
     this.trigger = trigger;
   }
 
@@ -548,7 +539,7 @@ public class ExecutionControllerExecutionResponse {
     this.deleted = deleted;
   }
 
-  public ExecutionControllerExecutionResponse metadata(@javax.annotation.Nullable ExecutionMetadata metadata) {
+  public ExecutionControllerExecutionResponse metadata(@javax.annotation.Nonnull ExecutionMetadata metadata) {
     
     this.metadata = metadata;
     return this;
@@ -558,9 +549,9 @@ public class ExecutionControllerExecutionResponse {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ExecutionMetadata getMetadata() {
     return metadata;
@@ -568,8 +559,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadata(@javax.annotation.Nullable ExecutionMetadata metadata) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetadata(@javax.annotation.Nonnull ExecutionMetadata metadata) {
     this.metadata = metadata;
   }
 
@@ -606,7 +597,7 @@ public class ExecutionControllerExecutionResponse {
     this.scheduleDate = JsonNullable.<OffsetDateTime>of(scheduleDate);
   }
 
-  public ExecutionControllerExecutionResponse traceParent(@javax.annotation.Nullable String traceParent) {
+  public ExecutionControllerExecutionResponse traceParent(@javax.annotation.Nonnull String traceParent) {
     
     this.traceParent = traceParent;
     return this;
@@ -616,9 +607,9 @@ public class ExecutionControllerExecutionResponse {
    * Get traceParent
    * @return traceParent
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTraceParent() {
     return traceParent;
@@ -626,8 +617,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTraceParent(@javax.annotation.Nullable String traceParent) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTraceParent(@javax.annotation.Nonnull String traceParent) {
     this.traceParent = traceParent;
   }
 
@@ -754,7 +745,7 @@ public class ExecutionControllerExecutionResponse {
     this.breakpoints = JsonNullable.<List<Breakpoint>>of(breakpoints);
   }
 
-  public ExecutionControllerExecutionResponse url(@javax.annotation.Nullable URI url) {
+  public ExecutionControllerExecutionResponse url(@javax.annotation.Nonnull URI url) {
     
     this.url = url;
     return this;
@@ -764,9 +755,9 @@ public class ExecutionControllerExecutionResponse {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public URI getUrl() {
     return url;
@@ -774,8 +765,8 @@ public class ExecutionControllerExecutionResponse {
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrl(@javax.annotation.Nullable URI url) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUrl(@javax.annotation.Nonnull URI url) {
     this.url = url;
   }
 

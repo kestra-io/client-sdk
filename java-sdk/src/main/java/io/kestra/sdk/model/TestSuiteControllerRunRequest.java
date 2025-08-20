@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.ServiceUsageDailyServiceStatistics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,51 +27,52 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * ServiceUsage
+ * TestSuiteControllerRunRequest
  */
 @JsonPropertyOrder({
-  ServiceUsage.JSON_PROPERTY_DAILY_STATISTICS
+  TestSuiteControllerRunRequest.JSON_PROPERTY_TEST_CASES
 })
+@JsonTypeName("TestSuiteController.RunRequest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
-public class ServiceUsage {
-  public static final String JSON_PROPERTY_DAILY_STATISTICS = "dailyStatistics";
-  @javax.annotation.Nullable
-  private List<ServiceUsageDailyServiceStatistics> dailyStatistics = new ArrayList<>();
+public class TestSuiteControllerRunRequest {
+  public static final String JSON_PROPERTY_TEST_CASES = "testCases";
+  @javax.annotation.Nonnull
+  private List<String> testCases = new ArrayList<>();
 
-  public ServiceUsage() {
+  public TestSuiteControllerRunRequest() {
   }
 
-  public ServiceUsage dailyStatistics(@javax.annotation.Nullable List<ServiceUsageDailyServiceStatistics> dailyStatistics) {
+  public TestSuiteControllerRunRequest testCases(@javax.annotation.Nonnull List<String> testCases) {
     
-    this.dailyStatistics = dailyStatistics;
+    this.testCases = testCases;
     return this;
   }
 
-  public ServiceUsage addDailyStatisticsItem(ServiceUsageDailyServiceStatistics dailyStatisticsItem) {
-    if (this.dailyStatistics == null) {
-      this.dailyStatistics = new ArrayList<>();
+  public TestSuiteControllerRunRequest addTestCasesItem(String testCasesItem) {
+    if (this.testCases == null) {
+      this.testCases = new ArrayList<>();
     }
-    this.dailyStatistics.add(dailyStatisticsItem);
+    this.testCases.add(testCasesItem);
     return this;
   }
 
   /**
-   * Get dailyStatistics
-   * @return dailyStatistics
+   * Get testCases
+   * @return testCases
    */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DAILY_STATISTICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TEST_CASES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<ServiceUsageDailyServiceStatistics> getDailyStatistics() {
-    return dailyStatistics;
+  public List<String> getTestCases() {
+    return testCases;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DAILY_STATISTICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDailyStatistics(@javax.annotation.Nullable List<ServiceUsageDailyServiceStatistics> dailyStatistics) {
-    this.dailyStatistics = dailyStatistics;
+  @JsonProperty(JSON_PROPERTY_TEST_CASES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTestCases(@javax.annotation.Nonnull List<String> testCases) {
+    this.testCases = testCases;
   }
 
   @Override
@@ -83,20 +83,20 @@ public class ServiceUsage {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ServiceUsage serviceUsage = (ServiceUsage) o;
-    return Objects.equals(this.dailyStatistics, serviceUsage.dailyStatistics);
+    TestSuiteControllerRunRequest testSuiteControllerRunRequest = (TestSuiteControllerRunRequest) o;
+    return Objects.equals(this.testCases, testSuiteControllerRunRequest.testCases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dailyStatistics);
+    return Objects.hash(testCases);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ServiceUsage {\n");
-    sb.append("    dailyStatistics: ").append(toIndentedString(dailyStatistics)).append("\n");
+    sb.append("class TestSuiteControllerRunRequest {\n");
+    sb.append("    testCases: ").append(toIndentedString(testCases)).append("\n");
     sb.append("}");
     return sb.toString();
   }

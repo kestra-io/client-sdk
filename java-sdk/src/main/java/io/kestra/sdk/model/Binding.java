@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Binding {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
@@ -54,7 +54,7 @@ public class Binding {
   private String roleId;
 
   public static final String JSON_PROPERTY_NAMESPACE_ID = "namespaceId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String namespaceId;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -64,7 +64,7 @@ public class Binding {
   public Binding() {
   }
 
-  public Binding id(@javax.annotation.Nullable String id) {
+  public Binding id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -74,9 +74,9 @@ public class Binding {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -84,8 +84,8 @@ public class Binding {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
@@ -164,7 +164,7 @@ public class Binding {
     this.roleId = roleId;
   }
 
-  public Binding namespaceId(@javax.annotation.Nullable String namespaceId) {
+  public Binding namespaceId(@javax.annotation.Nonnull String namespaceId) {
     
     this.namespaceId = namespaceId;
     return this;
@@ -174,9 +174,9 @@ public class Binding {
    * Get namespaceId
    * @return namespaceId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespaceId() {
     return namespaceId;
@@ -184,8 +184,8 @@ public class Binding {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaceId(@javax.annotation.Nullable String namespaceId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespaceId(@javax.annotation.Nonnull String namespaceId) {
     this.namespaceId = namespaceId;
   }
 

@@ -9,7 +9,7 @@ All URIs are relative to *http://localhost*
 | [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace |
 | [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace |
 | [**getInheritedSecrets**](NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets |
-| [**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details |
+| [**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace |
 | [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults |
 | [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables |
 | [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace |
@@ -407,7 +407,7 @@ public class Example {
 
 > Namespace getNamespace(id, tenant)
 
-Retrieve namespace details
+Get a namespace
 
 ### Example
 
@@ -875,7 +875,7 @@ public class Example {
 
 ## searchNamespaces
 
-> PagedResultsNamespaceWithDisabled searchNamespaces(page, size, tenant, q, sort, existing)
+> PagedResultsNamespace searchNamespaces(page, size, existing, tenant, q, sort)
 
 Search for namespaces
 
@@ -907,12 +907,12 @@ public class Example {
         NamespacesApi apiInstance = new NamespacesApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
+        Boolean existing = false; // Boolean | Return only existing namespace
         String tenant = "tenant_example"; // String | 
         String q = "q_example"; // String | A string filter
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
-        Boolean existing = false; // Boolean | Return only existing namespace
         try {
-            PagedResultsNamespaceWithDisabled result = apiInstance.searchNamespaces(page, size, tenant, q, sort, existing);
+            PagedResultsNamespace result = apiInstance.searchNamespaces(page, size, existing, tenant, q, sort);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespacesApi#searchNamespaces");
@@ -932,14 +932,14 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
+| **existing** | **Boolean**| Return only existing namespace | [default to false] |
 | **tenant** | **String**|  | |
 | **q** | **String**| A string filter | [optional] |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
-| **existing** | **Boolean**| Return only existing namespace | [optional] [default to false] |
 
 ### Return type
 
-[**PagedResultsNamespaceWithDisabled**](PagedResultsNamespaceWithDisabled.md)
+[**PagedResultsNamespace**](PagedResultsNamespace.md)
 
 ### Authorization
 

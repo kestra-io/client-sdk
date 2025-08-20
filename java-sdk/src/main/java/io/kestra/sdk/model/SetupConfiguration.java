@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SetupConfiguration {
   public static final String JSON_PROPERTY_DONE = "done";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean done;
 
   public static final String JSON_PROPERTY_REPOSITORY_TYPE = "repositoryType";
@@ -57,13 +57,13 @@ public class SetupConfiguration {
   private String secretType;
 
   public static final String JSON_PROPERTY_PASSWORD_REGEXP = "passwordRegexp";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String passwordRegexp;
 
   public SetupConfiguration() {
   }
 
-  public SetupConfiguration done(@javax.annotation.Nullable Boolean done) {
+  public SetupConfiguration done(@javax.annotation.Nonnull Boolean done) {
     
     this.done = done;
     return this;
@@ -73,9 +73,9 @@ public class SetupConfiguration {
    * Get done
    * @return done
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDone() {
     return done;
@@ -83,8 +83,8 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_DONE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDone(@javax.annotation.Nullable Boolean done) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDone(@javax.annotation.Nonnull Boolean done) {
     this.done = done;
   }
 
@@ -188,7 +188,7 @@ public class SetupConfiguration {
     this.secretType = secretType;
   }
 
-  public SetupConfiguration passwordRegexp(@javax.annotation.Nullable String passwordRegexp) {
+  public SetupConfiguration passwordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
     
     this.passwordRegexp = passwordRegexp;
     return this;
@@ -198,9 +198,9 @@ public class SetupConfiguration {
    * Get passwordRegexp
    * @return passwordRegexp
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPasswordRegexp() {
     return passwordRegexp;
@@ -208,8 +208,8 @@ public class SetupConfiguration {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD_REGEXP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPasswordRegexp(@javax.annotation.Nullable String passwordRegexp) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPasswordRegexp(@javax.annotation.Nonnull String passwordRegexp) {
     this.passwordRegexp = passwordRegexp;
   }
 

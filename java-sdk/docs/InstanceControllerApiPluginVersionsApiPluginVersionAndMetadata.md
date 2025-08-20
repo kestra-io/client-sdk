@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**version** | **String** |  |  [optional] |
-|**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  |  [optional] |
+|**version** | **String** |  |  |
+|**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  |  |
 
 
 

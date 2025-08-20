@@ -7,12 +7,12 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**done** | **Boolean** |  |  [optional] |
+|**done** | **Boolean** |  |  |
 |**repositoryType** | **String** |  |  [optional] |
 |**queueType** | **String** |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |
 |**secretType** | **String** |  |  [optional] |
-|**passwordRegexp** | **String** |  |  [optional] |
+|**passwordRegexp** | **String** |  |  |
 
 
 

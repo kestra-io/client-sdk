@@ -35,7 +35,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   ApiAutocomplete.JSON_PROPERTY_Q,
-  ApiAutocomplete.JSON_PROPERTY_IDS
+  ApiAutocomplete.JSON_PROPERTY_IDS,
+  ApiAutocomplete.JSON_PROPERTY_EXISTING_ONLY
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ApiAutocomplete {
@@ -46,6 +47,10 @@ public class ApiAutocomplete {
   public static final String JSON_PROPERTY_IDS = "ids";
   @javax.annotation.Nullable
   private JsonNullable<List<String>> ids = JsonNullable.<List<String>>undefined();
+
+  public static final String JSON_PROPERTY_EXISTING_ONLY = "existingOnly";
+  @javax.annotation.Nullable
+  private Boolean existingOnly;
 
   public ApiAutocomplete() {
   }
@@ -128,6 +133,31 @@ public class ApiAutocomplete {
     this.ids = JsonNullable.<List<String>>of(ids);
   }
 
+  public ApiAutocomplete existingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+    
+    this.existingOnly = existingOnly;
+    return this;
+  }
+
+  /**
+   * Get existingOnly
+   * @return existingOnly
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getExistingOnly() {
+    return existingOnly;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
+    this.existingOnly = existingOnly;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -138,7 +168,8 @@ public class ApiAutocomplete {
     }
     ApiAutocomplete apiAutocomplete = (ApiAutocomplete) o;
     return equalsNullable(this.q, apiAutocomplete.q) &&
-        equalsNullable(this.ids, apiAutocomplete.ids);
+        equalsNullable(this.ids, apiAutocomplete.ids) &&
+        Objects.equals(this.existingOnly, apiAutocomplete.existingOnly);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -147,7 +178,7 @@ public class ApiAutocomplete {
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(q), hashCodeNullable(ids));
+    return Objects.hash(hashCodeNullable(q), hashCodeNullable(ids), existingOnly);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -163,6 +194,7 @@ public class ApiAutocomplete {
     sb.append("class ApiAutocomplete {\n");
     sb.append("    q: ").append(toIndentedString(q)).append("\n");
     sb.append("    ids: ").append(toIndentedString(ids)).append("\n");
+    sb.append("    existingOnly: ").append(toIndentedString(existingOnly)).append("\n");
     sb.append("}");
     return sb.toString();
   }

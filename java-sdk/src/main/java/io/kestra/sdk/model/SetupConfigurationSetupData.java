@@ -36,21 +36,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SetupConfigurationSetupData {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String password;
 
   public static final String JSON_PROPERTY_TENANT = "tenant";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Tenant tenant;
 
   public SetupConfigurationSetupData() {
   }
 
-  public SetupConfigurationSetupData username(@javax.annotation.Nullable String username) {
+  public SetupConfigurationSetupData username(@javax.annotation.Nonnull String username) {
     
     this.username = username;
     return this;
@@ -60,9 +60,9 @@ public class SetupConfigurationSetupData {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
     return username;
@@ -70,12 +70,12 @@ public class SetupConfigurationSetupData {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
   }
 
-  public SetupConfigurationSetupData password(@javax.annotation.Nullable String password) {
+  public SetupConfigurationSetupData password(@javax.annotation.Nonnull String password) {
     
     this.password = password;
     return this;
@@ -85,9 +85,9 @@ public class SetupConfigurationSetupData {
    * Get password
    * @return password
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
     return password;
@@ -95,12 +95,12 @@ public class SetupConfigurationSetupData {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPassword(@javax.annotation.Nullable String password) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;
   }
 
-  public SetupConfigurationSetupData tenant(@javax.annotation.Nullable Tenant tenant) {
+  public SetupConfigurationSetupData tenant(@javax.annotation.Nonnull Tenant tenant) {
     
     this.tenant = tenant;
     return this;
@@ -110,9 +110,9 @@ public class SetupConfigurationSetupData {
    * Get tenant
    * @return tenant
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TENANT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Tenant getTenant() {
     return tenant;
@@ -120,8 +120,8 @@ public class SetupConfigurationSetupData {
 
 
   @JsonProperty(JSON_PROPERTY_TENANT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenant(@javax.annotation.Nullable Tenant tenant) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenant(@javax.annotation.Nonnull Tenant tenant) {
     this.tenant = tenant;
   }
 

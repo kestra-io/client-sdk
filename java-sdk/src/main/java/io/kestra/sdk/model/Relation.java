@@ -34,17 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Relation {
   public static final String JSON_PROPERTY_RELATION_TYPE = "relationType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private RelationType relationType;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String value;
 
   public Relation() {
   }
 
-  public Relation relationType(@javax.annotation.Nullable RelationType relationType) {
+  public Relation relationType(@javax.annotation.Nonnull RelationType relationType) {
     
     this.relationType = relationType;
     return this;
@@ -54,9 +54,9 @@ public class Relation {
    * Get relationType
    * @return relationType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public RelationType getRelationType() {
     return relationType;
@@ -64,12 +64,12 @@ public class Relation {
 
 
   @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRelationType(@javax.annotation.Nullable RelationType relationType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRelationType(@javax.annotation.Nonnull RelationType relationType) {
     this.relationType = relationType;
   }
 
-  public Relation value(@javax.annotation.Nullable String value) {
+  public Relation value(@javax.annotation.Nonnull String value) {
     
     this.value = value;
     return this;
@@ -79,9 +79,9 @@ public class Relation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
     return value;
@@ -89,8 +89,8 @@ public class Relation {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull String value) {
     this.value = value;
   }
 

@@ -8,10 +8,10 @@ A User Service Account.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**groups** | [**List&lt;IAMServiceAccountControllerApiGroup&gt;**](IAMServiceAccountControllerApiGroup.md) |  |  [optional] |
+|**groups** | [**List&lt;IAMServiceAccountControllerApiGroup&gt;**](IAMServiceAccountControllerApiGroup.md) |  |  |
 |**name** | **String** |  |  |
-|**description** | **String** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
+|**description** | **String** |  |  |
+|**superAdmin** | **Boolean** |  |  |
 
 
 

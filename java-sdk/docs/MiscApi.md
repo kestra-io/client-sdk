@@ -240,7 +240,7 @@ This endpoint does not need any parameter.
 
 ## getUsages
 
-> Usage getUsages(tenant)
+> UsageEE getUsages(tenant)
 
 Retrieve instance usage information
 
@@ -272,7 +272,7 @@ public class Example {
         MiscApi apiInstance = new MiscApi(defaultClient);
         String tenant = "tenant_example"; // String | 
         try {
-            Usage result = apiInstance.getUsages(tenant);
+            UsageEE result = apiInstance.getUsages(tenant);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MiscApi#getUsages");
@@ -294,7 +294,7 @@ public class Example {
 
 ### Return type
 
-[**Usage**](Usage.md)
+[**UsageEE**](UsageEE.md)
 
 ### Authorization
 

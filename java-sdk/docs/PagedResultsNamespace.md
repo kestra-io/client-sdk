@@ -1,13 +1,14 @@
 
 
-# NamespaceUsage
+# PagedResultsNamespace
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**count** | **Long** |  |  [optional] |
+|**results** | [**List&lt;Namespace&gt;**](Namespace.md) |  |  |
+|**total** | **Long** |  |  |
 
 
 

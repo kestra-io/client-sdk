@@ -49,11 +49,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ApiTenant {
   public static final String JSON_PROPERTY_STORAGE_ISOLATION = "storageIsolation";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Isolation storageIsolation;
 
   public static final String JSON_PROPERTY_SECRET_ISOLATION = "secretIsolation";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Isolation secretIsolation;
 
   public static final String JSON_PROPERTY_ID = "id";
@@ -69,45 +69,45 @@ public class ApiTenant {
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String storageType;
 
   public static final String JSON_PROPERTY_STORAGE_CONFIGURATION = "storageConfiguration";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> storageConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_SECRET_TYPE = "secretType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String secretType;
 
   public static final String JSON_PROPERTY_SECRET_READ_ONLY = "secretReadOnly";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean secretReadOnly;
 
   public static final String JSON_PROPERTY_SECRET_CONFIGURATION = "secretConfiguration";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> secretConfiguration = new HashMap<>();
 
   public static final String JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE = "requireExistingNamespace";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean requireExistingNamespace;
 
   public static final String JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE = "outputsInInternalStorage";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean outputsInInternalStorage;
 
   public static final String JSON_PROPERTY_LOGO = "logo";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String logo;
 
   public ApiTenant() {
   }
 
-  public ApiTenant storageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
+  public ApiTenant storageIsolation(@javax.annotation.Nonnull Isolation storageIsolation) {
     
     this.storageIsolation = storageIsolation;
     return this;
@@ -117,9 +117,9 @@ public class ApiTenant {
    * Get storageIsolation
    * @return storageIsolation
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Isolation getStorageIsolation() {
     return storageIsolation;
@@ -127,12 +127,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_STORAGE_ISOLATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageIsolation(@javax.annotation.Nullable Isolation storageIsolation) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStorageIsolation(@javax.annotation.Nonnull Isolation storageIsolation) {
     this.storageIsolation = storageIsolation;
   }
 
-  public ApiTenant secretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
+  public ApiTenant secretIsolation(@javax.annotation.Nonnull Isolation secretIsolation) {
     
     this.secretIsolation = secretIsolation;
     return this;
@@ -142,9 +142,9 @@ public class ApiTenant {
    * Get secretIsolation
    * @return secretIsolation
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Isolation getSecretIsolation() {
     return secretIsolation;
@@ -152,8 +152,8 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_SECRET_ISOLATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretIsolation(@javax.annotation.Nullable Isolation secretIsolation) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecretIsolation(@javax.annotation.Nonnull Isolation secretIsolation) {
     this.secretIsolation = secretIsolation;
   }
 
@@ -232,7 +232,7 @@ public class ApiTenant {
     this.deleted = deleted;
   }
 
-  public ApiTenant workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public ApiTenant workerGroup(@javax.annotation.Nonnull WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -242,9 +242,9 @@ public class ApiTenant {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public WorkerGroup getWorkerGroup() {
     return workerGroup;
@@ -252,12 +252,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWorkerGroup(@javax.annotation.Nonnull WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 
-  public ApiTenant storageType(@javax.annotation.Nullable String storageType) {
+  public ApiTenant storageType(@javax.annotation.Nonnull String storageType) {
     
     this.storageType = storageType;
     return this;
@@ -267,9 +267,9 @@ public class ApiTenant {
    * Get storageType
    * @return storageType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getStorageType() {
     return storageType;
@@ -277,21 +277,18 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_STORAGE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageType(@javax.annotation.Nullable String storageType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStorageType(@javax.annotation.Nonnull String storageType) {
     this.storageType = storageType;
   }
 
-  public ApiTenant storageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
+  public ApiTenant storageConfiguration(@javax.annotation.Nonnull Map<String, Object> storageConfiguration) {
     
     this.storageConfiguration = storageConfiguration;
     return this;
   }
 
   public ApiTenant putStorageConfigurationItem(String key, Object storageConfigurationItem) {
-    if (this.storageConfiguration == null) {
-      this.storageConfiguration = new HashMap<>();
-    }
     this.storageConfiguration.put(key, storageConfigurationItem);
     return this;
   }
@@ -300,9 +297,9 @@ public class ApiTenant {
    * Get storageConfiguration
    * @return storageConfiguration
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getStorageConfiguration() {
     return storageConfiguration;
@@ -310,12 +307,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_STORAGE_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStorageConfiguration(@javax.annotation.Nullable Map<String, Object> storageConfiguration) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStorageConfiguration(@javax.annotation.Nonnull Map<String, Object> storageConfiguration) {
     this.storageConfiguration = storageConfiguration;
   }
 
-  public ApiTenant secretType(@javax.annotation.Nullable String secretType) {
+  public ApiTenant secretType(@javax.annotation.Nonnull String secretType) {
     
     this.secretType = secretType;
     return this;
@@ -325,9 +322,9 @@ public class ApiTenant {
    * Get secretType
    * @return secretType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getSecretType() {
     return secretType;
@@ -335,12 +332,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_SECRET_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretType(@javax.annotation.Nullable String secretType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecretType(@javax.annotation.Nonnull String secretType) {
     this.secretType = secretType;
   }
 
-  public ApiTenant secretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
+  public ApiTenant secretReadOnly(@javax.annotation.Nonnull Boolean secretReadOnly) {
     
     this.secretReadOnly = secretReadOnly;
     return this;
@@ -350,9 +347,9 @@ public class ApiTenant {
    * Get secretReadOnly
    * @return secretReadOnly
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSecretReadOnly() {
     return secretReadOnly;
@@ -360,21 +357,18 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_SECRET_READ_ONLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretReadOnly(@javax.annotation.Nullable Boolean secretReadOnly) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecretReadOnly(@javax.annotation.Nonnull Boolean secretReadOnly) {
     this.secretReadOnly = secretReadOnly;
   }
 
-  public ApiTenant secretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
+  public ApiTenant secretConfiguration(@javax.annotation.Nonnull Map<String, Object> secretConfiguration) {
     
     this.secretConfiguration = secretConfiguration;
     return this;
   }
 
   public ApiTenant putSecretConfigurationItem(String key, Object secretConfigurationItem) {
-    if (this.secretConfiguration == null) {
-      this.secretConfiguration = new HashMap<>();
-    }
     this.secretConfiguration.put(key, secretConfigurationItem);
     return this;
   }
@@ -383,9 +377,9 @@ public class ApiTenant {
    * Get secretConfiguration
    * @return secretConfiguration
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getSecretConfiguration() {
     return secretConfiguration;
@@ -393,12 +387,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_SECRET_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecretConfiguration(@javax.annotation.Nullable Map<String, Object> secretConfiguration) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecretConfiguration(@javax.annotation.Nonnull Map<String, Object> secretConfiguration) {
     this.secretConfiguration = secretConfiguration;
   }
 
-  public ApiTenant requireExistingNamespace(@javax.annotation.Nullable Boolean requireExistingNamespace) {
+  public ApiTenant requireExistingNamespace(@javax.annotation.Nonnull Boolean requireExistingNamespace) {
     
     this.requireExistingNamespace = requireExistingNamespace;
     return this;
@@ -408,9 +402,9 @@ public class ApiTenant {
    * Get requireExistingNamespace
    * @return requireExistingNamespace
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getRequireExistingNamespace() {
     return requireExistingNamespace;
@@ -418,12 +412,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_REQUIRE_EXISTING_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRequireExistingNamespace(@javax.annotation.Nullable Boolean requireExistingNamespace) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRequireExistingNamespace(@javax.annotation.Nonnull Boolean requireExistingNamespace) {
     this.requireExistingNamespace = requireExistingNamespace;
   }
 
-  public ApiTenant outputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
+  public ApiTenant outputsInInternalStorage(@javax.annotation.Nonnull Boolean outputsInInternalStorage) {
     
     this.outputsInInternalStorage = outputsInInternalStorage;
     return this;
@@ -433,9 +427,9 @@ public class ApiTenant {
    * Get outputsInInternalStorage
    * @return outputsInInternalStorage
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getOutputsInInternalStorage() {
     return outputsInInternalStorage;
@@ -443,12 +437,12 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOutputsInInternalStorage(@javax.annotation.Nullable Boolean outputsInInternalStorage) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOutputsInInternalStorage(@javax.annotation.Nonnull Boolean outputsInInternalStorage) {
     this.outputsInInternalStorage = outputsInInternalStorage;
   }
 
-  public ApiTenant logo(@javax.annotation.Nullable String logo) {
+  public ApiTenant logo(@javax.annotation.Nonnull String logo) {
     
     this.logo = logo;
     return this;
@@ -458,9 +452,9 @@ public class ApiTenant {
    * Get logo
    * @return logo
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LOGO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLogo() {
     return logo;
@@ -468,8 +462,8 @@ public class ApiTenant {
 
 
   @JsonProperty(JSON_PROPERTY_LOGO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLogo(@javax.annotation.Nullable String logo) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLogo(@javax.annotation.Nonnull String logo) {
     this.logo = logo;
   }
 

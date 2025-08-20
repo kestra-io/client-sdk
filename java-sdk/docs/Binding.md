@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
+|**id** | **String** |  |  |
 |**type** | **BindingType** |  |  |
 |**externalId** | **String** |  |  |
 |**roleId** | **String** |  |  |
-|**namespaceId** | **String** |  |  [optional] |
+|**namespaceId** | **String** |  |  |
 |**deleted** | **Boolean** |  |  |
 
 

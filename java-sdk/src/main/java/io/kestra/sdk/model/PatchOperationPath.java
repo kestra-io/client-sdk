@@ -33,13 +33,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PatchOperationPath {
   public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ValuePathExpression valuePathExpression;
 
   public PatchOperationPath() {
   }
 
-  public PatchOperationPath valuePathExpression(@javax.annotation.Nullable ValuePathExpression valuePathExpression) {
+  public PatchOperationPath valuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
     
     this.valuePathExpression = valuePathExpression;
     return this;
@@ -49,9 +49,9 @@ public class PatchOperationPath {
    * Get valuePathExpression
    * @return valuePathExpression
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ValuePathExpression getValuePathExpression() {
     return valuePathExpression;
@@ -59,8 +59,8 @@ public class PatchOperationPath {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValuePathExpression(@javax.annotation.Nullable ValuePathExpression valuePathExpression) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
     this.valuePathExpression = valuePathExpression;
   }
 

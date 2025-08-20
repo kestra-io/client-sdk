@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ValuePathExpression {
   public static final String JSON_PROPERTY_ATTRIBUTE_PATH = "attributePath";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private AttributeReference attributePath;
 
   public static final String JSON_PROPERTY_ATTRIBUTE_EXPRESSION = "attributeExpression";
@@ -44,7 +44,7 @@ public class ValuePathExpression {
   public ValuePathExpression() {
   }
 
-  public ValuePathExpression attributePath(@javax.annotation.Nullable AttributeReference attributePath) {
+  public ValuePathExpression attributePath(@javax.annotation.Nonnull AttributeReference attributePath) {
     
     this.attributePath = attributePath;
     return this;
@@ -54,9 +54,9 @@ public class ValuePathExpression {
    * Get attributePath
    * @return attributePath
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public AttributeReference getAttributePath() {
     return attributePath;
@@ -64,8 +64,8 @@ public class ValuePathExpression {
 
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttributePath(@javax.annotation.Nullable AttributeReference attributePath) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAttributePath(@javax.annotation.Nonnull AttributeReference attributePath) {
     this.attributePath = attributePath;
   }
 

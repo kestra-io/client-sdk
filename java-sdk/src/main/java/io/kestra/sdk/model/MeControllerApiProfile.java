@@ -36,25 +36,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MeControllerApiProfile {
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String email;
 
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String lastName;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String username;
 
   public MeControllerApiProfile() {
   }
 
-  public MeControllerApiProfile email(@javax.annotation.Nullable String email) {
+  public MeControllerApiProfile email(@javax.annotation.Nonnull String email) {
     
     this.email = email;
     return this;
@@ -64,9 +64,9 @@ public class MeControllerApiProfile {
    * Get email
    * @return email
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
     return email;
@@ -74,12 +74,12 @@ public class MeControllerApiProfile {
 
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(@javax.annotation.Nullable String email) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEmail(@javax.annotation.Nonnull String email) {
     this.email = email;
   }
 
-  public MeControllerApiProfile firstName(@javax.annotation.Nullable String firstName) {
+  public MeControllerApiProfile firstName(@javax.annotation.Nonnull String firstName) {
     
     this.firstName = firstName;
     return this;
@@ -89,9 +89,9 @@ public class MeControllerApiProfile {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
     return firstName;
@@ -99,12 +99,12 @@ public class MeControllerApiProfile {
 
 
   @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFirstName(@javax.annotation.Nullable String firstName) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFirstName(@javax.annotation.Nonnull String firstName) {
     this.firstName = firstName;
   }
 
-  public MeControllerApiProfile lastName(@javax.annotation.Nullable String lastName) {
+  public MeControllerApiProfile lastName(@javax.annotation.Nonnull String lastName) {
     
     this.lastName = lastName;
     return this;
@@ -114,9 +114,9 @@ public class MeControllerApiProfile {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
     return lastName;
@@ -124,12 +124,12 @@ public class MeControllerApiProfile {
 
 
   @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastName(@javax.annotation.Nullable String lastName) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLastName(@javax.annotation.Nonnull String lastName) {
     this.lastName = lastName;
   }
 
-  public MeControllerApiProfile username(@javax.annotation.Nullable String username) {
+  public MeControllerApiProfile username(@javax.annotation.Nonnull String username) {
     
     this.username = username;
     return this;
@@ -139,9 +139,9 @@ public class MeControllerApiProfile {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
     return username;
@@ -149,8 +149,8 @@ public class MeControllerApiProfile {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
   }
 

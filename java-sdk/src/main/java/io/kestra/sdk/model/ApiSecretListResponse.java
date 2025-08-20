@@ -46,7 +46,7 @@ public class ApiSecretListResponse {
   private List<ApiSecretMeta> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Long total;
 
   public ApiSecretListResponse() {
@@ -110,7 +110,7 @@ public class ApiSecretListResponse {
     this.results = results;
   }
 
-  public ApiSecretListResponse total(@javax.annotation.Nullable Long total) {
+  public ApiSecretListResponse total(@javax.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -120,9 +120,9 @@ public class ApiSecretListResponse {
    * Get total
    * @return total
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
     return total;
@@ -130,8 +130,8 @@ public class ApiSecretListResponse {
 
 
   @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTotal(@javax.annotation.Nullable Long total) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTotal(@javax.annotation.Nonnull Long total) {
     this.total = total;
   }
 

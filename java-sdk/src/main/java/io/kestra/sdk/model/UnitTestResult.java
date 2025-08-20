@@ -55,11 +55,11 @@ public class UnitTestResult {
   private String testType;
 
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String executionId;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private URI url;
 
   public static final String JSON_PROPERTY_STATE = "state";
@@ -75,7 +75,7 @@ public class UnitTestResult {
   private List<AssertionRunError> errors = new ArrayList<>();
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Fixtures fixtures;
 
   public UnitTestResult() {
@@ -131,7 +131,7 @@ public class UnitTestResult {
     this.testType = testType;
   }
 
-  public UnitTestResult executionId(@javax.annotation.Nullable String executionId) {
+  public UnitTestResult executionId(@javax.annotation.Nonnull String executionId) {
     
     this.executionId = executionId;
     return this;
@@ -141,9 +141,9 @@ public class UnitTestResult {
    * Get executionId
    * @return executionId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExecutionId() {
     return executionId;
@@ -151,12 +151,12 @@ public class UnitTestResult {
 
 
   @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExecutionId(@javax.annotation.Nullable String executionId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExecutionId(@javax.annotation.Nonnull String executionId) {
     this.executionId = executionId;
   }
 
-  public UnitTestResult url(@javax.annotation.Nullable URI url) {
+  public UnitTestResult url(@javax.annotation.Nonnull URI url) {
     
     this.url = url;
     return this;
@@ -166,9 +166,9 @@ public class UnitTestResult {
    * Get url
    * @return url
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public URI getUrl() {
     return url;
@@ -176,8 +176,8 @@ public class UnitTestResult {
 
 
   @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUrl(@javax.annotation.Nullable URI url) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUrl(@javax.annotation.Nonnull URI url) {
     this.url = url;
   }
 
@@ -272,7 +272,7 @@ public class UnitTestResult {
     this.errors = errors;
   }
 
-  public UnitTestResult fixtures(@javax.annotation.Nullable Fixtures fixtures) {
+  public UnitTestResult fixtures(@javax.annotation.Nonnull Fixtures fixtures) {
     
     this.fixtures = fixtures;
     return this;
@@ -282,9 +282,9 @@ public class UnitTestResult {
    * Get fixtures
    * @return fixtures
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FIXTURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Fixtures getFixtures() {
     return fixtures;
@@ -292,8 +292,8 @@ public class UnitTestResult {
 
 
   @JsonProperty(JSON_PROPERTY_FIXTURES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFixtures(@javax.annotation.Nullable Fixtures fixtures) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFixtures(@javax.annotation.Nonnull Fixtures fixtures) {
     this.fixtures = fixtures;
   }
 

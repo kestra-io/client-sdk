@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uid** | **String** |  |  [optional] |
-|**name** | **String** |  |  [optional] |
-|**description** | **String** |  |  [optional] |
-|**type** | **String** |  |  [optional] |
-|**tags** | **List&lt;String&gt;** |  |  [optional] |
+|**uid** | **String** |  |  |
+|**name** | **String** |  |  |
+|**description** | **String** |  |  |
+|**type** | **String** |  |  |
+|**tags** | **List&lt;String&gt;** |  |  |
 
 
 

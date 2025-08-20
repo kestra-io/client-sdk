@@ -42,33 +42,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class InstanceControllerApiServiceInstance {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ServiceType type;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ServiceServiceState state;
 
   public static final String JSON_PROPERTY_SERVER = "server";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private InstanceControllerApiServerInstance server;
 
   public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime createdAt;
 
   public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime updatedAt;
 
   public InstanceControllerApiServiceInstance() {
   }
 
-  public InstanceControllerApiServiceInstance id(@javax.annotation.Nullable String id) {
+  public InstanceControllerApiServiceInstance id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -78,9 +78,9 @@ public class InstanceControllerApiServiceInstance {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -88,12 +88,12 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public InstanceControllerApiServiceInstance type(@javax.annotation.Nullable ServiceType type) {
+  public InstanceControllerApiServiceInstance type(@javax.annotation.Nonnull ServiceType type) {
     
     this.type = type;
     return this;
@@ -103,9 +103,9 @@ public class InstanceControllerApiServiceInstance {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServiceType getType() {
     return type;
@@ -113,12 +113,12 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable ServiceType type) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@javax.annotation.Nonnull ServiceType type) {
     this.type = type;
   }
 
-  public InstanceControllerApiServiceInstance state(@javax.annotation.Nullable ServiceServiceState state) {
+  public InstanceControllerApiServiceInstance state(@javax.annotation.Nonnull ServiceServiceState state) {
     
     this.state = state;
     return this;
@@ -128,9 +128,9 @@ public class InstanceControllerApiServiceInstance {
    * Get state
    * @return state
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServiceServiceState getState() {
     return state;
@@ -138,12 +138,12 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(@javax.annotation.Nullable ServiceServiceState state) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setState(@javax.annotation.Nonnull ServiceServiceState state) {
     this.state = state;
   }
 
-  public InstanceControllerApiServiceInstance server(@javax.annotation.Nullable InstanceControllerApiServerInstance server) {
+  public InstanceControllerApiServiceInstance server(@javax.annotation.Nonnull InstanceControllerApiServerInstance server) {
     
     this.server = server;
     return this;
@@ -153,9 +153,9 @@ public class InstanceControllerApiServiceInstance {
    * Get server
    * @return server
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SERVER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public InstanceControllerApiServerInstance getServer() {
     return server;
@@ -163,12 +163,12 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_SERVER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setServer(@javax.annotation.Nullable InstanceControllerApiServerInstance server) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setServer(@javax.annotation.Nonnull InstanceControllerApiServerInstance server) {
     this.server = server;
   }
 
-  public InstanceControllerApiServiceInstance createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
+  public InstanceControllerApiServiceInstance createdAt(@javax.annotation.Nonnull OffsetDateTime createdAt) {
     
     this.createdAt = createdAt;
     return this;
@@ -178,9 +178,9 @@ public class InstanceControllerApiServiceInstance {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getCreatedAt() {
     return createdAt;
@@ -188,12 +188,12 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCreatedAt(@javax.annotation.Nonnull OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public InstanceControllerApiServiceInstance updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
+  public InstanceControllerApiServiceInstance updatedAt(@javax.annotation.Nonnull OffsetDateTime updatedAt) {
     
     this.updatedAt = updatedAt;
     return this;
@@ -203,9 +203,9 @@ public class InstanceControllerApiServiceInstance {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
@@ -213,8 +213,8 @@ public class InstanceControllerApiServiceInstance {
 
 
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUpdatedAt(@javax.annotation.Nonnull OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 

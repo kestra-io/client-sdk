@@ -43,6 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowInterface.JSON_PROPERTY_REVISION,
   FlowInterface.JSON_PROPERTY_TENANT_ID,
   FlowInterface.JSON_PROPERTY_DELETED,
+  FlowInterface.JSON_PROPERTY_DESCRIPTION,
   FlowInterface.JSON_PROPERTY_DISABLED,
   FlowInterface.JSON_PROPERTY_LABELS,
   FlowInterface.JSON_PROPERTY_INPUTS,
@@ -74,6 +75,10 @@ public class FlowInterface {
   public static final String JSON_PROPERTY_DELETED = "deleted";
   @javax.annotation.Nullable
   private Boolean deleted;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @javax.annotation.Nullable
+  private String description;
 
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @javax.annotation.Nullable
@@ -237,6 +242,31 @@ public class FlowInterface {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
     this.deleted = deleted;
+  }
+
+  public FlowInterface description(@javax.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
+    this.description = description;
   }
 
   public FlowInterface disabled(@javax.annotation.Nullable Boolean disabled) {
@@ -518,6 +548,7 @@ public class FlowInterface {
         Objects.equals(this.revision, flowInterface.revision) &&
         Objects.equals(this.tenantId, flowInterface.tenantId) &&
         Objects.equals(this.deleted, flowInterface.deleted) &&
+        Objects.equals(this.description, flowInterface.description) &&
         Objects.equals(this.disabled, flowInterface.disabled) &&
         Objects.equals(this.labels, flowInterface.labels) &&
         Objects.equals(this.inputs, flowInterface.inputs) &&
@@ -531,7 +562,7 @@ public class FlowInterface {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, tenantId, deleted, disabled, labels, inputs, outputs, variables, workerGroup, concurrency, sla, source);
+    return Objects.hash(id, namespace, revision, tenantId, deleted, description, disabled, labels, inputs, outputs, variables, workerGroup, concurrency, sla, source);
   }
 
   @Override
@@ -543,6 +574,7 @@ public class FlowInterface {
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");

@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**username** | **String** |  |  [optional] |
-|**displayName** | **String** |  |  [optional] |
-|**groups** | [**List&lt;IAMGroupControllerApiGroupMembership&gt;**](IAMGroupControllerApiGroupMembership.md) |  |  [optional] |
+|**id** | **String** |  |  |
+|**username** | **String** |  |  |
+|**displayName** | **String** |  |  |
+|**groups** | [**List&lt;IAMGroupControllerApiGroupMembership&gt;**](IAMGroupControllerApiGroupMembership.md) |  |  |
 
 
 

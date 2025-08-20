@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**name** | **String** |  |  [optional] |
-|**external** | **Boolean** |  |  [optional] |
-|**membership** | **GroupIdentifierMembership** |  |  [optional] |
+|**id** | **String** |  |  |
+|**name** | **String** |  |  |
+|**external** | **Boolean** |  |  |
+|**membership** | **GroupIdentifierMembership** |  |  |
 
 
 

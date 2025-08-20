@@ -43,33 +43,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMTenantAccessControllerApiUserTenantAccess {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String username;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String displayName;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<IAMTenantAccessControllerApiGroup> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<IAMTenantAccessControllerApiAuthentication> auths = new ArrayList<>();
 
   public IAMTenantAccessControllerApiUserTenantAccess() {
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess id(@javax.annotation.Nullable String id) {
+  public IAMTenantAccessControllerApiUserTenantAccess id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -79,9 +79,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -89,12 +89,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess username(@javax.annotation.Nullable String username) {
+  public IAMTenantAccessControllerApiUserTenantAccess username(@javax.annotation.Nonnull String username) {
     
     this.username = username;
     return this;
@@ -104,9 +104,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
     return username;
@@ -114,12 +114,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess displayName(@javax.annotation.Nullable String displayName) {
+  public IAMTenantAccessControllerApiUserTenantAccess displayName(@javax.annotation.Nonnull String displayName) {
     
     this.displayName = displayName;
     return this;
@@ -129,9 +129,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDisplayName() {
     return displayName;
@@ -139,12 +139,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDisplayName(@javax.annotation.Nullable String displayName) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDisplayName(@javax.annotation.Nonnull String displayName) {
     this.displayName = displayName;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess description(@javax.annotation.Nullable String description) {
+  public IAMTenantAccessControllerApiUserTenantAccess description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -154,9 +154,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -164,12 +164,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess groups(@javax.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
+  public IAMTenantAccessControllerApiUserTenantAccess groups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
     
     this.groups = groups;
     return this;
@@ -187,9 +187,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<IAMTenantAccessControllerApiGroup> getGroups() {
     return groups;
@@ -197,12 +197,12 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setGroups(@javax.annotation.Nullable List<IAMTenantAccessControllerApiGroup> groups) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setGroups(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiGroup> groups) {
     this.groups = groups;
   }
 
-  public IAMTenantAccessControllerApiUserTenantAccess auths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+  public IAMTenantAccessControllerApiUserTenantAccess auths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
     
     this.auths = auths;
     return this;
@@ -220,9 +220,9 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
    * Get auths
    * @return auths
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<IAMTenantAccessControllerApiAuthentication> getAuths() {
     return auths;
@@ -230,8 +230,8 @@ public class IAMTenantAccessControllerApiUserTenantAccess {
 
 
   @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAuths(@javax.annotation.Nullable List<IAMTenantAccessControllerApiAuthentication> auths) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAuths(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiAuthentication> auths) {
     this.auths = auths;
   }
 

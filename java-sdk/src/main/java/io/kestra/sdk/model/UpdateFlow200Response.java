@@ -47,6 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UpdateFlow200Response.JSON_PROPERTY_ID,
   UpdateFlow200Response.JSON_PROPERTY_NAMESPACE,
   UpdateFlow200Response.JSON_PROPERTY_REVISION,
+  UpdateFlow200Response.JSON_PROPERTY_DESCRIPTION,
   UpdateFlow200Response.JSON_PROPERTY_INPUTS,
   UpdateFlow200Response.JSON_PROPERTY_OUTPUTS,
   UpdateFlow200Response.JSON_PROPERTY_DISABLED,
@@ -56,7 +57,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UpdateFlow200Response.JSON_PROPERTY_DELETED,
   UpdateFlow200Response.JSON_PROPERTY_FINALLY,
   UpdateFlow200Response.JSON_PROPERTY_TASK_DEFAULTS,
-  UpdateFlow200Response.JSON_PROPERTY_DESCRIPTION,
   UpdateFlow200Response.JSON_PROPERTY_TASKS,
   UpdateFlow200Response.JSON_PROPERTY_ERRORS,
   UpdateFlow200Response.JSON_PROPERTY_LISTENERS,
@@ -81,6 +81,10 @@ public class UpdateFlow200Response {
   public static final String JSON_PROPERTY_REVISION = "revision";
   @javax.annotation.Nullable
   private Integer revision;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @javax.annotation.Nullable
+  private String description;
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @javax.annotation.Nullable
@@ -117,10 +121,6 @@ public class UpdateFlow200Response {
   public static final String JSON_PROPERTY_TASK_DEFAULTS = "taskDefaults";
   @javax.annotation.Nullable
   private List<PluginDefault> taskDefaults = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
-  private String description;
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
   @javax.annotation.Nonnull
@@ -235,6 +235,31 @@ public class UpdateFlow200Response {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
+  }
+
+  public UpdateFlow200Response description(@javax.annotation.Nullable String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
+    this.description = description;
   }
 
   public UpdateFlow200Response inputs(@javax.annotation.Nullable List<InputObject> inputs) {
@@ -502,31 +527,6 @@ public class UpdateFlow200Response {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskDefaults(@javax.annotation.Nullable List<PluginDefault> taskDefaults) {
     this.taskDefaults = taskDefaults;
-  }
-
-  public UpdateFlow200Response description(@javax.annotation.Nullable String description) {
-    
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Get description
-   * @return description
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
-    this.description = description;
   }
 
   public UpdateFlow200Response tasks(@javax.annotation.Nonnull List<Task> tasks) {
@@ -824,6 +824,7 @@ public class UpdateFlow200Response {
     return Objects.equals(this.id, updateFlow200Response.id) &&
         Objects.equals(this.namespace, updateFlow200Response.namespace) &&
         Objects.equals(this.revision, updateFlow200Response.revision) &&
+        Objects.equals(this.description, updateFlow200Response.description) &&
         Objects.equals(this.inputs, updateFlow200Response.inputs) &&
         Objects.equals(this.outputs, updateFlow200Response.outputs) &&
         Objects.equals(this.disabled, updateFlow200Response.disabled) &&
@@ -833,7 +834,6 @@ public class UpdateFlow200Response {
         Objects.equals(this.deleted, updateFlow200Response.deleted) &&
         Objects.equals(this._finally, updateFlow200Response._finally) &&
         Objects.equals(this.taskDefaults, updateFlow200Response.taskDefaults) &&
-        Objects.equals(this.description, updateFlow200Response.description) &&
         Objects.equals(this.tasks, updateFlow200Response.tasks) &&
         Objects.equals(this.errors, updateFlow200Response.errors) &&
         Objects.equals(this.listeners, updateFlow200Response.listeners) &&
@@ -847,7 +847,7 @@ public class UpdateFlow200Response {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, namespace, revision, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, taskDefaults, description, tasks, errors, listeners, afterExecution, triggers, pluginDefaults, concurrency, retry, sla);
+    return Objects.hash(id, namespace, revision, description, inputs, outputs, disabled, labels, variables, workerGroup, deleted, _finally, taskDefaults, tasks, errors, listeners, afterExecution, triggers, pluginDefaults, concurrency, retry, sla);
   }
 
   @Override
@@ -857,6 +857,7 @@ public class UpdateFlow200Response {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    namespace: ").append(toIndentedString(namespace)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
     sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
     sb.append("    disabled: ").append(toIndentedString(disabled)).append("\n");
@@ -866,7 +867,6 @@ public class UpdateFlow200Response {
     sb.append("    deleted: ").append(toIndentedString(deleted)).append("\n");
     sb.append("    _finally: ").append(toIndentedString(_finally)).append("\n");
     sb.append("    taskDefaults: ").append(toIndentedString(taskDefaults)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tasks: ").append(toIndentedString(tasks)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    listeners: ").append(toIndentedString(listeners)).append("\n");

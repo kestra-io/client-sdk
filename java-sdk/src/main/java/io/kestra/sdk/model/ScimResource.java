@@ -69,7 +69,7 @@ public class ScimResource {
   private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String resourceType;
 
   public ScimResource() {
@@ -241,7 +241,7 @@ public class ScimResource {
     this.externalId = externalId;
   }
 
-  public ScimResource resourceType(@javax.annotation.Nullable String resourceType) {
+  public ScimResource resourceType(@javax.annotation.Nonnull String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -251,9 +251,9 @@ public class ScimResource {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getResourceType() {
     return resourceType;
@@ -261,8 +261,8 @@ public class ScimResource {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResourceType(@javax.annotation.Nullable String resourceType) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
     this.resourceType = resourceType;
   }
 

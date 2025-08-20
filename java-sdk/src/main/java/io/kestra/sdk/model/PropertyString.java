@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PropertyString {
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String expression;
 
   public static final String JSON_PROPERTY_VALUE = "value";
@@ -44,7 +44,7 @@ public class PropertyString {
   public PropertyString() {
   }
 
-  public PropertyString expression(@javax.annotation.Nullable String expression) {
+  public PropertyString expression(@javax.annotation.Nonnull String expression) {
     
     this.expression = expression;
     return this;
@@ -54,9 +54,9 @@ public class PropertyString {
    * Get expression
    * @return expression
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExpression() {
     return expression;
@@ -64,8 +64,8 @@ public class PropertyString {
 
 
   @JsonProperty(JSON_PROPERTY_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpression(@javax.annotation.Nullable String expression) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExpression(@javax.annotation.Nonnull String expression) {
     this.expression = expression;
   }
 

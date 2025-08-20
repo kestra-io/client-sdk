@@ -41,7 +41,7 @@ public class IAMInvitationControllerApiInvitationRole {
   private String id;
 
   public static final String JSON_PROPERTY_NAMESPACES = "namespaces";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> namespaces = new ArrayList<>();
 
   public IAMInvitationControllerApiInvitationRole() {
@@ -72,7 +72,7 @@ public class IAMInvitationControllerApiInvitationRole {
     this.id = id;
   }
 
-  public IAMInvitationControllerApiInvitationRole namespaces(@javax.annotation.Nullable List<String> namespaces) {
+  public IAMInvitationControllerApiInvitationRole namespaces(@javax.annotation.Nonnull List<String> namespaces) {
     
     this.namespaces = namespaces;
     return this;
@@ -90,9 +90,9 @@ public class IAMInvitationControllerApiInvitationRole {
    * Get namespaces
    * @return namespaces
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getNamespaces() {
     return namespaces;
@@ -100,8 +100,8 @@ public class IAMInvitationControllerApiInvitationRole {
 
 
   @JsonProperty(JSON_PROPERTY_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNamespaces(@javax.annotation.Nullable List<String> namespaces) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setNamespaces(@javax.annotation.Nonnull List<String> namespaces) {
     this.namespaces = namespaces;
   }
 

@@ -1,13 +1,13 @@
 
 
-# PluginUsage
+# TestSuiteControllerRunRequest
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**manifest** | **Map&lt;String, String&gt;** |  |  [optional] |
+|**testCases** | **List&lt;String&gt;** |  |  |
 
 
 

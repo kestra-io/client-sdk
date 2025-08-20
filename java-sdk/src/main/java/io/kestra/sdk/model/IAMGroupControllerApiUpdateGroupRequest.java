@@ -38,7 +38,7 @@ public class IAMGroupControllerApiUpdateGroupRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public IAMGroupControllerApiUpdateGroupRequest() {
@@ -69,7 +69,7 @@ public class IAMGroupControllerApiUpdateGroupRequest {
     this.name = name;
   }
 
-  public IAMGroupControllerApiUpdateGroupRequest description(@javax.annotation.Nullable String description) {
+  public IAMGroupControllerApiUpdateGroupRequest description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -79,9 +79,9 @@ public class IAMGroupControllerApiUpdateGroupRequest {
    * of the group.
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -89,8 +89,8 @@ public class IAMGroupControllerApiUpdateGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 

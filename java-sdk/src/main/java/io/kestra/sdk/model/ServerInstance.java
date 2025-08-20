@@ -44,33 +44,33 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ServerInstance {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private ServerInstanceType type;
 
   public static final String JSON_PROPERTY_VERSION = "version";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String version;
 
   public static final String JSON_PROPERTY_HOSTNAME = "hostname";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String hostname;
 
   public static final String JSON_PROPERTY_PROPS = "props";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> props = new HashMap<>();
 
   public static final String JSON_PROPERTY_METRICS = "metrics";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Metric> metrics = new ArrayList<>();
 
   public ServerInstance() {
   }
 
-  public ServerInstance id(@javax.annotation.Nullable String id) {
+  public ServerInstance id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -80,9 +80,9 @@ public class ServerInstance {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
     return id;
@@ -90,12 +90,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(@javax.annotation.Nullable String id) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public ServerInstance type(@javax.annotation.Nullable ServerInstanceType type) {
+  public ServerInstance type(@javax.annotation.Nonnull ServerInstanceType type) {
     
     this.type = type;
     return this;
@@ -105,9 +105,9 @@ public class ServerInstance {
    * Get type
    * @return type
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServerInstanceType getType() {
     return type;
@@ -115,12 +115,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable ServerInstanceType type) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(@javax.annotation.Nonnull ServerInstanceType type) {
     this.type = type;
   }
 
-  public ServerInstance version(@javax.annotation.Nullable String version) {
+  public ServerInstance version(@javax.annotation.Nonnull String version) {
     
     this.version = version;
     return this;
@@ -130,9 +130,9 @@ public class ServerInstance {
    * Get version
    * @return version
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getVersion() {
     return version;
@@ -140,12 +140,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVersion(@javax.annotation.Nullable String version) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersion(@javax.annotation.Nonnull String version) {
     this.version = version;
   }
 
-  public ServerInstance hostname(@javax.annotation.Nullable String hostname) {
+  public ServerInstance hostname(@javax.annotation.Nonnull String hostname) {
     
     this.hostname = hostname;
     return this;
@@ -155,9 +155,9 @@ public class ServerInstance {
    * Get hostname
    * @return hostname
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getHostname() {
     return hostname;
@@ -165,21 +165,18 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_HOSTNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHostname(@javax.annotation.Nullable String hostname) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHostname(@javax.annotation.Nonnull String hostname) {
     this.hostname = hostname;
   }
 
-  public ServerInstance props(@javax.annotation.Nullable Map<String, Object> props) {
+  public ServerInstance props(@javax.annotation.Nonnull Map<String, Object> props) {
     
     this.props = props;
     return this;
   }
 
   public ServerInstance putPropsItem(String key, Object propsItem) {
-    if (this.props == null) {
-      this.props = new HashMap<>();
-    }
     this.props.put(key, propsItem);
     return this;
   }
@@ -188,9 +185,9 @@ public class ServerInstance {
    * Get props
    * @return props
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getProps() {
     return props;
@@ -198,12 +195,12 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProps(@javax.annotation.Nullable Map<String, Object> props) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setProps(@javax.annotation.Nonnull Map<String, Object> props) {
     this.props = props;
   }
 
-  public ServerInstance metrics(@javax.annotation.Nullable List<Metric> metrics) {
+  public ServerInstance metrics(@javax.annotation.Nonnull List<Metric> metrics) {
     
     this.metrics = metrics;
     return this;
@@ -221,9 +218,9 @@ public class ServerInstance {
    * Get metrics
    * @return metrics
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Metric> getMetrics() {
     return metrics;
@@ -231,8 +228,8 @@ public class ServerInstance {
 
 
   @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetrics(@javax.annotation.Nullable List<Metric> metrics) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetrics(@javax.annotation.Nonnull List<Metric> metrics) {
     this.metrics = metrics;
   }
 

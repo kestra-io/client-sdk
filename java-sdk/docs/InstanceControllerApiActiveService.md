@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **ServiceType** |  |  [optional] |
-|**total** | **Long** |  |  [optional] |
+|**type** | **ServiceType** |  |  |
+|**total** | **Long** |  |  |
 
 
 

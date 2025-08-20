@@ -41,25 +41,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
   public static final String JSON_PROPERTY_INPUT = "input";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private InputObject input;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Object value;
 
   public static final String JSON_PROPERTY_ENABLED = "enabled";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean enabled;
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors = new ArrayList<>();
 
   public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue() {
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue input(@javax.annotation.Nullable InputObject input) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue input(@javax.annotation.Nonnull InputObject input) {
     
     this.input = input;
     return this;
@@ -69,9 +69,9 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
    * Get input
    * @return input
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INPUT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public InputObject getInput() {
     return input;
@@ -79,12 +79,12 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
 
 
   @JsonProperty(JSON_PROPERTY_INPUT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInput(@javax.annotation.Nullable InputObject input) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInput(@javax.annotation.Nonnull InputObject input) {
     this.input = input;
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue value(@javax.annotation.Nullable Object value) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue value(@javax.annotation.Nonnull Object value) {
     
     this.value = value;
     return this;
@@ -94,9 +94,9 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getValue() {
     return value;
@@ -104,12 +104,12 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable Object value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull Object value) {
     this.value = value;
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue enabled(@javax.annotation.Nullable Boolean enabled) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue enabled(@javax.annotation.Nonnull Boolean enabled) {
     
     this.enabled = enabled;
     return this;
@@ -119,9 +119,9 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
    * Get enabled
    * @return enabled
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
     return enabled;
@@ -129,12 +129,12 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
 
 
   @JsonProperty(JSON_PROPERTY_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnabled(@javax.annotation.Nullable Boolean enabled) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
     this.enabled = enabled;
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue errors(@javax.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue errors(@javax.annotation.Nonnull List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors) {
     
     this.errors = errors;
     return this;
@@ -152,9 +152,9 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
    * Get errors
    * @return errors
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> getErrors() {
     return errors;
@@ -162,8 +162,8 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
 
 
   @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setErrors(@javax.annotation.Nullable List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setErrors(@javax.annotation.Nonnull List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors) {
     this.errors = errors;
   }
 

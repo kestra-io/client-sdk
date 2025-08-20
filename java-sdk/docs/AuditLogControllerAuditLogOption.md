@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  [optional] |
-|**date** | **OffsetDateTime** |  |  [optional] |
-|**username** | **String** |  |  [optional] |
+|**id** | **String** |  |  |
+|**date** | **OffsetDateTime** |  |  |
+|**username** | **String** |  |  |
 
 
 

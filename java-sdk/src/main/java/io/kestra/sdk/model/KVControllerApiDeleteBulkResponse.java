@@ -36,13 +36,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class KVControllerApiDeleteBulkResponse {
   public static final String JSON_PROPERTY_KEYS = "keys";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> keys = new ArrayList<>();
 
   public KVControllerApiDeleteBulkResponse() {
   }
 
-  public KVControllerApiDeleteBulkResponse keys(@javax.annotation.Nullable List<String> keys) {
+  public KVControllerApiDeleteBulkResponse keys(@javax.annotation.Nonnull List<String> keys) {
     
     this.keys = keys;
     return this;
@@ -60,9 +60,9 @@ public class KVControllerApiDeleteBulkResponse {
    * Get keys
    * @return keys
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_KEYS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getKeys() {
     return keys;
@@ -70,8 +70,8 @@ public class KVControllerApiDeleteBulkResponse {
 
 
   @JsonProperty(JSON_PROPERTY_KEYS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKeys(@javax.annotation.Nullable List<String> keys) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKeys(@javax.annotation.Nonnull List<String> keys) {
     this.keys = keys;
   }
 

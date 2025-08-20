@@ -34,17 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MetricTag {
   public static final String JSON_PROPERTY_KEY = "key";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String key;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String value;
 
   public MetricTag() {
   }
 
-  public MetricTag key(@javax.annotation.Nullable String key) {
+  public MetricTag key(@javax.annotation.Nonnull String key) {
     
     this.key = key;
     return this;
@@ -54,9 +54,9 @@ public class MetricTag {
    * Get key
    * @return key
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
     return key;
@@ -64,12 +64,12 @@ public class MetricTag {
 
 
   @JsonProperty(JSON_PROPERTY_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setKey(@javax.annotation.Nullable String key) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKey(@javax.annotation.Nonnull String key) {
     this.key = key;
   }
 
-  public MetricTag value(@javax.annotation.Nullable String value) {
+  public MetricTag value(@javax.annotation.Nonnull String value) {
     
     this.value = value;
     return this;
@@ -79,9 +79,9 @@ public class MetricTag {
    * Get value
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
     return value;
@@ -89,8 +89,8 @@ public class MetricTag {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull String value) {
     this.value = value;
   }
 

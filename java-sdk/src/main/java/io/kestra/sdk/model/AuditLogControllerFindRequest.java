@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AuditLogControllerFindRequest {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Permission permission;
 
   public static final String JSON_PROPERTY_TYPE = "type";
@@ -51,13 +51,13 @@ public class AuditLogControllerFindRequest {
   private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
 
   public static final String JSON_PROPERTY_DETAIL = "detail";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> detail = new HashMap<>();
 
   public AuditLogControllerFindRequest() {
   }
 
-  public AuditLogControllerFindRequest permission(@javax.annotation.Nullable Permission permission) {
+  public AuditLogControllerFindRequest permission(@javax.annotation.Nonnull Permission permission) {
     
     this.permission = permission;
     return this;
@@ -67,9 +67,9 @@ public class AuditLogControllerFindRequest {
    * Get permission
    * @return permission
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Permission getPermission() {
     return permission;
@@ -77,8 +77,8 @@ public class AuditLogControllerFindRequest {
 
 
   @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPermission(@javax.annotation.Nullable Permission permission) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPermission(@javax.annotation.Nonnull Permission permission) {
     this.permission = permission;
   }
 
@@ -115,16 +115,13 @@ public class AuditLogControllerFindRequest {
     this.type = JsonNullable.<CrudEventType>of(type);
   }
 
-  public AuditLogControllerFindRequest detail(@javax.annotation.Nullable Map<String, Object> detail) {
+  public AuditLogControllerFindRequest detail(@javax.annotation.Nonnull Map<String, Object> detail) {
     
     this.detail = detail;
     return this;
   }
 
   public AuditLogControllerFindRequest putDetailItem(String key, Object detailItem) {
-    if (this.detail == null) {
-      this.detail = new HashMap<>();
-    }
     this.detail.put(key, detailItem);
     return this;
   }
@@ -133,9 +130,9 @@ public class AuditLogControllerFindRequest {
    * Get detail
    * @return detail
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getDetail() {
     return detail;
@@ -143,8 +140,8 @@ public class AuditLogControllerFindRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDetail(@javax.annotation.Nullable Map<String, Object> detail) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDetail(@javax.annotation.Nonnull Map<String, Object> detail) {
     this.detail = detail;
   }
 

@@ -34,17 +34,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MiscControllerEnvironment {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_COLOR = "color";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String color;
 
   public MiscControllerEnvironment() {
   }
 
-  public MiscControllerEnvironment name(@javax.annotation.Nullable String name) {
+  public MiscControllerEnvironment name(@javax.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -54,9 +54,9 @@ public class MiscControllerEnvironment {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
@@ -64,12 +64,12 @@ public class MiscControllerEnvironment {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(@javax.annotation.Nullable String name) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public MiscControllerEnvironment color(@javax.annotation.Nullable String color) {
+  public MiscControllerEnvironment color(@javax.annotation.Nonnull String color) {
     
     this.color = color;
     return this;
@@ -79,9 +79,9 @@ public class MiscControllerEnvironment {
    * Get color
    * @return color
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_COLOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getColor() {
     return color;
@@ -89,8 +89,8 @@ public class MiscControllerEnvironment {
 
 
   @JsonProperty(JSON_PROPERTY_COLOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setColor(@javax.annotation.Nullable String color) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setColor(@javax.annotation.Nonnull String color) {
     this.color = color;
   }
 

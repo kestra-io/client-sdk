@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**ts** | **OffsetDateTime** |  |  [optional] |
-|**value** | **String** |  |  [optional] |
-|**type** | **String** |  |  [optional] |
-|**state** | **ServiceServiceState** |  |  [optional] |
+|**ts** | **OffsetDateTime** |  |  |
+|**value** | **String** |  |  |
+|**type** | **String** |  |  |
+|**state** | **ServiceServiceState** |  |  |
 
 
 

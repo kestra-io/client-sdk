@@ -13,7 +13,7 @@
 |**meta** | [**Meta**](Meta.md) |  |  |
 |**id** | **String** |  |  [optional] |
 |**externalId** | **String** |  |  [optional] |
-|**resourceType** | **String** |  |  [optional] |
+|**resourceType** | **String** |  |  |
 |**documentationUrl** | **String** |  |  [optional] |
 |**patch** | [**ServiceProviderConfigurationSupportedConfiguration**](ServiceProviderConfigurationSupportedConfiguration.md) |  |  [optional] |
 |**bulk** | [**ServiceProviderConfigurationBulkConfiguration**](ServiceProviderConfigurationBulkConfiguration.md) |  |  [optional] |

@@ -7,20 +7,20 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**isExpired** | **Boolean** |  |  [optional] |
+|**isExpired** | **Boolean** |  |  |
 |**email** | **String** |  |  |
-|**id** | **String** |  |  [optional] |
-|**bindings** | [**List&lt;Binding&gt;**](Binding.md) |  |  [optional] |
-|**groupIds** | **List&lt;String&gt;** |  |  [optional] |
-|**tenantId** | **String** |  |  [optional] |
-|**status** | **InvitationInvitationStatus** |  |  [optional] |
-|**sentAt** | **OffsetDateTime** |  |  [optional] |
-|**expiredAt** | **OffsetDateTime** |  |  [optional] |
-|**acceptedAt** | **OffsetDateTime** |  |  [optional] |
+|**id** | **String** |  |  |
+|**bindings** | [**List&lt;Binding&gt;**](Binding.md) |  |  |
+|**groupIds** | **List&lt;String&gt;** |  |  |
+|**tenantId** | **String** |  |  |
+|**status** | **InvitationInvitationStatus** |  |  |
+|**sentAt** | **OffsetDateTime** |  |  |
+|**expiredAt** | **OffsetDateTime** |  |  |
+|**acceptedAt** | **OffsetDateTime** |  |  |
 |**deleted** | **Boolean** |  |  |
-|**userType** | **UserType** |  |  [optional] |
-|**superAdmin** | **Boolean** |  |  [optional] |
-|**link** | **String** |  |  [optional] |
+|**userType** | **UserType** |  |  |
+|**superAdmin** | **Boolean** |  |  |
+|**link** | **String** |  |  |
 
 
 

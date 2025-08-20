@@ -45,11 +45,11 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean isDefault;
 
   public IAMRoleControllerApiRoleCreateOrUpdateRequest() {
@@ -105,7 +105,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
     this.name = name;
   }
 
-  public IAMRoleControllerApiRoleCreateOrUpdateRequest description(@javax.annotation.Nullable String description) {
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -115,9 +115,9 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -125,12 +125,12 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public IAMRoleControllerApiRoleCreateOrUpdateRequest isDefault(@javax.annotation.Nullable Boolean isDefault) {
+  public IAMRoleControllerApiRoleCreateOrUpdateRequest isDefault(@javax.annotation.Nonnull Boolean isDefault) {
     
     this.isDefault = isDefault;
     return this;
@@ -140,9 +140,9 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
    * Get isDefault
    * @return isDefault
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIsDefault() {
     return isDefault;
@@ -150,8 +150,8 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIsDefault(@javax.annotation.Nullable Boolean isDefault) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsDefault(@javax.annotation.Nonnull Boolean isDefault) {
     this.isDefault = isDefault;
   }
 

@@ -67,23 +67,23 @@ public class AuditLog {
   private String userId;
 
   public static final String JSON_PROPERTY_IP_ADDRESS = "ipAddress";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String ipAddress;
 
   public static final String JSON_PROPERTY_IMPERSONATED_BY = "impersonatedBy";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String impersonatedBy;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_APPLIED_PATCH = "appliedPatch";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Object> appliedPatch = new ArrayList<>();
 
   public static final String JSON_PROPERTY_REVERT_PATCH = "revertPatch";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Object> revertPatch = new ArrayList<>();
 
   public AuditLog() {
@@ -214,7 +214,7 @@ public class AuditLog {
     this.userId = userId;
   }
 
-  public AuditLog ipAddress(@javax.annotation.Nullable String ipAddress) {
+  public AuditLog ipAddress(@javax.annotation.Nonnull String ipAddress) {
     
     this.ipAddress = ipAddress;
     return this;
@@ -224,9 +224,9 @@ public class AuditLog {
    * Get ipAddress
    * @return ipAddress
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getIpAddress() {
     return ipAddress;
@@ -234,12 +234,12 @@ public class AuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_IP_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIpAddress(@javax.annotation.Nullable String ipAddress) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIpAddress(@javax.annotation.Nonnull String ipAddress) {
     this.ipAddress = ipAddress;
   }
 
-  public AuditLog impersonatedBy(@javax.annotation.Nullable String impersonatedBy) {
+  public AuditLog impersonatedBy(@javax.annotation.Nonnull String impersonatedBy) {
     
     this.impersonatedBy = impersonatedBy;
     return this;
@@ -249,9 +249,9 @@ public class AuditLog {
    * Get impersonatedBy
    * @return impersonatedBy
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getImpersonatedBy() {
     return impersonatedBy;
@@ -259,12 +259,12 @@ public class AuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_IMPERSONATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setImpersonatedBy(@javax.annotation.Nullable String impersonatedBy) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setImpersonatedBy(@javax.annotation.Nonnull String impersonatedBy) {
     this.impersonatedBy = impersonatedBy;
   }
 
-  public AuditLog deleted(@javax.annotation.Nullable Boolean deleted) {
+  public AuditLog deleted(@javax.annotation.Nonnull Boolean deleted) {
     
     this.deleted = deleted;
     return this;
@@ -274,9 +274,9 @@ public class AuditLog {
    * Get deleted
    * @return deleted
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
     return deleted;
@@ -284,12 +284,12 @@ public class AuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_DELETED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDeleted(@javax.annotation.Nullable Boolean deleted) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public AuditLog appliedPatch(@javax.annotation.Nullable List<Object> appliedPatch) {
+  public AuditLog appliedPatch(@javax.annotation.Nonnull List<Object> appliedPatch) {
     
     this.appliedPatch = appliedPatch;
     return this;
@@ -307,9 +307,9 @@ public class AuditLog {
    * Get appliedPatch
    * @return appliedPatch
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_APPLIED_PATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Object> getAppliedPatch() {
     return appliedPatch;
@@ -317,12 +317,12 @@ public class AuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_APPLIED_PATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppliedPatch(@javax.annotation.Nullable List<Object> appliedPatch) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAppliedPatch(@javax.annotation.Nonnull List<Object> appliedPatch) {
     this.appliedPatch = appliedPatch;
   }
 
-  public AuditLog revertPatch(@javax.annotation.Nullable List<Object> revertPatch) {
+  public AuditLog revertPatch(@javax.annotation.Nonnull List<Object> revertPatch) {
     
     this.revertPatch = revertPatch;
     return this;
@@ -340,9 +340,9 @@ public class AuditLog {
    * Get revertPatch
    * @return revertPatch
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_REVERT_PATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Object> getRevertPatch() {
     return revertPatch;
@@ -350,8 +350,8 @@ public class AuditLog {
 
 
   @JsonProperty(JSON_PROPERTY_REVERT_PATCH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRevertPatch(@javax.annotation.Nullable List<Object> revertPatch) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRevertPatch(@javax.annotation.Nonnull List<Object> revertPatch) {
     this.revertPatch = revertPatch;
   }
 

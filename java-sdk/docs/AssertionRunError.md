@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**message** | **String** |  |  |
-|**details** | **String** |  |  [optional] |
+|**details** | **String** |  |  |
 
 
 

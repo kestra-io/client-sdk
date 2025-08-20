@@ -73,7 +73,7 @@ public class TestSuiteRunResult {
   private OffsetDateTime endDate;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<UnitTestResult> results = new ArrayList<>();
 
   public TestSuiteRunResult() {
@@ -254,7 +254,7 @@ public class TestSuiteRunResult {
     this.endDate = endDate;
   }
 
-  public TestSuiteRunResult results(@javax.annotation.Nullable List<UnitTestResult> results) {
+  public TestSuiteRunResult results(@javax.annotation.Nonnull List<UnitTestResult> results) {
     
     this.results = results;
     return this;
@@ -272,9 +272,9 @@ public class TestSuiteRunResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<UnitTestResult> getResults() {
     return results;
@@ -282,8 +282,8 @@ public class TestSuiteRunResult {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResults(@javax.annotation.Nullable List<UnitTestResult> results) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResults(@javax.annotation.Nonnull List<UnitTestResult> results) {
     this.results = results;
   }
 

@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>v0.24.1</version>
+  <version>1.0.0-beta1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:v0.24.1"
+compile "io.kestra:kestra-api-client:1.0.0-beta1"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-v0.24.1.jar`
+- `target/kestra-api-client-1.0.0-beta1.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -297,6 +297,7 @@ Class | Method | HTTP request | Description
 *KvApi* | [**deleteKeyValues**](docs/KvApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 *KvApi* | [**getKeyValue**](docs/KvApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 *KvApi* | [**listKeys**](docs/KvApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
+*KvApi* | [**listKeysWithInheritence**](docs/KvApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for a namespace and parent namespaces
 *KvApi* | [**setKeyValue**](docs/KvApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 *LogsApi* | [**deleteLogsFromExecution**](docs/LogsApi.md#deleteLogsFromExecution) | **DELETE** /api/v1/{tenant}/logs/{executionId} | Delete logs for a specific execution, taskrun or task
 *LogsApi* | [**deleteLogsFromFlow**](docs/LogsApi.md#deleteLogsFromFlow) | **DELETE** /api/v1/{tenant}/logs/{namespace}/{flowId} | Delete logs for a specific execution, taskrun or task
@@ -327,7 +328,7 @@ Class | Method | HTTP request | Description
 *NamespacesApi* | [**deleteNamespace**](docs/NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 *NamespacesApi* | [**deleteSecret**](docs/NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 *NamespacesApi* | [**getInheritedSecrets**](docs/NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-*NamespacesApi* | [**getNamespace**](docs/NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
+*NamespacesApi* | [**getNamespace**](docs/NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 *NamespacesApi* | [**inheritedPluginDefaults**](docs/NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 *NamespacesApi* | [**inheritedVariables**](docs/NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 *NamespacesApi* | [**listNamespaceSecrets**](docs/NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -349,6 +350,8 @@ Class | Method | HTTP request | Description
 *PluginsApi* | [**getVersionedPluginDetailsFromVersion**](docs/PluginsApi.md#getVersionedPluginDetailsFromVersion) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
 *PluginsApi* | [**installVersionedPlugins**](docs/PluginsApi.md#installVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
 *PluginsApi* | [**listAvailableVersionedPlugins**](docs/PluginsApi.md#listAvailableVersionedPlugins) | **GET** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
+*PluginsApi* | [**listAvailableVersionedPluginsForSecretManager**](docs/PluginsApi.md#listAvailableVersionedPluginsForSecretManager) | **GET** /api/v1/instance/versioned-plugins/available/secrets-managers | List available plugin artifacts for Kestra Secret Manager
+*PluginsApi* | [**listAvailableVersionedPluginsForStorage**](docs/PluginsApi.md#listAvailableVersionedPluginsForStorage) | **GET** /api/v1/instance/versioned-plugins/available/storages | List available plugin artifacts for Kestra Internal Storage
 *PluginsApi* | [**listPlugins**](docs/PluginsApi.md#listPlugins) | **GET** /api/v1/plugins | Get list of plugins
 *PluginsApi* | [**listVersionedPlugin**](docs/PluginsApi.md#listVersionedPlugin) | **GET** /api/v1/instance/versioned-plugins | List installed plugin artifacts
 *PluginsApi* | [**resolveVersionedPlugins**](docs/PluginsApi.md#resolveVersionedPlugins) | **POST** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
@@ -533,7 +536,6 @@ Class | Method | HTTP request | Description
  - [Concurrency](docs/Concurrency.md)
  - [ConcurrencyBehavior](docs/ConcurrencyBehavior.md)
  - [Condition](docs/Condition.md)
- - [ConfigurationUsage](docs/ConfigurationUsage.md)
  - [ConversionServiceProvider](docs/ConversionServiceProvider.md)
  - [ConvertibleMultiValuesString](docs/ConvertibleMultiValuesString.md)
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
@@ -601,10 +603,6 @@ Class | Method | HTTP request | Description
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [GroupUsage](docs/GroupUsage.md)
- - [HostUsage](docs/HostUsage.md)
- - [HostUsageHardware](docs/HostUsageHardware.md)
- - [HostUsageJvm](docs/HostUsageJvm.md)
- - [HostUsageOs](docs/HostUsageOs.md)
  - [HttpParameters](docs/HttpParameters.md)
  - [IAMBindingControllerApiBindingDetail](docs/IAMBindingControllerApiBindingDetail.md)
  - [IAMBindingControllerApiBindingGroup](docs/IAMBindingControllerApiBindingGroup.md)
@@ -689,6 +687,7 @@ Class | Method | HTTP request | Description
  - [MetricAggregations](docs/MetricAggregations.md)
  - [MetricEntry](docs/MetricEntry.md)
  - [MetricTag](docs/MetricTag.md)
+ - [MiscControllerApiUsage](docs/MiscControllerApiUsage.md)
  - [MiscControllerBasicAuthCredentials](docs/MiscControllerBasicAuthCredentials.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
@@ -702,8 +701,6 @@ Class | Method | HTTP request | Description
  - [NamespaceAllowedNamespace](docs/NamespaceAllowedNamespace.md)
  - [NamespaceAllowedTrigger](docs/NamespaceAllowedTrigger.md)
  - [NamespaceLight](docs/NamespaceLight.md)
- - [NamespaceUsage](docs/NamespaceUsage.md)
- - [NamespaceWithDisabled](docs/NamespaceWithDisabled.md)
  - [Output](docs/Output.md)
  - [PageRequest](docs/PageRequest.md)
  - [PagedResultsApiGroupSummary](docs/PagedResultsApiGroupSummary.md)
@@ -726,7 +723,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsLogEntry](docs/PagedResultsLogEntry.md)
  - [PagedResultsMapStringObject](docs/PagedResultsMapStringObject.md)
  - [PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
- - [PagedResultsNamespaceWithDisabled](docs/PagedResultsNamespaceWithDisabled.md)
+ - [PagedResultsNamespace](docs/PagedResultsNamespace.md)
  - [PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
  - [PagedResultsTaskRun](docs/PagedResultsTaskRun.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
@@ -744,11 +741,9 @@ Class | Method | HTTP request | Description
  - [PluginControllerApiPluginVersions](docs/PluginControllerApiPluginVersions.md)
  - [PluginDefault](docs/PluginDefault.md)
  - [PluginIcon](docs/PluginIcon.md)
- - [PluginMetric](docs/PluginMetric.md)
  - [PluginPluginElementMetadata](docs/PluginPluginElementMetadata.md)
  - [PluginSchema](docs/PluginSchema.md)
  - [PluginSubGroupPluginCategory](docs/PluginSubGroupPluginCategory.md)
- - [PluginUsage](docs/PluginUsage.md)
  - [PreviewAppRequest](docs/PreviewAppRequest.md)
  - [PropertyBoolean](docs/PropertyBoolean.md)
  - [PropertyDouble](docs/PropertyDouble.md)
@@ -790,7 +785,6 @@ Class | Method | HTTP request | Description
  - [ServerConfigLiveness](docs/ServerConfigLiveness.md)
  - [ServerInstance](docs/ServerInstance.md)
  - [ServerInstanceType](docs/ServerInstanceType.md)
- - [ServerType](docs/ServerType.md)
  - [ServiceInstance](docs/ServiceInstance.md)
  - [ServiceInstanceTimestampedEvent](docs/ServiceInstanceTimestampedEvent.md)
  - [ServiceProviderConfiguration](docs/ServiceProviderConfiguration.md)
@@ -801,9 +795,6 @@ Class | Method | HTTP request | Description
  - [ServiceProviderConfigurationSupportedConfiguration](docs/ServiceProviderConfigurationSupportedConfiguration.md)
  - [ServiceServiceState](docs/ServiceServiceState.md)
  - [ServiceType](docs/ServiceType.md)
- - [ServiceUsage](docs/ServiceUsage.md)
- - [ServiceUsageDailyServiceStatistics](docs/ServiceUsageDailyServiceStatistics.md)
- - [ServiceUsageDailyStatistics](docs/ServiceUsageDailyStatistics.md)
  - [SetupConfiguration](docs/SetupConfiguration.md)
  - [SetupConfigurationSetupData](docs/SetupConfigurationSetupData.md)
  - [SortOrder](docs/SortOrder.md)
@@ -821,6 +812,7 @@ Class | Method | HTTP request | Description
  - [TenantUsage](docs/TenantUsage.md)
  - [TestState](docs/TestState.md)
  - [TestSuite](docs/TestSuite.md)
+ - [TestSuiteControllerRunRequest](docs/TestSuiteControllerRunRequest.md)
  - [TestSuiteControllerSearchTestsLastResult](docs/TestSuiteControllerSearchTestsLastResult.md)
  - [TestSuiteControllerTestSuiteApiId](docs/TestSuiteControllerTestSuiteApiId.md)
  - [TestSuiteControllerTestSuiteBulkRequest](docs/TestSuiteControllerTestSuiteBulkRequest.md)
@@ -838,7 +830,6 @@ Class | Method | HTTP request | Description
  - [UnitTestResult](docs/UnitTestResult.md)
  - [UpdateFlow200Response](docs/UpdateFlow200Response.md)
  - [UpdateFlowsInNamespaceFromJson200Response](docs/UpdateFlowsInNamespaceFromJson200Response.md)
- - [Usage](docs/Usage.md)
  - [UsageEE](docs/UsageEE.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupType](docs/UserGroupType.md)

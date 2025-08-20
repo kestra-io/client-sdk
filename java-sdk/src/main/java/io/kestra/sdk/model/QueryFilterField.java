@@ -48,6 +48,8 @@ public enum QueryFilterField {
   
   TRIGGER_ID("TRIGGER_ID"),
   
+  EXECUTION_ID("EXECUTION_ID"),
+  
   CHILD_FILTER("CHILD_FILTER"),
   
   WORKER_ID("WORKER_ID"),

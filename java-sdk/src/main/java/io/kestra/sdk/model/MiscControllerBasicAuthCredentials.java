@@ -35,21 +35,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MiscControllerBasicAuthCredentials {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String uid;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String password;
 
   public MiscControllerBasicAuthCredentials() {
   }
 
-  public MiscControllerBasicAuthCredentials uid(@javax.annotation.Nullable String uid) {
+  public MiscControllerBasicAuthCredentials uid(@javax.annotation.Nonnull String uid) {
     
     this.uid = uid;
     return this;
@@ -59,9 +59,9 @@ public class MiscControllerBasicAuthCredentials {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUid() {
     return uid;
@@ -69,12 +69,12 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUid(@javax.annotation.Nullable String uid) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUid(@javax.annotation.Nonnull String uid) {
     this.uid = uid;
   }
 
-  public MiscControllerBasicAuthCredentials username(@javax.annotation.Nullable String username) {
+  public MiscControllerBasicAuthCredentials username(@javax.annotation.Nonnull String username) {
     
     this.username = username;
     return this;
@@ -84,9 +84,9 @@ public class MiscControllerBasicAuthCredentials {
    * Get username
    * @return username
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
     return username;
@@ -94,12 +94,12 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsername(@javax.annotation.Nullable String username) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
   }
 
-  public MiscControllerBasicAuthCredentials password(@javax.annotation.Nullable String password) {
+  public MiscControllerBasicAuthCredentials password(@javax.annotation.Nonnull String password) {
     
     this.password = password;
     return this;
@@ -109,9 +109,9 @@ public class MiscControllerBasicAuthCredentials {
    * Get password
    * @return password
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
     return password;
@@ -119,8 +119,8 @@ public class MiscControllerBasicAuthCredentials {
 
 
   @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPassword(@javax.annotation.Nullable String password) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;
   }
 

@@ -28,7 +28,6 @@ import io.kestra.sdk.model.MiscControllerLicenseInfo;
 import io.kestra.sdk.model.Permission;
 import io.kestra.sdk.model.SetupConfiguration;
 import io.kestra.sdk.model.SetupConfigurationSetupData;
-import io.kestra.sdk.model.Usage;
 import io.kestra.sdk.model.UsageEE;
 
 
@@ -267,10 +266,10 @@ public class MiscApi extends BaseApi {
    * Retrieve instance usage information
    * 
    * @param tenant  (required)
-   * @return Usage
+   * @return UsageEE
    * @throws ApiException if fails to make API call
    */
-  public Usage getUsages(@javax.annotation.Nonnull String tenant) throws ApiException {
+  public UsageEE getUsages(@javax.annotation.Nonnull String tenant) throws ApiException {
     return this.getUsages(tenant, Collections.emptyMap());
   }
 
@@ -280,10 +279,10 @@ public class MiscApi extends BaseApi {
    * 
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Usage
+   * @return UsageEE
    * @throws ApiException if fails to make API call
    */
-  public Usage getUsages(@javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public UsageEE getUsages(@javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'tenant' is set
@@ -320,7 +319,7 @@ public class MiscApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Usage> localVarReturnType = new TypeReference<Usage>() {};
+    TypeReference<UsageEE> localVarReturnType = new TypeReference<UsageEE>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

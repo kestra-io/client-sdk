@@ -42,11 +42,11 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
   private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_ALLOWED_TENANTS = "allowedTenants";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> allowedTenants = new ArrayList<>();
 
   public InstanceControllerApiCreateOrUpdateWorkerGroupRequest() {
@@ -77,7 +77,7 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
     this.key = key;
   }
 
-  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest description(@javax.annotation.Nullable String description) {
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -87,9 +87,9 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * The description of the worker group.
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -97,12 +97,12 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest allowedTenants(@javax.annotation.Nullable List<String> allowedTenants) {
+  public InstanceControllerApiCreateOrUpdateWorkerGroupRequest allowedTenants(@javax.annotation.Nonnull List<String> allowedTenants) {
     
     this.allowedTenants = allowedTenants;
     return this;
@@ -120,9 +120,9 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
    * Get allowedTenants
    * @return allowedTenants
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<String> getAllowedTenants() {
     return allowedTenants;
@@ -130,8 +130,8 @@ public class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 
 
   @JsonProperty(JSON_PROPERTY_ALLOWED_TENANTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAllowedTenants(@javax.annotation.Nullable List<String> allowedTenants) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAllowedTenants(@javax.annotation.Nonnull List<String> allowedTenants) {
     this.allowedTenants = allowedTenants;
   }
 

@@ -37,13 +37,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class TestSuiteControllerTestsLastResultResponse {
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public TestSuiteControllerTestsLastResultResponse() {
   }
 
-  public TestSuiteControllerTestsLastResultResponse results(@javax.annotation.Nullable List<TestSuiteRunResult> results) {
+  public TestSuiteControllerTestsLastResultResponse results(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
@@ -61,9 +61,9 @@ public class TestSuiteControllerTestsLastResultResponse {
    * Get results
    * @return results
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteRunResult> getResults() {
     return results;
@@ -71,8 +71,8 @@ public class TestSuiteControllerTestsLastResultResponse {
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResults(@javax.annotation.Nullable List<TestSuiteRunResult> results) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResults(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
     this.results = results;
   }
 

@@ -77,23 +77,23 @@ public class Namespace {
   private Isolation secretIsolation;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_PLUGIN_DEFAULTS = "pluginDefaults";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<PluginDefault> pluginDefaults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ALLOWED_NAMESPACES = "allowedNamespaces";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<NamespaceAllowedNamespace> allowedNamespaces = new ArrayList<>();
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private WorkerGroup workerGroup;
 
   public static final String JSON_PROPERTY_STORAGE_TYPE = "storageType";
@@ -258,7 +258,7 @@ public class Namespace {
     this.secretIsolation = secretIsolation;
   }
 
-  public Namespace description(@javax.annotation.Nullable String description) {
+  public Namespace description(@javax.annotation.Nonnull String description) {
     
     this.description = description;
     return this;
@@ -268,9 +268,9 @@ public class Namespace {
    * Get description
    * @return description
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
@@ -278,21 +278,18 @@ public class Namespace {
 
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(@javax.annotation.Nullable String description) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
-  public Namespace variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public Namespace variables(@javax.annotation.Nonnull Map<String, Object> variables) {
     
     this.variables = variables;
     return this;
   }
 
   public Namespace putVariablesItem(String key, Object variablesItem) {
-    if (this.variables == null) {
-      this.variables = new HashMap<>();
-    }
     this.variables.put(key, variablesItem);
     return this;
   }
@@ -301,9 +298,9 @@ public class Namespace {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getVariables() {
     return variables;
@@ -311,12 +308,12 @@ public class Namespace {
 
 
   @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVariables(@javax.annotation.Nonnull Map<String, Object> variables) {
     this.variables = variables;
   }
 
-  public Namespace pluginDefaults(@javax.annotation.Nullable List<PluginDefault> pluginDefaults) {
+  public Namespace pluginDefaults(@javax.annotation.Nonnull List<PluginDefault> pluginDefaults) {
     
     this.pluginDefaults = pluginDefaults;
     return this;
@@ -334,9 +331,9 @@ public class Namespace {
    * Get pluginDefaults
    * @return pluginDefaults
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<PluginDefault> getPluginDefaults() {
     return pluginDefaults;
@@ -344,12 +341,12 @@ public class Namespace {
 
 
   @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPluginDefaults(@javax.annotation.Nullable List<PluginDefault> pluginDefaults) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPluginDefaults(@javax.annotation.Nonnull List<PluginDefault> pluginDefaults) {
     this.pluginDefaults = pluginDefaults;
   }
 
-  public Namespace allowedNamespaces(@javax.annotation.Nullable List<NamespaceAllowedNamespace> allowedNamespaces) {
+  public Namespace allowedNamespaces(@javax.annotation.Nonnull List<NamespaceAllowedNamespace> allowedNamespaces) {
     
     this.allowedNamespaces = allowedNamespaces;
     return this;
@@ -367,9 +364,9 @@ public class Namespace {
    * Get allowedNamespaces
    * @return allowedNamespaces
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ALLOWED_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<NamespaceAllowedNamespace> getAllowedNamespaces() {
     return allowedNamespaces;
@@ -377,12 +374,12 @@ public class Namespace {
 
 
   @JsonProperty(JSON_PROPERTY_ALLOWED_NAMESPACES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAllowedNamespaces(@javax.annotation.Nullable List<NamespaceAllowedNamespace> allowedNamespaces) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAllowedNamespaces(@javax.annotation.Nonnull List<NamespaceAllowedNamespace> allowedNamespaces) {
     this.allowedNamespaces = allowedNamespaces;
   }
 
-  public Namespace workerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  public Namespace workerGroup(@javax.annotation.Nonnull WorkerGroup workerGroup) {
     
     this.workerGroup = workerGroup;
     return this;
@@ -392,9 +389,9 @@ public class Namespace {
    * Get workerGroup
    * @return workerGroup
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public WorkerGroup getWorkerGroup() {
     return workerGroup;
@@ -402,8 +399,8 @@ public class Namespace {
 
 
   @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWorkerGroup(@javax.annotation.Nonnull WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
   }
 

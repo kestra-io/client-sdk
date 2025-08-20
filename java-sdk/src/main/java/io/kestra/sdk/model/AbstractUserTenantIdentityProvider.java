@@ -43,19 +43,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AbstractUserTenantIdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Map<String, Object> attributes = new HashMap<>();
 
   public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String externalId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_ID = "securityIntegrationId";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String securityIntegrationId;
 
   public static final String JSON_PROPERTY_SECURITY_INTEGRATION_NAME = "securityIntegrationName";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String securityIntegrationName;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
@@ -65,16 +65,13 @@ public class AbstractUserTenantIdentityProvider {
   public AbstractUserTenantIdentityProvider() {
   }
 
-  public AbstractUserTenantIdentityProvider attributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  public AbstractUserTenantIdentityProvider attributes(@javax.annotation.Nonnull Map<String, Object> attributes) {
     
     this.attributes = attributes;
     return this;
   }
 
   public AbstractUserTenantIdentityProvider putAttributesItem(String key, Object attributesItem) {
-    if (this.attributes == null) {
-      this.attributes = new HashMap<>();
-    }
     this.attributes.put(key, attributesItem);
     return this;
   }
@@ -83,9 +80,9 @@ public class AbstractUserTenantIdentityProvider {
    * Get attributes
    * @return attributes
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Map<String, Object> getAttributes() {
     return attributes;
@@ -93,12 +90,12 @@ public class AbstractUserTenantIdentityProvider {
 
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAttributes(@javax.annotation.Nullable Map<String, Object> attributes) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAttributes(@javax.annotation.Nonnull Map<String, Object> attributes) {
     this.attributes = attributes;
   }
 
-  public AbstractUserTenantIdentityProvider externalId(@javax.annotation.Nullable String externalId) {
+  public AbstractUserTenantIdentityProvider externalId(@javax.annotation.Nonnull String externalId) {
     
     this.externalId = externalId;
     return this;
@@ -108,9 +105,9 @@ public class AbstractUserTenantIdentityProvider {
    * Get externalId
    * @return externalId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExternalId() {
     return externalId;
@@ -118,12 +115,12 @@ public class AbstractUserTenantIdentityProvider {
 
 
   @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExternalId(@javax.annotation.Nullable String externalId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExternalId(@javax.annotation.Nonnull String externalId) {
     this.externalId = externalId;
   }
 
-  public AbstractUserTenantIdentityProvider securityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  public AbstractUserTenantIdentityProvider securityIntegrationId(@javax.annotation.Nonnull String securityIntegrationId) {
     
     this.securityIntegrationId = securityIntegrationId;
     return this;
@@ -133,9 +130,9 @@ public class AbstractUserTenantIdentityProvider {
    * Get securityIntegrationId
    * @return securityIntegrationId
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getSecurityIntegrationId() {
     return securityIntegrationId;
@@ -143,12 +140,12 @@ public class AbstractUserTenantIdentityProvider {
 
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationId(@javax.annotation.Nullable String securityIntegrationId) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecurityIntegrationId(@javax.annotation.Nonnull String securityIntegrationId) {
     this.securityIntegrationId = securityIntegrationId;
   }
 
-  public AbstractUserTenantIdentityProvider securityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  public AbstractUserTenantIdentityProvider securityIntegrationName(@javax.annotation.Nonnull String securityIntegrationName) {
     
     this.securityIntegrationName = securityIntegrationName;
     return this;
@@ -158,9 +155,9 @@ public class AbstractUserTenantIdentityProvider {
    * Get securityIntegrationName
    * @return securityIntegrationName
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getSecurityIntegrationName() {
     return securityIntegrationName;
@@ -168,8 +165,8 @@ public class AbstractUserTenantIdentityProvider {
 
 
   @JsonProperty(JSON_PROPERTY_SECURITY_INTEGRATION_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSecurityIntegrationName(@javax.annotation.Nullable String securityIntegrationName) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSecurityIntegrationName(@javax.annotation.Nonnull String securityIntegrationName) {
     this.securityIntegrationName = securityIntegrationName;
   }
 
