@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.DependsOn;
+import io.kestra.sdk.model.PropertyObject;
 import io.kestra.sdk.model.Type;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -67,7 +68,7 @@ public class InputObject {
 
   public static final String JSON_PROPERTY_DEFAULTS = "defaults";
   @javax.annotation.Nullable
-  private Object defaults;
+  private String defaults;
 
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   @javax.annotation.Nullable
@@ -228,7 +229,7 @@ public class InputObject {
     this.required = required;
   }
 
-  public InputObject defaults(@javax.annotation.Nullable Object defaults) {
+  public InputObject defaults(@javax.annotation.Nullable String defaults) {
     
     this.defaults = defaults;
     return this;
@@ -242,14 +243,14 @@ public class InputObject {
   @JsonProperty(JSON_PROPERTY_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Object getDefaults() {
+  public String getDefaults() {
     return defaults;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DEFAULTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDefaults(@javax.annotation.Nullable Object defaults) {
+  public void setDefaults(@javax.annotation.Nullable String defaults) {
     this.defaults = defaults;
   }
 

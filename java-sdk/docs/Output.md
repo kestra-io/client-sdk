@@ -12,6 +12,7 @@
 |**value** | **Object** |  |  |
 |**type** | **Type** |  |  |
 |**displayName** | **String** |  |  [optional] |
+|**required** | **Boolean** |  |  [optional] |
 
 
 

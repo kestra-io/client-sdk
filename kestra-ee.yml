@@ -35,6 +35,165 @@ tags:
   - name: Misc
     description: Misc api
 paths:
+  /api/v1/auditlogs/search:
+    get:
+      tags:
+        - Audit Logs
+      summary: "Search for audit logs across all tenants, required to be SuperAdmin"
+      operationId: searchAuditLogsForAllTenants
+      parameters:
+        - name: q
+          in: query
+          description: A string filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: namespace
+          in: query
+          description: A namespace filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: flowId
+          in: query
+          description: A flow id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: executionId
+          in: query
+          description: An execution filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: userId
+          in: query
+          description: A user id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: id
+          in: query
+          description: A id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: permission
+          in: query
+          description: A permission filter
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/Permission"
+        - name: startDate
+          in: query
+          description: The start datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: endDate
+          in: query
+          description: The end datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: details
+          in: query
+          description: A list of auditLog details
+          explode: false
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+            nullable: true
+        - name: type
+          in: query
+          description: The event that create the audit log
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/CrudEventType"
+      responses:
+        "200":
+          description: searchAuditLogsForAllTenants 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/auditlogs/{id}/diff:
+    get:
+      tags:
+        - Audit Logs
+      summary: Retrieve the diff between audit logs from global resource like users
+      description: Retrieves the diff between the current version and a selected previous
+        version of a given resource based on audit logs.
+      operationId: getGlobalResourceDiffFromAuditLog
+      parameters:
+        - name: id
+          in: path
+          description: The id of the audit log
+          required: true
+          schema:
+            type: string
+        - name: previousId
+          in: query
+          description: The id of a previous audit log to compare with
+          explode: false
+          schema:
+            type: string
+            nullable: true
+      responses:
+        "200":
+          description: getGlobalResourceDiffFromAuditLog 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditLogController.AuditLogDiff"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/auths:
     get:
       tags:
@@ -210,6 +369,10 @@ paths:
       responses:
         "200":
           description: enterMaintenance 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -224,6 +387,10 @@ paths:
       responses:
         "200":
           description: exitMaintenance 200 response
+          content:
+            application/json:
+              schema:
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2754,6 +2921,114 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/{tenant}/auditlogs/export:
+    get:
+      tags:
+        - Audit Logs
+      summary: Export all audit logs as a streamed CSV file
+      operationId: exportAuditLogs
+      parameters:
+        - name: q
+          in: query
+          description: A string filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: namespace
+          in: query
+          description: A namespace filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: flowId
+          in: query
+          description: A flow id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: executionId
+          in: query
+          description: An execution filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: userId
+          in: query
+          description: A user id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: id
+          in: query
+          description: A id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: permissions
+          in: query
+          description: A permission filter
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              $ref: "#/components/schemas/Permission"
+        - name: startDate
+          in: query
+          description: The start datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: endDate
+          in: query
+          description: The end datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: details
+          in: query
+          description: A list of auditLog details
+          explode: false
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+            nullable: true
+        - name: type
+          in: query
+          description: The event that create the audit log
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/CrudEventType"
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: exportAuditLogs 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/{tenant}/auditlogs/find:
     post:
       tags:
@@ -2889,14 +3164,15 @@ paths:
           schema:
             type: string
             nullable: true
-        - name: permission
+        - name: permissions
           in: query
           description: A permission filter
           explode: false
           schema:
+            type: array
             nullable: true
-            allOf:
-              - $ref: "#/components/schemas/Permission"
+            items:
+              $ref: "#/components/schemas/Permission"
         - name: startDate
           in: query
           description: The start datetime
@@ -6850,6 +7126,68 @@ paths:
       responses:
         "200":
           description: replayExecution 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+      security:
+        - bearerAuth: []
+        - basicAuth: []
+  /api/v1/{tenant}/executions/{executionId}/replay-with-inputs:
+    post:
+      tags:
+        - Executions
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      operationId: replayExecutionWithinputs
+      parameters:
+        - name: executionId
+          in: path
+          description: the original execution id to clone
+          required: true
+          schema:
+            type: string
+        - name: taskRunId
+          in: query
+          description: The taskrun id
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: revision
+          in: query
+          description: The flow revision to use for new execution
+          required: true
+          explode: false
+          schema:
+            type: integer
+            format: int32
+        - name: breakpoints
+          in: query
+          description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The inputs
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                type: string
+                format: binary
+        required: true
+      responses:
+        "200":
+          description: replayExecutionWithinputs 200 response
           content:
             application/json:
               schema:
@@ -12891,6 +13229,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TestSuiteRunResult"
+  /api/v1/{tenant}/tests/run:
+    post:
+      tags:
+        - TestSuites
+      summary: Run multiple TestSuites by query
+      description: Executes all TestSuites impacted by the specified filter. Requires
+        TEST permission with the CREATE action.
+      operationId: runTestSuitesByQuery
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        required: true
+      responses:
+        "200":
+          description: runTestSuitesByQuery 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestSuiteService.TestRunByQueryResult"
   /api/v1/{tenant}/tests/search:
     get:
       tags:
@@ -12943,6 +13308,14 @@ paths:
           schema:
             type: string
             nullable: true
+        - name: includeChildNamespaces
+          in: query
+          description: Include child namespaces in filter or not
+          required: true
+          explode: false
+          schema:
+            type: boolean
+            default: true
         - name: tenant
           in: path
           required: true
@@ -14777,10 +15150,13 @@ components:
         - id
         - impersonatedBy
         - ipAddress
+        - tenantId
         - type
         - userId
       type: object
       properties:
+        tenantId:
+          type: string
         id:
           type: string
         type:
@@ -15140,19 +15516,6 @@ components:
         - IMPERSONATE
         - LOGIN_FAILURE
         - ACCOUNT_LOCKED
-    CustomLink:
-      required:
-        - name
-        - title
-        - url
-      type: object
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
     DailyExecutionStatistics:
       required:
         - duration
@@ -15466,6 +15829,7 @@ components:
         - enabled
         - errors
         - input
+        - isDefault
         - value
       type: object
       properties:
@@ -15474,6 +15838,8 @@ components:
         value:
           type: object
         enabled:
+          type: boolean
+        isDefault:
           type: boolean
         errors:
           type: array
@@ -16978,7 +17344,8 @@ components:
           type: boolean
         defaults:
           title: The default value to use if no value is specified.
-          type: object
+          allOf:
+            - $ref: "#/components/schemas/Property_Object_"
         displayName:
           title: The display name of the input.
           type: string
@@ -17419,6 +17786,13 @@ components:
           type: string
         value:
           type: string
+    LeftSidebarConfiguration:
+      type: object
+      properties:
+        disabledMenus:
+          type: array
+          items:
+            type: string
     Level:
       type: string
       enum:
@@ -17784,10 +18158,10 @@ components:
               type: boolean
             outputsInInternalStorageEnabled:
               type: boolean
-            contextCustomLinks:
-              type: object
-              additionalProperties:
-                $ref: "#/components/schemas/CustomLink"
+            leftSidebar:
+              $ref: "#/components/schemas/LeftSidebarConfiguration"
+            rightSidebar:
+              $ref: "#/components/schemas/RightSidebarConfiguration"
             inMaintenance:
               type: boolean
             passwordRegexp:
@@ -17975,6 +18349,8 @@ components:
           $ref: "#/components/schemas/Type"
         displayName:
           type: string
+        required:
+          type: boolean
     PageRequest:
       type: object
       properties:
@@ -18471,6 +18847,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
+        dataFiltersKPI:
+          type: array
+          items:
+            $ref: "#/components/schemas/Plugin.PluginElementMetadata"
         logExporters:
           type: array
           items:
@@ -18810,6 +19190,23 @@ components:
           type: string
         required:
           type: boolean
+    RightSidebarConfiguration:
+      type: object
+      properties:
+        customLinks:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/RightSidebarConfiguration.CustomLink"
+    RightSidebarConfiguration.CustomLink:
+      required:
+        - title
+        - url
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
     Role:
       required:
         - deleted
@@ -19806,6 +20203,46 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/UnitTestResult"
+    TestSuiteService.RunByQueryRequest:
+      required:
+        - flowId
+        - includeChildNamespaces
+        - namespace
+      type: object
+      properties:
+        namespace:
+          type: string
+          nullable: true
+        flowId:
+          type: string
+          nullable: true
+        includeChildNamespaces:
+          type: boolean
+          description: Should child namespaces be included or not
+          default: true
+    TestSuiteService.TestRunByQueryResult:
+      required:
+        - numberOfTestCasesToBeRun
+        - numberOfTestSuitesToBeRun
+        - requestMade
+        - results
+        - tenantId
+      type: object
+      properties:
+        requestMade:
+          $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        tenantId:
+          type: string
+        numberOfTestSuitesToBeRun:
+          type: integer
+          format: int32
+        numberOfTestCasesToBeRun:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
     TimeWindow:
       type: object
       properties:

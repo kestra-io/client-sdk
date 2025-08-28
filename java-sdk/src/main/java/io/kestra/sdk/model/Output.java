@@ -32,7 +32,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Output.JSON_PROPERTY_DESCRIPTION,
   Output.JSON_PROPERTY_VALUE,
   Output.JSON_PROPERTY_TYPE,
-  Output.JSON_PROPERTY_DISPLAY_NAME
+  Output.JSON_PROPERTY_DISPLAY_NAME,
+  Output.JSON_PROPERTY_REQUIRED
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class Output {
@@ -55,6 +56,10 @@ public class Output {
   public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
   @javax.annotation.Nullable
   private String displayName;
+
+  public static final String JSON_PROPERTY_REQUIRED = "required";
+  @javax.annotation.Nullable
+  private Boolean required;
 
   public Output() {
   }
@@ -184,6 +189,31 @@ public class Output {
     this.displayName = displayName;
   }
 
+  public Output required(@javax.annotation.Nullable Boolean required) {
+    
+    this.required = required;
+    return this;
+  }
+
+  /**
+   * Get required
+   * @return required
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequired() {
+    return required;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequired(@javax.annotation.Nullable Boolean required) {
+    this.required = required;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -197,12 +227,13 @@ public class Output {
         Objects.equals(this.description, output.description) &&
         Objects.equals(this.value, output.value) &&
         Objects.equals(this.type, output.type) &&
-        Objects.equals(this.displayName, output.displayName);
+        Objects.equals(this.displayName, output.displayName) &&
+        Objects.equals(this.required, output.required);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, description, value, type, displayName);
+    return Objects.hash(id, description, value, type, displayName, required);
   }
 
   @Override
@@ -214,6 +245,7 @@ public class Output {
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    required: ").append(toIndentedString(required)).append("\n");
     sb.append("}");
     return sb.toString();
   }

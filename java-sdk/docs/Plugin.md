@@ -28,6 +28,7 @@
 |**appBlocks** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**charts** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**dataFilters** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
+|**dataFiltersKPI** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**logExporters** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**additionalPlugins** | [**List&lt;PluginPluginElementMetadata&gt;**](PluginPluginElementMetadata.md) |  |  [optional] |
 |**categories** | **List&lt;PluginSubGroupPluginCategory&gt;** |  |  [optional] |

@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.0-beta1</version>
+  <version>1.0.0-beta2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.0-beta1"
+compile "io.kestra:kestra-api-client:1.0.0-beta2"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.0-beta1.jar`
+- `target/kestra-api-client-1.0.0-beta2.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -132,10 +132,13 @@ Class | Method | HTTP request | Description
 *AppsApi* | [**searchApps**](docs/AppsApi.md#searchApps) | **GET** /api/v1/{tenant}/apps/search | Search for apps
 *AppsApi* | [**searchAppsFromCatalog**](docs/AppsApi.md#searchAppsFromCatalog) | **GET** /api/v1/{tenant}/apps/catalog | Search for apps from catalog
 *AppsApi* | [**updateApp**](docs/AppsApi.md#updateApp) | **PUT** /api/v1/{tenant}/apps/{uid} | Update an existing app
+*AuditLogsApi* | [**exportAuditLogs**](docs/AuditLogsApi.md#exportAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/export | Export all audit logs as a streamed CSV file
 *AuditLogsApi* | [**findAuditLog**](docs/AuditLogsApi.md#findAuditLog) | **POST** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
+*AuditLogsApi* | [**getGlobalResourceDiffFromAuditLog**](docs/AuditLogsApi.md#getGlobalResourceDiffFromAuditLog) | **GET** /api/v1/auditlogs/{id}/diff | Retrieve the diff between audit logs from global resource like users
 *AuditLogsApi* | [**getResourceDiffFromAuditLog**](docs/AuditLogsApi.md#getResourceDiffFromAuditLog) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
 *AuditLogsApi* | [**listAuditLogFromResourceId**](docs/AuditLogsApi.md#listAuditLogFromResourceId) | **GET** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
 *AuditLogsApi* | [**searchAuditLogs**](docs/AuditLogsApi.md#searchAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/search | Search for audit logs
+*AuditLogsApi* | [**searchAuditLogsForAllTenants**](docs/AuditLogsApi.md#searchAuditLogsForAllTenants) | **GET** /api/v1/auditlogs/search | Search for audit logs across all tenants, required to be SuperAdmin
 *AuthsApi* | [**createApiTokenForCurrentUser**](docs/AuthsApi.md#createApiTokenForCurrentUser) | **POST** /api/v1/me/api-tokens | Create API token for the authenticated user
 *AuthsApi* | [**deleteApiTokenForCurrentUser**](docs/AuthsApi.md#deleteApiTokenForCurrentUser) | **DELETE** /api/v1/me/api-tokens/{tokenId} | Delete API token for the authenticated user
 *AuthsApi* | [**getCurrentUser**](docs/AuthsApi.md#getCurrentUser) | **GET** /api/v1/me | Get details about the authenticated user
@@ -209,6 +212,7 @@ Class | Method | HTTP request | Description
 *ExecutionsApi* | [**pauseExecutionsByQuery**](docs/ExecutionsApi.md#pauseExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
 *ExecutionsApi* | [**previewFileFromExecution**](docs/ExecutionsApi.md#previewFileFromExecution) | **GET** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 *ExecutionsApi* | [**replayExecution**](docs/ExecutionsApi.md#replayExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
+*ExecutionsApi* | [**replayExecutionWithinputs**](docs/ExecutionsApi.md#replayExecutionWithinputs) | **POST** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 *ExecutionsApi* | [**replayExecutionsByIds**](docs/ExecutionsApi.md#replayExecutionsByIds) | **POST** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
 *ExecutionsApi* | [**replayExecutionsByQuery**](docs/ExecutionsApi.md#replayExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision
 *ExecutionsApi* | [**restartExecution**](docs/ExecutionsApi.md#restartExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one
@@ -417,6 +421,7 @@ Class | Method | HTTP request | Description
 *TestSuitesApi* | [**getTestSuite**](docs/TestSuitesApi.md#getTestSuite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
 *TestSuitesApi* | [**getTestsLastResult**](docs/TestSuitesApi.md#getTestsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 *TestSuitesApi* | [**runTestSuite**](docs/TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+*TestSuitesApi* | [**runTestSuitesByQuery**](docs/TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
 *TestSuitesApi* | [**searchTestSuites**](docs/TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
 *TestSuitesApi* | [**updateTestSuite**](docs/TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 *TestSuitesApi* | [**validateTestSuite**](docs/TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
@@ -543,7 +548,6 @@ Class | Method | HTTP request | Description
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [CustomLink](docs/CustomLink.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
  - [DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
  - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
@@ -672,6 +676,7 @@ Class | Method | HTTP request | Description
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
+ - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
  - [Listener](docs/Listener.md)
  - [LogEntry](docs/LogEntry.md)
@@ -762,6 +767,8 @@ Class | Method | HTTP request | Description
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
+ - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
+ - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
  - [RoleUsage](docs/RoleUsage.md)
  - [SLA](docs/SLA.md)
@@ -818,6 +825,8 @@ Class | Method | HTTP request | Description
  - [TestSuiteControllerTestSuiteBulkRequest](docs/TestSuiteControllerTestSuiteBulkRequest.md)
  - [TestSuiteControllerTestsLastResultResponse](docs/TestSuiteControllerTestsLastResultResponse.md)
  - [TestSuiteRunResult](docs/TestSuiteRunResult.md)
+ - [TestSuiteServiceRunByQueryRequest](docs/TestSuiteServiceRunByQueryRequest.md)
+ - [TestSuiteServiceTestRunByQueryResult](docs/TestSuiteServiceTestRunByQueryResult.md)
  - [TheLabelsToPassToTheExecutionCreated](docs/TheLabelsToPassToTheExecutionCreated.md)
  - [TimeWindow](docs/TimeWindow.md)
  - [Trigger](docs/Trigger.md)

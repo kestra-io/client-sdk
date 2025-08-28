@@ -32,7 +32,8 @@
 |**banner** | [**Banner**](Banner.md) |  |  [optional] |
 |**mailServiceEnabled** | **Boolean** |  |  [optional] |
 |**outputsInInternalStorageEnabled** | **Boolean** |  |  [optional] |
-|**contextCustomLinks** | [**Map&lt;String, CustomLink&gt;**](CustomLink.md) |  |  [optional] |
+|**leftSidebar** | [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  |  [optional] |
+|**rightSidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  |  [optional] |
 |**inMaintenance** | **Boolean** |  |  [optional] |
 |**passwordRegexp** | **String** |  |  [optional] |
 

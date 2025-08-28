@@ -28,6 +28,8 @@ import io.kestra.sdk.model.TestSuiteControllerSearchTestsLastResult;
 import io.kestra.sdk.model.TestSuiteControllerTestSuiteBulkRequest;
 import io.kestra.sdk.model.TestSuiteControllerTestsLastResultResponse;
 import io.kestra.sdk.model.TestSuiteRunResult;
+import io.kestra.sdk.model.TestSuiteServiceRunByQueryRequest;
+import io.kestra.sdk.model.TestSuiteServiceTestRunByQueryResult;
 import io.kestra.sdk.model.ValidateConstraintViolation;
 
 
@@ -818,10 +820,93 @@ public class TestSuitesApi extends BaseApi {
   }
 
   /**
+   * Run multiple TestSuites by query
+   * Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+   * @param tenant  (required)
+   * @param testSuiteServiceRunByQueryRequest  (required)
+   * @return TestSuiteServiceTestRunByQueryResult
+   * @throws ApiException if fails to make API call
+   */
+  public TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest) throws ApiException {
+    return this.runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest, Collections.emptyMap());
+  }
+
+
+  /**
+   * Run multiple TestSuites by query
+   * Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+   * @param tenant  (required)
+   * @param testSuiteServiceRunByQueryRequest  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return TestSuiteServiceTestRunByQueryResult
+   * @throws ApiException if fails to make API call
+   */
+  public TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = testSuiteServiceRunByQueryRequest;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling runTestSuitesByQuery");
+    }
+    
+    // verify the required parameter 'testSuiteServiceRunByQueryRequest' is set
+    if (testSuiteServiceRunByQueryRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'testSuiteServiceRunByQueryRequest' when calling runTestSuitesByQuery");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/tests/run"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<TestSuiteServiceTestRunByQueryResult> localVarReturnType = new TypeReference<TestSuiteServiceTestRunByQueryResult>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Search for tests
    * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param includeChildNamespaces Include child namespaces in filter or not (required)
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param namespace The namespace to filter on (optional)
@@ -829,8 +914,8 @@ public class TestSuitesApi extends BaseApi {
    * @return PagedResultsTestSuite
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTestSuite searchTestSuites(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId) throws ApiException {
-    return this.searchTestSuites(page, size, tenant, sort, namespace, flowId, Collections.emptyMap());
+  public PagedResultsTestSuite searchTestSuites(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean includeChildNamespaces, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId) throws ApiException {
+    return this.searchTestSuites(page, size, includeChildNamespaces, tenant, sort, namespace, flowId, Collections.emptyMap());
   }
 
 
@@ -839,6 +924,7 @@ public class TestSuitesApi extends BaseApi {
    * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
    * @param page The current page (required)
    * @param size The current page size (required)
+   * @param includeChildNamespaces Include child namespaces in filter or not (required)
    * @param tenant  (required)
    * @param sort The sort of current page (optional)
    * @param namespace The namespace to filter on (optional)
@@ -847,7 +933,7 @@ public class TestSuitesApi extends BaseApi {
    * @return PagedResultsTestSuite
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsTestSuite searchTestSuites(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsTestSuite searchTestSuites(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull Boolean includeChildNamespaces, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -858,6 +944,11 @@ public class TestSuitesApi extends BaseApi {
     // verify the required parameter 'size' is set
     if (size == null) {
       throw new ApiException(400, "Missing the required parameter 'size' when calling searchTestSuites");
+    }
+    
+    // verify the required parameter 'includeChildNamespaces' is set
+    if (includeChildNamespaces == null) {
+      throw new ApiException(400, "Missing the required parameter 'includeChildNamespaces' when calling searchTestSuites");
     }
     
     // verify the required parameter 'tenant' is set
@@ -882,6 +973,7 @@ public class TestSuitesApi extends BaseApi {
     localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
     localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("includeChildNamespaces", includeChildNamespaces));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

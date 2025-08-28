@@ -2630,6 +2630,108 @@ public class ExecutionsApi extends BaseApi {
   }
 
   /**
+   * Create a new execution from an old one and start it from a specified task run id
+   * 
+   * @param executionId the original execution id to clone (required)
+   * @param taskRunId The taskrun id (required)
+   * @param revision The flow revision to use for new execution (required)
+   * @param tenant  (required)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @return Execution
+   * @throws ApiException if fails to make API call
+   */
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull Integer revision, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints) throws ApiException {
+    return this.replayExecutionWithinputs(executionId, taskRunId, revision, tenant, breakpoints, Collections.emptyMap());
+  }
+
+
+  /**
+   * Create a new execution from an old one and start it from a specified task run id
+   * 
+   * @param executionId the original execution id to clone (required)
+   * @param taskRunId The taskrun id (required)
+   * @param revision The flow revision to use for new execution (required)
+   * @param tenant  (required)
+   * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return Execution
+   * @throws ApiException if fails to make API call
+   */
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull Integer revision, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'executionId' is set
+    if (executionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'executionId' when calling replayExecutionWithinputs");
+    }
+    
+    // verify the required parameter 'taskRunId' is set
+    if (taskRunId == null) {
+      throw new ApiException(400, "Missing the required parameter 'taskRunId' when calling replayExecutionWithinputs");
+    }
+    
+    // verify the required parameter 'revision' is set
+    if (revision == null) {
+      throw new ApiException(400, "Missing the required parameter 'revision' when calling replayExecutionWithinputs");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling replayExecutionWithinputs");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/executions/{executionId}/replay-with-inputs"
+      .replaceAll("\\{" + "executionId" + "\\}", apiClient.escapeString(apiClient.parameterToString(executionId)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("taskRunId", taskRunId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("revision", revision));
+    localVarQueryParams.addAll(apiClient.parameterToPair("breakpoints", breakpoints));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "multipart/form-data"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<Execution> localVarReturnType = new TypeReference<Execution>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Create new executions from old ones. Keep the flow revision
    * 
    * @param tenant  (required)

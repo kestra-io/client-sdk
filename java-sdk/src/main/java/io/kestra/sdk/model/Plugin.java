@@ -55,6 +55,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_APP_BLOCKS,
   Plugin.JSON_PROPERTY_CHARTS,
   Plugin.JSON_PROPERTY_DATA_FILTERS,
+  Plugin.JSON_PROPERTY_DATA_FILTERS_K_P_I,
   Plugin.JSON_PROPERTY_LOG_EXPORTERS,
   Plugin.JSON_PROPERTY_ADDITIONAL_PLUGINS,
   Plugin.JSON_PROPERTY_CATEGORIES,
@@ -145,6 +146,10 @@ public class Plugin {
   public static final String JSON_PROPERTY_DATA_FILTERS = "dataFilters";
   @javax.annotation.Nullable
   private List<PluginPluginElementMetadata> dataFilters = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_DATA_FILTERS_K_P_I = "dataFiltersKPI";
+  @javax.annotation.Nullable
+  private List<PluginPluginElementMetadata> dataFiltersKPI = new ArrayList<>();
 
   public static final String JSON_PROPERTY_LOG_EXPORTERS = "logExporters";
   @javax.annotation.Nullable
@@ -802,6 +807,39 @@ public class Plugin {
     this.dataFilters = dataFilters;
   }
 
+  public Plugin dataFiltersKPI(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+    
+    this.dataFiltersKPI = dataFiltersKPI;
+    return this;
+  }
+
+  public Plugin addDataFiltersKPIItem(PluginPluginElementMetadata dataFiltersKPIItem) {
+    if (this.dataFiltersKPI == null) {
+      this.dataFiltersKPI = new ArrayList<>();
+    }
+    this.dataFiltersKPI.add(dataFiltersKPIItem);
+    return this;
+  }
+
+  /**
+   * Get dataFiltersKPI
+   * @return dataFiltersKPI
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<PluginPluginElementMetadata> getDataFiltersKPI() {
+    return dataFiltersKPI;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDataFiltersKPI(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
+    this.dataFiltersKPI = dataFiltersKPI;
+  }
+
   public Plugin logExporters(@javax.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
     
     this.logExporters = logExporters;
@@ -956,6 +994,7 @@ public class Plugin {
         Objects.equals(this.appBlocks, plugin.appBlocks) &&
         Objects.equals(this.charts, plugin.charts) &&
         Objects.equals(this.dataFilters, plugin.dataFilters) &&
+        Objects.equals(this.dataFiltersKPI, plugin.dataFiltersKPI) &&
         Objects.equals(this.logExporters, plugin.logExporters) &&
         Objects.equals(this.additionalPlugins, plugin.additionalPlugins) &&
         Objects.equals(this.categories, plugin.categories) &&
@@ -964,7 +1003,7 @@ public class Plugin {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, title, description, license, longDescription, group, version, manifest, guides, aliases, tasks, triggers, conditions, controllers, storages, secrets, taskRunners, apps, appBlocks, charts, dataFilters, logExporters, additionalPlugins, categories, subGroup);
+    return Objects.hash(name, title, description, license, longDescription, group, version, manifest, guides, aliases, tasks, triggers, conditions, controllers, storages, secrets, taskRunners, apps, appBlocks, charts, dataFilters, dataFiltersKPI, logExporters, additionalPlugins, categories, subGroup);
   }
 
   @Override
@@ -992,6 +1031,7 @@ public class Plugin {
     sb.append("    appBlocks: ").append(toIndentedString(appBlocks)).append("\n");
     sb.append("    charts: ").append(toIndentedString(charts)).append("\n");
     sb.append("    dataFilters: ").append(toIndentedString(dataFilters)).append("\n");
+    sb.append("    dataFiltersKPI: ").append(toIndentedString(dataFiltersKPI)).append("\n");
     sb.append("    logExporters: ").append(toIndentedString(logExporters)).append("\n");
     sb.append("    additionalPlugins: ").append(toIndentedString(additionalPlugins)).append("\n");
     sb.append("    categories: ").append(toIndentedString(categories)).append("\n");

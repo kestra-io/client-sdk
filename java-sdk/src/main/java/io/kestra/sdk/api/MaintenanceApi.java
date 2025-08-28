@@ -43,10 +43,11 @@ public class MaintenanceApi extends BaseApi {
   /**
    * Enter cluster maintenance mode
    * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public void enterMaintenance() throws ApiException {
-    this.enterMaintenance(Collections.emptyMap());
+  public Object enterMaintenance() throws ApiException {
+    return this.enterMaintenance(Collections.emptyMap());
   }
 
 
@@ -54,9 +55,10 @@ public class MaintenanceApi extends BaseApi {
    * Enter cluster maintenance mode
    * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
    * @param additionalHeaders additionalHeaders for this call
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public void enterMaintenance(Map<String, String> additionalHeaders) throws ApiException {
+  public Object enterMaintenance(Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -76,7 +78,7 @@ public class MaintenanceApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -87,7 +89,8 @@ public class MaintenanceApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    apiClient.invokeAPI(
+    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    return apiClient.invokeAPI(
         localVarPath,
         "POST",
         localVarQueryParams,
@@ -100,17 +103,18 @@ public class MaintenanceApi extends BaseApi {
         localVarAccept,
         localVarContentType,
         localVarAuthNames,
-        null
+        localVarReturnType
     );
   }
 
   /**
    * Exit cluster maintenance mode
    * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public void exitMaintenance() throws ApiException {
-    this.exitMaintenance(Collections.emptyMap());
+  public Object exitMaintenance() throws ApiException {
+    return this.exitMaintenance(Collections.emptyMap());
   }
 
 
@@ -118,9 +122,10 @@ public class MaintenanceApi extends BaseApi {
    * Exit cluster maintenance mode
    * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
    * @param additionalHeaders additionalHeaders for this call
+   * @return Object
    * @throws ApiException if fails to make API call
    */
-  public void exitMaintenance(Map<String, String> additionalHeaders) throws ApiException {
+  public Object exitMaintenance(Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -140,7 +145,7 @@ public class MaintenanceApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -151,7 +156,8 @@ public class MaintenanceApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    apiClient.invokeAPI(
+    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    return apiClient.invokeAPI(
         localVarPath,
         "POST",
         localVarQueryParams,
@@ -164,7 +170,7 @@ public class MaintenanceApi extends BaseApi {
         localVarAccept,
         localVarContentType,
         localVarAuthNames,
-        null
+        localVarReturnType
     );
   }
 
@@ -181,7 +187,7 @@ public class MaintenanceApi extends BaseApi {
     localVarHeaderParams.putAll(additionalHeaders);
 
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 

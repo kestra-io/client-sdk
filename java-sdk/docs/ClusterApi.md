@@ -11,7 +11,7 @@ All URIs are relative to *http://localhost*
 
 ## enterMaintenance
 
-> enterMaintenance()
+> Object enterMaintenance()
 
 Enter cluster maintenance mode
 
@@ -44,7 +44,8 @@ public class Example {
 
         ClusterApi apiInstance = new ClusterApi(defaultClient);
         try {
-            apiInstance.enterMaintenance();
+            Object result = apiInstance.enterMaintenance();
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ClusterApi#enterMaintenance");
             System.err.println("Status code: " + e.getCode());
@@ -62,7 +63,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -71,7 +72,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ### HTTP response details
@@ -82,7 +83,7 @@ null (empty response body)
 
 ## exitMaintenance
 
-> exitMaintenance()
+> Object exitMaintenance()
 
 Exit cluster maintenance mode
 
@@ -115,7 +116,8 @@ public class Example {
 
         ClusterApi apiInstance = new ClusterApi(defaultClient);
         try {
-            apiInstance.exitMaintenance();
+            Object result = apiInstance.exitMaintenance();
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ClusterApi#exitMaintenance");
             System.err.println("Status code: " + e.getCode());
@@ -133,7 +135,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -142,7 +144,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ### HTTP response details

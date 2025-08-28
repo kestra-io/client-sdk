@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * AuditLog
  */
 @JsonPropertyOrder({
+  AuditLog.JSON_PROPERTY_TENANT_ID,
   AuditLog.JSON_PROPERTY_ID,
   AuditLog.JSON_PROPERTY_TYPE,
   AuditLog.JSON_PROPERTY_DETAIL,
@@ -46,6 +47,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AuditLog {
+  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+  @javax.annotation.Nonnull
+  private String tenantId;
+
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
   private String id;
@@ -87,6 +92,31 @@ public class AuditLog {
   private List<Object> revertPatch = new ArrayList<>();
 
   public AuditLog() {
+  }
+
+  public AuditLog tenantId(@javax.annotation.Nonnull String tenantId) {
+    
+    this.tenantId = tenantId;
+    return this;
+  }
+
+  /**
+   * Get tenantId
+   * @return tenantId
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getTenantId() {
+    return tenantId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTenantId(@javax.annotation.Nonnull String tenantId) {
+    this.tenantId = tenantId;
   }
 
   public AuditLog id(@javax.annotation.Nonnull String id) {
@@ -364,7 +394,8 @@ public class AuditLog {
       return false;
     }
     AuditLog auditLog = (AuditLog) o;
-    return Objects.equals(this.id, auditLog.id) &&
+    return Objects.equals(this.tenantId, auditLog.tenantId) &&
+        Objects.equals(this.id, auditLog.id) &&
         Objects.equals(this.type, auditLog.type) &&
         Objects.equals(this.detail, auditLog.detail) &&
         Objects.equals(this.date, auditLog.date) &&
@@ -378,13 +409,14 @@ public class AuditLog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch);
+    return Objects.hash(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuditLog {\n");
+    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    detail: ").append(toIndentedString(detail)).append("\n");

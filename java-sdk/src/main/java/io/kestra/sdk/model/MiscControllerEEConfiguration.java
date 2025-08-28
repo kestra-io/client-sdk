@@ -21,18 +21,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Banner;
-import io.kestra.sdk.model.CustomLink;
+import io.kestra.sdk.model.LeftSidebarConfiguration;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.MiscControllerTenantConfigurationInfo;
 import io.kestra.sdk.model.QueryFilterResourceField;
+import io.kestra.sdk.model.RightSidebarConfiguration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -65,7 +64,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_BANNER,
   MiscControllerEEConfiguration.JSON_PROPERTY_MAIL_SERVICE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED,
-  MiscControllerEEConfiguration.JSON_PROPERTY_CONTEXT_CUSTOM_LINKS,
+  MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
+  MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
 })
@@ -172,9 +172,13 @@ public class MiscControllerEEConfiguration {
   @javax.annotation.Nullable
   private Boolean outputsInInternalStorageEnabled;
 
-  public static final String JSON_PROPERTY_CONTEXT_CUSTOM_LINKS = "contextCustomLinks";
+  public static final String JSON_PROPERTY_LEFT_SIDEBAR = "leftSidebar";
   @javax.annotation.Nullable
-  private Map<String, CustomLink> contextCustomLinks = new HashMap<>();
+  private LeftSidebarConfiguration leftSidebar;
+
+  public static final String JSON_PROPERTY_RIGHT_SIDEBAR = "rightSidebar";
+  @javax.annotation.Nullable
+  private RightSidebarConfiguration rightSidebar;
 
   public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
   @javax.annotation.Nullable
@@ -844,37 +848,54 @@ public class MiscControllerEEConfiguration {
     this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
   }
 
-  public MiscControllerEEConfiguration contextCustomLinks(@javax.annotation.Nullable Map<String, CustomLink> contextCustomLinks) {
+  public MiscControllerEEConfiguration leftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
     
-    this.contextCustomLinks = contextCustomLinks;
-    return this;
-  }
-
-  public MiscControllerEEConfiguration putContextCustomLinksItem(String key, CustomLink contextCustomLinksItem) {
-    if (this.contextCustomLinks == null) {
-      this.contextCustomLinks = new HashMap<>();
-    }
-    this.contextCustomLinks.put(key, contextCustomLinksItem);
+    this.leftSidebar = leftSidebar;
     return this;
   }
 
   /**
-   * Get contextCustomLinks
-   * @return contextCustomLinks
+   * Get leftSidebar
+   * @return leftSidebar
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT_CUSTOM_LINKS)
+  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, CustomLink> getContextCustomLinks() {
-    return contextCustomLinks;
+  public LeftSidebarConfiguration getLeftSidebar() {
+    return leftSidebar;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT_CUSTOM_LINKS)
+  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContextCustomLinks(@javax.annotation.Nullable Map<String, CustomLink> contextCustomLinks) {
-    this.contextCustomLinks = contextCustomLinks;
+  public void setLeftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+    this.leftSidebar = leftSidebar;
+  }
+
+  public MiscControllerEEConfiguration rightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    
+    this.rightSidebar = rightSidebar;
+    return this;
+  }
+
+  /**
+   * Get rightSidebar
+   * @return rightSidebar
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RightSidebarConfiguration getRightSidebar() {
+    return rightSidebar;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    this.rightSidebar = rightSidebar;
   }
 
   public MiscControllerEEConfiguration inMaintenance(@javax.annotation.Nullable Boolean inMaintenance) {
@@ -961,14 +982,15 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.banner, miscControllerEEConfiguration.banner) &&
         Objects.equals(this.mailServiceEnabled, miscControllerEEConfiguration.mailServiceEnabled) &&
         Objects.equals(this.outputsInInternalStorageEnabled, miscControllerEEConfiguration.outputsInInternalStorageEnabled) &&
-        Objects.equals(this.contextCustomLinks, miscControllerEEConfiguration.contextCustomLinks) &&
+        Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
+        Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
         Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
         Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, contextCustomLinks, inMaintenance, passwordRegexp);
+    return Objects.hash(uuid, version, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
   }
 
   @Override
@@ -1000,7 +1022,8 @@ public class MiscControllerEEConfiguration {
     sb.append("    banner: ").append(toIndentedString(banner)).append("\n");
     sb.append("    mailServiceEnabled: ").append(toIndentedString(mailServiceEnabled)).append("\n");
     sb.append("    outputsInInternalStorageEnabled: ").append(toIndentedString(outputsInInternalStorageEnabled)).append("\n");
-    sb.append("    contextCustomLinks: ").append(toIndentedString(contextCustomLinks)).append("\n");
+    sb.append("    leftSidebar: ").append(toIndentedString(leftSidebar)).append("\n");
+    sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
     sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
     sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
     sb.append("}");

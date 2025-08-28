@@ -89,7 +89,6 @@ docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/CustomLink.md
 docs/DailyExecutionStatistics.md
 docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
@@ -226,6 +225,7 @@ docs/KVEntry.md
 docs/KVType.md
 docs/KvApi.md
 docs/Label.md
+docs/LeftSidebarConfiguration.md
 docs/Level.md
 docs/Listener.md
 docs/LogEntry.md
@@ -322,6 +322,8 @@ docs/Relation.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
+docs/RightSidebarConfiguration.md
+docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesApi.md
@@ -387,6 +389,8 @@ docs/TestSuiteControllerTestSuiteApiId.md
 docs/TestSuiteControllerTestSuiteBulkRequest.md
 docs/TestSuiteControllerTestsLastResultResponse.md
 docs/TestSuiteRunResult.md
+docs/TestSuiteServiceRunByQueryRequest.md
+docs/TestSuiteServiceTestRunByQueryResult.md
 docs/TestSuitesApi.md
 docs/TheLabelsToPassToTheExecutionCreated.md
 docs/TimeWindow.md
@@ -550,7 +554,6 @@ src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
-src/main/java/io/kestra/sdk/model/CustomLink.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatistics.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsDuration.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsExecutionCounts.java
@@ -679,6 +682,7 @@ src/main/java/io/kestra/sdk/model/KVControllerTypedValue.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java
+src/main/java/io/kestra/sdk/model/LeftSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/Level.java
 src/main/java/io/kestra/sdk/model/Listener.java
 src/main/java/io/kestra/sdk/model/LogEntry.java
@@ -769,6 +773,8 @@ src/main/java/io/kestra/sdk/model/Relation.java
 src/main/java/io/kestra/sdk/model/RelationType.java
 src/main/java/io/kestra/sdk/model/ResourceType.java
 src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
+src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
+src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java
 src/main/java/io/kestra/sdk/model/Role.java
 src/main/java/io/kestra/sdk/model/RoleUsage.java
 src/main/java/io/kestra/sdk/model/SLA.java
@@ -825,6 +831,8 @@ src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteApiId.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestSuiteBulkRequest.java
 src/main/java/io/kestra/sdk/model/TestSuiteControllerTestsLastResultResponse.java
 src/main/java/io/kestra/sdk/model/TestSuiteRunResult.java
+src/main/java/io/kestra/sdk/model/TestSuiteServiceRunByQueryRequest.java
+src/main/java/io/kestra/sdk/model/TestSuiteServiceTestRunByQueryResult.java
 src/main/java/io/kestra/sdk/model/TheLabelsToPassToTheExecutionCreated.java
 src/main/java/io/kestra/sdk/model/TimeWindow.java
 src/main/java/io/kestra/sdk/model/Trigger.java

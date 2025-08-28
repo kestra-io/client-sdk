@@ -13,7 +13,7 @@
 |**description** | **String** |  |  [optional] |
 |**dependsOn** | [**DependsOn**](DependsOn.md) |  |  [optional] |
 |**required** | **Boolean** |  |  [optional] |
-|**defaults** | **Object** |  |  [optional] |
+|**defaults** | [**String**](PropertyObject.md) |  |  [optional] |
 |**displayName** | **String** |  |  [optional] |
 
 

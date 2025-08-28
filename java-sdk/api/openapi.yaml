@@ -37,6 +37,199 @@ tags:
 - description: Misc api
   name: Misc
 paths:
+  /api/v1/auditlogs/search:
+    get:
+      operationId: searchAuditLogsForAllTenants
+      parameters:
+      - description: A string filter
+        explode: false
+        in: query
+        name: q
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: A namespace filter
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A flow id filter
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: An execution filter
+        explode: false
+        in: query
+        name: executionId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A user id filter
+        explode: false
+        in: query
+        name: userId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A id filter
+        explode: false
+        in: query
+        name: id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A permission filter
+        explode: false
+        in: query
+        name: permission
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/Permission"
+          nullable: true
+        style: form
+      - description: The start datetime
+        explode: false
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The end datetime
+        explode: false
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: A list of auditLog details
+        explode: false
+        in: query
+        name: details
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        style: form
+      - description: The event that create the audit log
+        explode: false
+        in: query
+        name: type
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/CrudEventType"
+          nullable: true
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+          description: searchAuditLogsForAllTenants 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: "Search for audit logs across all tenants, required to be SuperAdmin"
+      tags:
+      - Audit Logs
+      x-accepts:
+      - application/json
+  /api/v1/auditlogs/{id}/diff:
+    get:
+      description: Retrieves the diff between the current version and a selected previous
+        version of a given resource based on audit logs.
+      operationId: getGlobalResourceDiffFromAuditLog
+      parameters:
+      - description: The id of the audit log
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The id of a previous audit log to compare with
+        explode: false
+        in: query
+        name: previousId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditLogController.AuditLogDiff"
+          description: getGlobalResourceDiffFromAuditLog 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Retrieve the diff between audit logs from global resource like users
+      tags:
+      - Audit Logs
+      x-accepts:
+      - application/json
   /api/v1/auths:
     get:
       operationId: index
@@ -230,6 +423,10 @@ paths:
       operationId: enterMaintenance
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                type: object
           description: enterMaintenance 200 response
       security:
       - bearerAuth: []
@@ -246,6 +443,10 @@ paths:
       operationId: exitMaintenance
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                type: object
           description: exitMaintenance 200 response
       security:
       - bearerAuth: []
@@ -3185,6 +3386,140 @@ paths:
       - Apps
       x-accepts:
       - application/json
+  /api/v1/{tenant}/auditlogs/export:
+    get:
+      operationId: exportAuditLogs
+      parameters:
+      - description: A string filter
+        explode: false
+        in: query
+        name: q
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A namespace filter
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A flow id filter
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: An execution filter
+        explode: false
+        in: query
+        name: executionId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A user id filter
+        explode: false
+        in: query
+        name: userId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A id filter
+        explode: false
+        in: query
+        name: id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A permission filter
+        explode: false
+        in: query
+        name: permissions
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/Permission"
+          nullable: true
+          type: array
+        style: form
+      - description: The start datetime
+        explode: false
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The end datetime
+        explode: false
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: A list of auditLog details
+        explode: false
+        in: query
+        name: details
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        style: form
+      - description: The event that create the audit log
+        explode: false
+        in: query
+        name: type
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/CrudEventType"
+          nullable: true
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: exportAuditLogs 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export all audit logs as a streamed CSV file
+      tags:
+      - Audit Logs
+      x-accepts:
+      - text/csv
   /api/v1/{tenant}/auditlogs/find:
     post:
       operationId: findAuditLog
@@ -3347,12 +3682,13 @@ paths:
       - description: A permission filter
         explode: false
         in: query
-        name: permission
+        name: permissions
         required: false
         schema:
-          allOf:
-          - $ref: "#/components/schemas/Permission"
+          items:
+            $ref: "#/components/schemas/Permission"
           nullable: true
+          type: array
         style: form
       - description: The start datetime
         explode: false
@@ -8088,6 +8424,79 @@ paths:
         task run id
       tags:
       - Executions
+      x-accepts:
+      - application/json
+  /api/v1/{tenant}/executions/{executionId}/replay-with-inputs:
+    post:
+      operationId: replayExecutionWithinputs
+      parameters:
+      - description: the original execution id to clone
+        explode: false
+        in: path
+        name: executionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The taskrun id
+        explode: false
+        in: query
+        name: taskRunId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The flow revision to use for new execution
+        explode: false
+        in: query
+        name: revision
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        in: query
+        name: breakpoints
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              items:
+                format: binary
+                type: string
+              type: array
+        description: The inputs
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+          description: replayExecutionWithinputs 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      tags:
+      - Executions
+      x-content-type: multipart/form-data
       x-accepts:
       - application/json
   /api/v1/{tenant}/executions/{executionId}/restart:
@@ -15339,6 +15748,38 @@ paths:
       - TestSuites
       x-accepts:
       - application/json
+  /api/v1/{tenant}/tests/run:
+    post:
+      description: Executes all TestSuites impacted by the specified filter. Requires
+        TEST permission with the CREATE action.
+      operationId: runTestSuitesByQuery
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestSuiteService.TestRunByQueryResult"
+          description: runTestSuitesByQuery 200 response
+      summary: Run multiple TestSuites by query
+      tags:
+      - TestSuites
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/tests/search:
     get:
       description: Searches for tests with optional filtering by namespace and flow
@@ -15395,6 +15836,15 @@ paths:
         schema:
           nullable: true
           type: string
+        style: form
+      - description: Include child namespaces in filter or not
+        explode: false
+        in: query
+        name: includeChildNamespaces
+        required: true
+        schema:
+          default: true
+          type: boolean
         style: form
       - explode: false
         in: path
@@ -17516,6 +17966,7 @@ components:
         revertPatch:
         - "{}"
         - "{}"
+        tenantId: tenantId
         ipAddress: ipAddress
         id: id
         detail:
@@ -17572,6 +18023,7 @@ components:
           revertPatch:
           - "{}"
           - "{}"
+          tenantId: tenantId
           ipAddress: ipAddress
           id: id
           detail:
@@ -17784,6 +18236,8 @@ components:
       type: string
     BaseAuditLog:
       properties:
+        tenantId:
+          type: string
         id:
           type: string
         type:
@@ -17808,6 +18262,7 @@ components:
       - id
       - impersonatedBy
       - ipAddress
+      - tenantId
       - type
       - userId
       type: object
@@ -18261,23 +18716,6 @@ components:
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
       type: string
-    CustomLink:
-      example:
-        name: name
-        title: title
-        url: url
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-      required:
-      - name
-      - title
-      - url
-      type: object
     DailyExecutionStatistics:
       properties:
         startDate:
@@ -18777,13 +19215,14 @@ components:
         inputs:
         - input:
             dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
             id: id
             type: ""
             required: true
+          isDefault: true
           value: "{}"
           enabled: true
           errors:
@@ -18791,13 +19230,14 @@ components:
           - message: message
         - input:
             dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
             id: id
             type: ""
             required: true
+          isDefault: true
           value: "{}"
           enabled: true
           errors:
@@ -18823,13 +19263,14 @@ components:
       example:
         input:
           dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
           id: id
           type: ""
           required: true
+        isDefault: true
         value: "{}"
         enabled: true
         errors:
@@ -18842,6 +19283,8 @@ components:
           type: object
         enabled:
           type: boolean
+        isDefault:
+          type: boolean
         errors:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
@@ -18850,6 +19293,7 @@ components:
       - enabled
       - errors
       - input
+      - isDefault
       - value
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
@@ -19516,11 +19960,13 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         listeners:
@@ -19616,7 +20062,7 @@ components:
             retry: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19624,7 +20070,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19965,16 +20411,18 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: ""
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19982,7 +20430,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19992,7 +20440,7 @@ components:
         finally:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20000,7 +20448,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20019,7 +20467,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20027,7 +20475,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20048,7 +20496,7 @@ components:
         afterExecution:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20056,7 +20504,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20075,7 +20523,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20083,7 +20531,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20121,7 +20569,7 @@ components:
         tasks:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20129,7 +20577,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20148,7 +20596,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20156,7 +20604,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20176,7 +20624,7 @@ components:
         errors:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20184,7 +20632,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20203,7 +20651,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20211,7 +20659,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -20432,16 +20880,18 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -20449,7 +20899,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -20645,11 +21095,13 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         listeners:
@@ -20745,7 +21197,7 @@ components:
             retry: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -20753,7 +21205,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -22004,7 +22456,7 @@ components:
     Input_Object_:
       example:
         dependsOn: ""
-        defaults: "{}"
+        defaults: ""
         displayName: displayName
         name: name
         description: description
@@ -22034,8 +22486,9 @@ components:
         required:
           type: boolean
         defaults:
+          allOf:
+          - $ref: "#/components/schemas/Property_Object_"
           title: The default value to use if no value is specified.
-          type: object
         displayName:
           title: The display name of the input.
           type: string
@@ -22810,6 +23263,17 @@ components:
       - key
       - value
       type: object
+    LeftSidebarConfiguration:
+      example:
+        disabledMenus:
+        - disabledMenus
+        - disabledMenus
+      properties:
+        disabledMenus:
+          items:
+            type: string
+          type: array
+      type: object
     Level:
       enum:
       - ERROR
@@ -23304,10 +23768,10 @@ components:
             type: boolean
           outputsInInternalStorageEnabled:
             type: boolean
-          contextCustomLinks:
-            additionalProperties:
-              $ref: "#/components/schemas/CustomLink"
-            type: object
+          leftSidebar:
+            $ref: "#/components/schemas/LeftSidebarConfiguration"
+          rightSidebar:
+            $ref: "#/components/schemas/RightSidebarConfiguration"
           inMaintenance:
             type: boolean
           passwordRegexp:
@@ -23322,6 +23786,10 @@ components:
         pluginManagementEnabled: true
         uuid: uuid
         isCustomDashboardsEnabled: true
+        leftSidebar:
+          disabledMenus:
+          - disabledMenus
+          - disabledMenus
         outputsInInternalStorageEnabled: true
         supportedStorages:
         - id: id
@@ -23342,11 +23810,6 @@ components:
         hiddenLabelsPrefixes:
         - hiddenLabelsPrefixes
         - hiddenLabelsPrefixes
-        contextCustomLinks:
-          key:
-            name: name
-            title: title
-            url: url
         resourceToFilters:
         - name: name
           fields:
@@ -23391,6 +23854,11 @@ components:
         commitId: commitId
         isAnonymousUsageEnabled: true
         version: version
+        rightSidebar:
+          customLinks:
+            key:
+              title: title
+              url: url
         passwordRegexp: passwordRegexp
         url: url
         commitDate: 2000-01-23T04:56:07.000+00:00
@@ -23641,6 +24109,7 @@ components:
         id: id
         type: STRING
         value: "{}"
+        required: true
       properties:
         id:
           minLength: 1
@@ -23654,6 +24123,8 @@ components:
           $ref: "#/components/schemas/Type"
         displayName:
           type: string
+        required:
+          type: boolean
       required:
       - id
       - type
@@ -23793,6 +24264,7 @@ components:
             revertPatch:
             - "{}"
             - "{}"
+            tenantId: tenantId
             ipAddress: ipAddress
             id: id
             detail:
@@ -23854,6 +24326,7 @@ components:
             revertPatch:
             - "{}"
             - "{}"
+            tenantId: tenantId
             ipAddress: ipAddress
             id: id
             detail:
@@ -24498,11 +24971,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -24598,7 +25073,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -24606,7 +25081,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -24873,11 +25348,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -24973,7 +25450,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -24981,7 +25458,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -25767,11 +26244,13 @@ components:
               id: id
               type: STRING
               value: "{}"
+              required: true
             - displayName: displayName
               description: description
               id: id
               type: STRING
               value: "{}"
+              required: true
             variables:
               key: "{}"
             listeners:
@@ -25867,7 +26346,7 @@ components:
                 retry: "{}"
             inputs:
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -25875,7 +26354,7 @@ components:
               type: ""
               required: true
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -26146,11 +26625,13 @@ components:
               id: id
               type: STRING
               value: "{}"
+              required: true
             - displayName: displayName
               description: description
               id: id
               type: STRING
               value: "{}"
+              required: true
             variables:
               key: "{}"
             listeners:
@@ -26246,7 +26727,7 @@ components:
                 retry: "{}"
             inputs:
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -26254,7 +26735,7 @@ components:
               type: ""
               required: true
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -27579,6 +28060,11 @@ components:
         - deprecated: true
           cls: cls
         title: title
+        dataFiltersKPI:
+        - deprecated: true
+          cls: cls
+        - deprecated: true
+          cls: cls
         guides:
         - guides
         - guides
@@ -27705,6 +28191,10 @@ components:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
           type: array
         dataFilters:
+          items:
+            $ref: "#/components/schemas/Plugin.PluginElementMetadata"
+          type: array
+        dataFiltersKPI:
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
           type: array
@@ -28136,6 +28626,31 @@ components:
         required:
           type: boolean
       type: object
+    RightSidebarConfiguration:
+      example:
+        customLinks:
+          key:
+            title: title
+            url: url
+      properties:
+        customLinks:
+          additionalProperties:
+            $ref: "#/components/schemas/RightSidebarConfiguration.CustomLink"
+          type: object
+      type: object
+    RightSidebarConfiguration.CustomLink:
+      example:
+        title: title
+        url: url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      required:
+      - title
+      - url
+      type: object
     Role:
       example:
         isDefault: true
@@ -28495,11 +29010,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -28595,7 +29112,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -28603,7 +29120,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -29446,7 +29963,7 @@ components:
       example:
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -29454,7 +29971,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -30510,6 +31027,283 @@ components:
       - startDate
       - state
       - testSuiteId
+      type: object
+    TestSuiteService.RunByQueryRequest:
+      example:
+        namespace: namespace
+        flowId: flowId
+        includeChildNamespaces: true
+      properties:
+        namespace:
+          nullable: true
+          type: string
+        flowId:
+          nullable: true
+          type: string
+        includeChildNamespaces:
+          default: true
+          description: Should child namespaces be included or not
+          type: boolean
+      required:
+      - flowId
+      - includeChildNamespaces
+      - namespace
+      type: object
+    TestSuiteService.TestRunByQueryResult:
+      example:
+        tenantId: tenantId
+        numberOfTestSuitesToBeRun: 0
+        numberOfTestCasesToBeRun: 6
+        requestMade:
+          namespace: namespace
+          flowId: flowId
+          includeChildNamespaces: true
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        requestMade:
+          $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        tenantId:
+          type: string
+        numberOfTestSuitesToBeRun:
+          format: int32
+          type: integer
+        numberOfTestCasesToBeRun:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
+          type: array
+      required:
+      - numberOfTestCasesToBeRun
+      - numberOfTestSuitesToBeRun
+      - requestMade
+      - results
+      - tenantId
       type: object
     TimeWindow:
       example:

@@ -13,6 +13,7 @@ All URIs are relative to *http://localhost*
 | [**getTestSuite**](TestSuitesApi.md#getTestSuite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test |
 | [**getTestsLastResult**](TestSuitesApi.md#getTestsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result |
 | [**runTestSuite**](TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test |
+| [**runTestSuitesByQuery**](TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query |
 | [**searchTestSuites**](TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests |
 | [**updateTestSuite**](TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source |
 | [**validateTestSuite**](TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test |
@@ -639,9 +640,77 @@ No authorization required
 | **200** | runTestSuite 200 response |  -  |
 
 
+## runTestSuitesByQuery
+
+> TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest)
+
+Run multiple TestSuites by query
+
+Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.TestSuitesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+
+        TestSuitesApi apiInstance = new TestSuitesApi(defaultClient);
+        String tenant = "tenant_example"; // String | 
+        TestSuiteServiceRunByQueryRequest testSuiteServiceRunByQueryRequest = new TestSuiteServiceRunByQueryRequest(); // TestSuiteServiceRunByQueryRequest | 
+        try {
+            TestSuiteServiceTestRunByQueryResult result = apiInstance.runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TestSuitesApi#runTestSuitesByQuery");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tenant** | **String**|  | |
+| **testSuiteServiceRunByQueryRequest** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md)|  | |
+
+### Return type
+
+[**TestSuiteServiceTestRunByQueryResult**](TestSuiteServiceTestRunByQueryResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | runTestSuitesByQuery 200 response |  -  |
+
+
 ## searchTestSuites
 
-> PagedResultsTestSuite searchTestSuites(page, size, tenant, sort, namespace, flowId)
+> PagedResultsTestSuite searchTestSuites(page, size, includeChildNamespaces, tenant, sort, namespace, flowId)
 
 Search for tests
 
@@ -665,12 +734,13 @@ public class Example {
         TestSuitesApi apiInstance = new TestSuitesApi(defaultClient);
         Integer page = 1; // Integer | The current page
         Integer size = 10; // Integer | The current page size
+        Boolean includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
         String tenant = "tenant_example"; // String | 
         List<String> sort = Arrays.asList(); // List<String> | The sort of current page
         String namespace = "namespace_example"; // String | The namespace to filter on
         String flowId = "flowId_example"; // String | The flow id to filter on
         try {
-            PagedResultsTestSuite result = apiInstance.searchTestSuites(page, size, tenant, sort, namespace, flowId);
+            PagedResultsTestSuite result = apiInstance.searchTestSuites(page, size, includeChildNamespaces, tenant, sort, namespace, flowId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TestSuitesApi#searchTestSuites");
@@ -690,6 +760,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| The current page | [default to 1] |
 | **size** | **Integer**| The current page size | [default to 10] |
+| **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [default to true] |
 | **tenant** | **String**|  | |
 | **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
 | **namespace** | **String**| The namespace to filter on | [optional] |

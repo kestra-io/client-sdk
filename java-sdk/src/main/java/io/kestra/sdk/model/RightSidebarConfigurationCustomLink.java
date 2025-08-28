@@ -24,19 +24,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * CustomLink
+ * RightSidebarConfigurationCustomLink
  */
 @JsonPropertyOrder({
-  CustomLink.JSON_PROPERTY_NAME,
-  CustomLink.JSON_PROPERTY_TITLE,
-  CustomLink.JSON_PROPERTY_URL
+  RightSidebarConfigurationCustomLink.JSON_PROPERTY_TITLE,
+  RightSidebarConfigurationCustomLink.JSON_PROPERTY_URL
 })
+@JsonTypeName("RightSidebarConfiguration.CustomLink")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
-public class CustomLink {
-  public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
-  private String name;
-
+public class RightSidebarConfigurationCustomLink {
   public static final String JSON_PROPERTY_TITLE = "title";
   @javax.annotation.Nonnull
   private String title;
@@ -45,35 +41,10 @@ public class CustomLink {
   @javax.annotation.Nonnull
   private String url;
 
-  public CustomLink() {
+  public RightSidebarConfigurationCustomLink() {
   }
 
-  public CustomLink name(@javax.annotation.Nonnull String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
-    this.name = name;
-  }
-
-  public CustomLink title(@javax.annotation.Nonnull String title) {
+  public RightSidebarConfigurationCustomLink title(@javax.annotation.Nonnull String title) {
     
     this.title = title;
     return this;
@@ -98,7 +69,7 @@ public class CustomLink {
     this.title = title;
   }
 
-  public CustomLink url(@javax.annotation.Nonnull String url) {
+  public RightSidebarConfigurationCustomLink url(@javax.annotation.Nonnull String url) {
     
     this.url = url;
     return this;
@@ -131,22 +102,20 @@ public class CustomLink {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CustomLink customLink = (CustomLink) o;
-    return Objects.equals(this.name, customLink.name) &&
-        Objects.equals(this.title, customLink.title) &&
-        Objects.equals(this.url, customLink.url);
+    RightSidebarConfigurationCustomLink rightSidebarConfigurationCustomLink = (RightSidebarConfigurationCustomLink) o;
+    return Objects.equals(this.title, rightSidebarConfigurationCustomLink.title) &&
+        Objects.equals(this.url, rightSidebarConfigurationCustomLink.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, title, url);
+    return Objects.hash(title, url);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CustomLink {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("class RightSidebarConfigurationCustomLink {\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");

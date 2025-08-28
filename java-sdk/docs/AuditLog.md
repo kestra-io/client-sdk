@@ -7,6 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**tenantId** | **String** |  |  |
 |**id** | **String** |  |  |
 |**type** | **CrudEventType** |  |  |
 |**detail** | [**AuditLogDetail**](AuditLogDetail.md) |  |  |

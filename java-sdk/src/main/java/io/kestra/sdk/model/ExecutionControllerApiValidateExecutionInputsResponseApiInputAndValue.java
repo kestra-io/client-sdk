@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_INPUT,
   ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_VALUE,
   ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_ENABLED,
+  ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_IS_DEFAULT,
   ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.JSON_PROPERTY_ERRORS
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue")
@@ -51,6 +52,10 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   @javax.annotation.Nonnull
   private Boolean enabled;
+
+  public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
+  @javax.annotation.Nonnull
+  private Boolean isDefault;
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
   @javax.annotation.Nonnull
@@ -134,6 +139,31 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
     this.enabled = enabled;
   }
 
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue isDefault(@javax.annotation.Nonnull Boolean isDefault) {
+    
+    this.isDefault = isDefault;
+    return this;
+  }
+
+  /**
+   * Get isDefault
+   * @return isDefault
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIsDefault() {
+    return isDefault;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsDefault(@javax.annotation.Nonnull Boolean isDefault) {
+    this.isDefault = isDefault;
+  }
+
   public ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue errors(@javax.annotation.Nonnull List<ExecutionControllerApiValidateExecutionInputsResponseApiInputError> errors) {
     
     this.errors = errors;
@@ -179,12 +209,13 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
     return Objects.equals(this.input, executionControllerApiValidateExecutionInputsResponseApiInputAndValue.input) &&
         Objects.equals(this.value, executionControllerApiValidateExecutionInputsResponseApiInputAndValue.value) &&
         Objects.equals(this.enabled, executionControllerApiValidateExecutionInputsResponseApiInputAndValue.enabled) &&
+        Objects.equals(this.isDefault, executionControllerApiValidateExecutionInputsResponseApiInputAndValue.isDefault) &&
         Objects.equals(this.errors, executionControllerApiValidateExecutionInputsResponseApiInputAndValue.errors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(input, value, enabled, errors);
+    return Objects.hash(input, value, enabled, isDefault, errors);
   }
 
   @Override
@@ -194,6 +225,7 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndVal
     sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("}");
     return sb.toString();

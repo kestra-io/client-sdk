@@ -49,6 +49,114 @@ public class AuditLogsApi extends BaseApi {
   }
 
   /**
+   * Export all audit logs as a streamed CSV file
+   * 
+   * @param tenant  (required)
+   * @param q A string filter (optional)
+   * @param namespace A namespace filter (optional)
+   * @param flowId A flow id filter (optional)
+   * @param executionId An execution filter (optional)
+   * @param userId A user id filter (optional)
+   * @param id A id filter (optional)
+   * @param permissions A permission filter (optional)
+   * @param startDate The start datetime (optional)
+   * @param endDate The end datetime (optional)
+   * @param details A list of auditLog details (optional)
+   * @param type The event that create the audit log (optional)
+   * @return List&lt;Object&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<Object> exportAuditLogs(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable List<Permission> permissions, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type) throws ApiException {
+    return this.exportAuditLogs(tenant, q, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type, Collections.emptyMap());
+  }
+
+
+  /**
+   * Export all audit logs as a streamed CSV file
+   * 
+   * @param tenant  (required)
+   * @param q A string filter (optional)
+   * @param namespace A namespace filter (optional)
+   * @param flowId A flow id filter (optional)
+   * @param executionId An execution filter (optional)
+   * @param userId A user id filter (optional)
+   * @param id A id filter (optional)
+   * @param permissions A permission filter (optional)
+   * @param startDate The start datetime (optional)
+   * @param endDate The end datetime (optional)
+   * @param details A list of auditLog details (optional)
+   * @param type The event that create the audit log (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return List&lt;Object&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public List<Object> exportAuditLogs(@javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable List<Permission> permissions, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling exportAuditLogs");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/auditlogs/export"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("executionId", executionId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("userId", userId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("id", id));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "permissions", permissions));
+    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
+    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
+    localVarQueryParams.addAll(apiClient.parameterToPair("details", details));
+    localVarQueryParams.addAll(apiClient.parameterToPair("type", type));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "text/csv"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<List<Object>> localVarReturnType = new TypeReference<List<Object>>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Find a specific audit log
    * 
    * @param tenant  (required)
@@ -116,6 +224,84 @@ public class AuditLogsApi extends BaseApi {
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Retrieve the diff between audit logs from global resource like users
+   * Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+   * @param id The id of the audit log (required)
+   * @param previousId The id of a previous audit log to compare with (optional)
+   * @return AuditLogControllerAuditLogDiff
+   * @throws ApiException if fails to make API call
+   */
+  public AuditLogControllerAuditLogDiff getGlobalResourceDiffFromAuditLog(@javax.annotation.Nonnull String id, @javax.annotation.Nullable String previousId) throws ApiException {
+    return this.getGlobalResourceDiffFromAuditLog(id, previousId, Collections.emptyMap());
+  }
+
+
+  /**
+   * Retrieve the diff between audit logs from global resource like users
+   * Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+   * @param id The id of the audit log (required)
+   * @param previousId The id of a previous audit log to compare with (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return AuditLogControllerAuditLogDiff
+   * @throws ApiException if fails to make API call
+   */
+  public AuditLogControllerAuditLogDiff getGlobalResourceDiffFromAuditLog(@javax.annotation.Nonnull String id, @javax.annotation.Nullable String previousId, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getGlobalResourceDiffFromAuditLog");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/auditlogs/{id}/diff"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("previousId", previousId));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<AuditLogControllerAuditLogDiff> localVarReturnType = new TypeReference<AuditLogControllerAuditLogDiff>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
@@ -312,7 +498,7 @@ public class AuditLogsApi extends BaseApi {
    * @param executionId An execution filter (optional)
    * @param userId A user id filter (optional)
    * @param id A id filter (optional)
-   * @param permission A permission filter (optional)
+   * @param permissions A permission filter (optional)
    * @param startDate The start datetime (optional)
    * @param endDate The end datetime (optional)
    * @param details A list of auditLog details (optional)
@@ -320,8 +506,8 @@ public class AuditLogsApi extends BaseApi {
    * @return PagedResultsAuditLogControllerAuditLogWithUser
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable Permission permission, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type) throws ApiException {
-    return this.searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, permission, startDate, endDate, details, type, Collections.emptyMap());
+  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable List<Permission> permissions, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type) throws ApiException {
+    return this.searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type, Collections.emptyMap());
   }
 
 
@@ -338,7 +524,7 @@ public class AuditLogsApi extends BaseApi {
    * @param executionId An execution filter (optional)
    * @param userId A user id filter (optional)
    * @param id A id filter (optional)
-   * @param permission A permission filter (optional)
+   * @param permissions A permission filter (optional)
    * @param startDate The start datetime (optional)
    * @param endDate The end datetime (optional)
    * @param details A list of auditLog details (optional)
@@ -347,7 +533,7 @@ public class AuditLogsApi extends BaseApi {
    * @return PagedResultsAuditLogControllerAuditLogWithUser
    * @throws ApiException if fails to make API call
    */
-  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable Permission permission, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type, Map<String, String> additionalHeaders) throws ApiException {
+  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable List<Permission> permissions, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'page' is set
@@ -368,6 +554,125 @@ public class AuditLogsApi extends BaseApi {
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/auditlogs/search"
       .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("executionId", executionId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("userId", userId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("id", id));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "permissions", permissions));
+    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
+    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
+    localVarQueryParams.addAll(apiClient.parameterToPair("details", details));
+    localVarQueryParams.addAll(apiClient.parameterToPair("type", type));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<PagedResultsAuditLogControllerAuditLogWithUser> localVarReturnType = new TypeReference<PagedResultsAuditLogControllerAuditLogWithUser>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Search for audit logs across all tenants, required to be SuperAdmin
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param q A string filter (optional)
+   * @param sort The sort of current page (optional)
+   * @param namespace A namespace filter (optional)
+   * @param flowId A flow id filter (optional)
+   * @param executionId An execution filter (optional)
+   * @param userId A user id filter (optional)
+   * @param id A id filter (optional)
+   * @param permission A permission filter (optional)
+   * @param startDate The start datetime (optional)
+   * @param endDate The end datetime (optional)
+   * @param details A list of auditLog details (optional)
+   * @param type The event that create the audit log (optional)
+   * @return PagedResultsAuditLogControllerAuditLogWithUser
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogsForAllTenants(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable Permission permission, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type) throws ApiException {
+    return this.searchAuditLogsForAllTenants(page, size, q, sort, namespace, flowId, executionId, userId, id, permission, startDate, endDate, details, type, Collections.emptyMap());
+  }
+
+
+  /**
+   * Search for audit logs across all tenants, required to be SuperAdmin
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param q A string filter (optional)
+   * @param sort The sort of current page (optional)
+   * @param namespace A namespace filter (optional)
+   * @param flowId A flow id filter (optional)
+   * @param executionId An execution filter (optional)
+   * @param userId A user id filter (optional)
+   * @param id A id filter (optional)
+   * @param permission A permission filter (optional)
+   * @param startDate The start datetime (optional)
+   * @param endDate The end datetime (optional)
+   * @param details A list of auditLog details (optional)
+   * @param type The event that create the audit log (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsAuditLogControllerAuditLogWithUser
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogsForAllTenants(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable String executionId, @javax.annotation.Nullable String userId, @javax.annotation.Nullable String id, @javax.annotation.Nullable Permission permission, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable Map<String, String> details, @javax.annotation.Nullable CrudEventType type, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling searchAuditLogsForAllTenants");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling searchAuditLogsForAllTenants");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/auditlogs/search";
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;
