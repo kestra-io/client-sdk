@@ -1,4 +1,4 @@
-# kestrapy.FilesApi
+# kestra_api_client.FilesApi
 
 All URIs are relative to *http://localhost*
 
@@ -26,13 +26,13 @@ Create a directory
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -42,20 +42,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
     path = 'path_example' # str | The internal storage uri (optional)
@@ -110,13 +110,13 @@ Create a file
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -126,20 +126,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
@@ -196,13 +196,13 @@ Delete a file or directory
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -212,20 +212,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     path = 'path_example' # str | The internal storage uri of the file / directory to delete
     tenant = 'tenant_example' # str | 
@@ -280,13 +280,13 @@ Export namespace files as a ZIP
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -296,20 +296,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
 
@@ -364,13 +364,13 @@ Get namespace file content
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -380,20 +380,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
@@ -450,14 +450,14 @@ Get namespace file stats such as size, creation & modification dates and type
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.file_attributes import FileAttributes
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.file_attributes import FileAttributes
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -467,20 +467,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
     path = 'path_example' # str | The internal storage uri (optional)
@@ -537,14 +537,14 @@ List directory content
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.file_attributes import FileAttributes
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.file_attributes import FileAttributes
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -554,20 +554,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     tenant = 'tenant_example' # str | 
     path = 'path_example' # str | The internal storage uri (optional)
@@ -624,13 +624,13 @@ Move a file or directory
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -640,20 +640,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     var_from = 'var_from_example' # str | The internal storage uri to move from
     to = 'to_example' # str | The internal storage uri to move to
@@ -710,13 +710,13 @@ Find files which path contain the given string in their URI
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -726,20 +726,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.FilesApi(api_client)
+    api_instance = kestra_api_client.FilesApi(api_client)
     namespace = 'namespace_example' # str | The namespace id
     q = 'q_example' # str | The string the file path should contain
     tenant = 'tenant_example' # str | 

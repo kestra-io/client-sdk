@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
+from kestra_api_client.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
 
 # TODO update the JSON string below
 json = "{}"

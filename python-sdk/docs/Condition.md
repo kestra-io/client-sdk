@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.condition import Condition
+from kestra_api_client.models.condition import Condition
 
 # TODO update the JSON string below
 json = "{}"

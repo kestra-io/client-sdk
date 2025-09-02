@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class IAMGroupControllerApiCreateGroupRequest(BaseModel):
     IAMGroupControllerApiCreateGroupRequest
     """ # noqa: E501
     name: StrictStr
-    description: Optional[StrictStr] = None
-    members_id: Optional[List[StrictStr]] = Field(default=None, alias="membersId")
+    description: StrictStr
+    members_id: List[StrictStr] = Field(alias="membersId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "membersId"]
 

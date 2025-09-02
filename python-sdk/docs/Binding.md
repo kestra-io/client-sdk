@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.binding import Binding
+from kestra_api_client.models.binding import Binding
 
 # TODO update the JSON string below
 json = "{}"

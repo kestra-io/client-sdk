@@ -1,4 +1,4 @@
-# kestrapy.AuthsApi
+# kestra_api_client.AuthsApi
 
 All URIs are relative to *http://localhost*
 
@@ -23,14 +23,14 @@ Create API token for the authenticated user
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.create_api_token_request import CreateApiTokenRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.create_api_token_request import CreateApiTokenRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -40,21 +40,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
-    create_api_token_request = kestrapy.CreateApiTokenRequest() # CreateApiTokenRequest | 
+    api_instance = kestra_api_client.AuthsApi(api_client)
+    create_api_token_request = kestra_api_client.CreateApiTokenRequest() # CreateApiTokenRequest | 
 
     try:
         # Create API token for the authenticated user
@@ -106,13 +106,13 @@ Delete API token for the authenticated user
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -122,20 +122,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
+    api_instance = kestra_api_client.AuthsApi(api_client)
     token_id = 'token_id_example' # str | The token id
 
     try:
@@ -190,14 +190,14 @@ Requires the ME permission.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.me_controller_api_me import MeControllerApiMe
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.me_controller_api_me import MeControllerApiMe
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -207,20 +207,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
+    api_instance = kestra_api_client.AuthsApi(api_client)
 
     try:
         # Get details about the authenticated user
@@ -267,22 +267,22 @@ Retrieve list of authentication methods
 
 
 ```python
-import kestrapy
-from kestrapy.models.auth_controller_auth import AuthControllerAuth
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.auth_controller_auth import AuthControllerAuth
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
+    api_instance = kestra_api_client.AuthsApi(api_client)
 
     try:
         # Retrieve list of authentication methods
@@ -333,13 +333,13 @@ Returns all API tokens belonging to the authenticated user.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -349,20 +349,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
+    api_instance = kestra_api_client.AuthsApi(api_client)
 
     try:
         # List API tokens for authenticated user
@@ -413,14 +413,14 @@ Updates the authenticated user's profile information and returns the updated use
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.me_controller_api_user_details_request import MeControllerApiUserDetailsRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.me_controller_api_user_details_request import MeControllerApiUserDetailsRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -430,21 +430,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuthsApi(api_client)
-    me_controller_api_user_details_request = kestrapy.MeControllerApiUserDetailsRequest() # MeControllerApiUserDetailsRequest | The user details
+    api_instance = kestra_api_client.AuthsApi(api_client)
+    me_controller_api_user_details_request = kestra_api_client.MeControllerApiUserDetailsRequest() # MeControllerApiUserDetailsRequest | The user details
 
     try:
         # Update authenticated user details

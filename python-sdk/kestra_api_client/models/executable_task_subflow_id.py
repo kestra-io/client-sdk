@@ -26,8 +26,8 @@ class ExecutableTaskSubflowId(BaseModel):
     """
     ExecutableTaskSubflowId
     """ # noqa: E501
-    namespace: Optional[StrictStr] = None
-    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
+    namespace: StrictStr
+    flow_id: StrictStr = Field(alias="flowId")
     revision: Optional[StrictInt] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["namespace", "flowId", "revision"]

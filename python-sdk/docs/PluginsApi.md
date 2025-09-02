@@ -1,4 +1,4 @@
-# kestrapy.PluginsApi
+# kestra_api_client.PluginsApi
 
 All URIs are relative to *http://localhost*
 
@@ -38,14 +38,14 @@ Get all types for an inputs
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.input_type import InputType
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.input_type import InputType
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -55,20 +55,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # Get all types for an inputs
@@ -117,14 +117,14 @@ Get plugins group by subgroups
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin import Plugin
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin import Plugin
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -134,20 +134,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # Get plugins group by subgroups
@@ -196,14 +196,14 @@ Get plugin documentation
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.documentation_with_schema import DocumentationWithSchema
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.documentation_with_schema import DocumentationWithSchema
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -213,20 +213,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     cls = 'cls_example' # str | The plugin full class name
     all = False # bool | Include all the properties (default to False)
 
@@ -281,14 +281,14 @@ Get plugin documentation
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.documentation_with_schema import DocumentationWithSchema
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.documentation_with_schema import DocumentationWithSchema
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -298,20 +298,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     cls = 'cls_example' # str | The plugin type
     version = 'version_example' # str | The plugin version
     all = False # bool | Include all the properties (default to False)
@@ -368,14 +368,14 @@ Get plugins icons
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin_icon import PluginIcon
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin_icon import PluginIcon
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -385,20 +385,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # Get plugins icons
@@ -447,14 +447,14 @@ Get plugins icons
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin_icon import PluginIcon
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin_icon import PluginIcon
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -464,20 +464,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # Get plugins icons
@@ -526,14 +526,14 @@ Get all versions for a plugin
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin_controller_api_plugin_versions import PluginControllerApiPluginVersions
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin_controller_api_plugin_versions import PluginControllerApiPluginVersions
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -543,20 +543,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     cls = 'cls_example' # str | The plugin type
 
     try:
@@ -611,14 +611,14 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.schema_type import SchemaType
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.schema_type import SchemaType
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -628,21 +628,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    type = kestrapy.SchemaType() # SchemaType | The schema needed
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    type = kestra_api_client.SchemaType() # SchemaType | The schema needed
 
     try:
         # Get the properties part of the JSON schema for a type
@@ -696,15 +696,15 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.documentation_with_schema import DocumentationWithSchema
-from kestrapy.models.type import Type
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.documentation_with_schema import DocumentationWithSchema
+from kestra_api_client.models.type import Type
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -714,21 +714,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    type = kestrapy.Type() # Type | The schema needed
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    type = kestra_api_client.Type() # Type | The schema needed
 
     try:
         # Get the JSON schema for an input type
@@ -782,14 +782,14 @@ The schema will be a [JSON Schema Draft 7](http://json-schema.org/draft-07/schem
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.schema_type import SchemaType
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.schema_type import SchemaType
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -799,21 +799,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    type = kestrapy.SchemaType() # SchemaType | The schema needed
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    type = kestra_api_client.SchemaType() # SchemaType | The schema needed
     array_of = False # bool | If schema should be an array of requested type (default to False)
 
     try:
@@ -869,14 +869,14 @@ Superadmin-only. Retrieves metadata and available versions for a given plugin ar
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.instance_controller_api_plugin_versions import InstanceControllerApiPluginVersions
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.instance_controller_api_plugin_versions import InstanceControllerApiPluginVersions
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -886,20 +886,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     group_id = 'group_id_example' # str | 
     artifact_id = 'artifact_id_example' # str | 
 
@@ -956,14 +956,14 @@ Superadmin-only. Retrieves metadata for a specific version of a plugin artifact.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.instance_controller_api_plugin_version_details import InstanceControllerApiPluginVersionDetails
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.instance_controller_api_plugin_version_details import InstanceControllerApiPluginVersionDetails
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -973,20 +973,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     group_id = 'group_id_example' # str | 
     artifact_id = 'artifact_id_example' # str | 
     version = 'version_example' # str | 
@@ -1045,15 +1045,15 @@ Superadmin-only. Installs one or more plugin artifacts. Requires INFRASTRUCTURE 
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
-from kestrapy.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
+from kestra_api_client.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1063,21 +1063,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    instance_controller_api_plugin_list_request = kestrapy.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    instance_controller_api_plugin_list_request = kestra_api_client.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
 
     try:
         # Install specified plugin artifacts
@@ -1131,13 +1131,13 @@ Superadmin-only. Lists all plugin artifacts available for installation. Requires
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1147,20 +1147,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # List available plugin artifacts
@@ -1211,13 +1211,13 @@ Superadmin-only. Lists all secret managers available for installation. Requires 
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1227,20 +1227,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # List available plugin artifacts for Kestra Secret Manager
@@ -1291,13 +1291,13 @@ Superadmin-only. Lists all internal storages available for installation. Require
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1307,20 +1307,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # List available plugin artifacts for Kestra Internal Storage
@@ -1369,14 +1369,14 @@ Get list of plugins
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin import Plugin
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin import Plugin
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1386,20 +1386,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
 
     try:
         # Get list of plugins
@@ -1450,14 +1450,14 @@ Superadmin-only. Lists all currently installed plugin artifacts. Requires INFRAS
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1467,20 +1467,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
@@ -1541,15 +1541,15 @@ Superadmin-only. Resolves compatible versions for a list of plugin artifacts. Re
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_resolution_result import InstanceControllerApiPluginArtifactListPluginResolutionResult
-from kestrapy.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.instance_controller_api_plugin_artifact_list_plugin_resolution_result import InstanceControllerApiPluginArtifactListPluginResolutionResult
+from kestra_api_client.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1559,21 +1559,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    instance_controller_api_plugin_list_request = kestrapy.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    instance_controller_api_plugin_list_request = kestra_api_client.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
 
     try:
         # Resolve versions for specified plugin artifacts
@@ -1627,15 +1627,15 @@ Superadmin-only. Uninstalls one or more plugin artifacts. Requires INFRASTRUCTUR
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
-from kestrapy.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.instance_controller_api_plugin_artifact_list_plugin_artifact import InstanceControllerApiPluginArtifactListPluginArtifact
+from kestra_api_client.models.instance_controller_api_plugin_list_request import InstanceControllerApiPluginListRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1645,21 +1645,21 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
-    instance_controller_api_plugin_list_request = kestrapy.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
+    api_instance = kestra_api_client.PluginsApi(api_client)
+    instance_controller_api_plugin_list_request = kestra_api_client.InstanceControllerApiPluginListRequest() # InstanceControllerApiPluginListRequest | List of plugins
 
     try:
         # Uninstall plugin artifacts
@@ -1713,14 +1713,14 @@ Superadmin-only. Uploads a plugin JAR file for installation. Requires INFRASTRUC
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.plugin_artifact import PluginArtifact
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.plugin_artifact import PluginArtifact
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -1730,20 +1730,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.PluginsApi(api_client)
+    api_instance = kestra_api_client.PluginsApi(api_client)
     file = None # bytearray | 
     force_install_on_existing_versions = True # bool |  (optional)
 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_graph_cluster import FlowGraphCluster
+from kestra_api_client.models.flow_graph_cluster import FlowGraphCluster
 
 # TODO update the JSON string below
 json = "{}"

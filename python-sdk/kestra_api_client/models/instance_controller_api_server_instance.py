@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.server_instance_type import ServerInstanceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class InstanceControllerApiServerInstance(BaseModel):
     """
     InstanceControllerApiServerInstance
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    type: Optional[ServerInstanceType] = None
-    version: Optional[StrictStr] = None
-    hostname: Optional[StrictStr] = None
+    id: StrictStr
+    type: ServerInstanceType
+    version: StrictStr
+    hostname: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "version", "hostname"]
 

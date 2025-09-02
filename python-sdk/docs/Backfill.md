@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.backfill import Backfill
+from kestra_api_client.models.backfill import Backfill
 
 # TODO update the JSON string below
 json = "{}"

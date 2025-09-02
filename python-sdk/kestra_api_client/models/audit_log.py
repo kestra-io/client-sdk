@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.audit_log_detail import AuditLogDetail
 from kestra_api_client.models.crud_event_type import CrudEventType
 from typing import Optional, Set
@@ -29,18 +29,19 @@ class AuditLog(BaseModel):
     """
     AuditLog
     """ # noqa: E501
+    tenant_id: StrictStr = Field(alias="tenantId")
     id: StrictStr
     type: CrudEventType
     detail: AuditLogDetail
     var_date: datetime = Field(alias="date")
     user_id: StrictStr = Field(alias="userId")
-    ip_address: Optional[StrictStr] = Field(default=None, alias="ipAddress")
-    impersonated_by: Optional[StrictStr] = Field(default=None, alias="impersonatedBy")
-    deleted: Optional[StrictBool] = None
-    applied_patch: Optional[List[Dict[str, Any]]] = Field(default=None, alias="appliedPatch")
-    revert_patch: Optional[List[Dict[str, Any]]] = Field(default=None, alias="revertPatch")
+    ip_address: StrictStr = Field(alias="ipAddress")
+    impersonated_by: StrictStr = Field(alias="impersonatedBy")
+    deleted: StrictBool
+    applied_patch: List[Dict[str, Any]] = Field(alias="appliedPatch")
+    revert_patch: List[Dict[str, Any]] = Field(alias="revertPatch")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted", "appliedPatch", "revertPatch"]
+    __properties: ClassVar[List[str]] = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted", "appliedPatch", "revertPatch"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +104,7 @@ class AuditLog(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "tenantId": obj.get("tenantId"),
             "id": obj.get("id"),
             "type": obj.get("type"),
             "detail": AuditLogDetail.from_dict(obj["detail"]) if obj.get("detail") is not None else None,

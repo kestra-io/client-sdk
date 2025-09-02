@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.auth_controller_reset_password_request import AuthControllerResetPasswordRequest
+from kestra_api_client.models.auth_controller_reset_password_request import AuthControllerResetPasswordRequest
 
 # TODO update the JSON string below
 json = "{}"

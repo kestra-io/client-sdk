@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_with_source import FlowWithSource
+from kestra_api_client.models.flow_with_source import FlowWithSource
 
 # TODO update the JSON string below
 json = "{}"

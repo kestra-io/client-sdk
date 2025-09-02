@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.query_filter import QueryFilter
+from kestra_api_client.models.query_filter import QueryFilter
 
 # TODO update the JSON string below
 json = "{}"

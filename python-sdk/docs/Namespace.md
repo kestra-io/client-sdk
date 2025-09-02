@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.namespace import Namespace
+from kestra_api_client.models.namespace import Namespace
 
 # TODO update the JSON string below
 json = "{}"

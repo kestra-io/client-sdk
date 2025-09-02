@@ -20,11 +20,12 @@ from datetime import datetime
 from pydantic import Field, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
+from kestra_api_client.models.audit_log_controller_api_audit_log_item import AuditLogControllerApiAuditLogItem
 from kestra_api_client.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
 from kestra_api_client.models.audit_log_controller_audit_log_option import AuditLogControllerAuditLogOption
-from kestra_api_client.models.audit_log_controller_audit_log_with_user import AuditLogControllerAuditLogWithUser
 from kestra_api_client.models.audit_log_controller_find_request import AuditLogControllerFindRequest
-from kestra_api_client.models.paged_results_audit_log_controller_audit_log_with_user import PagedResultsAuditLogControllerAuditLogWithUser
+from kestra_api_client.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
+from kestra_api_client.models.resource_type1 import ResourceType1
 
 from kestra_api_client.api_client import ApiClient, RequestSerialized
 from kestra_api_client.api_response import ApiResponse
@@ -45,6 +46,471 @@ class AuditLogsApi:
 
 
     @validate_call
+    def export_audit_logs(
+        self,
+        tenant: StrictStr,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[object]:
+        """Export all audit logs as a streamed CSV file
+
+
+        :param tenant: (required)
+        :type tenant: str
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_audit_logs_serialize(
+            tenant=tenant,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resources=resources,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[object]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def export_audit_logs_with_http_info(
+        self,
+        tenant: StrictStr,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[object]]:
+        """Export all audit logs as a streamed CSV file
+
+
+        :param tenant: (required)
+        :type tenant: str
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_audit_logs_serialize(
+            tenant=tenant,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resources=resources,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[object]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def export_audit_logs_without_preload_content(
+        self,
+        tenant: StrictStr,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Export all audit logs as a streamed CSV file
+
+
+        :param tenant: (required)
+        :type tenant: str
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._export_audit_logs_serialize(
+            tenant=tenant,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resources=resources,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[object]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _export_audit_logs_serialize(
+        self,
+        tenant,
+        q,
+        namespace,
+        flow_id,
+        execution_id,
+        user_id,
+        id,
+        resources,
+        start_date,
+        end_date,
+        details,
+        type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'resources': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if q is not None:
+            
+            _query_params.append(('q', q))
+            
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
+        if flow_id is not None:
+            
+            _query_params.append(('flowId', flow_id))
+            
+        if execution_id is not None:
+            
+            _query_params.append(('executionId', execution_id))
+            
+        if user_id is not None:
+            
+            _query_params.append(('userId', user_id))
+            
+        if id is not None:
+            
+            _query_params.append(('id', id))
+            
+        if resources is not None:
+            
+            _query_params.append(('resources', resources))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'startDate',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('startDate', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'endDate',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('endDate', end_date))
+            
+        if details is not None:
+            
+            _query_params.append(('details', details))
+            
+        if type is not None:
+            
+            _query_params.append(('type', type.value))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'text/csv'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/auditlogs/export',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def find_audit_log(
         self,
         tenant: StrictStr,
@@ -61,7 +527,7 @@ class AuditLogsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AuditLogControllerAuditLogWithUser:
+    ) -> AuditLogControllerApiAuditLogItem:
         """Find a specific audit log
 
 
@@ -101,7 +567,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AuditLogControllerAuditLogWithUser",
+            '200': "AuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -131,7 +597,7 @@ class AuditLogsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AuditLogControllerAuditLogWithUser]:
+    ) -> ApiResponse[AuditLogControllerApiAuditLogItem]:
         """Find a specific audit log
 
 
@@ -171,7 +637,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AuditLogControllerAuditLogWithUser",
+            '200': "AuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -241,7 +707,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AuditLogControllerAuditLogWithUser",
+            '200': "AuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -316,6 +782,285 @@ class AuditLogsApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/api/v1/{tenant}/auditlogs/find',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_global_resource_diff_from_audit_log(
+        self,
+        id: Annotated[StrictStr, Field(description="The id of the audit log")],
+        previous_id: Annotated[Optional[StrictStr], Field(description="The id of a previous audit log to compare with")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AuditLogControllerAuditLogDiff:
+        """Retrieve the diff between audit logs from global resource like users
+
+        Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+
+        :param id: The id of the audit log (required)
+        :type id: str
+        :param previous_id: The id of a previous audit log to compare with
+        :type previous_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_global_resource_diff_from_audit_log_serialize(
+            id=id,
+            previous_id=previous_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditLogControllerAuditLogDiff",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_global_resource_diff_from_audit_log_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="The id of the audit log")],
+        previous_id: Annotated[Optional[StrictStr], Field(description="The id of a previous audit log to compare with")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AuditLogControllerAuditLogDiff]:
+        """Retrieve the diff between audit logs from global resource like users
+
+        Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+
+        :param id: The id of the audit log (required)
+        :type id: str
+        :param previous_id: The id of a previous audit log to compare with
+        :type previous_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_global_resource_diff_from_audit_log_serialize(
+            id=id,
+            previous_id=previous_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditLogControllerAuditLogDiff",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_global_resource_diff_from_audit_log_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="The id of the audit log")],
+        previous_id: Annotated[Optional[StrictStr], Field(description="The id of a previous audit log to compare with")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Retrieve the diff between audit logs from global resource like users
+
+        Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+
+        :param id: The id of the audit log (required)
+        :type id: str
+        :param previous_id: The id of a previous audit log to compare with
+        :type previous_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_global_resource_diff_from_audit_log_serialize(
+            id=id,
+            previous_id=previous_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditLogControllerAuditLogDiff",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_global_resource_diff_from_audit_log_serialize(
+        self,
+        id,
+        previous_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        if previous_id is not None:
+            
+            _query_params.append(('previousId', previous_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/auditlogs/{id}/diff',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -912,7 +1657,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        permission: Annotated[Optional[Any], Field(description="A permission filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -929,7 +1674,7 @@ class AuditLogsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsAuditLogControllerAuditLogWithUser:
+    ) -> PagedResultsAuditLogControllerApiAuditLogItem:
         """Search for audit logs
 
 
@@ -953,8 +1698,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param permission: A permission filter
-        :type permission: Permission
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -996,7 +1741,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            permission=permission,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -1008,7 +1753,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsAuditLogControllerAuditLogWithUser",
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1034,7 +1779,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        permission: Annotated[Optional[Any], Field(description="A permission filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -1051,7 +1796,7 @@ class AuditLogsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsAuditLogControllerAuditLogWithUser]:
+    ) -> ApiResponse[PagedResultsAuditLogControllerApiAuditLogItem]:
         """Search for audit logs
 
 
@@ -1075,8 +1820,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param permission: A permission filter
-        :type permission: Permission
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -1118,7 +1863,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            permission=permission,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -1130,7 +1875,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsAuditLogControllerAuditLogWithUser",
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1156,7 +1901,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        permission: Annotated[Optional[Any], Field(description="A permission filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -1197,8 +1942,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param permission: A permission filter
-        :type permission: Permission
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -1240,7 +1985,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            permission=permission,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -1252,7 +1997,7 @@ class AuditLogsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsAuditLogControllerAuditLogWithUser",
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1273,7 +2018,7 @@ class AuditLogsApi:
         execution_id,
         user_id,
         id,
-        permission,
+        resources,
         start_date,
         end_date,
         details,
@@ -1288,6 +2033,7 @@ class AuditLogsApi:
 
         _collection_formats: Dict[str, str] = {
             'sort': 'csv',
+            'resources': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1339,9 +2085,9 @@ class AuditLogsApi:
             
             _query_params.append(('id', id))
             
-        if permission is not None:
+        if resources is not None:
             
-            _query_params.append(('permission', permission.value))
+            _query_params.append(('resources', resources))
             
         if start_date is not None:
             if isinstance(start_date, datetime):
@@ -1400,6 +2146,507 @@ class AuditLogsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/auditlogs/search',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def search_audit_logs_for_all_tenants(
+        self,
+        page: Annotated[StrictInt, Field(description="The current page")],
+        size: Annotated[StrictInt, Field(description="The current page size")],
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PagedResultsAuditLogControllerApiAuditLogItem:
+        """Search for audit logs across all tenants, required to be SuperAdmin
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param q: A string filter
+        :type q: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resource: A resource filter
+        :type resource: ResourceType1
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_audit_logs_for_all_tenants_serialize(
+            page=page,
+            size=size,
+            q=q,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resource=resource,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_audit_logs_for_all_tenants_with_http_info(
+        self,
+        page: Annotated[StrictInt, Field(description="The current page")],
+        size: Annotated[StrictInt, Field(description="The current page size")],
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PagedResultsAuditLogControllerApiAuditLogItem]:
+        """Search for audit logs across all tenants, required to be SuperAdmin
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param q: A string filter
+        :type q: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resource: A resource filter
+        :type resource: ResourceType1
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_audit_logs_for_all_tenants_serialize(
+            page=page,
+            size=size,
+            q=q,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resource=resource,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def search_audit_logs_for_all_tenants_without_preload_content(
+        self,
+        page: Annotated[StrictInt, Field(description="The current page")],
+        size: Annotated[StrictInt, Field(description="The current page size")],
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
+        user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
+        id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
+        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
+        type: Annotated[Optional[Any], Field(description="The event that create the audit log")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Search for audit logs across all tenants, required to be SuperAdmin
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param q: A string filter
+        :type q: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: A namespace filter
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param execution_id: An execution filter
+        :type execution_id: str
+        :param user_id: A user id filter
+        :type user_id: str
+        :param id: A id filter
+        :type id: str
+        :param resource: A resource filter
+        :type resource: ResourceType1
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param details: A list of auditLog details
+        :type details: Dict[str, str]
+        :param type: The event that create the audit log
+        :type type: CrudEventType
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_audit_logs_for_all_tenants_serialize(
+            page=page,
+            size=size,
+            q=q,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            execution_id=execution_id,
+            user_id=user_id,
+            id=id,
+            resource=resource,
+            start_date=start_date,
+            end_date=end_date,
+            details=details,
+            type=type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsAuditLogControllerApiAuditLogItem",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _search_audit_logs_for_all_tenants_serialize(
+        self,
+        page,
+        size,
+        q,
+        sort,
+        namespace,
+        flow_id,
+        execution_id,
+        user_id,
+        id,
+        resource,
+        start_date,
+        end_date,
+        details,
+        type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'sort': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if q is not None:
+            
+            _query_params.append(('q', q))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if size is not None:
+            
+            _query_params.append(('size', size))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
+        if flow_id is not None:
+            
+            _query_params.append(('flowId', flow_id))
+            
+        if execution_id is not None:
+            
+            _query_params.append(('executionId', execution_id))
+            
+        if user_id is not None:
+            
+            _query_params.append(('userId', user_id))
+            
+        if id is not None:
+            
+            _query_params.append(('id', id))
+            
+        if resource is not None:
+            
+            _query_params.append(('resource', resource.value))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'startDate',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('startDate', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'endDate',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('endDate', end_date))
+            
+        if details is not None:
+            
+            _query_params.append(('details', details))
+            
+        if type is not None:
+            
+            _query_params.append(('type', type.value))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/auditlogs/search',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.id_with_namespace import IdWithNamespace
+from kestra_api_client.models.id_with_namespace import IdWithNamespace
 
 # TODO update the JSON string below
 json = "{}"

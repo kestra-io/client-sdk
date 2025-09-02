@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.execution_controller_api_validate_execution_inputs_response_api_input_and_value import ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,9 @@ class ExecutionControllerApiValidateExecutionInputsResponse(BaseModel):
     """
     ExecutionControllerApiValidateExecutionInputsResponse
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    namespace: Optional[StrictStr] = None
-    inputs: Optional[List[ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue]] = None
+    id: StrictStr
+    namespace: StrictStr
+    inputs: List[ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "namespace", "inputs"]
 

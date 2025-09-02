@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
+from kestra_api_client.models.kv_controller_typed_value import KVControllerTypedValue
 
 # TODO update the JSON string below
 json = "{}"

@@ -1,4 +1,4 @@
-# kestrapy.AIApi
+# kestra_api_client.AIApi
 
 All URIs are relative to *http://localhost*
 
@@ -16,24 +16,24 @@ Generate or regenerate a flow based on a prompt
 
 
 ```python
-import kestrapy
-from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.flow_generation_prompt import FlowGenerationPrompt
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AIApi(api_client)
+    api_instance = kestra_api_client.AIApi(api_client)
     tenant = 'tenant_example' # str | 
-    flow_generation_prompt = kestrapy.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
+    flow_generation_prompt = kestra_api_client.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
 
     try:
         # Generate or regenerate a flow based on a prompt

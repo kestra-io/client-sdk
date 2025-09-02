@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
+from kestra_api_client.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
 
 # TODO update the JSON string below
 json = "{}"

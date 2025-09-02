@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.blueprint_with_flow import BlueprintWithFlow
+from kestra_api_client.models.blueprint_with_flow import BlueprintWithFlow
 
 # TODO update the JSON string below
 json = "{}"

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
+from kestra_api_client.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
 
 # TODO update the JSON string below
 json = "{}"

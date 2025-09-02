@@ -1,4 +1,4 @@
-# kestrapy.SCIMConfigurationApi
+# kestra_api_client.SCIMConfigurationApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,22 +20,22 @@ Get All Resource Types
 
 
 ```python
-import kestrapy
-from kestrapy.models.resource_type import ResourceType
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.resource_type import ResourceType
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.SCIMConfigurationApi(api_client)
+    api_instance = kestra_api_client.SCIMConfigurationApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
 
@@ -87,22 +87,22 @@ Get All Schemas
 
 
 ```python
-import kestrapy
-from kestrapy.models.model_schema import ModelSchema
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.model_schema import ModelSchema
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.SCIMConfigurationApi(api_client)
+    api_instance = kestra_api_client.SCIMConfigurationApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
 
@@ -154,22 +154,22 @@ Get Resource Type by URN
 
 
 ```python
-import kestrapy
-from kestrapy.models.resource_type import ResourceType
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.resource_type import ResourceType
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.SCIMConfigurationApi(api_client)
+    api_instance = kestra_api_client.SCIMConfigurationApi(api_client)
     name = 'name_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
@@ -223,22 +223,22 @@ Get Schemas by URN
 
 
 ```python
-import kestrapy
-from kestrapy.models.model_schema import ModelSchema
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.model_schema import ModelSchema
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.SCIMConfigurationApi(api_client)
+    api_instance = kestra_api_client.SCIMConfigurationApi(api_client)
     uri = 'uri_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
@@ -292,22 +292,22 @@ Get Service Provider Configuration
 
 
 ```python
-import kestrapy
-from kestrapy.models.service_provider_configuration import ServiceProviderConfiguration
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.service_provider_configuration import ServiceProviderConfiguration
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.SCIMConfigurationApi(api_client)
+    api_instance = kestra_api_client.SCIMConfigurationApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
 

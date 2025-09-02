@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.label import Label
+from kestra_api_client.models.label import Label
 
 # TODO update the JSON string below
 json = "{}"

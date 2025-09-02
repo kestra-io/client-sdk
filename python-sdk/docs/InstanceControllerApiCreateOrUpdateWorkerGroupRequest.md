@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
+from kestra_api_client.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
 
 # TODO update the JSON string below
 json = "{}"

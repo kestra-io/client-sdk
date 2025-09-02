@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.base_resource_patch_request import BaseResourcePatchRequest
+from kestra_api_client.models.base_resource_patch_request import BaseResourcePatchRequest
 
 # TODO update the JSON string below
 json = "{}"

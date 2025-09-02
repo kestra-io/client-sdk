@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.schema_attribute import SchemaAttribute
+from kestra_api_client.models.schema_attribute import SchemaAttribute
 
 # TODO update the JSON string below
 json = "{}"

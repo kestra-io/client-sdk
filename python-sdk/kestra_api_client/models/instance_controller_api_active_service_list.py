@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.instance_controller_api_active_service import InstanceControllerApiActiveService
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class InstanceControllerApiActiveServiceList(BaseModel):
     """
     InstanceControllerApiActiveServiceList
     """ # noqa: E501
-    total: Optional[StrictInt] = None
-    services: Optional[List[InstanceControllerApiActiveService]] = None
+    total: StrictInt
+    services: List[InstanceControllerApiActiveService]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["total", "services"]
 

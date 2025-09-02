@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
+from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
 
 # TODO update the JSON string below
 json = "{}"

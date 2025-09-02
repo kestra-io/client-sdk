@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from kestra_api_client.models.crud_event_type import CrudEventType
-from kestra_api_client.models.permission import Permission
+from kestra_api_client.models.resource_type1 import ResourceType1
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,11 +28,11 @@ class AuditLogControllerFindRequest(BaseModel):
     """
     AuditLogControllerFindRequest
     """ # noqa: E501
-    permission: Optional[Permission] = None
+    resource: ResourceType1
     type: Optional[CrudEventType] = None
-    detail: Optional[Dict[str, Dict[str, Any]]] = None
+    detail: Dict[str, Dict[str, Any]]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["permission", "type", "detail"]
+    __properties: ClassVar[List[str]] = ["resource", "type", "detail"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,7 +97,7 @@ class AuditLogControllerFindRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "permission": obj.get("permission"),
+            "resource": obj.get("resource"),
             "type": obj.get("type"),
             "detail": obj.get("detail")
         })

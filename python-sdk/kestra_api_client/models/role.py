@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request_permissions import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,14 +28,14 @@ class Role(BaseModel):
     Role
     """ # noqa: E501
     is_managed: StrictBool = Field(alias="isManaged")
-    id: Optional[StrictStr] = None
+    permissions: IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
+    id: StrictStr
     name: StrictStr
-    description: Optional[StrictStr] = None
-    permissions: Optional[IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions] = None
-    is_default: Optional[StrictBool] = Field(default=None, alias="isDefault")
+    description: StrictStr
+    is_default: StrictBool = Field(alias="isDefault")
     deleted: StrictBool
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["isManaged", "id", "name", "description", "permissions", "isDefault", "deleted"]
+    __properties: ClassVar[List[str]] = ["isManaged", "permissions", "id", "name", "description", "isDefault", "deleted"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,10 +99,10 @@ class Role(BaseModel):
 
         _obj = cls.model_validate({
             "isManaged": obj.get("isManaged"),
+            "permissions": IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None,
             "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),
-            "permissions": IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None,
             "isDefault": obj.get("isDefault"),
             "deleted": obj.get("deleted")
         })

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.metric_tag import MetricTag
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,12 +27,12 @@ class Metric(BaseModel):
     """
     Metric
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    type: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    base_unit: Optional[StrictStr] = Field(default=None, alias="baseUnit")
-    tags: Optional[List[MetricTag]] = None
-    value: Optional[Dict[str, Any]] = None
+    name: StrictStr
+    type: StrictStr
+    description: StrictStr
+    base_unit: StrictStr = Field(alias="baseUnit")
+    tags: List[MetricTag]
+    value: Dict[str, Any]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "type", "description", "baseUnit", "tags", "value"]
 

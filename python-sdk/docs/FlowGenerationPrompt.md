@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt
+from kestra_api_client.models.flow_generation_prompt import FlowGenerationPrompt
 
 # TODO update the JSON string below
 json = "{}"

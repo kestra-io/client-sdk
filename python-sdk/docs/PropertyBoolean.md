@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.property_boolean import PropertyBoolean
+from kestra_api_client.models.property_boolean import PropertyBoolean
 
 # TODO update the JSON string below
 json = "{}"

@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from kestra_api_client.models.binding import Binding
 from kestra_api_client.models.invitation_invitation_status import InvitationInvitationStatus
@@ -31,20 +31,20 @@ class Invitation(BaseModel):
     """
     Invitation
     """ # noqa: E501
-    is_expired: Optional[StrictBool] = Field(default=None, alias="isExpired")
+    is_expired: StrictBool = Field(alias="isExpired")
     email: Annotated[str, Field(strict=True)]
-    id: Optional[StrictStr] = None
-    bindings: Optional[List[Binding]] = None
-    group_ids: Optional[List[StrictStr]] = Field(default=None, alias="groupIds")
-    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
-    status: Optional[InvitationInvitationStatus] = None
-    sent_at: Optional[datetime] = Field(default=None, alias="sentAt")
-    expired_at: Optional[datetime] = Field(default=None, alias="expiredAt")
-    accepted_at: Optional[datetime] = Field(default=None, alias="acceptedAt")
+    id: StrictStr
+    bindings: List[Binding]
+    group_ids: List[StrictStr] = Field(alias="groupIds")
+    tenant_id: StrictStr = Field(alias="tenantId")
+    status: InvitationInvitationStatus
+    sent_at: datetime = Field(alias="sentAt")
+    expired_at: datetime = Field(alias="expiredAt")
+    accepted_at: datetime = Field(alias="acceptedAt")
     deleted: StrictBool
-    user_type: Optional[UserType] = Field(default=None, alias="userType")
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
-    link: Optional[StrictStr] = None
+    user_type: UserType = Field(alias="userType")
+    super_admin: StrictBool = Field(alias="superAdmin")
+    link: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["isExpired", "email", "id", "bindings", "groupIds", "tenantId", "status", "sentAt", "expiredAt", "acceptedAt", "deleted", "userType", "superAdmin", "link"]
 

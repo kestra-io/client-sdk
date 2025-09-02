@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration
+from kestra_api_client.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration
 
 # TODO update the JSON string below
 json = "{}"

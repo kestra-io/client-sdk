@@ -19,7 +19,7 @@ from setuptools import setup, find_packages  # noqa: H301
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
-NAME = "@kestra-io/kestrapy"
+NAME = "@kestra-io/kestra_api_client"
 VERSION = "1.0.0-beta5"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
@@ -44,5 +44,5 @@ setup(
     long_description="""\
     All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.&lt;br/&gt; Endpoints designated as Superadmin-only are not tenant-scoped.
     """,  # noqa: E501
-    package_data={"kestrapy": ["py.typed"]},
+    package_data={"kestra_api_client": ["py.typed"]},
 )

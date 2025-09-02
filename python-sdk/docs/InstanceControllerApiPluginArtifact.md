@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.instance_controller_api_plugin_artifact import InstanceControllerApiPluginArtifact
+from kestra_api_client.models.instance_controller_api_plugin_artifact import InstanceControllerApiPluginArtifact
 
 # TODO update the JSON string below
 json = "{}"

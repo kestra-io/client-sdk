@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.group_identifier import GroupIdentifier
+from kestra_api_client.models.group_identifier import GroupIdentifier
 
 # TODO update the JSON string below
 json = "{}"

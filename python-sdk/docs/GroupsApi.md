@@ -1,4 +1,4 @@
-# kestrapy.GroupsApi
+# kestra_api_client.GroupsApi
 
 All URIs are relative to *http://localhost*
 
@@ -30,14 +30,14 @@ Adds the specified user to the given group. If the user does not already have ac
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -47,20 +47,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user to add to the group
     tenant = 'tenant_example' # str | 
@@ -119,15 +119,15 @@ List groups for autocomplete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.api_autocomplete import ApiAutocomplete
-from kestrapy.models.api_group_summary import ApiGroupSummary
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.api_autocomplete import ApiAutocomplete
+from kestra_api_client.models.api_group_summary import ApiGroupSummary
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -137,22 +137,22 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
-    api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
+    api_autocomplete = kestra_api_client.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
 
     try:
         # List groups for autocomplete
@@ -205,15 +205,15 @@ Create a group
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.iam_group_controller_api_create_group_request import IAMGroupControllerApiCreateGroupRequest
-from kestrapy.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.iam_group_controller_api_create_group_request import IAMGroupControllerApiCreateGroupRequest
+from kestra_api_client.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -223,22 +223,22 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
-    iam_group_controller_api_create_group_request = kestrapy.IAMGroupControllerApiCreateGroupRequest() # IAMGroupControllerApiCreateGroupRequest | The group
+    iam_group_controller_api_create_group_request = kestra_api_client.IAMGroupControllerApiCreateGroupRequest() # IAMGroupControllerApiCreateGroupRequest | The group
 
     try:
         # Create a group
@@ -292,13 +292,13 @@ Delete a group
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -308,20 +308,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
 
@@ -377,14 +377,14 @@ Removes the specified user from the given group. If the user has no other group 
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -394,20 +394,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user to remove from the group
     tenant = 'tenant_example' # str | 
@@ -468,14 +468,14 @@ Retrieves details of a specific group by its ID within the current tenant.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -485,20 +485,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
 
@@ -554,15 +554,15 @@ List groups by ids
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.api_group_summary import ApiGroupSummary
-from kestrapy.models.api_ids import ApiIds
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.api_group_summary import ApiGroupSummary
+from kestra_api_client.models.api_ids import ApiIds
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -572,22 +572,22 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     tenant = 'tenant_example' # str | 
-    api_ids = kestrapy.ApiIds() # ApiIds | The ids that must be present on results
+    api_ids = kestra_api_client.ApiIds() # ApiIds | The ids that must be present on results
 
     try:
         # List groups by ids
@@ -640,14 +640,14 @@ Search for users in a group
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -657,20 +657,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
@@ -733,14 +733,14 @@ Search for groups
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_api_group_summary import PagedResultsApiGroupSummary
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_api_group_summary import PagedResultsApiGroupSummary
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -750,20 +750,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -826,15 +826,15 @@ Allows a group owner or an authorized user to change the role of a user within a
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.group_identifier_membership import GroupIdentifierMembership
-from kestrapy.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.group_identifier_membership import GroupIdentifierMembership
+from kestra_api_client.models.iam_group_controller_api_group_member import IAMGroupControllerApiGroupMember
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -844,23 +844,23 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The ID of the group
     user_id = 'user_id_example' # str | The ID of the user whose membership is being updated
-    membership = kestrapy.GroupIdentifierMembership() # GroupIdentifierMembership | The new membership type to assign to the user.
+    membership = kestra_api_client.GroupIdentifierMembership() # GroupIdentifierMembership | The new membership type to assign to the user.
     tenant = 'tenant_example' # str | 
 
     try:
@@ -918,15 +918,15 @@ Update a group
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
-from kestrapy.models.iam_group_controller_api_update_group_request import IAMGroupControllerApiUpdateGroupRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.iam_group_controller_api_group_detail import IAMGroupControllerApiGroupDetail
+from kestra_api_client.models.iam_group_controller_api_update_group_request import IAMGroupControllerApiUpdateGroupRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -936,23 +936,23 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.GroupsApi(api_client)
+    api_instance = kestra_api_client.GroupsApi(api_client)
     id = 'id_example' # str | The group id
     tenant = 'tenant_example' # str | 
-    iam_group_controller_api_update_group_request = kestrapy.IAMGroupControllerApiUpdateGroupRequest() # IAMGroupControllerApiUpdateGroupRequest | The group
+    iam_group_controller_api_update_group_request = kestra_api_client.IAMGroupControllerApiUpdateGroupRequest() # IAMGroupControllerApiUpdateGroupRequest | The group
 
     try:
         # Update a group

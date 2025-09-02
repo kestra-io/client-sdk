@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
+from kestra_api_client.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
 
 # TODO update the JSON string below
 json = "{}"

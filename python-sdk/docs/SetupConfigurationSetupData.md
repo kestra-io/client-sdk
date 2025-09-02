@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
+from kestra_api_client.models.setup_configuration_setup_data import SetupConfigurationSetupData
 
 # TODO update the JSON string below
 json = "{}"

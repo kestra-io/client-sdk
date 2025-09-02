@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_graph_edge import FlowGraphEdge
+from kestra_api_client.models.flow_graph_edge import FlowGraphEdge
 
 # TODO update the JSON string below
 json = "{}"

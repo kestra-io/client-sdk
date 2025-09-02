@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from kestra_api_client.models.misc_controller_edition import MiscControllerEdition
 from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment
 from kestra_api_client.models.misc_controller_preview import MiscControllerPreview
 from kestra_api_client.models.query_filter_resource_field import QueryFilterResourceField
@@ -32,11 +33,13 @@ class MiscControllerConfiguration(BaseModel):
     """ # noqa: E501
     uuid: Optional[StrictStr] = None
     version: Optional[StrictStr] = None
+    edition: Optional[MiscControllerEdition] = None
     commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
     commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
     is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
     is_task_run_enabled: Optional[StrictBool] = Field(default=None, alias="isTaskRunEnabled")
     is_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isAnonymousUsageEnabled")
+    is_ui_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isUiAnonymousUsageEnabled")
     is_template_enabled: Optional[StrictBool] = Field(default=None, alias="isTemplateEnabled")
     environment: Optional[MiscControllerEnvironment] = None
     url: Optional[StrictStr] = None
@@ -47,7 +50,7 @@ class MiscControllerConfiguration(BaseModel):
     is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
     is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -122,11 +125,13 @@ class MiscControllerConfiguration(BaseModel):
         _obj = cls.model_validate({
             "uuid": obj.get("uuid"),
             "version": obj.get("version"),
+            "edition": obj.get("edition"),
             "commitId": obj.get("commitId"),
             "commitDate": obj.get("commitDate"),
             "isCustomDashboardsEnabled": obj.get("isCustomDashboardsEnabled"),
             "isTaskRunEnabled": obj.get("isTaskRunEnabled"),
             "isAnonymousUsageEnabled": obj.get("isAnonymousUsageEnabled"),
+            "isUiAnonymousUsageEnabled": obj.get("isUiAnonymousUsageEnabled"),
             "isTemplateEnabled": obj.get("isTemplateEnabled"),
             "environment": MiscControllerEnvironment.from_dict(obj["environment"]) if obj.get("environment") is not None else None,
             "url": obj.get("url"),

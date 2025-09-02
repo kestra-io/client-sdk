@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.instance_controller_api_plugin_version_details_api_plugin_classes import InstanceControllerApiPluginVersionDetailsApiPluginClasses
+from kestra_api_client.models.instance_controller_api_plugin_version_details_api_plugin_classes import InstanceControllerApiPluginVersionDetailsApiPluginClasses
 
 # TODO update the JSON string below
 json = "{}"

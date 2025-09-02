@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.metric_aggregations import MetricAggregations
+from kestra_api_client.models.metric_aggregations import MetricAggregations
 
 # TODO update the JSON string below
 json = "{}"

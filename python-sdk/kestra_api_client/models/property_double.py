@@ -26,7 +26,7 @@ class PropertyDouble(BaseModel):
     """
     PropertyDouble
     """ # noqa: E501
-    expression: Optional[StrictStr] = None
+    expression: StrictStr
     value: Optional[Union[StrictFloat, StrictInt]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["expression", "value"]

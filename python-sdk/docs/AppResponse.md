@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.app_response import AppResponse
+from kestra_api_client.models.app_response import AppResponse
 
 # TODO update the JSON string below
 json = "{}"

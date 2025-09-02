@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.test_state import TestState
 from kestra_api_client.models.unit_test_result import UnitTestResult
 from typing import Optional, Set
@@ -36,7 +36,7 @@ class TestSuiteRunResult(BaseModel):
     state: TestState
     start_date: datetime = Field(alias="startDate")
     end_date: datetime = Field(alias="endDate")
-    results: Optional[List[UnitTestResult]] = None
+    results: List[UnitTestResult]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "testSuiteId", "namespace", "flowId", "state", "startDate", "endDate", "results"]
 

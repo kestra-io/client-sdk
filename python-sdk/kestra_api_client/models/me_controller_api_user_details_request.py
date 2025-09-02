@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class MeControllerApiUserDetailsRequest(BaseModel):
     """
     MeControllerApiUserDetailsRequest
     """ # noqa: E501
-    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
-    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
-    email: Optional[StrictStr] = None
+    first_name: StrictStr = Field(alias="firstName")
+    last_name: StrictStr = Field(alias="lastName")
+    email: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["firstName", "lastName", "email"]
 

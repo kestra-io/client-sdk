@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class IAMInvitationControllerApiInvitationRole(BaseModel):
     """
     IAMInvitationControllerApiInvitationRole
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    namespaces: Optional[List[StrictStr]] = None
+    id: StrictStr
+    namespaces: List[StrictStr]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "namespaces"]
 

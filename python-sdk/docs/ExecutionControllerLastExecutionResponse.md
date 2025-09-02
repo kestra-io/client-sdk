@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
+from kestra_api_client.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 
 # TODO update the JSON string below
 json = "{}"

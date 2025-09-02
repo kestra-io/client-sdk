@@ -37,6 +37,7 @@ class FlowInterface(BaseModel):
     revision: Optional[StrictInt] = None
     tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
     deleted: Optional[StrictBool] = None
+    description: Optional[StrictStr] = None
     disabled: Optional[StrictBool] = None
     labels: Optional[List[Label]] = None
     inputs: Optional[List[InputObject]] = None
@@ -47,7 +48,7 @@ class FlowInterface(BaseModel):
     sla: Optional[List[SLA]] = None
     source: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "tenantId", "deleted", "disabled", "labels", "inputs", "outputs", "variables", "workerGroup", "concurrency", "sla", "source"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "tenantId", "deleted", "description", "disabled", "labels", "inputs", "outputs", "variables", "workerGroup", "concurrency", "sla", "source"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -146,6 +147,7 @@ class FlowInterface(BaseModel):
             "revision": obj.get("revision"),
             "tenantId": obj.get("tenantId"),
             "deleted": obj.get("deleted"),
+            "description": obj.get("description"),
             "disabled": obj.get("disabled"),
             "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,

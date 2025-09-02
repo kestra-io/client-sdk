@@ -21,12 +21,14 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestra_api_client.models.banner import Banner
-from kestra_api_client.models.custom_link import CustomLink
+from kestra_api_client.models.left_sidebar_configuration import LeftSidebarConfiguration
+from kestra_api_client.models.misc_controller_edition import MiscControllerEdition
 from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment
 from kestra_api_client.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion
 from kestra_api_client.models.misc_controller_preview import MiscControllerPreview
 from kestra_api_client.models.misc_controller_tenant_configuration_info import MiscControllerTenantConfigurationInfo
 from kestra_api_client.models.query_filter_resource_field import QueryFilterResourceField
+from kestra_api_client.models.right_sidebar_configuration import RightSidebarConfiguration
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -36,11 +38,13 @@ class MiscControllerEEConfiguration(BaseModel):
     """ # noqa: E501
     uuid: Optional[StrictStr] = None
     version: Optional[StrictStr] = None
+    edition: Optional[MiscControllerEdition] = None
     commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
     commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
     is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
     is_task_run_enabled: Optional[StrictBool] = Field(default=None, alias="isTaskRunEnabled")
     is_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isAnonymousUsageEnabled")
+    is_ui_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isUiAnonymousUsageEnabled")
     is_template_enabled: Optional[StrictBool] = Field(default=None, alias="isTemplateEnabled")
     environment: Optional[MiscControllerEnvironment] = None
     url: Optional[StrictStr] = None
@@ -59,11 +63,12 @@ class MiscControllerEEConfiguration(BaseModel):
     banner: Optional[Banner] = None
     mail_service_enabled: Optional[StrictBool] = Field(default=None, alias="mailServiceEnabled")
     outputs_in_internal_storage_enabled: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorageEnabled")
-    context_custom_links: Optional[Dict[str, CustomLink]] = Field(default=None, alias="contextCustomLinks")
+    left_sidebar: Optional[LeftSidebarConfiguration] = Field(default=None, alias="leftSidebar")
+    right_sidebar: Optional[RightSidebarConfiguration] = Field(default=None, alias="rightSidebar")
     in_maintenance: Optional[StrictBool] = Field(default=None, alias="inMaintenance")
     password_regexp: Optional[StrictStr] = Field(default=None, alias="passwordRegexp")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "contextCustomLinks", "inMaintenance", "passwordRegexp"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -139,13 +144,12 @@ class MiscControllerEEConfiguration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of banner
         if self.banner:
             _dict['banner'] = self.banner.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each value in context_custom_links (dict)
-        _field_dict = {}
-        if self.context_custom_links:
-            for _key_context_custom_links in self.context_custom_links:
-                if self.context_custom_links[_key_context_custom_links]:
-                    _field_dict[_key_context_custom_links] = self.context_custom_links[_key_context_custom_links].to_dict()
-            _dict['contextCustomLinks'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of left_sidebar
+        if self.left_sidebar:
+            _dict['leftSidebar'] = self.left_sidebar.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of right_sidebar
+        if self.right_sidebar:
+            _dict['rightSidebar'] = self.right_sidebar.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -165,11 +169,13 @@ class MiscControllerEEConfiguration(BaseModel):
         _obj = cls.model_validate({
             "uuid": obj.get("uuid"),
             "version": obj.get("version"),
+            "edition": obj.get("edition"),
             "commitId": obj.get("commitId"),
             "commitDate": obj.get("commitDate"),
             "isCustomDashboardsEnabled": obj.get("isCustomDashboardsEnabled"),
             "isTaskRunEnabled": obj.get("isTaskRunEnabled"),
             "isAnonymousUsageEnabled": obj.get("isAnonymousUsageEnabled"),
+            "isUiAnonymousUsageEnabled": obj.get("isUiAnonymousUsageEnabled"),
             "isTemplateEnabled": obj.get("isTemplateEnabled"),
             "environment": MiscControllerEnvironment.from_dict(obj["environment"]) if obj.get("environment") is not None else None,
             "url": obj.get("url"),
@@ -188,12 +194,8 @@ class MiscControllerEEConfiguration(BaseModel):
             "banner": Banner.from_dict(obj["banner"]) if obj.get("banner") is not None else None,
             "mailServiceEnabled": obj.get("mailServiceEnabled"),
             "outputsInInternalStorageEnabled": obj.get("outputsInInternalStorageEnabled"),
-            "contextCustomLinks": dict(
-                (_k, CustomLink.from_dict(_v))
-                for _k, _v in obj["contextCustomLinks"].items()
-            )
-            if obj.get("contextCustomLinks") is not None
-            else None,
+            "leftSidebar": LeftSidebarConfiguration.from_dict(obj["leftSidebar"]) if obj.get("leftSidebar") is not None else None,
+            "rightSidebar": RightSidebarConfiguration.from_dict(obj["rightSidebar"]) if obj.get("rightSidebar") is not None else None,
             "inMaintenance": obj.get("inMaintenance"),
             "passwordRegexp": obj.get("passwordRegexp")
         })

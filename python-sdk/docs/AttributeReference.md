@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.attribute_reference import AttributeReference
+from kestra_api_client.models.attribute_reference import AttributeReference
 
 # TODO update the JSON string below
 json = "{}"

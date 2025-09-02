@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
+from kestra_api_client.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
 
 # TODO update the JSON string below
 json = "{}"

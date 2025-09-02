@@ -26,7 +26,7 @@ class PropertyBoolean(BaseModel):
     """
     PropertyBoolean
     """ # noqa: E501
-    expression: Optional[StrictStr] = None
+    expression: StrictStr
     value: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["expression", "value"]

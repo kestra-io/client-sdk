@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,9 +28,9 @@ class CreateApiTokenRequest(BaseModel):
     CreateApiTokenRequest
     """ # noqa: E501
     name: Annotated[str, Field(strict=True)]
-    description: Optional[StrictStr] = None
-    max_age: Optional[StrictStr] = Field(default=None, alias="maxAge")
-    extended: Optional[StrictBool] = None
+    description: StrictStr
+    max_age: StrictStr = Field(alias="maxAge")
+    extended: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description", "maxAge", "extended"]
 

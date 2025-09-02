@@ -31,6 +31,7 @@ class ServiceType(str, Enum):
     SCHEDULER = 'SCHEDULER'
     WEBSERVER = 'WEBSERVER'
     WORKER = 'WORKER'
+    INVALID = 'INVALID'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.concurrency import Concurrency
+from kestra_api_client.models.concurrency import Concurrency
 
 # TODO update the JSON string below
 json = "{}"

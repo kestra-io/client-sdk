@@ -1,4 +1,4 @@
-# kestrapy.AuditLogsApi
+# kestra_api_client.AuditLogsApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,14 +24,14 @@ Export all audit logs as a streamed CSV file
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.resource_type1 import ResourceType1
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.resource_type1 import ResourceType1
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -41,20 +41,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
     namespace = 'namespace_example' # str | A namespace filter (optional)
@@ -62,11 +62,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     execution_id = 'execution_id_example' # str | An execution filter (optional)
     user_id = 'user_id_example' # str | A user id filter (optional)
     id = 'id_example' # str | A id filter (optional)
-    resources = [kestrapy.ResourceType1()] # List[ResourceType1] | A resource filter (optional)
+    resources = [kestra_api_client.ResourceType1()] # List[ResourceType1] | A resource filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     details = {'key': 'details_example'} # Dict[str, str] | A list of auditLog details (optional)
-    type = kestrapy.CrudEventType() # CrudEventType | The event that create the audit log (optional)
+    type = kestra_api_client.CrudEventType() # CrudEventType | The event that create the audit log (optional)
 
     try:
         # Export all audit logs as a streamed CSV file
@@ -129,15 +129,15 @@ Find a specific audit log
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.audit_log_controller_api_audit_log_item import AuditLogControllerApiAuditLogItem
-from kestrapy.models.audit_log_controller_find_request import AuditLogControllerFindRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.audit_log_controller_api_audit_log_item import AuditLogControllerApiAuditLogItem
+from kestra_api_client.models.audit_log_controller_find_request import AuditLogControllerFindRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -147,22 +147,22 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     tenant = 'tenant_example' # str | 
-    audit_log_controller_find_request = kestrapy.AuditLogControllerFindRequest() # AuditLogControllerFindRequest | The find request
+    audit_log_controller_find_request = kestra_api_client.AuditLogControllerFindRequest() # AuditLogControllerFindRequest | The find request
 
     try:
         # Find a specific audit log
@@ -217,14 +217,14 @@ Retrieves the diff between the current version and a selected previous version o
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -234,20 +234,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     id = 'id_example' # str | The id of the audit log
     previous_id = 'previous_id_example' # str | The id of a previous audit log to compare with (optional)
 
@@ -304,14 +304,14 @@ Retrieves the diff between the current version and a selected previous version o
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.audit_log_controller_audit_log_diff import AuditLogControllerAuditLogDiff
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -321,20 +321,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     id = 'id_example' # str | The id of the audit log
     tenant = 'tenant_example' # str | 
     previous_id = 'previous_id_example' # str | The id of a previous audit log to compare with (optional)
@@ -391,14 +391,14 @@ Find all audit logs about a specific resource.
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.audit_log_controller_audit_log_option import AuditLogControllerAuditLogOption
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.audit_log_controller_audit_log_option import AuditLogControllerAuditLogOption
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -408,20 +408,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     detail_id = 'detail_id_example' # str | The resource Id
     tenant = 'tenant_example' # str | 
 
@@ -476,15 +476,15 @@ Search for audit logs
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
-from kestrapy.models.resource_type1 import ResourceType1
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
+from kestra_api_client.models.resource_type1 import ResourceType1
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -494,20 +494,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -518,11 +518,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     execution_id = 'execution_id_example' # str | An execution filter (optional)
     user_id = 'user_id_example' # str | A user id filter (optional)
     id = 'id_example' # str | A id filter (optional)
-    resources = [kestrapy.ResourceType1()] # List[ResourceType1] | A resource filter (optional)
+    resources = [kestra_api_client.ResourceType1()] # List[ResourceType1] | A resource filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     details = {'key': 'details_example'} # Dict[str, str] | A list of auditLog details (optional)
-    type = kestrapy.CrudEventType() # CrudEventType | The event that create the audit log (optional)
+    type = kestra_api_client.CrudEventType() # CrudEventType | The event that create the audit log (optional)
 
     try:
         # Search for audit logs
@@ -588,14 +588,14 @@ Search for audit logs across all tenants, required to be SuperAdmin
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
@@ -605,20 +605,20 @@ configuration = kestrapy.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AuditLogsApi(api_client)
+    api_instance = kestra_api_client.AuditLogsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     q = 'q_example' # str | A string filter (optional)
@@ -628,11 +628,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     execution_id = 'execution_id_example' # str | An execution filter (optional)
     user_id = 'user_id_example' # str | A user id filter (optional)
     id = 'id_example' # str | A id filter (optional)
-    resource = kestrapy.ResourceType1() # ResourceType1 | A resource filter (optional)
+    resource = kestra_api_client.ResourceType1() # ResourceType1 | A resource filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     details = {'key': 'details_example'} # Dict[str, str] | A list of auditLog details (optional)
-    type = kestrapy.CrudEventType() # CrudEventType | The event that create the audit log (optional)
+    type = kestra_api_client.CrudEventType() # CrudEventType | The event that create the audit log (optional)
 
     try:
         # Search for audit logs across all tenants, required to be SuperAdmin

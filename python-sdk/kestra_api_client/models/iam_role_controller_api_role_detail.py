@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request_permissions import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,12 +27,12 @@ class IAMRoleControllerApiRoleDetail(BaseModel):
     """
     IAMRoleControllerApiRoleDetail
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    permissions: Optional[IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions] = None
-    is_default: Optional[StrictBool] = Field(default=None, alias="isDefault")
-    is_managed: Optional[StrictBool] = Field(default=None, alias="isManaged")
+    id: StrictStr
+    name: StrictStr
+    description: StrictStr
+    permissions: IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
+    is_default: StrictBool = Field(alias="isDefault")
+    is_managed: StrictBool = Field(alias="isManaged")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "description", "permissions", "isDefault", "isManaged"]
 

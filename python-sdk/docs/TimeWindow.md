@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.time_window import TimeWindow
+from kestra_api_client.models.time_window import TimeWindow
 
 # TODO update the JSON string below
 json = "{}"

@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +27,9 @@ class BlueprintControllerApiBlueprintTagItem(BaseModel):
     """
     BlueprintControllerApiBlueprintTagItem
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    published_at: Optional[datetime] = Field(default=None, alias="publishedAt")
+    id: StrictStr
+    name: StrictStr
+    published_at: datetime = Field(alias="publishedAt")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "publishedAt"]
 

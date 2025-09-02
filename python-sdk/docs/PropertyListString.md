@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.property_list_string import PropertyListString
+from kestra_api_client.models.property_list_string import PropertyListString
 
 # TODO update the JSON string below
 json = "{}"

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.trigger_context import TriggerContext
+from kestra_api_client.models.trigger_context import TriggerContext
 
 # TODO update the JSON string below
 json = "{}"

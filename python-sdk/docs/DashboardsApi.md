@@ -1,4 +1,4 @@
-# kestrapy.DashboardsApi
+# kestra_api_client.DashboardsApi
 
 All URIs are relative to *http://localhost*
 
@@ -26,22 +26,22 @@ Create a dashboard from yaml source
 
 
 ```python
-import kestrapy
-from kestrapy.models.dashboard import Dashboard
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.dashboard import Dashboard
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The dashboard definition as YAML
 
@@ -94,21 +94,21 @@ Delete a dashboard
 
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     id = 'id_example' # str | The dashboard id
     tenant = 'tenant_example' # str | 
 
@@ -159,24 +159,24 @@ Export a table chart data to CSV
 
 
 ```python
-import kestrapy
-from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     tenant = 'tenant_example' # str | 
-    dashboard_controller_preview_request = kestrapy.DashboardControllerPreviewRequest() # DashboardControllerPreviewRequest | 
+    dashboard_controller_preview_request = kestra_api_client.DashboardControllerPreviewRequest() # DashboardControllerPreviewRequest | 
 
     try:
         # Export a table chart data to CSV
@@ -227,26 +227,26 @@ Export a dashboard chart data to CSV
 
 
 ```python
-import kestrapy
-from kestrapy.models.chart_filters_overrides import ChartFiltersOverrides
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.chart_filters_overrides import ChartFiltersOverrides
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     id = 'id_example' # str | The dashboard id
     chart_id = 'chart_id_example' # str | The chart id
     tenant = 'tenant_example' # str | 
-    chart_filters_overrides = kestrapy.ChartFiltersOverrides() # ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+    chart_filters_overrides = kestra_api_client.ChartFiltersOverrides() # ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
 
     try:
         # Export a dashboard chart data to CSV
@@ -299,22 +299,22 @@ Get a dashboard
 
 
 ```python
-import kestrapy
-from kestrapy.models.dashboard import Dashboard
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.dashboard import Dashboard
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     id = 'id_example' # str | The dashboard id
     tenant = 'tenant_example' # str | 
 
@@ -367,27 +367,27 @@ Generate a dashboard chart data
 
 
 ```python
-import kestrapy
-from kestrapy.models.chart_filters_overrides import ChartFiltersOverrides
-from kestrapy.models.paged_results_map_string_object import PagedResultsMapStringObject
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.chart_filters_overrides import ChartFiltersOverrides
+from kestra_api_client.models.paged_results_map_string_object import PagedResultsMapStringObject
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     id = 'id_example' # str | The dashboard id
     chart_id = 'chart_id_example' # str | The chart id
     tenant = 'tenant_example' # str | 
-    chart_filters_overrides = kestrapy.ChartFiltersOverrides() # ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
+    chart_filters_overrides = kestra_api_client.ChartFiltersOverrides() # ChartFiltersOverrides | The filters to apply, some can override chart definition like labels & namespace
 
     try:
         # Generate a dashboard chart data
@@ -440,25 +440,25 @@ Preview a chart data
 
 
 ```python
-import kestrapy
-from kestrapy.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
-from kestrapy.models.paged_results_map_string_object import PagedResultsMapStringObject
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.dashboard_controller_preview_request import DashboardControllerPreviewRequest
+from kestra_api_client.models.paged_results_map_string_object import PagedResultsMapStringObject
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     tenant = 'tenant_example' # str | 
-    dashboard_controller_preview_request = kestrapy.DashboardControllerPreviewRequest() # DashboardControllerPreviewRequest | 
+    dashboard_controller_preview_request = kestra_api_client.DashboardControllerPreviewRequest() # DashboardControllerPreviewRequest | 
 
     try:
         # Preview a chart data
@@ -509,22 +509,22 @@ Search for dashboards
 
 
 ```python
-import kestrapy
-from kestrapy.models.paged_results_dashboard import PagedResultsDashboard
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.paged_results_dashboard import PagedResultsDashboard
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -583,22 +583,22 @@ Update a dashboard
 
 
 ```python
-import kestrapy
-from kestrapy.models.dashboard import Dashboard
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.dashboard import Dashboard
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     id = 'id_example' # str | The dashboard id
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The dashboard definition as YAML
@@ -653,22 +653,22 @@ Validate a chart from yaml source
 
 
 ```python
-import kestrapy
-from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.validate_constraint_violation import ValidateConstraintViolation
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The chart definition as YAML
 
@@ -721,22 +721,22 @@ Validate dashboard from yaml source
 
 
 ```python
-import kestrapy
-from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.validate_constraint_violation import ValidateConstraintViolation
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.DashboardsApi(api_client)
+    api_instance = kestra_api_client.DashboardsApi(api_client)
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The dashboard definition as YAML
 

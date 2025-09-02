@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.abstract_user_tenant_identity_provider import AbstractUserTenantIdentityProvider
+from kestra_api_client.models.abstract_user_tenant_identity_provider import AbstractUserTenantIdentityProvider
 
 # TODO update the JSON string below
 json = "{}"

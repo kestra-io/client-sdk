@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_for_execution import FlowForExecution
+from kestra_api_client.models.flow_for_execution import FlowForExecution
 
 # TODO update the JSON string below
 json = "{}"

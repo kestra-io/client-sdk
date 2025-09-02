@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.iam_tenant_access_controller_api_authentication import IAMTenantAccessControllerApiAuthentication
 from kestra_api_client.models.me_controller_api_profile import MeControllerApiProfile
 from kestra_api_client.models.me_controller_api_tenant import MeControllerApiTenant
@@ -29,12 +29,12 @@ class MeControllerApiMe(BaseModel):
     """
     MeControllerApiMe
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
-    restricted: Optional[StrictBool] = None
-    profile: Optional[MeControllerApiProfile] = None
-    auths: Optional[List[IAMTenantAccessControllerApiAuthentication]] = None
-    tenants: Optional[List[MeControllerApiTenant]] = None
+    id: StrictStr
+    super_admin: StrictBool = Field(alias="superAdmin")
+    restricted: StrictBool
+    profile: MeControllerApiProfile
+    auths: List[IAMTenantAccessControllerApiAuthentication]
+    tenants: List[MeControllerApiTenant]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "superAdmin", "restricted", "profile", "auths", "tenants"]
 

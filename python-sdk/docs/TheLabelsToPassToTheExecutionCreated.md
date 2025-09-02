@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.the_labels_to_pass_to_the_execution_created import TheLabelsToPassToTheExecutionCreated
+from kestra_api_client.models.the_labels_to_pass_to_the_execution_created import TheLabelsToPassToTheExecutionCreated
 
 # TODO update the JSON string below
 json = "{}"

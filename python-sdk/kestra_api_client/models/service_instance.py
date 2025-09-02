@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.metric import Metric
 from kestra_api_client.models.server_config import ServerConfig
 from kestra_api_client.models.server_instance import ServerInstance
@@ -33,17 +33,17 @@ class ServiceInstance(BaseModel):
     """
     ServiceInstance
     """ # noqa: E501
-    server: Optional[ServerInstance] = None
-    metrics: Optional[List[Metric]] = None
-    state: Optional[ServiceServiceState] = None
-    id: Optional[StrictStr] = None
-    type: Optional[ServiceType] = None
-    created_at: Optional[datetime] = Field(default=None, alias="createdAt")
-    updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
-    events: Optional[List[ServiceInstanceTimestampedEvent]] = None
-    config: Optional[ServerConfig] = None
-    props: Optional[Dict[str, Dict[str, Any]]] = None
-    seq_id: Optional[StrictInt] = Field(default=None, alias="seqId")
+    server: ServerInstance
+    metrics: List[Metric]
+    state: ServiceServiceState
+    id: StrictStr
+    type: ServiceType
+    created_at: datetime = Field(alias="createdAt")
+    updated_at: datetime = Field(alias="updatedAt")
+    events: List[ServiceInstanceTimestampedEvent]
+    config: ServerConfig
+    props: Dict[str, Dict[str, Any]]
+    seq_id: StrictInt = Field(alias="seqId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["server", "metrics", "state", "id", "type", "createdAt", "updatedAt", "events", "config", "props", "seqId"]
 

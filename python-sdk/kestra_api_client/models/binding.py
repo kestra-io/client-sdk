@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.binding_type import BindingType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,11 +27,11 @@ class Binding(BaseModel):
     """
     Binding
     """ # noqa: E501
-    id: Optional[StrictStr] = None
+    id: StrictStr
     type: BindingType
     external_id: StrictStr = Field(alias="externalId")
     role_id: StrictStr = Field(alias="roleId")
-    namespace_id: Optional[StrictStr] = Field(default=None, alias="namespaceId")
+    namespace_id: StrictStr = Field(alias="namespaceId")
     deleted: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "externalId", "roleId", "namespaceId", "deleted"]

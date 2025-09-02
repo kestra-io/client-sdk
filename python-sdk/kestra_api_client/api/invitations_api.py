@@ -101,6 +101,7 @@ class InvitationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': None,
+            '204': None,
             '403': None,
             '409': None,
         }
@@ -174,6 +175,7 @@ class InvitationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': None,
+            '204': None,
             '403': None,
             '409': None,
         }
@@ -247,6 +249,7 @@ class InvitationsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': None,
+            '204': None,
             '403': None,
             '409': None,
         }

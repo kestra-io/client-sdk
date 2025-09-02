@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.apps_controller_api_bulk_import_response_error import AppsControllerApiBulkImportResponseError
+from kestra_api_client.models.apps_controller_api_bulk_import_response_error import AppsControllerApiBulkImportResponseError
 
 # TODO update the JSON string below
 json = "{}"

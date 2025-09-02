@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.log_entry import LogEntry
+from kestra_api_client.models.log_entry import LogEntry
 
 # TODO update the JSON string below
 json = "{}"

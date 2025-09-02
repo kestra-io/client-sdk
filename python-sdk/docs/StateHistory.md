@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.state_history import StateHistory
+from kestra_api_client.models.state_history import StateHistory
 
 # TODO update the JSON string below
 json = "{}"

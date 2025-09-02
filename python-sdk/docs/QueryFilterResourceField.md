@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.query_filter_resource_field import QueryFilterResourceField
+from kestra_api_client.models.query_filter_resource_field import QueryFilterResourceField
 
 # TODO update the JSON string below
 json = "{}"

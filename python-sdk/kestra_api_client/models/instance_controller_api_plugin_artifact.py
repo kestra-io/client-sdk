@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,11 +26,11 @@ class InstanceControllerApiPluginArtifact(BaseModel):
     """
     InstanceControllerApiPluginArtifact
     """ # noqa: E501
-    title: Optional[StrictStr] = None
-    icon: Optional[StrictStr] = None
-    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
-    artifact_id: Optional[StrictStr] = Field(default=None, alias="artifactId")
-    versions: Optional[List[StrictStr]] = None
+    title: StrictStr
+    icon: StrictStr
+    group_id: StrictStr = Field(alias="groupId")
+    artifact_id: StrictStr = Field(alias="artifactId")
+    versions: List[StrictStr]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["title", "icon", "groupId", "artifactId", "versions"]
 

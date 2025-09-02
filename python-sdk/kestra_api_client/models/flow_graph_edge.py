@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.relation import Relation
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,9 @@ class FlowGraphEdge(BaseModel):
     """
     FlowGraphEdge
     """ # noqa: E501
-    source: Optional[StrictStr] = None
-    target: Optional[StrictStr] = None
-    relation: Optional[Relation] = None
+    source: StrictStr
+    target: StrictStr
+    relation: Relation
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["source", "target", "relation"]
 

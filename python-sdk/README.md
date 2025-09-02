@@ -1,4 +1,4 @@
-# @kestra-io/kestrapy
+# @kestra-io/kestra_api_client
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
 
@@ -25,7 +25,7 @@ pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 
 Then import the package:
 ```python
-import kestrapy
+import kestra_api_client
 ```
 
 ### Setuptools
@@ -39,7 +39,7 @@ python setup.py install --user
 
 Then import the package:
 ```python
-import kestrapy
+import kestra_api_client
 ```
 
 ### Tests
@@ -52,24 +52,24 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 ```python
 
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.AIApi(api_client)
+    api_instance = kestra_api_client.AIApi(api_client)
     tenant = 'tenant_example' # str | 
-    flow_generation_prompt = kestrapy.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
+    flow_generation_prompt = kestra_api_client.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
 
     try:
         # Generate or regenerate a flow based on a prompt

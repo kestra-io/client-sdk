@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.search_result_flow import SearchResultFlow
+from kestra_api_client.models.search_result_flow import SearchResultFlow
 
 # TODO update the JSON string below
 json = "{}"

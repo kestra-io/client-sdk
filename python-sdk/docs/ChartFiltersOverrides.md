@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.chart_filters_overrides import ChartFiltersOverrides
+from kestra_api_client.models.chart_filters_overrides import ChartFiltersOverrides
 
 # TODO update the JSON string below
 json = "{}"

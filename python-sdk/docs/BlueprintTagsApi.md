@@ -1,4 +1,4 @@
-# kestrapy.BlueprintTagsApi
+# kestra_api_client.BlueprintTagsApi
 
 All URIs are relative to *http://localhost*
 
@@ -19,21 +19,21 @@ Lists all tags used by internal (custom) blueprints for the current tenant.
 
 
 ```python
-import kestrapy
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.BlueprintTagsApi(api_client)
+    api_instance = kestra_api_client.BlueprintTagsApi(api_client)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter to get tags with matching blueprints only (optional)
 
@@ -88,24 +88,24 @@ Lists tags for community blueprints of the specified kind, optionally filtered b
 
 
 ```python
-import kestrapy
-from kestrapy.models.blueprint_controller_api_blueprint_tag_item import BlueprintControllerApiBlueprintTagItem
-from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
-from kestrapy.rest import ApiException
+import kestra_api_client
+from kestra_api_client.models.blueprint_controller_api_blueprint_tag_item import BlueprintControllerApiBlueprintTagItem
+from kestra_api_client.models.blueprint_controller_kind import BlueprintControllerKind
+from kestra_api_client.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
+configuration = kestra_api_client.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
+with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.BlueprintTagsApi(api_client)
-    kind = kestrapy.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
+    api_instance = kestra_api_client.BlueprintTagsApi(api_client)
+    kind = kestra_api_client.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter to get tags with matching blueprints only (optional)
 

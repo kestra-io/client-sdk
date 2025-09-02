@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.task_run import TaskRun
+from kestra_api_client.models.task_run import TaskRun
 
 # TODO update the JSON string below
 json = "{}"

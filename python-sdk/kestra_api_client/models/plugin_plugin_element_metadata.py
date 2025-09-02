@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class PluginPluginElementMetadata(BaseModel):
     """
     PluginPluginElementMetadata
     """ # noqa: E501
-    cls: Optional[StrictStr] = None
-    deprecated: Optional[StrictBool] = None
+    cls: StrictStr
+    deprecated: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["cls", "deprecated"]
 

@@ -19,13 +19,13 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
-from kestra_api_client.models.api_ids import ApiIds
+from kestra_api_client.models.api_autocomplete import ApiAutocomplete
 from kestra_api_client.models.api_secret_list_response import ApiSecretListResponse
 from kestra_api_client.models.api_secret_meta import ApiSecretMeta
 from kestra_api_client.models.api_secret_meta_ee import ApiSecretMetaEE
 from kestra_api_client.models.api_secret_value import ApiSecretValue
 from kestra_api_client.models.namespace import Namespace
-from kestra_api_client.models.paged_results_namespace_with_disabled import PagedResultsNamespaceWithDisabled
+from kestra_api_client.models.paged_results_namespace import PagedResultsNamespace
 from kestra_api_client.models.plugin_default import PluginDefault
 from kestra_api_client.models.query_filter import QueryFilter
 
@@ -51,8 +51,7 @@ class NamespacesApi:
     def autocomplete_namespaces(
         self,
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
+        api_autocomplete: ApiAutocomplete,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -72,10 +71,8 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
+        :param api_autocomplete: (required)
+        :type api_autocomplete: ApiAutocomplete
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -100,8 +97,7 @@ class NamespacesApi:
 
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
-            q=q,
-            api_ids=api_ids,
+            api_autocomplete=api_autocomplete,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -126,8 +122,7 @@ class NamespacesApi:
     def autocomplete_namespaces_with_http_info(
         self,
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
+        api_autocomplete: ApiAutocomplete,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -147,10 +142,8 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
+        :param api_autocomplete: (required)
+        :type api_autocomplete: ApiAutocomplete
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -175,8 +168,7 @@ class NamespacesApi:
 
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
-            q=q,
-            api_ids=api_ids,
+            api_autocomplete=api_autocomplete,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -201,8 +193,7 @@ class NamespacesApi:
     def autocomplete_namespaces_without_preload_content(
         self,
         tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
+        api_autocomplete: ApiAutocomplete,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -222,10 +213,8 @@ class NamespacesApi:
 
         :param tenant: (required)
         :type tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
+        :param api_autocomplete: (required)
+        :type api_autocomplete: ApiAutocomplete
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -250,8 +239,7 @@ class NamespacesApi:
 
         _param = self._autocomplete_namespaces_serialize(
             tenant=tenant,
-            q=q,
-            api_ids=api_ids,
+            api_autocomplete=api_autocomplete,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -271,8 +259,7 @@ class NamespacesApi:
     def _autocomplete_namespaces_serialize(
         self,
         tenant,
-        q,
-        api_ids,
+        api_autocomplete,
         _request_auth,
         _content_type,
         _headers,
@@ -297,15 +284,11 @@ class NamespacesApi:
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if api_ids is not None:
-            _body_params = api_ids
+        if api_autocomplete is not None:
+            _body_params = api_autocomplete
 
 
         # set the HTTP header `Accept`
@@ -339,605 +322,6 @@ class NamespacesApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/api/v1/{tenant}/namespaces/autocomplete',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def autocomplete_namespaces_with_resource_tenantas_super_admin(
-        self,
-        resource_tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[str]:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param resource_tenant: (required)
-        :type resource_tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespaces_with_resource_tenantas_super_admin_serialize(
-            resource_tenant=resource_tenant,
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def autocomplete_namespaces_with_resource_tenantas_super_admin_with_http_info(
-        self,
-        resource_tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[str]]:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param resource_tenant: (required)
-        :type resource_tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespaces_with_resource_tenantas_super_admin_serialize(
-            resource_tenant=resource_tenant,
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def autocomplete_namespaces_with_resource_tenantas_super_admin_without_preload_content(
-        self,
-        resource_tenant: StrictStr,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param resource_tenant: (required)
-        :type resource_tenant: str
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespaces_with_resource_tenantas_super_admin_serialize(
-            resource_tenant=resource_tenant,
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _autocomplete_namespaces_with_resource_tenantas_super_admin_serialize(
-        self,
-        resource_tenant,
-        q,
-        api_ids,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if resource_tenant is not None:
-            _path_params['resourceTenant'] = resource_tenant
-        # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if api_ids is not None:
-            _body_params = api_ids
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/tenants/{resourceTenant}/namespaces/autocomplete',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def autocomplete_namespacesas_super_admin(
-        self,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[str]:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespacesas_super_admin_serialize(
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def autocomplete_namespacesas_super_admin_with_http_info(
-        self,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[str]]:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespacesas_super_admin_serialize(
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def autocomplete_namespacesas_super_admin_without_preload_content(
-        self,
-        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
-        api_ids: Optional[ApiIds] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """List namespaces for autocomplete
-
-        Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-
-        :param q: A string filter
-        :type q: str
-        :param api_ids:
-        :type api_ids: ApiIds
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._autocomplete_namespacesas_super_admin_serialize(
-            q=q,
-            api_ids=api_ids,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _autocomplete_namespacesas_super_admin_serialize(
-        self,
-        q,
-        api_ids,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        # process the query parameters
-        if q is not None:
-            
-            _query_params.append(('q', q))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if api_ids is not None:
-            _body_params = api_ids
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'basicAuth', 
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/api/v1/tenants/namespaces/autocomplete',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2088,7 +1472,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Namespace:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -2158,7 +1542,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Namespace]:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -2228,7 +1612,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -3860,10 +3244,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3876,7 +3260,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsNamespaceWithDisabled:
+    ) -> PagedResultsNamespace:
         """Search for namespaces
 
 
@@ -3884,14 +3268,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3917,10 +3301,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3928,7 +3312,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3946,10 +3330,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3962,7 +3346,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsNamespaceWithDisabled]:
+    ) -> ApiResponse[PagedResultsNamespace]:
         """Search for namespaces
 
 
@@ -3970,14 +3354,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4003,10 +3387,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4014,7 +3398,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4032,10 +3416,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4056,14 +3440,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4089,10 +3473,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4100,7 +3484,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4113,10 +3497,10 @@ class NamespacesApi:
         self,
         page,
         size,
+        existing,
         tenant,
         q,
         sort,
-        existing,
         _request_auth,
         _content_type,
         _headers,

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.base_audit_log import BaseAuditLog
+from kestra_api_client.models.base_audit_log import BaseAuditLog
 
 # TODO update the JSON string below
 json = "{}"

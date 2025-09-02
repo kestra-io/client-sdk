@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.state_type import StateType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,11 +28,11 @@ class ExecutionControllerLastExecutionResponse(BaseModel):
     """
     ExecutionControllerLastExecutionResponse
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
-    namespace: Optional[StrictStr] = None
-    start_date: Optional[datetime] = Field(default=None, alias="startDate")
-    status: Optional[StateType] = None
+    id: StrictStr
+    flow_id: StrictStr = Field(alias="flowId")
+    namespace: StrictStr
+    start_date: datetime = Field(alias="startDate")
+    status: StateType
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "flowId", "namespace", "startDate", "status"]
 

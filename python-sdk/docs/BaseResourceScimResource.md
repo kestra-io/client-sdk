@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.base_resource_scim_resource import BaseResourceScimResource
+from kestra_api_client.models.base_resource_scim_resource import BaseResourceScimResource
 
 # TODO update the JSON string below
 json = "{}"

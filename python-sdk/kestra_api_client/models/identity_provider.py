@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class IdentityProvider(BaseModel):
     """
     IdentityProvider
     """ # noqa: E501
-    attributes: Optional[Dict[str, Dict[str, Any]]] = None
-    external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
-    security_integration_id: Optional[StrictStr] = Field(default=None, alias="securityIntegrationId")
-    security_integration_name: Optional[StrictStr] = Field(default=None, alias="securityIntegrationName")
+    attributes: Dict[str, Dict[str, Any]]
+    external_id: StrictStr = Field(alias="externalId")
+    security_integration_id: StrictStr = Field(alias="securityIntegrationId")
+    security_integration_name: StrictStr = Field(alias="securityIntegrationName")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attributes", "externalId", "securityIntegrationId", "securityIntegrationName"]
 

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.api_autocomplete import ApiAutocomplete
+from kestra_api_client.models.api_autocomplete import ApiAutocomplete
 
 # TODO update the JSON string below
 json = "{}"

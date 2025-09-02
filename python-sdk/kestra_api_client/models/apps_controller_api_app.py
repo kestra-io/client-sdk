@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,15 +27,15 @@ class AppsControllerApiApp(BaseModel):
     """
     AppsControllerApiApp
     """ # noqa: E501
-    uid: Optional[StrictStr] = None
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    type: Optional[StrictStr] = None
-    namespace: Optional[StrictStr] = None
-    tags: Optional[List[StrictStr]] = None
-    enabled: Optional[StrictBool] = None
-    created: Optional[datetime] = None
-    updated: Optional[datetime] = None
+    uid: StrictStr
+    id: StrictStr
+    name: StrictStr
+    type: StrictStr
+    namespace: StrictStr
+    tags: List[StrictStr]
+    enabled: StrictBool
+    created: datetime
+    updated: datetime
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uid", "id", "name", "type", "namespace", "tags", "enabled", "created", "updated"]
 

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.iam_group_controller_api_create_group_request import IAMGroupControllerApiCreateGroupRequest
+from kestra_api_client.models.iam_group_controller_api_create_group_request import IAMGroupControllerApiCreateGroupRequest
 
 # TODO update the JSON string below
 json = "{}"

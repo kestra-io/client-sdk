@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.iam_user_controller_api_patch_super_admin_request import IAMUserControllerApiPatchSuperAdminRequest
+from kestra_api_client.models.iam_user_controller_api_patch_super_admin_request import IAMUserControllerApiPatchSuperAdminRequest
 
 # TODO update the JSON string below
 json = "{}"

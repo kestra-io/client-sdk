@@ -17,9 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestra_api_client.models.permission import Permission
+from kestra_api_client.models.resource_type1 import ResourceType1
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,12 +28,12 @@ class AuditLogDetail(BaseModel):
     """
     AuditLogDetail
     """ # noqa: E501
+    permission: Optional[Permission] = None
+    resource_type: Optional[ResourceType1] = Field(default=None, alias="resourceType")
     type: StrictStr
-    cls: StrictStr
-    permission: Permission
     id: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["type", "cls", "permission", "id"]
+    __properties: ClassVar[List[str]] = ["permission", "resourceType", "type", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,9 +93,9 @@ class AuditLogDetail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "type": obj.get("type"),
-            "cls": obj.get("cls"),
             "permission": obj.get("permission"),
+            "resourceType": obj.get("resourceType"),
+            "type": obj.get("type"),
             "id": obj.get("id")
         })
         # store additional fields in additional_properties

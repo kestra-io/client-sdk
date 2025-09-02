@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.http_parameters import HttpParameters
+from kestra_api_client.models.http_parameters import HttpParameters
 
 # TODO update the JSON string below
 json = "{}"

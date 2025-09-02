@@ -37,11 +37,11 @@ class Namespace(BaseModel):
     allowed_triggers: Optional[List[NamespaceAllowedTrigger]] = Field(default=None, alias="allowedTriggers")
     storage_isolation: Optional[Isolation] = Field(default=None, alias="storageIsolation")
     secret_isolation: Optional[Isolation] = Field(default=None, alias="secretIsolation")
-    description: Optional[StrictStr] = None
-    variables: Optional[Dict[str, Dict[str, Any]]] = None
-    plugin_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="pluginDefaults")
-    allowed_namespaces: Optional[List[NamespaceAllowedNamespace]] = Field(default=None, alias="allowedNamespaces")
-    worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
+    description: StrictStr
+    variables: Dict[str, Dict[str, Any]]
+    plugin_defaults: List[PluginDefault] = Field(alias="pluginDefaults")
+    allowed_namespaces: List[NamespaceAllowedNamespace] = Field(alias="allowedNamespaces")
+    worker_group: WorkerGroup = Field(alias="workerGroup")
     storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
     storage_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="storageConfiguration")
     secret_type: Optional[StrictStr] = Field(default=None, alias="secretType")

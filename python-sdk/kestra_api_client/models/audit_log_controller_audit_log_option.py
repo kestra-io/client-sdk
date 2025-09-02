@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +27,9 @@ class AuditLogControllerAuditLogOption(BaseModel):
     """
     AuditLogControllerAuditLogOption
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    var_date: Optional[datetime] = Field(default=None, alias="date")
-    username: Optional[StrictStr] = None
+    id: StrictStr
+    var_date: datetime = Field(alias="date")
+    username: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "date", "username"]
 

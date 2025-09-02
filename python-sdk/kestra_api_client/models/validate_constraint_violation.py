@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,14 +26,14 @@ class ValidateConstraintViolation(BaseModel):
     """
     ValidateConstraintViolation
     """ # noqa: E501
-    flow: Optional[StrictStr] = None
-    namespace: Optional[StrictStr] = None
+    flow: StrictStr
+    namespace: StrictStr
     index: StrictInt
-    constraints: Optional[StrictStr] = None
-    outdated: Optional[StrictBool] = None
-    deprecation_paths: Optional[List[StrictStr]] = Field(default=None, alias="deprecationPaths")
-    warnings: Optional[List[StrictStr]] = None
-    infos: Optional[List[StrictStr]] = None
+    constraints: StrictStr
+    outdated: StrictBool
+    deprecation_paths: List[StrictStr] = Field(alias="deprecationPaths")
+    warnings: List[StrictStr]
+    infos: List[StrictStr]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["flow", "namespace", "index", "constraints", "outdated", "deprecationPaths", "warnings", "infos"]
 

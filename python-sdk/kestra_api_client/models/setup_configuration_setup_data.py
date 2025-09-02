@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.tenant import Tenant
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,9 @@ class SetupConfigurationSetupData(BaseModel):
     """
     SetupConfigurationSetupData
     """ # noqa: E501
-    username: Optional[StrictStr] = None
-    password: Optional[StrictStr] = None
-    tenant: Optional[Tenant] = None
+    username: StrictStr
+    password: StrictStr
+    tenant: Tenant
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["username", "password", "tenant"]
 

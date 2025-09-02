@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.service_provider_configuration import ServiceProviderConfiguration
+from kestra_api_client.models.service_provider_configuration import ServiceProviderConfiguration
 
 # TODO update the JSON string below
 json = "{}"

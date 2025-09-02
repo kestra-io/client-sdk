@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,8 +28,8 @@ class ExecutionTrigger(BaseModel):
     """ # noqa: E501
     id: StrictStr
     type: StrictStr
-    variables: Optional[Dict[str, Dict[str, Any]]] = None
-    log_file: Optional[StrictStr] = Field(default=None, alias="logFile")
+    variables: Dict[str, Dict[str, Any]]
+    log_file: StrictStr = Field(alias="logFile")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "variables", "logFile"]
 

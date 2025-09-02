@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.daily_execution_statistics_duration import DailyExecutionStatisticsDuration
 from kestra_api_client.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
 from typing import Optional, Set
@@ -31,8 +31,8 @@ class DailyExecutionStatistics(BaseModel):
     """ # noqa: E501
     start_date: datetime = Field(alias="startDate")
     duration: DailyExecutionStatisticsDuration
-    execution_counts: Optional[DailyExecutionStatisticsExecutionCounts] = Field(default=None, alias="executionCounts")
-    group_by: Optional[StrictStr] = Field(default=None, alias="groupBy")
+    execution_counts: DailyExecutionStatisticsExecutionCounts = Field(alias="executionCounts")
+    group_by: StrictStr = Field(alias="groupBy")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["startDate", "duration", "executionCounts", "groupBy"]
 

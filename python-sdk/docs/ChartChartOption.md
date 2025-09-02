@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.chart_chart_option import ChartChartOption
+from kestra_api_client.models.chart_chart_option import ChartChartOption
 
 # TODO update the JSON string below
 json = "{}"

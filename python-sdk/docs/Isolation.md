@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.isolation import Isolation
+from kestra_api_client.models.isolation import Isolation
 
 # TODO update the JSON string below
 json = "{}"

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.flow_for_execution_all_of_labels import FlowForExecutionAllOfLabels
+from kestra_api_client.models.flow_for_execution_all_of_labels import FlowForExecutionAllOfLabels
 
 # TODO update the JSON string below
 json = "{}"

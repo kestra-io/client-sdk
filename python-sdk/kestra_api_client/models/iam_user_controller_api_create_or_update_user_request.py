@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,14 +26,14 @@ class IAMUserControllerApiCreateOrUpdateUserRequest(BaseModel):
     """
     IAMUserControllerApiCreateOrUpdateUserRequest
     """ # noqa: E501
-    tenants: Optional[List[StrictStr]] = None
-    groups: Optional[List[StrictStr]] = None
-    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
-    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    tenants: List[StrictStr]
+    groups: List[StrictStr]
+    first_name: StrictStr = Field(alias="firstName")
+    last_name: StrictStr = Field(alias="lastName")
     email: StrictStr
-    password: Optional[StrictStr] = None
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
-    restricted: Optional[StrictBool] = None
+    password: StrictStr
+    super_admin: StrictBool = Field(alias="superAdmin")
+    restricted: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tenants", "groups", "firstName", "lastName", "email", "password", "superAdmin", "restricted"]
 

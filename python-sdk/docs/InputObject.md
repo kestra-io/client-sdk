@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestrapy.models.input_object import InputObject
+from kestra_api_client.models.input_object import InputObject
 
 # TODO update the JSON string below
 json = "{}"

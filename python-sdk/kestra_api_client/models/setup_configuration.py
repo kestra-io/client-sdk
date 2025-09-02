@@ -26,12 +26,12 @@ class SetupConfiguration(BaseModel):
     """
     SetupConfiguration
     """ # noqa: E501
-    done: Optional[StrictBool] = None
+    done: StrictBool
     repository_type: Optional[StrictStr] = Field(default=None, alias="repositoryType")
     queue_type: Optional[StrictStr] = Field(default=None, alias="queueType")
     storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
     secret_type: Optional[StrictStr] = Field(default=None, alias="secretType")
-    password_regexp: Optional[StrictStr] = Field(default=None, alias="passwordRegexp")
+    password_regexp: StrictStr = Field(alias="passwordRegexp")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["done", "repositoryType", "queueType", "storageType", "secretType", "passwordRegexp"]
 
