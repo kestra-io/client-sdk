@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**description** | **str** |  | 
 
 ## Example
 

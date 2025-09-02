@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.assertion_result import AssertionResult
 from kestrapy.models.assertion_run_error import AssertionRunError
 from kestrapy.models.fixtures import Fixtures
@@ -32,12 +32,12 @@ class UnitTestResult(BaseModel):
     """ # noqa: E501
     test_id: StrictStr = Field(alias="testId")
     test_type: StrictStr = Field(alias="testType")
-    execution_id: Optional[StrictStr] = Field(default=None, alias="executionId")
-    url: Optional[StrictStr] = None
+    execution_id: StrictStr = Field(alias="executionId")
+    url: StrictStr
     state: TestState
     assertion_results: List[AssertionResult] = Field(alias="assertionResults")
     errors: List[AssertionRunError]
-    fixtures: Optional[Fixtures] = None
+    fixtures: Fixtures
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["testId", "testType", "executionId", "url", "state", "assertionResults", "errors", "fixtures"]
 

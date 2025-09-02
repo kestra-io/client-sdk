@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**group_ids** | **List[str]** |  | [optional] 
+**group_ids** | **List[str]** |  | 
 
 ## Example
 

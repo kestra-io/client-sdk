@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
+**id** | **str** |  | 
 **title** | **str** |  | 
-**description** | **str** |  | [optional] 
-**tags** | **List[str]** |  | [optional] 
-**included_tasks** | **List[str]** |  | [optional] 
-**published_at** | **datetime** |  | [optional] 
+**description** | **str** |  | 
+**tags** | **List[str]** |  | 
+**included_tasks** | **List[str]** |  | 
+**published_at** | **datetime** |  | 
 **deleted** | **bool** |  | 
 **flow** | **str** |  | 
 

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.iam_tenant_access_controller_api_group import IAMTenantAccessControllerApiGroup
 from kestrapy.models.iam_tenant_access_controller_api_role_assignment import IAMTenantAccessControllerApiRoleAssignment
 from typing import Optional, Set
@@ -28,13 +28,13 @@ class IAMTenantAccessControllerApiTenantAccess(BaseModel):
     """
     IAMTenantAccessControllerApiTenantAccess
     """ # noqa: E501
-    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
-    user_id: Optional[StrictStr] = Field(default=None, alias="userId")
-    username: Optional[StrictStr] = None
-    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
-    groups: Optional[List[IAMTenantAccessControllerApiGroup]] = None
-    roles: Optional[List[IAMTenantAccessControllerApiRoleAssignment]] = None
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
+    tenant_id: StrictStr = Field(alias="tenantId")
+    user_id: StrictStr = Field(alias="userId")
+    username: StrictStr
+    display_name: StrictStr = Field(alias="displayName")
+    groups: List[IAMTenantAccessControllerApiGroup]
+    roles: List[IAMTenantAccessControllerApiRoleAssignment]
+    super_admin: StrictBool = Field(alias="superAdmin")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tenantId", "userId", "username", "displayName", "groups", "roles", "superAdmin"]
 

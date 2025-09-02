@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class IAMTenantAccessControllerApiGroup(BaseModel):
     """
     IAMTenantAccessControllerApiGroup
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    external: Optional[StrictBool] = None
+    id: StrictStr
+    name: StrictStr
+    external: StrictBool
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "external"]
 

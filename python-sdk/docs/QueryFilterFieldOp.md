@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**value** | **str** |  | [optional] 
-**operations** | [**List[QueryFilterOperation]**](QueryFilterOperation.md) |  | [optional] 
+**name** | **str** |  | 
+**value** | **str** |  | 
+**operations** | [**List[QueryFilterOperation]**](QueryFilterOperation.md) |  | 
 
 ## Example
 

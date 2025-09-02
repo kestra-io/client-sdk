@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**initial** | **int** |  | [optional] 
-**max** | **int** |  | [optional] 
+**initial** | **int** |  | 
+**max** | **int** |  | 
 
 ## Example
 

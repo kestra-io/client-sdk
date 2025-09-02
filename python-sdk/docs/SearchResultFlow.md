@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | [**Flow**](Flow.md) |  | [optional] 
-**fragments** | **List[str]** |  | [optional] 
+**model** | [**Flow**](Flow.md) |  | 
+**fragments** | **List[str]** |  | 
 
 ## Example
 

@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**permission** | [**Permission**](Permission.md) |  | [optional] 
+**resource_type** | [**ResourceType1**](ResourceType1.md) |  | [optional] 
 **type** | **str** |  | 
-**cls** | **str** |  | 
-**permission** | [**Permission**](Permission.md) |  | 
 **id** | **str** |  | [optional] 
 
 ## Example

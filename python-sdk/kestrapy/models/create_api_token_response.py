@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class CreateApiTokenResponse(BaseModel):
     """
     CreateApiTokenResponse
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    full_token: Optional[StrictStr] = Field(default=None, alias="fullToken")
+    id: StrictStr
+    name: StrictStr
+    full_token: StrictStr = Field(alias="fullToken")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "fullToken"]
 

@@ -13,7 +13,9 @@ Method | HTTP request | Description
 [**get_test_suite**](TestSuitesApi.md#get_test_suite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
 [**get_tests_last_result**](TestSuitesApi.md#get_tests_last_result) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 [**run_test_suite**](TestSuitesApi.md#run_test_suite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+[**run_test_suites_by_query**](TestSuitesApi.md#run_test_suites_by_query) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
 [**search_test_suites**](TestSuitesApi.md#search_test_suites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
+[**search_test_suites_results**](TestSuitesApi.md#search_test_suites_results) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results
 [**update_test_suite**](TestSuitesApi.md#update_test_suite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 [**validate_test_suite**](TestSuitesApi.md#validate_test_suite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
 
@@ -586,7 +588,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **run_test_suite**
-> List[TestSuiteRunResult] run_test_suite(namespace, id, tenant)
+> TestSuiteRunResult run_test_suite(namespace, id, tenant, test_suite_controller_run_request=test_suite_controller_run_request)
 
 Run a full test
 
@@ -597,6 +599,7 @@ Executes all test cases in the specified test. Requires TEST permission with the
 
 ```python
 import kestrapy
+from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult
 from kestrapy.rest import ApiException
 from pprint import pprint
@@ -615,10 +618,11 @@ with kestrapy.ApiClient(configuration) as api_client:
     namespace = 'namespace_example' # str | The TestSuite namespace
     id = 'id_example' # str | The TestSuite ID
     tenant = 'tenant_example' # str | 
+    test_suite_controller_run_request = kestrapy.TestSuiteControllerRunRequest() # TestSuiteControllerRunRequest |  (optional)
 
     try:
         # Run a full test
-        api_response = api_instance.run_test_suite(namespace, id, tenant)
+        api_response = api_instance.run_test_suite(namespace, id, tenant, test_suite_controller_run_request=test_suite_controller_run_request)
         print("The response of TestSuitesApi->run_test_suite:\n")
         pprint(api_response)
     except Exception as e:
@@ -635,10 +639,11 @@ Name | Type | Description  | Notes
  **namespace** | **str**| The TestSuite namespace | 
  **id** | **str**| The TestSuite ID | 
  **tenant** | **str**|  | 
+ **test_suite_controller_run_request** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md)|  | [optional] 
 
 ### Return type
 
-[**List[TestSuiteRunResult]**](TestSuiteRunResult.md)
+[**TestSuiteRunResult**](TestSuiteRunResult.md)
 
 ### Authorization
 
@@ -646,7 +651,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -657,8 +662,79 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **run_test_suites_by_query**
+> TestSuiteServiceTestRunByQueryResult run_test_suites_by_query(tenant, test_suite_service_run_by_query_request)
+
+Run multiple TestSuites by query
+
+Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
+from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.TestSuitesApi(api_client)
+    tenant = 'tenant_example' # str | 
+    test_suite_service_run_by_query_request = kestrapy.TestSuiteServiceRunByQueryRequest() # TestSuiteServiceRunByQueryRequest | 
+
+    try:
+        # Run multiple TestSuites by query
+        api_response = api_instance.run_test_suites_by_query(tenant, test_suite_service_run_by_query_request)
+        print("The response of TestSuitesApi->run_test_suites_by_query:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TestSuitesApi->run_test_suites_by_query: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **str**|  | 
+ **test_suite_service_run_by_query_request** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md)|  | 
+
+### Return type
+
+[**TestSuiteServiceTestRunByQueryResult**](TestSuiteServiceTestRunByQueryResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | runTestSuitesByQuery 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **search_test_suites**
-> PagedResultsTestSuite search_test_suites(page, size, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
+> PagedResultsTestSuite search_test_suites(page, size, include_child_namespaces, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
 
 Search for tests
 
@@ -686,6 +762,7 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.TestSuitesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
+    include_child_namespaces = True # bool | Include child namespaces in filter or not (default to True)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
     namespace = 'namespace_example' # str | The namespace to filter on (optional)
@@ -693,7 +770,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for tests
-        api_response = api_instance.search_test_suites(page, size, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
+        api_response = api_instance.search_test_suites(page, size, include_child_namespaces, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
         print("The response of TestSuitesApi->search_test_suites:\n")
         pprint(api_response)
     except Exception as e:
@@ -709,6 +786,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int**| The current page | [default to 1]
  **size** | **int**| The current page size | [default to 10]
+ **include_child_namespaces** | **bool**| Include child namespaces in filter or not | [default to True]
  **tenant** | **str**|  | 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
  **namespace** | **str**| The namespace to filter on | [optional] 
@@ -732,6 +810,86 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | searchTestSuites 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **search_test_suites_results**
+> PagedResultsTestSuiteRunResult search_test_suites_results(page, size, test_suite_id, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
+
+Search for tests results
+
+with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.TestSuitesApi(api_client)
+    page = 1 # int | The current page (default to 1)
+    size = 10 # int | The current page size (default to 10)
+    test_suite_id = 'test_suite_id_example' # str | The test suite id to filter on
+    tenant = 'tenant_example' # str | 
+    sort = ['sort_example'] # List[str] | The sort of current page (optional)
+    namespace = 'namespace_example' # str | The namespace to filter on (optional)
+    flow_id = 'flow_id_example' # str | The flow id to filter on (optional)
+
+    try:
+        # Search for tests results
+        api_response = api_instance.search_test_suites_results(page, size, test_suite_id, tenant, sort=sort, namespace=namespace, flow_id=flow_id)
+        print("The response of TestSuitesApi->search_test_suites_results:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TestSuitesApi->search_test_suites_results: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int**| The current page | [default to 1]
+ **size** | **int**| The current page size | [default to 10]
+ **test_suite_id** | **str**| The test suite id to filter on | 
+ **tenant** | **str**|  | 
+ **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
+ **namespace** | **str**| The namespace to filter on | [optional] 
+ **flow_id** | **str**| The flow id to filter on | [optional] 
+
+### Return type
+
+[**PagedResultsTestSuiteRunResult**](PagedResultsTestSuiteRunResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | searchTestSuitesResults 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | 
-**forced** | **bool** |  | [optional] 
-**values** | **Dict[str, object]** |  | [optional] 
+**forced** | **bool** |  | 
+**values** | **Dict[str, object]** |  | 
 
 ## Example
 

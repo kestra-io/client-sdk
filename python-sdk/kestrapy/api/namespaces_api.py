@@ -25,7 +25,7 @@ from kestrapy.models.api_secret_meta import ApiSecretMeta
 from kestrapy.models.api_secret_meta_ee import ApiSecretMetaEE
 from kestrapy.models.api_secret_value import ApiSecretValue
 from kestrapy.models.namespace import Namespace
-from kestrapy.models.paged_results_namespace_with_disabled import PagedResultsNamespaceWithDisabled
+from kestrapy.models.paged_results_namespace import PagedResultsNamespace
 from kestrapy.models.plugin_default import PluginDefault
 from kestrapy.models.query_filter import QueryFilter
 
@@ -1472,7 +1472,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Namespace:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -1542,7 +1542,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Namespace]:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -1612,7 +1612,7 @@ class NamespacesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieve namespace details
+        """Get a namespace
 
 
         :param id: The namespace id (required)
@@ -3244,10 +3244,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3260,7 +3260,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PagedResultsNamespaceWithDisabled:
+    ) -> PagedResultsNamespace:
         """Search for namespaces
 
 
@@ -3268,14 +3268,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3301,10 +3301,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3312,7 +3312,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3330,10 +3330,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3346,7 +3346,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PagedResultsNamespaceWithDisabled]:
+    ) -> ApiResponse[PagedResultsNamespace]:
         """Search for namespaces
 
 
@@ -3354,14 +3354,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3387,10 +3387,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3398,7 +3398,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3416,10 +3416,10 @@ class NamespacesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        existing: Annotated[StrictBool, Field(description="Return only existing namespace")],
         tenant: StrictStr,
         q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
-        existing: Annotated[Optional[StrictBool], Field(description="Return only existing namespace")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3440,14 +3440,14 @@ class NamespacesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param existing: Return only existing namespace (required)
+        :type existing: bool
         :param tenant: (required)
         :type tenant: str
         :param q: A string filter
         :type q: str
         :param sort: The sort of current page
         :type sort: List[str]
-        :param existing: Return only existing namespace
-        :type existing: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3473,10 +3473,10 @@ class NamespacesApi:
         _param = self._search_namespaces_serialize(
             page=page,
             size=size,
+            existing=existing,
             tenant=tenant,
             q=q,
             sort=sort,
-            existing=existing,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3484,7 +3484,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PagedResultsNamespaceWithDisabled",
+            '200': "PagedResultsNamespace",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3497,10 +3497,10 @@ class NamespacesApi:
         self,
         page,
         size,
+        existing,
         tenant,
         q,
         sort,
-        existing,
         _request_auth,
         _content_type,
         _headers,

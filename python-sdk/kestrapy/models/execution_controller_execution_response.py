@@ -35,27 +35,27 @@ class ExecutionControllerExecutionResponse(BaseModel):
     """
     ExecutionControllerExecutionResponse
     """ # noqa: E501
-    labels: Optional[List[Label]] = None
+    labels: List[Label]
     id: StrictStr
     namespace: StrictStr
     flow_id: StrictStr = Field(alias="flowId")
     flow_revision: StrictInt = Field(alias="flowRevision")
-    task_run_list: Optional[List[TaskRun]] = Field(default=None, alias="taskRunList")
-    inputs: Optional[Dict[str, Dict[str, Any]]] = None
-    outputs: Optional[Dict[str, Dict[str, Any]]] = None
-    variables: Optional[Dict[str, Dict[str, Any]]] = None
+    task_run_list: List[TaskRun] = Field(alias="taskRunList")
+    inputs: Dict[str, Dict[str, Any]]
+    outputs: Dict[str, Dict[str, Any]]
+    variables: Dict[str, Dict[str, Any]]
     state: State
-    parent_id: Optional[StrictStr] = Field(default=None, alias="parentId")
-    original_id: Optional[StrictStr] = Field(default=None, alias="originalId")
-    trigger: Optional[ExecutionTrigger] = None
+    parent_id: StrictStr = Field(alias="parentId")
+    original_id: StrictStr = Field(alias="originalId")
+    trigger: ExecutionTrigger
     deleted: StrictBool
-    metadata: Optional[ExecutionMetadata] = None
+    metadata: ExecutionMetadata
     schedule_date: Optional[datetime] = Field(default=None, alias="scheduleDate")
-    trace_parent: Optional[StrictStr] = Field(default=None, alias="traceParent")
+    trace_parent: StrictStr = Field(alias="traceParent")
     fixtures: Optional[List[TaskFixture]] = None
     kind: Optional[ExecutionKind] = None
     breakpoints: Optional[List[Breakpoint]] = None
-    url: Optional[StrictStr] = None
+    url: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["labels", "id", "namespace", "flowId", "flowRevision", "taskRunList", "inputs", "outputs", "variables", "state", "parentId", "originalId", "trigger", "deleted", "metadata", "scheduleDate", "traceParent", "fixtures", "kind", "breakpoints", "url"]
 

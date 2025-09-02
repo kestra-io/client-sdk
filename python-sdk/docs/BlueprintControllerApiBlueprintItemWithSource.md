@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**title** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
-**included_tasks** | **List[str]** |  | [optional] 
-**tags** | **List[str]** |  | [optional] 
-**published_at** | **datetime** |  | [optional] 
+**id** | **str** |  | 
+**title** | **str** |  | 
+**description** | **str** |  | 
+**included_tasks** | **List[str]** |  | 
+**tags** | **List[str]** |  | 
+**published_at** | **datetime** |  | 
 **source** | **str** |  | [optional] 
 **kind** | [**BlueprintControllerKind**](BlueprintControllerKind.md) |  | [optional] 
 

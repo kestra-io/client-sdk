@@ -49,12 +49,13 @@ class Plugin(BaseModel):
     app_blocks: Optional[List[PluginPluginElementMetadata]] = Field(default=None, alias="appBlocks")
     charts: Optional[List[PluginPluginElementMetadata]] = None
     data_filters: Optional[List[PluginPluginElementMetadata]] = Field(default=None, alias="dataFilters")
+    data_filters_kpi: Optional[List[PluginPluginElementMetadata]] = Field(default=None, alias="dataFiltersKPI")
     log_exporters: Optional[List[PluginPluginElementMetadata]] = Field(default=None, alias="logExporters")
     additional_plugins: Optional[List[PluginPluginElementMetadata]] = Field(default=None, alias="additionalPlugins")
     categories: Optional[List[PluginSubGroupPluginCategory]] = None
     sub_group: Optional[StrictStr] = Field(default=None, alias="subGroup")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["name", "title", "description", "license", "longDescription", "group", "version", "manifest", "guides", "aliases", "tasks", "triggers", "conditions", "controllers", "storages", "secrets", "taskRunners", "apps", "appBlocks", "charts", "dataFilters", "logExporters", "additionalPlugins", "categories", "subGroup"]
+    __properties: ClassVar[List[str]] = ["name", "title", "description", "license", "longDescription", "group", "version", "manifest", "guides", "aliases", "tasks", "triggers", "conditions", "controllers", "storages", "secrets", "taskRunners", "apps", "appBlocks", "charts", "dataFilters", "dataFiltersKPI", "logExporters", "additionalPlugins", "categories", "subGroup"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -174,6 +175,13 @@ class Plugin(BaseModel):
                 if _item_data_filters:
                     _items.append(_item_data_filters.to_dict())
             _dict['dataFilters'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in data_filters_kpi (list)
+        _items = []
+        if self.data_filters_kpi:
+            for _item_data_filters_kpi in self.data_filters_kpi:
+                if _item_data_filters_kpi:
+                    _items.append(_item_data_filters_kpi.to_dict())
+            _dict['dataFiltersKPI'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in log_exporters (list)
         _items = []
         if self.log_exporters:
@@ -226,6 +234,7 @@ class Plugin(BaseModel):
             "appBlocks": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["appBlocks"]] if obj.get("appBlocks") is not None else None,
             "charts": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["charts"]] if obj.get("charts") is not None else None,
             "dataFilters": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["dataFilters"]] if obj.get("dataFilters") is not None else None,
+            "dataFiltersKPI": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["dataFiltersKPI"]] if obj.get("dataFiltersKPI") is not None else None,
             "logExporters": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["logExporters"]] if obj.get("logExporters") is not None else None,
             "additionalPlugins": [PluginPluginElementMetadata.from_dict(_item) for _item in obj["additionalPlugins"]] if obj.get("additionalPlugins") is not None else None,
             "categories": obj.get("categories"),

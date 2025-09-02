@@ -263,7 +263,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_usages**
-> Usage get_usages(tenant)
+> UsageEE get_usages(tenant)
 
 Retrieve instance usage information
 
@@ -274,7 +274,7 @@ Retrieve instance usage information
 
 ```python
 import kestrapy
-from kestrapy.models.usage import Usage
+from kestrapy.models.usage_ee import UsageEE
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Usage**](Usage.md)
+[**UsageEE**](UsageEE.md)
 
 ### Authorization
 

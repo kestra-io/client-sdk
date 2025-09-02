@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
-**namespaces** | **List[str]** |  | [optional] 
+**namespaces** | **List[str]** |  | 
 
 ## Example
 

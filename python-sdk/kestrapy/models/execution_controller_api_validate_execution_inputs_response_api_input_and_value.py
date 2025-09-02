@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.execution_controller_api_validate_execution_inputs_response_api_input_error import ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 from kestrapy.models.input_object import InputObject
 from typing import Optional, Set
@@ -28,12 +28,13 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(Base
     """
     ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
     """ # noqa: E501
-    input: Optional[InputObject] = None
-    value: Optional[Dict[str, Any]] = None
-    enabled: Optional[StrictBool] = None
-    errors: Optional[List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]] = None
+    input: InputObject
+    value: Dict[str, Any]
+    enabled: StrictBool
+    is_default: StrictBool = Field(alias="isDefault")
+    errors: List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["input", "value", "enabled", "errors"]
+    __properties: ClassVar[List[str]] = ["input", "value", "enabled", "isDefault", "errors"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,6 +107,7 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(Base
             "input": InputObject.from_dict(obj["input"]) if obj.get("input") is not None else None,
             "value": obj.get("value"),
             "enabled": obj.get("enabled"),
+            "isDefault": obj.get("isDefault"),
             "errors": [ExecutionControllerApiValidateExecutionInputsResponseApiInputError.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None
         })
         # store additional fields in additional_properties

@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**source** | **str** |  | [optional] 
-**target** | **str** |  | [optional] 
-**relation** | [**FlowRelation**](FlowRelation.md) |  | [optional] 
+**source** | **str** |  | 
+**target** | **str** |  | 
+**relation** | [**FlowRelation**](FlowRelation.md) |  | 
 
 ## Example
 

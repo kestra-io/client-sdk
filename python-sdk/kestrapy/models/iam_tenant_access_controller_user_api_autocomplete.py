@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,9 +28,10 @@ class IAMTenantAccessControllerUserApiAutocomplete(BaseModel):
     """ # noqa: E501
     q: Optional[StrictStr] = None
     ids: Optional[List[StrictStr]] = None
+    existing_only: Optional[StrictBool] = Field(default=None, alias="existingOnly")
     username: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["q", "ids", "username"]
+    __properties: ClassVar[List[str]] = ["q", "ids", "existingOnly", "username"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,6 +108,7 @@ class IAMTenantAccessControllerUserApiAutocomplete(BaseModel):
         _obj = cls.model_validate({
             "q": obj.get("q"),
             "ids": obj.get("ids"),
+            "existingOnly": obj.get("existingOnly"),
             "username": obj.get("username")
         })
         # store additional fields in additional_properties

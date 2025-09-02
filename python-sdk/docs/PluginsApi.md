@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**get_versioned_plugin_details_from_version**](PluginsApi.md#get_versioned_plugin_details_from_version) | **GET** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
 [**install_versioned_plugins**](PluginsApi.md#install_versioned_plugins) | **POST** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
 [**list_available_versioned_plugins**](PluginsApi.md#list_available_versioned_plugins) | **GET** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
+[**list_available_versioned_plugins_for_secret_manager**](PluginsApi.md#list_available_versioned_plugins_for_secret_manager) | **GET** /api/v1/instance/versioned-plugins/available/secrets-managers | List available plugin artifacts for Kestra Secret Manager
+[**list_available_versioned_plugins_for_storage**](PluginsApi.md#list_available_versioned_plugins_for_storage) | **GET** /api/v1/instance/versioned-plugins/available/storages | List available plugin artifacts for Kestra Internal Storage
 [**list_plugins**](PluginsApi.md#list_plugins) | **GET** /api/v1/plugins | Get list of plugins
 [**list_versioned_plugin**](PluginsApi.md#list_versioned_plugin) | **GET** /api/v1/instance/versioned-plugins | List installed plugin artifacts
 [**resolve_versioned_plugins**](PluginsApi.md#resolve_versioned_plugins) | **POST** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
@@ -1193,6 +1195,166 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | listAvailableVersionedPlugins 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_available_versioned_plugins_for_secret_manager**
+> object list_available_versioned_plugins_for_secret_manager()
+
+List available plugin artifacts for Kestra Secret Manager
+
+Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.PluginsApi(api_client)
+
+    try:
+        # List available plugin artifacts for Kestra Secret Manager
+        api_response = api_instance.list_available_versioned_plugins_for_secret_manager()
+        print("The response of PluginsApi->list_available_versioned_plugins_for_secret_manager:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PluginsApi->list_available_versioned_plugins_for_secret_manager: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | listAvailableVersionedPluginsForSecretManager 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_available_versioned_plugins_for_storage**
+> object list_available_versioned_plugins_for_storage()
+
+List available plugin artifacts for Kestra Internal Storage
+
+Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer (Bearer) Authentication (bearerAuth):
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = kestrapy.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = kestrapy.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization (Bearer): bearerAuth
+configuration = kestrapy.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = kestrapy.PluginsApi(api_client)
+
+    try:
+        # List available plugin artifacts for Kestra Internal Storage
+        api_response = api_instance.list_available_versioned_plugins_for_storage()
+        print("The response of PluginsApi->list_available_versioned_plugins_for_storage:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PluginsApi->list_available_versioned_plugins_for_storage: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | listAvailableVersionedPluginsForStorage 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -11,11 +11,11 @@ Name | Type | Description | Notes
 **allowed_triggers** | [**List[NamespaceAllowedTrigger]**](NamespaceAllowedTrigger.md) |  | [optional] 
 **storage_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **secret_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
-**description** | **str** |  | [optional] 
-**variables** | **Dict[str, object]** |  | [optional] 
-**plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | [optional] 
-**allowed_namespaces** | [**List[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | [optional] 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**description** | **str** |  | 
+**variables** | **Dict[str, object]** |  | 
+**plugin_defaults** | [**List[PluginDefault]**](PluginDefault.md) |  | 
+**allowed_namespaces** | [**List[NamespaceAllowedNamespace]**](NamespaceAllowedNamespace.md) |  | 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | 
 **storage_type** | **str** |  | [optional] 
 **storage_configuration** | **Dict[str, object]** |  | [optional] 
 **secret_type** | **str** |  | [optional] 

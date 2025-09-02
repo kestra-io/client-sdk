@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
-**full_token** | **str** |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**full_token** | **str** |  | 
 
 ## Example
 

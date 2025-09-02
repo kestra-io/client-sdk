@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
+**id** | **str** |  | 
 **type** | [**BindingType**](BindingType.md) |  | 
 **external_id** | **str** |  | 
 **role_id** | **str** |  | 
-**namespace_id** | **str** |  | [optional] 
+**namespace_id** | **str** |  | 
 **deleted** | **bool** |  | 
 
 ## Example

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **namespace** | **str** |  | 
 **revision** | **int** |  | [optional] 
+**description** | **str** |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**List[Output]**](Output.md) |  | [optional] 
 **disabled** | **bool** |  | 

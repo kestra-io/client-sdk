@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenant_id** | **str** |  | [optional] 
-**user_id** | **str** |  | [optional] 
-**username** | **str** |  | [optional] 
-**display_name** | **str** |  | [optional] 
-**groups** | [**List[IAMTenantAccessControllerApiGroup]**](IAMTenantAccessControllerApiGroup.md) |  | [optional] 
-**roles** | [**List[IAMTenantAccessControllerApiRoleAssignment]**](IAMTenantAccessControllerApiRoleAssignment.md) |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**tenant_id** | **str** |  | 
+**user_id** | **str** |  | 
+**username** | **str** |  | 
+**display_name** | **str** |  | 
+**groups** | [**List[IAMTenantAccessControllerApiGroup]**](IAMTenantAccessControllerApiGroup.md) |  | 
+**roles** | [**List[IAMTenantAccessControllerApiRoleAssignment]**](IAMTenantAccessControllerApiRoleAssignment.md) |  | 
+**super_admin** | **bool** |  | 
 
 ## Example
 

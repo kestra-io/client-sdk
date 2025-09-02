@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total** | **int** |  | [optional] 
-**results** | **List[object]** |  | [optional] 
+**total** | **int** |  | 
+**results** | **List[object]** |  | 
 
 ## Example
 

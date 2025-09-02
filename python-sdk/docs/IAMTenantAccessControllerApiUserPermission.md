@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permission** | [**Permission**](Permission.md) |  | [optional] 
-**actions** | [**List[Action]**](Action.md) |  | [optional] 
+**permission** | [**Permission**](Permission.md) |  | 
+**actions** | [**List[Action]**](Action.md) |  | 
 
 ## Example
 

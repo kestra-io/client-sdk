@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.iam_user_controller_api_tenant import IAMUserControllerApiTenant
 from kestrapy.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth
 from typing import Optional, Set
@@ -28,12 +28,12 @@ class IAMUserControllerApiUserSummary(BaseModel):
     """
     IAMUserControllerApiUserSummary
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    username: Optional[StrictStr] = None
-    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
-    tenants: Optional[List[IAMUserControllerApiTenant]] = None
-    auths: Optional[List[IAMUserControllerApiUserAuth]] = None
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
+    id: StrictStr
+    username: StrictStr
+    display_name: StrictStr = Field(alias="displayName")
+    tenants: List[IAMUserControllerApiTenant]
+    auths: List[IAMUserControllerApiUserAuth]
+    super_admin: StrictBool = Field(alias="superAdmin")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "username", "displayName", "tenants", "auths", "superAdmin"]
 

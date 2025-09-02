@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenants** | **List[str]** |  | [optional] 
-**groups** | **List[str]** |  | [optional] 
-**first_name** | **str** |  | [optional] 
-**last_name** | **str** |  | [optional] 
+**tenants** | **List[str]** |  | 
+**groups** | **List[str]** |  | 
+**first_name** | **str** |  | 
+**last_name** | **str** |  | 
 **email** | **str** |  | 
-**password** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
-**restricted** | **bool** |  | [optional] 
+**password** | **str** |  | 
+**super_admin** | **bool** |  | 
+**restricted** | **bool** |  | 
 
 ## Example
 

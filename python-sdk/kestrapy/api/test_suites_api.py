@@ -16,16 +16,20 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictBool, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite
+from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
 from kestrapy.models.test_suite import TestSuite
+from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest
 from kestrapy.models.test_suite_controller_search_tests_last_result import TestSuiteControllerSearchTestsLastResult
 from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
 from kestrapy.models.test_suite_controller_tests_last_result_response import TestSuiteControllerTestsLastResultResponse
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult
+from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
+from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -2347,6 +2351,7 @@ class TestSuitesApi:
         namespace: Annotated[StrictStr, Field(description="The TestSuite namespace")],
         id: Annotated[StrictStr, Field(description="The TestSuite ID")],
         tenant: StrictStr,
+        test_suite_controller_run_request: Optional[TestSuiteControllerRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2359,7 +2364,7 @@ class TestSuitesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[TestSuiteRunResult]:
+    ) -> TestSuiteRunResult:
         """Run a full test
 
         Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
@@ -2370,6 +2375,8 @@ class TestSuitesApi:
         :type id: str
         :param tenant: (required)
         :type tenant: str
+        :param test_suite_controller_run_request:
+        :type test_suite_controller_run_request: TestSuiteControllerRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2396,6 +2403,7 @@ class TestSuitesApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            test_suite_controller_run_request=test_suite_controller_run_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2403,7 +2411,7 @@ class TestSuitesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[TestSuiteRunResult]",
+            '200': "TestSuiteRunResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2422,6 +2430,7 @@ class TestSuitesApi:
         namespace: Annotated[StrictStr, Field(description="The TestSuite namespace")],
         id: Annotated[StrictStr, Field(description="The TestSuite ID")],
         tenant: StrictStr,
+        test_suite_controller_run_request: Optional[TestSuiteControllerRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2434,7 +2443,7 @@ class TestSuitesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[TestSuiteRunResult]]:
+    ) -> ApiResponse[TestSuiteRunResult]:
         """Run a full test
 
         Executes all test cases in the specified test. Requires TEST permission with the CREATE action.
@@ -2445,6 +2454,8 @@ class TestSuitesApi:
         :type id: str
         :param tenant: (required)
         :type tenant: str
+        :param test_suite_controller_run_request:
+        :type test_suite_controller_run_request: TestSuiteControllerRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2471,6 +2482,7 @@ class TestSuitesApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            test_suite_controller_run_request=test_suite_controller_run_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2478,7 +2490,7 @@ class TestSuitesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[TestSuiteRunResult]",
+            '200': "TestSuiteRunResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2497,6 +2509,7 @@ class TestSuitesApi:
         namespace: Annotated[StrictStr, Field(description="The TestSuite namespace")],
         id: Annotated[StrictStr, Field(description="The TestSuite ID")],
         tenant: StrictStr,
+        test_suite_controller_run_request: Optional[TestSuiteControllerRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2520,6 +2533,8 @@ class TestSuitesApi:
         :type id: str
         :param tenant: (required)
         :type tenant: str
+        :param test_suite_controller_run_request:
+        :type test_suite_controller_run_request: TestSuiteControllerRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2546,6 +2561,7 @@ class TestSuitesApi:
             namespace=namespace,
             id=id,
             tenant=tenant,
+            test_suite_controller_run_request=test_suite_controller_run_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2553,7 +2569,7 @@ class TestSuitesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[TestSuiteRunResult]",
+            '200': "TestSuiteRunResult",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2567,6 +2583,7 @@ class TestSuitesApi:
         namespace,
         id,
         tenant,
+        test_suite_controller_run_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2598,6 +2615,8 @@ class TestSuitesApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if test_suite_controller_run_request is not None:
+            _body_params = test_suite_controller_run_request
 
 
         # set the HTTP header `Accept`
@@ -2608,6 +2627,19 @@ class TestSuitesApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
@@ -2632,10 +2664,299 @@ class TestSuitesApi:
 
 
     @validate_call
+    def run_test_suites_by_query(
+        self,
+        tenant: StrictStr,
+        test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> TestSuiteServiceTestRunByQueryResult:
+        """Run multiple TestSuites by query
+
+        Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+        :param tenant: (required)
+        :type tenant: str
+        :param test_suite_service_run_by_query_request: (required)
+        :type test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._run_test_suites_by_query_serialize(
+            tenant=tenant,
+            test_suite_service_run_by_query_request=test_suite_service_run_by_query_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "TestSuiteServiceTestRunByQueryResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def run_test_suites_by_query_with_http_info(
+        self,
+        tenant: StrictStr,
+        test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[TestSuiteServiceTestRunByQueryResult]:
+        """Run multiple TestSuites by query
+
+        Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+        :param tenant: (required)
+        :type tenant: str
+        :param test_suite_service_run_by_query_request: (required)
+        :type test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._run_test_suites_by_query_serialize(
+            tenant=tenant,
+            test_suite_service_run_by_query_request=test_suite_service_run_by_query_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "TestSuiteServiceTestRunByQueryResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def run_test_suites_by_query_without_preload_content(
+        self,
+        tenant: StrictStr,
+        test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Run multiple TestSuites by query
+
+        Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+        :param tenant: (required)
+        :type tenant: str
+        :param test_suite_service_run_by_query_request: (required)
+        :type test_suite_service_run_by_query_request: TestSuiteServiceRunByQueryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._run_test_suites_by_query_serialize(
+            tenant=tenant,
+            test_suite_service_run_by_query_request=test_suite_service_run_by_query_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "TestSuiteServiceTestRunByQueryResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _run_test_suites_by_query_serialize(
+        self,
+        tenant,
+        test_suite_service_run_by_query_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if test_suite_service_run_by_query_request is not None:
+            _body_params = test_suite_service_run_by_query_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v1/{tenant}/tests/run',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def search_test_suites(
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        include_child_namespaces: Annotated[StrictBool, Field(description="Include child namespaces in filter or not")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
@@ -2661,6 +2982,8 @@ class TestSuitesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param include_child_namespaces: Include child namespaces in filter or not (required)
+        :type include_child_namespaces: bool
         :param tenant: (required)
         :type tenant: str
         :param sort: The sort of current page
@@ -2694,6 +3017,7 @@ class TestSuitesApi:
         _param = self._search_test_suites_serialize(
             page=page,
             size=size,
+            include_child_namespaces=include_child_namespaces,
             tenant=tenant,
             sort=sort,
             namespace=namespace,
@@ -2723,6 +3047,7 @@ class TestSuitesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        include_child_namespaces: Annotated[StrictBool, Field(description="Include child namespaces in filter or not")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
@@ -2748,6 +3073,8 @@ class TestSuitesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param include_child_namespaces: Include child namespaces in filter or not (required)
+        :type include_child_namespaces: bool
         :param tenant: (required)
         :type tenant: str
         :param sort: The sort of current page
@@ -2781,6 +3108,7 @@ class TestSuitesApi:
         _param = self._search_test_suites_serialize(
             page=page,
             size=size,
+            include_child_namespaces=include_child_namespaces,
             tenant=tenant,
             sort=sort,
             namespace=namespace,
@@ -2810,6 +3138,7 @@ class TestSuitesApi:
         self,
         page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
         size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        include_child_namespaces: Annotated[StrictBool, Field(description="Include child namespaces in filter or not")],
         tenant: StrictStr,
         sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
         namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
@@ -2835,6 +3164,8 @@ class TestSuitesApi:
         :type page: int
         :param size: The current page size (required)
         :type size: int
+        :param include_child_namespaces: Include child namespaces in filter or not (required)
+        :type include_child_namespaces: bool
         :param tenant: (required)
         :type tenant: str
         :param sort: The sort of current page
@@ -2868,6 +3199,7 @@ class TestSuitesApi:
         _param = self._search_test_suites_serialize(
             page=page,
             size=size,
+            include_child_namespaces=include_child_namespaces,
             tenant=tenant,
             sort=sort,
             namespace=namespace,
@@ -2892,6 +3224,7 @@ class TestSuitesApi:
         self,
         page,
         size,
+        include_child_namespaces,
         tenant,
         sort,
         namespace,
@@ -2941,6 +3274,10 @@ class TestSuitesApi:
             
             _query_params.append(('flowId', flow_id))
             
+        if include_child_namespaces is not None:
+            
+            _query_params.append(('includeChildNamespaces', include_child_namespaces))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -2962,6 +3299,369 @@ class TestSuitesApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v1/{tenant}/tests/search',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def search_test_suites_results(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        test_suite_id: Annotated[StrictStr, Field(description="The test suite id to filter on")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="The flow id to filter on")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PagedResultsTestSuiteRunResult:
+        """Search for tests results
+
+        with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param test_suite_id: The test suite id to filter on (required)
+        :type test_suite_id: str
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: The namespace to filter on
+        :type namespace: str
+        :param flow_id: The flow id to filter on
+        :type flow_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_test_suites_results_serialize(
+            page=page,
+            size=size,
+            test_suite_id=test_suite_id,
+            tenant=tenant,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTestSuiteRunResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_test_suites_results_with_http_info(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        test_suite_id: Annotated[StrictStr, Field(description="The test suite id to filter on")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="The flow id to filter on")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PagedResultsTestSuiteRunResult]:
+        """Search for tests results
+
+        with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param test_suite_id: The test suite id to filter on (required)
+        :type test_suite_id: str
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: The namespace to filter on
+        :type namespace: str
+        :param flow_id: The flow id to filter on
+        :type flow_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_test_suites_results_serialize(
+            page=page,
+            size=size,
+            test_suite_id=test_suite_id,
+            tenant=tenant,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTestSuiteRunResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def search_test_suites_results_without_preload_content(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        test_suite_id: Annotated[StrictStr, Field(description="The test suite id to filter on")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="The namespace to filter on")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="The flow id to filter on")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Search for tests results
+
+        with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param test_suite_id: The test suite id to filter on (required)
+        :type test_suite_id: str
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param namespace: The namespace to filter on
+        :type namespace: str
+        :param flow_id: The flow id to filter on
+        :type flow_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_test_suites_results_serialize(
+            page=page,
+            size=size,
+            test_suite_id=test_suite_id,
+            tenant=tenant,
+            sort=sort,
+            namespace=namespace,
+            flow_id=flow_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTestSuiteRunResult",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _search_test_suites_results_serialize(
+        self,
+        page,
+        size,
+        test_suite_id,
+        tenant,
+        sort,
+        namespace,
+        flow_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'sort': 'csv',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if size is not None:
+            
+            _query_params.append(('size', size))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if test_suite_id is not None:
+            
+            _query_params.append(('testSuiteId', test_suite_id))
+            
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
+        if flow_id is not None:
+            
+            _query_params.append(('flowId', flow_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/tests/results/search',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**ServiceType**](ServiceType.md) |  | [optional] 
-**total** | **int** |  | [optional] 
+**type** | [**ServiceType**](ServiceType.md) |  | 
+**total** | **int** |  | 
 
 ## Example
 

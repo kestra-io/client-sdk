@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ts** | **datetime** |  | [optional] 
-**value** | **str** |  | [optional] 
-**type** | **str** |  | [optional] 
-**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
+**ts** | **datetime** |  | 
+**value** | **str** |  | 
+**type** | **str** |  | 
+**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
 
 ## Example
 

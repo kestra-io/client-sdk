@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**username** | **str** |  | [optional] 
-**display_name** | **str** |  | [optional] 
-**type** | [**UserType**](UserType.md) |  | [optional] 
+**id** | **str** |  | 
+**username** | **str** |  | 
+**display_name** | **str** |  | 
+**type** | [**UserType**](UserType.md) |  | 
 
 ## Example
 

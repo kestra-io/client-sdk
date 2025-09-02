@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nodes** | [**List[FlowNode]**](FlowNode.md) |  | [optional] 
-**edges** | [**List[FlowTopologyGraphEdge]**](FlowTopologyGraphEdge.md) |  | [optional] 
+**nodes** | [**List[FlowNode]**](FlowNode.md) |  | 
+**edges** | [**List[FlowTopologyGraphEdge]**](FlowTopologyGraphEdge.md) |  | 
 
 ## Example
 

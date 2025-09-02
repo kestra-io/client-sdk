@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **namespace** | **str** |  | 
 **flow_id** | **str** |  | 
 **task_id** | **str** |  | 
-**parent_task_run_id** | **str** |  | [optional] 
-**value** | **str** |  | [optional] 
-**attempts** | [**List[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
-**outputs** | **Dict[str, object]** |  | [optional] 
+**parent_task_run_id** | **str** |  | 
+**value** | **str** |  | 
+**attempts** | [**List[TaskRunAttempt]**](TaskRunAttempt.md) |  | 
+**outputs** | **Dict[str, object]** |  | 
 **state** | [**State**](State.md) |  | 
-**iteration** | **int** |  | [optional] 
-**dynamic** | **bool** |  | [optional] 
+**iteration** | **int** |  | 
+**dynamic** | **bool** |  | 
 **force_execution** | **bool** |  | [optional] 
 
 ## Example

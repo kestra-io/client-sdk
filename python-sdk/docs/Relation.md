@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**relation_type** | [**RelationType**](RelationType.md) |  | [optional] 
-**value** | **str** |  | [optional] 
+**relation_type** | [**RelationType**](RelationType.md) |  | 
+**value** | **str** |  | 
 
 ## Example
 

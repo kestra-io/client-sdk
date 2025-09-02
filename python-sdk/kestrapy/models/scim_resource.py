@@ -35,7 +35,7 @@ class ScimResource(BaseModel):
     meta: Meta
     id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
     external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
-    resource_type: Optional[StrictStr] = Field(default=None, alias="resourceType")
+    resource_type: StrictStr = Field(alias="resourceType")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["schemas", "baseUrn", "extensions", "meta", "id", "externalId", "resourceType"]
 

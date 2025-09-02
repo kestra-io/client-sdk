@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **str** |  | [optional] 
-**password** | **str** |  | [optional] 
+**token** | **str** |  | 
+**password** | **str** |  | 
 
 ## Example
 

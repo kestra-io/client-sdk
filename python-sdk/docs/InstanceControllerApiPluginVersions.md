@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**group_id** | **str** |  | [optional] 
-**artifact_id** | **str** |  | [optional] 
-**versions** | [**List[InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata]**](InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | [optional] 
+**group_id** | **str** |  | 
+**artifact_id** | **str** |  | 
+**versions** | [**List[InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata]**](InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | 
 
 ## Example
 

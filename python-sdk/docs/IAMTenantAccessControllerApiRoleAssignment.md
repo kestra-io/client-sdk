@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
-**origin** | [**RBACServiceRoleAssignmentRoleOrigin**](RBACServiceRoleAssignmentRoleOrigin.md) |  | [optional] 
-**source_id** | **str** |  | [optional] 
-**permissions** | [**List[IAMTenantAccessControllerApiUserPermission]**](IAMTenantAccessControllerApiUserPermission.md) |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**namespace** | **str** |  | 
+**origin** | [**RBACServiceRoleAssignmentRoleOrigin**](RBACServiceRoleAssignmentRoleOrigin.md) |  | 
+**source_id** | **str** |  | 
+**permissions** | [**List[IAMTenantAccessControllerApiUserPermission]**](IAMTenantAccessControllerApiUserPermission.md) |  | 
 
 ## Example
 

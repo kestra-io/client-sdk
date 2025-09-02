@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class IAMUserControllerApiGroup(BaseModel):
     """
     IAMUserControllerApiGroup
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    id: StrictStr
+    tenant_id: StrictStr = Field(alias="tenantId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "tenantId"]
 

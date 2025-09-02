@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**server** | [**ServerInstance**](ServerInstance.md) |  | [optional] 
-**metrics** | [**List[Metric]**](Metric.md) |  | [optional] 
-**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
-**id** | **str** |  | [optional] 
-**type** | [**ServiceType**](ServiceType.md) |  | [optional] 
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
-**events** | [**List[ServiceInstanceTimestampedEvent]**](ServiceInstanceTimestampedEvent.md) |  | [optional] 
-**config** | [**ServerConfig**](ServerConfig.md) |  | [optional] 
-**props** | **Dict[str, object]** |  | [optional] 
-**seq_id** | **int** |  | [optional] 
+**server** | [**ServerInstance**](ServerInstance.md) |  | 
+**metrics** | [**List[Metric]**](Metric.md) |  | 
+**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
+**id** | **str** |  | 
+**type** | [**ServiceType**](ServiceType.md) |  | 
+**created_at** | **datetime** |  | 
+**updated_at** | **datetime** |  | 
+**events** | [**List[ServiceInstanceTimestampedEvent]**](ServiceInstanceTimestampedEvent.md) |  | 
+**config** | [**ServerConfig**](ServerConfig.md) |  | 
+**props** | **Dict[str, object]** |  | 
+**seq_id** | **int** |  | 
 
 ## Example
 

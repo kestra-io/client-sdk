@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
-**type** | **str** |  | [optional] 
-**tags** | **List[str]** |  | [optional] 
+**uid** | **str** |  | 
+**name** | **str** |  | 
+**description** | **str** |  | 
+**type** | **str** |  | 
+**tags** | **List[str]** |  | 
 
 ## Example
 

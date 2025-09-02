@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_field** | [**QueryFilterField**](QueryFilterField.md) |  | [optional] 
-**operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | [optional] 
-**value** | **object** |  | [optional] 
+**var_field** | [**QueryFilterField**](QueryFilterField.md) |  | 
+**operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | 
+**value** | **object** |  | 
 
 ## Example
 

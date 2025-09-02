@@ -5,10 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**input** | [**InputObject**](InputObject.md) |  | [optional] 
-**value** | **object** |  | [optional] 
-**enabled** | **bool** |  | [optional] 
-**errors** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | [optional] 
+**input** | [**InputObject**](InputObject.md) |  | 
+**value** | **object** |  | 
+**enabled** | **bool** |  | 
+**is_default** | **bool** |  | 
+**errors** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | 
 
 ## Example
 

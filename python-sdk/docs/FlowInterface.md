@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **revision** | **int** |  | [optional] 
 **tenant_id** | **str** |  | [optional] 
 **deleted** | **bool** |  | [optional] 
+**description** | **str** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
 **labels** | [**List[Label]**](Label.md) |  | [optional] 
 **inputs** | [**List[InputObject]**](InputObject.md) |  | [optional] 

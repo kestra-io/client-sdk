@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **str** |  | [optional] 
-**id** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
-**type** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
-**tags** | **List[str]** |  | [optional] 
-**enabled** | **bool** |  | [optional] 
-**created** | **datetime** |  | [optional] 
-**updated** | **datetime** |  | [optional] 
+**uid** | **str** |  | 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**type** | **str** |  | 
+**namespace** | **str** |  | 
+**tags** | **List[str]** |  | 
+**enabled** | **bool** |  | 
+**created** | **datetime** |  | 
+**updated** | **datetime** |  | 
 
 ## Example
 

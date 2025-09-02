@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**delete_namespace**](NamespacesApi.md#delete_namespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**delete_secret**](NamespacesApi.md#delete_secret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**get_inherited_secrets**](NamespacesApi.md#get_inherited_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**get_namespace**](NamespacesApi.md#get_namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
+[**get_namespace**](NamespacesApi.md#get_namespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**inherited_plugin_defaults**](NamespacesApi.md#inherited_plugin_defaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**inherited_variables**](NamespacesApi.md#inherited_variables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**list_namespace_secrets**](NamespacesApi.md#list_namespace_secrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 # **get_namespace**
 > Namespace get_namespace(id, tenant)
 
-Retrieve namespace details
+Get a namespace
 
 ### Example
 
@@ -489,7 +489,7 @@ with kestrapy.ApiClient(configuration) as api_client:
     tenant = 'tenant_example' # str | 
 
     try:
-        # Retrieve namespace details
+        # Get a namespace
         api_response = api_instance.get_namespace(id, tenant)
         print("The response of NamespacesApi->get_namespace:\n")
         pprint(api_response)
@@ -970,7 +970,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_namespaces**
-> PagedResultsNamespaceWithDisabled search_namespaces(page, size, tenant, q=q, sort=sort, existing=existing)
+> PagedResultsNamespace search_namespaces(page, size, existing, tenant, q=q, sort=sort)
 
 Search for namespaces
 
@@ -981,7 +981,7 @@ Search for namespaces
 
 ```python
 import kestrapy
-from kestrapy.models.paged_results_namespace_with_disabled import PagedResultsNamespaceWithDisabled
+from kestrapy.models.paged_results_namespace import PagedResultsNamespace
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -1013,14 +1013,14 @@ with kestrapy.ApiClient(configuration) as api_client:
     api_instance = kestrapy.NamespacesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
+    existing = False # bool | Return only existing namespace (default to False)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    existing = False # bool | Return only existing namespace (optional) (default to False)
 
     try:
         # Search for namespaces
-        api_response = api_instance.search_namespaces(page, size, tenant, q=q, sort=sort, existing=existing)
+        api_response = api_instance.search_namespaces(page, size, existing, tenant, q=q, sort=sort)
         print("The response of NamespacesApi->search_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -1036,14 +1036,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int**| The current page | [default to 1]
  **size** | **int**| The current page size | [default to 10]
+ **existing** | **bool**| Return only existing namespace | [default to False]
  **tenant** | **str**|  | 
  **q** | **str**| A string filter | [optional] 
  **sort** | [**List[str]**](str.md)| The sort of current page | [optional] 
- **existing** | **bool**| Return only existing namespace | [optional] [default to False]
 
 ### Return type
 
-[**PagedResultsNamespaceWithDisabled**](PagedResultsNamespaceWithDisabled.md)
+[**PagedResultsNamespace**](PagedResultsNamespace.md)
 
 ### Authorization
 

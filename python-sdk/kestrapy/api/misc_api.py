@@ -26,7 +26,6 @@ from kestrapy.models.misc_controller_license_info import MiscControllerLicenseIn
 from kestrapy.models.permission import Permission
 from kestrapy.models.setup_configuration import SetupConfiguration
 from kestrapy.models.setup_configuration_setup_data import SetupConfigurationSetupData
-from kestrapy.models.usage import Usage
 from kestrapy.models.usage_ee import UsageEE
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -840,7 +839,7 @@ class MiscApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Usage:
+    ) -> UsageEE:
         """Retrieve instance usage information
 
 
@@ -877,7 +876,7 @@ class MiscApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Usage",
+            '200': "UsageEE",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -906,7 +905,7 @@ class MiscApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Usage]:
+    ) -> ApiResponse[UsageEE]:
         """Retrieve instance usage information
 
 
@@ -943,7 +942,7 @@ class MiscApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Usage",
+            '200': "UsageEE",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1009,7 +1008,7 @@ class MiscApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Usage",
+            '200': "UsageEE",
         }
         response_data = self.api_client.call_api(
             *_param,

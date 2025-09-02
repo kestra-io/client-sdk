@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**source** | **str** |  | [optional] 
-**target** | **str** |  | [optional] 
-**relation** | [**Relation**](Relation.md) |  | [optional] 
+**source** | **str** |  | 
+**target** | **str** |  | 
+**relation** | [**Relation**](Relation.md) |  | 
 
 ## Example
 

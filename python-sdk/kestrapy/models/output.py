@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.type import Type
@@ -33,8 +33,9 @@ class Output(BaseModel):
     value: Dict[str, Any]
     type: Type
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    required: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "description", "value", "type", "displayName"]
+    __properties: ClassVar[List[str]] = ["id", "description", "value", "type", "displayName", "required"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -105,7 +106,8 @@ class Output(BaseModel):
             "description": obj.get("description"),
             "value": obj.get("value"),
             "type": obj.get("type"),
-            "displayName": obj.get("displayName")
+            "displayName": obj.get("displayName"),
+            "required": obj.get("required")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -27,7 +27,7 @@ class ValuePathExpression(BaseModel):
     """
     ValuePathExpression
     """ # noqa: E501
-    attribute_path: Optional[AttributeReference] = Field(default=None, alias="attributePath")
+    attribute_path: AttributeReference = Field(alias="attributePath")
     attribute_expression: Optional[Dict[str, Any]] = Field(default=None, alias="attributeExpression")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attributePath", "attributeExpression"]

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**filter** | **str** |  | [optional] 
+**filter** | **str** |  | 
 **expression** | **object** |  | [optional] 
 
 ## Example

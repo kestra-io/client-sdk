@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.service_type import ServiceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class InstanceControllerApiActiveService(BaseModel):
     """
     InstanceControllerApiActiveService
     """ # noqa: E501
-    type: Optional[ServiceType] = None
-    total: Optional[StrictInt] = None
+    type: ServiceType
+    total: StrictInt
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "total"]
 

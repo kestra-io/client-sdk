@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class AppResponseUILayout(BaseModel):
     """
     AppResponseUILayout
     """ # noqa: E501
-    blocks: Optional[List[Dict[str, Any]]] = None
+    blocks: List[Dict[str, Any]]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["blocks"]
 

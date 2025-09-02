@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | [optional] 
-**versions** | **List[str]** |  | [optional] 
+**type** | **str** |  | 
+**versions** | **List[str]** |  | 
 
 ## Example
 

@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **str** |  | [optional] 
-**icon** | **str** |  | [optional] 
-**group_id** | **str** |  | [optional] 
-**artifact_id** | **str** |  | [optional] 
-**versions** | **List[str]** |  | [optional] 
+**title** | **str** |  | 
+**icon** | **str** |  | 
+**group_id** | **str** |  | 
+**artifact_id** | **str** |  | 
+**versions** | **List[str]** |  | 
 
 ## Example
 

@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **task_run_id** | **str** |  | [optional] 
 **attempt_number** | **int** |  | [optional] 
 **trigger_id** | **str** |  | [optional] 
-**timestamp** | **datetime** |  | [optional] 
-**level** | [**Level**](Level.md) |  | [optional] 
-**thread** | **str** |  | [optional] 
-**message** | **str** |  | [optional] 
+**timestamp** | **datetime** |  | 
+**level** | [**Level**](Level.md) |  | 
+**thread** | **str** |  | 
+**message** | **str** |  | 
 **deleted** | **bool** |  | 
 **execution_kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 

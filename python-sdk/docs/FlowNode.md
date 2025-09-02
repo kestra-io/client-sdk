@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uid** | **str** |  | 
-**namespace** | **str** |  | [optional] 
-**id** | **str** |  | [optional] 
+**namespace** | **str** |  | 
+**id** | **str** |  | 
 
 ## Example
 

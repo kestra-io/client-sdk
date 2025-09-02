@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.state_type import StateType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class ExecutionControllerStateRequest(BaseModel):
     """
     ExecutionControllerStateRequest
     """ # noqa: E501
-    task_run_id: Optional[StrictStr] = Field(default=None, alias="taskRunId")
-    state: Optional[StateType] = None
+    task_run_id: StrictStr = Field(alias="taskRunId")
+    state: StateType
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["taskRunId", "state"]
 

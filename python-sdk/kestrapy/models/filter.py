@@ -26,7 +26,7 @@ class Filter(BaseModel):
     """
     Filter
     """ # noqa: E501
-    filter: Optional[StrictStr] = None
+    filter: StrictStr
     expression: Optional[Dict[str, Any]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["filter", "expression"]

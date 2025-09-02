@@ -27,10 +27,10 @@ class GroupIdentifier(BaseModel):
     """
     GroupIdentifier
     """ # noqa: E501
-    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
-    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
-    membership: Optional[GroupIdentifierMembership] = None
-    managed_externally: Optional[StrictBool] = Field(default=None, alias="managedExternally")
+    tenant_id: Optional[StrictStr] = Field(alias="tenantId")
+    group_id: StrictStr = Field(alias="groupId")
+    membership: GroupIdentifierMembership
+    managed_externally: StrictBool = Field(alias="managedExternally")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tenantId", "groupId", "membership", "managedExternally"]
 

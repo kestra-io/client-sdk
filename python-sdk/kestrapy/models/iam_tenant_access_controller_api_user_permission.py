@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.action import Action
 from kestrapy.models.permission import Permission
 from typing import Optional, Set
@@ -28,8 +28,8 @@ class IAMTenantAccessControllerApiUserPermission(BaseModel):
     """
     IAMTenantAccessControllerApiUserPermission
     """ # noqa: E501
-    permission: Optional[Permission] = None
-    actions: Optional[List[Action]] = None
+    permission: Permission
+    actions: List[Action]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["permission", "actions"]
 

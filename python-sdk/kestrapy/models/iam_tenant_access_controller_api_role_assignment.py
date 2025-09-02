@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.iam_tenant_access_controller_api_user_permission import IAMTenantAccessControllerApiUserPermission
 from kestrapy.models.rbac_service_role_assignment_role_origin import RBACServiceRoleAssignmentRoleOrigin
 from typing import Optional, Set
@@ -28,12 +28,12 @@ class IAMTenantAccessControllerApiRoleAssignment(BaseModel):
     """
     IAMTenantAccessControllerApiRoleAssignment
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    namespace: Optional[StrictStr] = None
-    origin: Optional[RBACServiceRoleAssignmentRoleOrigin] = None
-    source_id: Optional[StrictStr] = Field(default=None, alias="sourceId")
-    permissions: Optional[List[IAMTenantAccessControllerApiUserPermission]] = None
+    id: StrictStr
+    name: StrictStr
+    namespace: StrictStr
+    origin: RBACServiceRoleAssignmentRoleOrigin
+    source_id: StrictStr = Field(alias="sourceId")
+    permissions: List[IAMTenantAccessControllerApiUserPermission]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "namespace", "origin", "sourceId", "permissions"]
 

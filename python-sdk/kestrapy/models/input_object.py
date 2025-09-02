@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.depends_on import DependsOn
+from kestrapy.models.property_object import PropertyObject
 from kestrapy.models.type import Type
 from typing import Optional, Set
 from typing_extensions import Self
@@ -35,7 +36,7 @@ class InputObject(BaseModel):
     description: Optional[StrictStr] = None
     depends_on: Optional[DependsOn] = Field(default=None, alias="dependsOn")
     required: Optional[StrictBool] = None
-    defaults: Optional[Dict[str, Any]] = None
+    defaults: Optional[PropertyObject] = None
     display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "id", "type", "description", "dependsOn", "required", "defaults", "displayName"]
@@ -91,6 +92,9 @@ class InputObject(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of depends_on
         if self.depends_on:
             _dict['dependsOn'] = self.depends_on.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of defaults
+        if self.defaults:
+            _dict['defaults'] = self.defaults.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -114,7 +118,7 @@ class InputObject(BaseModel):
             "description": obj.get("description"),
             "dependsOn": DependsOn.from_dict(obj["dependsOn"]) if obj.get("dependsOn") is not None else None,
             "required": obj.get("required"),
-            "defaults": obj.get("defaults"),
+            "defaults": PropertyObject.from_dict(obj["defaults"]) if obj.get("defaults") is not None else None,
             "displayName": obj.get("displayName")
         })
         # store additional fields in additional_properties

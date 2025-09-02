@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,11 +27,11 @@ class KVEntry(BaseModel):
     """
     KVEntry
     """ # noqa: E501
-    key: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    creation_date: Optional[datetime] = Field(default=None, alias="creationDate")
-    update_date: Optional[datetime] = Field(default=None, alias="updateDate")
-    expiration_date: Optional[datetime] = Field(default=None, alias="expirationDate")
+    key: StrictStr
+    description: StrictStr
+    creation_date: datetime = Field(alias="creationDate")
+    update_date: datetime = Field(alias="updateDate")
+    expiration_date: datetime = Field(alias="expirationDate")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "description", "creationDate", "updateDate", "expirationDate"]
 

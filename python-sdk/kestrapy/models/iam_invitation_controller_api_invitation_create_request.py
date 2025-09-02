@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.iam_invitation_controller_api_invitation_role import IAMInvitationControllerApiInvitationRole
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class IAMInvitationControllerApiInvitationCreateRequest(BaseModel):
     """
     IAMInvitationControllerApiInvitationCreateRequest
     """ # noqa: E501
-    create_user_if_not_exist: Optional[StrictBool] = Field(default=None, alias="createUserIfNotExist")
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
-    roles: Optional[List[IAMInvitationControllerApiInvitationRole]] = None
-    groups: Optional[List[StrictStr]] = None
+    create_user_if_not_exist: StrictBool = Field(alias="createUserIfNotExist")
+    super_admin: StrictBool = Field(alias="superAdmin")
+    roles: List[IAMInvitationControllerApiInvitationRole]
+    groups: List[StrictStr]
     email: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["createUserIfNotExist", "superAdmin", "roles", "groups", "email"]

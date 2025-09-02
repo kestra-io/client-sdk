@@ -26,7 +26,7 @@ class PropertyObject(BaseModel):
     """
     PropertyObject
     """ # noqa: E501
-    expression: Optional[StrictStr] = None
+    expression: StrictStr
     value: Optional[Dict[str, Any]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["expression", "value"]

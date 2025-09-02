@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total** | **int** |  | [optional] 
-**services** | [**List[InstanceControllerApiActiveService]**](InstanceControllerApiActiveService.md) |  | [optional] 
+**total** | **int** |  | 
+**services** | [**List[InstanceControllerApiActiveService]**](InstanceControllerApiActiveService.md) |  | 
 
 ## Example
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attribute_path** | [**AttributeReference**](AttributeReference.md) |  | [optional] 
+**attribute_path** | [**AttributeReference**](AttributeReference.md) |  | 
 **attribute_expression** | **object** |  | [optional] 
 
 ## Example

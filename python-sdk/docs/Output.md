@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **value** | **object** |  | 
 **type** | [**Type**](Type.md) |  | 
 **display_name** | **str** |  | [optional] 
+**required** | **bool** |  | [optional] 
 
 ## Example
 

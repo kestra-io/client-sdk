@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **depends_on** | [**DependsOn**](DependsOn.md) |  | [optional] 
 **required** | **bool** |  | [optional] 
-**defaults** | **object** |  | [optional] 
+**defaults** | [**PropertyObject**](PropertyObject.md) |  | [optional] 
 **display_name** | **str** |  | [optional] 
 
 ## Example

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**namespace** | **str** |  | [optional] 
-**flow_id** | **str** |  | [optional] 
+**namespace** | **str** |  | 
+**flow_id** | **str** |  | 
 **revision** | **int** |  | [optional] 
 
 ## Example

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class InstanceControllerApiPluginArtifactListPluginResolutionResult(BaseModel):
     """
     InstanceControllerApiPluginArtifactListPluginResolutionResult
     """ # noqa: E501
-    total: Optional[StrictInt] = None
-    results: Optional[List[Dict[str, Any]]] = None
+    total: StrictInt
+    results: List[Dict[str, Any]]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["total", "results"]
 

@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.api_group_summary import ApiGroupSummary
 from kestrapy.models.api_role_summary import ApiRoleSummary
 from kestrapy.models.invitation_invitation_status import InvitationInvitationStatus
@@ -30,17 +30,17 @@ class IAMInvitationControllerApiInvitationDetail(BaseModel):
     """
     IAMInvitationControllerApiInvitationDetail
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    roles: Optional[List[ApiRoleSummary]] = None
-    groups: Optional[List[ApiGroupSummary]] = None
-    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
-    email: Optional[StrictStr] = None
-    status: Optional[InvitationInvitationStatus] = None
-    sent_at: Optional[datetime] = Field(default=None, alias="sentAt")
-    expired_at: Optional[datetime] = Field(default=None, alias="expiredAt")
-    accepted_at: Optional[datetime] = Field(default=None, alias="acceptedAt")
-    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
-    link: Optional[StrictStr] = None
+    id: StrictStr
+    roles: List[ApiRoleSummary]
+    groups: List[ApiGroupSummary]
+    tenant_id: StrictStr = Field(alias="tenantId")
+    email: StrictStr
+    status: InvitationInvitationStatus
+    sent_at: datetime = Field(alias="sentAt")
+    expired_at: datetime = Field(alias="expiredAt")
+    accepted_at: datetime = Field(alias="acceptedAt")
+    super_admin: StrictBool = Field(alias="superAdmin")
+    link: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "roles", "groups", "tenantId", "email", "status", "sentAt", "expiredAt", "acceptedAt", "superAdmin", "link"]
 

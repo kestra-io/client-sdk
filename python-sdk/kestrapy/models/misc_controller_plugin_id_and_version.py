@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class MiscControllerPluginIdAndVersion(BaseModel):
     """
     MiscControllerPluginIdAndVersion
     """ # noqa: E501
-    id: Optional[StrictStr] = None
-    version: Optional[StrictStr] = None
+    id: StrictStr
+    version: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "version"]
 

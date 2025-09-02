@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **start_date** | **datetime** |  | 
 **duration** | [**DailyExecutionStatisticsDuration**](DailyExecutionStatisticsDuration.md) |  | 
-**execution_counts** | [**DailyExecutionStatisticsExecutionCounts**](DailyExecutionStatisticsExecutionCounts.md) |  | [optional] 
-**group_by** | **str** |  | [optional] 
+**execution_counts** | [**DailyExecutionStatisticsExecutionCounts**](DailyExecutionStatisticsExecutionCounts.md) |  | 
+**group_by** | **str** |  | 
 
 ## Example
 

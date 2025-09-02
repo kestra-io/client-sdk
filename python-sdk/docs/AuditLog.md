@@ -5,16 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**tenant_id** | **str** |  | 
 **id** | **str** |  | 
 **type** | [**CrudEventType**](CrudEventType.md) |  | 
 **detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **var_date** | **datetime** |  | 
 **user_id** | **str** |  | 
-**ip_address** | **str** |  | [optional] 
-**impersonated_by** | **str** |  | [optional] 
-**deleted** | **bool** |  | [optional] 
-**applied_patch** | **List[object]** |  | [optional] 
-**revert_patch** | **List[object]** |  | [optional] 
+**ip_address** | **str** |  | 
+**impersonated_by** | **str** |  | 
+**deleted** | **bool** |  | 
+**applied_patch** | **List[object]** |  | 
+**revert_patch** | **List[object]** |  | 
 
 ## Example
 

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.abstract_graph import AbstractGraph
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,11 +27,11 @@ class FlowGraphCluster(BaseModel):
     """
     FlowGraphCluster
     """ # noqa: E501
-    cluster: Optional[AbstractGraph] = None
-    nodes: Optional[List[StrictStr]] = None
-    parents: Optional[List[StrictStr]] = None
-    start: Optional[StrictStr] = None
-    end: Optional[StrictStr] = None
+    cluster: AbstractGraph
+    nodes: List[StrictStr]
+    parents: List[StrictStr]
+    start: StrictStr
+    end: StrictStr
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["cluster", "nodes", "parents", "start", "end"]
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | [optional] 
-**classes** | [**List[InstanceControllerApiPluginVersionDetailsApiPluginClass]**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  | [optional] 
+**type** | **str** |  | 
+**classes** | [**List[InstanceControllerApiPluginVersionDetailsApiPluginClass]**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  | 
 
 ## Example
 

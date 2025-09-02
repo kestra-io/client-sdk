@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
-**creation_date** | **datetime** |  | [optional] 
-**update_date** | **datetime** |  | [optional] 
-**expiration_date** | **datetime** |  | [optional] 
+**key** | **str** |  | 
+**description** | **str** |  | 
+**creation_date** | **datetime** |  | 
+**update_date** | **datetime** |  | 
+**expiration_date** | **datetime** |  | 
 
 ## Example
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.abstract_trigger_for_execution import AbstractTriggerForExecution
@@ -36,6 +36,7 @@ class FlowForExecution(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
     namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
     revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    description: Optional[StrictStr] = None
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = None
     disabled: StrictBool
@@ -49,7 +50,7 @@ class FlowForExecution(BaseModel):
     after_execution: Optional[List[TaskForExecution]] = Field(default=None, alias="afterExecution")
     triggers: Optional[List[AbstractTriggerForExecution]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "tasks", "errors", "finally", "afterExecution", "triggers"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "tasks", "errors", "finally", "afterExecution", "triggers"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -181,6 +182,7 @@ class FlowForExecution(BaseModel):
             "id": obj.get("id"),
             "namespace": obj.get("namespace"),
             "revision": obj.get("revision"),
+            "description": obj.get("description"),
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
             "disabled": obj.get("disabled"),

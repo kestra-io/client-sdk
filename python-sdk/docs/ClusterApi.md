@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **enter_maintenance**
-> enter_maintenance()
+> object enter_maintenance()
 
 Enter cluster maintenance mode
 
@@ -54,7 +54,9 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Enter cluster maintenance mode
-        api_instance.enter_maintenance()
+        api_response = api_instance.enter_maintenance()
+        print("The response of ClusterApi->enter_maintenance:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling ClusterApi->enter_maintenance: %s\n" % e)
 ```
@@ -67,7 +69,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Authorization
 
@@ -76,7 +78,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -87,7 +89,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **exit_maintenance**
-> exit_maintenance()
+> object exit_maintenance()
 
 Exit cluster maintenance mode
 
@@ -132,7 +134,9 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Exit cluster maintenance mode
-        api_instance.exit_maintenance()
+        api_response = api_instance.exit_maintenance()
+        print("The response of ClusterApi->exit_maintenance:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling ClusterApi->exit_maintenance: %s\n" % e)
 ```
@@ -145,7 +149,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**object**
 
 ### Authorization
 
@@ -154,7 +158,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 

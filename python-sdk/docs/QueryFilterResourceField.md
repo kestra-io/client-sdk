@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**fields** | [**List[QueryFilterFieldOp]**](QueryFilterFieldOp.md) |  | [optional] 
+**name** | **str** |  | 
+**fields** | [**List[QueryFilterFieldOp]**](QueryFilterFieldOp.md) |  | 
 
 ## Example
 

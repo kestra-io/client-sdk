@@ -6,10 +6,10 @@ ApiWorkerGroup.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The ID of worker group. | [optional] 
-**key** | **str** | The key of the worker group. | [optional] 
-**description** | **str** | The description of the worker group. | [optional] 
-**allowed_tenants** | **List[str]** |  | [optional] 
+**id** | **str** | The ID of worker group. | 
+**key** | **str** | The key of the worker group. | 
+**description** | **str** | The description of the worker group. | 
+**allowed_tenants** | **List[str]** |  | 
 
 ## Example
 

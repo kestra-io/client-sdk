@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**username** | **str** |  | [optional] 
-**password** | **str** |  | [optional] 
-**tenant** | [**Tenant**](Tenant.md) |  | [optional] 
+**username** | **str** |  | 
+**password** | **str** |  | 
+**tenant** | [**Tenant**](Tenant.md) |  | 
 
 ## Example
 

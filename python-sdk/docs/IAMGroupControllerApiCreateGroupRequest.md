@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**description** | **str** |  | [optional] 
-**members_id** | **List[str]** |  | [optional] 
+**description** | **str** |  | 
+**members_id** | **List[str]** |  | 
 
 ## Example
 

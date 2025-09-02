@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storage_by_tenant** | **bool** |  | [optional] 
-**secret_by_tenant** | **bool** |  | [optional] 
+**storage_by_tenant** | **bool** |  | 
+**secret_by_tenant** | **bool** |  | 
 
 ## Example
 

@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [optional] 
-**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | [optional] 
-**version** | **str** |  | [optional] 
-**hostname** | **str** |  | [optional] 
+**id** | **str** |  | 
+**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | 
+**version** | **str** |  | 
+**hostname** | **str** |  | 
 
 ## Example
 

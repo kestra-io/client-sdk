@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **q** | **str** |  | [optional] 
 **ids** | **List[str]** |  | [optional] 
+**existing_only** | **bool** |  | [optional] 
 
 ## Example
 

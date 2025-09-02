@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from kestrapy.models.label import Label
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class ExecutionControllerSetLabelsByIdsRequest(BaseModel):
     """
     ExecutionControllerSetLabelsByIdsRequest
     """ # noqa: E501
-    executions_id: Optional[List[StrictStr]] = Field(default=None, alias="executionsId")
-    execution_labels: Optional[List[Label]] = Field(default=None, alias="executionLabels")
+    executions_id: List[StrictStr] = Field(alias="executionsId")
+    execution_labels: List[Label] = Field(alias="executionLabels")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["executionsId", "executionLabels"]
 

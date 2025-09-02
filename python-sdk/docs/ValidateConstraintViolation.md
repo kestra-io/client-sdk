@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**flow** | **str** |  | [optional] 
-**namespace** | **str** |  | [optional] 
+**flow** | **str** |  | 
+**namespace** | **str** |  | 
 **index** | **int** |  | 
-**constraints** | **str** |  | [optional] 
-**outdated** | **bool** |  | [optional] 
-**deprecation_paths** | **List[str]** |  | [optional] 
-**warnings** | **List[str]** |  | [optional] 
-**infos** | **List[str]** |  | [optional] 
+**constraints** | **str** |  | 
+**outdated** | **bool** |  | 
+**deprecation_paths** | **List[str]** |  | 
+**warnings** | **List[str]** |  | 
+**infos** | **List[str]** |  | 
 
 ## Example
 

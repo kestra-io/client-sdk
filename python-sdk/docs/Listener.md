@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** |  | [optional] 
-**conditions** | [**List[Condition]**](Condition.md) |  | [optional] 
+**description** | **str** |  | 
+**conditions** | [**List[Condition]**](Condition.md) |  | 
 **tasks** | [**List[Task]**](Task.md) |  | 
 
 ## Example

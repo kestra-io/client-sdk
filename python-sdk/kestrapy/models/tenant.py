@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from kestrapy.models.isolation import Isolation
 from kestrapy.models.worker_group import WorkerGroup
@@ -29,19 +29,19 @@ class Tenant(BaseModel):
     """
     Tenant
     """ # noqa: E501
-    storage_isolation: Optional[Isolation] = Field(default=None, alias="storageIsolation")
-    secret_isolation: Optional[Isolation] = Field(default=None, alias="secretIsolation")
+    storage_isolation: Isolation = Field(alias="storageIsolation")
+    secret_isolation: Isolation = Field(alias="secretIsolation")
     id: Annotated[str, Field(strict=True)]
     name: StrictStr
     deleted: StrictBool
-    worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
-    storage_type: Optional[StrictStr] = Field(default=None, alias="storageType")
-    storage_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="storageConfiguration")
-    secret_type: Optional[StrictStr] = Field(default=None, alias="secretType")
-    secret_read_only: Optional[StrictBool] = Field(default=None, alias="secretReadOnly")
-    secret_configuration: Optional[Dict[str, Dict[str, Any]]] = Field(default=None, alias="secretConfiguration")
-    require_existing_namespace: Optional[StrictBool] = Field(default=None, alias="requireExistingNamespace")
-    outputs_in_internal_storage: Optional[StrictBool] = Field(default=None, alias="outputsInInternalStorage")
+    worker_group: WorkerGroup = Field(alias="workerGroup")
+    storage_type: StrictStr = Field(alias="storageType")
+    storage_configuration: Dict[str, Dict[str, Any]] = Field(alias="storageConfiguration")
+    secret_type: StrictStr = Field(alias="secretType")
+    secret_read_only: StrictBool = Field(alias="secretReadOnly")
+    secret_configuration: Dict[str, Dict[str, Any]] = Field(alias="secretConfiguration")
+    require_existing_namespace: StrictBool = Field(alias="requireExistingNamespace")
+    outputs_in_internal_storage: StrictBool = Field(alias="outputsInInternalStorage")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage"]
 

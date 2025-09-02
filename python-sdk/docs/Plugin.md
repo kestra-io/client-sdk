@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **app_blocks** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **charts** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **data_filters** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
+**data_filters_kpi** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **log_exporters** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **additional_plugins** | [**List[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **categories** | [**List[PluginSubGroupPluginCategory]**](PluginSubGroupPluginCategory.md) |  | [optional] 

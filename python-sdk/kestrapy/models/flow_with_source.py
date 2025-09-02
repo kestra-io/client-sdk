@@ -40,6 +40,7 @@ class FlowWithSource(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
     namespace: Annotated[str, Field(min_length=1, strict=True, max_length=150)]
     revision: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
+    description: Optional[StrictStr] = None
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
     disabled: StrictBool
@@ -49,7 +50,6 @@ class FlowWithSource(BaseModel):
     deleted: StrictBool
     var_finally: Optional[List[Task]] = Field(default=None, alias="finally")
     task_defaults: Optional[List[PluginDefault]] = Field(default=None, alias="taskDefaults")
-    description: Optional[StrictStr] = None
     tasks: Annotated[List[Task], Field(min_length=1)]
     errors: Optional[List[Task]] = None
     listeners: Optional[List[Listener]] = None
@@ -60,7 +60,7 @@ class FlowWithSource(BaseModel):
     retry: Optional[Dict[str, Any]] = None
     sla: Optional[List[SLA]] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "taskDefaults", "description", "tasks", "errors", "listeners", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla"]
+    __properties: ClassVar[List[str]] = ["id", "namespace", "revision", "description", "inputs", "outputs", "disabled", "labels", "variables", "workerGroup", "deleted", "finally", "taskDefaults", "tasks", "errors", "listeners", "afterExecution", "triggers", "pluginDefaults", "concurrency", "retry", "sla"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -223,6 +223,7 @@ class FlowWithSource(BaseModel):
             "id": obj.get("id"),
             "namespace": obj.get("namespace"),
             "revision": obj.get("revision"),
+            "description": obj.get("description"),
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
             "disabled": obj.get("disabled"),
@@ -232,7 +233,6 @@ class FlowWithSource(BaseModel):
             "deleted": obj.get("deleted"),
             "finally": [Task.from_dict(_item) for _item in obj["finally"]] if obj.get("finally") is not None else None,
             "taskDefaults": [PluginDefault.from_dict(_item) for _item in obj["taskDefaults"]] if obj.get("taskDefaults") is not None else None,
-            "description": obj.get("description"),
             "tasks": [Task.from_dict(_item) for _item in obj["tasks"]] if obj.get("tasks") is not None else None,
             "errors": [Task.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None,
             "listeners": [Listener.from_dict(_item) for _item in obj["listeners"]] if obj.get("listeners") is not None else None,

@@ -6,10 +6,10 @@ A User Service Account.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groups** | [**List[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
+**groups** | [**List[IAMServiceAccountControllerApiGroup]**](IAMServiceAccountControllerApiGroup.md) |  | 
 **name** | **str** |  | 
-**description** | **str** |  | [optional] 
-**super_admin** | **bool** |  | [optional] 
+**description** | **str** |  | 
+**super_admin** | **bool** |  | 
 
 ## Example
 

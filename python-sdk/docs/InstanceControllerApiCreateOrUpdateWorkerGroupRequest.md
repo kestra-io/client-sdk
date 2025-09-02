@@ -7,8 +7,8 @@ ApiCreateWorkerGroupRequest.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** | The key of the worker group. | 
-**description** | **str** | The description of the worker group. | [optional] 
-**allowed_tenants** | **List[str]** |  | [optional] 
+**description** | **str** | The description of the worker group. | 
+**allowed_tenants** | **List[str]** |  | 
 
 ## Example
 

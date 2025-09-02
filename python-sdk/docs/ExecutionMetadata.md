@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attempt_number** | **int** |  | [optional] 
-**original_created_date** | **datetime** |  | [optional] 
+**attempt_number** | **int** |  | 
+**original_created_date** | **datetime** |  | 
 
 ## Example
 

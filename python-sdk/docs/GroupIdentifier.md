@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenant_id** | **str** |  | [optional] 
-**group_id** | **str** |  | [optional] 
-**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | [optional] 
-**managed_externally** | **bool** |  | [optional] 
+**tenant_id** | **str** |  | 
+**group_id** | **str** |  | 
+**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | 
+**managed_externally** | **bool** |  | 
 
 ## Example
 
