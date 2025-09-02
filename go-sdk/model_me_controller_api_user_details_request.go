@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MeControllerApiUserDetailsRequest type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &MeControllerApiUserDetailsRequest{}
 
 // MeControllerApiUserDetailsRequest struct for MeControllerApiUserDetailsRequest
 type MeControllerApiUserDetailsRequest struct {
-	FirstName            *string `json:"firstName,omitempty"`
-	LastName             *string `json:"lastName,omitempty"`
-	Email                *string `json:"email,omitempty"`
+	FirstName            string `json:"firstName"`
+	LastName             string `json:"lastName"`
+	Email                string `json:"email"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,11 @@ type _MeControllerApiUserDetailsRequest MeControllerApiUserDetailsRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeControllerApiUserDetailsRequest() *MeControllerApiUserDetailsRequest {
+func NewMeControllerApiUserDetailsRequest(firstName string, lastName string, email string) *MeControllerApiUserDetailsRequest {
 	this := MeControllerApiUserDetailsRequest{}
+	this.FirstName = firstName
+	this.LastName = lastName
+	this.Email = email
 	return &this
 }
 
@@ -44,100 +48,76 @@ func NewMeControllerApiUserDetailsRequestWithDefaults() *MeControllerApiUserDeta
 	return &this
 }
 
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
+// GetFirstName returns the FirstName field value
 func (o *MeControllerApiUserDetailsRequest) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FirstName
+
+	return o.FirstName
 }
 
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// GetFirstNameOk returns a tuple with the FirstName field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiUserDetailsRequest) GetFirstNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FirstName, true
+	return &o.FirstName, true
 }
 
-// HasFirstName returns a boolean if a field has been set.
-func (o *MeControllerApiUserDetailsRequest) HasFirstName() bool {
-	if o != nil && !IsNil(o.FirstName) {
-		return true
-	}
-
-	return false
-}
-
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+// SetFirstName sets field value
 func (o *MeControllerApiUserDetailsRequest) SetFirstName(v string) {
-	o.FirstName = &v
+	o.FirstName = v
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise.
+// GetLastName returns the LastName field value
 func (o *MeControllerApiUserDetailsRequest) GetLastName() string {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LastName
+
+	return o.LastName
 }
 
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// GetLastNameOk returns a tuple with the LastName field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiUserDetailsRequest) GetLastNameOk() (*string, bool) {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastName, true
+	return &o.LastName, true
 }
 
-// HasLastName returns a boolean if a field has been set.
-func (o *MeControllerApiUserDetailsRequest) HasLastName() bool {
-	if o != nil && !IsNil(o.LastName) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
+// SetLastName sets field value
 func (o *MeControllerApiUserDetailsRequest) SetLastName(v string) {
-	o.LastName = &v
+	o.LastName = v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
+// GetEmail returns the Email field value
 func (o *MeControllerApiUserDetailsRequest) GetEmail() string {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Email
+
+	return o.Email
 }
 
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiUserDetailsRequest) GetEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Email, true
+	return &o.Email, true
 }
 
-// HasEmail returns a boolean if a field has been set.
-func (o *MeControllerApiUserDetailsRequest) HasEmail() bool {
-	if o != nil && !IsNil(o.Email) {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
+// SetEmail sets field value
 func (o *MeControllerApiUserDetailsRequest) SetEmail(v string) {
-	o.Email = &v
+	o.Email = v
 }
 
 func (o MeControllerApiUserDetailsRequest) MarshalJSON() ([]byte, error) {
@@ -150,15 +130,9 @@ func (o MeControllerApiUserDetailsRequest) MarshalJSON() ([]byte, error) {
 
 func (o MeControllerApiUserDetailsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.FirstName) {
-		toSerialize["firstName"] = o.FirstName
-	}
-	if !IsNil(o.LastName) {
-		toSerialize["lastName"] = o.LastName
-	}
-	if !IsNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
+	toSerialize["firstName"] = o.FirstName
+	toSerialize["lastName"] = o.LastName
+	toSerialize["email"] = o.Email
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -168,6 +142,29 @@ func (o MeControllerApiUserDetailsRequest) ToMap() (map[string]interface{}, erro
 }
 
 func (o *MeControllerApiUserDetailsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"firstName",
+		"lastName",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMeControllerApiUserDetailsRequest := _MeControllerApiUserDetailsRequest{}
 
 	err = json.Unmarshal(data, &varMeControllerApiUserDetailsRequest)

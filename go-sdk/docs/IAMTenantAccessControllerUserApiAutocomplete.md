@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Q** | Pointer to **NullableString** |  | [optional] 
 **Ids** | Pointer to **[]string** |  | [optional] 
+**ExistingOnly** | Pointer to **bool** |  | [optional] 
 **Username** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ HasIds returns a boolean if a field has been set.
 `func (o *IAMTenantAccessControllerUserApiAutocomplete) UnsetIds()`
 
 UnsetIds ensures that no value is present for Ids, not even an explicit nil
+### GetExistingOnly
+
+`func (o *IAMTenantAccessControllerUserApiAutocomplete) GetExistingOnly() bool`
+
+GetExistingOnly returns the ExistingOnly field if non-nil, zero value otherwise.
+
+### GetExistingOnlyOk
+
+`func (o *IAMTenantAccessControllerUserApiAutocomplete) GetExistingOnlyOk() (*bool, bool)`
+
+GetExistingOnlyOk returns a tuple with the ExistingOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExistingOnly
+
+`func (o *IAMTenantAccessControllerUserApiAutocomplete) SetExistingOnly(v bool)`
+
+SetExistingOnly sets ExistingOnly field to given value.
+
+### HasExistingOnly
+
+`func (o *IAMTenantAccessControllerUserApiAutocomplete) HasExistingOnly() bool`
+
+HasExistingOnly returns a boolean if a field has been set.
+
 ### GetUsername
 
 `func (o *IAMTenantAccessControllerUserApiAutocomplete) GetUsername() string`

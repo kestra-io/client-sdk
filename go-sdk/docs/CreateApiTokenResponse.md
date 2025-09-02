@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**FullToken** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
+**FullToken** | **string** |  | 
 
 ## Methods
 
 ### NewCreateApiTokenResponse
 
-`func NewCreateApiTokenResponse() *CreateApiTokenResponse`
+`func NewCreateApiTokenResponse(id string, name string, fullToken string, ) *CreateApiTokenResponse`
 
 NewCreateApiTokenResponse instantiates a new CreateApiTokenResponse object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *CreateApiTokenResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *CreateApiTokenResponse) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetFullToken
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetFullToken sets FullToken field to given value.
 
-### HasFullToken
-
-`func (o *CreateApiTokenResponse) HasFullToken() bool`
-
-HasFullToken returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

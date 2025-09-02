@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiWorkerGroupItem type satisfies the MappedNullable interface at compile time
@@ -20,13 +21,13 @@ var _ MappedNullable = &InstanceControllerApiWorkerGroupItem{}
 // InstanceControllerApiWorkerGroupItem ApiWorkerGroup.
 type InstanceControllerApiWorkerGroupItem struct {
 	// The ID of worker group.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	// The key of the worker group.
-	Key *string `json:"key,omitempty"`
+	Key string `json:"key"`
 	// The description of the worker group.
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description"`
 	// The number of active workers for the group.
-	ActiveWorkers        *int32 `json:"activeWorkers,omitempty"`
+	ActiveWorkers        int32 `json:"activeWorkers"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,8 +37,12 @@ type _InstanceControllerApiWorkerGroupItem InstanceControllerApiWorkerGroupItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiWorkerGroupItem() *InstanceControllerApiWorkerGroupItem {
+func NewInstanceControllerApiWorkerGroupItem(id string, key string, description string, activeWorkers int32) *InstanceControllerApiWorkerGroupItem {
 	this := InstanceControllerApiWorkerGroupItem{}
+	this.Id = id
+	this.Key = key
+	this.Description = description
+	this.ActiveWorkers = activeWorkers
 	return &this
 }
 
@@ -49,132 +54,100 @@ func NewInstanceControllerApiWorkerGroupItemWithDefaults() *InstanceControllerAp
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *InstanceControllerApiWorkerGroupItem) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiWorkerGroupItem) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *InstanceControllerApiWorkerGroupItem) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *InstanceControllerApiWorkerGroupItem) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
+// GetKey returns the Key field value
 func (o *InstanceControllerApiWorkerGroupItem) GetKey() string {
-	if o == nil || IsNil(o.Key) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Key
+
+	return o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiWorkerGroupItem) GetKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.Key) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Key, true
+	return &o.Key, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *InstanceControllerApiWorkerGroupItem) HasKey() bool {
-	if o != nil && !IsNil(o.Key) {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetKey sets field value
 func (o *InstanceControllerApiWorkerGroupItem) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *InstanceControllerApiWorkerGroupItem) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiWorkerGroupItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *InstanceControllerApiWorkerGroupItem) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *InstanceControllerApiWorkerGroupItem) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetActiveWorkers returns the ActiveWorkers field value if set, zero value otherwise.
+// GetActiveWorkers returns the ActiveWorkers field value
 func (o *InstanceControllerApiWorkerGroupItem) GetActiveWorkers() int32 {
-	if o == nil || IsNil(o.ActiveWorkers) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.ActiveWorkers
+
+	return o.ActiveWorkers
 }
 
-// GetActiveWorkersOk returns a tuple with the ActiveWorkers field value if set, nil otherwise
+// GetActiveWorkersOk returns a tuple with the ActiveWorkers field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiWorkerGroupItem) GetActiveWorkersOk() (*int32, bool) {
-	if o == nil || IsNil(o.ActiveWorkers) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ActiveWorkers, true
+	return &o.ActiveWorkers, true
 }
 
-// HasActiveWorkers returns a boolean if a field has been set.
-func (o *InstanceControllerApiWorkerGroupItem) HasActiveWorkers() bool {
-	if o != nil && !IsNil(o.ActiveWorkers) {
-		return true
-	}
-
-	return false
-}
-
-// SetActiveWorkers gets a reference to the given int32 and assigns it to the ActiveWorkers field.
+// SetActiveWorkers sets field value
 func (o *InstanceControllerApiWorkerGroupItem) SetActiveWorkers(v int32) {
-	o.ActiveWorkers = &v
+	o.ActiveWorkers = v
 }
 
 func (o InstanceControllerApiWorkerGroupItem) MarshalJSON() ([]byte, error) {
@@ -187,18 +160,10 @@ func (o InstanceControllerApiWorkerGroupItem) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiWorkerGroupItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Key) {
-		toSerialize["key"] = o.Key
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.ActiveWorkers) {
-		toSerialize["activeWorkers"] = o.ActiveWorkers
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["key"] = o.Key
+	toSerialize["description"] = o.Description
+	toSerialize["activeWorkers"] = o.ActiveWorkers
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -208,6 +173,30 @@ func (o InstanceControllerApiWorkerGroupItem) ToMap() (map[string]interface{}, e
 }
 
 func (o *InstanceControllerApiWorkerGroupItem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"key",
+		"description",
+		"activeWorkers",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiWorkerGroupItem := _InstanceControllerApiWorkerGroupItem{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiWorkerGroupItem)

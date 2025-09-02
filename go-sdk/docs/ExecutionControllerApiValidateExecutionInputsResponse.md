@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Inputs** | Pointer to [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | [optional] 
+**Id** | **string** |  | 
+**Namespace** | **string** |  | 
+**Inputs** | [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | 
 
 ## Methods
 
 ### NewExecutionControllerApiValidateExecutionInputsResponse
 
-`func NewExecutionControllerApiValidateExecutionInputsResponse() *ExecutionControllerApiValidateExecutionInputsResponse`
+`func NewExecutionControllerApiValidateExecutionInputsResponse(id string, namespace string, inputs []ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue, ) *ExecutionControllerApiValidateExecutionInputsResponse`
 
 NewExecutionControllerApiValidateExecutionInputsResponse instantiates a new ExecutionControllerApiValidateExecutionInputsResponse object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetInputs
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetInputs sets Inputs field to given value.
 
-### HasInputs
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponse) HasInputs() bool`
-
-HasInputs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

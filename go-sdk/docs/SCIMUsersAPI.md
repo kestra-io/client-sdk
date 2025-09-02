@@ -37,7 +37,7 @@ import (
 func main() {
 	integration := "integration_example" // string | 
 	tenant := "tenant_example" // string | 
-	scimUser := *openapiclient.NewScimUser(*openapiclient.NewMeta()) // ScimUser | 
+	scimUser := *openapiclient.NewScimUser(*openapiclient.NewMeta(), "ResourceType_example") // ScimUser | 
 	attributes := "attributes_example" // string |  (optional)
 	excludedAttributes := "excludedAttributes_example" // string |  (optional)
 
@@ -513,7 +513,7 @@ func main() {
 	id := "id_example" // string | 
 	integration := "integration_example" // string | 
 	tenant := "tenant_example" // string | 
-	scimResource := *openapiclient.NewScimResource(*openapiclient.NewMeta()) // ScimResource | 
+	scimResource := *openapiclient.NewScimResource(*openapiclient.NewMeta(), "ResourceType_example") // ScimResource | 
 	attributes := "attributes_example" // string |  (optional)
 	excludedAttributes := "excludedAttributes_example" // string |  (optional)
 

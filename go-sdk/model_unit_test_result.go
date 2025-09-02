@@ -22,12 +22,12 @@ var _ MappedNullable = &UnitTestResult{}
 type UnitTestResult struct {
 	TestId               string              `json:"testId"`
 	TestType             string              `json:"testType"`
-	ExecutionId          *string             `json:"executionId,omitempty"`
-	Url                  *string             `json:"url,omitempty"`
+	ExecutionId          string              `json:"executionId"`
+	Url                  string              `json:"url"`
 	State                TestState           `json:"state"`
 	AssertionResults     []AssertionResult   `json:"assertionResults"`
 	Errors               []AssertionRunError `json:"errors"`
-	Fixtures             *Fixtures           `json:"fixtures,omitempty"`
+	Fixtures             Fixtures            `json:"fixtures"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,13 +37,16 @@ type _UnitTestResult UnitTestResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUnitTestResult(testId string, testType string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError) *UnitTestResult {
+func NewUnitTestResult(testId string, testType string, executionId string, url string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError, fixtures Fixtures) *UnitTestResult {
 	this := UnitTestResult{}
 	this.TestId = testId
 	this.TestType = testType
+	this.ExecutionId = executionId
+	this.Url = url
 	this.State = state
 	this.AssertionResults = assertionResults
 	this.Errors = errors
+	this.Fixtures = fixtures
 	return &this
 }
 
@@ -103,68 +106,52 @@ func (o *UnitTestResult) SetTestType(v string) {
 	o.TestType = v
 }
 
-// GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
+// GetExecutionId returns the ExecutionId field value
 func (o *UnitTestResult) GetExecutionId() string {
-	if o == nil || IsNil(o.ExecutionId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExecutionId
+
+	return o.ExecutionId
 }
 
-// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// GetExecutionIdOk returns a tuple with the ExecutionId field value
 // and a boolean to check if the value has been set.
 func (o *UnitTestResult) GetExecutionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExecutionId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExecutionId, true
+	return &o.ExecutionId, true
 }
 
-// HasExecutionId returns a boolean if a field has been set.
-func (o *UnitTestResult) HasExecutionId() bool {
-	if o != nil && !IsNil(o.ExecutionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionId gets a reference to the given string and assigns it to the ExecutionId field.
+// SetExecutionId sets field value
 func (o *UnitTestResult) SetExecutionId(v string) {
-	o.ExecutionId = &v
+	o.ExecutionId = v
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// GetUrl returns the Url field value
 func (o *UnitTestResult) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+
+	return o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *UnitTestResult) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return &o.Url, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *UnitTestResult) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl sets field value
 func (o *UnitTestResult) SetUrl(v string) {
-	o.Url = &v
+	o.Url = v
 }
 
 // GetState returns the State field value
@@ -239,36 +226,28 @@ func (o *UnitTestResult) SetErrors(v []AssertionRunError) {
 	o.Errors = v
 }
 
-// GetFixtures returns the Fixtures field value if set, zero value otherwise.
+// GetFixtures returns the Fixtures field value
 func (o *UnitTestResult) GetFixtures() Fixtures {
-	if o == nil || IsNil(o.Fixtures) {
+	if o == nil {
 		var ret Fixtures
 		return ret
 	}
-	return *o.Fixtures
+
+	return o.Fixtures
 }
 
-// GetFixturesOk returns a tuple with the Fixtures field value if set, nil otherwise
+// GetFixturesOk returns a tuple with the Fixtures field value
 // and a boolean to check if the value has been set.
 func (o *UnitTestResult) GetFixturesOk() (*Fixtures, bool) {
-	if o == nil || IsNil(o.Fixtures) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Fixtures, true
+	return &o.Fixtures, true
 }
 
-// HasFixtures returns a boolean if a field has been set.
-func (o *UnitTestResult) HasFixtures() bool {
-	if o != nil && !IsNil(o.Fixtures) {
-		return true
-	}
-
-	return false
-}
-
-// SetFixtures gets a reference to the given Fixtures and assigns it to the Fixtures field.
+// SetFixtures sets field value
 func (o *UnitTestResult) SetFixtures(v Fixtures) {
-	o.Fixtures = &v
+	o.Fixtures = v
 }
 
 func (o UnitTestResult) MarshalJSON() ([]byte, error) {
@@ -283,18 +262,12 @@ func (o UnitTestResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["testId"] = o.TestId
 	toSerialize["testType"] = o.TestType
-	if !IsNil(o.ExecutionId) {
-		toSerialize["executionId"] = o.ExecutionId
-	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["executionId"] = o.ExecutionId
+	toSerialize["url"] = o.Url
 	toSerialize["state"] = o.State
 	toSerialize["assertionResults"] = o.AssertionResults
 	toSerialize["errors"] = o.Errors
-	if !IsNil(o.Fixtures) {
-		toSerialize["fixtures"] = o.Fixtures
-	}
+	toSerialize["fixtures"] = o.Fixtures
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -310,9 +283,12 @@ func (o *UnitTestResult) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"testId",
 		"testType",
+		"executionId",
+		"url",
 		"state",
 		"assertionResults",
 		"errors",
+		"fixtures",
 	}
 
 	allProperties := make(map[string]interface{})

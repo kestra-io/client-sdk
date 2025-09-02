@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Revision** | Pointer to **int32** |  | [optional] 
 **TenantId** | Pointer to **string** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Disabled** | Pointer to **bool** |  | [optional] 
 **Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
@@ -162,6 +163,31 @@ SetDeleted sets Deleted field to given value.
 `func (o *FlowInterface) HasDeleted() bool`
 
 HasDeleted returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *FlowInterface) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *FlowInterface) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *FlowInterface) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *FlowInterface) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetDisabled
 

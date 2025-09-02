@@ -22,11 +22,13 @@ var _ MappedNullable = &MiscControllerConfiguration{}
 type MiscControllerConfiguration struct {
 	Uuid                      *string                    `json:"uuid,omitempty"`
 	Version                   *string                    `json:"version,omitempty"`
+	Edition                   *MiscControllerEdition     `json:"edition,omitempty"`
 	CommitId                  *string                    `json:"commitId,omitempty"`
 	CommitDate                *time.Time                 `json:"commitDate,omitempty"`
 	IsCustomDashboardsEnabled *bool                      `json:"isCustomDashboardsEnabled,omitempty"`
 	IsTaskRunEnabled          *bool                      `json:"isTaskRunEnabled,omitempty"`
 	IsAnonymousUsageEnabled   *bool                      `json:"isAnonymousUsageEnabled,omitempty"`
+	IsUiAnonymousUsageEnabled *bool                      `json:"isUiAnonymousUsageEnabled,omitempty"`
 	IsTemplateEnabled         *bool                      `json:"isTemplateEnabled,omitempty"`
 	Environment               *MiscControllerEnvironment `json:"environment,omitempty"`
 	Url                       *string                    `json:"url,omitempty"`
@@ -120,6 +122,38 @@ func (o *MiscControllerConfiguration) HasVersion() bool {
 // SetVersion gets a reference to the given string and assigns it to the Version field.
 func (o *MiscControllerConfiguration) SetVersion(v string) {
 	o.Version = &v
+}
+
+// GetEdition returns the Edition field value if set, zero value otherwise.
+func (o *MiscControllerConfiguration) GetEdition() MiscControllerEdition {
+	if o == nil || IsNil(o.Edition) {
+		var ret MiscControllerEdition
+		return ret
+	}
+	return *o.Edition
+}
+
+// GetEditionOk returns a tuple with the Edition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerConfiguration) GetEditionOk() (*MiscControllerEdition, bool) {
+	if o == nil || IsNil(o.Edition) {
+		return nil, false
+	}
+	return o.Edition, true
+}
+
+// HasEdition returns a boolean if a field has been set.
+func (o *MiscControllerConfiguration) HasEdition() bool {
+	if o != nil && !IsNil(o.Edition) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdition gets a reference to the given MiscControllerEdition and assigns it to the Edition field.
+func (o *MiscControllerConfiguration) SetEdition(v MiscControllerEdition) {
+	o.Edition = &v
 }
 
 // GetCommitId returns the CommitId field value if set, zero value otherwise.
@@ -280,6 +314,38 @@ func (o *MiscControllerConfiguration) HasIsAnonymousUsageEnabled() bool {
 // SetIsAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsAnonymousUsageEnabled field.
 func (o *MiscControllerConfiguration) SetIsAnonymousUsageEnabled(v bool) {
 	o.IsAnonymousUsageEnabled = &v
+}
+
+// GetIsUiAnonymousUsageEnabled returns the IsUiAnonymousUsageEnabled field value if set, zero value otherwise.
+func (o *MiscControllerConfiguration) GetIsUiAnonymousUsageEnabled() bool {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsUiAnonymousUsageEnabled
+}
+
+// GetIsUiAnonymousUsageEnabledOk returns a tuple with the IsUiAnonymousUsageEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerConfiguration) GetIsUiAnonymousUsageEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		return nil, false
+	}
+	return o.IsUiAnonymousUsageEnabled, true
+}
+
+// HasIsUiAnonymousUsageEnabled returns a boolean if a field has been set.
+func (o *MiscControllerConfiguration) HasIsUiAnonymousUsageEnabled() bool {
+	if o != nil && !IsNil(o.IsUiAnonymousUsageEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsUiAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsUiAnonymousUsageEnabled field.
+func (o *MiscControllerConfiguration) SetIsUiAnonymousUsageEnabled(v bool) {
+	o.IsUiAnonymousUsageEnabled = &v
 }
 
 // GetIsTemplateEnabled returns the IsTemplateEnabled field value if set, zero value otherwise.
@@ -586,6 +652,9 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+	if !IsNil(o.Edition) {
+		toSerialize["edition"] = o.Edition
+	}
 	if !IsNil(o.CommitId) {
 		toSerialize["commitId"] = o.CommitId
 	}
@@ -600,6 +669,9 @@ func (o MiscControllerConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsAnonymousUsageEnabled) {
 		toSerialize["isAnonymousUsageEnabled"] = o.IsAnonymousUsageEnabled
+	}
+	if !IsNil(o.IsUiAnonymousUsageEnabled) {
+		toSerialize["isUiAnonymousUsageEnabled"] = o.IsUiAnonymousUsageEnabled
 	}
 	if !IsNil(o.IsTemplateEnabled) {
 		toSerialize["isTemplateEnabled"] = o.IsTemplateEnabled
@@ -652,11 +724,13 @@ func (o *MiscControllerConfiguration) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "uuid")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "edition")
 		delete(additionalProperties, "commitId")
 		delete(additionalProperties, "commitDate")
 		delete(additionalProperties, "isCustomDashboardsEnabled")
 		delete(additionalProperties, "isTaskRunEnabled")
 		delete(additionalProperties, "isAnonymousUsageEnabled")
+		delete(additionalProperties, "isUiAnonymousUsageEnabled")
 		delete(additionalProperties, "isTemplateEnabled")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "url")

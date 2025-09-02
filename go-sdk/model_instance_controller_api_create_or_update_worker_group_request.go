@@ -23,8 +23,8 @@ type InstanceControllerApiCreateOrUpdateWorkerGroupRequest struct {
 	// The key of the worker group.
 	Key string `json:"key"`
 	// The description of the worker group.
-	Description          *string  `json:"description,omitempty"`
-	AllowedTenants       []string `json:"allowedTenants,omitempty"`
+	Description          string   `json:"description"`
+	AllowedTenants       []string `json:"allowedTenants"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,9 +34,11 @@ type _InstanceControllerApiCreateOrUpdateWorkerGroupRequest InstanceControllerAp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest(key string) *InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
+func NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest(key string, description string, allowedTenants []string) *InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
 	this := InstanceControllerApiCreateOrUpdateWorkerGroupRequest{}
 	this.Key = key
+	this.Description = description
+	this.AllowedTenants = allowedTenants
 	return &this
 }
 
@@ -72,66 +74,50 @@ func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) SetKey(v string)
 	o.Key = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetAllowedTenants returns the AllowedTenants field value if set, zero value otherwise.
+// GetAllowedTenants returns the AllowedTenants field value
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) GetAllowedTenants() []string {
-	if o == nil || IsNil(o.AllowedTenants) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.AllowedTenants
 }
 
-// GetAllowedTenantsOk returns a tuple with the AllowedTenants field value if set, nil otherwise
+// GetAllowedTenantsOk returns a tuple with the AllowedTenants field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) GetAllowedTenantsOk() ([]string, bool) {
-	if o == nil || IsNil(o.AllowedTenants) {
+	if o == nil {
 		return nil, false
 	}
 	return o.AllowedTenants, true
 }
 
-// HasAllowedTenants returns a boolean if a field has been set.
-func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) HasAllowedTenants() bool {
-	if o != nil && !IsNil(o.AllowedTenants) {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowedTenants gets a reference to the given []string and assigns it to the AllowedTenants field.
+// SetAllowedTenants sets field value
 func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) SetAllowedTenants(v []string) {
 	o.AllowedTenants = v
 }
@@ -147,12 +133,8 @@ func (o InstanceControllerApiCreateOrUpdateWorkerGroupRequest) MarshalJSON() ([]
 func (o InstanceControllerApiCreateOrUpdateWorkerGroupRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.AllowedTenants) {
-		toSerialize["allowedTenants"] = o.AllowedTenants
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["allowedTenants"] = o.AllowedTenants
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -167,6 +149,8 @@ func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) UnmarshalJSON(da
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"key",
+		"description",
+		"allowedTenants",
 	}
 
 	allProperties := make(map[string]interface{})

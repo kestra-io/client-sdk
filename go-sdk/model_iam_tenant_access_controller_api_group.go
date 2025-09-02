@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IAMTenantAccessControllerApiGroup type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &IAMTenantAccessControllerApiGroup{}
 
 // IAMTenantAccessControllerApiGroup struct for IAMTenantAccessControllerApiGroup
 type IAMTenantAccessControllerApiGroup struct {
-	Id                   *string `json:"id,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	External             *bool   `json:"external,omitempty"`
+	Id                   string `json:"id"`
+	Name                 string `json:"name"`
+	External             bool   `json:"external"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,11 @@ type _IAMTenantAccessControllerApiGroup IAMTenantAccessControllerApiGroup
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMTenantAccessControllerApiGroup() *IAMTenantAccessControllerApiGroup {
+func NewIAMTenantAccessControllerApiGroup(id string, name string, external bool) *IAMTenantAccessControllerApiGroup {
 	this := IAMTenantAccessControllerApiGroup{}
+	this.Id = id
+	this.Name = name
+	this.External = external
 	return &this
 }
 
@@ -44,100 +48,76 @@ func NewIAMTenantAccessControllerApiGroupWithDefaults() *IAMTenantAccessControll
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *IAMTenantAccessControllerApiGroup) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiGroup) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiGroup) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *IAMTenantAccessControllerApiGroup) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *IAMTenantAccessControllerApiGroup) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiGroup) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiGroup) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *IAMTenantAccessControllerApiGroup) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetExternal returns the External field value if set, zero value otherwise.
+// GetExternal returns the External field value
 func (o *IAMTenantAccessControllerApiGroup) GetExternal() bool {
-	if o == nil || IsNil(o.External) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.External
+
+	return o.External
 }
 
-// GetExternalOk returns a tuple with the External field value if set, nil otherwise
+// GetExternalOk returns a tuple with the External field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiGroup) GetExternalOk() (*bool, bool) {
-	if o == nil || IsNil(o.External) {
+	if o == nil {
 		return nil, false
 	}
-	return o.External, true
+	return &o.External, true
 }
 
-// HasExternal returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiGroup) HasExternal() bool {
-	if o != nil && !IsNil(o.External) {
-		return true
-	}
-
-	return false
-}
-
-// SetExternal gets a reference to the given bool and assigns it to the External field.
+// SetExternal sets field value
 func (o *IAMTenantAccessControllerApiGroup) SetExternal(v bool) {
-	o.External = &v
+	o.External = v
 }
 
 func (o IAMTenantAccessControllerApiGroup) MarshalJSON() ([]byte, error) {
@@ -150,15 +130,9 @@ func (o IAMTenantAccessControllerApiGroup) MarshalJSON() ([]byte, error) {
 
 func (o IAMTenantAccessControllerApiGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.External) {
-		toSerialize["external"] = o.External
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["external"] = o.External
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -168,6 +142,29 @@ func (o IAMTenantAccessControllerApiGroup) ToMap() (map[string]interface{}, erro
 }
 
 func (o *IAMTenantAccessControllerApiGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"external",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMTenantAccessControllerApiGroup := _IAMTenantAccessControllerApiGroup{}
 
 	err = json.Unmarshal(data, &varIAMTenantAccessControllerApiGroup)

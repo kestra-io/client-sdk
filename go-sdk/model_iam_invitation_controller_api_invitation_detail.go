@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,17 +21,17 @@ var _ MappedNullable = &IAMInvitationControllerApiInvitationDetail{}
 
 // IAMInvitationControllerApiInvitationDetail struct for IAMInvitationControllerApiInvitationDetail
 type IAMInvitationControllerApiInvitationDetail struct {
-	Id                   *string                     `json:"id,omitempty"`
-	Roles                []ApiRoleSummary            `json:"roles,omitempty"`
-	Groups               []ApiGroupSummary           `json:"groups,omitempty"`
-	TenantId             *string                     `json:"tenantId,omitempty"`
-	Email                *string                     `json:"email,omitempty"`
-	Status               *InvitationInvitationStatus `json:"status,omitempty"`
-	SentAt               *time.Time                  `json:"sentAt,omitempty"`
-	ExpiredAt            *time.Time                  `json:"expiredAt,omitempty"`
-	AcceptedAt           *time.Time                  `json:"acceptedAt,omitempty"`
-	SuperAdmin           *bool                       `json:"superAdmin,omitempty"`
-	Link                 *string                     `json:"link,omitempty"`
+	Id                   string                     `json:"id"`
+	Roles                []ApiRoleSummary           `json:"roles"`
+	Groups               []ApiGroupSummary          `json:"groups"`
+	TenantId             string                     `json:"tenantId"`
+	Email                string                     `json:"email"`
+	Status               InvitationInvitationStatus `json:"status"`
+	SentAt               time.Time                  `json:"sentAt"`
+	ExpiredAt            time.Time                  `json:"expiredAt"`
+	AcceptedAt           time.Time                  `json:"acceptedAt"`
+	SuperAdmin           bool                       `json:"superAdmin"`
+	Link                 string                     `json:"link"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,8 +41,19 @@ type _IAMInvitationControllerApiInvitationDetail IAMInvitationControllerApiInvit
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMInvitationControllerApiInvitationDetail() *IAMInvitationControllerApiInvitationDetail {
+func NewIAMInvitationControllerApiInvitationDetail(id string, roles []ApiRoleSummary, groups []ApiGroupSummary, tenantId string, email string, status InvitationInvitationStatus, sentAt time.Time, expiredAt time.Time, acceptedAt time.Time, superAdmin bool, link string) *IAMInvitationControllerApiInvitationDetail {
 	this := IAMInvitationControllerApiInvitationDetail{}
+	this.Id = id
+	this.Roles = roles
+	this.Groups = groups
+	this.TenantId = tenantId
+	this.Email = email
+	this.Status = status
+	this.SentAt = sentAt
+	this.ExpiredAt = expiredAt
+	this.AcceptedAt = acceptedAt
+	this.SuperAdmin = superAdmin
+	this.Link = link
 	return &this
 }
 
@@ -53,356 +65,268 @@ func NewIAMInvitationControllerApiInvitationDetailWithDefaults() *IAMInvitationC
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetRoles returns the Roles field value if set, zero value otherwise.
+// GetRoles returns the Roles field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetRoles() []ApiRoleSummary {
-	if o == nil || IsNil(o.Roles) {
+	if o == nil {
 		var ret []ApiRoleSummary
 		return ret
 	}
+
 	return o.Roles
 }
 
-// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
+// GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetRolesOk() ([]ApiRoleSummary, bool) {
-	if o == nil || IsNil(o.Roles) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Roles, true
 }
 
-// HasRoles returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasRoles() bool {
-	if o != nil && !IsNil(o.Roles) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoles gets a reference to the given []ApiRoleSummary and assigns it to the Roles field.
+// SetRoles sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetRoles(v []ApiRoleSummary) {
 	o.Roles = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetGroups() []ApiGroupSummary {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []ApiGroupSummary
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetGroupsOk() ([]ApiGroupSummary, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []ApiGroupSummary and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetGroups(v []ApiGroupSummary) {
 	o.Groups = v
 }
 
-// GetTenantId returns the TenantId field value if set, zero value otherwise.
+// GetTenantId returns the TenantId field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetTenantId() string {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TenantId
+
+	return o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// GetTenantIdOk returns a tuple with the TenantId field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetTenantIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantId, true
+	return &o.TenantId, true
 }
 
-// HasTenantId returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasTenantId() bool {
-	if o != nil && !IsNil(o.TenantId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+// SetTenantId sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetTenantId(v string) {
-	o.TenantId = &v
+	o.TenantId = v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
+// GetEmail returns the Email field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetEmail() string {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Email
+
+	return o.Email
 }
 
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Email, true
+	return &o.Email, true
 }
 
-// HasEmail returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasEmail() bool {
-	if o != nil && !IsNil(o.Email) {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
+// SetEmail sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetEmail(v string) {
-	o.Email = &v
+	o.Email = v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetStatus() InvitationInvitationStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret InvitationInvitationStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetStatusOk() (*InvitationInvitationStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given InvitationInvitationStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetStatus(v InvitationInvitationStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetSentAt returns the SentAt field value if set, zero value otherwise.
+// GetSentAt returns the SentAt field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetSentAt() time.Time {
-	if o == nil || IsNil(o.SentAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.SentAt
+
+	return o.SentAt
 }
 
-// GetSentAtOk returns a tuple with the SentAt field value if set, nil otherwise
+// GetSentAtOk returns a tuple with the SentAt field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetSentAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.SentAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SentAt, true
+	return &o.SentAt, true
 }
 
-// HasSentAt returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasSentAt() bool {
-	if o != nil && !IsNil(o.SentAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetSentAt gets a reference to the given time.Time and assigns it to the SentAt field.
+// SetSentAt sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetSentAt(v time.Time) {
-	o.SentAt = &v
+	o.SentAt = v
 }
 
-// GetExpiredAt returns the ExpiredAt field value if set, zero value otherwise.
+// GetExpiredAt returns the ExpiredAt field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetExpiredAt() time.Time {
-	if o == nil || IsNil(o.ExpiredAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.ExpiredAt
+
+	return o.ExpiredAt
 }
 
-// GetExpiredAtOk returns a tuple with the ExpiredAt field value if set, nil otherwise
+// GetExpiredAtOk returns a tuple with the ExpiredAt field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetExpiredAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiredAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExpiredAt, true
+	return &o.ExpiredAt, true
 }
 
-// HasExpiredAt returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasExpiredAt() bool {
-	if o != nil && !IsNil(o.ExpiredAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetExpiredAt gets a reference to the given time.Time and assigns it to the ExpiredAt field.
+// SetExpiredAt sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetExpiredAt(v time.Time) {
-	o.ExpiredAt = &v
+	o.ExpiredAt = v
 }
 
-// GetAcceptedAt returns the AcceptedAt field value if set, zero value otherwise.
+// GetAcceptedAt returns the AcceptedAt field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetAcceptedAt() time.Time {
-	if o == nil || IsNil(o.AcceptedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.AcceptedAt
+
+	return o.AcceptedAt
 }
 
-// GetAcceptedAtOk returns a tuple with the AcceptedAt field value if set, nil otherwise
+// GetAcceptedAtOk returns a tuple with the AcceptedAt field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetAcceptedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.AcceptedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AcceptedAt, true
+	return &o.AcceptedAt, true
 }
 
-// HasAcceptedAt returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasAcceptedAt() bool {
-	if o != nil && !IsNil(o.AcceptedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetAcceptedAt gets a reference to the given time.Time and assigns it to the AcceptedAt field.
+// SetAcceptedAt sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetAcceptedAt(v time.Time) {
-	o.AcceptedAt = &v
+	o.AcceptedAt = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
+// GetSuperAdmin returns the SuperAdmin field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+
+	return o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return &o.SuperAdmin, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
+// SetSuperAdmin sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+	o.SuperAdmin = v
 }
 
-// GetLink returns the Link field value if set, zero value otherwise.
+// GetLink returns the Link field value
 func (o *IAMInvitationControllerApiInvitationDetail) GetLink() string {
-	if o == nil || IsNil(o.Link) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Link
+
+	return o.Link
 }
 
-// GetLinkOk returns a tuple with the Link field value if set, nil otherwise
+// GetLinkOk returns a tuple with the Link field value
 // and a boolean to check if the value has been set.
 func (o *IAMInvitationControllerApiInvitationDetail) GetLinkOk() (*string, bool) {
-	if o == nil || IsNil(o.Link) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Link, true
+	return &o.Link, true
 }
 
-// HasLink returns a boolean if a field has been set.
-func (o *IAMInvitationControllerApiInvitationDetail) HasLink() bool {
-	if o != nil && !IsNil(o.Link) {
-		return true
-	}
-
-	return false
-}
-
-// SetLink gets a reference to the given string and assigns it to the Link field.
+// SetLink sets field value
 func (o *IAMInvitationControllerApiInvitationDetail) SetLink(v string) {
-	o.Link = &v
+	o.Link = v
 }
 
 func (o IAMInvitationControllerApiInvitationDetail) MarshalJSON() ([]byte, error) {
@@ -415,39 +339,17 @@ func (o IAMInvitationControllerApiInvitationDetail) MarshalJSON() ([]byte, error
 
 func (o IAMInvitationControllerApiInvitationDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Roles) {
-		toSerialize["roles"] = o.Roles
-	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
-	if !IsNil(o.TenantId) {
-		toSerialize["tenantId"] = o.TenantId
-	}
-	if !IsNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.SentAt) {
-		toSerialize["sentAt"] = o.SentAt
-	}
-	if !IsNil(o.ExpiredAt) {
-		toSerialize["expiredAt"] = o.ExpiredAt
-	}
-	if !IsNil(o.AcceptedAt) {
-		toSerialize["acceptedAt"] = o.AcceptedAt
-	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
-	}
-	if !IsNil(o.Link) {
-		toSerialize["link"] = o.Link
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["roles"] = o.Roles
+	toSerialize["groups"] = o.Groups
+	toSerialize["tenantId"] = o.TenantId
+	toSerialize["email"] = o.Email
+	toSerialize["status"] = o.Status
+	toSerialize["sentAt"] = o.SentAt
+	toSerialize["expiredAt"] = o.ExpiredAt
+	toSerialize["acceptedAt"] = o.AcceptedAt
+	toSerialize["superAdmin"] = o.SuperAdmin
+	toSerialize["link"] = o.Link
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -457,6 +359,37 @@ func (o IAMInvitationControllerApiInvitationDetail) ToMap() (map[string]interfac
 }
 
 func (o *IAMInvitationControllerApiInvitationDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"roles",
+		"groups",
+		"tenantId",
+		"email",
+		"status",
+		"sentAt",
+		"expiredAt",
+		"acceptedAt",
+		"superAdmin",
+		"link",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMInvitationControllerApiInvitationDetail := _IAMInvitationControllerApiInvitationDetail{}
 
 	err = json.Unmarshal(data, &varIAMInvitationControllerApiInvitationDetail)

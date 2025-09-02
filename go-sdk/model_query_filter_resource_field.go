@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the QueryFilterResourceField type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &QueryFilterResourceField{}
 
 // QueryFilterResourceField struct for QueryFilterResourceField
 type QueryFilterResourceField struct {
-	Name                 *string              `json:"name,omitempty"`
-	Fields               []QueryFilterFieldOp `json:"fields,omitempty"`
+	Name                 string               `json:"name"`
+	Fields               []QueryFilterFieldOp `json:"fields"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _QueryFilterResourceField QueryFilterResourceField
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQueryFilterResourceField() *QueryFilterResourceField {
+func NewQueryFilterResourceField(name string, fields []QueryFilterFieldOp) *QueryFilterResourceField {
 	this := QueryFilterResourceField{}
+	this.Name = name
+	this.Fields = fields
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewQueryFilterResourceFieldWithDefaults() *QueryFilterResourceField {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *QueryFilterResourceField) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *QueryFilterResourceField) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *QueryFilterResourceField) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *QueryFilterResourceField) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetFields returns the Fields field value if set, zero value otherwise.
+// GetFields returns the Fields field value
 func (o *QueryFilterResourceField) GetFields() []QueryFilterFieldOp {
-	if o == nil || IsNil(o.Fields) {
+	if o == nil {
 		var ret []QueryFilterFieldOp
 		return ret
 	}
+
 	return o.Fields
 }
 
-// GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
+// GetFieldsOk returns a tuple with the Fields field value
 // and a boolean to check if the value has been set.
 func (o *QueryFilterResourceField) GetFieldsOk() ([]QueryFilterFieldOp, bool) {
-	if o == nil || IsNil(o.Fields) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Fields, true
 }
 
-// HasFields returns a boolean if a field has been set.
-func (o *QueryFilterResourceField) HasFields() bool {
-	if o != nil && !IsNil(o.Fields) {
-		return true
-	}
-
-	return false
-}
-
-// SetFields gets a reference to the given []QueryFilterFieldOp and assigns it to the Fields field.
+// SetFields sets field value
 func (o *QueryFilterResourceField) SetFields(v []QueryFilterFieldOp) {
 	o.Fields = v
 }
@@ -117,12 +104,8 @@ func (o QueryFilterResourceField) MarshalJSON() ([]byte, error) {
 
 func (o QueryFilterResourceField) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Fields) {
-		toSerialize["fields"] = o.Fields
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["fields"] = o.Fields
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o QueryFilterResourceField) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *QueryFilterResourceField) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"fields",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varQueryFilterResourceField := _QueryFilterResourceField{}
 
 	err = json.Unmarshal(data, &varQueryFilterResourceField)

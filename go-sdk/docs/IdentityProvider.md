@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**ExternalId** | Pointer to **string** |  | [optional] 
-**SecurityIntegrationId** | Pointer to **string** |  | [optional] 
-**SecurityIntegrationName** | Pointer to **string** |  | [optional] 
+**Attributes** | **map[string]map[string]interface{}** |  | 
+**ExternalId** | **string** |  | 
+**SecurityIntegrationId** | **string** |  | 
+**SecurityIntegrationName** | **string** |  | 
 
 ## Methods
 
 ### NewIdentityProvider
 
-`func NewIdentityProvider() *IdentityProvider`
+`func NewIdentityProvider(attributes map[string]map[string]interface{}, externalId string, securityIntegrationId string, securityIntegrationName string, ) *IdentityProvider`
 
 NewIdentityProvider instantiates a new IdentityProvider object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetAttributes sets Attributes field to given value.
 
-### HasAttributes
-
-`func (o *IdentityProvider) HasAttributes() bool`
-
-HasAttributes returns a boolean if a field has been set.
 
 ### GetExternalId
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetExternalId sets ExternalId field to given value.
 
-### HasExternalId
-
-`func (o *IdentityProvider) HasExternalId() bool`
-
-HasExternalId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationId
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationId sets SecurityIntegrationId field to given value.
 
-### HasSecurityIntegrationId
-
-`func (o *IdentityProvider) HasSecurityIntegrationId() bool`
-
-HasSecurityIntegrationId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationName
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationName sets SecurityIntegrationName field to given value.
 
-### HasSecurityIntegrationName
-
-`func (o *IdentityProvider) HasSecurityIntegrationName() bool`
-
-HasSecurityIntegrationName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

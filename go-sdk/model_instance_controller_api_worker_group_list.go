@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiWorkerGroupList type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &InstanceControllerApiWorkerGroupList{}
 // InstanceControllerApiWorkerGroupList ApiWorkerGroupList.
 type InstanceControllerApiWorkerGroupList struct {
 	// The list of worker groups.
-	WorkerGroups         []InstanceControllerApiWorkerGroupItem `json:"workerGroups,omitempty"`
+	WorkerGroups         []InstanceControllerApiWorkerGroupItem `json:"workerGroups"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _InstanceControllerApiWorkerGroupList InstanceControllerApiWorkerGroupList
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiWorkerGroupList() *InstanceControllerApiWorkerGroupList {
+func NewInstanceControllerApiWorkerGroupList(workerGroups []InstanceControllerApiWorkerGroupItem) *InstanceControllerApiWorkerGroupList {
 	this := InstanceControllerApiWorkerGroupList{}
+	this.WorkerGroups = workerGroups
 	return &this
 }
 
@@ -43,34 +45,26 @@ func NewInstanceControllerApiWorkerGroupListWithDefaults() *InstanceControllerAp
 	return &this
 }
 
-// GetWorkerGroups returns the WorkerGroups field value if set, zero value otherwise.
+// GetWorkerGroups returns the WorkerGroups field value
 func (o *InstanceControllerApiWorkerGroupList) GetWorkerGroups() []InstanceControllerApiWorkerGroupItem {
-	if o == nil || IsNil(o.WorkerGroups) {
+	if o == nil {
 		var ret []InstanceControllerApiWorkerGroupItem
 		return ret
 	}
+
 	return o.WorkerGroups
 }
 
-// GetWorkerGroupsOk returns a tuple with the WorkerGroups field value if set, nil otherwise
+// GetWorkerGroupsOk returns a tuple with the WorkerGroups field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiWorkerGroupList) GetWorkerGroupsOk() ([]InstanceControllerApiWorkerGroupItem, bool) {
-	if o == nil || IsNil(o.WorkerGroups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.WorkerGroups, true
 }
 
-// HasWorkerGroups returns a boolean if a field has been set.
-func (o *InstanceControllerApiWorkerGroupList) HasWorkerGroups() bool {
-	if o != nil && !IsNil(o.WorkerGroups) {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkerGroups gets a reference to the given []InstanceControllerApiWorkerGroupItem and assigns it to the WorkerGroups field.
+// SetWorkerGroups sets field value
 func (o *InstanceControllerApiWorkerGroupList) SetWorkerGroups(v []InstanceControllerApiWorkerGroupItem) {
 	o.WorkerGroups = v
 }
@@ -85,9 +79,7 @@ func (o InstanceControllerApiWorkerGroupList) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiWorkerGroupList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.WorkerGroups) {
-		toSerialize["workerGroups"] = o.WorkerGroups
-	}
+	toSerialize["workerGroups"] = o.WorkerGroups
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +89,27 @@ func (o InstanceControllerApiWorkerGroupList) ToMap() (map[string]interface{}, e
 }
 
 func (o *InstanceControllerApiWorkerGroupList) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"workerGroups",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiWorkerGroupList := _InstanceControllerApiWorkerGroupList{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiWorkerGroupList)

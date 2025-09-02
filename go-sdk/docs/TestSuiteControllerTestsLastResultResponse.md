@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Results** | Pointer to [**[]TestSuiteRunResult**](TestSuiteRunResult.md) |  | [optional] 
+**Results** | [**[]TestSuiteRunResult**](TestSuiteRunResult.md) |  | 
 
 ## Methods
 
 ### NewTestSuiteControllerTestsLastResultResponse
 
-`func NewTestSuiteControllerTestsLastResultResponse() *TestSuiteControllerTestsLastResultResponse`
+`func NewTestSuiteControllerTestsLastResultResponse(results []TestSuiteRunResult, ) *TestSuiteControllerTestsLastResultResponse`
 
 NewTestSuiteControllerTestsLastResultResponse instantiates a new TestSuiteControllerTestsLastResultResponse object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
-### HasResults
-
-`func (o *TestSuiteControllerTestsLastResultResponse) HasResults() bool`
-
-HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

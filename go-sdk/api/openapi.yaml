@@ -37,6 +37,195 @@ tags:
 - description: Misc api
   name: Misc
 paths:
+  /api/v1/auditlogs/search:
+    get:
+      operationId: searchAuditLogsForAllTenants
+      parameters:
+      - description: A string filter
+        explode: false
+        in: query
+        name: q
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: A namespace filter
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A flow id filter
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: An execution filter
+        explode: false
+        in: query
+        name: executionId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A user id filter
+        explode: false
+        in: query
+        name: userId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A id filter
+        explode: false
+        in: query
+        name: id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A resource filter
+        explode: false
+        in: query
+        name: resource
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/ResourceType_1"
+          nullable: true
+        style: form
+      - description: The start datetime
+        explode: false
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The end datetime
+        explode: false
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: A list of auditLog details
+        explode: false
+        in: query
+        name: details
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        style: form
+      - description: The event that create the audit log
+        explode: false
+        in: query
+        name: type
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/CrudEventType"
+          nullable: true
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
+          description: searchAuditLogsForAllTenants 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: "Search for audit logs across all tenants, required to be SuperAdmin"
+      tags:
+      - Audit Logs
+  /api/v1/auditlogs/{id}/diff:
+    get:
+      description: Retrieves the diff between the current version and a selected previous
+        version of a given resource based on audit logs.
+      operationId: getGlobalResourceDiffFromAuditLog
+      parameters:
+      - description: The id of the audit log
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The id of a previous audit log to compare with
+        explode: false
+        in: query
+        name: previousId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditLogController.AuditLogDiff"
+          description: getGlobalResourceDiffFromAuditLog 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Retrieve the diff between audit logs from global resource like users
+      tags:
+      - Audit Logs
   /api/v1/auths:
     get:
       operationId: index
@@ -212,6 +401,10 @@ paths:
       operationId: enterMaintenance
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                type: object
           description: enterMaintenance 200 response
       security:
       - bearerAuth: []
@@ -226,6 +419,10 @@ paths:
       operationId: exitMaintenance
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                type: object
           description: exitMaintenance 200 response
       security:
       - bearerAuth: []
@@ -422,6 +619,42 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: List available plugin artifacts
+      tags:
+      - Plugins
+  /api/v1/instance/versioned-plugins/available/secrets-managers:
+    get:
+      description: Superadmin-only. Lists all secret managers available for installation.
+        Requires INFRASTRUCTURE permission.
+      operationId: listAvailableVersionedPluginsForSecretManager
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: listAvailableVersionedPluginsForSecretManager 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: List available plugin artifacts for Kestra Secret Manager
+      tags:
+      - Plugins
+  /api/v1/instance/versioned-plugins/available/storages:
+    get:
+      description: Superadmin-only. Lists all internal storages available for installation.
+        Requires INFRASTRUCTURE permission.
+      operationId: listAvailableVersionedPluginsForStorage
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: listAvailableVersionedPluginsForStorage 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: List available plugin artifacts for Kestra Internal Storage
       tags:
       - Plugins
   /api/v1/instance/versioned-plugins/install:
@@ -2919,6 +3152,138 @@ paths:
       summary: Enable the app.
       tags:
       - Apps
+  /api/v1/{tenant}/auditlogs/export:
+    get:
+      operationId: exportAuditLogs
+      parameters:
+      - description: A string filter
+        explode: false
+        in: query
+        name: q
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A namespace filter
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A flow id filter
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: An execution filter
+        explode: false
+        in: query
+        name: executionId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A user id filter
+        explode: false
+        in: query
+        name: userId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A id filter
+        explode: false
+        in: query
+        name: id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: A resource filter
+        explode: false
+        in: query
+        name: resources
+        required: false
+        schema:
+          items:
+            $ref: "#/components/schemas/ResourceType_1"
+          nullable: true
+          type: array
+        style: form
+      - description: The start datetime
+        explode: false
+        in: query
+        name: startDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: The end datetime
+        explode: false
+        in: query
+        name: endDate
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: A list of auditLog details
+        explode: false
+        in: query
+        name: details
+        required: false
+        schema:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        style: form
+      - description: The event that create the audit log
+        explode: false
+        in: query
+        name: type
+        required: false
+        schema:
+          allOf:
+          - $ref: "#/components/schemas/CrudEventType"
+          nullable: true
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            text/csv:
+              schema:
+                items:
+                  type: object
+                type: array
+          description: exportAuditLogs 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Export all audit logs as a streamed CSV file
+      tags:
+      - Audit Logs
   /api/v1/{tenant}/auditlogs/find:
     post:
       operationId: findAuditLog
@@ -2942,7 +3307,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+                $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
           description: findAuditLog 200 response
       security:
       - bearerAuth: []
@@ -3073,15 +3438,16 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: A permission filter
+      - description: A resource filter
         explode: false
         in: query
-        name: permission
+        name: resources
         required: false
         schema:
-          allOf:
-          - $ref: "#/components/schemas/Permission"
+          items:
+            $ref: "#/components/schemas/ResourceType_1"
           nullable: true
+          type: array
         style: form
       - description: The start datetime
         explode: false
@@ -3136,7 +3502,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
           description: searchAuditLogs 200 response
       security:
       - bearerAuth: []
@@ -7619,6 +7985,76 @@ paths:
               schema:
                 $ref: "#/components/schemas/Execution"
           description: replayExecution 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create a new execution from an old one and start it from a specified
+        task run id
+      tags:
+      - Executions
+  /api/v1/{tenant}/executions/{executionId}/replay-with-inputs:
+    post:
+      operationId: replayExecutionWithinputs
+      parameters:
+      - description: the original execution id to clone
+        explode: false
+        in: path
+        name: executionId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The taskrun id
+        explode: false
+        in: query
+        name: taskRunId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The flow revision to use for new execution
+        explode: false
+        in: query
+        name: revision
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Set a list of breakpoints at specific tasks 'id.value', separated\
+          \ by a coma."
+        explode: false
+        in: query
+        name: breakpoints
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              items:
+                format: binary
+                type: string
+              type: array
+        description: The inputs
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Execution"
+          description: replayExecutionWithinputs 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -12148,10 +12584,9 @@ paths:
         explode: false
         in: query
         name: existing
-        required: false
+        required: true
         schema:
           default: false
-          nullable: true
           type: boolean
         style: form
       - explode: false
@@ -12166,7 +12601,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_NamespaceWithDisabled_"
+                $ref: "#/components/schemas/PagedResults_Namespace_"
           description: searchNamespaces 200 response
       security:
       - bearerAuth: []
@@ -12230,7 +12665,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Retrieve namespace details
+      summary: Get a namespace
       tags:
       - Namespaces
     put:
@@ -12850,6 +13285,40 @@ paths:
       - bearerAuth: []
       - basicAuth: []
       summary: List all keys for a namespace
+      tags:
+      - KV
+  /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance:
+    get:
+      operationId: listKeysWithInheritence
+      parameters:
+      - description: The namespace id
+        explode: false
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/KVEntry"
+                type: array
+          description: listKeysWithInheritence 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: List all keys for a namespace and parent namespaces
       tags:
       - KV
   /api/v1/{tenant}/namespaces/{namespace}/kv/{key}:
@@ -14434,6 +14903,88 @@ paths:
       summary: Enable multiple tests by id
       tags:
       - TestSuites
+  /api/v1/{tenant}/tests/results/search:
+    get:
+      description: "with optional filtering by namespace, test suite ID and flow ID.\
+        \ Requires TEST permission with the READ action."
+      operationId: searchTestSuitesResults
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: The test suite id to filter on
+        explode: false
+        in: query
+        name: testSuiteId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The namespace to filter on
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: The flow id to filter on
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_TestSuiteRunResult_"
+          description: searchTestSuitesResults 200 response
+      summary: Search for tests results
+      tags:
+      - TestSuites
   /api/v1/{tenant}/tests/results/search/last:
     post:
       description: Get multiple tests last result for a query.
@@ -14492,6 +15043,35 @@ paths:
       summary: Get a test result
       tags:
       - TestSuites
+  /api/v1/{tenant}/tests/run:
+    post:
+      description: Executes all TestSuites impacted by the specified filter. Requires
+        TEST permission with the CREATE action.
+      operationId: runTestSuitesByQuery
+      parameters:
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestSuiteService.TestRunByQueryResult"
+          description: runTestSuitesByQuery 200 response
+      summary: Run multiple TestSuites by query
+      tags:
+      - TestSuites
   /api/v1/{tenant}/tests/search:
     get:
       description: Searches for tests with optional filtering by namespace and flow
@@ -14548,6 +15128,15 @@ paths:
         schema:
           nullable: true
           type: string
+        style: form
+      - description: Include child namespaces in filter or not
+        explode: false
+        in: query
+        name: includeChildNamespaces
+        required: true
+        schema:
+          default: true
+          type: boolean
         style: form
       - explode: false
         in: path
@@ -14747,14 +15336,17 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestSuiteController.RunRequest"
       responses:
         "200":
           content:
             application/json:
               schema:
-                items:
-                  $ref: "#/components/schemas/TestSuiteRunResult"
-                type: array
+                $ref: "#/components/schemas/TestSuiteRunResult"
           description: runTestSuite 200 response
       summary: Run a full test
       tags:
@@ -15614,7 +16206,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Usage"
+                $ref: "#/components/schemas/UsageEE"
           description: getUsages 200 response
       security:
       - bearerAuth: []
@@ -15697,6 +16289,8 @@ components:
           format: int32
           minimum: 1
           type: integer
+        description:
+          type: string
         inputs:
           items:
             $ref: "#/components/schemas/Input_Object_"
@@ -15942,10 +16536,15 @@ components:
           type: string
         name:
           type: string
+      required:
+      - name
+      - type
+      - uid
       type: object
     ApiAutocomplete:
       example:
         q: q
+        existingOnly: true
         ids:
         - ids
         - ids
@@ -15958,6 +16557,8 @@ components:
             type: string
           nullable: true
           type: array
+        existingOnly:
+          type: boolean
       type: object
     ApiGroupSummary:
       example:
@@ -15968,6 +16569,9 @@ components:
           type: string
         name:
           type: string
+      required:
+      - id
+      - name
       type: object
     ApiIds:
       example:
@@ -15979,6 +16583,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - ids
       type: object
     ApiRoleSummary:
       example:
@@ -15995,6 +16601,11 @@ components:
           type: boolean
         isManaged:
           type: boolean
+      required:
+      - id
+      - isDefault
+      - isManaged
+      - name
       type: object
     ApiSecretListResponse:
       example:
@@ -16016,6 +16627,7 @@ components:
       required:
       - readOnly
       - results
+      - total
       type: object
     ApiSecretMeta:
       example:
@@ -16084,7 +16696,9 @@ components:
         description:
           type: string
       required:
+      - description
       - key
+      - tags
       - value
       type: object
     ApiTenant:
@@ -16125,6 +16739,7 @@ components:
         outputsInInternalStorage: true
       required:
       - deleted
+      - logo
       type: object
     ApiUser:
       allOf:
@@ -16193,6 +16808,10 @@ components:
           type: string
         layout:
           $ref: "#/components/schemas/AppResponse.UILayout"
+      required:
+      - dispatch
+      - layout
+      - stream
       type: object
     AppResponse.UIBlock:
       type: object
@@ -16206,6 +16825,8 @@ components:
           items:
             $ref: "#/components/schemas/AppResponse.UIBlock"
           type: array
+      required:
+      - blocks
       type: object
     AppsController.ApiApp:
       example:
@@ -16243,6 +16864,16 @@ components:
         updated:
           format: date-time
           type: string
+      required:
+      - created
+      - enabled
+      - id
+      - name
+      - namespace
+      - tags
+      - type
+      - uid
+      - updated
       type: object
     AppsController.ApiAppCatalogItem:
       example:
@@ -16266,6 +16897,12 @@ components:
           items:
             type: string
           type: array
+      required:
+      - description
+      - name
+      - tags
+      - type
+      - uid
       type: object
     AppsController.ApiAppSource:
       example:
@@ -16300,6 +16937,15 @@ components:
         updated:
           format: date-time
           type: string
+      required:
+      - created
+      - disabled
+      - name
+      - namespace
+      - source
+      - tags
+      - uid
+      - updated
       type: object
     AppsController.ApiAppTags:
       example:
@@ -16311,6 +16957,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - tags
       type: object
     AppsController.ApiBulkImportResponse:
       example:
@@ -16331,6 +16979,9 @@ components:
           items:
             $ref: "#/components/schemas/AppsController.ApiBulkImportResponse.Error"
           type: array
+      required:
+      - errors
+      - success
       type: object
     AppsController.ApiBulkImportResponse.Error:
       example:
@@ -16341,6 +16992,9 @@ components:
           type: string
         message:
           type: string
+      required:
+      - message
+      - source
       type: object
     AppsController.ApiBulkOperationRequest:
       properties:
@@ -16348,6 +17002,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - uids
       type: object
     Assertion:
       example:
@@ -16468,9 +17124,12 @@ components:
           type: string
       required:
       - actual
+      - description
+      - errorMessage
       - expected
       - isSuccess
       - operator
+      - taskId
       type: object
     AssertionRunError:
       example:
@@ -16482,6 +17141,7 @@ components:
         details:
           type: string
       required:
+      - details
       - message
       type: object
     AttributeReference:
@@ -16523,42 +17183,22 @@ components:
         revertPatch:
         - "{}"
         - "{}"
+        tenantId: tenantId
         ipAddress: ipAddress
         id: id
         detail:
           permission: FLOW
-          cls: cls
           id: id
           type: type
+          resourceType: AUDITLOG
         type: READ
         impersonatedBy: impersonatedBy
         userId: userId
+      required:
+      - appliedPatch
+      - revertPatch
       type: object
-    AuditLogController.AuditLogDiff:
-      example:
-        before: before
-        after: after
-      properties:
-        before:
-          type: string
-        after:
-          type: string
-      type: object
-    AuditLogController.AuditLogOption:
-      example:
-        date: 2000-01-23T04:56:07.000+00:00
-        id: id
-        username: username
-      properties:
-        id:
-          type: string
-        date:
-          format: date-time
-          type: string
-        username:
-          type: string
-      type: object
-    AuditLogController.AuditLogWithUser:
+    AuditLogController.ApiAuditLogItem:
       example:
         auditLog:
           date: 2000-01-23T04:56:07.000+00:00
@@ -16569,16 +17209,18 @@ components:
           revertPatch:
           - "{}"
           - "{}"
+          tenantId: tenantId
           ipAddress: ipAddress
           id: id
           detail:
             permission: FLOW
-            cls: cls
             id: id
             type: type
+            resourceType: AUDITLOG
           type: READ
           impersonatedBy: impersonatedBy
           userId: userId
+        permission: null
         user:
           lastName: lastName
           auths:
@@ -16626,11 +17268,48 @@ components:
           $ref: "#/components/schemas/AuditLog"
         user:
           $ref: "#/components/schemas/ApiUser"
+        permission:
+          $ref: "#/components/schemas/Permission"
+      required:
+      - auditLog
+      - permission
+      - user
+      type: object
+    AuditLogController.AuditLogDiff:
+      example:
+        before: before
+        after: after
+      properties:
+        before:
+          type: string
+        after:
+          type: string
+      required:
+      - after
+      - before
+      type: object
+    AuditLogController.AuditLogOption:
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        id: id
+        username: username
+      properties:
+        id:
+          type: string
+        date:
+          format: date-time
+          type: string
+        username:
+          type: string
+      required:
+      - date
+      - id
+      - username
       type: object
     AuditLogController.FindRequest:
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/ResourceType_1"
         type:
           allOf:
           - $ref: "#/components/schemas/CrudEventType"
@@ -16639,25 +17318,26 @@ components:
           additionalProperties:
             type: object
           type: object
+      required:
+      - detail
+      - resource
       type: object
     AuditLogDetail:
       example:
         permission: FLOW
-        cls: cls
         id: id
         type: type
+        resourceType: AUDITLOG
       properties:
-        type:
-          type: string
-        cls:
-          type: string
         permission:
           $ref: "#/components/schemas/Permission"
+        resourceType:
+          $ref: "#/components/schemas/ResourceType_1"
+        type:
+          type: string
         id:
           type: string
       required:
-      - cls
-      - permission
       - type
       type: object
     AuthController.Auth:
@@ -16696,6 +17376,9 @@ components:
           type: string
         password:
           type: string
+      required:
+      - password
+      - token
       type: object
     Backfill:
       properties:
@@ -16772,6 +17455,8 @@ components:
       type: string
     BaseAuditLog:
       properties:
+        tenantId:
+          type: string
         id:
           type: string
         type:
@@ -16791,8 +17476,12 @@ components:
           type: boolean
       required:
       - date
+      - deleted
       - detail
       - id
+      - impersonatedBy
+      - ipAddress
+      - tenantId
       - type
       - userId
       type: object
@@ -16844,6 +17533,8 @@ components:
       required:
       - deleted
       - externalId
+      - id
+      - namespaceId
       - roleId
       - type
       type: object
@@ -16889,6 +17580,11 @@ components:
           type: boolean
       required:
       - deleted
+      - description
+      - id
+      - includedTasks
+      - publishedAt
+      - tags
       - title
       type: object
     BlueprintController.ApiBlueprintItem:
@@ -16921,6 +17617,13 @@ components:
         publishedAt:
           format: date-time
           type: string
+      required:
+      - description
+      - id
+      - includedTasks
+      - publishedAt
+      - tags
+      - title
       type: object
     BlueprintController.ApiBlueprintItemWithSource:
       allOf:
@@ -16958,6 +17661,10 @@ components:
         publishedAt:
           format: date-time
           type: string
+      required:
+      - id
+      - name
+      - publishedAt
       type: object
     BlueprintController.Kind:
       enum:
@@ -17128,25 +17835,6 @@ components:
       required:
       - type
       type: object
-    ConfigurationUsage:
-      example:
-        secretType: secretType
-        repositoryType: repositoryType
-        queueType: queueType
-        storageType: storageType
-        javaSecurityEnabled: true
-      properties:
-        repositoryType:
-          type: string
-        queueType:
-          type: string
-        storageType:
-          type: string
-        secretType:
-          type: string
-        javaSecurityEnabled:
-          type: boolean
-      type: object
     ConversionService:
       type: object
     ConversionServiceProvider:
@@ -17192,6 +17880,9 @@ components:
         extended:
           type: boolean
       required:
+      - description
+      - extended
+      - maxAge
       - name
       type: object
     CreateApiTokenResponse:
@@ -17206,6 +17897,10 @@ components:
           type: string
         fullToken:
           type: string
+      required:
+      - fullToken
+      - id
+      - name
       type: object
     CreateSecurityIntegrationRequest:
       description: Create SecurityIntegration Request
@@ -17240,45 +17935,7 @@ components:
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
       type: string
-    CustomLink:
-      example:
-        name: name
-        title: title
-        url: url
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-      type: object
     DailyExecutionStatistics:
-      example:
-        duration:
-          min: min
-          avg: avg
-          max: max
-          count: 2
-          sum: sum
-        groupBy: groupBy
-        startDate: 2000-01-23T04:56:07.000+00:00
-        executionCounts:
-          SUCCESS: 6
-          RUNNING: 7
-          RETRYING: 9
-          WARNING: 7
-          PAUSED: 1
-          CANCELLED: 5
-          CREATED: 4
-          KILLING: 1
-          FAILED: 1
-          RETRIED: 6
-          QUEUED: 9
-          BREAKPOINT: 9
-          SKIPPED: 8
-          RESTARTED: 1
-          KILLED: 4
       properties:
         startDate:
           format: date-time
@@ -17291,15 +17948,11 @@ components:
           type: string
       required:
       - duration
+      - executionCounts
+      - groupBy
       - startDate
       type: object
     DailyExecutionStatistics.Duration:
-      example:
-        min: min
-        avg: avg
-        max: max
-        count: 2
-        sum: sum
       properties:
         min:
           type: string
@@ -17471,6 +18124,9 @@ components:
           format: int32
           nullable: true
           type: integer
+      required:
+      - flowId
+      - namespace
       type: object
     Execution:
       example:
@@ -17760,21 +18416,32 @@ components:
       - flowId
       - flowRevision
       - id
+      - inputs
+      - labels
+      - metadata
       - namespace
+      - originalId
+      - outputs
+      - parentId
       - state
+      - taskRunList
+      - traceParent
+      - trigger
+      - variables
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse:
       example:
         inputs:
         - input:
             dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
             id: id
             type: ""
             required: true
+          isDefault: true
           value: "{}"
           enabled: true
           errors:
@@ -17782,13 +18449,14 @@ components:
           - message: message
         - input:
             dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
             id: id
             type: ""
             required: true
+          isDefault: true
           value: "{}"
           enabled: true
           errors:
@@ -17805,18 +18473,23 @@ components:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue"
           type: array
+      required:
+      - id
+      - inputs
+      - namespace
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputAndValue:
       example:
         input:
           dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
           id: id
           type: ""
           required: true
+        isDefault: true
         value: "{}"
         enabled: true
         errors:
@@ -17829,10 +18502,18 @@ components:
           type: object
         enabled:
           type: boolean
+        isDefault:
+          type: boolean
         errors:
           items:
             $ref: "#/components/schemas/ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError"
           type: array
+      required:
+      - enabled
+      - errors
+      - input
+      - isDefault
+      - value
       type: object
     ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError:
       example:
@@ -17840,6 +18521,8 @@ components:
       properties:
         message:
           type: string
+      required:
+      - message
       type: object
     ExecutionController.EvalResult:
       example:
@@ -18087,6 +18770,7 @@ components:
         flowId: flowId
       required:
       - deleted
+      - url
       type: object
     ExecutionController.LastExecutionResponse:
       example:
@@ -18107,6 +18791,12 @@ components:
           type: string
         status:
           $ref: "#/components/schemas/State.Type"
+      required:
+      - flowId
+      - id
+      - namespace
+      - startDate
+      - status
       type: object
     ExecutionController.SetLabelsByIdsRequest:
       properties:
@@ -18118,6 +18808,9 @@ components:
           items:
             $ref: "#/components/schemas/Label"
           type: array
+      required:
+      - executionLabels
+      - executionsId
       type: object
     ExecutionController.StateRequest:
       properties:
@@ -18125,6 +18818,9 @@ components:
           type: string
         state:
           $ref: "#/components/schemas/State.Type"
+      required:
+      - state
+      - taskRunId
       type: object
     ExecutionController.WebhookResponse:
       example:
@@ -18184,6 +18880,17 @@ components:
         url:
           format: uri
           type: string
+      required:
+      - flowId
+      - flowRevision
+      - id
+      - labels
+      - namespace
+      - outputs
+      - state
+      - tenantId
+      - trigger
+      - url
       type: object
     ExecutionKind:
       enum:
@@ -18202,6 +18909,9 @@ components:
         originalCreatedDate:
           format: date-time
           type: string
+      required:
+      - attemptNumber
+      - originalCreatedDate
       type: object
     ExecutionRepositoryInterface.ChildFilter:
       enum:
@@ -18230,6 +18940,12 @@ components:
           type: string
         state:
           $ref: "#/components/schemas/State"
+      required:
+      - executionId
+      - flowId
+      - namespace
+      - state
+      - tenantId
       type: object
     ExecutionTrigger:
       example:
@@ -18252,108 +18968,11 @@ components:
           type: string
       required:
       - id
+      - logFile
       - type
+      - variables
       type: object
     ExecutionUsage:
-      example:
-        dailyTaskRunsCount:
-        - duration:
-            min: min
-            avg: avg
-            max: max
-            count: 2
-            sum: sum
-          groupBy: groupBy
-          startDate: 2000-01-23T04:56:07.000+00:00
-          executionCounts:
-            SUCCESS: 6
-            RUNNING: 7
-            RETRYING: 9
-            WARNING: 7
-            PAUSED: 1
-            CANCELLED: 5
-            CREATED: 4
-            KILLING: 1
-            FAILED: 1
-            RETRIED: 6
-            QUEUED: 9
-            BREAKPOINT: 9
-            SKIPPED: 8
-            RESTARTED: 1
-            KILLED: 4
-        - duration:
-            min: min
-            avg: avg
-            max: max
-            count: 2
-            sum: sum
-          groupBy: groupBy
-          startDate: 2000-01-23T04:56:07.000+00:00
-          executionCounts:
-            SUCCESS: 6
-            RUNNING: 7
-            RETRYING: 9
-            WARNING: 7
-            PAUSED: 1
-            CANCELLED: 5
-            CREATED: 4
-            KILLING: 1
-            FAILED: 1
-            RETRIED: 6
-            QUEUED: 9
-            BREAKPOINT: 9
-            SKIPPED: 8
-            RESTARTED: 1
-            KILLED: 4
-        dailyExecutionsCount:
-        - duration:
-            min: min
-            avg: avg
-            max: max
-            count: 2
-            sum: sum
-          groupBy: groupBy
-          startDate: 2000-01-23T04:56:07.000+00:00
-          executionCounts:
-            SUCCESS: 6
-            RUNNING: 7
-            RETRYING: 9
-            WARNING: 7
-            PAUSED: 1
-            CANCELLED: 5
-            CREATED: 4
-            KILLING: 1
-            FAILED: 1
-            RETRIED: 6
-            QUEUED: 9
-            BREAKPOINT: 9
-            SKIPPED: 8
-            RESTARTED: 1
-            KILLED: 4
-        - duration:
-            min: min
-            avg: avg
-            max: max
-            count: 2
-            sum: sum
-          groupBy: groupBy
-          startDate: 2000-01-23T04:56:07.000+00:00
-          executionCounts:
-            SUCCESS: 6
-            RUNNING: 7
-            RETRYING: 9
-            WARNING: 7
-            PAUSED: 1
-            CANCELLED: 5
-            CREATED: 4
-            KILLING: 1
-            FAILED: 1
-            RETRIED: 6
-            QUEUED: 9
-            BREAKPOINT: 9
-            SKIPPED: 8
-            RESTARTED: 1
-            KILLED: 4
       properties:
         dailyExecutionsCount:
           items:
@@ -18416,6 +19035,8 @@ components:
           type: string
         expression:
           type: object
+      required:
+      - filter
       type: object
     FilterExpression:
       type: object
@@ -18480,6 +19101,8 @@ components:
             format: int32
             minimum: 1
             type: integer
+          description:
+            type: string
           inputs:
             items:
               $ref: "#/components/schemas/Input_Object_"
@@ -18501,8 +19124,6 @@ components:
             items:
               $ref: "#/components/schemas/PluginDefault"
             type: array
-          description:
-            type: string
           variables:
             additionalProperties:
               type: object
@@ -18558,11 +19179,13 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         listeners:
@@ -18658,7 +19281,7 @@ components:
             retry: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -18666,7 +19289,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -18957,6 +19580,8 @@ components:
             format: int32
             minimum: 1
             type: integer
+          description:
+            type: string
           inputs:
             items:
               $ref: "#/components/schemas/Input_Object_"
@@ -19005,16 +19630,18 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: ""
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19022,7 +19649,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19032,7 +19659,7 @@ components:
         finally:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19040,7 +19667,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19059,7 +19686,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19067,7 +19694,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19084,10 +19711,11 @@ components:
           tasks:
           - null
           - null
+        description: description
         afterExecution:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19095,7 +19723,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19114,7 +19742,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19122,7 +19750,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19160,7 +19788,7 @@ components:
         tasks:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19168,7 +19796,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19187,7 +19815,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19195,7 +19823,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19215,7 +19843,7 @@ components:
         errors:
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19223,7 +19851,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19242,7 +19870,7 @@ components:
           - null
         - inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19250,7 +19878,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -19352,6 +19980,11 @@ components:
           items:
             type: string
           type: array
+      required:
+      - clusters
+      - edges
+      - flowables
+      - nodes
       type: object
     FlowGraph.Cluster:
       example:
@@ -19382,6 +20015,12 @@ components:
           type: string
         end:
           type: string
+      required:
+      - cluster
+      - end
+      - nodes
+      - parents
+      - start
       type: object
     FlowGraph.Edge:
       example:
@@ -19397,6 +20036,10 @@ components:
           type: string
         relation:
           $ref: "#/components/schemas/Relation"
+      required:
+      - relation
+      - source
+      - target
       type: object
     FlowId:
       properties:
@@ -19416,6 +20059,8 @@ components:
       - $ref: "#/components/schemas/DeletedInterface"
       - $ref: "#/components/schemas/TenantInterface"
       - properties:
+          description:
+            type: string
           disabled:
             type: boolean
           deleted:
@@ -19454,16 +20099,18 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19471,13 +20118,14 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
           id: id
           type: ""
           required: true
+        description: description
         sla:
         - id: id
           type: MAX_DURATION
@@ -19523,6 +20171,8 @@ components:
         id:
           type: string
       required:
+      - id
+      - namespace
       - uid
       type: object
     FlowRelation:
@@ -19560,6 +20210,9 @@ components:
           items:
             $ref: "#/components/schemas/FlowTopologyGraph.Edge"
           type: array
+      required:
+      - edges
+      - nodes
       type: object
     FlowTopologyGraph.Edge:
       example:
@@ -19573,17 +20226,12 @@ components:
           type: string
         relation:
           $ref: "#/components/schemas/FlowRelation"
+      required:
+      - relation
+      - source
+      - target
       type: object
     FlowUsage:
-      example:
-        taskRunnerTypeCount:
-          key: 3
-        triggerTypeCount:
-          key: 9
-        taskTypeCount:
-          key: 7
-        count: 5
-        namespacesCount: 2
       properties:
         count:
           format: int32
@@ -19626,6 +20274,8 @@ components:
             format: int32
             minimum: 1
             type: integer
+          description:
+            type: string
           inputs:
             items:
               $ref: "#/components/schemas/Input_Object_"
@@ -19664,11 +20314,13 @@ components:
           id: id
           type: STRING
           value: "{}"
+          required: true
         - displayName: displayName
           description: description
           id: id
           type: STRING
           value: "{}"
+          required: true
         variables:
           key: "{}"
         listeners:
@@ -19764,7 +20416,7 @@ components:
             retry: "{}"
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -19772,7 +20424,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -20053,6 +20705,11 @@ components:
           $ref: "#/components/schemas/GroupIdentifier.Membership"
         managedExternally:
           type: boolean
+      required:
+      - groupId
+      - managedExternally
+      - membership
+      - tenantId
       type: object
     GroupIdentifier.Membership:
       enum:
@@ -20066,90 +20723,6 @@ components:
         count:
           format: int64
           type: integer
-      type: object
-    HostUsage:
-      example:
-        jvm:
-          vendor: vendor
-          name: name
-          version: version
-        os:
-          codeName: codeName
-          family: family
-          version: version
-          buildNumber: buildNumber
-        uuid: uuid
-        hardware:
-          memory: 5
-          maxFreq: 1
-          logicalProcessorCount: 0
-          knownDockerMacAddr: true
-          physicalProcessorCount: 6
-          knownVmMacAddr: true
-      properties:
-        uuid:
-          type: string
-        hardware:
-          $ref: "#/components/schemas/HostUsage.Hardware"
-        os:
-          $ref: "#/components/schemas/HostUsage.Os"
-        jvm:
-          $ref: "#/components/schemas/HostUsage.Jvm"
-      type: object
-    HostUsage.Hardware:
-      example:
-        memory: 5
-        maxFreq: 1
-        logicalProcessorCount: 0
-        knownDockerMacAddr: true
-        physicalProcessorCount: 6
-        knownVmMacAddr: true
-      properties:
-        logicalProcessorCount:
-          format: int32
-          type: integer
-        physicalProcessorCount:
-          format: int64
-          type: integer
-        maxFreq:
-          format: int64
-          type: integer
-        memory:
-          format: int64
-          type: integer
-        knownVmMacAddr:
-          type: boolean
-        knownDockerMacAddr:
-          type: boolean
-      type: object
-    HostUsage.Jvm:
-      example:
-        vendor: vendor
-        name: name
-        version: version
-      properties:
-        name:
-          type: string
-        vendor:
-          type: string
-        version:
-          type: string
-      type: object
-    HostUsage.Os:
-      example:
-        codeName: codeName
-        family: family
-        version: version
-        buildNumber: buildNumber
-      properties:
-        family:
-          type: string
-        version:
-          type: string
-        codeName:
-          type: string
-        buildNumber:
-          type: string
       type: object
     HttpParameters:
       allOf:
@@ -20185,6 +20758,10 @@ components:
           allOf:
           - $ref: "#/components/schemas/IAMBindingController.ApiBindingUser"
           nullable: true
+      required:
+      - id
+      - role
+      - type
       type: object
     IAMBindingController.ApiBindingGroup:
       properties:
@@ -20192,6 +20769,9 @@ components:
           type: string
         name:
           type: string
+      required:
+      - id
+      - name
       type: object
     IAMBindingController.ApiBindingUser:
       properties:
@@ -20203,6 +20783,11 @@ components:
           type: string
         type:
           $ref: "#/components/schemas/UserType"
+      required:
+      - displayName
+      - id
+      - type
+      - username
       type: object
     IAMBindingController.ApiCreateBindingRequest:
       properties:
@@ -20229,6 +20814,9 @@ components:
           type: string
         name:
           type: string
+      required:
+      - id
+      - name
       type: object
     IAMGroupController.ApiCreateGroupRequest:
       properties:
@@ -20241,6 +20829,8 @@ components:
             type: string
           type: array
       required:
+      - description
+      - membersId
       - name
       type: object
     IAMGroupController.ApiGroupDetail:
@@ -20255,6 +20845,10 @@ components:
           type: string
         description:
           type: string
+      required:
+      - description
+      - id
+      - name
       type: object
     IAMGroupController.ApiGroupMember:
       example:
@@ -20281,6 +20875,11 @@ components:
           items:
             $ref: "#/components/schemas/IAMGroupController.ApiGroupMembership"
           type: array
+      required:
+      - displayName
+      - groups
+      - id
+      - username
       type: object
     IAMGroupController.ApiGroupMembership:
       example:
@@ -20297,6 +20896,11 @@ components:
           type: boolean
         membership:
           $ref: "#/components/schemas/GroupIdentifier.Membership"
+      required:
+      - external
+      - id
+      - membership
+      - name
       type: object
     IAMGroupController.ApiUpdateGroupRequest:
       description: Represents updatable properties for a Group.
@@ -20308,6 +20912,7 @@ components:
           description: of the group.
           type: string
       required:
+      - description
       - name
       type: object
     IAMInvitationController.ApiInvitationCreateRequest:
@@ -20327,7 +20932,11 @@ components:
         email:
           type: string
       required:
+      - createUserIfNotExist
       - email
+      - groups
+      - roles
+      - superAdmin
       type: object
     IAMInvitationController.ApiInvitationDetail:
       example:
@@ -20384,6 +20993,18 @@ components:
           type: boolean
         link:
           type: string
+      required:
+      - acceptedAt
+      - email
+      - expiredAt
+      - groups
+      - id
+      - link
+      - roles
+      - sentAt
+      - status
+      - superAdmin
+      - tenantId
       type: object
     IAMInvitationController.ApiInvitationRole:
       properties:
@@ -20395,6 +21016,7 @@ components:
           type: array
       required:
       - id
+      - namespaces
       type: object
     IAMRoleController.ApiRoleCreateOrUpdateRequest:
       properties:
@@ -20407,6 +21029,8 @@ components:
         isDefault:
           type: boolean
       required:
+      - description
+      - isDefault
       - name
       - permissions
       type: object
@@ -20503,6 +21127,13 @@ components:
           type: boolean
         isManaged:
           type: boolean
+      required:
+      - description
+      - id
+      - isDefault
+      - isManaged
+      - name
+      - permissions
       type: object
     IAMServiceAccountController.ApiGroup:
       example:
@@ -20510,6 +21141,8 @@ components:
       properties:
         id:
           type: string
+      required:
+      - id
       type: object
     IAMServiceAccountController.ApiServiceAccountRequest:
       description: A User Service Account.
@@ -20526,7 +21159,10 @@ components:
         superAdmin:
           type: boolean
       required:
+      - description
+      - groups
       - name
+      - superAdmin
       type: object
     IAMServiceAccountController.ApiServiceAccountResponse:
       description: A User Service Account.
@@ -20556,7 +21192,11 @@ components:
         superAdmin:
           type: boolean
       required:
+      - description
+      - groups
+      - id
       - name
+      - superAdmin
       type: object
     IAMTenantAccessController.ApiAuthentication:
       example:
@@ -20567,6 +21207,9 @@ components:
           type: string
         type:
           type: string
+      required:
+      - name
+      - type
       type: object
     IAMTenantAccessController.ApiCreateTenantAccessRequest:
       properties:
@@ -20587,6 +21230,10 @@ components:
           type: string
         external:
           type: boolean
+      required:
+      - external
+      - id
+      - name
       type: object
     IAMTenantAccessController.ApiRoleAssignment:
       example:
@@ -20619,6 +21266,13 @@ components:
           items:
             $ref: "#/components/schemas/IAMTenantAccessController.ApiUserPermission"
           type: array
+      required:
+      - id
+      - name
+      - namespace
+      - origin
+      - permissions
+      - sourceId
       type: object
     IAMTenantAccessController.ApiTenantAccess:
       example:
@@ -20682,6 +21336,14 @@ components:
           type: array
         superAdmin:
           type: boolean
+      required:
+      - displayName
+      - groups
+      - roles
+      - superAdmin
+      - tenantId
+      - userId
+      - username
       type: object
     IAMTenantAccessController.ApiUserPermission:
       example:
@@ -20696,6 +21358,9 @@ components:
           items:
             $ref: "#/components/schemas/Action"
           type: array
+      required:
+      - actions
+      - permission
       type: object
     IAMTenantAccessController.ApiUserTenantAccess:
       example:
@@ -20732,6 +21397,13 @@ components:
           items:
             $ref: "#/components/schemas/IAMTenantAccessController.ApiAuthentication"
           type: array
+      required:
+      - auths
+      - description
+      - displayName
+      - groups
+      - id
+      - username
       type: object
     IAMTenantAccessController.UserApiAutocomplete:
       allOf:
@@ -20766,6 +21438,13 @@ components:
           type: boolean
       required:
       - email
+      - firstName
+      - groups
+      - lastName
+      - password
+      - restricted
+      - superAdmin
+      - tenants
       type: object
     IAMUserController.ApiGroup:
       example:
@@ -20776,6 +21455,9 @@ components:
           type: string
         tenantId:
           type: string
+      required:
+      - id
+      - tenantId
       type: object
     IAMUserController.ApiPatchRestrictedRequest:
       properties:
@@ -20807,6 +21489,9 @@ components:
           type: string
         name:
           type: string
+      required:
+      - id
+      - name
       type: object
     IAMUserController.ApiUser:
       example:
@@ -20864,6 +21549,18 @@ components:
           type: boolean
         restricted:
           type: boolean
+      required:
+      - auths
+      - displayName
+      - email
+      - firstName
+      - groups
+      - id
+      - lastName
+      - restricted
+      - superAdmin
+      - tenants
+      - username
       type: object
     IAMUserController.ApiUserAuth:
       example:
@@ -20877,6 +21574,10 @@ components:
           type: string
         type:
           type: string
+      required:
+      - id
+      - name
+      - type
       type: object
     IAMUserController.ApiUserSummary:
       example:
@@ -20913,6 +21614,13 @@ components:
           type: array
         superAdmin:
           type: boolean
+      required:
+      - auths
+      - displayName
+      - id
+      - superAdmin
+      - tenants
+      - username
       type: object
     IAMUserGroupController.ApiUpdateUserGroupsRequest:
       properties:
@@ -20920,6 +21628,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - groupIds
       type: object
     IdWithNamespace:
       example:
@@ -20943,6 +21653,11 @@ components:
           type: string
         securityIntegrationName:
           type: string
+      required:
+      - attributes
+      - externalId
+      - securityIntegrationId
+      - securityIntegrationName
       type: object
     InputType:
       example:
@@ -20953,11 +21668,14 @@ components:
           type: string
         cls:
           type: string
+      required:
+      - cls
+      - type
       type: object
     Input_Object_:
       example:
         dependsOn: ""
-        defaults: "{}"
+        defaults: ""
         displayName: displayName
         name: name
         description: description
@@ -20987,8 +21705,9 @@ components:
         required:
           type: boolean
         defaults:
+          allOf:
+          - $ref: "#/components/schemas/Property_Object_"
           title: The default value to use if no value is specified.
-          type: object
         displayName:
           title: The display name of the input.
           type: string
@@ -21006,6 +21725,9 @@ components:
         total:
           format: int64
           type: integer
+      required:
+      - total
+      - type
       type: object
     InstanceController.ApiActiveServiceList:
       example:
@@ -21023,6 +21745,9 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiActiveService"
           type: array
+      required:
+      - services
+      - total
       type: object
     InstanceController.ApiCreateOrUpdateWorkerGroupRequest:
       description: ApiCreateWorkerGroupRequest.
@@ -21038,6 +21763,8 @@ components:
             type: string
           type: array
       required:
+      - allowedTenants
+      - description
       - key
       type: object
     InstanceController.ApiPluginArtifact:
@@ -21062,6 +21789,12 @@ components:
           items:
             type: string
           type: array
+      required:
+      - artifactId
+      - groupId
+      - icon
+      - title
+      - versions
       type: object
     InstanceController.ApiPluginArtifactList_PluginArtifact_:
       example:
@@ -21077,6 +21810,9 @@ components:
           items:
             type: object
           type: array
+      required:
+      - results
+      - total
       type: object
     InstanceController.ApiPluginArtifactList_PluginResolutionResult_:
       example:
@@ -21092,6 +21828,9 @@ components:
           items:
             type: object
           type: array
+      required:
+      - results
+      - total
       type: object
     InstanceController.ApiPluginListRequest:
       properties:
@@ -21099,6 +21838,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - plugins
       type: object
     InstanceController.ApiPluginVersionDetails:
       example:
@@ -21138,6 +21879,14 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersionDetails.ApiPluginClasses"
           type: array
+      required:
+      - artifactId
+      - classes
+      - description
+      - groupId
+      - icon
+      - title
+      - version
       type: object
     InstanceController.ApiPluginVersionDetails.ApiPluginClass:
       example:
@@ -21148,6 +21897,9 @@ components:
           type: string
         icon:
           type: string
+      required:
+      - icon
+      - name
       type: object
     InstanceController.ApiPluginVersionDetails.ApiPluginClasses:
       example:
@@ -21164,6 +21916,9 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersionDetails.ApiPluginClass"
           type: array
+      required:
+      - classes
+      - type
       type: object
     InstanceController.ApiPluginVersions:
       example:
@@ -21193,6 +21948,10 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata"
           type: array
+      required:
+      - artifactId
+      - groupId
+      - versions
       type: object
     InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata:
       example:
@@ -21208,6 +21967,9 @@ components:
           type: string
         metadata:
           $ref: "#/components/schemas/PluginArtifactMetadata"
+      required:
+      - metadata
+      - version
       type: object
     InstanceController.ApiServerInstance:
       example:
@@ -21224,6 +21986,11 @@ components:
           type: string
         hostname:
           type: string
+      required:
+      - hostname
+      - id
+      - type
+      - version
       type: object
     InstanceController.ApiServiceInstance:
       example:
@@ -21252,6 +22019,13 @@ components:
         updatedAt:
           format: date-time
           type: string
+      required:
+      - createdAt
+      - id
+      - server
+      - state
+      - type
+      - updatedAt
       type: object
     InstanceController.ApiWorkerGroup:
       description: ApiWorkerGroup.
@@ -21276,6 +22050,11 @@ components:
           items:
             type: string
           type: array
+      required:
+      - allowedTenants
+      - description
+      - id
+      - key
       type: object
     InstanceController.ApiWorkerGroupDetails:
       description: ApiWorkerGroupDetails.
@@ -21456,6 +22235,12 @@ components:
           items:
             $ref: "#/components/schemas/ServiceInstance"
           type: array
+      required:
+      - allowedTenants
+      - description
+      - id
+      - key
+      - workers
       type: object
     InstanceController.ApiWorkerGroupItem:
       description: ApiWorkerGroup.
@@ -21478,6 +22263,11 @@ components:
           description: The number of active workers for the group.
           format: int32
           type: integer
+      required:
+      - activeWorkers
+      - description
+      - id
+      - key
       type: object
     InstanceController.ApiWorkerGroupList:
       description: ApiWorkerGroupList.
@@ -21497,6 +22287,8 @@ components:
           items:
             $ref: "#/components/schemas/InstanceController.ApiWorkerGroupItem"
           type: array
+      required:
+      - workerGroups
       type: object
     Invitation:
       example:
@@ -21566,8 +22358,20 @@ components:
         link:
           type: string
       required:
+      - acceptedAt
+      - bindings
       - deleted
       - email
+      - expiredAt
+      - groupIds
+      - id
+      - isExpired
+      - link
+      - sentAt
+      - status
+      - superAdmin
+      - tenantId
+      - userType
       type: object
     Invitation.InvitationStatus:
       enum:
@@ -21588,6 +22392,9 @@ components:
           type: array
         enabled:
           type: boolean
+      required:
+      - deniedServices
+      - enabled
       type: object
     KVController.ApiDeleteBulkRequest:
       properties:
@@ -21595,6 +22402,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - keys
       type: object
     KVController.ApiDeleteBulkResponse:
       example:
@@ -21606,6 +22415,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - keys
       type: object
     KVController.TypedValue:
       example:
@@ -21616,6 +22427,9 @@ components:
           $ref: "#/components/schemas/KVType"
         value:
           type: object
+      required:
+      - type
+      - value
       type: object
     KVEntry:
       example:
@@ -21638,6 +22452,12 @@ components:
         expirationDate:
           format: date-time
           type: string
+      required:
+      - creationDate
+      - description
+      - expirationDate
+      - key
+      - updateDate
       type: object
     KVType:
       enum:
@@ -21661,6 +22481,17 @@ components:
       required:
       - key
       - value
+      type: object
+    LeftSidebarConfiguration:
+      example:
+        disabledMenus:
+        - disabledMenus
+        - disabledMenus
+      properties:
+        disabledMenus:
+          items:
+            type: string
+          type: array
       type: object
     Level:
       enum:
@@ -21730,6 +22561,8 @@ components:
           minItems: 1
           type: array
       required:
+      - conditions
+      - description
       - tasks
       type: object
     LogEntry:
@@ -21786,7 +22619,11 @@ components:
       required:
       - deleted
       - flowId
+      - level
+      - message
       - namespace
+      - thread
+      - timestamp
       type: object
     Map_Object.Object_:
       properties:
@@ -21832,6 +22669,13 @@ components:
           items:
             $ref: "#/components/schemas/MeController.ApiTenant"
           type: array
+      required:
+      - auths
+      - id
+      - profile
+      - restricted
+      - superAdmin
+      - tenants
       type: object
     MeController.ApiProfile:
       example:
@@ -21848,6 +22692,11 @@ components:
           type: string
         username:
           type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      - username
       type: object
     MeController.ApiTenant:
       example:
@@ -21861,6 +22710,10 @@ components:
           type: string
         logo:
           type: string
+      required:
+      - id
+      - logo
+      - name
       type: object
     MeController.ApiUpdatePasswordRequest:
       properties:
@@ -21868,6 +22721,9 @@ components:
           type: string
         newPassword:
           type: string
+      required:
+      - newPassword
+      - oldPassword
       type: object
     MeController.ApiUserDetailsRequest:
       properties:
@@ -21877,6 +22733,10 @@ components:
           type: string
         email:
           type: string
+      required:
+      - email
+      - firstName
+      - lastName
       type: object
     Meta:
       properties:
@@ -21921,6 +22781,13 @@ components:
           type: array
         value:
           type: object
+      required:
+      - baseUnit
+      - description
+      - name
+      - tags
+      - type
+      - value
       type: object
     Metric.Tag:
       example:
@@ -21931,6 +22798,9 @@ components:
           type: string
         value:
           type: string
+      required:
+      - key
+      - value
       type: object
     MetricAggregation:
       example:
@@ -21949,6 +22819,7 @@ components:
       required:
       - date
       - name
+      - value
       type: object
     MetricAggregations:
       example:
@@ -22030,6 +22901,13 @@ components:
       - type
       - value
       type: object
+    MiscController.ApiUsage:
+      properties:
+        flows:
+          $ref: "#/components/schemas/FlowUsage"
+        executions:
+          $ref: "#/components/schemas/ExecutionUsage"
+      type: object
     MiscController.BasicAuthCredentials:
       properties:
         uid:
@@ -22038,6 +22916,10 @@ components:
           type: string
         password:
           type: string
+      required:
+      - password
+      - uid
+      - username
       type: object
     MiscController.Configuration:
       properties:
@@ -22045,6 +22927,8 @@ components:
           type: string
         version:
           type: string
+        edition:
+          $ref: "#/components/schemas/MiscController.Edition"
         commitId:
           type: string
         commitDate:
@@ -22055,6 +22939,8 @@ components:
         isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
+          type: boolean
+        isUiAnonymousUsageEnabled:
           type: boolean
         isTemplateEnabled:
           type: boolean
@@ -22105,10 +22991,10 @@ components:
             type: boolean
           outputsInInternalStorageEnabled:
             type: boolean
-          contextCustomLinks:
-            additionalProperties:
-              $ref: "#/components/schemas/CustomLink"
-            type: object
+          leftSidebar:
+            $ref: "#/components/schemas/LeftSidebarConfiguration"
+          rightSidebar:
+            $ref: "#/components/schemas/RightSidebarConfiguration"
           inMaintenance:
             type: boolean
           passwordRegexp:
@@ -22120,15 +23006,21 @@ components:
           max: 6
         isBasicAuthInitialized: true
         inMaintenance: true
+        edition: OSS
         pluginManagementEnabled: true
         uuid: uuid
         isCustomDashboardsEnabled: true
+        leftSidebar:
+          disabledMenus:
+          - disabledMenus
+          - disabledMenus
         outputsInInternalStorageEnabled: true
         supportedStorages:
         - id: id
           version: version
         - id: id
           version: version
+        isUiAnonymousUsageEnabled: true
         mailServiceEnabled: true
         pluginCustomEnabled: true
         supportedSecrets:
@@ -22143,11 +23035,6 @@ components:
         hiddenLabelsPrefixes:
         - hiddenLabelsPrefixes
         - hiddenLabelsPrefixes
-        contextCustomLinks:
-          key:
-            name: name
-            title: title
-            url: url
         resourceToFilters:
         - name: name
           fields:
@@ -22192,6 +23079,11 @@ components:
         commitId: commitId
         isAnonymousUsageEnabled: true
         version: version
+        rightSidebar:
+          customLinks:
+            key:
+              title: title
+              url: url
         passwordRegexp: passwordRegexp
         url: url
         commitDate: 2000-01-23T04:56:07.000+00:00
@@ -22203,6 +23095,11 @@ components:
         isTemplateEnabled: true
         systemNamespace: systemNamespace
       type: object
+    MiscController.Edition:
+      enum:
+      - OSS
+      - EE
+      type: string
     MiscController.Environment:
       example:
         color: color
@@ -22212,6 +23109,9 @@ components:
           type: string
         color:
           type: string
+      required:
+      - color
+      - name
       type: object
     MiscController.LicenseInfo:
       example:
@@ -22236,6 +23136,13 @@ components:
           type: boolean
         workerGroups:
           type: boolean
+      required:
+      - expired
+      - expiry
+      - maxServers
+      - standalone
+      - type
+      - workerGroups
       type: object
     MiscController.PluginIdAndVersion:
       example:
@@ -22246,6 +23153,9 @@ components:
           type: string
         version:
           type: string
+      required:
+      - id
+      - version
       type: object
     MiscController.Preview:
       example:
@@ -22258,6 +23168,9 @@ components:
         max:
           format: int32
           type: integer
+      required:
+      - initial
+      - max
       type: object
     MiscController.TenantConfigurationInfo:
       example:
@@ -22268,6 +23181,9 @@ components:
           type: boolean
         secretByTenant:
           type: boolean
+      required:
+      - secretByTenant
+      - storageByTenant
       type: object
     Name:
       description: Scim core schema.
@@ -22374,8 +23290,13 @@ components:
         outputsInInternalStorage:
           type: boolean
       required:
+      - allowedNamespaces
       - deleted
+      - description
       - id
+      - pluginDefaults
+      - variables
+      - workerGroup
       type: object
     Namespace.AllowedNamespace:
       example:
@@ -22397,6 +23318,7 @@ components:
         flowId:
           type: string
       required:
+      - flowId
       - namespace
       type: object
     NamespaceLight:
@@ -22410,92 +23332,6 @@ components:
       - deleted
       - id
       type: object
-    NamespaceUsage:
-      example:
-        count: 7
-      properties:
-        count:
-          format: int64
-          type: integer
-      type: object
-    NamespaceWithDisabled:
-      allOf:
-      - $ref: "#/components/schemas/Namespace"
-      - $ref: "#/components/schemas/NamespaceLight"
-      - properties:
-          id:
-            pattern: "^[a-z0-9][a-z0-9._-]*"
-            type: string
-          deleted:
-            type: boolean
-          description:
-            type: string
-          variables:
-            additionalProperties:
-              type: object
-            type: object
-          pluginDefaults:
-            items:
-              $ref: "#/components/schemas/PluginDefault"
-            type: array
-          allowedNamespaces:
-            items:
-              $ref: "#/components/schemas/Namespace.AllowedNamespace"
-            type: array
-          workerGroup:
-            $ref: "#/components/schemas/WorkerGroup"
-          disabled:
-            type: boolean
-        type: object
-      example:
-        variables:
-          key: "{}"
-        secretConfiguration:
-          key: "{}"
-        storageIsolation:
-          deniedServices:
-          - EXECUTOR
-          - EXECUTOR
-          enabled: true
-        description: description
-        pluginDefaults:
-        - forced: true
-          values:
-            key: "{}"
-          type: type
-        - forced: true
-          values:
-            key: "{}"
-          type: type
-        secretReadOnly: true
-        secretIsolation:
-          deniedServices:
-          - EXECUTOR
-          - EXECUTOR
-          enabled: true
-        allowedNamespaces:
-        - namespace: namespace
-        - namespace: namespace
-        deleted: true
-        allowedTriggers:
-        - namespace: namespace
-          flowId: flowId
-        - namespace: namespace
-          flowId: flowId
-        storageConfiguration:
-          key: "{}"
-        secretType: secretType
-        storageType: storageType
-        disabled: true
-        id: id
-        workerGroup:
-          fallback: FAIL
-          key: key
-        outputsInInternalStorage: true
-      required:
-      - deleted
-      - id
-      type: object
     Output:
       example:
         displayName: displayName
@@ -22503,6 +23339,7 @@ components:
         id: id
         type: STRING
         value: "{}"
+        required: true
       properties:
         id:
           minLength: 1
@@ -22516,6 +23353,8 @@ components:
           $ref: "#/components/schemas/Type"
         displayName:
           type: string
+        required:
+          type: boolean
       required:
       - id
       - type
@@ -22642,7 +23481,7 @@ components:
       - results
       - total
       type: object
-    PagedResults_AuditLogController.AuditLogWithUser_:
+    PagedResults_AuditLogController.ApiAuditLogItem_:
       example:
         total: 0
         results:
@@ -22655,16 +23494,18 @@ components:
             revertPatch:
             - "{}"
             - "{}"
+            tenantId: tenantId
             ipAddress: ipAddress
             id: id
             detail:
               permission: FLOW
-              cls: cls
               id: id
               type: type
+              resourceType: AUDITLOG
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
+          permission: null
           user:
             lastName: lastName
             auths:
@@ -22716,16 +23557,18 @@ components:
             revertPatch:
             - "{}"
             - "{}"
+            tenantId: tenantId
             ipAddress: ipAddress
             id: id
             detail:
               permission: FLOW
-              cls: cls
               id: id
               type: type
+              resourceType: AUDITLOG
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
+          permission: null
           user:
             lastName: lastName
             auths:
@@ -22771,7 +23614,7 @@ components:
       properties:
         results:
           items:
-            $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+            $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
           type: array
         total:
           format: int64
@@ -23360,11 +24203,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -23460,7 +24305,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -23468,7 +24313,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -23735,11 +24580,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -23835,7 +24682,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -23843,7 +24690,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -24516,7 +25363,7 @@ components:
       - results
       - total
       type: object
-    PagedResults_NamespaceWithDisabled_:
+    PagedResults_Namespace_:
       example:
         total: 0
         results:
@@ -24558,7 +25405,6 @@ components:
             key: "{}"
           secretType: secretType
           storageType: storageType
-          disabled: true
           id: id
           workerGroup:
             fallback: FAIL
@@ -24602,7 +25448,6 @@ components:
             key: "{}"
           secretType: secretType
           storageType: storageType
-          disabled: true
           id: id
           workerGroup:
             fallback: FAIL
@@ -24611,7 +25456,7 @@ components:
       properties:
         results:
           items:
-            $ref: "#/components/schemas/NamespaceWithDisabled"
+            $ref: "#/components/schemas/Namespace"
           type: array
         total:
           format: int64
@@ -24631,11 +25476,13 @@ components:
               id: id
               type: STRING
               value: "{}"
+              required: true
             - displayName: displayName
               description: description
               id: id
               type: STRING
               value: "{}"
+              required: true
             variables:
               key: "{}"
             listeners:
@@ -24731,7 +25578,7 @@ components:
                 retry: "{}"
             inputs:
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -24739,7 +25586,7 @@ components:
               type: ""
               required: true
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -25010,11 +25857,13 @@ components:
               id: id
               type: STRING
               value: "{}"
+              required: true
             - displayName: displayName
               description: description
               id: id
               type: STRING
               value: "{}"
+              required: true
             variables:
               key: "{}"
             listeners:
@@ -25110,7 +25959,7 @@ components:
                 retry: "{}"
             inputs:
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -25118,7 +25967,7 @@ components:
               type: ""
               required: true
             - dependsOn: ""
-              defaults: "{}"
+              defaults: ""
               displayName: displayName
               name: name
               description: description
@@ -25624,6 +26473,246 @@ components:
         results:
           items:
             $ref: "#/components/schemas/Tenant"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
+    PagedResults_TestSuiteRunResult_:
+      example:
+        total: 0
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
           type: array
         total:
           format: int64
@@ -26373,6 +27462,8 @@ components:
       properties:
         valuePathExpression:
           $ref: "#/components/schemas/ValuePathExpression"
+      required:
+      - valuePathExpression
       type: object
     PatchRequest:
       allOf:
@@ -26411,8 +27502,6 @@ components:
       - GROUP_MEMBERSHIP
       - UNKNOWN
       type: string
-      x-deprecated:
-      - INFRASTRUCTURE
     Plugin:
       example:
         longDescription: longDescription
@@ -26441,6 +27530,11 @@ components:
         - deprecated: true
           cls: cls
         title: title
+        dataFiltersKPI:
+        - deprecated: true
+          cls: cls
+        - deprecated: true
+          cls: cls
         guides:
         - guides
         - guides
@@ -26570,6 +27664,10 @@ components:
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
           type: array
+        dataFiltersKPI:
+          items:
+            $ref: "#/components/schemas/Plugin.PluginElementMetadata"
+          type: array
         logExporters:
           items:
             $ref: "#/components/schemas/Plugin.PluginElementMetadata"
@@ -26594,6 +27692,9 @@ components:
           type: string
         deprecated:
           type: boolean
+      required:
+      - cls
+      - deprecated
       type: object
     PluginArtifact:
       example:
@@ -26617,6 +27718,13 @@ components:
         uri:
           format: uri
           type: string
+      required:
+      - artifactId
+      - classifier
+      - extension
+      - groupId
+      - uri
+      - version
       type: object
     PluginArtifactMetadata:
       example:
@@ -26640,6 +27748,12 @@ components:
         creationTime:
           format: int64
           type: integer
+      required:
+      - creationTime
+      - lastModifiedTime
+      - name
+      - size
+      - uri
       type: object
     PluginController.ApiPluginVersions:
       example:
@@ -26654,6 +27768,9 @@ components:
           items:
             type: string
           type: array
+      required:
+      - type
+      - versions
       type: object
     PluginDefault:
       example:
@@ -26671,7 +27788,9 @@ components:
             type: object
           type: object
       required:
+      - forced
       - type
+      - values
       type: object
     PluginIcon:
       properties:
@@ -26681,25 +27800,6 @@ components:
           type: string
         flowable:
           type: boolean
-      type: object
-    PluginMetric:
-      example:
-        meanTime: 6.965117697638846
-        totalTime: 3.5571952270680973
-        count: 6.438423552598547
-        type: type
-      properties:
-        type:
-          type: string
-        count:
-          format: double
-          type: number
-        totalTime:
-          format: double
-          type: number
-        meanTime:
-          format: double
-          type: number
       type: object
     PluginSchema:
       example:
@@ -26740,16 +27840,6 @@ components:
       - INGESTION
       - BI
       type: string
-    PluginUsage:
-      example:
-        manifest:
-          key: manifest
-      properties:
-        manifest:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
     Property_Boolean_:
       example:
         expression: expression
@@ -26759,6 +27849,8 @@ components:
           type: string
         value:
           type: boolean
+      required:
+      - expression
       type: object
     Property_Double_:
       example:
@@ -26770,6 +27862,8 @@ components:
         value:
           format: double
           type: number
+      required:
+      - expression
       type: object
     Property_Duration_:
       example:
@@ -26780,6 +27874,8 @@ components:
           type: string
         value:
           type: string
+      required:
+      - expression
       type: object
     Property_List_String__:
       example:
@@ -26794,6 +27890,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - expression
       type: object
     Property_Object_:
       example:
@@ -26804,6 +27902,8 @@ components:
           type: string
         value:
           type: object
+      required:
+      - expression
       type: object
     Property_String_:
       example:
@@ -26814,6 +27914,8 @@ components:
           type: string
         value:
           type: string
+      required:
+      - expression
       type: object
     QueryFilter:
       example:
@@ -26827,6 +27929,10 @@ components:
           $ref: "#/components/schemas/QueryFilter.Op"
         value:
           type: object
+      required:
+      - field
+      - operation
+      - value
       type: object
     QueryFilter.Field:
       enum:
@@ -26841,6 +27947,7 @@ components:
       - TIME_RANGE
       - TRIGGER_EXECUTION_ID
       - TRIGGER_ID
+      - EXECUTION_ID
       - CHILD_FILTER
       - WORKER_ID
       - EXISTING_ONLY
@@ -26865,6 +27972,10 @@ components:
           items:
             $ref: "#/components/schemas/QueryFilter.Operation"
           type: array
+      required:
+      - name
+      - operations
+      - value
       type: object
     QueryFilter.Op:
       enum:
@@ -26891,6 +28002,9 @@ components:
           type: string
         value:
           type: string
+      required:
+      - name
+      - value
       type: object
     QueryFilter.ResourceField:
       example:
@@ -26917,6 +28031,9 @@ components:
           items:
             $ref: "#/components/schemas/QueryFilter.FieldOp"
           type: array
+      required:
+      - fields
+      - name
       type: object
     RBACService.RoleAssignment.RoleOrigin:
       enum:
@@ -26932,6 +28049,9 @@ components:
           $ref: "#/components/schemas/RelationType"
         value:
           type: string
+      required:
+      - relationType
+      - value
       type: object
     RelationType:
       enum:
@@ -26975,6 +28095,58 @@ components:
           type: string
         required:
           type: boolean
+      type: object
+    ResourceType_1:
+      enum:
+      - AUDITLOG
+      - APP
+      - APP_EXECUTION
+      - BINDING
+      - DASHBOARD
+      - EXECUTION
+      - FLOW
+      - GROUP
+      - INVITATION
+      - NAMESPACE
+      - ROLE
+      - SECURITY_INTEGRATION
+      - SECRET
+      - SETTING
+      - TEMPLATE
+      - TENANT
+      - TENANT_ACCESS
+      - TESTSUITE
+      - TESTSUITE_RUN
+      - VERSIONED_PLUGIN
+      - USER
+      - WORKER_GROUP
+      - INSTANCE
+      - UNKNOWN
+      type: string
+    RightSidebarConfiguration:
+      example:
+        customLinks:
+          key:
+            title: title
+            url: url
+      properties:
+        customLinks:
+          additionalProperties:
+            $ref: "#/components/schemas/RightSidebarConfiguration.CustomLink"
+          type: object
+      type: object
+    RightSidebarConfiguration.CustomLink:
+      example:
+        title: title
+        url: url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      required:
+      - title
+      - url
       type: object
     Role:
       example:
@@ -27074,8 +28246,12 @@ components:
           type: boolean
       required:
       - deleted
+      - description
+      - id
+      - isDefault
       - isManaged
       - name
+      - permissions
       type: object
     RoleUsage:
       example:
@@ -27255,6 +28431,7 @@ components:
         type: object
       required:
       - meta
+      - resourceType
       type: object
     ScimResourceWithOptionalId:
       allOf:
@@ -27330,11 +28507,13 @@ components:
             id: id
             type: STRING
             value: "{}"
+            required: true
           - displayName: displayName
             description: description
             id: id
             type: STRING
             value: "{}"
+            required: true
           variables:
             key: "{}"
           listeners:
@@ -27430,7 +28609,7 @@ components:
               retry: "{}"
           inputs:
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -27438,7 +28617,7 @@ components:
             type: ""
             required: true
           - dependsOn: ""
-            defaults: "{}"
+            defaults: ""
             displayName: displayName
             name: name
             description: description
@@ -27709,6 +28888,9 @@ components:
           items:
             type: string
           type: array
+      required:
+      - fragments
+      - model
       type: object
     SecurityIntegration.Type:
       enum:
@@ -27735,6 +28917,7 @@ components:
         liveness:
           $ref: "#/components/schemas/ServerConfig.Liveness"
       required:
+      - liveness
       - terminationGracePeriod
       type: object
     ServerConfig.Liveness:
@@ -27813,20 +28996,18 @@ components:
           items:
             $ref: "#/components/schemas/Metric"
           type: array
+      required:
+      - hostname
+      - id
+      - metrics
+      - props
+      - type
+      - version
       type: object
     ServerInstance.Type:
       enum:
       - SERVER
       - STANDALONE
-      type: string
-    ServerType:
-      enum:
-      - EXECUTOR
-      - INDEXER
-      - SCHEDULER
-      - STANDALONE
-      - WEBSERVER
-      - WORKER
       type: string
     Service.ServiceState:
       enum:
@@ -27950,6 +29131,18 @@ components:
         seqId:
           format: int64
           type: integer
+      required:
+      - config
+      - createdAt
+      - events
+      - id
+      - metrics
+      - props
+      - seqId
+      - server
+      - state
+      - type
+      - updatedAt
       type: object
     ServiceInstance.TimestampedEvent:
       example:
@@ -27967,6 +29160,11 @@ components:
           type: string
         state:
           $ref: "#/components/schemas/Service.ServiceState"
+      required:
+      - state
+      - ts
+      - type
+      - value
       type: object
     ServiceProviderConfiguration:
       allOf:
@@ -28050,38 +29248,8 @@ components:
       - SCHEDULER
       - WEBSERVER
       - WORKER
+      - INVALID
       type: string
-    ServiceUsage:
-      properties:
-        dailyStatistics:
-          items:
-            $ref: "#/components/schemas/ServiceUsage.DailyServiceStatistics"
-          type: array
-      type: object
-    ServiceUsage.DailyServiceStatistics:
-      properties:
-        type:
-          type: string
-        values:
-          items:
-            $ref: "#/components/schemas/ServiceUsage.DailyStatistics"
-          type: array
-      type: object
-    ServiceUsage.DailyStatistics:
-      properties:
-        date:
-          format: date
-          type: string
-        min:
-          format: int64
-          type: integer
-        max:
-          format: int64
-          type: integer
-        avg:
-          format: int64
-          type: integer
-      type: object
     SetupConfiguration:
       example:
         secretType: secretType
@@ -28103,6 +29271,9 @@ components:
           type: string
         passwordRegexp:
           type: string
+      required:
+      - done
+      - passwordRegexp
       type: object
     SetupConfiguration.SetupData:
       properties:
@@ -28112,6 +29283,10 @@ components:
           type: string
         tenant:
           $ref: "#/components/schemas/Tenant"
+      required:
+      - password
+      - tenant
+      - username
       type: object
     SortOrder:
       enum:
@@ -28285,7 +29460,7 @@ components:
       example:
         inputs:
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -28293,7 +29468,7 @@ components:
           type: ""
           required: true
         - dependsOn: ""
-          defaults: "{}"
+          defaults: ""
           displayName: displayName
           name: name
           description: description
@@ -28456,12 +29631,18 @@ components:
           nullable: true
           type: boolean
       required:
+      - attempts
+      - dynamic
       - executionId
       - flowId
       - id
+      - iteration
       - namespace
+      - outputs
+      - parentTaskRunId
       - state
       - taskId
+      - value
       type: object
     TaskRunAttempt:
       example:
@@ -28573,6 +29754,16 @@ components:
       - deleted
       - id
       - name
+      - outputsInInternalStorage
+      - requireExistingNamespace
+      - secretConfiguration
+      - secretIsolation
+      - secretReadOnly
+      - secretType
+      - storageConfiguration
+      - storageIsolation
+      - storageType
+      - workerGroup
       type: object
     TenantInterface:
       properties:
@@ -28581,7 +29772,7 @@ components:
       type: object
     TenantUsage:
       example:
-        count: 9
+        count: 7
       properties:
         count:
           format: int64
@@ -28914,12 +30105,23 @@ components:
       - namespace
       - testCases
       type: object
+    TestSuiteController.RunRequest:
+      properties:
+        testCases:
+          items:
+            type: string
+          type: array
+      required:
+      - testCases
+      type: object
     TestSuiteController.SearchTestsLastResult:
       properties:
         testSuiteIds:
           items:
             $ref: "#/components/schemas/TestSuiteController.TestSuiteApiId"
           type: array
+      required:
+      - testSuiteIds
       type: object
     TestSuiteController.TestSuiteApiId:
       properties:
@@ -29175,6 +30377,8 @@ components:
           items:
             $ref: "#/components/schemas/TestSuiteRunResult"
           type: array
+      required:
+      - results
       type: object
     TestSuiteRunResult:
       example:
@@ -29316,9 +30520,287 @@ components:
       - flowId
       - id
       - namespace
+      - results
       - startDate
       - state
       - testSuiteId
+      type: object
+    TestSuiteService.RunByQueryRequest:
+      example:
+        namespace: namespace
+        flowId: flowId
+        includeChildNamespaces: true
+      properties:
+        namespace:
+          nullable: true
+          type: string
+        flowId:
+          nullable: true
+          type: string
+        includeChildNamespaces:
+          default: true
+          description: Should child namespaces be included or not
+          type: boolean
+      required:
+      - flowId
+      - includeChildNamespaces
+      - namespace
+      type: object
+    TestSuiteService.TestRunByQueryResult:
+      example:
+        tenantId: tenantId
+        numberOfTestSuitesToBeRun: 0
+        numberOfTestCasesToBeRun: 6
+        requestMade:
+          namespace: namespace
+          flowId: flowId
+          includeChildNamespaces: true
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        requestMade:
+          $ref: "#/components/schemas/TestSuiteService.RunByQueryRequest"
+        tenantId:
+          type: string
+        numberOfTestSuitesToBeRun:
+          format: int32
+          type: integer
+        numberOfTestCasesToBeRun:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
+          type: array
+      required:
+      - numberOfTestCasesToBeRun
+      - numberOfTestSuitesToBeRun
+      - requestMade
+      - results
+      - tenantId
       type: object
     TimeWindow:
       example:
@@ -29459,6 +30941,9 @@ components:
           $ref: "#/components/schemas/AbstractTrigger"
         triggerContext:
           $ref: "#/components/schemas/Trigger"
+      required:
+      - abstractTrigger
+      - triggerContext
       type: object
     TriggerFixture:
       example:
@@ -29740,230 +31225,19 @@ components:
       required:
       - assertionResults
       - errors
+      - executionId
+      - fixtures
       - state
       - testId
       - testType
-      type: object
-    Usage:
-      example:
-        environments:
-        - environments
-        - environments
-        configurations:
-          secretType: secretType
-          repositoryType: repositoryType
-          queueType: queueType
-          storageType: storageType
-          javaSecurityEnabled: true
-        plugins:
-        - manifest:
-            key: manifest
-        - manifest:
-            key: manifest
-        pluginMetrics:
-        - meanTime: 6.965117697638846
-          totalTime: 3.5571952270680973
-          count: 6.438423552598547
-          type: type
-        - meanTime: 6.965117697638846
-          totalTime: 3.5571952270680973
-          count: 6.438423552598547
-          type: type
-        startUuid: startUuid
-        services: ""
-        uuid: uuid
-        version: version
-        uri: uri
-        executions:
-          dailyTaskRunsCount:
-          - duration:
-              min: min
-              avg: avg
-              max: max
-              count: 2
-              sum: sum
-            groupBy: groupBy
-            startDate: 2000-01-23T04:56:07.000+00:00
-            executionCounts:
-              SUCCESS: 6
-              RUNNING: 7
-              RETRYING: 9
-              WARNING: 7
-              PAUSED: 1
-              CANCELLED: 5
-              CREATED: 4
-              KILLING: 1
-              FAILED: 1
-              RETRIED: 6
-              QUEUED: 9
-              BREAKPOINT: 9
-              SKIPPED: 8
-              RESTARTED: 1
-              KILLED: 4
-          - duration:
-              min: min
-              avg: avg
-              max: max
-              count: 2
-              sum: sum
-            groupBy: groupBy
-            startDate: 2000-01-23T04:56:07.000+00:00
-            executionCounts:
-              SUCCESS: 6
-              RUNNING: 7
-              RETRYING: 9
-              WARNING: 7
-              PAUSED: 1
-              CANCELLED: 5
-              CREATED: 4
-              KILLING: 1
-              FAILED: 1
-              RETRIED: 6
-              QUEUED: 9
-              BREAKPOINT: 9
-              SKIPPED: 8
-              RESTARTED: 1
-              KILLED: 4
-          dailyExecutionsCount:
-          - duration:
-              min: min
-              avg: avg
-              max: max
-              count: 2
-              sum: sum
-            groupBy: groupBy
-            startDate: 2000-01-23T04:56:07.000+00:00
-            executionCounts:
-              SUCCESS: 6
-              RUNNING: 7
-              RETRYING: 9
-              WARNING: 7
-              PAUSED: 1
-              CANCELLED: 5
-              CREATED: 4
-              KILLING: 1
-              FAILED: 1
-              RETRIED: 6
-              QUEUED: 9
-              BREAKPOINT: 9
-              SKIPPED: 8
-              RESTARTED: 1
-              KILLED: 4
-          - duration:
-              min: min
-              avg: avg
-              max: max
-              count: 2
-              sum: sum
-            groupBy: groupBy
-            startDate: 2000-01-23T04:56:07.000+00:00
-            executionCounts:
-              SUCCESS: 6
-              RUNNING: 7
-              RETRYING: 9
-              WARNING: 7
-              PAUSED: 1
-              CANCELLED: 5
-              CREATED: 4
-              KILLING: 1
-              FAILED: 1
-              RETRIED: 6
-              QUEUED: 9
-              BREAKPOINT: 9
-              SKIPPED: 8
-              RESTARTED: 1
-              KILLED: 4
-        flows:
-          taskRunnerTypeCount:
-            key: 3
-          triggerTypeCount:
-            key: 9
-          taskTypeCount:
-            key: 7
-          count: 5
-          namespacesCount: 2
-        serverType: EXECUTOR
-        instanceUuid: instanceUuid
-        host:
-          jvm:
-            vendor: vendor
-            name: name
-            version: version
-          os:
-            codeName: codeName
-            family: family
-            version: version
-            buildNumber: buildNumber
-          uuid: uuid
-          hardware:
-            memory: 5
-            maxFreq: 1
-            logicalProcessorCount: 0
-            knownDockerMacAddr: true
-            physicalProcessorCount: 6
-            knownVmMacAddr: true
-        zoneId: zoneId
-        startTime: 2000-01-23T04:56:07.000+00:00
-      properties:
-        uuid:
-          type: string
-        startUuid:
-          type: string
-        instanceUuid:
-          type: string
-        serverType:
-          $ref: "#/components/schemas/ServerType"
-        version:
-          type: string
-        zoneId:
-          type: string
-        uri:
-          nullable: true
-          type: string
-        environments:
-          items:
-            type: string
-          nullable: true
-          type: array
-        startTime:
-          format: date-time
-          type: string
-        host:
-          $ref: "#/components/schemas/HostUsage"
-        configurations:
-          $ref: "#/components/schemas/ConfigurationUsage"
-        plugins:
-          items:
-            $ref: "#/components/schemas/PluginUsage"
-          type: array
-        flows:
-          $ref: "#/components/schemas/FlowUsage"
-        executions:
-          $ref: "#/components/schemas/ExecutionUsage"
-        services:
-          allOf:
-          - $ref: "#/components/schemas/ServiceUsage"
-          nullable: true
-        pluginMetrics:
-          items:
-            $ref: "#/components/schemas/PluginMetric"
-          nullable: true
-          type: array
-      required:
-      - instanceUuid
-      - serverType
-      - startTime
-      - startUuid
-      - uuid
-      - version
-      - zoneId
+      - url
       type: object
     UsageEE:
       allOf:
-      - $ref: "#/components/schemas/Usage"
+      - $ref: "#/components/schemas/MiscController.ApiUsage"
       example:
         tenants:
-          count: 9
+          count: 7
         roles:
           count: 2
         groups:
@@ -29973,8 +31247,6 @@ components:
           oidcCount: 5
           apiKeyCount: 1
           basicAuthCount: 5
-        namespaces:
-          count: 7
       properties:
         groups:
           $ref: "#/components/schemas/GroupUsage"
@@ -29982,8 +31254,6 @@ components:
           $ref: "#/components/schemas/UserUsage"
         roles:
           $ref: "#/components/schemas/RoleUsage"
-        namespaces:
-          $ref: "#/components/schemas/NamespaceUsage"
         tenants:
           $ref: "#/components/schemas/TenantUsage"
       type: object
@@ -30092,7 +31362,14 @@ components:
             type: string
           type: array
       required:
+      - constraints
+      - deprecationPaths
+      - flow
       - index
+      - infos
+      - namespace
+      - outdated
+      - warnings
       type: object
     ValuePathExpression:
       properties:
@@ -30100,6 +31377,8 @@ components:
           $ref: "#/components/schemas/AttributeReference"
         attributeExpression:
           type: object
+      required:
+      - attributePath
       type: object
     WorkerGroup:
       example:
@@ -30198,22 +31477,6 @@ components:
       - $ref: "#/components/schemas/Map_Object.Object_"
       title: The labels to pass to the execution created.
     DailyExecutionStatistics_executionCounts:
-      example:
-        SUCCESS: 6
-        RUNNING: 7
-        RETRYING: 9
-        WARNING: 7
-        PAUSED: 1
-        CANCELLED: 5
-        CREATED: 4
-        KILLING: 1
-        FAILED: 1
-        RETRIED: 6
-        QUEUED: 9
-        BREAKPOINT: 9
-        SKIPPED: 8
-        RESTARTED: 1
-        KILLED: 4
       properties:
         CREATED:
           format: int64

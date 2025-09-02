@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Relation type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &Relation{}
 
 // Relation struct for Relation
 type Relation struct {
-	RelationType         *RelationType `json:"relationType,omitempty"`
-	Value                *string       `json:"value,omitempty"`
+	RelationType         RelationType `json:"relationType"`
+	Value                string       `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _Relation Relation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRelation() *Relation {
+func NewRelation(relationType RelationType, value string) *Relation {
 	this := Relation{}
+	this.RelationType = relationType
+	this.Value = value
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewRelationWithDefaults() *Relation {
 	return &this
 }
 
-// GetRelationType returns the RelationType field value if set, zero value otherwise.
+// GetRelationType returns the RelationType field value
 func (o *Relation) GetRelationType() RelationType {
-	if o == nil || IsNil(o.RelationType) {
+	if o == nil {
 		var ret RelationType
 		return ret
 	}
-	return *o.RelationType
+
+	return o.RelationType
 }
 
-// GetRelationTypeOk returns a tuple with the RelationType field value if set, nil otherwise
+// GetRelationTypeOk returns a tuple with the RelationType field value
 // and a boolean to check if the value has been set.
 func (o *Relation) GetRelationTypeOk() (*RelationType, bool) {
-	if o == nil || IsNil(o.RelationType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RelationType, true
+	return &o.RelationType, true
 }
 
-// HasRelationType returns a boolean if a field has been set.
-func (o *Relation) HasRelationType() bool {
-	if o != nil && !IsNil(o.RelationType) {
-		return true
-	}
-
-	return false
-}
-
-// SetRelationType gets a reference to the given RelationType and assigns it to the RelationType field.
+// SetRelationType sets field value
 func (o *Relation) SetRelationType(v RelationType) {
-	o.RelationType = &v
+	o.RelationType = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value
 func (o *Relation) GetValue() string {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Value
+
+	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *Relation) GetValueOk() (*string, bool) {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *Relation) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
+// SetValue sets field value
 func (o *Relation) SetValue(v string) {
-	o.Value = &v
+	o.Value = v
 }
 
 func (o Relation) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o Relation) MarshalJSON() ([]byte, error) {
 
 func (o Relation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.RelationType) {
-		toSerialize["relationType"] = o.RelationType
-	}
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["relationType"] = o.RelationType
+	toSerialize["value"] = o.Value
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o Relation) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Relation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"relationType",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varRelation := _Relation{}
 
 	err = json.Unmarshal(data, &varRelation)

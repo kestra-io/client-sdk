@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AuthControllerResetPasswordRequest type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &AuthControllerResetPasswordRequest{}
 
 // AuthControllerResetPasswordRequest struct for AuthControllerResetPasswordRequest
 type AuthControllerResetPasswordRequest struct {
-	Token                *string `json:"token,omitempty"`
-	Password             *string `json:"password,omitempty"`
+	Token                string `json:"token"`
+	Password             string `json:"password"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _AuthControllerResetPasswordRequest AuthControllerResetPasswordRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthControllerResetPasswordRequest() *AuthControllerResetPasswordRequest {
+func NewAuthControllerResetPasswordRequest(token string, password string) *AuthControllerResetPasswordRequest {
 	this := AuthControllerResetPasswordRequest{}
+	this.Token = token
+	this.Password = password
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewAuthControllerResetPasswordRequestWithDefaults() *AuthControllerResetPas
 	return &this
 }
 
-// GetToken returns the Token field value if set, zero value otherwise.
+// GetToken returns the Token field value
 func (o *AuthControllerResetPasswordRequest) GetToken() string {
-	if o == nil || IsNil(o.Token) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Token
+
+	return o.Token
 }
 
-// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// GetTokenOk returns a tuple with the Token field value
 // and a boolean to check if the value has been set.
 func (o *AuthControllerResetPasswordRequest) GetTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.Token) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Token, true
+	return &o.Token, true
 }
 
-// HasToken returns a boolean if a field has been set.
-func (o *AuthControllerResetPasswordRequest) HasToken() bool {
-	if o != nil && !IsNil(o.Token) {
-		return true
-	}
-
-	return false
-}
-
-// SetToken gets a reference to the given string and assigns it to the Token field.
+// SetToken sets field value
 func (o *AuthControllerResetPasswordRequest) SetToken(v string) {
-	o.Token = &v
+	o.Token = v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
+// GetPassword returns the Password field value
 func (o *AuthControllerResetPasswordRequest) GetPassword() string {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Password
+
+	return o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
 func (o *AuthControllerResetPasswordRequest) GetPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Password, true
+	return &o.Password, true
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *AuthControllerResetPasswordRequest) HasPassword() bool {
-	if o != nil && !IsNil(o.Password) {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given string and assigns it to the Password field.
+// SetPassword sets field value
 func (o *AuthControllerResetPasswordRequest) SetPassword(v string) {
-	o.Password = &v
+	o.Password = v
 }
 
 func (o AuthControllerResetPasswordRequest) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o AuthControllerResetPasswordRequest) MarshalJSON() ([]byte, error) {
 
 func (o AuthControllerResetPasswordRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Token) {
-		toSerialize["token"] = o.Token
-	}
-	if !IsNil(o.Password) {
-		toSerialize["password"] = o.Password
-	}
+	toSerialize["token"] = o.Token
+	toSerialize["password"] = o.Password
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o AuthControllerResetPasswordRequest) ToMap() (map[string]interface{}, err
 }
 
 func (o *AuthControllerResetPasswordRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"token",
+		"password",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAuthControllerResetPasswordRequest := _AuthControllerResetPasswordRequest{}
 
 	err = json.Unmarshal(data, &varAuthControllerResetPasswordRequest)

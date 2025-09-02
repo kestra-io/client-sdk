@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginVersionDetailsApiPluginClass type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionDetailsApiPluginClass{
 
 // InstanceControllerApiPluginVersionDetailsApiPluginClass struct for InstanceControllerApiPluginVersionDetailsApiPluginClass
 type InstanceControllerApiPluginVersionDetailsApiPluginClass struct {
-	Name                 *string `json:"name,omitempty"`
-	Icon                 *string `json:"icon,omitempty"`
+	Name                 string `json:"name"`
+	Icon                 string `json:"icon"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _InstanceControllerApiPluginVersionDetailsApiPluginClass InstanceController
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginVersionDetailsApiPluginClass() *InstanceControllerApiPluginVersionDetailsApiPluginClass {
+func NewInstanceControllerApiPluginVersionDetailsApiPluginClass(name string, icon string) *InstanceControllerApiPluginVersionDetailsApiPluginClass {
 	this := InstanceControllerApiPluginVersionDetailsApiPluginClass{}
+	this.Name = name
+	this.Icon = icon
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewInstanceControllerApiPluginVersionDetailsApiPluginClassWithDefaults() *I
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetIcon returns the Icon field value if set, zero value otherwise.
+// GetIcon returns the Icon field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) GetIcon() string {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Icon
+
+	return o.Icon
 }
 
-// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// GetIconOk returns a tuple with the Icon field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) GetIconOk() (*string, bool) {
-	if o == nil || IsNil(o.Icon) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Icon, true
+	return &o.Icon, true
 }
 
-// HasIcon returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) HasIcon() bool {
-	if o != nil && !IsNil(o.Icon) {
-		return true
-	}
-
-	return false
-}
-
-// SetIcon gets a reference to the given string and assigns it to the Icon field.
+// SetIcon sets field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) SetIcon(v string) {
-	o.Icon = &v
+	o.Icon = v
 }
 
 func (o InstanceControllerApiPluginVersionDetailsApiPluginClass) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o InstanceControllerApiPluginVersionDetailsApiPluginClass) MarshalJSON() (
 
 func (o InstanceControllerApiPluginVersionDetailsApiPluginClass) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Icon) {
-		toSerialize["icon"] = o.Icon
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["icon"] = o.Icon
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o InstanceControllerApiPluginVersionDetailsApiPluginClass) ToMap() (map[st
 }
 
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"icon",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiPluginVersionDetailsApiPluginClass := _InstanceControllerApiPluginVersionDetailsApiPluginClass{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginVersionDetailsApiPluginClass)

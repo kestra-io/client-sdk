@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FlowTopologyGraph type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &FlowTopologyGraph{}
 
 // FlowTopologyGraph struct for FlowTopologyGraph
 type FlowTopologyGraph struct {
-	Nodes                []FlowNode              `json:"nodes,omitempty"`
-	Edges                []FlowTopologyGraphEdge `json:"edges,omitempty"`
+	Nodes                []FlowNode              `json:"nodes"`
+	Edges                []FlowTopologyGraphEdge `json:"edges"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _FlowTopologyGraph FlowTopologyGraph
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowTopologyGraph() *FlowTopologyGraph {
+func NewFlowTopologyGraph(nodes []FlowNode, edges []FlowTopologyGraphEdge) *FlowTopologyGraph {
 	this := FlowTopologyGraph{}
+	this.Nodes = nodes
+	this.Edges = edges
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewFlowTopologyGraphWithDefaults() *FlowTopologyGraph {
 	return &this
 }
 
-// GetNodes returns the Nodes field value if set, zero value otherwise.
+// GetNodes returns the Nodes field value
 func (o *FlowTopologyGraph) GetNodes() []FlowNode {
-	if o == nil || IsNil(o.Nodes) {
+	if o == nil {
 		var ret []FlowNode
 		return ret
 	}
+
 	return o.Nodes
 }
 
-// GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
+// GetNodesOk returns a tuple with the Nodes field value
 // and a boolean to check if the value has been set.
 func (o *FlowTopologyGraph) GetNodesOk() ([]FlowNode, bool) {
-	if o == nil || IsNil(o.Nodes) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Nodes, true
 }
 
-// HasNodes returns a boolean if a field has been set.
-func (o *FlowTopologyGraph) HasNodes() bool {
-	if o != nil && !IsNil(o.Nodes) {
-		return true
-	}
-
-	return false
-}
-
-// SetNodes gets a reference to the given []FlowNode and assigns it to the Nodes field.
+// SetNodes sets field value
 func (o *FlowTopologyGraph) SetNodes(v []FlowNode) {
 	o.Nodes = v
 }
 
-// GetEdges returns the Edges field value if set, zero value otherwise.
+// GetEdges returns the Edges field value
 func (o *FlowTopologyGraph) GetEdges() []FlowTopologyGraphEdge {
-	if o == nil || IsNil(o.Edges) {
+	if o == nil {
 		var ret []FlowTopologyGraphEdge
 		return ret
 	}
+
 	return o.Edges
 }
 
-// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// GetEdgesOk returns a tuple with the Edges field value
 // and a boolean to check if the value has been set.
 func (o *FlowTopologyGraph) GetEdgesOk() ([]FlowTopologyGraphEdge, bool) {
-	if o == nil || IsNil(o.Edges) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Edges, true
 }
 
-// HasEdges returns a boolean if a field has been set.
-func (o *FlowTopologyGraph) HasEdges() bool {
-	if o != nil && !IsNil(o.Edges) {
-		return true
-	}
-
-	return false
-}
-
-// SetEdges gets a reference to the given []FlowTopologyGraphEdge and assigns it to the Edges field.
+// SetEdges sets field value
 func (o *FlowTopologyGraph) SetEdges(v []FlowTopologyGraphEdge) {
 	o.Edges = v
 }
@@ -117,12 +104,8 @@ func (o FlowTopologyGraph) MarshalJSON() ([]byte, error) {
 
 func (o FlowTopologyGraph) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Nodes) {
-		toSerialize["nodes"] = o.Nodes
-	}
-	if !IsNil(o.Edges) {
-		toSerialize["edges"] = o.Edges
-	}
+	toSerialize["nodes"] = o.Nodes
+	toSerialize["edges"] = o.Edges
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o FlowTopologyGraph) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *FlowTopologyGraph) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"nodes",
+		"edges",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varFlowTopologyGraph := _FlowTopologyGraph{}
 
 	err = json.Unmarshal(data, &varFlowTopologyGraph)

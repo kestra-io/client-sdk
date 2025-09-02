@@ -35,7 +35,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	iAMInvitationControllerApiInvitationCreateRequest := *openapiclient.NewIAMInvitationControllerApiInvitationCreateRequest("Email_example") // IAMInvitationControllerApiInvitationCreateRequest | Create a new invitation, send an email if the server-mail is enabled
+	iAMInvitationControllerApiInvitationCreateRequest := *openapiclient.NewIAMInvitationControllerApiInvitationCreateRequest(false, false, []openapiclient.IAMInvitationControllerApiInvitationRole{*openapiclient.NewIAMInvitationControllerApiInvitationRole("Id_example", []string{"Namespaces_example"})}, []string{"Groups_example"}, "Email_example") // IAMInvitationControllerApiInvitationCreateRequest | Create a new invitation, send an email if the server-mail is enabled
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

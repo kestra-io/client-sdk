@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CreateApiTokenResponse type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &CreateApiTokenResponse{}
 
 // CreateApiTokenResponse struct for CreateApiTokenResponse
 type CreateApiTokenResponse struct {
-	Id                   *string `json:"id,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	FullToken            *string `json:"fullToken,omitempty"`
+	Id                   string `json:"id"`
+	Name                 string `json:"name"`
+	FullToken            string `json:"fullToken"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,11 @@ type _CreateApiTokenResponse CreateApiTokenResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateApiTokenResponse() *CreateApiTokenResponse {
+func NewCreateApiTokenResponse(id string, name string, fullToken string) *CreateApiTokenResponse {
 	this := CreateApiTokenResponse{}
+	this.Id = id
+	this.Name = name
+	this.FullToken = fullToken
 	return &this
 }
 
@@ -44,100 +48,76 @@ func NewCreateApiTokenResponseWithDefaults() *CreateApiTokenResponse {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *CreateApiTokenResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiTokenResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *CreateApiTokenResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *CreateApiTokenResponse) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *CreateApiTokenResponse) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiTokenResponse) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *CreateApiTokenResponse) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *CreateApiTokenResponse) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetFullToken returns the FullToken field value if set, zero value otherwise.
+// GetFullToken returns the FullToken field value
 func (o *CreateApiTokenResponse) GetFullToken() string {
-	if o == nil || IsNil(o.FullToken) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FullToken
+
+	return o.FullToken
 }
 
-// GetFullTokenOk returns a tuple with the FullToken field value if set, nil otherwise
+// GetFullTokenOk returns a tuple with the FullToken field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiTokenResponse) GetFullTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.FullToken) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FullToken, true
+	return &o.FullToken, true
 }
 
-// HasFullToken returns a boolean if a field has been set.
-func (o *CreateApiTokenResponse) HasFullToken() bool {
-	if o != nil && !IsNil(o.FullToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetFullToken gets a reference to the given string and assigns it to the FullToken field.
+// SetFullToken sets field value
 func (o *CreateApiTokenResponse) SetFullToken(v string) {
-	o.FullToken = &v
+	o.FullToken = v
 }
 
 func (o CreateApiTokenResponse) MarshalJSON() ([]byte, error) {
@@ -150,15 +130,9 @@ func (o CreateApiTokenResponse) MarshalJSON() ([]byte, error) {
 
 func (o CreateApiTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.FullToken) {
-		toSerialize["fullToken"] = o.FullToken
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["fullToken"] = o.FullToken
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -168,6 +142,29 @@ func (o CreateApiTokenResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CreateApiTokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"fullToken",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCreateApiTokenResponse := _CreateApiTokenResponse{}
 
 	err = json.Unmarshal(data, &varCreateApiTokenResponse)

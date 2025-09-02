@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Input** | Pointer to [**InputObject**](InputObject.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Errors** | Pointer to [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputError**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | [optional] 
+**Input** | [**InputObject**](InputObject.md) |  | 
+**Value** | **map[string]interface{}** |  | 
+**Enabled** | **bool** |  | 
+**IsDefault** | **bool** |  | 
+**Errors** | [**[]ExecutionControllerApiValidateExecutionInputsResponseApiInputError**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | 
 
 ## Methods
 
 ### NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
 
-`func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue() *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue`
+`func NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(input InputObject, value map[string]interface{}, enabled bool, isDefault bool, errors []ExecutionControllerApiValidateExecutionInputsResponseApiInputError, ) *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue`
 
 NewExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue instantiates a new ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetInput sets Input field to given value.
 
-### HasInput
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasInput() bool`
-
-HasInput returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -72,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### GetEnabled
 
@@ -97,11 +88,26 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
-### HasEnabled
 
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasEnabled() bool`
+### GetIsDefault
 
-HasEnabled returns a boolean if a field has been set.
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetIsDefault() bool`
+
+GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
+
+### GetIsDefaultOk
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) GetIsDefaultOk() (*bool, bool)`
+
+GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDefault
+
+`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) SetIsDefault(v bool)`
+
+SetIsDefault sets IsDefault field to given value.
+
 
 ### GetErrors
 
@@ -122,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetErrors sets Errors field to given value.
 
-### HasErrors
-
-`func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue) HasErrors() bool`
-
-HasErrors returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

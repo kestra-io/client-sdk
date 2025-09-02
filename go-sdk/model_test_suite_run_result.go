@@ -28,7 +28,7 @@ type TestSuiteRunResult struct {
 	State                TestState        `json:"state"`
 	StartDate            time.Time        `json:"startDate"`
 	EndDate              time.Time        `json:"endDate"`
-	Results              []UnitTestResult `json:"results,omitempty"`
+	Results              []UnitTestResult `json:"results"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +38,7 @@ type _TestSuiteRunResult TestSuiteRunResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time) *TestSuiteRunResult {
+func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time, results []UnitTestResult) *TestSuiteRunResult {
 	this := TestSuiteRunResult{}
 	this.Id = id
 	this.TestSuiteId = testSuiteId
@@ -47,6 +47,7 @@ func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flow
 	this.State = state
 	this.StartDate = startDate
 	this.EndDate = endDate
+	this.Results = results
 	return &this
 }
 
@@ -226,34 +227,26 @@ func (o *TestSuiteRunResult) SetEndDate(v time.Time) {
 	o.EndDate = v
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value
 func (o *TestSuiteRunResult) GetResults() []UnitTestResult {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		var ret []UnitTestResult
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *TestSuiteRunResult) GetResultsOk() ([]UnitTestResult, bool) {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *TestSuiteRunResult) HasResults() bool {
-	if o != nil && !IsNil(o.Results) {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []UnitTestResult and assigns it to the Results field.
+// SetResults sets field value
 func (o *TestSuiteRunResult) SetResults(v []UnitTestResult) {
 	o.Results = v
 }
@@ -275,9 +268,7 @@ func (o TestSuiteRunResult) ToMap() (map[string]interface{}, error) {
 	toSerialize["state"] = o.State
 	toSerialize["startDate"] = o.StartDate
 	toSerialize["endDate"] = o.EndDate
-	if !IsNil(o.Results) {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["results"] = o.Results
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -298,6 +289,7 @@ func (o *TestSuiteRunResult) UnmarshalJSON(data []byte) (err error) {
 		"state",
 		"startDate",
 		"endDate",
+		"results",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TenantId** | Pointer to **string** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**FlowId** | Pointer to **string** |  | [optional] 
-**FlowRevision** | Pointer to **int32** |  | [optional] 
-**Trigger** | Pointer to [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
-**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
-**State** | Pointer to [**State**](State.md) |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**TenantId** | **string** |  | 
+**Id** | **string** |  | 
+**Namespace** | **string** |  | 
+**FlowId** | **string** |  | 
+**FlowRevision** | **int32** |  | 
+**Trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | 
+**Outputs** | **map[string]map[string]interface{}** |  | 
+**Labels** | [**[]Label**](Label.md) |  | 
+**State** | [**State**](State.md) |  | 
+**Url** | **string** |  | 
 
 ## Methods
 
 ### NewExecutionControllerWebhookResponse
 
-`func NewExecutionControllerWebhookResponse() *ExecutionControllerWebhookResponse`
+`func NewExecutionControllerWebhookResponse(tenantId string, id string, namespace string, flowId string, flowRevision int32, trigger ExecutionTrigger, outputs map[string]map[string]interface{}, labels []Label, state State, url string, ) *ExecutionControllerWebhookResponse`
 
 NewExecutionControllerWebhookResponse instantiates a new ExecutionControllerWebhookResponse object
 This constructor will assign default values to properties that have it defined,
@@ -53,11 +53,6 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
-### HasTenantId
-
-`func (o *ExecutionControllerWebhookResponse) HasTenantId() bool`
-
-HasTenantId returns a boolean if a field has been set.
 
 ### GetId
 
@@ -78,11 +73,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ExecutionControllerWebhookResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -103,11 +93,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ExecutionControllerWebhookResponse) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -128,11 +113,6 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
-### HasFlowId
-
-`func (o *ExecutionControllerWebhookResponse) HasFlowId() bool`
-
-HasFlowId returns a boolean if a field has been set.
 
 ### GetFlowRevision
 
@@ -153,11 +133,6 @@ and a boolean to check if the value has been set.
 
 SetFlowRevision sets FlowRevision field to given value.
 
-### HasFlowRevision
-
-`func (o *ExecutionControllerWebhookResponse) HasFlowRevision() bool`
-
-HasFlowRevision returns a boolean if a field has been set.
 
 ### GetTrigger
 
@@ -178,11 +153,6 @@ and a boolean to check if the value has been set.
 
 SetTrigger sets Trigger field to given value.
 
-### HasTrigger
-
-`func (o *ExecutionControllerWebhookResponse) HasTrigger() bool`
-
-HasTrigger returns a boolean if a field has been set.
 
 ### GetOutputs
 
@@ -203,11 +173,6 @@ and a boolean to check if the value has been set.
 
 SetOutputs sets Outputs field to given value.
 
-### HasOutputs
-
-`func (o *ExecutionControllerWebhookResponse) HasOutputs() bool`
-
-HasOutputs returns a boolean if a field has been set.
 
 ### GetLabels
 
@@ -228,11 +193,6 @@ and a boolean to check if the value has been set.
 
 SetLabels sets Labels field to given value.
 
-### HasLabels
-
-`func (o *ExecutionControllerWebhookResponse) HasLabels() bool`
-
-HasLabels returns a boolean if a field has been set.
 
 ### GetState
 
@@ -253,11 +213,6 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
-### HasState
-
-`func (o *ExecutionControllerWebhookResponse) HasState() bool`
-
-HasState returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -278,11 +233,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *ExecutionControllerWebhookResponse) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

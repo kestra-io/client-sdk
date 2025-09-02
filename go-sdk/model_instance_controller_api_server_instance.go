@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiServerInstance type satisfies the MappedNullable interface at compile time
@@ -19,10 +20,10 @@ var _ MappedNullable = &InstanceControllerApiServerInstance{}
 
 // InstanceControllerApiServerInstance struct for InstanceControllerApiServerInstance
 type InstanceControllerApiServerInstance struct {
-	Id                   *string             `json:"id,omitempty"`
-	Type                 *ServerInstanceType `json:"type,omitempty"`
-	Version              *string             `json:"version,omitempty"`
-	Hostname             *string             `json:"hostname,omitempty"`
+	Id                   string             `json:"id"`
+	Type                 ServerInstanceType `json:"type"`
+	Version              string             `json:"version"`
+	Hostname             string             `json:"hostname"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,8 +33,12 @@ type _InstanceControllerApiServerInstance InstanceControllerApiServerInstance
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiServerInstance() *InstanceControllerApiServerInstance {
+func NewInstanceControllerApiServerInstance(id string, type_ ServerInstanceType, version string, hostname string) *InstanceControllerApiServerInstance {
 	this := InstanceControllerApiServerInstance{}
+	this.Id = id
+	this.Type = type_
+	this.Version = version
+	this.Hostname = hostname
 	return &this
 }
 
@@ -45,132 +50,100 @@ func NewInstanceControllerApiServerInstanceWithDefaults() *InstanceControllerApi
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *InstanceControllerApiServerInstance) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServerInstance) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *InstanceControllerApiServerInstance) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *InstanceControllerApiServerInstance) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *InstanceControllerApiServerInstance) GetType() ServerInstanceType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret ServerInstanceType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServerInstance) GetTypeOk() (*ServerInstanceType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *InstanceControllerApiServerInstance) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given ServerInstanceType and assigns it to the Type field.
+// SetType sets field value
 func (o *InstanceControllerApiServerInstance) SetType(v ServerInstanceType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *InstanceControllerApiServerInstance) GetVersion() string {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServerInstance) GetVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.Version) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *InstanceControllerApiServerInstance) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
+// SetVersion sets field value
 func (o *InstanceControllerApiServerInstance) SetVersion(v string) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetHostname returns the Hostname field value if set, zero value otherwise.
+// GetHostname returns the Hostname field value
 func (o *InstanceControllerApiServerInstance) GetHostname() string {
-	if o == nil || IsNil(o.Hostname) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Hostname
+
+	return o.Hostname
 }
 
-// GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
+// GetHostnameOk returns a tuple with the Hostname field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServerInstance) GetHostnameOk() (*string, bool) {
-	if o == nil || IsNil(o.Hostname) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Hostname, true
+	return &o.Hostname, true
 }
 
-// HasHostname returns a boolean if a field has been set.
-func (o *InstanceControllerApiServerInstance) HasHostname() bool {
-	if o != nil && !IsNil(o.Hostname) {
-		return true
-	}
-
-	return false
-}
-
-// SetHostname gets a reference to the given string and assigns it to the Hostname field.
+// SetHostname sets field value
 func (o *InstanceControllerApiServerInstance) SetHostname(v string) {
-	o.Hostname = &v
+	o.Hostname = v
 }
 
 func (o InstanceControllerApiServerInstance) MarshalJSON() ([]byte, error) {
@@ -183,18 +156,10 @@ func (o InstanceControllerApiServerInstance) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiServerInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.Hostname) {
-		toSerialize["hostname"] = o.Hostname
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["version"] = o.Version
+	toSerialize["hostname"] = o.Hostname
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -204,6 +169,30 @@ func (o InstanceControllerApiServerInstance) ToMap() (map[string]interface{}, er
 }
 
 func (o *InstanceControllerApiServerInstance) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"version",
+		"hostname",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiServerInstance := _InstanceControllerApiServerInstance{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiServerInstance)

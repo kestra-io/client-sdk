@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Dispatch** | Pointer to **string** |  | [optional] 
-**Stream** | Pointer to **string** |  | [optional] 
-**Layout** | Pointer to [**AppResponseUILayout**](AppResponseUILayout.md) |  | [optional] 
+**Dispatch** | **string** |  | 
+**Stream** | **string** |  | 
+**Layout** | [**AppResponseUILayout**](AppResponseUILayout.md) |  | 
 
 ## Methods
 
 ### NewAppResponse
 
-`func NewAppResponse() *AppResponse`
+`func NewAppResponse(dispatch string, stream string, layout AppResponseUILayout, ) *AppResponse`
 
 NewAppResponse instantiates a new AppResponse object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetDispatch sets Dispatch field to given value.
 
-### HasDispatch
-
-`func (o *AppResponse) HasDispatch() bool`
-
-HasDispatch returns a boolean if a field has been set.
 
 ### GetStream
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetStream sets Stream field to given value.
 
-### HasStream
-
-`func (o *AppResponse) HasStream() bool`
-
-HasStream returns a boolean if a field has been set.
 
 ### GetLayout
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetLayout sets Layout field to given value.
 
-### HasLayout
-
-`func (o *AppResponse) HasLayout() bool`
-
-HasLayout returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Forced** | Pointer to **bool** |  | [optional] 
-**Values** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Forced** | **bool** |  | 
+**Values** | **map[string]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewPluginDefault
 
-`func NewPluginDefault(type_ string, ) *PluginDefault`
+`func NewPluginDefault(type_ string, forced bool, values map[string]map[string]interface{}, ) *PluginDefault`
 
 NewPluginDefault instantiates a new PluginDefault object
 This constructor will assign default values to properties that have it defined,
@@ -66,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetForced sets Forced field to given value.
 
-### HasForced
-
-`func (o *PluginDefault) HasForced() bool`
-
-HasForced returns a boolean if a field has been set.
 
 ### GetValues
 
@@ -91,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
-### HasValues
-
-`func (o *PluginDefault) HasValues() bool`
-
-HasValues returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**WorkerGroups** | Pointer to [**[]InstanceControllerApiWorkerGroupItem**](InstanceControllerApiWorkerGroupItem.md) | The list of worker groups. | [optional] 
+**WorkerGroups** | [**[]InstanceControllerApiWorkerGroupItem**](InstanceControllerApiWorkerGroupItem.md) | The list of worker groups. | 
 
 ## Methods
 
 ### NewInstanceControllerApiWorkerGroupList
 
-`func NewInstanceControllerApiWorkerGroupList() *InstanceControllerApiWorkerGroupList`
+`func NewInstanceControllerApiWorkerGroupList(workerGroups []InstanceControllerApiWorkerGroupItem, ) *InstanceControllerApiWorkerGroupList`
 
 NewInstanceControllerApiWorkerGroupList instantiates a new InstanceControllerApiWorkerGroupList object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroups sets WorkerGroups field to given value.
 
-### HasWorkerGroups
-
-`func (o *InstanceControllerApiWorkerGroupList) HasWorkerGroups() bool`
-
-HasWorkerGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

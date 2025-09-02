@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SetupConfigurationSetupData type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &SetupConfigurationSetupData{}
 
 // SetupConfigurationSetupData struct for SetupConfigurationSetupData
 type SetupConfigurationSetupData struct {
-	Username             *string `json:"username,omitempty"`
-	Password             *string `json:"password,omitempty"`
-	Tenant               *Tenant `json:"tenant,omitempty"`
+	Username             string `json:"username"`
+	Password             string `json:"password"`
+	Tenant               Tenant `json:"tenant"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,11 @@ type _SetupConfigurationSetupData SetupConfigurationSetupData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSetupConfigurationSetupData() *SetupConfigurationSetupData {
+func NewSetupConfigurationSetupData(username string, password string, tenant Tenant) *SetupConfigurationSetupData {
 	this := SetupConfigurationSetupData{}
+	this.Username = username
+	this.Password = password
+	this.Tenant = tenant
 	return &this
 }
 
@@ -44,100 +48,76 @@ func NewSetupConfigurationSetupDataWithDefaults() *SetupConfigurationSetupData {
 	return &this
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
+// GetUsername returns the Username field value
 func (o *SetupConfigurationSetupData) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *SetupConfigurationSetupData) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Username, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *SetupConfigurationSetupData) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
+// SetUsername sets field value
 func (o *SetupConfigurationSetupData) SetUsername(v string) {
-	o.Username = &v
+	o.Username = v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
+// GetPassword returns the Password field value
 func (o *SetupConfigurationSetupData) GetPassword() string {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Password
+
+	return o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
 func (o *SetupConfigurationSetupData) GetPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Password, true
+	return &o.Password, true
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *SetupConfigurationSetupData) HasPassword() bool {
-	if o != nil && !IsNil(o.Password) {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given string and assigns it to the Password field.
+// SetPassword sets field value
 func (o *SetupConfigurationSetupData) SetPassword(v string) {
-	o.Password = &v
+	o.Password = v
 }
 
-// GetTenant returns the Tenant field value if set, zero value otherwise.
+// GetTenant returns the Tenant field value
 func (o *SetupConfigurationSetupData) GetTenant() Tenant {
-	if o == nil || IsNil(o.Tenant) {
+	if o == nil {
 		var ret Tenant
 		return ret
 	}
-	return *o.Tenant
+
+	return o.Tenant
 }
 
-// GetTenantOk returns a tuple with the Tenant field value if set, nil otherwise
+// GetTenantOk returns a tuple with the Tenant field value
 // and a boolean to check if the value has been set.
 func (o *SetupConfigurationSetupData) GetTenantOk() (*Tenant, bool) {
-	if o == nil || IsNil(o.Tenant) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Tenant, true
+	return &o.Tenant, true
 }
 
-// HasTenant returns a boolean if a field has been set.
-func (o *SetupConfigurationSetupData) HasTenant() bool {
-	if o != nil && !IsNil(o.Tenant) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenant gets a reference to the given Tenant and assigns it to the Tenant field.
+// SetTenant sets field value
 func (o *SetupConfigurationSetupData) SetTenant(v Tenant) {
-	o.Tenant = &v
+	o.Tenant = v
 }
 
 func (o SetupConfigurationSetupData) MarshalJSON() ([]byte, error) {
@@ -150,15 +130,9 @@ func (o SetupConfigurationSetupData) MarshalJSON() ([]byte, error) {
 
 func (o SetupConfigurationSetupData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.Password) {
-		toSerialize["password"] = o.Password
-	}
-	if !IsNil(o.Tenant) {
-		toSerialize["tenant"] = o.Tenant
-	}
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
+	toSerialize["tenant"] = o.Tenant
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -168,6 +142,29 @@ func (o SetupConfigurationSetupData) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SetupConfigurationSetupData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+		"password",
+		"tenant",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varSetupConfigurationSetupData := _SetupConfigurationSetupData{}
 
 	err = json.Unmarshal(data, &varSetupConfigurationSetupData)

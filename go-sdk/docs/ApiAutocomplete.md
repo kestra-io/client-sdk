@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Q** | Pointer to **NullableString** |  | [optional] 
 **Ids** | Pointer to **[]string** |  | [optional] 
+**ExistingOnly** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -96,6 +97,31 @@ HasIds returns a boolean if a field has been set.
 `func (o *ApiAutocomplete) UnsetIds()`
 
 UnsetIds ensures that no value is present for Ids, not even an explicit nil
+### GetExistingOnly
+
+`func (o *ApiAutocomplete) GetExistingOnly() bool`
+
+GetExistingOnly returns the ExistingOnly field if non-nil, zero value otherwise.
+
+### GetExistingOnlyOk
+
+`func (o *ApiAutocomplete) GetExistingOnlyOk() (*bool, bool)`
+
+GetExistingOnlyOk returns a tuple with the ExistingOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExistingOnly
+
+`func (o *ApiAutocomplete) SetExistingOnly(v bool)`
+
+SetExistingOnly sets ExistingOnly field to given value.
+
+### HasExistingOnly
+
+`func (o *ApiAutocomplete) HasExistingOnly() bool`
+
+HasExistingOnly returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

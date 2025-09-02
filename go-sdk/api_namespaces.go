@@ -573,7 +573,7 @@ func (r ApiGetNamespaceRequest) Execute() (*Namespace, *http.Response, error) {
 }
 
 /*
-GetNamespace Retrieve namespace details
+GetNamespace Get a namespace
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The namespace id
@@ -1271,10 +1271,10 @@ type ApiSearchNamespacesRequest struct {
 	ApiService *NamespacesAPIService
 	page       *int32
 	size       *int32
+	existing   *bool
 	tenant     string
 	q          *string
 	sort       *[]string
-	existing   *bool
 }
 
 // The current page
@@ -1286,6 +1286,12 @@ func (r ApiSearchNamespacesRequest) Page(page int32) ApiSearchNamespacesRequest 
 // The current page size
 func (r ApiSearchNamespacesRequest) Size(size int32) ApiSearchNamespacesRequest {
 	r.size = &size
+	return r
+}
+
+// Return only existing namespace
+func (r ApiSearchNamespacesRequest) Existing(existing bool) ApiSearchNamespacesRequest {
+	r.existing = &existing
 	return r
 }
 
@@ -1301,13 +1307,7 @@ func (r ApiSearchNamespacesRequest) Sort(sort []string) ApiSearchNamespacesReque
 	return r
 }
 
-// Return only existing namespace
-func (r ApiSearchNamespacesRequest) Existing(existing bool) ApiSearchNamespacesRequest {
-	r.existing = &existing
-	return r
-}
-
-func (r ApiSearchNamespacesRequest) Execute() (*PagedResultsNamespaceWithDisabled, *http.Response, error) {
+func (r ApiSearchNamespacesRequest) Execute() (*PagedResultsNamespace, *http.Response, error) {
 	return r.ApiService.SearchNamespacesExecute(r)
 }
 
@@ -1328,13 +1328,13 @@ func (a *NamespacesAPIService) SearchNamespaces(ctx context.Context, tenant stri
 
 // Execute executes the request
 //
-//	@return PagedResultsNamespaceWithDisabled
-func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequest) (*PagedResultsNamespaceWithDisabled, *http.Response, error) {
+//	@return PagedResultsNamespace
+func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequest) (*PagedResultsNamespace, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsNamespaceWithDisabled
+		localVarReturnValue *PagedResultsNamespace
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.SearchNamespaces")
@@ -1360,6 +1360,9 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	if *r.size < 1 {
 		return localVarReturnValue, nil, reportError("size must be greater than 1")
 	}
+	if r.existing == nil {
+		return localVarReturnValue, nil, reportError("existing is required and must be specified")
+	}
 
 	if r.q != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
@@ -1369,12 +1372,7 @@ func (a *NamespacesAPIService) SearchNamespacesExecute(r ApiSearchNamespacesRequ
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
 	}
-	if r.existing != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.existing = &defaultValue
-	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "existing", r.existing, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

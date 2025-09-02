@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**GetVersionedPluginDetailsFromVersion**](PluginsAPI.md#GetVersionedPluginDetailsFromVersion) | **Get** /api/v1/instance/versioned-plugins/{groupId}/{artifactId}/{version} | Retrieve details of a specific plugin artifact version
 [**InstallVersionedPlugins**](PluginsAPI.md#InstallVersionedPlugins) | **Post** /api/v1/instance/versioned-plugins/install | Install specified plugin artifacts
 [**ListAvailableVersionedPlugins**](PluginsAPI.md#ListAvailableVersionedPlugins) | **Get** /api/v1/instance/versioned-plugins/available | List available plugin artifacts
+[**ListAvailableVersionedPluginsForSecretManager**](PluginsAPI.md#ListAvailableVersionedPluginsForSecretManager) | **Get** /api/v1/instance/versioned-plugins/available/secrets-managers | List available plugin artifacts for Kestra Secret Manager
+[**ListAvailableVersionedPluginsForStorage**](PluginsAPI.md#ListAvailableVersionedPluginsForStorage) | **Get** /api/v1/instance/versioned-plugins/available/storages | List available plugin artifacts for Kestra Internal Storage
 [**ListPlugins**](PluginsAPI.md#ListPlugins) | **Get** /api/v1/plugins | Get list of plugins
 [**ListVersionedPlugin**](PluginsAPI.md#ListVersionedPlugin) | **Get** /api/v1/instance/versioned-plugins | List installed plugin artifacts
 [**ResolveVersionedPlugins**](PluginsAPI.md#ResolveVersionedPlugins) | **Post** /api/v1/instance/versioned-plugins/resolve | Resolve versions for specified plugin artifacts
@@ -855,7 +857,7 @@ import (
 )
 
 func main() {
-	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest([]string{"Plugins_example"}) // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -941,6 +943,128 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListAvailableVersionedPluginsRequest struct via the builder pattern
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAvailableVersionedPluginsForSecretManager
+
+> map[string]interface{} ListAvailableVersionedPluginsForSecretManager(ctx).Execute()
+
+List available plugin artifacts for Kestra Secret Manager
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PluginsAPI.ListAvailableVersionedPluginsForSecretManager(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.ListAvailableVersionedPluginsForSecretManager``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAvailableVersionedPluginsForSecretManager`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.ListAvailableVersionedPluginsForSecretManager`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAvailableVersionedPluginsForSecretManagerRequest struct via the builder pattern
+
+
+### Return type
+
+**map[string]interface{}**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAvailableVersionedPluginsForStorage
+
+> map[string]interface{} ListAvailableVersionedPluginsForStorage(ctx).Execute()
+
+List available plugin artifacts for Kestra Internal Storage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PluginsAPI.ListAvailableVersionedPluginsForStorage(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PluginsAPI.ListAvailableVersionedPluginsForStorage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAvailableVersionedPluginsForStorage`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `PluginsAPI.ListAvailableVersionedPluginsForStorage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAvailableVersionedPluginsForStorageRequest struct via the builder pattern
 
 
 ### Return type
@@ -1113,7 +1237,7 @@ import (
 )
 
 func main() {
-	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest([]string{"Plugins_example"}) // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1179,7 +1303,7 @@ import (
 )
 
 func main() {
-	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest() // InstanceControllerApiPluginListRequest | List of plugins
+	instanceControllerApiPluginListRequest := *openapiclient.NewInstanceControllerApiPluginListRequest([]string{"Plugins_example"}) // InstanceControllerApiPluginListRequest | List of plugins
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

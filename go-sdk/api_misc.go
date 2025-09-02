@@ -331,7 +331,7 @@ type ApiGetUsagesRequest struct {
 	tenant     string
 }
 
-func (r ApiGetUsagesRequest) Execute() (*Usage, *http.Response, error) {
+func (r ApiGetUsagesRequest) Execute() (*UsageEE, *http.Response, error) {
 	return r.ApiService.GetUsagesExecute(r)
 }
 
@@ -352,13 +352,13 @@ func (a *MiscAPIService) GetUsages(ctx context.Context, tenant string) ApiGetUsa
 
 // Execute executes the request
 //
-//	@return Usage
-func (a *MiscAPIService) GetUsagesExecute(r ApiGetUsagesRequest) (*Usage, *http.Response, error) {
+//	@return UsageEE
+func (a *MiscAPIService) GetUsagesExecute(r ApiGetUsagesRequest) (*UsageEE, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Usage
+		localVarReturnValue *UsageEE
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MiscAPIService.GetUsages")

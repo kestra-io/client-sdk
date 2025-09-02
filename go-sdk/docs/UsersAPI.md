@@ -120,7 +120,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +191,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | The create api-token request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -264,7 +264,7 @@ import (
 )
 
 func main() {
-	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest("Email_example") // IAMUserControllerApiCreateOrUpdateUserRequest | 
+	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest([]string{"Tenants_example"}, []string{"Groups_example"}, "FirstName_example", "LastName_example", "Email_example", "Password_example", false, false) // IAMUserControllerApiCreateOrUpdateUserRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1032,7 +1032,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest() // MeControllerApiUserDetailsRequest | The user details
+	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerApiUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1315,7 +1315,7 @@ import (
 )
 
 func main() {
-	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest() // MeControllerApiUpdatePasswordRequest | 
+	meControllerApiUpdatePasswordRequest := *openapiclient.NewMeControllerApiUpdatePasswordRequest("OldPassword_example", "NewPassword_example") // MeControllerApiUpdatePasswordRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1382,7 +1382,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The user id
-	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest("Email_example") // IAMUserControllerApiCreateOrUpdateUserRequest | 
+	iAMUserControllerApiCreateOrUpdateUserRequest := *openapiclient.NewIAMUserControllerApiCreateOrUpdateUserRequest([]string{"Tenants_example"}, []string{"Groups_example"}, "FirstName_example", "LastName_example", "Email_example", "Password_example", false, false) // IAMUserControllerApiCreateOrUpdateUserRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1453,7 +1453,7 @@ import (
 func main() {
 	id := "id_example" // string | The user ID
 	tenant := "tenant_example" // string | 
-	iAMUserGroupControllerApiUpdateUserGroupsRequest := *openapiclient.NewIAMUserGroupControllerApiUpdateUserGroupsRequest() // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
+	iAMUserGroupControllerApiUpdateUserGroupsRequest := *openapiclient.NewIAMUserGroupControllerApiUpdateUserGroupsRequest([]string{"GroupIds_example"}) // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

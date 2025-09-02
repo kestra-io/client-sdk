@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Permission** | Pointer to [**Permission**](Permission.md) |  | [optional] 
+**Resource** | [**ResourceType1**](ResourceType1.md) |  | 
 **Type** | Pointer to [**NullableCrudEventType**](CrudEventType.md) |  | [optional] 
-**Detail** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Detail** | **map[string]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewAuditLogControllerFindRequest
 
-`func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest`
+`func NewAuditLogControllerFindRequest(resource ResourceType1, detail map[string]map[string]interface{}, ) *AuditLogControllerFindRequest`
 
 NewAuditLogControllerFindRequest instantiates a new AuditLogControllerFindRequest object
 This constructor will assign default values to properties that have it defined,
@@ -27,30 +27,25 @@ NewAuditLogControllerFindRequestWithDefaults instantiates a new AuditLogControll
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPermission
+### GetResource
 
-`func (o *AuditLogControllerFindRequest) GetPermission() Permission`
+`func (o *AuditLogControllerFindRequest) GetResource() ResourceType1`
 
-GetPermission returns the Permission field if non-nil, zero value otherwise.
+GetResource returns the Resource field if non-nil, zero value otherwise.
 
-### GetPermissionOk
+### GetResourceOk
 
-`func (o *AuditLogControllerFindRequest) GetPermissionOk() (*Permission, bool)`
+`func (o *AuditLogControllerFindRequest) GetResourceOk() (*ResourceType1, bool)`
 
-GetPermissionOk returns a tuple with the Permission field if it's non-nil, zero value otherwise
+GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPermission
+### SetResource
 
-`func (o *AuditLogControllerFindRequest) SetPermission(v Permission)`
+`func (o *AuditLogControllerFindRequest) SetResource(v ResourceType1)`
 
-SetPermission sets Permission field to given value.
+SetResource sets Resource field to given value.
 
-### HasPermission
-
-`func (o *AuditLogControllerFindRequest) HasPermission() bool`
-
-HasPermission returns a boolean if a field has been set.
 
 ### GetType
 
@@ -106,11 +101,6 @@ and a boolean to check if the value has been set.
 
 SetDetail sets Detail field to given value.
 
-### HasDetail
-
-`func (o *AuditLogControllerFindRequest) HasDetail() bool`
-
-HasDetail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

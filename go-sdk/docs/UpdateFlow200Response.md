@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **Revision** | Pointer to **int32** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **Disabled** | **bool** |  | 
@@ -16,7 +17,6 @@ Name | Type | Description | Notes
 **Deleted** | **bool** |  | 
 **Finally** | Pointer to [**[]Task**](Task.md) |  | [optional] 
 **TaskDefaults** | Pointer to [**[]PluginDefault**](PluginDefault.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
 **Tasks** | [**[]Task**](Task.md) |  | 
 **Errors** | Pointer to [**[]Task**](Task.md) |  | [optional] 
 **Listeners** | Pointer to [**[]Listener**](Listener.md) |  | [optional] 
@@ -110,6 +110,31 @@ SetRevision sets Revision field to given value.
 `func (o *UpdateFlow200Response) HasRevision() bool`
 
 HasRevision returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *UpdateFlow200Response) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *UpdateFlow200Response) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *UpdateFlow200Response) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *UpdateFlow200Response) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetInputs
 
@@ -325,31 +350,6 @@ SetTaskDefaults sets TaskDefaults field to given value.
 `func (o *UpdateFlow200Response) HasTaskDefaults() bool`
 
 HasTaskDefaults returns a boolean if a field has been set.
-
-### GetDescription
-
-`func (o *UpdateFlow200Response) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *UpdateFlow200Response) GetDescriptionOk() (*string, bool)`
-
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDescription
-
-`func (o *UpdateFlow200Response) SetDescription(v string)`
-
-SetDescription sets Description field to given value.
-
-### HasDescription
-
-`func (o *UpdateFlow200Response) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetTasks
 

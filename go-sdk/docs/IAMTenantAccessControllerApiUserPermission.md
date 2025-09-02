@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Permission** | Pointer to [**Permission**](Permission.md) |  | [optional] 
-**Actions** | Pointer to [**[]Action**](Action.md) |  | [optional] 
+**Permission** | [**Permission**](Permission.md) |  | 
+**Actions** | [**[]Action**](Action.md) |  | 
 
 ## Methods
 
 ### NewIAMTenantAccessControllerApiUserPermission
 
-`func NewIAMTenantAccessControllerApiUserPermission() *IAMTenantAccessControllerApiUserPermission`
+`func NewIAMTenantAccessControllerApiUserPermission(permission Permission, actions []Action, ) *IAMTenantAccessControllerApiUserPermission`
 
 NewIAMTenantAccessControllerApiUserPermission instantiates a new IAMTenantAccessControllerApiUserPermission object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetPermission sets Permission field to given value.
 
-### HasPermission
-
-`func (o *IAMTenantAccessControllerApiUserPermission) HasPermission() bool`
-
-HasPermission returns a boolean if a field has been set.
 
 ### GetActions
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetActions sets Actions field to given value.
 
-### HasActions
-
-`func (o *IAMTenantAccessControllerApiUserPermission) HasActions() bool`
-
-HasActions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExecutionId** | Pointer to **string** |  | [optional] 
-**TenantId** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**FlowId** | Pointer to **string** |  | [optional] 
-**State** | Pointer to [**State**](State.md) |  | [optional] 
+**ExecutionId** | **string** |  | 
+**TenantId** | **string** |  | 
+**Namespace** | **string** |  | 
+**FlowId** | **string** |  | 
+**State** | [**State**](State.md) |  | 
 
 ## Methods
 
 ### NewExecutionStatusEvent
 
-`func NewExecutionStatusEvent() *ExecutionStatusEvent`
+`func NewExecutionStatusEvent(executionId string, tenantId string, namespace string, flowId string, state State, ) *ExecutionStatusEvent`
 
 NewExecutionStatusEvent instantiates a new ExecutionStatusEvent object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetExecutionId sets ExecutionId field to given value.
 
-### HasExecutionId
-
-`func (o *ExecutionStatusEvent) HasExecutionId() bool`
-
-HasExecutionId returns a boolean if a field has been set.
 
 ### GetTenantId
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
-### HasTenantId
-
-`func (o *ExecutionStatusEvent) HasTenantId() bool`
-
-HasTenantId returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ExecutionStatusEvent) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
-### HasFlowId
-
-`func (o *ExecutionStatusEvent) HasFlowId() bool`
-
-HasFlowId returns a boolean if a field has been set.
 
 ### GetState
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
-### HasState
-
-`func (o *ExecutionStatusEvent) HasState() bool`
-
-HasState returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **Revision** | Pointer to **int32** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
@@ -103,6 +104,31 @@ SetRevision sets Revision field to given value.
 `func (o *FlowForExecution) HasRevision() bool`
 
 HasRevision returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *FlowForExecution) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *FlowForExecution) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *FlowForExecution) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *FlowForExecution) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetInputs
 

@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IAMTenantAccessControllerApiTenantAccess type satisfies the MappedNullable interface at compile time
@@ -19,13 +20,13 @@ var _ MappedNullable = &IAMTenantAccessControllerApiTenantAccess{}
 
 // IAMTenantAccessControllerApiTenantAccess struct for IAMTenantAccessControllerApiTenantAccess
 type IAMTenantAccessControllerApiTenantAccess struct {
-	TenantId             *string                                      `json:"tenantId,omitempty"`
-	UserId               *string                                      `json:"userId,omitempty"`
-	Username             *string                                      `json:"username,omitempty"`
-	DisplayName          *string                                      `json:"displayName,omitempty"`
-	Groups               []IAMTenantAccessControllerApiGroup          `json:"groups,omitempty"`
-	Roles                []IAMTenantAccessControllerApiRoleAssignment `json:"roles,omitempty"`
-	SuperAdmin           *bool                                        `json:"superAdmin,omitempty"`
+	TenantId             string                                       `json:"tenantId"`
+	UserId               string                                       `json:"userId"`
+	Username             string                                       `json:"username"`
+	DisplayName          string                                       `json:"displayName"`
+	Groups               []IAMTenantAccessControllerApiGroup          `json:"groups"`
+	Roles                []IAMTenantAccessControllerApiRoleAssignment `json:"roles"`
+	SuperAdmin           bool                                         `json:"superAdmin"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,8 +36,15 @@ type _IAMTenantAccessControllerApiTenantAccess IAMTenantAccessControllerApiTenan
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMTenantAccessControllerApiTenantAccess() *IAMTenantAccessControllerApiTenantAccess {
+func NewIAMTenantAccessControllerApiTenantAccess(tenantId string, userId string, username string, displayName string, groups []IAMTenantAccessControllerApiGroup, roles []IAMTenantAccessControllerApiRoleAssignment, superAdmin bool) *IAMTenantAccessControllerApiTenantAccess {
 	this := IAMTenantAccessControllerApiTenantAccess{}
+	this.TenantId = tenantId
+	this.UserId = userId
+	this.Username = username
+	this.DisplayName = displayName
+	this.Groups = groups
+	this.Roles = roles
+	this.SuperAdmin = superAdmin
 	return &this
 }
 
@@ -48,228 +56,172 @@ func NewIAMTenantAccessControllerApiTenantAccessWithDefaults() *IAMTenantAccessC
 	return &this
 }
 
-// GetTenantId returns the TenantId field value if set, zero value otherwise.
+// GetTenantId returns the TenantId field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetTenantId() string {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TenantId
+
+	return o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// GetTenantIdOk returns a tuple with the TenantId field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetTenantIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantId, true
+	return &o.TenantId, true
 }
 
-// HasTenantId returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasTenantId() bool {
-	if o != nil && !IsNil(o.TenantId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+// SetTenantId sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetTenantId(v string) {
-	o.TenantId = &v
+	o.TenantId = v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetUserId() string {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetUserIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasUserId() bool {
-	if o != nil && !IsNil(o.UserId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
+// GetUsername returns the Username field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Username, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
+// SetUsername sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetUsername(v string) {
-	o.Username = &v
+	o.Username = v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// GetDisplayName returns the DisplayName field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+
+	return o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return &o.DisplayName, true
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetGroups() []IAMTenantAccessControllerApiGroup {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []IAMTenantAccessControllerApiGroup
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetGroupsOk() ([]IAMTenantAccessControllerApiGroup, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []IAMTenantAccessControllerApiGroup and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetGroups(v []IAMTenantAccessControllerApiGroup) {
 	o.Groups = v
 }
 
-// GetRoles returns the Roles field value if set, zero value otherwise.
+// GetRoles returns the Roles field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetRoles() []IAMTenantAccessControllerApiRoleAssignment {
-	if o == nil || IsNil(o.Roles) {
+	if o == nil {
 		var ret []IAMTenantAccessControllerApiRoleAssignment
 		return ret
 	}
+
 	return o.Roles
 }
 
-// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
+// GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetRolesOk() ([]IAMTenantAccessControllerApiRoleAssignment, bool) {
-	if o == nil || IsNil(o.Roles) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Roles, true
 }
 
-// HasRoles returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasRoles() bool {
-	if o != nil && !IsNil(o.Roles) {
-		return true
-	}
-
-	return false
-}
-
-// SetRoles gets a reference to the given []IAMTenantAccessControllerApiRoleAssignment and assigns it to the Roles field.
+// SetRoles sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetRoles(v []IAMTenantAccessControllerApiRoleAssignment) {
 	o.Roles = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
+// GetSuperAdmin returns the SuperAdmin field value
 func (o *IAMTenantAccessControllerApiTenantAccess) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+
+	return o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiTenantAccess) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return &o.SuperAdmin, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMTenantAccessControllerApiTenantAccess) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
+// SetSuperAdmin sets field value
 func (o *IAMTenantAccessControllerApiTenantAccess) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+	o.SuperAdmin = v
 }
 
 func (o IAMTenantAccessControllerApiTenantAccess) MarshalJSON() ([]byte, error) {
@@ -282,27 +234,13 @@ func (o IAMTenantAccessControllerApiTenantAccess) MarshalJSON() ([]byte, error) 
 
 func (o IAMTenantAccessControllerApiTenantAccess) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.TenantId) {
-		toSerialize["tenantId"] = o.TenantId
-	}
-	if !IsNil(o.UserId) {
-		toSerialize["userId"] = o.UserId
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
-	if !IsNil(o.Roles) {
-		toSerialize["roles"] = o.Roles
-	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
-	}
+	toSerialize["tenantId"] = o.TenantId
+	toSerialize["userId"] = o.UserId
+	toSerialize["username"] = o.Username
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["groups"] = o.Groups
+	toSerialize["roles"] = o.Roles
+	toSerialize["superAdmin"] = o.SuperAdmin
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -312,6 +250,33 @@ func (o IAMTenantAccessControllerApiTenantAccess) ToMap() (map[string]interface{
 }
 
 func (o *IAMTenantAccessControllerApiTenantAccess) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"tenantId",
+		"userId",
+		"username",
+		"displayName",
+		"groups",
+		"roles",
+		"superAdmin",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMTenantAccessControllerApiTenantAccess := _IAMTenantAccessControllerApiTenantAccess{}
 
 	err = json.Unmarshal(data, &varIAMTenantAccessControllerApiTenantAccess)

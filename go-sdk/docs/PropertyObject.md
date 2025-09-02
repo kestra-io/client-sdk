@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Expression** | Pointer to **string** |  | [optional] 
+**Expression** | **string** |  | 
 **Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewPropertyObject
 
-`func NewPropertyObject() *PropertyObject`
+`func NewPropertyObject(expression string, ) *PropertyObject`
 
 NewPropertyObject instantiates a new PropertyObject object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetExpression sets Expression field to given value.
 
-### HasExpression
-
-`func (o *PropertyObject) HasExpression() bool`
-
-HasExpression returns a boolean if a field has been set.
 
 ### GetValue
 

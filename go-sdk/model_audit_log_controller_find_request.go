@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AuditLogControllerFindRequest type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &AuditLogControllerFindRequest{}
 
 // AuditLogControllerFindRequest struct for AuditLogControllerFindRequest
 type AuditLogControllerFindRequest struct {
-	Permission           *Permission                       `json:"permission,omitempty"`
+	Resource             ResourceType1                     `json:"resource"`
 	Type                 NullableCrudEventType             `json:"type,omitempty"`
-	Detail               map[string]map[string]interface{} `json:"detail,omitempty"`
+	Detail               map[string]map[string]interface{} `json:"detail"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,10 @@ type _AuditLogControllerFindRequest AuditLogControllerFindRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerFindRequest() *AuditLogControllerFindRequest {
+func NewAuditLogControllerFindRequest(resource ResourceType1, detail map[string]map[string]interface{}) *AuditLogControllerFindRequest {
 	this := AuditLogControllerFindRequest{}
+	this.Resource = resource
+	this.Detail = detail
 	return &this
 }
 
@@ -44,36 +47,28 @@ func NewAuditLogControllerFindRequestWithDefaults() *AuditLogControllerFindReque
 	return &this
 }
 
-// GetPermission returns the Permission field value if set, zero value otherwise.
-func (o *AuditLogControllerFindRequest) GetPermission() Permission {
-	if o == nil || IsNil(o.Permission) {
-		var ret Permission
+// GetResource returns the Resource field value
+func (o *AuditLogControllerFindRequest) GetResource() ResourceType1 {
+	if o == nil {
+		var ret ResourceType1
 		return ret
 	}
-	return *o.Permission
+
+	return o.Resource
 }
 
-// GetPermissionOk returns a tuple with the Permission field value if set, nil otherwise
+// GetResourceOk returns a tuple with the Resource field value
 // and a boolean to check if the value has been set.
-func (o *AuditLogControllerFindRequest) GetPermissionOk() (*Permission, bool) {
-	if o == nil || IsNil(o.Permission) {
+func (o *AuditLogControllerFindRequest) GetResourceOk() (*ResourceType1, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Permission, true
+	return &o.Resource, true
 }
 
-// HasPermission returns a boolean if a field has been set.
-func (o *AuditLogControllerFindRequest) HasPermission() bool {
-	if o != nil && !IsNil(o.Permission) {
-		return true
-	}
-
-	return false
-}
-
-// SetPermission gets a reference to the given Permission and assigns it to the Permission field.
-func (o *AuditLogControllerFindRequest) SetPermission(v Permission) {
-	o.Permission = &v
+// SetResource sets field value
+func (o *AuditLogControllerFindRequest) SetResource(v ResourceType1) {
+	o.Resource = v
 }
 
 // GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -119,34 +114,26 @@ func (o *AuditLogControllerFindRequest) UnsetType() {
 	o.Type.Unset()
 }
 
-// GetDetail returns the Detail field value if set, zero value otherwise.
+// GetDetail returns the Detail field value
 func (o *AuditLogControllerFindRequest) GetDetail() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Detail) {
+	if o == nil {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
+
 	return o.Detail
 }
 
-// GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
+// GetDetailOk returns a tuple with the Detail field value
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerFindRequest) GetDetailOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Detail) {
+	if o == nil {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Detail, true
 }
 
-// HasDetail returns a boolean if a field has been set.
-func (o *AuditLogControllerFindRequest) HasDetail() bool {
-	if o != nil && !IsNil(o.Detail) {
-		return true
-	}
-
-	return false
-}
-
-// SetDetail gets a reference to the given map[string]map[string]interface{} and assigns it to the Detail field.
+// SetDetail sets field value
 func (o *AuditLogControllerFindRequest) SetDetail(v map[string]map[string]interface{}) {
 	o.Detail = v
 }
@@ -161,15 +148,11 @@ func (o AuditLogControllerFindRequest) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerFindRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Permission) {
-		toSerialize["permission"] = o.Permission
-	}
+	toSerialize["resource"] = o.Resource
 	if o.Type.IsSet() {
 		toSerialize["type"] = o.Type.Get()
 	}
-	if !IsNil(o.Detail) {
-		toSerialize["detail"] = o.Detail
-	}
+	toSerialize["detail"] = o.Detail
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -179,6 +162,28 @@ func (o AuditLogControllerFindRequest) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AuditLogControllerFindRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resource",
+		"detail",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAuditLogControllerFindRequest := _AuditLogControllerFindRequest{}
 
 	err = json.Unmarshal(data, &varAuditLogControllerFindRequest)
@@ -192,7 +197,7 @@ func (o *AuditLogControllerFindRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "permission")
+		delete(additionalProperties, "resource")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "detail")
 		o.AdditionalProperties = additionalProperties

@@ -22,11 +22,13 @@ var _ MappedNullable = &MiscControllerEEConfiguration{}
 type MiscControllerEEConfiguration struct {
 	Uuid                            *string                                `json:"uuid,omitempty"`
 	Version                         *string                                `json:"version,omitempty"`
+	Edition                         *MiscControllerEdition                 `json:"edition,omitempty"`
 	CommitId                        *string                                `json:"commitId,omitempty"`
 	CommitDate                      *time.Time                             `json:"commitDate,omitempty"`
 	IsCustomDashboardsEnabled       *bool                                  `json:"isCustomDashboardsEnabled,omitempty"`
 	IsTaskRunEnabled                *bool                                  `json:"isTaskRunEnabled,omitempty"`
 	IsAnonymousUsageEnabled         *bool                                  `json:"isAnonymousUsageEnabled,omitempty"`
+	IsUiAnonymousUsageEnabled       *bool                                  `json:"isUiAnonymousUsageEnabled,omitempty"`
 	IsTemplateEnabled               *bool                                  `json:"isTemplateEnabled,omitempty"`
 	Environment                     *MiscControllerEnvironment             `json:"environment,omitempty"`
 	Url                             *string                                `json:"url,omitempty"`
@@ -45,7 +47,8 @@ type MiscControllerEEConfiguration struct {
 	Banner                          *Banner                                `json:"banner,omitempty"`
 	MailServiceEnabled              *bool                                  `json:"mailServiceEnabled,omitempty"`
 	OutputsInInternalStorageEnabled *bool                                  `json:"outputsInInternalStorageEnabled,omitempty"`
-	ContextCustomLinks              *map[string]CustomLink                 `json:"contextCustomLinks,omitempty"`
+	LeftSidebar                     *LeftSidebarConfiguration              `json:"leftSidebar,omitempty"`
+	RightSidebar                    *RightSidebarConfiguration             `json:"rightSidebar,omitempty"`
 	InMaintenance                   *bool                                  `json:"inMaintenance,omitempty"`
 	PasswordRegexp                  *string                                `json:"passwordRegexp,omitempty"`
 	AdditionalProperties            map[string]interface{}
@@ -132,6 +135,38 @@ func (o *MiscControllerEEConfiguration) HasVersion() bool {
 // SetVersion gets a reference to the given string and assigns it to the Version field.
 func (o *MiscControllerEEConfiguration) SetVersion(v string) {
 	o.Version = &v
+}
+
+// GetEdition returns the Edition field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetEdition() MiscControllerEdition {
+	if o == nil || IsNil(o.Edition) {
+		var ret MiscControllerEdition
+		return ret
+	}
+	return *o.Edition
+}
+
+// GetEditionOk returns a tuple with the Edition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetEditionOk() (*MiscControllerEdition, bool) {
+	if o == nil || IsNil(o.Edition) {
+		return nil, false
+	}
+	return o.Edition, true
+}
+
+// HasEdition returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasEdition() bool {
+	if o != nil && !IsNil(o.Edition) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdition gets a reference to the given MiscControllerEdition and assigns it to the Edition field.
+func (o *MiscControllerEEConfiguration) SetEdition(v MiscControllerEdition) {
+	o.Edition = &v
 }
 
 // GetCommitId returns the CommitId field value if set, zero value otherwise.
@@ -292,6 +327,38 @@ func (o *MiscControllerEEConfiguration) HasIsAnonymousUsageEnabled() bool {
 // SetIsAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsAnonymousUsageEnabled field.
 func (o *MiscControllerEEConfiguration) SetIsAnonymousUsageEnabled(v bool) {
 	o.IsAnonymousUsageEnabled = &v
+}
+
+// GetIsUiAnonymousUsageEnabled returns the IsUiAnonymousUsageEnabled field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabled() bool {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsUiAnonymousUsageEnabled
+}
+
+// GetIsUiAnonymousUsageEnabledOk returns a tuple with the IsUiAnonymousUsageEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsUiAnonymousUsageEnabled) {
+		return nil, false
+	}
+	return o.IsUiAnonymousUsageEnabled, true
+}
+
+// HasIsUiAnonymousUsageEnabled returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasIsUiAnonymousUsageEnabled() bool {
+	if o != nil && !IsNil(o.IsUiAnonymousUsageEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsUiAnonymousUsageEnabled gets a reference to the given bool and assigns it to the IsUiAnonymousUsageEnabled field.
+func (o *MiscControllerEEConfiguration) SetIsUiAnonymousUsageEnabled(v bool) {
+	o.IsUiAnonymousUsageEnabled = &v
 }
 
 // GetIsTemplateEnabled returns the IsTemplateEnabled field value if set, zero value otherwise.
@@ -870,36 +937,68 @@ func (o *MiscControllerEEConfiguration) SetOutputsInInternalStorageEnabled(v boo
 	o.OutputsInInternalStorageEnabled = &v
 }
 
-// GetContextCustomLinks returns the ContextCustomLinks field value if set, zero value otherwise.
-func (o *MiscControllerEEConfiguration) GetContextCustomLinks() map[string]CustomLink {
-	if o == nil || IsNil(o.ContextCustomLinks) {
-		var ret map[string]CustomLink
+// GetLeftSidebar returns the LeftSidebar field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetLeftSidebar() LeftSidebarConfiguration {
+	if o == nil || IsNil(o.LeftSidebar) {
+		var ret LeftSidebarConfiguration
 		return ret
 	}
-	return *o.ContextCustomLinks
+	return *o.LeftSidebar
 }
 
-// GetContextCustomLinksOk returns a tuple with the ContextCustomLinks field value if set, nil otherwise
+// GetLeftSidebarOk returns a tuple with the LeftSidebar field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MiscControllerEEConfiguration) GetContextCustomLinksOk() (*map[string]CustomLink, bool) {
-	if o == nil || IsNil(o.ContextCustomLinks) {
+func (o *MiscControllerEEConfiguration) GetLeftSidebarOk() (*LeftSidebarConfiguration, bool) {
+	if o == nil || IsNil(o.LeftSidebar) {
 		return nil, false
 	}
-	return o.ContextCustomLinks, true
+	return o.LeftSidebar, true
 }
 
-// HasContextCustomLinks returns a boolean if a field has been set.
-func (o *MiscControllerEEConfiguration) HasContextCustomLinks() bool {
-	if o != nil && !IsNil(o.ContextCustomLinks) {
+// HasLeftSidebar returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasLeftSidebar() bool {
+	if o != nil && !IsNil(o.LeftSidebar) {
 		return true
 	}
 
 	return false
 }
 
-// SetContextCustomLinks gets a reference to the given map[string]CustomLink and assigns it to the ContextCustomLinks field.
-func (o *MiscControllerEEConfiguration) SetContextCustomLinks(v map[string]CustomLink) {
-	o.ContextCustomLinks = &v
+// SetLeftSidebar gets a reference to the given LeftSidebarConfiguration and assigns it to the LeftSidebar field.
+func (o *MiscControllerEEConfiguration) SetLeftSidebar(v LeftSidebarConfiguration) {
+	o.LeftSidebar = &v
+}
+
+// GetRightSidebar returns the RightSidebar field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetRightSidebar() RightSidebarConfiguration {
+	if o == nil || IsNil(o.RightSidebar) {
+		var ret RightSidebarConfiguration
+		return ret
+	}
+	return *o.RightSidebar
+}
+
+// GetRightSidebarOk returns a tuple with the RightSidebar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetRightSidebarOk() (*RightSidebarConfiguration, bool) {
+	if o == nil || IsNil(o.RightSidebar) {
+		return nil, false
+	}
+	return o.RightSidebar, true
+}
+
+// HasRightSidebar returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasRightSidebar() bool {
+	if o != nil && !IsNil(o.RightSidebar) {
+		return true
+	}
+
+	return false
+}
+
+// SetRightSidebar gets a reference to the given RightSidebarConfiguration and assigns it to the RightSidebar field.
+func (o *MiscControllerEEConfiguration) SetRightSidebar(v RightSidebarConfiguration) {
+	o.RightSidebar = &v
 }
 
 // GetInMaintenance returns the InMaintenance field value if set, zero value otherwise.
@@ -982,6 +1081,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+	if !IsNil(o.Edition) {
+		toSerialize["edition"] = o.Edition
+	}
 	if !IsNil(o.CommitId) {
 		toSerialize["commitId"] = o.CommitId
 	}
@@ -996,6 +1098,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsAnonymousUsageEnabled) {
 		toSerialize["isAnonymousUsageEnabled"] = o.IsAnonymousUsageEnabled
+	}
+	if !IsNil(o.IsUiAnonymousUsageEnabled) {
+		toSerialize["isUiAnonymousUsageEnabled"] = o.IsUiAnonymousUsageEnabled
 	}
 	if !IsNil(o.IsTemplateEnabled) {
 		toSerialize["isTemplateEnabled"] = o.IsTemplateEnabled
@@ -1051,8 +1156,11 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputsInInternalStorageEnabled) {
 		toSerialize["outputsInInternalStorageEnabled"] = o.OutputsInInternalStorageEnabled
 	}
-	if !IsNil(o.ContextCustomLinks) {
-		toSerialize["contextCustomLinks"] = o.ContextCustomLinks
+	if !IsNil(o.LeftSidebar) {
+		toSerialize["leftSidebar"] = o.LeftSidebar
+	}
+	if !IsNil(o.RightSidebar) {
+		toSerialize["rightSidebar"] = o.RightSidebar
 	}
 	if !IsNil(o.InMaintenance) {
 		toSerialize["inMaintenance"] = o.InMaintenance
@@ -1084,11 +1192,13 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "uuid")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "edition")
 		delete(additionalProperties, "commitId")
 		delete(additionalProperties, "commitDate")
 		delete(additionalProperties, "isCustomDashboardsEnabled")
 		delete(additionalProperties, "isTaskRunEnabled")
 		delete(additionalProperties, "isAnonymousUsageEnabled")
+		delete(additionalProperties, "isUiAnonymousUsageEnabled")
 		delete(additionalProperties, "isTemplateEnabled")
 		delete(additionalProperties, "environment")
 		delete(additionalProperties, "url")
@@ -1107,7 +1217,8 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "banner")
 		delete(additionalProperties, "mailServiceEnabled")
 		delete(additionalProperties, "outputsInInternalStorageEnabled")
-		delete(additionalProperties, "contextCustomLinks")
+		delete(additionalProperties, "leftSidebar")
+		delete(additionalProperties, "rightSidebar")
 		delete(additionalProperties, "inMaintenance")
 		delete(additionalProperties, "passwordRegexp")
 		o.AdditionalProperties = additionalProperties

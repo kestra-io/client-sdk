@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | 
+	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example", "Description_example", "MaxAge_example", false) // CreateApiTokenRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -347,7 +347,7 @@ import (
 )
 
 func main() {
-	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest() // MeControllerApiUserDetailsRequest | The user details
+	meControllerApiUserDetailsRequest := *openapiclient.NewMeControllerApiUserDetailsRequest("FirstName_example", "LastName_example", "Email_example") // MeControllerApiUserDetailsRequest | The user details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

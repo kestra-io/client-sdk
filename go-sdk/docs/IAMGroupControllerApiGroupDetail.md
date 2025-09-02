@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
+**Description** | **string** |  | 
 
 ## Methods
 
 ### NewIAMGroupControllerApiGroupDetail
 
-`func NewIAMGroupControllerApiGroupDetail() *IAMGroupControllerApiGroupDetail`
+`func NewIAMGroupControllerApiGroupDetail(id string, name string, description string, ) *IAMGroupControllerApiGroupDetail`
 
 NewIAMGroupControllerApiGroupDetail instantiates a new IAMGroupControllerApiGroupDetail object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *IAMGroupControllerApiGroupDetail) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *IAMGroupControllerApiGroupDetail) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *IAMGroupControllerApiGroupDetail) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

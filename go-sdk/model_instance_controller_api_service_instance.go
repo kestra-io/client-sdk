@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -20,12 +21,12 @@ var _ MappedNullable = &InstanceControllerApiServiceInstance{}
 
 // InstanceControllerApiServiceInstance struct for InstanceControllerApiServiceInstance
 type InstanceControllerApiServiceInstance struct {
-	Id                   *string                              `json:"id,omitempty"`
-	Type                 *ServiceType                         `json:"type,omitempty"`
-	State                *ServiceServiceState                 `json:"state,omitempty"`
-	Server               *InstanceControllerApiServerInstance `json:"server,omitempty"`
-	CreatedAt            *time.Time                           `json:"createdAt,omitempty"`
-	UpdatedAt            *time.Time                           `json:"updatedAt,omitempty"`
+	Id                   string                              `json:"id"`
+	Type                 ServiceType                         `json:"type"`
+	State                ServiceServiceState                 `json:"state"`
+	Server               InstanceControllerApiServerInstance `json:"server"`
+	CreatedAt            time.Time                           `json:"createdAt"`
+	UpdatedAt            time.Time                           `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,8 +36,14 @@ type _InstanceControllerApiServiceInstance InstanceControllerApiServiceInstance
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiServiceInstance() *InstanceControllerApiServiceInstance {
+func NewInstanceControllerApiServiceInstance(id string, type_ ServiceType, state ServiceServiceState, server InstanceControllerApiServerInstance, createdAt time.Time, updatedAt time.Time) *InstanceControllerApiServiceInstance {
 	this := InstanceControllerApiServiceInstance{}
+	this.Id = id
+	this.Type = type_
+	this.State = state
+	this.Server = server
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -48,196 +55,148 @@ func NewInstanceControllerApiServiceInstanceWithDefaults() *InstanceControllerAp
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *InstanceControllerApiServiceInstance) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *InstanceControllerApiServiceInstance) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *InstanceControllerApiServiceInstance) GetType() ServiceType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret ServiceType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetTypeOk() (*ServiceType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given ServiceType and assigns it to the Type field.
+// SetType sets field value
 func (o *InstanceControllerApiServiceInstance) SetType(v ServiceType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *InstanceControllerApiServiceInstance) GetState() ServiceServiceState {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret ServiceServiceState
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetStateOk() (*ServiceServiceState, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given ServiceServiceState and assigns it to the State field.
+// SetState sets field value
 func (o *InstanceControllerApiServiceInstance) SetState(v ServiceServiceState) {
-	o.State = &v
+	o.State = v
 }
 
-// GetServer returns the Server field value if set, zero value otherwise.
+// GetServer returns the Server field value
 func (o *InstanceControllerApiServiceInstance) GetServer() InstanceControllerApiServerInstance {
-	if o == nil || IsNil(o.Server) {
+	if o == nil {
 		var ret InstanceControllerApiServerInstance
 		return ret
 	}
-	return *o.Server
+
+	return o.Server
 }
 
-// GetServerOk returns a tuple with the Server field value if set, nil otherwise
+// GetServerOk returns a tuple with the Server field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetServerOk() (*InstanceControllerApiServerInstance, bool) {
-	if o == nil || IsNil(o.Server) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Server, true
+	return &o.Server, true
 }
 
-// HasServer returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasServer() bool {
-	if o != nil && !IsNil(o.Server) {
-		return true
-	}
-
-	return false
-}
-
-// SetServer gets a reference to the given InstanceControllerApiServerInstance and assigns it to the Server field.
+// SetServer sets field value
 func (o *InstanceControllerApiServiceInstance) SetServer(v InstanceControllerApiServerInstance) {
-	o.Server = &v
+	o.Server = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *InstanceControllerApiServiceInstance) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *InstanceControllerApiServiceInstance) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value
 func (o *InstanceControllerApiServiceInstance) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiServiceInstance) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *InstanceControllerApiServiceInstance) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *InstanceControllerApiServiceInstance) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 }
 
 func (o InstanceControllerApiServiceInstance) MarshalJSON() ([]byte, error) {
@@ -250,24 +209,12 @@ func (o InstanceControllerApiServiceInstance) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiServiceInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
-	if !IsNil(o.Server) {
-		toSerialize["server"] = o.Server
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["state"] = o.State
+	toSerialize["server"] = o.Server
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -277,6 +224,32 @@ func (o InstanceControllerApiServiceInstance) ToMap() (map[string]interface{}, e
 }
 
 func (o *InstanceControllerApiServiceInstance) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"state",
+		"server",
+		"createdAt",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiServiceInstance := _InstanceControllerApiServiceInstance{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiServiceInstance)

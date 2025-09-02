@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TestSuiteIds** | Pointer to [**[]TestSuiteControllerTestSuiteApiId**](TestSuiteControllerTestSuiteApiId.md) |  | [optional] 
+**TestSuiteIds** | [**[]TestSuiteControllerTestSuiteApiId**](TestSuiteControllerTestSuiteApiId.md) |  | 
 
 ## Methods
 
 ### NewTestSuiteControllerSearchTestsLastResult
 
-`func NewTestSuiteControllerSearchTestsLastResult() *TestSuiteControllerSearchTestsLastResult`
+`func NewTestSuiteControllerSearchTestsLastResult(testSuiteIds []TestSuiteControllerTestSuiteApiId, ) *TestSuiteControllerSearchTestsLastResult`
 
 NewTestSuiteControllerSearchTestsLastResult instantiates a new TestSuiteControllerSearchTestsLastResult object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetTestSuiteIds sets TestSuiteIds field to given value.
 
-### HasTestSuiteIds
-
-`func (o *TestSuiteControllerSearchTestsLastResult) HasTestSuiteIds() bool`
-
-HasTestSuiteIds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

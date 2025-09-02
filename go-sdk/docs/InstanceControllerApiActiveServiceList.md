@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | Pointer to **int32** |  | [optional] 
-**Services** | Pointer to [**[]InstanceControllerApiActiveService**](InstanceControllerApiActiveService.md) |  | [optional] 
+**Total** | **int32** |  | 
+**Services** | [**[]InstanceControllerApiActiveService**](InstanceControllerApiActiveService.md) |  | 
 
 ## Methods
 
 ### NewInstanceControllerApiActiveServiceList
 
-`func NewInstanceControllerApiActiveServiceList() *InstanceControllerApiActiveServiceList`
+`func NewInstanceControllerApiActiveServiceList(total int32, services []InstanceControllerApiActiveService, ) *InstanceControllerApiActiveServiceList`
 
 NewInstanceControllerApiActiveServiceList instantiates a new InstanceControllerApiActiveServiceList object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
-### HasTotal
-
-`func (o *InstanceControllerApiActiveServiceList) HasTotal() bool`
-
-HasTotal returns a boolean if a field has been set.
 
 ### GetServices
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetServices sets Services field to given value.
 
-### HasServices
-
-`func (o *InstanceControllerApiActiveServiceList) HasServices() bool`
-
-HasServices returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

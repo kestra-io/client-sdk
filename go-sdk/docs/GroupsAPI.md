@@ -184,7 +184,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	iAMGroupControllerApiCreateGroupRequest := *openapiclient.NewIAMGroupControllerApiCreateGroupRequest("Name_example") // IAMGroupControllerApiCreateGroupRequest | The group
+	iAMGroupControllerApiCreateGroupRequest := *openapiclient.NewIAMGroupControllerApiCreateGroupRequest("Name_example", "Description_example", []string{"MembersId_example"}) // IAMGroupControllerApiCreateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -472,7 +472,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	apiIds := *openapiclient.NewApiIds() // ApiIds | The ids that must be present on results
+	apiIds := *openapiclient.NewApiIds([]string{"Ids_example"}) // ApiIds | The ids that must be present on results
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -776,7 +776,7 @@ import (
 func main() {
 	id := "id_example" // string | The group id
 	tenant := "tenant_example" // string | 
-	iAMGroupControllerApiUpdateGroupRequest := *openapiclient.NewIAMGroupControllerApiUpdateGroupRequest("Name_example") // IAMGroupControllerApiUpdateGroupRequest | The group
+	iAMGroupControllerApiUpdateGroupRequest := *openapiclient.NewIAMGroupControllerApiUpdateGroupRequest("Name_example", "Description_example") // IAMGroupControllerApiUpdateGroupRequest | The group
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

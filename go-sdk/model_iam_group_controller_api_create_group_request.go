@@ -21,8 +21,8 @@ var _ MappedNullable = &IAMGroupControllerApiCreateGroupRequest{}
 // IAMGroupControllerApiCreateGroupRequest struct for IAMGroupControllerApiCreateGroupRequest
 type IAMGroupControllerApiCreateGroupRequest struct {
 	Name                 string   `json:"name"`
-	Description          *string  `json:"description,omitempty"`
-	MembersId            []string `json:"membersId,omitempty"`
+	Description          string   `json:"description"`
+	MembersId            []string `json:"membersId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,9 +32,11 @@ type _IAMGroupControllerApiCreateGroupRequest IAMGroupControllerApiCreateGroupRe
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMGroupControllerApiCreateGroupRequest(name string) *IAMGroupControllerApiCreateGroupRequest {
+func NewIAMGroupControllerApiCreateGroupRequest(name string, description string, membersId []string) *IAMGroupControllerApiCreateGroupRequest {
 	this := IAMGroupControllerApiCreateGroupRequest{}
 	this.Name = name
+	this.Description = description
+	this.MembersId = membersId
 	return &this
 }
 
@@ -70,66 +72,50 @@ func (o *IAMGroupControllerApiCreateGroupRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *IAMGroupControllerApiCreateGroupRequest) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiCreateGroupRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiCreateGroupRequest) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *IAMGroupControllerApiCreateGroupRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetMembersId returns the MembersId field value if set, zero value otherwise.
+// GetMembersId returns the MembersId field value
 func (o *IAMGroupControllerApiCreateGroupRequest) GetMembersId() []string {
-	if o == nil || IsNil(o.MembersId) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.MembersId
 }
 
-// GetMembersIdOk returns a tuple with the MembersId field value if set, nil otherwise
+// GetMembersIdOk returns a tuple with the MembersId field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiCreateGroupRequest) GetMembersIdOk() ([]string, bool) {
-	if o == nil || IsNil(o.MembersId) {
+	if o == nil {
 		return nil, false
 	}
 	return o.MembersId, true
 }
 
-// HasMembersId returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiCreateGroupRequest) HasMembersId() bool {
-	if o != nil && !IsNil(o.MembersId) {
-		return true
-	}
-
-	return false
-}
-
-// SetMembersId gets a reference to the given []string and assigns it to the MembersId field.
+// SetMembersId sets field value
 func (o *IAMGroupControllerApiCreateGroupRequest) SetMembersId(v []string) {
 	o.MembersId = v
 }
@@ -145,12 +131,8 @@ func (o IAMGroupControllerApiCreateGroupRequest) MarshalJSON() ([]byte, error) {
 func (o IAMGroupControllerApiCreateGroupRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.MembersId) {
-		toSerialize["membersId"] = o.MembersId
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["membersId"] = o.MembersId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -165,6 +147,8 @@ func (o *IAMGroupControllerApiCreateGroupRequest) UnmarshalJSON(data []byte) (er
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"name",
+		"description",
+		"membersId",
 	}
 
 	allProperties := make(map[string]interface{})

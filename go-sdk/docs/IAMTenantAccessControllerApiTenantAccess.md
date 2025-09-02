@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TenantId** | Pointer to **string** |  | [optional] 
-**UserId** | Pointer to **string** |  | [optional] 
-**Username** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**Groups** | Pointer to [**[]IAMTenantAccessControllerApiGroup**](IAMTenantAccessControllerApiGroup.md) |  | [optional] 
-**Roles** | Pointer to [**[]IAMTenantAccessControllerApiRoleAssignment**](IAMTenantAccessControllerApiRoleAssignment.md) |  | [optional] 
-**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**TenantId** | **string** |  | 
+**UserId** | **string** |  | 
+**Username** | **string** |  | 
+**DisplayName** | **string** |  | 
+**Groups** | [**[]IAMTenantAccessControllerApiGroup**](IAMTenantAccessControllerApiGroup.md) |  | 
+**Roles** | [**[]IAMTenantAccessControllerApiRoleAssignment**](IAMTenantAccessControllerApiRoleAssignment.md) |  | 
+**SuperAdmin** | **bool** |  | 
 
 ## Methods
 
 ### NewIAMTenantAccessControllerApiTenantAccess
 
-`func NewIAMTenantAccessControllerApiTenantAccess() *IAMTenantAccessControllerApiTenantAccess`
+`func NewIAMTenantAccessControllerApiTenantAccess(tenantId string, userId string, username string, displayName string, groups []IAMTenantAccessControllerApiGroup, roles []IAMTenantAccessControllerApiRoleAssignment, superAdmin bool, ) *IAMTenantAccessControllerApiTenantAccess`
 
 NewIAMTenantAccessControllerApiTenantAccess instantiates a new IAMTenantAccessControllerApiTenantAccess object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
-### HasTenantId
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasTenantId() bool`
-
-HasTenantId returns a boolean if a field has been set.
 
 ### GetUserId
 
@@ -75,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetUserId sets UserId field to given value.
 
-### HasUserId
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasUserId() bool`
-
-HasUserId returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -100,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
-### HasUsername
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -125,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
-### HasDisplayName
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasDisplayName() bool`
-
-HasDisplayName returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -150,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
-### HasGroups
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
 
 ### GetRoles
 
@@ -175,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetRoles sets Roles field to given value.
 
-### HasRoles
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasRoles() bool`
-
-HasRoles returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -200,11 +170,6 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
-### HasSuperAdmin
-
-`func (o *IAMTenantAccessControllerApiTenantAccess) HasSuperAdmin() bool`
-
-HasSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

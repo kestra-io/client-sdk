@@ -20,10 +20,10 @@ var _ MappedNullable = &AuditLogDetail{}
 
 // AuditLogDetail struct for AuditLogDetail
 type AuditLogDetail struct {
-	Type                 string     `json:"type"`
-	Cls                  string     `json:"cls"`
-	Permission           Permission `json:"permission"`
-	Id                   *string    `json:"id,omitempty"`
+	Permission           *Permission    `json:"permission,omitempty"`
+	ResourceType         *ResourceType1 `json:"resourceType,omitempty"`
+	Type                 string         `json:"type"`
+	Id                   *string        `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,11 +33,9 @@ type _AuditLogDetail AuditLogDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogDetail(type_ string, cls string, permission Permission) *AuditLogDetail {
+func NewAuditLogDetail(type_ string) *AuditLogDetail {
 	this := AuditLogDetail{}
 	this.Type = type_
-	this.Cls = cls
-	this.Permission = permission
 	return &this
 }
 
@@ -47,6 +45,70 @@ func NewAuditLogDetail(type_ string, cls string, permission Permission) *AuditLo
 func NewAuditLogDetailWithDefaults() *AuditLogDetail {
 	this := AuditLogDetail{}
 	return &this
+}
+
+// GetPermission returns the Permission field value if set, zero value otherwise.
+func (o *AuditLogDetail) GetPermission() Permission {
+	if o == nil || IsNil(o.Permission) {
+		var ret Permission
+		return ret
+	}
+	return *o.Permission
+}
+
+// GetPermissionOk returns a tuple with the Permission field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogDetail) GetPermissionOk() (*Permission, bool) {
+	if o == nil || IsNil(o.Permission) {
+		return nil, false
+	}
+	return o.Permission, true
+}
+
+// HasPermission returns a boolean if a field has been set.
+func (o *AuditLogDetail) HasPermission() bool {
+	if o != nil && !IsNil(o.Permission) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermission gets a reference to the given Permission and assigns it to the Permission field.
+func (o *AuditLogDetail) SetPermission(v Permission) {
+	o.Permission = &v
+}
+
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *AuditLogDetail) GetResourceType() ResourceType1 {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret ResourceType1
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogDetail) GetResourceTypeOk() (*ResourceType1, bool) {
+	if o == nil || IsNil(o.ResourceType) {
+		return nil, false
+	}
+	return o.ResourceType, true
+}
+
+// HasResourceType returns a boolean if a field has been set.
+func (o *AuditLogDetail) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given ResourceType1 and assigns it to the ResourceType field.
+func (o *AuditLogDetail) SetResourceType(v ResourceType1) {
+	o.ResourceType = &v
 }
 
 // GetType returns the Type field value
@@ -71,54 +133,6 @@ func (o *AuditLogDetail) GetTypeOk() (*string, bool) {
 // SetType sets field value
 func (o *AuditLogDetail) SetType(v string) {
 	o.Type = v
-}
-
-// GetCls returns the Cls field value
-func (o *AuditLogDetail) GetCls() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Cls
-}
-
-// GetClsOk returns a tuple with the Cls field value
-// and a boolean to check if the value has been set.
-func (o *AuditLogDetail) GetClsOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Cls, true
-}
-
-// SetCls sets field value
-func (o *AuditLogDetail) SetCls(v string) {
-	o.Cls = v
-}
-
-// GetPermission returns the Permission field value
-func (o *AuditLogDetail) GetPermission() Permission {
-	if o == nil {
-		var ret Permission
-		return ret
-	}
-
-	return o.Permission
-}
-
-// GetPermissionOk returns a tuple with the Permission field value
-// and a boolean to check if the value has been set.
-func (o *AuditLogDetail) GetPermissionOk() (*Permission, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Permission, true
-}
-
-// SetPermission sets field value
-func (o *AuditLogDetail) SetPermission(v Permission) {
-	o.Permission = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -163,9 +177,13 @@ func (o AuditLogDetail) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Permission) {
+		toSerialize["permission"] = o.Permission
+	}
+	if !IsNil(o.ResourceType) {
+		toSerialize["resourceType"] = o.ResourceType
+	}
 	toSerialize["type"] = o.Type
-	toSerialize["cls"] = o.Cls
-	toSerialize["permission"] = o.Permission
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -183,8 +201,6 @@ func (o *AuditLogDetail) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"cls",
-		"permission",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -214,9 +230,9 @@ func (o *AuditLogDetail) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "cls")
 		delete(additionalProperties, "permission")
+		delete(additionalProperties, "resourceType")
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
 	}

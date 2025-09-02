@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**FlowId** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**StartDate** | Pointer to **time.Time** |  | [optional] 
-**Status** | Pointer to [**StateType**](StateType.md) |  | [optional] 
+**Id** | **string** |  | 
+**FlowId** | **string** |  | 
+**Namespace** | **string** |  | 
+**StartDate** | **time.Time** |  | 
+**Status** | [**StateType**](StateType.md) |  | 
 
 ## Methods
 
 ### NewExecutionControllerLastExecutionResponse
 
-`func NewExecutionControllerLastExecutionResponse() *ExecutionControllerLastExecutionResponse`
+`func NewExecutionControllerLastExecutionResponse(id string, flowId string, namespace string, startDate time.Time, status StateType, ) *ExecutionControllerLastExecutionResponse`
 
 NewExecutionControllerLastExecutionResponse instantiates a new ExecutionControllerLastExecutionResponse object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ExecutionControllerLastExecutionResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetFlowId
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetFlowId sets FlowId field to given value.
 
-### HasFlowId
-
-`func (o *ExecutionControllerLastExecutionResponse) HasFlowId() bool`
-
-HasFlowId returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *ExecutionControllerLastExecutionResponse) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetStartDate
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetStartDate sets StartDate field to given value.
 
-### HasStartDate
-
-`func (o *ExecutionControllerLastExecutionResponse) HasStartDate() bool`
-
-HasStartDate returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
-### HasStatus
-
-`func (o *ExecutionControllerLastExecutionResponse) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

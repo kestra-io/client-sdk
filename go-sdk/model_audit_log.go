@@ -21,16 +21,17 @@ var _ MappedNullable = &AuditLog{}
 
 // AuditLog struct for AuditLog
 type AuditLog struct {
+	TenantId             string                   `json:"tenantId"`
 	Id                   string                   `json:"id"`
 	Type                 CrudEventType            `json:"type"`
 	Detail               AuditLogDetail           `json:"detail"`
 	Date                 time.Time                `json:"date"`
 	UserId               string                   `json:"userId"`
-	IpAddress            *string                  `json:"ipAddress,omitempty"`
-	ImpersonatedBy       *string                  `json:"impersonatedBy,omitempty"`
-	Deleted              *bool                    `json:"deleted,omitempty"`
-	AppliedPatch         []map[string]interface{} `json:"appliedPatch,omitempty"`
-	RevertPatch          []map[string]interface{} `json:"revertPatch,omitempty"`
+	IpAddress            string                   `json:"ipAddress"`
+	ImpersonatedBy       string                   `json:"impersonatedBy"`
+	Deleted              bool                     `json:"deleted"`
+	AppliedPatch         []map[string]interface{} `json:"appliedPatch"`
+	RevertPatch          []map[string]interface{} `json:"revertPatch"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,13 +41,19 @@ type _AuditLog AuditLog
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string) *AuditLog {
+func NewAuditLog(tenantId string, id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ipAddress string, impersonatedBy string, deleted bool, appliedPatch []map[string]interface{}, revertPatch []map[string]interface{}) *AuditLog {
 	this := AuditLog{}
+	this.TenantId = tenantId
 	this.Id = id
 	this.Type = type_
 	this.Detail = detail
 	this.Date = date
 	this.UserId = userId
+	this.IpAddress = ipAddress
+	this.ImpersonatedBy = impersonatedBy
+	this.Deleted = deleted
+	this.AppliedPatch = appliedPatch
+	this.RevertPatch = revertPatch
 	return &this
 }
 
@@ -56,6 +63,30 @@ func NewAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date tim
 func NewAuditLogWithDefaults() *AuditLog {
 	this := AuditLog{}
 	return &this
+}
+
+// GetTenantId returns the TenantId field value
+func (o *AuditLog) GetTenantId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TenantId
+}
+
+// GetTenantIdOk returns a tuple with the TenantId field value
+// and a boolean to check if the value has been set.
+func (o *AuditLog) GetTenantIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TenantId, true
+}
+
+// SetTenantId sets field value
+func (o *AuditLog) SetTenantId(v string) {
+	o.TenantId = v
 }
 
 // GetId returns the Id field value
@@ -178,162 +209,122 @@ func (o *AuditLog) SetUserId(v string) {
 	o.UserId = v
 }
 
-// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+// GetIpAddress returns the IpAddress field value
 func (o *AuditLog) GetIpAddress() string {
-	if o == nil || IsNil(o.IpAddress) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.IpAddress
+
+	return o.IpAddress
 }
 
-// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// GetIpAddressOk returns a tuple with the IpAddress field value
 // and a boolean to check if the value has been set.
 func (o *AuditLog) GetIpAddressOk() (*string, bool) {
-	if o == nil || IsNil(o.IpAddress) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IpAddress, true
+	return &o.IpAddress, true
 }
 
-// HasIpAddress returns a boolean if a field has been set.
-func (o *AuditLog) HasIpAddress() bool {
-	if o != nil && !IsNil(o.IpAddress) {
-		return true
-	}
-
-	return false
-}
-
-// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+// SetIpAddress sets field value
 func (o *AuditLog) SetIpAddress(v string) {
-	o.IpAddress = &v
+	o.IpAddress = v
 }
 
-// GetImpersonatedBy returns the ImpersonatedBy field value if set, zero value otherwise.
+// GetImpersonatedBy returns the ImpersonatedBy field value
 func (o *AuditLog) GetImpersonatedBy() string {
-	if o == nil || IsNil(o.ImpersonatedBy) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ImpersonatedBy
+
+	return o.ImpersonatedBy
 }
 
-// GetImpersonatedByOk returns a tuple with the ImpersonatedBy field value if set, nil otherwise
+// GetImpersonatedByOk returns a tuple with the ImpersonatedBy field value
 // and a boolean to check if the value has been set.
 func (o *AuditLog) GetImpersonatedByOk() (*string, bool) {
-	if o == nil || IsNil(o.ImpersonatedBy) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ImpersonatedBy, true
+	return &o.ImpersonatedBy, true
 }
 
-// HasImpersonatedBy returns a boolean if a field has been set.
-func (o *AuditLog) HasImpersonatedBy() bool {
-	if o != nil && !IsNil(o.ImpersonatedBy) {
-		return true
-	}
-
-	return false
-}
-
-// SetImpersonatedBy gets a reference to the given string and assigns it to the ImpersonatedBy field.
+// SetImpersonatedBy sets field value
 func (o *AuditLog) SetImpersonatedBy(v string) {
-	o.ImpersonatedBy = &v
+	o.ImpersonatedBy = v
 }
 
-// GetDeleted returns the Deleted field value if set, zero value otherwise.
+// GetDeleted returns the Deleted field value
 func (o *AuditLog) GetDeleted() bool {
-	if o == nil || IsNil(o.Deleted) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Deleted
+
+	return o.Deleted
 }
 
-// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// GetDeletedOk returns a tuple with the Deleted field value
 // and a boolean to check if the value has been set.
 func (o *AuditLog) GetDeletedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Deleted) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Deleted, true
+	return &o.Deleted, true
 }
 
-// HasDeleted returns a boolean if a field has been set.
-func (o *AuditLog) HasDeleted() bool {
-	if o != nil && !IsNil(o.Deleted) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+// SetDeleted sets field value
 func (o *AuditLog) SetDeleted(v bool) {
-	o.Deleted = &v
+	o.Deleted = v
 }
 
-// GetAppliedPatch returns the AppliedPatch field value if set, zero value otherwise.
+// GetAppliedPatch returns the AppliedPatch field value
 func (o *AuditLog) GetAppliedPatch() []map[string]interface{} {
-	if o == nil || IsNil(o.AppliedPatch) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.AppliedPatch
 }
 
-// GetAppliedPatchOk returns a tuple with the AppliedPatch field value if set, nil otherwise
+// GetAppliedPatchOk returns a tuple with the AppliedPatch field value
 // and a boolean to check if the value has been set.
 func (o *AuditLog) GetAppliedPatchOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.AppliedPatch) {
+	if o == nil {
 		return nil, false
 	}
 	return o.AppliedPatch, true
 }
 
-// HasAppliedPatch returns a boolean if a field has been set.
-func (o *AuditLog) HasAppliedPatch() bool {
-	if o != nil && !IsNil(o.AppliedPatch) {
-		return true
-	}
-
-	return false
-}
-
-// SetAppliedPatch gets a reference to the given []map[string]interface{} and assigns it to the AppliedPatch field.
+// SetAppliedPatch sets field value
 func (o *AuditLog) SetAppliedPatch(v []map[string]interface{}) {
 	o.AppliedPatch = v
 }
 
-// GetRevertPatch returns the RevertPatch field value if set, zero value otherwise.
+// GetRevertPatch returns the RevertPatch field value
 func (o *AuditLog) GetRevertPatch() []map[string]interface{} {
-	if o == nil || IsNil(o.RevertPatch) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.RevertPatch
 }
 
-// GetRevertPatchOk returns a tuple with the RevertPatch field value if set, nil otherwise
+// GetRevertPatchOk returns a tuple with the RevertPatch field value
 // and a boolean to check if the value has been set.
 func (o *AuditLog) GetRevertPatchOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.RevertPatch) {
+	if o == nil {
 		return nil, false
 	}
 	return o.RevertPatch, true
 }
 
-// HasRevertPatch returns a boolean if a field has been set.
-func (o *AuditLog) HasRevertPatch() bool {
-	if o != nil && !IsNil(o.RevertPatch) {
-		return true
-	}
-
-	return false
-}
-
-// SetRevertPatch gets a reference to the given []map[string]interface{} and assigns it to the RevertPatch field.
+// SetRevertPatch sets field value
 func (o *AuditLog) SetRevertPatch(v []map[string]interface{}) {
 	o.RevertPatch = v
 }
@@ -348,26 +339,17 @@ func (o AuditLog) MarshalJSON() ([]byte, error) {
 
 func (o AuditLog) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["tenantId"] = o.TenantId
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
 	toSerialize["detail"] = o.Detail
 	toSerialize["date"] = o.Date
 	toSerialize["userId"] = o.UserId
-	if !IsNil(o.IpAddress) {
-		toSerialize["ipAddress"] = o.IpAddress
-	}
-	if !IsNil(o.ImpersonatedBy) {
-		toSerialize["impersonatedBy"] = o.ImpersonatedBy
-	}
-	if !IsNil(o.Deleted) {
-		toSerialize["deleted"] = o.Deleted
-	}
-	if !IsNil(o.AppliedPatch) {
-		toSerialize["appliedPatch"] = o.AppliedPatch
-	}
-	if !IsNil(o.RevertPatch) {
-		toSerialize["revertPatch"] = o.RevertPatch
-	}
+	toSerialize["ipAddress"] = o.IpAddress
+	toSerialize["impersonatedBy"] = o.ImpersonatedBy
+	toSerialize["deleted"] = o.Deleted
+	toSerialize["appliedPatch"] = o.AppliedPatch
+	toSerialize["revertPatch"] = o.RevertPatch
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -381,11 +363,17 @@ func (o *AuditLog) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"tenantId",
 		"id",
 		"type",
 		"detail",
 		"date",
 		"userId",
+		"ipAddress",
+		"impersonatedBy",
+		"deleted",
+		"appliedPatch",
+		"revertPatch",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -415,6 +403,7 @@ func (o *AuditLog) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tenantId")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "detail")

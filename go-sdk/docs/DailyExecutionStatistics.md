@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartDate** | **time.Time** |  | 
 **Duration** | [**DailyExecutionStatisticsDuration**](DailyExecutionStatisticsDuration.md) |  | 
-**ExecutionCounts** | Pointer to [**DailyExecutionStatisticsExecutionCounts**](DailyExecutionStatisticsExecutionCounts.md) |  | [optional] 
-**GroupBy** | Pointer to **string** |  | [optional] 
+**ExecutionCounts** | [**DailyExecutionStatisticsExecutionCounts**](DailyExecutionStatisticsExecutionCounts.md) |  | 
+**GroupBy** | **string** |  | 
 
 ## Methods
 
 ### NewDailyExecutionStatistics
 
-`func NewDailyExecutionStatistics(startDate time.Time, duration DailyExecutionStatisticsDuration, ) *DailyExecutionStatistics`
+`func NewDailyExecutionStatistics(startDate time.Time, duration DailyExecutionStatisticsDuration, executionCounts DailyExecutionStatisticsExecutionCounts, groupBy string, ) *DailyExecutionStatistics`
 
 NewDailyExecutionStatistics instantiates a new DailyExecutionStatistics object
 This constructor will assign default values to properties that have it defined,
@@ -87,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetExecutionCounts sets ExecutionCounts field to given value.
 
-### HasExecutionCounts
-
-`func (o *DailyExecutionStatistics) HasExecutionCounts() bool`
-
-HasExecutionCounts returns a boolean if a field has been set.
 
 ### GetGroupBy
 
@@ -112,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetGroupBy sets GroupBy field to given value.
 
-### HasGroupBy
-
-`func (o *DailyExecutionStatistics) HasGroupBy() bool`
-
-HasGroupBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

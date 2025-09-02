@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Username** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**Tenants** | Pointer to [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | [optional] 
-**Auths** | Pointer to [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | [optional] 
-**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**Id** | **string** |  | 
+**Username** | **string** |  | 
+**DisplayName** | **string** |  | 
+**Tenants** | [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | 
+**Auths** | [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | 
+**SuperAdmin** | **bool** |  | 
 
 ## Methods
 
 ### NewIAMUserControllerApiUserSummary
 
-`func NewIAMUserControllerApiUserSummary() *IAMUserControllerApiUserSummary`
+`func NewIAMUserControllerApiUserSummary(id string, username string, displayName string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, superAdmin bool, ) *IAMUserControllerApiUserSummary`
 
 NewIAMUserControllerApiUserSummary instantiates a new IAMUserControllerApiUserSummary object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *IAMUserControllerApiUserSummary) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
-### HasUsername
-
-`func (o *IAMUserControllerApiUserSummary) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -99,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
-### HasDisplayName
-
-`func (o *IAMUserControllerApiUserSummary) HasDisplayName() bool`
-
-HasDisplayName returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -124,11 +109,6 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
-### HasTenants
-
-`func (o *IAMUserControllerApiUserSummary) HasTenants() bool`
-
-HasTenants returns a boolean if a field has been set.
 
 ### GetAuths
 
@@ -149,11 +129,6 @@ and a boolean to check if the value has been set.
 
 SetAuths sets Auths field to given value.
 
-### HasAuths
-
-`func (o *IAMUserControllerApiUserSummary) HasAuths() bool`
-
-HasAuths returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -174,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
-### HasSuperAdmin
-
-`func (o *IAMUserControllerApiUserSummary) HasSuperAdmin() bool`
-
-HasSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

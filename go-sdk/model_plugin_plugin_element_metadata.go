@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PluginPluginElementMetadata type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &PluginPluginElementMetadata{}
 
 // PluginPluginElementMetadata struct for PluginPluginElementMetadata
 type PluginPluginElementMetadata struct {
-	Cls                  *string `json:"cls,omitempty"`
-	Deprecated           *bool   `json:"deprecated,omitempty"`
+	Cls                  string `json:"cls"`
+	Deprecated           bool   `json:"deprecated"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _PluginPluginElementMetadata PluginPluginElementMetadata
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPluginPluginElementMetadata() *PluginPluginElementMetadata {
+func NewPluginPluginElementMetadata(cls string, deprecated bool) *PluginPluginElementMetadata {
 	this := PluginPluginElementMetadata{}
+	this.Cls = cls
+	this.Deprecated = deprecated
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewPluginPluginElementMetadataWithDefaults() *PluginPluginElementMetadata {
 	return &this
 }
 
-// GetCls returns the Cls field value if set, zero value otherwise.
+// GetCls returns the Cls field value
 func (o *PluginPluginElementMetadata) GetCls() string {
-	if o == nil || IsNil(o.Cls) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Cls
+
+	return o.Cls
 }
 
-// GetClsOk returns a tuple with the Cls field value if set, nil otherwise
+// GetClsOk returns a tuple with the Cls field value
 // and a boolean to check if the value has been set.
 func (o *PluginPluginElementMetadata) GetClsOk() (*string, bool) {
-	if o == nil || IsNil(o.Cls) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Cls, true
+	return &o.Cls, true
 }
 
-// HasCls returns a boolean if a field has been set.
-func (o *PluginPluginElementMetadata) HasCls() bool {
-	if o != nil && !IsNil(o.Cls) {
-		return true
-	}
-
-	return false
-}
-
-// SetCls gets a reference to the given string and assigns it to the Cls field.
+// SetCls sets field value
 func (o *PluginPluginElementMetadata) SetCls(v string) {
-	o.Cls = &v
+	o.Cls = v
 }
 
-// GetDeprecated returns the Deprecated field value if set, zero value otherwise.
+// GetDeprecated returns the Deprecated field value
 func (o *PluginPluginElementMetadata) GetDeprecated() bool {
-	if o == nil || IsNil(o.Deprecated) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Deprecated
+
+	return o.Deprecated
 }
 
-// GetDeprecatedOk returns a tuple with the Deprecated field value if set, nil otherwise
+// GetDeprecatedOk returns a tuple with the Deprecated field value
 // and a boolean to check if the value has been set.
 func (o *PluginPluginElementMetadata) GetDeprecatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Deprecated) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Deprecated, true
+	return &o.Deprecated, true
 }
 
-// HasDeprecated returns a boolean if a field has been set.
-func (o *PluginPluginElementMetadata) HasDeprecated() bool {
-	if o != nil && !IsNil(o.Deprecated) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeprecated gets a reference to the given bool and assigns it to the Deprecated field.
+// SetDeprecated sets field value
 func (o *PluginPluginElementMetadata) SetDeprecated(v bool) {
-	o.Deprecated = &v
+	o.Deprecated = v
 }
 
 func (o PluginPluginElementMetadata) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o PluginPluginElementMetadata) MarshalJSON() ([]byte, error) {
 
 func (o PluginPluginElementMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Cls) {
-		toSerialize["cls"] = o.Cls
-	}
-	if !IsNil(o.Deprecated) {
-		toSerialize["deprecated"] = o.Deprecated
-	}
+	toSerialize["cls"] = o.Cls
+	toSerialize["deprecated"] = o.Deprecated
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o PluginPluginElementMetadata) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PluginPluginElementMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cls",
+		"deprecated",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPluginPluginElementMetadata := _PluginPluginElementMetadata{}
 
 	err = json.Unmarshal(data, &varPluginPluginElementMetadata)

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## EnterMaintenance
 
-> EnterMaintenance(ctx).Execute()
+> map[string]interface{} EnterMaintenance(ctx).Execute()
 
 Enter cluster maintenance mode
 
@@ -33,11 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ClusterAPI.EnterMaintenance(context.Background()).Execute()
+	resp, r, err := apiClient.ClusterAPI.EnterMaintenance(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ClusterAPI.EnterMaintenance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `EnterMaintenance`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ClusterAPI.EnterMaintenance`: %v\n", resp)
 }
 ```
 
@@ -52,7 +54,7 @@ Other parameters are passed through a pointer to a apiEnterMaintenanceRequest st
 
 ### Return type
 
- (empty response body)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -61,7 +63,7 @@ Other parameters are passed through a pointer to a apiEnterMaintenanceRequest st
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -70,7 +72,7 @@ Other parameters are passed through a pointer to a apiEnterMaintenanceRequest st
 
 ## ExitMaintenance
 
-> ExitMaintenance(ctx).Execute()
+> map[string]interface{} ExitMaintenance(ctx).Execute()
 
 Exit cluster maintenance mode
 
@@ -92,11 +94,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ClusterAPI.ExitMaintenance(context.Background()).Execute()
+	resp, r, err := apiClient.ClusterAPI.ExitMaintenance(context.Background()).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ClusterAPI.ExitMaintenance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ExitMaintenance`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ClusterAPI.ExitMaintenance`: %v\n", resp)
 }
 ```
 
@@ -111,7 +115,7 @@ Other parameters are passed through a pointer to a apiExitMaintenanceRequest str
 
 ### Return type
 
- (empty response body)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -120,7 +124,7 @@ Other parameters are passed through a pointer to a apiExitMaintenanceRequest str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

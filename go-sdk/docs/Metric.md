@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**BaseUnit** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to [**[]MetricTag**](MetricTag.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Name** | **string** |  | 
+**Type** | **string** |  | 
+**Description** | **string** |  | 
+**BaseUnit** | **string** |  | 
+**Tags** | [**[]MetricTag**](MetricTag.md) |  | 
+**Value** | **map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewMetric
 
-`func NewMetric() *Metric`
+`func NewMetric(name string, type_ string, description string, baseUnit string, tags []MetricTag, value map[string]interface{}, ) *Metric`
 
 NewMetric instantiates a new Metric object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *Metric) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *Metric) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -99,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *Metric) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetBaseUnit
 
@@ -124,11 +109,6 @@ and a boolean to check if the value has been set.
 
 SetBaseUnit sets BaseUnit field to given value.
 
-### HasBaseUnit
-
-`func (o *Metric) HasBaseUnit() bool`
-
-HasBaseUnit returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -149,11 +129,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *Metric) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -174,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *Metric) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

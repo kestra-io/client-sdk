@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Namespaces** | Pointer to **[]string** |  | [optional] 
+**Namespaces** | **[]string** |  | 
 
 ## Methods
 
 ### NewIAMInvitationControllerApiInvitationRole
 
-`func NewIAMInvitationControllerApiInvitationRole(id string, ) *IAMInvitationControllerApiInvitationRole`
+`func NewIAMInvitationControllerApiInvitationRole(id string, namespaces []string, ) *IAMInvitationControllerApiInvitationRole`
 
 NewIAMInvitationControllerApiInvitationRole instantiates a new IAMInvitationControllerApiInvitationRole object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetNamespaces sets Namespaces field to given value.
 
-### HasNamespaces
-
-`func (o *IAMInvitationControllerApiInvitationRole) HasNamespaces() bool`
-
-HasNamespaces returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

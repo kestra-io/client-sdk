@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the KVControllerApiDeleteBulkResponse type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &KVControllerApiDeleteBulkResponse{}
 
 // KVControllerApiDeleteBulkResponse struct for KVControllerApiDeleteBulkResponse
 type KVControllerApiDeleteBulkResponse struct {
-	Keys                 []string `json:"keys,omitempty"`
+	Keys                 []string `json:"keys"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -29,8 +30,9 @@ type _KVControllerApiDeleteBulkResponse KVControllerApiDeleteBulkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKVControllerApiDeleteBulkResponse() *KVControllerApiDeleteBulkResponse {
+func NewKVControllerApiDeleteBulkResponse(keys []string) *KVControllerApiDeleteBulkResponse {
 	this := KVControllerApiDeleteBulkResponse{}
+	this.Keys = keys
 	return &this
 }
 
@@ -42,34 +44,26 @@ func NewKVControllerApiDeleteBulkResponseWithDefaults() *KVControllerApiDeleteBu
 	return &this
 }
 
-// GetKeys returns the Keys field value if set, zero value otherwise.
+// GetKeys returns the Keys field value
 func (o *KVControllerApiDeleteBulkResponse) GetKeys() []string {
-	if o == nil || IsNil(o.Keys) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Keys
 }
 
-// GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
+// GetKeysOk returns a tuple with the Keys field value
 // and a boolean to check if the value has been set.
 func (o *KVControllerApiDeleteBulkResponse) GetKeysOk() ([]string, bool) {
-	if o == nil || IsNil(o.Keys) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Keys, true
 }
 
-// HasKeys returns a boolean if a field has been set.
-func (o *KVControllerApiDeleteBulkResponse) HasKeys() bool {
-	if o != nil && !IsNil(o.Keys) {
-		return true
-	}
-
-	return false
-}
-
-// SetKeys gets a reference to the given []string and assigns it to the Keys field.
+// SetKeys sets field value
 func (o *KVControllerApiDeleteBulkResponse) SetKeys(v []string) {
 	o.Keys = v
 }
@@ -84,9 +78,7 @@ func (o KVControllerApiDeleteBulkResponse) MarshalJSON() ([]byte, error) {
 
 func (o KVControllerApiDeleteBulkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Keys) {
-		toSerialize["keys"] = o.Keys
-	}
+	toSerialize["keys"] = o.Keys
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -96,6 +88,27 @@ func (o KVControllerApiDeleteBulkResponse) ToMap() (map[string]interface{}, erro
 }
 
 func (o *KVControllerApiDeleteBulkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"keys",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varKVControllerApiDeleteBulkResponse := _KVControllerApiDeleteBulkResponse{}
 
 	err = json.Unmarshal(data, &varKVControllerApiDeleteBulkResponse)

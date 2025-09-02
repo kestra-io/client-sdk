@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StorageByTenant** | Pointer to **bool** |  | [optional] 
-**SecretByTenant** | Pointer to **bool** |  | [optional] 
+**StorageByTenant** | **bool** |  | 
+**SecretByTenant** | **bool** |  | 
 
 ## Methods
 
 ### NewMiscControllerTenantConfigurationInfo
 
-`func NewMiscControllerTenantConfigurationInfo() *MiscControllerTenantConfigurationInfo`
+`func NewMiscControllerTenantConfigurationInfo(storageByTenant bool, secretByTenant bool, ) *MiscControllerTenantConfigurationInfo`
 
 NewMiscControllerTenantConfigurationInfo instantiates a new MiscControllerTenantConfigurationInfo object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetStorageByTenant sets StorageByTenant field to given value.
 
-### HasStorageByTenant
-
-`func (o *MiscControllerTenantConfigurationInfo) HasStorageByTenant() bool`
-
-HasStorageByTenant returns a boolean if a field has been set.
 
 ### GetSecretByTenant
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetSecretByTenant sets SecretByTenant field to given value.
 
-### HasSecretByTenant
-
-`func (o *MiscControllerTenantConfigurationInfo) HasSecretByTenant() bool`
-
-HasSecretByTenant returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

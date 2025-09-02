@@ -4,22 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**TenantId** | **string** |  | 
 **Id** | **string** |  | 
 **Type** | [**CrudEventType**](CrudEventType.md) |  | 
 **Detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **Date** | **time.Time** |  | 
 **UserId** | **string** |  | 
-**IpAddress** | Pointer to **string** |  | [optional] 
-**ImpersonatedBy** | Pointer to **string** |  | [optional] 
-**Deleted** | Pointer to **bool** |  | [optional] 
-**AppliedPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**RevertPatch** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**IpAddress** | **string** |  | 
+**ImpersonatedBy** | **string** |  | 
+**Deleted** | **bool** |  | 
+**AppliedPatch** | **[]map[string]interface{}** |  | 
+**RevertPatch** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewAuditLog
 
-`func NewAuditLog(id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ) *AuditLog`
+`func NewAuditLog(tenantId string, id string, type_ CrudEventType, detail AuditLogDetail, date time.Time, userId string, ipAddress string, impersonatedBy string, deleted bool, appliedPatch []map[string]interface{}, revertPatch []map[string]interface{}, ) *AuditLog`
 
 NewAuditLog instantiates a new AuditLog object
 This constructor will assign default values to properties that have it defined,
@@ -33,6 +34,26 @@ will change when the set of required properties is changed
 NewAuditLogWithDefaults instantiates a new AuditLog object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetTenantId
+
+`func (o *AuditLog) GetTenantId() string`
+
+GetTenantId returns the TenantId field if non-nil, zero value otherwise.
+
+### GetTenantIdOk
+
+`func (o *AuditLog) GetTenantIdOk() (*string, bool)`
+
+GetTenantIdOk returns a tuple with the TenantId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTenantId
+
+`func (o *AuditLog) SetTenantId(v string)`
+
+SetTenantId sets TenantId field to given value.
+
 
 ### GetId
 
@@ -153,11 +174,6 @@ and a boolean to check if the value has been set.
 
 SetIpAddress sets IpAddress field to given value.
 
-### HasIpAddress
-
-`func (o *AuditLog) HasIpAddress() bool`
-
-HasIpAddress returns a boolean if a field has been set.
 
 ### GetImpersonatedBy
 
@@ -178,11 +194,6 @@ and a boolean to check if the value has been set.
 
 SetImpersonatedBy sets ImpersonatedBy field to given value.
 
-### HasImpersonatedBy
-
-`func (o *AuditLog) HasImpersonatedBy() bool`
-
-HasImpersonatedBy returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -203,11 +214,6 @@ and a boolean to check if the value has been set.
 
 SetDeleted sets Deleted field to given value.
 
-### HasDeleted
-
-`func (o *AuditLog) HasDeleted() bool`
-
-HasDeleted returns a boolean if a field has been set.
 
 ### GetAppliedPatch
 
@@ -228,11 +234,6 @@ and a boolean to check if the value has been set.
 
 SetAppliedPatch sets AppliedPatch field to given value.
 
-### HasAppliedPatch
-
-`func (o *AuditLog) HasAppliedPatch() bool`
-
-HasAppliedPatch returns a boolean if a field has been set.
 
 ### GetRevertPatch
 
@@ -253,11 +254,6 @@ and a boolean to check if the value has been set.
 
 SetRevertPatch sets RevertPatch field to given value.
 
-### HasRevertPatch
-
-`func (o *AuditLog) HasRevertPatch() bool`
-
-HasRevertPatch returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

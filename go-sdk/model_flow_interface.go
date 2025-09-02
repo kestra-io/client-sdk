@@ -24,6 +24,7 @@ type FlowInterface struct {
 	Revision             *int32                            `json:"revision,omitempty"`
 	TenantId             *string                           `json:"tenantId,omitempty"`
 	Deleted              *bool                             `json:"deleted,omitempty"`
+	Description          *string                           `json:"description,omitempty"`
 	Disabled             *bool                             `json:"disabled,omitempty"`
 	Labels               []Label                           `json:"labels,omitempty"`
 	Inputs               []InputObject                     `json:"inputs,omitempty"`
@@ -213,6 +214,38 @@ func (o *FlowInterface) HasDeleted() bool {
 // SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
 func (o *FlowInterface) SetDeleted(v bool) {
 	o.Deleted = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FlowInterface) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowInterface) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FlowInterface) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FlowInterface) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetDisabled returns the Disabled field value if set, zero value otherwise.
@@ -528,6 +561,9 @@ func (o FlowInterface) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
 	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	if !IsNil(o.Disabled) {
 		toSerialize["disabled"] = o.Disabled
 	}
@@ -582,6 +618,7 @@ func (o *FlowInterface) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "revision")
 		delete(additionalProperties, "tenantId")
 		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "description")
 		delete(additionalProperties, "disabled")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "inputs")

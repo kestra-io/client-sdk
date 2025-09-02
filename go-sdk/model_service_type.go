@@ -25,6 +25,7 @@ const (
 	SERVICETYPE_SCHEDULER ServiceType = "SCHEDULER"
 	SERVICETYPE_WEBSERVER ServiceType = "WEBSERVER"
 	SERVICETYPE_WORKER    ServiceType = "WORKER"
+	SERVICETYPE_INVALID   ServiceType = "INVALID"
 )
 
 // All allowed values of ServiceType enum
@@ -34,6 +35,7 @@ var AllowedServiceTypeEnumValues = []ServiceType{
 	"SCHEDULER",
 	"WEBSERVER",
 	"WORKER",
+	"INVALID",
 }
 
 func (v *ServiceType) UnmarshalJSON(src []byte) error {

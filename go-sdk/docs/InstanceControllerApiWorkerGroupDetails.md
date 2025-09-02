@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The ID of worker group. | [optional] 
-**Key** | Pointer to **string** | The key of the worker group. | [optional] 
-**Description** | Pointer to **string** | The description of the worker group. | [optional] 
-**AllowedTenants** | Pointer to **[]string** |  | [optional] 
-**Workers** | Pointer to [**[]ServiceInstance**](ServiceInstance.md) | The list of workers for the group. | [optional] 
+**Id** | **string** | The ID of worker group. | 
+**Key** | **string** | The key of the worker group. | 
+**Description** | **string** | The description of the worker group. | 
+**AllowedTenants** | **[]string** |  | 
+**Workers** | [**[]ServiceInstance**](ServiceInstance.md) | The list of workers for the group. | 
 
 ## Methods
 
 ### NewInstanceControllerApiWorkerGroupDetails
 
-`func NewInstanceControllerApiWorkerGroupDetails() *InstanceControllerApiWorkerGroupDetails`
+`func NewInstanceControllerApiWorkerGroupDetails(id string, key string, description string, allowedTenants []string, workers []ServiceInstance, ) *InstanceControllerApiWorkerGroupDetails`
 
 NewInstanceControllerApiWorkerGroupDetails instantiates a new InstanceControllerApiWorkerGroupDetails object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *InstanceControllerApiWorkerGroupDetails) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *InstanceControllerApiWorkerGroupDetails) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *InstanceControllerApiWorkerGroupDetails) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetAllowedTenants
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetAllowedTenants sets AllowedTenants field to given value.
 
-### HasAllowedTenants
-
-`func (o *InstanceControllerApiWorkerGroupDetails) HasAllowedTenants() bool`
-
-HasAllowedTenants returns a boolean if a field has been set.
 
 ### GetWorkers
 
@@ -148,11 +128,6 @@ and a boolean to check if the value has been set.
 
 SetWorkers sets Workers field to given value.
 
-### HasWorkers
-
-`func (o *InstanceControllerApiWorkerGroupDetails) HasWorkers() bool`
-
-HasWorkers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IAMGroupControllerApiGroupMember type satisfies the MappedNullable interface at compile time
@@ -19,10 +20,10 @@ var _ MappedNullable = &IAMGroupControllerApiGroupMember{}
 
 // IAMGroupControllerApiGroupMember struct for IAMGroupControllerApiGroupMember
 type IAMGroupControllerApiGroupMember struct {
-	Id                   *string                                `json:"id,omitempty"`
-	Username             *string                                `json:"username,omitempty"`
-	DisplayName          *string                                `json:"displayName,omitempty"`
-	Groups               []IAMGroupControllerApiGroupMembership `json:"groups,omitempty"`
+	Id                   string                                 `json:"id"`
+	Username             string                                 `json:"username"`
+	DisplayName          string                                 `json:"displayName"`
+	Groups               []IAMGroupControllerApiGroupMembership `json:"groups"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,8 +33,12 @@ type _IAMGroupControllerApiGroupMember IAMGroupControllerApiGroupMember
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMGroupControllerApiGroupMember() *IAMGroupControllerApiGroupMember {
+func NewIAMGroupControllerApiGroupMember(id string, username string, displayName string, groups []IAMGroupControllerApiGroupMembership) *IAMGroupControllerApiGroupMember {
 	this := IAMGroupControllerApiGroupMember{}
+	this.Id = id
+	this.Username = username
+	this.DisplayName = displayName
+	this.Groups = groups
 	return &this
 }
 
@@ -45,130 +50,98 @@ func NewIAMGroupControllerApiGroupMemberWithDefaults() *IAMGroupControllerApiGro
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *IAMGroupControllerApiGroupMember) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMember) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiGroupMember) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *IAMGroupControllerApiGroupMember) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
+// GetUsername returns the Username field value
 func (o *IAMGroupControllerApiGroupMember) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMember) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Username, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiGroupMember) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
+// SetUsername sets field value
 func (o *IAMGroupControllerApiGroupMember) SetUsername(v string) {
-	o.Username = &v
+	o.Username = v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// GetDisplayName returns the DisplayName field value
 func (o *IAMGroupControllerApiGroupMember) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+
+	return o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMember) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return &o.DisplayName, true
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiGroupMember) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName sets field value
 func (o *IAMGroupControllerApiGroupMember) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *IAMGroupControllerApiGroupMember) GetGroups() []IAMGroupControllerApiGroupMembership {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []IAMGroupControllerApiGroupMembership
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *IAMGroupControllerApiGroupMember) GetGroupsOk() ([]IAMGroupControllerApiGroupMembership, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *IAMGroupControllerApiGroupMember) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []IAMGroupControllerApiGroupMembership and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *IAMGroupControllerApiGroupMember) SetGroups(v []IAMGroupControllerApiGroupMembership) {
 	o.Groups = v
 }
@@ -183,18 +156,10 @@ func (o IAMGroupControllerApiGroupMember) MarshalJSON() ([]byte, error) {
 
 func (o IAMGroupControllerApiGroupMember) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["username"] = o.Username
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["groups"] = o.Groups
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -204,6 +169,30 @@ func (o IAMGroupControllerApiGroupMember) ToMap() (map[string]interface{}, error
 }
 
 func (o *IAMGroupControllerApiGroupMember) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"username",
+		"displayName",
+		"groups",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMGroupControllerApiGroupMember := _IAMGroupControllerApiGroupMember{}
 
 	err = json.Unmarshal(data, &varIAMGroupControllerApiGroupMember)

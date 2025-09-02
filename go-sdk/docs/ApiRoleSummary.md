@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**IsDefault** | Pointer to **bool** |  | [optional] 
-**IsManaged** | Pointer to **bool** |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
+**IsDefault** | **bool** |  | 
+**IsManaged** | **bool** |  | 
 
 ## Methods
 
 ### NewApiRoleSummary
 
-`func NewApiRoleSummary() *ApiRoleSummary`
+`func NewApiRoleSummary(id string, name string, isDefault bool, isManaged bool, ) *ApiRoleSummary`
 
 NewApiRoleSummary instantiates a new ApiRoleSummary object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ApiRoleSummary) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ApiRoleSummary) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetIsDefault
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetIsDefault sets IsDefault field to given value.
 
-### HasIsDefault
-
-`func (o *ApiRoleSummary) HasIsDefault() bool`
-
-HasIsDefault returns a boolean if a field has been set.
 
 ### GetIsManaged
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetIsManaged sets IsManaged field to given value.
 
-### HasIsManaged
-
-`func (o *ApiRoleSummary) HasIsManaged() bool`
-
-HasIsManaged returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

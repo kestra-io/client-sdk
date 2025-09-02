@@ -39,7 +39,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials() // MiscControllerBasicAuthCredentials | 
+	miscControllerBasicAuthCredentials := *openapiclient.NewMiscControllerBasicAuthCredentials("Uid_example", "Username_example", "Password_example") // MiscControllerBasicAuthCredentials | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a apiGetConfigurationRequest st
 
 ## GetUsages
 
-> Usage GetUsages(ctx, tenant).Execute()
+> UsageEE GetUsages(ctx, tenant).Execute()
 
 Retrieve instance usage information
 
@@ -237,7 +237,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MiscAPI.GetUsages``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUsages`: Usage
+	// response from `GetUsages`: UsageEE
 	fmt.Fprintf(os.Stdout, "Response from `MiscAPI.GetUsages`: %v\n", resp)
 }
 ```
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Usage**](Usage.md)
+[**UsageEE**](UsageEE.md)
 
 ### Authorization
 
@@ -558,7 +558,7 @@ import (
 )
 
 func main() {
-	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData() // SetupConfigurationSetupData | 
+	setupConfigurationSetupData := *openapiclient.NewSetupConfigurationSetupData("Username_example", "Password_example", *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "SecretType_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, false, false)) // SetupConfigurationSetupData | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

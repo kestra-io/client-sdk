@@ -379,7 +379,7 @@ import (
 )
 
 func main() {
-	authControllerResetPasswordRequest := *openapiclient.NewAuthControllerResetPasswordRequest() // AuthControllerResetPasswordRequest | The password
+	authControllerResetPasswordRequest := *openapiclient.NewAuthControllerResetPasswordRequest("Token_example", "Password_example") // AuthControllerResetPasswordRequest | The password
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

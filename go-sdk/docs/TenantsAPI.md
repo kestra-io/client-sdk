@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
+	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "SecretType_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, false, false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -454,7 +454,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The tenant id
-	tenant := *openapiclient.NewTenant("Id_example", "Name_example", false) // Tenant | 
+	tenant := *openapiclient.NewTenant(*openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), *openapiclient.NewIsolation([]openapiclient.ServiceType{openapiclient.ServiceType("EXECUTOR")}, false), "Id_example", "Name_example", false, *openapiclient.NewWorkerGroup(), "StorageType_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "SecretType_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, false, false) // Tenant | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

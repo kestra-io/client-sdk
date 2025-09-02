@@ -21,27 +21,27 @@ var _ MappedNullable = &ExecutionControllerExecutionResponse{}
 
 // ExecutionControllerExecutionResponse struct for ExecutionControllerExecutionResponse
 type ExecutionControllerExecutionResponse struct {
-	Labels               []Label                           `json:"labels,omitempty"`
+	Labels               []Label                           `json:"labels"`
 	Id                   string                            `json:"id"`
 	Namespace            string                            `json:"namespace"`
 	FlowId               string                            `json:"flowId"`
 	FlowRevision         int32                             `json:"flowRevision"`
-	TaskRunList          []TaskRun                         `json:"taskRunList,omitempty"`
-	Inputs               map[string]map[string]interface{} `json:"inputs,omitempty"`
-	Outputs              map[string]map[string]interface{} `json:"outputs,omitempty"`
-	Variables            map[string]map[string]interface{} `json:"variables,omitempty"`
+	TaskRunList          []TaskRun                         `json:"taskRunList"`
+	Inputs               map[string]map[string]interface{} `json:"inputs"`
+	Outputs              map[string]map[string]interface{} `json:"outputs"`
+	Variables            map[string]map[string]interface{} `json:"variables"`
 	State                State                             `json:"state"`
-	ParentId             *string                           `json:"parentId,omitempty"`
-	OriginalId           *string                           `json:"originalId,omitempty"`
-	Trigger              *ExecutionTrigger                 `json:"trigger,omitempty"`
+	ParentId             string                            `json:"parentId"`
+	OriginalId           string                            `json:"originalId"`
+	Trigger              ExecutionTrigger                  `json:"trigger"`
 	Deleted              bool                              `json:"deleted"`
-	Metadata             *ExecutionMetadata                `json:"metadata,omitempty"`
+	Metadata             ExecutionMetadata                 `json:"metadata"`
 	ScheduleDate         NullableTime                      `json:"scheduleDate,omitempty"`
-	TraceParent          *string                           `json:"traceParent,omitempty"`
+	TraceParent          string                            `json:"traceParent"`
 	Fixtures             []TaskFixture                     `json:"fixtures,omitempty"`
 	Kind                 NullableExecutionKind             `json:"kind,omitempty"`
 	Breakpoints          []Breakpoint                      `json:"breakpoints,omitempty"`
-	Url                  *string                           `json:"url,omitempty"`
+	Url                  string                            `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,14 +51,25 @@ type _ExecutionControllerExecutionResponse ExecutionControllerExecutionResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerExecutionResponse(id string, namespace string, flowId string, flowRevision int32, state State, deleted bool) *ExecutionControllerExecutionResponse {
+func NewExecutionControllerExecutionResponse(labels []Label, id string, namespace string, flowId string, flowRevision int32, taskRunList []TaskRun, inputs map[string]map[string]interface{}, outputs map[string]map[string]interface{}, variables map[string]map[string]interface{}, state State, parentId string, originalId string, trigger ExecutionTrigger, deleted bool, metadata ExecutionMetadata, traceParent string, url string) *ExecutionControllerExecutionResponse {
 	this := ExecutionControllerExecutionResponse{}
+	this.Labels = labels
 	this.Id = id
 	this.Namespace = namespace
 	this.FlowId = flowId
 	this.FlowRevision = flowRevision
+	this.TaskRunList = taskRunList
+	this.Inputs = inputs
+	this.Outputs = outputs
+	this.Variables = variables
 	this.State = state
+	this.ParentId = parentId
+	this.OriginalId = originalId
+	this.Trigger = trigger
 	this.Deleted = deleted
+	this.Metadata = metadata
+	this.TraceParent = traceParent
+	this.Url = url
 	return &this
 }
 
@@ -70,34 +81,26 @@ func NewExecutionControllerExecutionResponseWithDefaults() *ExecutionControllerE
 	return &this
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
+// GetLabels returns the Labels field value
 func (o *ExecutionControllerExecutionResponse) GetLabels() []Label {
-	if o == nil || IsNil(o.Labels) {
+	if o == nil {
 		var ret []Label
 		return ret
 	}
+
 	return o.Labels
 }
 
-// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetLabelsOk() ([]Label, bool) {
-	if o == nil || IsNil(o.Labels) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Labels, true
 }
 
-// HasLabels returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasLabels() bool {
-	if o != nil && !IsNil(o.Labels) {
-		return true
-	}
-
-	return false
-}
-
-// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+// SetLabels sets field value
 func (o *ExecutionControllerExecutionResponse) SetLabels(v []Label) {
 	o.Labels = v
 }
@@ -198,130 +201,98 @@ func (o *ExecutionControllerExecutionResponse) SetFlowRevision(v int32) {
 	o.FlowRevision = v
 }
 
-// GetTaskRunList returns the TaskRunList field value if set, zero value otherwise.
+// GetTaskRunList returns the TaskRunList field value
 func (o *ExecutionControllerExecutionResponse) GetTaskRunList() []TaskRun {
-	if o == nil || IsNil(o.TaskRunList) {
+	if o == nil {
 		var ret []TaskRun
 		return ret
 	}
+
 	return o.TaskRunList
 }
 
-// GetTaskRunListOk returns a tuple with the TaskRunList field value if set, nil otherwise
+// GetTaskRunListOk returns a tuple with the TaskRunList field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetTaskRunListOk() ([]TaskRun, bool) {
-	if o == nil || IsNil(o.TaskRunList) {
+	if o == nil {
 		return nil, false
 	}
 	return o.TaskRunList, true
 }
 
-// HasTaskRunList returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasTaskRunList() bool {
-	if o != nil && !IsNil(o.TaskRunList) {
-		return true
-	}
-
-	return false
-}
-
-// SetTaskRunList gets a reference to the given []TaskRun and assigns it to the TaskRunList field.
+// SetTaskRunList sets field value
 func (o *ExecutionControllerExecutionResponse) SetTaskRunList(v []TaskRun) {
 	o.TaskRunList = v
 }
 
-// GetInputs returns the Inputs field value if set, zero value otherwise.
+// GetInputs returns the Inputs field value
 func (o *ExecutionControllerExecutionResponse) GetInputs() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Inputs) {
+	if o == nil {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
+
 	return o.Inputs
 }
 
-// GetInputsOk returns a tuple with the Inputs field value if set, nil otherwise
+// GetInputsOk returns a tuple with the Inputs field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetInputsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Inputs) {
+	if o == nil {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Inputs, true
 }
 
-// HasInputs returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasInputs() bool {
-	if o != nil && !IsNil(o.Inputs) {
-		return true
-	}
-
-	return false
-}
-
-// SetInputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Inputs field.
+// SetInputs sets field value
 func (o *ExecutionControllerExecutionResponse) SetInputs(v map[string]map[string]interface{}) {
 	o.Inputs = v
 }
 
-// GetOutputs returns the Outputs field value if set, zero value otherwise.
+// GetOutputs returns the Outputs field value
 func (o *ExecutionControllerExecutionResponse) GetOutputs() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Outputs) {
+	if o == nil {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
+
 	return o.Outputs
 }
 
-// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// GetOutputsOk returns a tuple with the Outputs field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetOutputsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Outputs) {
+	if o == nil {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Outputs, true
 }
 
-// HasOutputs returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasOutputs() bool {
-	if o != nil && !IsNil(o.Outputs) {
-		return true
-	}
-
-	return false
-}
-
-// SetOutputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Outputs field.
+// SetOutputs sets field value
 func (o *ExecutionControllerExecutionResponse) SetOutputs(v map[string]map[string]interface{}) {
 	o.Outputs = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
+// GetVariables returns the Variables field value
 func (o *ExecutionControllerExecutionResponse) GetVariables() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Variables) {
+	if o == nil {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
+
 	return o.Variables
 }
 
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// GetVariablesOk returns a tuple with the Variables field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetVariablesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Variables) {
+	if o == nil {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
 
-// HasVariables returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
+// SetVariables sets field value
 func (o *ExecutionControllerExecutionResponse) SetVariables(v map[string]map[string]interface{}) {
 	o.Variables = v
 }
@@ -350,100 +321,76 @@ func (o *ExecutionControllerExecutionResponse) SetState(v State) {
 	o.State = v
 }
 
-// GetParentId returns the ParentId field value if set, zero value otherwise.
+// GetParentId returns the ParentId field value
 func (o *ExecutionControllerExecutionResponse) GetParentId() string {
-	if o == nil || IsNil(o.ParentId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ParentId
+
+	return o.ParentId
 }
 
-// GetParentIdOk returns a tuple with the ParentId field value if set, nil otherwise
+// GetParentIdOk returns a tuple with the ParentId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetParentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ParentId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ParentId, true
+	return &o.ParentId, true
 }
 
-// HasParentId returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasParentId() bool {
-	if o != nil && !IsNil(o.ParentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetParentId gets a reference to the given string and assigns it to the ParentId field.
+// SetParentId sets field value
 func (o *ExecutionControllerExecutionResponse) SetParentId(v string) {
-	o.ParentId = &v
+	o.ParentId = v
 }
 
-// GetOriginalId returns the OriginalId field value if set, zero value otherwise.
+// GetOriginalId returns the OriginalId field value
 func (o *ExecutionControllerExecutionResponse) GetOriginalId() string {
-	if o == nil || IsNil(o.OriginalId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.OriginalId
+
+	return o.OriginalId
 }
 
-// GetOriginalIdOk returns a tuple with the OriginalId field value if set, nil otherwise
+// GetOriginalIdOk returns a tuple with the OriginalId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetOriginalIdOk() (*string, bool) {
-	if o == nil || IsNil(o.OriginalId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.OriginalId, true
+	return &o.OriginalId, true
 }
 
-// HasOriginalId returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasOriginalId() bool {
-	if o != nil && !IsNil(o.OriginalId) {
-		return true
-	}
-
-	return false
-}
-
-// SetOriginalId gets a reference to the given string and assigns it to the OriginalId field.
+// SetOriginalId sets field value
 func (o *ExecutionControllerExecutionResponse) SetOriginalId(v string) {
-	o.OriginalId = &v
+	o.OriginalId = v
 }
 
-// GetTrigger returns the Trigger field value if set, zero value otherwise.
+// GetTrigger returns the Trigger field value
 func (o *ExecutionControllerExecutionResponse) GetTrigger() ExecutionTrigger {
-	if o == nil || IsNil(o.Trigger) {
+	if o == nil {
 		var ret ExecutionTrigger
 		return ret
 	}
-	return *o.Trigger
+
+	return o.Trigger
 }
 
-// GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
+// GetTriggerOk returns a tuple with the Trigger field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetTriggerOk() (*ExecutionTrigger, bool) {
-	if o == nil || IsNil(o.Trigger) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Trigger, true
+	return &o.Trigger, true
 }
 
-// HasTrigger returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasTrigger() bool {
-	if o != nil && !IsNil(o.Trigger) {
-		return true
-	}
-
-	return false
-}
-
-// SetTrigger gets a reference to the given ExecutionTrigger and assigns it to the Trigger field.
+// SetTrigger sets field value
 func (o *ExecutionControllerExecutionResponse) SetTrigger(v ExecutionTrigger) {
-	o.Trigger = &v
+	o.Trigger = v
 }
 
 // GetDeleted returns the Deleted field value
@@ -470,36 +417,28 @@ func (o *ExecutionControllerExecutionResponse) SetDeleted(v bool) {
 	o.Deleted = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value
 func (o *ExecutionControllerExecutionResponse) GetMetadata() ExecutionMetadata {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		var ret ExecutionMetadata
 		return ret
 	}
-	return *o.Metadata
+
+	return o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetMetadataOk() (*ExecutionMetadata, bool) {
-	if o == nil || IsNil(o.Metadata) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
-// HasMetadata returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasMetadata() bool {
-	if o != nil && !IsNil(o.Metadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given ExecutionMetadata and assigns it to the Metadata field.
+// SetMetadata sets field value
 func (o *ExecutionControllerExecutionResponse) SetMetadata(v ExecutionMetadata) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 // GetScheduleDate returns the ScheduleDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -545,36 +484,28 @@ func (o *ExecutionControllerExecutionResponse) UnsetScheduleDate() {
 	o.ScheduleDate.Unset()
 }
 
-// GetTraceParent returns the TraceParent field value if set, zero value otherwise.
+// GetTraceParent returns the TraceParent field value
 func (o *ExecutionControllerExecutionResponse) GetTraceParent() string {
-	if o == nil || IsNil(o.TraceParent) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TraceParent
+
+	return o.TraceParent
 }
 
-// GetTraceParentOk returns a tuple with the TraceParent field value if set, nil otherwise
+// GetTraceParentOk returns a tuple with the TraceParent field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetTraceParentOk() (*string, bool) {
-	if o == nil || IsNil(o.TraceParent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TraceParent, true
+	return &o.TraceParent, true
 }
 
-// HasTraceParent returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasTraceParent() bool {
-	if o != nil && !IsNil(o.TraceParent) {
-		return true
-	}
-
-	return false
-}
-
-// SetTraceParent gets a reference to the given string and assigns it to the TraceParent field.
+// SetTraceParent sets field value
 func (o *ExecutionControllerExecutionResponse) SetTraceParent(v string) {
-	o.TraceParent = &v
+	o.TraceParent = v
 }
 
 // GetFixtures returns the Fixtures field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -686,36 +617,28 @@ func (o *ExecutionControllerExecutionResponse) SetBreakpoints(v []Breakpoint) {
 	o.Breakpoints = v
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// GetUrl returns the Url field value
 func (o *ExecutionControllerExecutionResponse) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+
+	return o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerExecutionResponse) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return &o.Url, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *ExecutionControllerExecutionResponse) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl sets field value
 func (o *ExecutionControllerExecutionResponse) SetUrl(v string) {
-	o.Url = &v
+	o.Url = v
 }
 
 func (o ExecutionControllerExecutionResponse) MarshalJSON() ([]byte, error) {
@@ -728,45 +651,25 @@ func (o ExecutionControllerExecutionResponse) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionControllerExecutionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Labels) {
-		toSerialize["labels"] = o.Labels
-	}
+	toSerialize["labels"] = o.Labels
 	toSerialize["id"] = o.Id
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["flowId"] = o.FlowId
 	toSerialize["flowRevision"] = o.FlowRevision
-	if !IsNil(o.TaskRunList) {
-		toSerialize["taskRunList"] = o.TaskRunList
-	}
-	if !IsNil(o.Inputs) {
-		toSerialize["inputs"] = o.Inputs
-	}
-	if !IsNil(o.Outputs) {
-		toSerialize["outputs"] = o.Outputs
-	}
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
-	}
+	toSerialize["taskRunList"] = o.TaskRunList
+	toSerialize["inputs"] = o.Inputs
+	toSerialize["outputs"] = o.Outputs
+	toSerialize["variables"] = o.Variables
 	toSerialize["state"] = o.State
-	if !IsNil(o.ParentId) {
-		toSerialize["parentId"] = o.ParentId
-	}
-	if !IsNil(o.OriginalId) {
-		toSerialize["originalId"] = o.OriginalId
-	}
-	if !IsNil(o.Trigger) {
-		toSerialize["trigger"] = o.Trigger
-	}
+	toSerialize["parentId"] = o.ParentId
+	toSerialize["originalId"] = o.OriginalId
+	toSerialize["trigger"] = o.Trigger
 	toSerialize["deleted"] = o.Deleted
-	if !IsNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
-	}
+	toSerialize["metadata"] = o.Metadata
 	if o.ScheduleDate.IsSet() {
 		toSerialize["scheduleDate"] = o.ScheduleDate.Get()
 	}
-	if !IsNil(o.TraceParent) {
-		toSerialize["traceParent"] = o.TraceParent
-	}
+	toSerialize["traceParent"] = o.TraceParent
 	if o.Fixtures != nil {
 		toSerialize["fixtures"] = o.Fixtures
 	}
@@ -776,9 +679,7 @@ func (o ExecutionControllerExecutionResponse) ToMap() (map[string]interface{}, e
 	if o.Breakpoints != nil {
 		toSerialize["breakpoints"] = o.Breakpoints
 	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -792,12 +693,23 @@ func (o *ExecutionControllerExecutionResponse) UnmarshalJSON(data []byte) (err e
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"labels",
 		"id",
 		"namespace",
 		"flowId",
 		"flowRevision",
+		"taskRunList",
+		"inputs",
+		"outputs",
+		"variables",
 		"state",
+		"parentId",
+		"originalId",
+		"trigger",
 		"deleted",
+		"metadata",
+		"traceParent",
+		"url",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ValuePathExpression type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &ValuePathExpression{}
 
 // ValuePathExpression struct for ValuePathExpression
 type ValuePathExpression struct {
-	AttributePath        *AttributeReference    `json:"attributePath,omitempty"`
+	AttributePath        AttributeReference     `json:"attributePath"`
 	AttributeExpression  map[string]interface{} `json:"attributeExpression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -30,8 +31,9 @@ type _ValuePathExpression ValuePathExpression
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewValuePathExpression() *ValuePathExpression {
+func NewValuePathExpression(attributePath AttributeReference) *ValuePathExpression {
 	this := ValuePathExpression{}
+	this.AttributePath = attributePath
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewValuePathExpressionWithDefaults() *ValuePathExpression {
 	return &this
 }
 
-// GetAttributePath returns the AttributePath field value if set, zero value otherwise.
+// GetAttributePath returns the AttributePath field value
 func (o *ValuePathExpression) GetAttributePath() AttributeReference {
-	if o == nil || IsNil(o.AttributePath) {
+	if o == nil {
 		var ret AttributeReference
 		return ret
 	}
-	return *o.AttributePath
+
+	return o.AttributePath
 }
 
-// GetAttributePathOk returns a tuple with the AttributePath field value if set, nil otherwise
+// GetAttributePathOk returns a tuple with the AttributePath field value
 // and a boolean to check if the value has been set.
 func (o *ValuePathExpression) GetAttributePathOk() (*AttributeReference, bool) {
-	if o == nil || IsNil(o.AttributePath) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AttributePath, true
+	return &o.AttributePath, true
 }
 
-// HasAttributePath returns a boolean if a field has been set.
-func (o *ValuePathExpression) HasAttributePath() bool {
-	if o != nil && !IsNil(o.AttributePath) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributePath gets a reference to the given AttributeReference and assigns it to the AttributePath field.
+// SetAttributePath sets field value
 func (o *ValuePathExpression) SetAttributePath(v AttributeReference) {
-	o.AttributePath = &v
+	o.AttributePath = v
 }
 
 // GetAttributeExpression returns the AttributeExpression field value if set, zero value otherwise.
@@ -117,9 +111,7 @@ func (o ValuePathExpression) MarshalJSON() ([]byte, error) {
 
 func (o ValuePathExpression) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AttributePath) {
-		toSerialize["attributePath"] = o.AttributePath
-	}
+	toSerialize["attributePath"] = o.AttributePath
 	if !IsNil(o.AttributeExpression) {
 		toSerialize["attributeExpression"] = o.AttributeExpression
 	}
@@ -132,6 +124,27 @@ func (o ValuePathExpression) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ValuePathExpression) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"attributePath",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varValuePathExpression := _ValuePathExpression{}
 
 	err = json.Unmarshal(data, &varValuePathExpression)

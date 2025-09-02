@@ -20,8 +20,8 @@ var _ MappedNullable = &Listener{}
 
 // Listener struct for Listener
 type Listener struct {
-	Description          *string     `json:"description,omitempty"`
-	Conditions           []Condition `json:"conditions,omitempty"`
+	Description          string      `json:"description"`
+	Conditions           []Condition `json:"conditions"`
 	Tasks                []Task      `json:"tasks"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,8 +32,10 @@ type _Listener Listener
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListener(tasks []Task) *Listener {
+func NewListener(description string, conditions []Condition, tasks []Task) *Listener {
 	this := Listener{}
+	this.Description = description
+	this.Conditions = conditions
 	this.Tasks = tasks
 	return &this
 }
@@ -46,66 +48,50 @@ func NewListenerWithDefaults() *Listener {
 	return &this
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *Listener) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *Listener) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *Listener) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *Listener) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetConditions returns the Conditions field value if set, zero value otherwise.
+// GetConditions returns the Conditions field value
 func (o *Listener) GetConditions() []Condition {
-	if o == nil || IsNil(o.Conditions) {
+	if o == nil {
 		var ret []Condition
 		return ret
 	}
+
 	return o.Conditions
 }
 
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
+// GetConditionsOk returns a tuple with the Conditions field value
 // and a boolean to check if the value has been set.
 func (o *Listener) GetConditionsOk() ([]Condition, bool) {
-	if o == nil || IsNil(o.Conditions) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Conditions, true
 }
 
-// HasConditions returns a boolean if a field has been set.
-func (o *Listener) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
-		return true
-	}
-
-	return false
-}
-
-// SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
+// SetConditions sets field value
 func (o *Listener) SetConditions(v []Condition) {
 	o.Conditions = v
 }
@@ -144,12 +130,8 @@ func (o Listener) MarshalJSON() ([]byte, error) {
 
 func (o Listener) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.Conditions) {
-		toSerialize["conditions"] = o.Conditions
-	}
+	toSerialize["description"] = o.Description
+	toSerialize["conditions"] = o.Conditions
 	toSerialize["tasks"] = o.Tasks
 
 	for key, value := range o.AdditionalProperties {
@@ -164,6 +146,8 @@ func (o *Listener) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"description",
+		"conditions",
 		"tasks",
 	}
 

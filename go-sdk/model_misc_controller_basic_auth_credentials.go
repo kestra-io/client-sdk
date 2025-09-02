@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MiscControllerBasicAuthCredentials type satisfies the MappedNullable interface at compile time
@@ -19,9 +20,9 @@ var _ MappedNullable = &MiscControllerBasicAuthCredentials{}
 
 // MiscControllerBasicAuthCredentials struct for MiscControllerBasicAuthCredentials
 type MiscControllerBasicAuthCredentials struct {
-	Uid                  *string `json:"uid,omitempty"`
-	Username             *string `json:"username,omitempty"`
-	Password             *string `json:"password,omitempty"`
+	Uid                  string `json:"uid"`
+	Username             string `json:"username"`
+	Password             string `json:"password"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,11 @@ type _MiscControllerBasicAuthCredentials MiscControllerBasicAuthCredentials
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerBasicAuthCredentials() *MiscControllerBasicAuthCredentials {
+func NewMiscControllerBasicAuthCredentials(uid string, username string, password string) *MiscControllerBasicAuthCredentials {
 	this := MiscControllerBasicAuthCredentials{}
+	this.Uid = uid
+	this.Username = username
+	this.Password = password
 	return &this
 }
 
@@ -44,100 +48,76 @@ func NewMiscControllerBasicAuthCredentialsWithDefaults() *MiscControllerBasicAut
 	return &this
 }
 
-// GetUid returns the Uid field value if set, zero value otherwise.
+// GetUid returns the Uid field value
 func (o *MiscControllerBasicAuthCredentials) GetUid() string {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Uid
+
+	return o.Uid
 }
 
-// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
+// GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerBasicAuthCredentials) GetUidOk() (*string, bool) {
-	if o == nil || IsNil(o.Uid) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Uid, true
+	return &o.Uid, true
 }
 
-// HasUid returns a boolean if a field has been set.
-func (o *MiscControllerBasicAuthCredentials) HasUid() bool {
-	if o != nil && !IsNil(o.Uid) {
-		return true
-	}
-
-	return false
-}
-
-// SetUid gets a reference to the given string and assigns it to the Uid field.
+// SetUid sets field value
 func (o *MiscControllerBasicAuthCredentials) SetUid(v string) {
-	o.Uid = &v
+	o.Uid = v
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
+// GetUsername returns the Username field value
 func (o *MiscControllerBasicAuthCredentials) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerBasicAuthCredentials) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Username, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *MiscControllerBasicAuthCredentials) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
+// SetUsername sets field value
 func (o *MiscControllerBasicAuthCredentials) SetUsername(v string) {
-	o.Username = &v
+	o.Username = v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
+// GetPassword returns the Password field value
 func (o *MiscControllerBasicAuthCredentials) GetPassword() string {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Password
+
+	return o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerBasicAuthCredentials) GetPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Password, true
+	return &o.Password, true
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *MiscControllerBasicAuthCredentials) HasPassword() bool {
-	if o != nil && !IsNil(o.Password) {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given string and assigns it to the Password field.
+// SetPassword sets field value
 func (o *MiscControllerBasicAuthCredentials) SetPassword(v string) {
-	o.Password = &v
+	o.Password = v
 }
 
 func (o MiscControllerBasicAuthCredentials) MarshalJSON() ([]byte, error) {
@@ -150,15 +130,9 @@ func (o MiscControllerBasicAuthCredentials) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerBasicAuthCredentials) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Uid) {
-		toSerialize["uid"] = o.Uid
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.Password) {
-		toSerialize["password"] = o.Password
-	}
+	toSerialize["uid"] = o.Uid
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -168,6 +142,29 @@ func (o MiscControllerBasicAuthCredentials) ToMap() (map[string]interface{}, err
 }
 
 func (o *MiscControllerBasicAuthCredentials) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"username",
+		"password",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMiscControllerBasicAuthCredentials := _MiscControllerBasicAuthCredentials{}
 
 	err = json.Unmarshal(data, &varMiscControllerBasicAuthCredentials)

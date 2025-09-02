@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IAMBindingControllerApiBindingDetail type satisfies the MappedNullable interface at compile time
@@ -19,10 +20,10 @@ var _ MappedNullable = &IAMBindingControllerApiBindingDetail{}
 
 // IAMBindingControllerApiBindingDetail struct for IAMBindingControllerApiBindingDetail
 type IAMBindingControllerApiBindingDetail struct {
-	Id                   *string                                     `json:"id,omitempty"`
-	Type                 *BindingType                                `json:"type,omitempty"`
+	Id                   string                                      `json:"id"`
+	Type                 BindingType                                 `json:"type"`
 	Namespace            NullableString                              `json:"namespace,omitempty"`
-	Role                 *IAMBindingControllerApiRole                `json:"role,omitempty"`
+	Role                 IAMBindingControllerApiRole                 `json:"role"`
 	Group                NullableIAMBindingControllerApiBindingGroup `json:"group,omitempty"`
 	User                 NullableIAMBindingControllerApiBindingUser  `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -34,8 +35,11 @@ type _IAMBindingControllerApiBindingDetail IAMBindingControllerApiBindingDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMBindingControllerApiBindingDetail() *IAMBindingControllerApiBindingDetail {
+func NewIAMBindingControllerApiBindingDetail(id string, type_ BindingType, role IAMBindingControllerApiRole) *IAMBindingControllerApiBindingDetail {
 	this := IAMBindingControllerApiBindingDetail{}
+	this.Id = id
+	this.Type = type_
+	this.Role = role
 	return &this
 }
 
@@ -47,68 +51,52 @@ func NewIAMBindingControllerApiBindingDetailWithDefaults() *IAMBindingController
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *IAMBindingControllerApiBindingDetail) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IAMBindingControllerApiBindingDetail) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *IAMBindingControllerApiBindingDetail) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *IAMBindingControllerApiBindingDetail) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *IAMBindingControllerApiBindingDetail) GetType() BindingType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret BindingType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *IAMBindingControllerApiBindingDetail) GetTypeOk() (*BindingType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *IAMBindingControllerApiBindingDetail) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given BindingType and assigns it to the Type field.
+// SetType sets field value
 func (o *IAMBindingControllerApiBindingDetail) SetType(v BindingType) {
-	o.Type = &v
+	o.Type = v
 }
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -154,36 +142,28 @@ func (o *IAMBindingControllerApiBindingDetail) UnsetNamespace() {
 	o.Namespace.Unset()
 }
 
-// GetRole returns the Role field value if set, zero value otherwise.
+// GetRole returns the Role field value
 func (o *IAMBindingControllerApiBindingDetail) GetRole() IAMBindingControllerApiRole {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		var ret IAMBindingControllerApiRole
 		return ret
 	}
-	return *o.Role
+
+	return o.Role
 }
 
-// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// GetRoleOk returns a tuple with the Role field value
 // and a boolean to check if the value has been set.
 func (o *IAMBindingControllerApiBindingDetail) GetRoleOk() (*IAMBindingControllerApiRole, bool) {
-	if o == nil || IsNil(o.Role) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Role, true
+	return &o.Role, true
 }
 
-// HasRole returns a boolean if a field has been set.
-func (o *IAMBindingControllerApiBindingDetail) HasRole() bool {
-	if o != nil && !IsNil(o.Role) {
-		return true
-	}
-
-	return false
-}
-
-// SetRole gets a reference to the given IAMBindingControllerApiRole and assigns it to the Role field.
+// SetRole sets field value
 func (o *IAMBindingControllerApiBindingDetail) SetRole(v IAMBindingControllerApiRole) {
-	o.Role = &v
+	o.Role = v
 }
 
 // GetGroup returns the Group field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -282,18 +262,12 @@ func (o IAMBindingControllerApiBindingDetail) MarshalJSON() ([]byte, error) {
 
 func (o IAMBindingControllerApiBindingDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
 	if o.Namespace.IsSet() {
 		toSerialize["namespace"] = o.Namespace.Get()
 	}
-	if !IsNil(o.Role) {
-		toSerialize["role"] = o.Role
-	}
+	toSerialize["role"] = o.Role
 	if o.Group.IsSet() {
 		toSerialize["group"] = o.Group.Get()
 	}
@@ -309,6 +283,29 @@ func (o IAMBindingControllerApiBindingDetail) ToMap() (map[string]interface{}, e
 }
 
 func (o *IAMBindingControllerApiBindingDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"role",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMBindingControllerApiBindingDetail := _IAMBindingControllerApiBindingDetail{}
 
 	err = json.Unmarshal(data, &varIAMBindingControllerApiBindingDetail)

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Field** | Pointer to [**QueryFilterField**](QueryFilterField.md) |  | [optional] 
-**Operation** | Pointer to [**QueryFilterOp**](QueryFilterOp.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Field** | [**QueryFilterField**](QueryFilterField.md) |  | 
+**Operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | 
+**Value** | **map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewQueryFilter
 
-`func NewQueryFilter() *QueryFilter`
+`func NewQueryFilter(field QueryFilterField, operation QueryFilterOp, value map[string]interface{}, ) *QueryFilter`
 
 NewQueryFilter instantiates a new QueryFilter object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetField sets Field field to given value.
 
-### HasField
-
-`func (o *QueryFilter) HasField() bool`
-
-HasField returns a boolean if a field has been set.
 
 ### GetOperation
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetOperation sets Operation field to given value.
 
-### HasOperation
-
-`func (o *QueryFilter) HasOperation() bool`
-
-HasOperation returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *QueryFilter) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

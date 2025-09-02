@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PluginArtifactMetadata type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,11 @@ var _ MappedNullable = &PluginArtifactMetadata{}
 
 // PluginArtifactMetadata struct for PluginArtifactMetadata
 type PluginArtifactMetadata struct {
-	Uri                  *string `json:"uri,omitempty"`
-	Name                 *string `json:"name,omitempty"`
-	Size                 *int64  `json:"size,omitempty"`
-	LastModifiedTime     *int64  `json:"lastModifiedTime,omitempty"`
-	CreationTime         *int64  `json:"creationTime,omitempty"`
+	Uri                  string `json:"uri"`
+	Name                 string `json:"name"`
+	Size                 int64  `json:"size"`
+	LastModifiedTime     int64  `json:"lastModifiedTime"`
+	CreationTime         int64  `json:"creationTime"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +34,13 @@ type _PluginArtifactMetadata PluginArtifactMetadata
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPluginArtifactMetadata() *PluginArtifactMetadata {
+func NewPluginArtifactMetadata(uri string, name string, size int64, lastModifiedTime int64, creationTime int64) *PluginArtifactMetadata {
 	this := PluginArtifactMetadata{}
+	this.Uri = uri
+	this.Name = name
+	this.Size = size
+	this.LastModifiedTime = lastModifiedTime
+	this.CreationTime = creationTime
 	return &this
 }
 
@@ -46,164 +52,124 @@ func NewPluginArtifactMetadataWithDefaults() *PluginArtifactMetadata {
 	return &this
 }
 
-// GetUri returns the Uri field value if set, zero value otherwise.
+// GetUri returns the Uri field value
 func (o *PluginArtifactMetadata) GetUri() string {
-	if o == nil || IsNil(o.Uri) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Uri
+
+	return o.Uri
 }
 
-// GetUriOk returns a tuple with the Uri field value if set, nil otherwise
+// GetUriOk returns a tuple with the Uri field value
 // and a boolean to check if the value has been set.
 func (o *PluginArtifactMetadata) GetUriOk() (*string, bool) {
-	if o == nil || IsNil(o.Uri) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Uri, true
+	return &o.Uri, true
 }
 
-// HasUri returns a boolean if a field has been set.
-func (o *PluginArtifactMetadata) HasUri() bool {
-	if o != nil && !IsNil(o.Uri) {
-		return true
-	}
-
-	return false
-}
-
-// SetUri gets a reference to the given string and assigns it to the Uri field.
+// SetUri sets field value
 func (o *PluginArtifactMetadata) SetUri(v string) {
-	o.Uri = &v
+	o.Uri = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *PluginArtifactMetadata) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PluginArtifactMetadata) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *PluginArtifactMetadata) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *PluginArtifactMetadata) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetSize returns the Size field value if set, zero value otherwise.
+// GetSize returns the Size field value
 func (o *PluginArtifactMetadata) GetSize() int64 {
-	if o == nil || IsNil(o.Size) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Size
+
+	return o.Size
 }
 
-// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
+// GetSizeOk returns a tuple with the Size field value
 // and a boolean to check if the value has been set.
 func (o *PluginArtifactMetadata) GetSizeOk() (*int64, bool) {
-	if o == nil || IsNil(o.Size) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Size, true
+	return &o.Size, true
 }
 
-// HasSize returns a boolean if a field has been set.
-func (o *PluginArtifactMetadata) HasSize() bool {
-	if o != nil && !IsNil(o.Size) {
-		return true
-	}
-
-	return false
-}
-
-// SetSize gets a reference to the given int64 and assigns it to the Size field.
+// SetSize sets field value
 func (o *PluginArtifactMetadata) SetSize(v int64) {
-	o.Size = &v
+	o.Size = v
 }
 
-// GetLastModifiedTime returns the LastModifiedTime field value if set, zero value otherwise.
+// GetLastModifiedTime returns the LastModifiedTime field value
 func (o *PluginArtifactMetadata) GetLastModifiedTime() int64 {
-	if o == nil || IsNil(o.LastModifiedTime) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.LastModifiedTime
+
+	return o.LastModifiedTime
 }
 
-// GetLastModifiedTimeOk returns a tuple with the LastModifiedTime field value if set, nil otherwise
+// GetLastModifiedTimeOk returns a tuple with the LastModifiedTime field value
 // and a boolean to check if the value has been set.
 func (o *PluginArtifactMetadata) GetLastModifiedTimeOk() (*int64, bool) {
-	if o == nil || IsNil(o.LastModifiedTime) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastModifiedTime, true
+	return &o.LastModifiedTime, true
 }
 
-// HasLastModifiedTime returns a boolean if a field has been set.
-func (o *PluginArtifactMetadata) HasLastModifiedTime() bool {
-	if o != nil && !IsNil(o.LastModifiedTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastModifiedTime gets a reference to the given int64 and assigns it to the LastModifiedTime field.
+// SetLastModifiedTime sets field value
 func (o *PluginArtifactMetadata) SetLastModifiedTime(v int64) {
-	o.LastModifiedTime = &v
+	o.LastModifiedTime = v
 }
 
-// GetCreationTime returns the CreationTime field value if set, zero value otherwise.
+// GetCreationTime returns the CreationTime field value
 func (o *PluginArtifactMetadata) GetCreationTime() int64 {
-	if o == nil || IsNil(o.CreationTime) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.CreationTime
+
+	return o.CreationTime
 }
 
-// GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
+// GetCreationTimeOk returns a tuple with the CreationTime field value
 // and a boolean to check if the value has been set.
 func (o *PluginArtifactMetadata) GetCreationTimeOk() (*int64, bool) {
-	if o == nil || IsNil(o.CreationTime) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreationTime, true
+	return &o.CreationTime, true
 }
 
-// HasCreationTime returns a boolean if a field has been set.
-func (o *PluginArtifactMetadata) HasCreationTime() bool {
-	if o != nil && !IsNil(o.CreationTime) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreationTime gets a reference to the given int64 and assigns it to the CreationTime field.
+// SetCreationTime sets field value
 func (o *PluginArtifactMetadata) SetCreationTime(v int64) {
-	o.CreationTime = &v
+	o.CreationTime = v
 }
 
 func (o PluginArtifactMetadata) MarshalJSON() ([]byte, error) {
@@ -216,21 +182,11 @@ func (o PluginArtifactMetadata) MarshalJSON() ([]byte, error) {
 
 func (o PluginArtifactMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Uri) {
-		toSerialize["uri"] = o.Uri
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Size) {
-		toSerialize["size"] = o.Size
-	}
-	if !IsNil(o.LastModifiedTime) {
-		toSerialize["lastModifiedTime"] = o.LastModifiedTime
-	}
-	if !IsNil(o.CreationTime) {
-		toSerialize["creationTime"] = o.CreationTime
-	}
+	toSerialize["uri"] = o.Uri
+	toSerialize["name"] = o.Name
+	toSerialize["size"] = o.Size
+	toSerialize["lastModifiedTime"] = o.LastModifiedTime
+	toSerialize["creationTime"] = o.CreationTime
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -240,6 +196,31 @@ func (o PluginArtifactMetadata) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PluginArtifactMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uri",
+		"name",
+		"size",
+		"lastModifiedTime",
+		"creationTime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPluginArtifactMetadata := _PluginArtifactMetadata{}
 
 	err = json.Unmarshal(data, &varPluginArtifactMetadata)

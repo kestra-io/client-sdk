@@ -40,6 +40,7 @@ type Plugin struct {
 	AppBlocks            []PluginPluginElementMetadata  `json:"appBlocks,omitempty"`
 	Charts               []PluginPluginElementMetadata  `json:"charts,omitempty"`
 	DataFilters          []PluginPluginElementMetadata  `json:"dataFilters,omitempty"`
+	DataFiltersKPI       []PluginPluginElementMetadata  `json:"dataFiltersKPI,omitempty"`
 	LogExporters         []PluginPluginElementMetadata  `json:"logExporters,omitempty"`
 	AdditionalPlugins    []PluginPluginElementMetadata  `json:"additionalPlugins,omitempty"`
 	Categories           []PluginSubGroupPluginCategory `json:"categories,omitempty"`
@@ -738,6 +739,38 @@ func (o *Plugin) SetDataFilters(v []PluginPluginElementMetadata) {
 	o.DataFilters = v
 }
 
+// GetDataFiltersKPI returns the DataFiltersKPI field value if set, zero value otherwise.
+func (o *Plugin) GetDataFiltersKPI() []PluginPluginElementMetadata {
+	if o == nil || IsNil(o.DataFiltersKPI) {
+		var ret []PluginPluginElementMetadata
+		return ret
+	}
+	return o.DataFiltersKPI
+}
+
+// GetDataFiltersKPIOk returns a tuple with the DataFiltersKPI field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Plugin) GetDataFiltersKPIOk() ([]PluginPluginElementMetadata, bool) {
+	if o == nil || IsNil(o.DataFiltersKPI) {
+		return nil, false
+	}
+	return o.DataFiltersKPI, true
+}
+
+// HasDataFiltersKPI returns a boolean if a field has been set.
+func (o *Plugin) HasDataFiltersKPI() bool {
+	if o != nil && !IsNil(o.DataFiltersKPI) {
+		return true
+	}
+
+	return false
+}
+
+// SetDataFiltersKPI gets a reference to the given []PluginPluginElementMetadata and assigns it to the DataFiltersKPI field.
+func (o *Plugin) SetDataFiltersKPI(v []PluginPluginElementMetadata) {
+	o.DataFiltersKPI = v
+}
+
 // GetLogExporters returns the LogExporters field value if set, zero value otherwise.
 func (o *Plugin) GetLogExporters() []PluginPluginElementMetadata {
 	if o == nil || IsNil(o.LogExporters) {
@@ -939,6 +972,9 @@ func (o Plugin) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DataFilters) {
 		toSerialize["dataFilters"] = o.DataFilters
 	}
+	if !IsNil(o.DataFiltersKPI) {
+		toSerialize["dataFiltersKPI"] = o.DataFiltersKPI
+	}
 	if !IsNil(o.LogExporters) {
 		toSerialize["logExporters"] = o.LogExporters
 	}
@@ -994,6 +1030,7 @@ func (o *Plugin) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "appBlocks")
 		delete(additionalProperties, "charts")
 		delete(additionalProperties, "dataFilters")
+		delete(additionalProperties, "dataFiltersKPI")
 		delete(additionalProperties, "logExporters")
 		delete(additionalProperties, "additionalPlugins")
 		delete(additionalProperties, "categories")

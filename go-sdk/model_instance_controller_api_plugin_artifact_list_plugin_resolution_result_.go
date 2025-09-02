@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginArtifactListPluginResolutionResult type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &InstanceControllerApiPluginArtifactListPluginResolutionR
 
 // InstanceControllerApiPluginArtifactListPluginResolutionResult struct for InstanceControllerApiPluginArtifactListPluginResolutionResult
 type InstanceControllerApiPluginArtifactListPluginResolutionResult struct {
-	Total                *int32                   `json:"total,omitempty"`
-	Results              []map[string]interface{} `json:"results,omitempty"`
+	Total                int32                    `json:"total"`
+	Results              []map[string]interface{} `json:"results"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _InstanceControllerApiPluginArtifactListPluginResolutionResult InstanceCont
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginArtifactListPluginResolutionResult() *InstanceControllerApiPluginArtifactListPluginResolutionResult {
+func NewInstanceControllerApiPluginArtifactListPluginResolutionResult(total int32, results []map[string]interface{}) *InstanceControllerApiPluginArtifactListPluginResolutionResult {
 	this := InstanceControllerApiPluginArtifactListPluginResolutionResult{}
+	this.Total = total
+	this.Results = results
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewInstanceControllerApiPluginArtifactListPluginResolutionResultWithDefault
 	return &this
 }
 
-// GetTotal returns the Total field value if set, zero value otherwise.
+// GetTotal returns the Total field value
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) GetTotal() int32 {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Total
+
+	return o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) GetTotalOk() (*int32, bool) {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.Total, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+// SetTotal sets field value
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) SetTotal(v int32) {
-	o.Total = &v
+	o.Total = v
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) GetResults() []map[string]interface{} {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) GetResultsOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Results) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) HasResults() bool {
-	if o != nil && !IsNil(o.Results) {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []map[string]interface{} and assigns it to the Results field.
+// SetResults sets field value
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) SetResults(v []map[string]interface{}) {
 	o.Results = v
 }
@@ -117,12 +104,8 @@ func (o InstanceControllerApiPluginArtifactListPluginResolutionResult) MarshalJS
 
 func (o InstanceControllerApiPluginArtifactListPluginResolutionResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
-	}
-	if !IsNil(o.Results) {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["total"] = o.Total
+	toSerialize["results"] = o.Results
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o InstanceControllerApiPluginArtifactListPluginResolutionResult) ToMap() (
 }
 
 func (o *InstanceControllerApiPluginArtifactListPluginResolutionResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total",
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiPluginArtifactListPluginResolutionResult := _InstanceControllerApiPluginArtifactListPluginResolutionResult{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginArtifactListPluginResolutionResult)

@@ -21,6 +21,7 @@ var _ MappedNullable = &ApiAutocomplete{}
 type ApiAutocomplete struct {
 	Q                    NullableString `json:"q,omitempty"`
 	Ids                  []string       `json:"ids,omitempty"`
+	ExistingOnly         *bool          `json:"existingOnly,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -119,6 +120,38 @@ func (o *ApiAutocomplete) SetIds(v []string) {
 	o.Ids = v
 }
 
+// GetExistingOnly returns the ExistingOnly field value if set, zero value otherwise.
+func (o *ApiAutocomplete) GetExistingOnly() bool {
+	if o == nil || IsNil(o.ExistingOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.ExistingOnly
+}
+
+// GetExistingOnlyOk returns a tuple with the ExistingOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiAutocomplete) GetExistingOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExistingOnly) {
+		return nil, false
+	}
+	return o.ExistingOnly, true
+}
+
+// HasExistingOnly returns a boolean if a field has been set.
+func (o *ApiAutocomplete) HasExistingOnly() bool {
+	if o != nil && !IsNil(o.ExistingOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetExistingOnly gets a reference to the given bool and assigns it to the ExistingOnly field.
+func (o *ApiAutocomplete) SetExistingOnly(v bool) {
+	o.ExistingOnly = &v
+}
+
 func (o ApiAutocomplete) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -134,6 +167,9 @@ func (o ApiAutocomplete) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Ids != nil {
 		toSerialize["ids"] = o.Ids
+	}
+	if !IsNil(o.ExistingOnly) {
+		toSerialize["existingOnly"] = o.ExistingOnly
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -159,6 +195,7 @@ func (o *ApiAutocomplete) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "q")
 		delete(additionalProperties, "ids")
+		delete(additionalProperties, "existingOnly")
 		o.AdditionalProperties = additionalProperties
 	}
 

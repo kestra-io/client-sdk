@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Namespace** | Pointer to **string** |  | [optional] 
-**Origin** | Pointer to [**RBACServiceRoleAssignmentRoleOrigin**](RBACServiceRoleAssignmentRoleOrigin.md) |  | [optional] 
-**SourceId** | Pointer to **string** |  | [optional] 
-**Permissions** | Pointer to [**[]IAMTenantAccessControllerApiUserPermission**](IAMTenantAccessControllerApiUserPermission.md) |  | [optional] 
+**Id** | **string** |  | 
+**Name** | **string** |  | 
+**Namespace** | **string** |  | 
+**Origin** | [**RBACServiceRoleAssignmentRoleOrigin**](RBACServiceRoleAssignmentRoleOrigin.md) |  | 
+**SourceId** | **string** |  | 
+**Permissions** | [**[]IAMTenantAccessControllerApiUserPermission**](IAMTenantAccessControllerApiUserPermission.md) |  | 
 
 ## Methods
 
 ### NewIAMTenantAccessControllerApiRoleAssignment
 
-`func NewIAMTenantAccessControllerApiRoleAssignment() *IAMTenantAccessControllerApiRoleAssignment`
+`func NewIAMTenantAccessControllerApiRoleAssignment(id string, name string, namespace string, origin RBACServiceRoleAssignmentRoleOrigin, sourceId string, permissions []IAMTenantAccessControllerApiUserPermission, ) *IAMTenantAccessControllerApiRoleAssignment`
 
 NewIAMTenantAccessControllerApiRoleAssignment instantiates a new IAMTenantAccessControllerApiRoleAssignment object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -99,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetNamespace sets Namespace field to given value.
 
-### HasNamespace
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasNamespace() bool`
-
-HasNamespace returns a boolean if a field has been set.
 
 ### GetOrigin
 
@@ -124,11 +109,6 @@ and a boolean to check if the value has been set.
 
 SetOrigin sets Origin field to given value.
 
-### HasOrigin
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasOrigin() bool`
-
-HasOrigin returns a boolean if a field has been set.
 
 ### GetSourceId
 
@@ -149,11 +129,6 @@ and a boolean to check if the value has been set.
 
 SetSourceId sets SourceId field to given value.
 
-### HasSourceId
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasSourceId() bool`
-
-HasSourceId returns a boolean if a field has been set.
 
 ### GetPermissions
 
@@ -174,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetPermissions sets Permissions field to given value.
 
-### HasPermissions
-
-`func (o *IAMTenantAccessControllerApiRoleAssignment) HasPermissions() bool`
-
-HasPermissions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

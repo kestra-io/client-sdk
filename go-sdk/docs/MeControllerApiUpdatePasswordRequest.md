@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OldPassword** | Pointer to **string** |  | [optional] 
-**NewPassword** | Pointer to **string** |  | [optional] 
+**OldPassword** | **string** |  | 
+**NewPassword** | **string** |  | 
 
 ## Methods
 
 ### NewMeControllerApiUpdatePasswordRequest
 
-`func NewMeControllerApiUpdatePasswordRequest() *MeControllerApiUpdatePasswordRequest`
+`func NewMeControllerApiUpdatePasswordRequest(oldPassword string, newPassword string, ) *MeControllerApiUpdatePasswordRequest`
 
 NewMeControllerApiUpdatePasswordRequest instantiates a new MeControllerApiUpdatePasswordRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetOldPassword sets OldPassword field to given value.
 
-### HasOldPassword
-
-`func (o *MeControllerApiUpdatePasswordRequest) HasOldPassword() bool`
-
-HasOldPassword returns a boolean if a field has been set.
 
 ### GetNewPassword
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetNewPassword sets NewPassword field to given value.
 
-### HasNewPassword
-
-`func (o *MeControllerApiUpdatePasswordRequest) HasNewPassword() bool`
-
-HasNewPassword returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

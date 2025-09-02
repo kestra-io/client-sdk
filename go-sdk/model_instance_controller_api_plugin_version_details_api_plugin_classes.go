@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginVersionDetailsApiPluginClasses type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionDetailsApiPluginClasse
 
 // InstanceControllerApiPluginVersionDetailsApiPluginClasses struct for InstanceControllerApiPluginVersionDetailsApiPluginClasses
 type InstanceControllerApiPluginVersionDetailsApiPluginClasses struct {
-	Type                 *string                                                   `json:"type,omitempty"`
-	Classes              []InstanceControllerApiPluginVersionDetailsApiPluginClass `json:"classes,omitempty"`
+	Type                 string                                                    `json:"type"`
+	Classes              []InstanceControllerApiPluginVersionDetailsApiPluginClass `json:"classes"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _InstanceControllerApiPluginVersionDetailsApiPluginClasses InstanceControll
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginVersionDetailsApiPluginClasses() *InstanceControllerApiPluginVersionDetailsApiPluginClasses {
+func NewInstanceControllerApiPluginVersionDetailsApiPluginClasses(type_ string, classes []InstanceControllerApiPluginVersionDetailsApiPluginClass) *InstanceControllerApiPluginVersionDetailsApiPluginClasses {
 	this := InstanceControllerApiPluginVersionDetailsApiPluginClasses{}
+	this.Type = type_
+	this.Classes = classes
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewInstanceControllerApiPluginVersionDetailsApiPluginClassesWithDefaults() 
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetClasses returns the Classes field value if set, zero value otherwise.
+// GetClasses returns the Classes field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) GetClasses() []InstanceControllerApiPluginVersionDetailsApiPluginClass {
-	if o == nil || IsNil(o.Classes) {
+	if o == nil {
 		var ret []InstanceControllerApiPluginVersionDetailsApiPluginClass
 		return ret
 	}
+
 	return o.Classes
 }
 
-// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
+// GetClassesOk returns a tuple with the Classes field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) GetClassesOk() ([]InstanceControllerApiPluginVersionDetailsApiPluginClass, bool) {
-	if o == nil || IsNil(o.Classes) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Classes, true
 }
 
-// HasClasses returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) HasClasses() bool {
-	if o != nil && !IsNil(o.Classes) {
-		return true
-	}
-
-	return false
-}
-
-// SetClasses gets a reference to the given []InstanceControllerApiPluginVersionDetailsApiPluginClass and assigns it to the Classes field.
+// SetClasses sets field value
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) SetClasses(v []InstanceControllerApiPluginVersionDetailsApiPluginClass) {
 	o.Classes = v
 }
@@ -117,12 +104,8 @@ func (o InstanceControllerApiPluginVersionDetailsApiPluginClasses) MarshalJSON()
 
 func (o InstanceControllerApiPluginVersionDetailsApiPluginClasses) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Classes) {
-		toSerialize["classes"] = o.Classes
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["classes"] = o.Classes
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o InstanceControllerApiPluginVersionDetailsApiPluginClasses) ToMap() (map[
 }
 
 func (o *InstanceControllerApiPluginVersionDetailsApiPluginClasses) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"classes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiPluginVersionDetailsApiPluginClasses := _InstanceControllerApiPluginVersionDetailsApiPluginClasses{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginVersionDetailsApiPluginClasses)

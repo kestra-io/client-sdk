@@ -20,9 +20,9 @@ var _ MappedNullable = &FlowNode{}
 
 // FlowNode struct for FlowNode
 type FlowNode struct {
-	Uid                  string  `json:"uid"`
-	Namespace            *string `json:"namespace,omitempty"`
-	Id                   *string `json:"id,omitempty"`
+	Uid                  string `json:"uid"`
+	Namespace            string `json:"namespace"`
+	Id                   string `json:"id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,9 +32,11 @@ type _FlowNode FlowNode
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowNode(uid string) *FlowNode {
+func NewFlowNode(uid string, namespace string, id string) *FlowNode {
 	this := FlowNode{}
 	this.Uid = uid
+	this.Namespace = namespace
+	this.Id = id
 	return &this
 }
 
@@ -70,68 +72,52 @@ func (o *FlowNode) SetUid(v string) {
 	o.Uid = v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *FlowNode) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *FlowNode) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *FlowNode) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *FlowNode) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *FlowNode) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *FlowNode) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *FlowNode) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *FlowNode) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 func (o FlowNode) MarshalJSON() ([]byte, error) {
@@ -145,12 +131,8 @@ func (o FlowNode) MarshalJSON() ([]byte, error) {
 func (o FlowNode) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["uid"] = o.Uid
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["id"] = o.Id
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -165,6 +147,8 @@ func (o *FlowNode) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"uid",
+		"namespace",
+		"id",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GroupIds** | Pointer to **[]string** |  | [optional] 
+**GroupIds** | **[]string** |  | 
 
 ## Methods
 
 ### NewIAMUserGroupControllerApiUpdateUserGroupsRequest
 
-`func NewIAMUserGroupControllerApiUpdateUserGroupsRequest() *IAMUserGroupControllerApiUpdateUserGroupsRequest`
+`func NewIAMUserGroupControllerApiUpdateUserGroupsRequest(groupIds []string, ) *IAMUserGroupControllerApiUpdateUserGroupsRequest`
 
 NewIAMUserGroupControllerApiUpdateUserGroupsRequest instantiates a new IAMUserGroupControllerApiUpdateUserGroupsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetGroupIds sets GroupIds field to given value.
 
-### HasGroupIds
-
-`func (o *IAMUserGroupControllerApiUpdateUserGroupsRequest) HasGroupIds() bool`
-
-HasGroupIds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

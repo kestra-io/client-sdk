@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the IAMUserControllerApiUser type satisfies the MappedNullable interface at compile time
@@ -19,17 +20,17 @@ var _ MappedNullable = &IAMUserControllerApiUser{}
 
 // IAMUserControllerApiUser struct for IAMUserControllerApiUser
 type IAMUserControllerApiUser struct {
-	Id                   *string                        `json:"id,omitempty"`
-	Username             *string                        `json:"username,omitempty"`
-	DisplayName          *string                        `json:"displayName,omitempty"`
-	FirstName            *string                        `json:"firstName,omitempty"`
-	LastName             *string                        `json:"lastName,omitempty"`
-	Email                *string                        `json:"email,omitempty"`
-	Tenants              []IAMUserControllerApiTenant   `json:"tenants,omitempty"`
-	Auths                []IAMUserControllerApiUserAuth `json:"auths,omitempty"`
-	Groups               []IAMUserControllerApiGroup    `json:"groups,omitempty"`
-	SuperAdmin           *bool                          `json:"superAdmin,omitempty"`
-	Restricted           *bool                          `json:"restricted,omitempty"`
+	Id                   string                         `json:"id"`
+	Username             string                         `json:"username"`
+	DisplayName          string                         `json:"displayName"`
+	FirstName            string                         `json:"firstName"`
+	LastName             string                         `json:"lastName"`
+	Email                string                         `json:"email"`
+	Tenants              []IAMUserControllerApiTenant   `json:"tenants"`
+	Auths                []IAMUserControllerApiUserAuth `json:"auths"`
+	Groups               []IAMUserControllerApiGroup    `json:"groups"`
+	SuperAdmin           bool                           `json:"superAdmin"`
+	Restricted           bool                           `json:"restricted"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,8 +40,19 @@ type _IAMUserControllerApiUser IAMUserControllerApiUser
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMUserControllerApiUser() *IAMUserControllerApiUser {
+func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool) *IAMUserControllerApiUser {
 	this := IAMUserControllerApiUser{}
+	this.Id = id
+	this.Username = username
+	this.DisplayName = displayName
+	this.FirstName = firstName
+	this.LastName = lastName
+	this.Email = email
+	this.Tenants = tenants
+	this.Auths = auths
+	this.Groups = groups
+	this.SuperAdmin = superAdmin
+	this.Restricted = restricted
 	return &this
 }
 
@@ -52,356 +64,268 @@ func NewIAMUserControllerApiUserWithDefaults() *IAMUserControllerApiUser {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *IAMUserControllerApiUser) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *IAMUserControllerApiUser) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
+// GetUsername returns the Username field value
 func (o *IAMUserControllerApiUser) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Username
+
+	return o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Username, true
+	return &o.Username, true
 }
 
-// HasUsername returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
+// SetUsername sets field value
 func (o *IAMUserControllerApiUser) SetUsername(v string) {
-	o.Username = &v
+	o.Username = v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// GetDisplayName returns the DisplayName field value
 func (o *IAMUserControllerApiUser) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+
+	return o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return &o.DisplayName, true
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName sets field value
 func (o *IAMUserControllerApiUser) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName = v
 }
 
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
+// GetFirstName returns the FirstName field value
 func (o *IAMUserControllerApiUser) GetFirstName() string {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FirstName
+
+	return o.FirstName
 }
 
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// GetFirstNameOk returns a tuple with the FirstName field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetFirstNameOk() (*string, bool) {
-	if o == nil || IsNil(o.FirstName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FirstName, true
+	return &o.FirstName, true
 }
 
-// HasFirstName returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasFirstName() bool {
-	if o != nil && !IsNil(o.FirstName) {
-		return true
-	}
-
-	return false
-}
-
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+// SetFirstName sets field value
 func (o *IAMUserControllerApiUser) SetFirstName(v string) {
-	o.FirstName = &v
+	o.FirstName = v
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise.
+// GetLastName returns the LastName field value
 func (o *IAMUserControllerApiUser) GetLastName() string {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LastName
+
+	return o.LastName
 }
 
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// GetLastNameOk returns a tuple with the LastName field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetLastNameOk() (*string, bool) {
-	if o == nil || IsNil(o.LastName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LastName, true
+	return &o.LastName, true
 }
 
-// HasLastName returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasLastName() bool {
-	if o != nil && !IsNil(o.LastName) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
+// SetLastName sets field value
 func (o *IAMUserControllerApiUser) SetLastName(v string) {
-	o.LastName = &v
+	o.LastName = v
 }
 
-// GetEmail returns the Email field value if set, zero value otherwise.
+// GetEmail returns the Email field value
 func (o *IAMUserControllerApiUser) GetEmail() string {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Email
+
+	return o.Email
 }
 
-// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetEmailOk() (*string, bool) {
-	if o == nil || IsNil(o.Email) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Email, true
+	return &o.Email, true
 }
 
-// HasEmail returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasEmail() bool {
-	if o != nil && !IsNil(o.Email) {
-		return true
-	}
-
-	return false
-}
-
-// SetEmail gets a reference to the given string and assigns it to the Email field.
+// SetEmail sets field value
 func (o *IAMUserControllerApiUser) SetEmail(v string) {
-	o.Email = &v
+	o.Email = v
 }
 
-// GetTenants returns the Tenants field value if set, zero value otherwise.
+// GetTenants returns the Tenants field value
 func (o *IAMUserControllerApiUser) GetTenants() []IAMUserControllerApiTenant {
-	if o == nil || IsNil(o.Tenants) {
+	if o == nil {
 		var ret []IAMUserControllerApiTenant
 		return ret
 	}
+
 	return o.Tenants
 }
 
-// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
+// GetTenantsOk returns a tuple with the Tenants field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetTenantsOk() ([]IAMUserControllerApiTenant, bool) {
-	if o == nil || IsNil(o.Tenants) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tenants, true
 }
 
-// HasTenants returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasTenants() bool {
-	if o != nil && !IsNil(o.Tenants) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenants gets a reference to the given []IAMUserControllerApiTenant and assigns it to the Tenants field.
+// SetTenants sets field value
 func (o *IAMUserControllerApiUser) SetTenants(v []IAMUserControllerApiTenant) {
 	o.Tenants = v
 }
 
-// GetAuths returns the Auths field value if set, zero value otherwise.
+// GetAuths returns the Auths field value
 func (o *IAMUserControllerApiUser) GetAuths() []IAMUserControllerApiUserAuth {
-	if o == nil || IsNil(o.Auths) {
+	if o == nil {
 		var ret []IAMUserControllerApiUserAuth
 		return ret
 	}
+
 	return o.Auths
 }
 
-// GetAuthsOk returns a tuple with the Auths field value if set, nil otherwise
+// GetAuthsOk returns a tuple with the Auths field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetAuthsOk() ([]IAMUserControllerApiUserAuth, bool) {
-	if o == nil || IsNil(o.Auths) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Auths, true
 }
 
-// HasAuths returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasAuths() bool {
-	if o != nil && !IsNil(o.Auths) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuths gets a reference to the given []IAMUserControllerApiUserAuth and assigns it to the Auths field.
+// SetAuths sets field value
 func (o *IAMUserControllerApiUser) SetAuths(v []IAMUserControllerApiUserAuth) {
 	o.Auths = v
 }
 
-// GetGroups returns the Groups field value if set, zero value otherwise.
+// GetGroups returns the Groups field value
 func (o *IAMUserControllerApiUser) GetGroups() []IAMUserControllerApiGroup {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		var ret []IAMUserControllerApiGroup
 		return ret
 	}
+
 	return o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetGroupsOk() ([]IAMUserControllerApiGroup, bool) {
-	if o == nil || IsNil(o.Groups) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Groups, true
 }
 
-// HasGroups returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasGroups() bool {
-	if o != nil && !IsNil(o.Groups) {
-		return true
-	}
-
-	return false
-}
-
-// SetGroups gets a reference to the given []IAMUserControllerApiGroup and assigns it to the Groups field.
+// SetGroups sets field value
 func (o *IAMUserControllerApiUser) SetGroups(v []IAMUserControllerApiGroup) {
 	o.Groups = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
+// GetSuperAdmin returns the SuperAdmin field value
 func (o *IAMUserControllerApiUser) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+
+	return o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return &o.SuperAdmin, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
+// SetSuperAdmin sets field value
 func (o *IAMUserControllerApiUser) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+	o.SuperAdmin = v
 }
 
-// GetRestricted returns the Restricted field value if set, zero value otherwise.
+// GetRestricted returns the Restricted field value
 func (o *IAMUserControllerApiUser) GetRestricted() bool {
-	if o == nil || IsNil(o.Restricted) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Restricted
+
+	return o.Restricted
 }
 
-// GetRestrictedOk returns a tuple with the Restricted field value if set, nil otherwise
+// GetRestrictedOk returns a tuple with the Restricted field value
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUser) GetRestrictedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Restricted) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Restricted, true
+	return &o.Restricted, true
 }
 
-// HasRestricted returns a boolean if a field has been set.
-func (o *IAMUserControllerApiUser) HasRestricted() bool {
-	if o != nil && !IsNil(o.Restricted) {
-		return true
-	}
-
-	return false
-}
-
-// SetRestricted gets a reference to the given bool and assigns it to the Restricted field.
+// SetRestricted sets field value
 func (o *IAMUserControllerApiUser) SetRestricted(v bool) {
-	o.Restricted = &v
+	o.Restricted = v
 }
 
 func (o IAMUserControllerApiUser) MarshalJSON() ([]byte, error) {
@@ -414,39 +338,17 @@ func (o IAMUserControllerApiUser) MarshalJSON() ([]byte, error) {
 
 func (o IAMUserControllerApiUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
-	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if !IsNil(o.FirstName) {
-		toSerialize["firstName"] = o.FirstName
-	}
-	if !IsNil(o.LastName) {
-		toSerialize["lastName"] = o.LastName
-	}
-	if !IsNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
-	if !IsNil(o.Tenants) {
-		toSerialize["tenants"] = o.Tenants
-	}
-	if !IsNil(o.Auths) {
-		toSerialize["auths"] = o.Auths
-	}
-	if !IsNil(o.Groups) {
-		toSerialize["groups"] = o.Groups
-	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
-	}
-	if !IsNil(o.Restricted) {
-		toSerialize["restricted"] = o.Restricted
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["username"] = o.Username
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["firstName"] = o.FirstName
+	toSerialize["lastName"] = o.LastName
+	toSerialize["email"] = o.Email
+	toSerialize["tenants"] = o.Tenants
+	toSerialize["auths"] = o.Auths
+	toSerialize["groups"] = o.Groups
+	toSerialize["superAdmin"] = o.SuperAdmin
+	toSerialize["restricted"] = o.Restricted
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -456,6 +358,37 @@ func (o IAMUserControllerApiUser) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *IAMUserControllerApiUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"username",
+		"displayName",
+		"firstName",
+		"lastName",
+		"email",
+		"tenants",
+		"auths",
+		"groups",
+		"superAdmin",
+		"restricted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varIAMUserControllerApiUser := _IAMUserControllerApiUser{}
 
 	err = json.Unmarshal(data, &varIAMUserControllerApiUser)

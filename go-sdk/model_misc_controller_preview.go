@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MiscControllerPreview type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &MiscControllerPreview{}
 
 // MiscControllerPreview struct for MiscControllerPreview
 type MiscControllerPreview struct {
-	Initial              *int32 `json:"initial,omitempty"`
-	Max                  *int32 `json:"max,omitempty"`
+	Initial              int32 `json:"initial"`
+	Max                  int32 `json:"max"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _MiscControllerPreview MiscControllerPreview
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMiscControllerPreview() *MiscControllerPreview {
+func NewMiscControllerPreview(initial int32, max int32) *MiscControllerPreview {
 	this := MiscControllerPreview{}
+	this.Initial = initial
+	this.Max = max
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewMiscControllerPreviewWithDefaults() *MiscControllerPreview {
 	return &this
 }
 
-// GetInitial returns the Initial field value if set, zero value otherwise.
+// GetInitial returns the Initial field value
 func (o *MiscControllerPreview) GetInitial() int32 {
-	if o == nil || IsNil(o.Initial) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Initial
+
+	return o.Initial
 }
 
-// GetInitialOk returns a tuple with the Initial field value if set, nil otherwise
+// GetInitialOk returns a tuple with the Initial field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerPreview) GetInitialOk() (*int32, bool) {
-	if o == nil || IsNil(o.Initial) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Initial, true
+	return &o.Initial, true
 }
 
-// HasInitial returns a boolean if a field has been set.
-func (o *MiscControllerPreview) HasInitial() bool {
-	if o != nil && !IsNil(o.Initial) {
-		return true
-	}
-
-	return false
-}
-
-// SetInitial gets a reference to the given int32 and assigns it to the Initial field.
+// SetInitial sets field value
 func (o *MiscControllerPreview) SetInitial(v int32) {
-	o.Initial = &v
+	o.Initial = v
 }
 
-// GetMax returns the Max field value if set, zero value otherwise.
+// GetMax returns the Max field value
 func (o *MiscControllerPreview) GetMax() int32 {
-	if o == nil || IsNil(o.Max) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Max
+
+	return o.Max
 }
 
-// GetMaxOk returns a tuple with the Max field value if set, nil otherwise
+// GetMaxOk returns a tuple with the Max field value
 // and a boolean to check if the value has been set.
 func (o *MiscControllerPreview) GetMaxOk() (*int32, bool) {
-	if o == nil || IsNil(o.Max) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Max, true
+	return &o.Max, true
 }
 
-// HasMax returns a boolean if a field has been set.
-func (o *MiscControllerPreview) HasMax() bool {
-	if o != nil && !IsNil(o.Max) {
-		return true
-	}
-
-	return false
-}
-
-// SetMax gets a reference to the given int32 and assigns it to the Max field.
+// SetMax sets field value
 func (o *MiscControllerPreview) SetMax(v int32) {
-	o.Max = &v
+	o.Max = v
 }
 
 func (o MiscControllerPreview) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o MiscControllerPreview) MarshalJSON() ([]byte, error) {
 
 func (o MiscControllerPreview) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Initial) {
-		toSerialize["initial"] = o.Initial
-	}
-	if !IsNil(o.Max) {
-		toSerialize["max"] = o.Max
-	}
+	toSerialize["initial"] = o.Initial
+	toSerialize["max"] = o.Max
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o MiscControllerPreview) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MiscControllerPreview) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"initial",
+		"max",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMiscControllerPreview := _MiscControllerPreview{}
 
 	err = json.Unmarshal(data, &varMiscControllerPreview)

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **AppBlocks** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **Charts** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **DataFilters** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
+**DataFiltersKPI** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **LogExporters** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **AdditionalPlugins** | Pointer to [**[]PluginPluginElementMetadata**](PluginPluginElementMetadata.md) |  | [optional] 
 **Categories** | Pointer to [**[]PluginSubGroupPluginCategory**](PluginSubGroupPluginCategory.md) |  | [optional] 
@@ -573,6 +574,31 @@ SetDataFilters sets DataFilters field to given value.
 `func (o *Plugin) HasDataFilters() bool`
 
 HasDataFilters returns a boolean if a field has been set.
+
+### GetDataFiltersKPI
+
+`func (o *Plugin) GetDataFiltersKPI() []PluginPluginElementMetadata`
+
+GetDataFiltersKPI returns the DataFiltersKPI field if non-nil, zero value otherwise.
+
+### GetDataFiltersKPIOk
+
+`func (o *Plugin) GetDataFiltersKPIOk() (*[]PluginPluginElementMetadata, bool)`
+
+GetDataFiltersKPIOk returns a tuple with the DataFiltersKPI field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataFiltersKPI
+
+`func (o *Plugin) SetDataFiltersKPI(v []PluginPluginElementMetadata)`
+
+SetDataFiltersKPI sets DataFiltersKPI field to given value.
+
+### HasDataFiltersKPI
+
+`func (o *Plugin) HasDataFiltersKPI() bool`
+
+HasDataFiltersKPI returns a boolean if a field has been set.
 
 ### GetLogExporters
 

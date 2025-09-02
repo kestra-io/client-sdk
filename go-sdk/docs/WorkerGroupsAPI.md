@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -301,7 +301,7 @@ import (
 
 func main() {
 	id := "id_example" // string | 
-	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example") // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+	instanceControllerApiCreateOrUpdateWorkerGroupRequest := *openapiclient.NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest("Key_example", "Description_example", []string{"AllowedTenants_example"}) // InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

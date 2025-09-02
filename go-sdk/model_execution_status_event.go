@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutionStatusEvent type satisfies the MappedNullable interface at compile time
@@ -19,11 +20,11 @@ var _ MappedNullable = &ExecutionStatusEvent{}
 
 // ExecutionStatusEvent struct for ExecutionStatusEvent
 type ExecutionStatusEvent struct {
-	ExecutionId          *string `json:"executionId,omitempty"`
-	TenantId             *string `json:"tenantId,omitempty"`
-	Namespace            *string `json:"namespace,omitempty"`
-	FlowId               *string `json:"flowId,omitempty"`
-	State                *State  `json:"state,omitempty"`
+	ExecutionId          string `json:"executionId"`
+	TenantId             string `json:"tenantId"`
+	Namespace            string `json:"namespace"`
+	FlowId               string `json:"flowId"`
+	State                State  `json:"state"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +34,13 @@ type _ExecutionStatusEvent ExecutionStatusEvent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionStatusEvent() *ExecutionStatusEvent {
+func NewExecutionStatusEvent(executionId string, tenantId string, namespace string, flowId string, state State) *ExecutionStatusEvent {
 	this := ExecutionStatusEvent{}
+	this.ExecutionId = executionId
+	this.TenantId = tenantId
+	this.Namespace = namespace
+	this.FlowId = flowId
+	this.State = state
 	return &this
 }
 
@@ -46,164 +52,124 @@ func NewExecutionStatusEventWithDefaults() *ExecutionStatusEvent {
 	return &this
 }
 
-// GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
+// GetExecutionId returns the ExecutionId field value
 func (o *ExecutionStatusEvent) GetExecutionId() string {
-	if o == nil || IsNil(o.ExecutionId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExecutionId
+
+	return o.ExecutionId
 }
 
-// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// GetExecutionIdOk returns a tuple with the ExecutionId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionStatusEvent) GetExecutionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExecutionId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExecutionId, true
+	return &o.ExecutionId, true
 }
 
-// HasExecutionId returns a boolean if a field has been set.
-func (o *ExecutionStatusEvent) HasExecutionId() bool {
-	if o != nil && !IsNil(o.ExecutionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExecutionId gets a reference to the given string and assigns it to the ExecutionId field.
+// SetExecutionId sets field value
 func (o *ExecutionStatusEvent) SetExecutionId(v string) {
-	o.ExecutionId = &v
+	o.ExecutionId = v
 }
 
-// GetTenantId returns the TenantId field value if set, zero value otherwise.
+// GetTenantId returns the TenantId field value
 func (o *ExecutionStatusEvent) GetTenantId() string {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TenantId
+
+	return o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// GetTenantIdOk returns a tuple with the TenantId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionStatusEvent) GetTenantIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantId, true
+	return &o.TenantId, true
 }
 
-// HasTenantId returns a boolean if a field has been set.
-func (o *ExecutionStatusEvent) HasTenantId() bool {
-	if o != nil && !IsNil(o.TenantId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+// SetTenantId sets field value
 func (o *ExecutionStatusEvent) SetTenantId(v string) {
-	o.TenantId = &v
+	o.TenantId = v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *ExecutionStatusEvent) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionStatusEvent) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *ExecutionStatusEvent) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *ExecutionStatusEvent) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// GetFlowId returns the FlowId field value
 func (o *ExecutionStatusEvent) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+
+	return o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// GetFlowIdOk returns a tuple with the FlowId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionStatusEvent) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return &o.FlowId, true
 }
 
-// HasFlowId returns a boolean if a field has been set.
-func (o *ExecutionStatusEvent) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId sets field value
 func (o *ExecutionStatusEvent) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// GetState returns the State field value
 func (o *ExecutionStatusEvent) GetState() State {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		var ret State
 		return ret
 	}
-	return *o.State
+
+	return o.State
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionStatusEvent) GetStateOk() (*State, bool) {
-	if o == nil || IsNil(o.State) {
+	if o == nil {
 		return nil, false
 	}
-	return o.State, true
+	return &o.State, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *ExecutionStatusEvent) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given State and assigns it to the State field.
+// SetState sets field value
 func (o *ExecutionStatusEvent) SetState(v State) {
-	o.State = &v
+	o.State = v
 }
 
 func (o ExecutionStatusEvent) MarshalJSON() ([]byte, error) {
@@ -216,21 +182,11 @@ func (o ExecutionStatusEvent) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionStatusEvent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ExecutionId) {
-		toSerialize["executionId"] = o.ExecutionId
-	}
-	if !IsNil(o.TenantId) {
-		toSerialize["tenantId"] = o.TenantId
-	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
-	}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
+	toSerialize["executionId"] = o.ExecutionId
+	toSerialize["tenantId"] = o.TenantId
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
+	toSerialize["state"] = o.State
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -240,6 +196,31 @@ func (o ExecutionStatusEvent) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ExecutionStatusEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"executionId",
+		"tenantId",
+		"namespace",
+		"flowId",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varExecutionStatusEvent := _ExecutionStatusEvent{}
 
 	err = json.Unmarshal(data, &varExecutionStatusEvent)

@@ -466,6 +466,112 @@ func (a *KVAPIService) ListKeysExecute(r ApiListKeysRequest) ([]KVEntry, *http.R
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListKeysWithInheritenceRequest struct {
+	ctx        context.Context
+	ApiService *KVAPIService
+	namespace  string
+	tenant     string
+}
+
+func (r ApiListKeysWithInheritenceRequest) Execute() ([]KVEntry, *http.Response, error) {
+	return r.ApiService.ListKeysWithInheritenceExecute(r)
+}
+
+/*
+ListKeysWithInheritence List all keys for a namespace and parent namespaces
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespace The namespace id
+	@param tenant
+	@return ApiListKeysWithInheritenceRequest
+*/
+func (a *KVAPIService) ListKeysWithInheritence(ctx context.Context, namespace string, tenant string) ApiListKeysWithInheritenceRequest {
+	return ApiListKeysWithInheritenceRequest{
+		ApiService: a,
+		ctx:        ctx,
+		namespace:  namespace,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []KVEntry
+func (a *KVAPIService) ListKeysWithInheritenceExecute(r ApiListKeysWithInheritenceRequest) ([]KVEntry, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []KVEntry
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KVAPIService.ListKeysWithInheritence")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/kv/inheritance"
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiSetKeyValueRequest struct {
 	ctx        context.Context
 	ApiService *KVAPIService

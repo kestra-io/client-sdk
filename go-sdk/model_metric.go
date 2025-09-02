@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Metric type satisfies the MappedNullable interface at compile time
@@ -19,12 +20,12 @@ var _ MappedNullable = &Metric{}
 
 // Metric struct for Metric
 type Metric struct {
-	Name                 *string                `json:"name,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	BaseUnit             *string                `json:"baseUnit,omitempty"`
-	Tags                 []MetricTag            `json:"tags,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
+	Name                 string                 `json:"name"`
+	Type                 string                 `json:"type"`
+	Description          string                 `json:"description"`
+	BaseUnit             string                 `json:"baseUnit"`
+	Tags                 []MetricTag            `json:"tags"`
+	Value                map[string]interface{} `json:"value"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +35,14 @@ type _Metric Metric
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetric() *Metric {
+func NewMetric(name string, type_ string, description string, baseUnit string, tags []MetricTag, value map[string]interface{}) *Metric {
 	this := Metric{}
+	this.Name = name
+	this.Type = type_
+	this.Description = description
+	this.BaseUnit = baseUnit
+	this.Tags = tags
+	this.Value = value
 	return &this
 }
 
@@ -47,194 +54,146 @@ func NewMetricWithDefaults() *Metric {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *Metric) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *Metric) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *Metric) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *Metric) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *Metric) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *Metric) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *Metric) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *Metric) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *Metric) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetBaseUnit returns the BaseUnit field value if set, zero value otherwise.
+// GetBaseUnit returns the BaseUnit field value
 func (o *Metric) GetBaseUnit() string {
-	if o == nil || IsNil(o.BaseUnit) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BaseUnit
+
+	return o.BaseUnit
 }
 
-// GetBaseUnitOk returns a tuple with the BaseUnit field value if set, nil otherwise
+// GetBaseUnitOk returns a tuple with the BaseUnit field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetBaseUnitOk() (*string, bool) {
-	if o == nil || IsNil(o.BaseUnit) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BaseUnit, true
+	return &o.BaseUnit, true
 }
 
-// HasBaseUnit returns a boolean if a field has been set.
-func (o *Metric) HasBaseUnit() bool {
-	if o != nil && !IsNil(o.BaseUnit) {
-		return true
-	}
-
-	return false
-}
-
-// SetBaseUnit gets a reference to the given string and assigns it to the BaseUnit field.
+// SetBaseUnit sets field value
 func (o *Metric) SetBaseUnit(v string) {
-	o.BaseUnit = &v
+	o.BaseUnit = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value
 func (o *Metric) GetTags() []MetricTag {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		var ret []MetricTag
 		return ret
 	}
+
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetTagsOk() ([]MetricTag, bool) {
-	if o == nil || IsNil(o.Tags) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *Metric) HasTags() bool {
-	if o != nil && !IsNil(o.Tags) {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []MetricTag and assigns it to the Tags field.
+// SetTags sets field value
 func (o *Metric) SetTags(v []MetricTag) {
 	o.Tags = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value
 func (o *Metric) GetValue() map[string]interface{} {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *Metric) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Value) {
+	if o == nil {
 		return map[string]interface{}{}, false
 	}
 	return o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *Metric) HasValue() bool {
-	if o != nil && !IsNil(o.Value) {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
+// SetValue sets field value
 func (o *Metric) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
@@ -249,24 +208,12 @@ func (o Metric) MarshalJSON() ([]byte, error) {
 
 func (o Metric) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.BaseUnit) {
-		toSerialize["baseUnit"] = o.BaseUnit
-	}
-	if !IsNil(o.Tags) {
-		toSerialize["tags"] = o.Tags
-	}
-	if !IsNil(o.Value) {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	toSerialize["description"] = o.Description
+	toSerialize["baseUnit"] = o.BaseUnit
+	toSerialize["tags"] = o.Tags
+	toSerialize["value"] = o.Value
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -276,6 +223,32 @@ func (o Metric) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Metric) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+		"description",
+		"baseUnit",
+		"tags",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMetric := _Metric{}
 
 	err = json.Unmarshal(data, &varMetric)

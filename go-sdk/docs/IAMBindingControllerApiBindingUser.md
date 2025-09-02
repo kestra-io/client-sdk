@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Username** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to [**UserType**](UserType.md) |  | [optional] 
+**Id** | **string** |  | 
+**Username** | **string** |  | 
+**DisplayName** | **string** |  | 
+**Type** | [**UserType**](UserType.md) |  | 
 
 ## Methods
 
 ### NewIAMBindingControllerApiBindingUser
 
-`func NewIAMBindingControllerApiBindingUser() *IAMBindingControllerApiBindingUser`
+`func NewIAMBindingControllerApiBindingUser(id string, username string, displayName string, type_ UserType, ) *IAMBindingControllerApiBindingUser`
 
 NewIAMBindingControllerApiBindingUser instantiates a new IAMBindingControllerApiBindingUser object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *IAMBindingControllerApiBindingUser) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
-### HasUsername
-
-`func (o *IAMBindingControllerApiBindingUser) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -97,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
-### HasDisplayName
-
-`func (o *IAMBindingControllerApiBindingUser) HasDisplayName() bool`
-
-HasDisplayName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -122,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *IAMBindingControllerApiBindingUser) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

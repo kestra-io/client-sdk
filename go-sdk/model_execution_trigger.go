@@ -22,8 +22,8 @@ var _ MappedNullable = &ExecutionTrigger{}
 type ExecutionTrigger struct {
 	Id                   string                            `json:"id"`
 	Type                 string                            `json:"type"`
-	Variables            map[string]map[string]interface{} `json:"variables,omitempty"`
-	LogFile              *string                           `json:"logFile,omitempty"`
+	Variables            map[string]map[string]interface{} `json:"variables"`
+	LogFile              string                            `json:"logFile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,10 +33,12 @@ type _ExecutionTrigger ExecutionTrigger
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionTrigger(id string, type_ string) *ExecutionTrigger {
+func NewExecutionTrigger(id string, type_ string, variables map[string]map[string]interface{}, logFile string) *ExecutionTrigger {
 	this := ExecutionTrigger{}
 	this.Id = id
 	this.Type = type_
+	this.Variables = variables
+	this.LogFile = logFile
 	return &this
 }
 
@@ -96,68 +98,52 @@ func (o *ExecutionTrigger) SetType(v string) {
 	o.Type = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
+// GetVariables returns the Variables field value
 func (o *ExecutionTrigger) GetVariables() map[string]map[string]interface{} {
-	if o == nil || IsNil(o.Variables) {
+	if o == nil {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
+
 	return o.Variables
 }
 
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// GetVariablesOk returns a tuple with the Variables field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionTrigger) GetVariablesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Variables) {
+	if o == nil {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Variables, true
 }
 
-// HasVariables returns a boolean if a field has been set.
-func (o *ExecutionTrigger) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given map[string]map[string]interface{} and assigns it to the Variables field.
+// SetVariables sets field value
 func (o *ExecutionTrigger) SetVariables(v map[string]map[string]interface{}) {
 	o.Variables = v
 }
 
-// GetLogFile returns the LogFile field value if set, zero value otherwise.
+// GetLogFile returns the LogFile field value
 func (o *ExecutionTrigger) GetLogFile() string {
-	if o == nil || IsNil(o.LogFile) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LogFile
+
+	return o.LogFile
 }
 
-// GetLogFileOk returns a tuple with the LogFile field value if set, nil otherwise
+// GetLogFileOk returns a tuple with the LogFile field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionTrigger) GetLogFileOk() (*string, bool) {
-	if o == nil || IsNil(o.LogFile) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LogFile, true
+	return &o.LogFile, true
 }
 
-// HasLogFile returns a boolean if a field has been set.
-func (o *ExecutionTrigger) HasLogFile() bool {
-	if o != nil && !IsNil(o.LogFile) {
-		return true
-	}
-
-	return false
-}
-
-// SetLogFile gets a reference to the given string and assigns it to the LogFile field.
+// SetLogFile sets field value
 func (o *ExecutionTrigger) SetLogFile(v string) {
-	o.LogFile = &v
+	o.LogFile = v
 }
 
 func (o ExecutionTrigger) MarshalJSON() ([]byte, error) {
@@ -172,12 +158,8 @@ func (o ExecutionTrigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["type"] = o.Type
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
-	}
-	if !IsNil(o.LogFile) {
-		toSerialize["logFile"] = o.LogFile
-	}
+	toSerialize["variables"] = o.Variables
+	toSerialize["logFile"] = o.LogFile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -193,6 +175,8 @@ func (o *ExecutionTrigger) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"type",
+		"variables",
+		"logFile",
 	}
 
 	allProperties := make(map[string]interface{})

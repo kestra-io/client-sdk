@@ -23,6 +23,218 @@ import (
 // AuditLogsAPIService AuditLogsAPI service
 type AuditLogsAPIService service
 
+type ApiExportAuditLogsRequest struct {
+	ctx         context.Context
+	ApiService  *AuditLogsAPIService
+	tenant      string
+	q           *string
+	namespace   *string
+	flowId      *string
+	executionId *string
+	userId      *string
+	id          *string
+	resources   *[]ResourceType1
+	startDate   *time.Time
+	endDate     *time.Time
+	details     *map[string]string
+	type_       *CrudEventType
+}
+
+// A string filter
+func (r ApiExportAuditLogsRequest) Q(q string) ApiExportAuditLogsRequest {
+	r.q = &q
+	return r
+}
+
+// A namespace filter
+func (r ApiExportAuditLogsRequest) Namespace(namespace string) ApiExportAuditLogsRequest {
+	r.namespace = &namespace
+	return r
+}
+
+// A flow id filter
+func (r ApiExportAuditLogsRequest) FlowId(flowId string) ApiExportAuditLogsRequest {
+	r.flowId = &flowId
+	return r
+}
+
+// An execution filter
+func (r ApiExportAuditLogsRequest) ExecutionId(executionId string) ApiExportAuditLogsRequest {
+	r.executionId = &executionId
+	return r
+}
+
+// A user id filter
+func (r ApiExportAuditLogsRequest) UserId(userId string) ApiExportAuditLogsRequest {
+	r.userId = &userId
+	return r
+}
+
+// A id filter
+func (r ApiExportAuditLogsRequest) Id(id string) ApiExportAuditLogsRequest {
+	r.id = &id
+	return r
+}
+
+// A resource filter
+func (r ApiExportAuditLogsRequest) Resources(resources []ResourceType1) ApiExportAuditLogsRequest {
+	r.resources = &resources
+	return r
+}
+
+// The start datetime
+func (r ApiExportAuditLogsRequest) StartDate(startDate time.Time) ApiExportAuditLogsRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// The end datetime
+func (r ApiExportAuditLogsRequest) EndDate(endDate time.Time) ApiExportAuditLogsRequest {
+	r.endDate = &endDate
+	return r
+}
+
+// A list of auditLog details
+func (r ApiExportAuditLogsRequest) Details(details map[string]string) ApiExportAuditLogsRequest {
+	r.details = &details
+	return r
+}
+
+// The event that create the audit log
+func (r ApiExportAuditLogsRequest) Type_(type_ CrudEventType) ApiExportAuditLogsRequest {
+	r.type_ = &type_
+	return r
+}
+
+func (r ApiExportAuditLogsRequest) Execute() ([]map[string]interface{}, *http.Response, error) {
+	return r.ApiService.ExportAuditLogsExecute(r)
+}
+
+/*
+ExportAuditLogs Export all audit logs as a streamed CSV file
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tenant
+	@return ApiExportAuditLogsRequest
+*/
+func (a *AuditLogsAPIService) ExportAuditLogs(ctx context.Context, tenant string) ApiExportAuditLogsRequest {
+	return ApiExportAuditLogsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []map[string]interface{}
+func (a *AuditLogsAPIService) ExportAuditLogsExecute(r ApiExportAuditLogsRequest) ([]map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.ExportAuditLogs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/{tenant}/auditlogs/export"
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	if r.namespace != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
+	}
+	if r.flowId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flowId", r.flowId, "form", "")
+	}
+	if r.executionId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "executionId", r.executionId, "form", "")
+	}
+	if r.userId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "userId", r.userId, "form", "")
+	}
+	if r.id != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	}
+	if r.resources != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resources", r.resources, "form", "csv")
+	}
+	if r.startDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
+	}
+	if r.endDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	}
+	if r.details != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "details", r.details, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/csv"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiFindAuditLogRequest struct {
 	ctx                           context.Context
 	ApiService                    *AuditLogsAPIService
@@ -36,7 +248,7 @@ func (r ApiFindAuditLogRequest) AuditLogControllerFindRequest(auditLogController
 	return r
 }
 
-func (r ApiFindAuditLogRequest) Execute() (*AuditLogControllerAuditLogWithUser, *http.Response, error) {
+func (r ApiFindAuditLogRequest) Execute() (*AuditLogControllerApiAuditLogItem, *http.Response, error) {
 	return r.ApiService.FindAuditLogExecute(r)
 }
 
@@ -57,13 +269,13 @@ func (a *AuditLogsAPIService) FindAuditLog(ctx context.Context, tenant string) A
 
 // Execute executes the request
 //
-//	@return AuditLogControllerAuditLogWithUser
-func (a *AuditLogsAPIService) FindAuditLogExecute(r ApiFindAuditLogRequest) (*AuditLogControllerAuditLogWithUser, *http.Response, error) {
+//	@return AuditLogControllerApiAuditLogItem
+func (a *AuditLogsAPIService) FindAuditLogExecute(r ApiFindAuditLogRequest) (*AuditLogControllerApiAuditLogItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AuditLogControllerAuditLogWithUser
+		localVarReturnValue *AuditLogControllerApiAuditLogItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.FindAuditLog")
@@ -100,6 +312,120 @@ func (a *AuditLogsAPIService) FindAuditLogExecute(r ApiFindAuditLogRequest) (*Au
 	}
 	// body params
 	localVarPostBody = r.auditLogControllerFindRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetGlobalResourceDiffFromAuditLogRequest struct {
+	ctx        context.Context
+	ApiService *AuditLogsAPIService
+	id         string
+	previousId *string
+}
+
+// The id of a previous audit log to compare with
+func (r ApiGetGlobalResourceDiffFromAuditLogRequest) PreviousId(previousId string) ApiGetGlobalResourceDiffFromAuditLogRequest {
+	r.previousId = &previousId
+	return r
+}
+
+func (r ApiGetGlobalResourceDiffFromAuditLogRequest) Execute() (*AuditLogControllerAuditLogDiff, *http.Response, error) {
+	return r.ApiService.GetGlobalResourceDiffFromAuditLogExecute(r)
+}
+
+/*
+GetGlobalResourceDiffFromAuditLog Retrieve the diff between audit logs from global resource like users
+
+Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The id of the audit log
+	@return ApiGetGlobalResourceDiffFromAuditLogRequest
+*/
+func (a *AuditLogsAPIService) GetGlobalResourceDiffFromAuditLog(ctx context.Context, id string) ApiGetGlobalResourceDiffFromAuditLogRequest {
+	return ApiGetGlobalResourceDiffFromAuditLogRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AuditLogControllerAuditLogDiff
+func (a *AuditLogsAPIService) GetGlobalResourceDiffFromAuditLogExecute(r ApiGetGlobalResourceDiffFromAuditLogRequest) (*AuditLogControllerAuditLogDiff, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuditLogControllerAuditLogDiff
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.GetGlobalResourceDiffFromAuditLog")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/auditlogs/{id}/diff"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.previousId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "previousId", r.previousId, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -374,7 +700,7 @@ type ApiSearchAuditLogsRequest struct {
 	executionId *string
 	userId      *string
 	id          *string
-	permission  *Permission
+	resources   *[]ResourceType1
 	startDate   *time.Time
 	endDate     *time.Time
 	details     *map[string]string
@@ -435,9 +761,9 @@ func (r ApiSearchAuditLogsRequest) Id(id string) ApiSearchAuditLogsRequest {
 	return r
 }
 
-// A permission filter
-func (r ApiSearchAuditLogsRequest) Permission(permission Permission) ApiSearchAuditLogsRequest {
-	r.permission = &permission
+// A resource filter
+func (r ApiSearchAuditLogsRequest) Resources(resources []ResourceType1) ApiSearchAuditLogsRequest {
+	r.resources = &resources
 	return r
 }
 
@@ -465,7 +791,7 @@ func (r ApiSearchAuditLogsRequest) Type_(type_ CrudEventType) ApiSearchAuditLogs
 	return r
 }
 
-func (r ApiSearchAuditLogsRequest) Execute() (*PagedResultsAuditLogControllerAuditLogWithUser, *http.Response, error) {
+func (r ApiSearchAuditLogsRequest) Execute() (*PagedResultsAuditLogControllerApiAuditLogItem, *http.Response, error) {
 	return r.ApiService.SearchAuditLogsExecute(r)
 }
 
@@ -486,13 +812,13 @@ func (a *AuditLogsAPIService) SearchAuditLogs(ctx context.Context, tenant string
 
 // Execute executes the request
 //
-//	@return PagedResultsAuditLogControllerAuditLogWithUser
-func (a *AuditLogsAPIService) SearchAuditLogsExecute(r ApiSearchAuditLogsRequest) (*PagedResultsAuditLogControllerAuditLogWithUser, *http.Response, error) {
+//	@return PagedResultsAuditLogControllerApiAuditLogItem
+func (a *AuditLogsAPIService) SearchAuditLogsExecute(r ApiSearchAuditLogsRequest) (*PagedResultsAuditLogControllerApiAuditLogItem, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PagedResultsAuditLogControllerAuditLogWithUser
+		localVarReturnValue *PagedResultsAuditLogControllerApiAuditLogItem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.SearchAuditLogs")
@@ -536,8 +862,248 @@ func (a *AuditLogsAPIService) SearchAuditLogsExecute(r ApiSearchAuditLogsRequest
 	if r.id != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	}
-	if r.permission != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "permission", r.permission, "form", "")
+	if r.resources != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resources", r.resources, "form", "csv")
+	}
+	if r.startDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
+	}
+	if r.endDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	}
+	if r.details != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "details", r.details, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSearchAuditLogsForAllTenantsRequest struct {
+	ctx         context.Context
+	ApiService  *AuditLogsAPIService
+	page        *int32
+	size        *int32
+	q           *string
+	sort        *[]string
+	namespace   *string
+	flowId      *string
+	executionId *string
+	userId      *string
+	id          *string
+	resource    *ResourceType1
+	startDate   *time.Time
+	endDate     *time.Time
+	details     *map[string]string
+	type_       *CrudEventType
+}
+
+// The current page
+func (r ApiSearchAuditLogsForAllTenantsRequest) Page(page int32) ApiSearchAuditLogsForAllTenantsRequest {
+	r.page = &page
+	return r
+}
+
+// The current page size
+func (r ApiSearchAuditLogsForAllTenantsRequest) Size(size int32) ApiSearchAuditLogsForAllTenantsRequest {
+	r.size = &size
+	return r
+}
+
+// A string filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) Q(q string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.q = &q
+	return r
+}
+
+// The sort of current page
+func (r ApiSearchAuditLogsForAllTenantsRequest) Sort(sort []string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.sort = &sort
+	return r
+}
+
+// A namespace filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) Namespace(namespace string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.namespace = &namespace
+	return r
+}
+
+// A flow id filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) FlowId(flowId string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.flowId = &flowId
+	return r
+}
+
+// An execution filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) ExecutionId(executionId string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.executionId = &executionId
+	return r
+}
+
+// A user id filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) UserId(userId string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.userId = &userId
+	return r
+}
+
+// A id filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) Id(id string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.id = &id
+	return r
+}
+
+// A resource filter
+func (r ApiSearchAuditLogsForAllTenantsRequest) Resource(resource ResourceType1) ApiSearchAuditLogsForAllTenantsRequest {
+	r.resource = &resource
+	return r
+}
+
+// The start datetime
+func (r ApiSearchAuditLogsForAllTenantsRequest) StartDate(startDate time.Time) ApiSearchAuditLogsForAllTenantsRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// The end datetime
+func (r ApiSearchAuditLogsForAllTenantsRequest) EndDate(endDate time.Time) ApiSearchAuditLogsForAllTenantsRequest {
+	r.endDate = &endDate
+	return r
+}
+
+// A list of auditLog details
+func (r ApiSearchAuditLogsForAllTenantsRequest) Details(details map[string]string) ApiSearchAuditLogsForAllTenantsRequest {
+	r.details = &details
+	return r
+}
+
+// The event that create the audit log
+func (r ApiSearchAuditLogsForAllTenantsRequest) Type_(type_ CrudEventType) ApiSearchAuditLogsForAllTenantsRequest {
+	r.type_ = &type_
+	return r
+}
+
+func (r ApiSearchAuditLogsForAllTenantsRequest) Execute() (*PagedResultsAuditLogControllerApiAuditLogItem, *http.Response, error) {
+	return r.ApiService.SearchAuditLogsForAllTenantsExecute(r)
+}
+
+/*
+SearchAuditLogsForAllTenants Search for audit logs across all tenants, required to be SuperAdmin
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchAuditLogsForAllTenantsRequest
+*/
+func (a *AuditLogsAPIService) SearchAuditLogsForAllTenants(ctx context.Context) ApiSearchAuditLogsForAllTenantsRequest {
+	return ApiSearchAuditLogsForAllTenantsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PagedResultsAuditLogControllerApiAuditLogItem
+func (a *AuditLogsAPIService) SearchAuditLogsForAllTenantsExecute(r ApiSearchAuditLogsForAllTenantsRequest) (*PagedResultsAuditLogControllerApiAuditLogItem, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PagedResultsAuditLogControllerApiAuditLogItem
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.SearchAuditLogsForAllTenants")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/auditlogs/search"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
+	}
+	if r.size == nil {
+		return localVarReturnValue, nil, reportError("size is required and must be specified")
+	}
+
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+	}
+	if r.namespace != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "")
+	}
+	if r.flowId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flowId", r.flowId, "form", "")
+	}
+	if r.executionId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "executionId", r.executionId, "form", "")
+	}
+	if r.userId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "userId", r.userId, "form", "")
+	}
+	if r.id != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	}
+	if r.resource != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource", r.resource, "form", "")
 	}
 	if r.startDate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")

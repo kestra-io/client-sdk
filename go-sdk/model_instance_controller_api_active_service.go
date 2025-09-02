@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiActiveService type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &InstanceControllerApiActiveService{}
 
 // InstanceControllerApiActiveService struct for InstanceControllerApiActiveService
 type InstanceControllerApiActiveService struct {
-	Type                 *ServiceType `json:"type,omitempty"`
-	Total                *int64       `json:"total,omitempty"`
+	Type                 ServiceType `json:"type"`
+	Total                int64       `json:"total"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _InstanceControllerApiActiveService InstanceControllerApiActiveService
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiActiveService() *InstanceControllerApiActiveService {
+func NewInstanceControllerApiActiveService(type_ ServiceType, total int64) *InstanceControllerApiActiveService {
 	this := InstanceControllerApiActiveService{}
+	this.Type = type_
+	this.Total = total
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewInstanceControllerApiActiveServiceWithDefaults() *InstanceControllerApiA
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *InstanceControllerApiActiveService) GetType() ServiceType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret ServiceType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiActiveService) GetTypeOk() (*ServiceType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *InstanceControllerApiActiveService) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given ServiceType and assigns it to the Type field.
+// SetType sets field value
 func (o *InstanceControllerApiActiveService) SetType(v ServiceType) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetTotal returns the Total field value if set, zero value otherwise.
+// GetTotal returns the Total field value
 func (o *InstanceControllerApiActiveService) GetTotal() int64 {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.Total
+
+	return o.Total
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetTotalOk returns a tuple with the Total field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiActiveService) GetTotalOk() (*int64, bool) {
-	if o == nil || IsNil(o.Total) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.Total, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *InstanceControllerApiActiveService) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int64 and assigns it to the Total field.
+// SetTotal sets field value
 func (o *InstanceControllerApiActiveService) SetTotal(v int64) {
-	o.Total = &v
+	o.Total = v
 }
 
 func (o InstanceControllerApiActiveService) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o InstanceControllerApiActiveService) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiActiveService) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["total"] = o.Total
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o InstanceControllerApiActiveService) ToMap() (map[string]interface{}, err
 }
 
 func (o *InstanceControllerApiActiveService) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"total",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiActiveService := _InstanceControllerApiActiveService{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiActiveService)

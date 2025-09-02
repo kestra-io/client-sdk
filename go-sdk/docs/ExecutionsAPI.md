@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**PauseExecutionsByQuery**](ExecutionsAPI.md#PauseExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/pause/by-query | Pause executions filter by query parameters
 [**PreviewFileFromExecution**](ExecutionsAPI.md#PreviewFileFromExecution) | **Get** /api/v1/{tenant}/executions/{executionId}/file/preview | Get file preview for an execution
 [**ReplayExecution**](ExecutionsAPI.md#ReplayExecution) | **Post** /api/v1/{tenant}/executions/{executionId}/replay | Create a new execution from an old one and start it from a specified task run id
+[**ReplayExecutionWithinputs**](ExecutionsAPI.md#ReplayExecutionWithinputs) | **Post** /api/v1/{tenant}/executions/{executionId}/replay-with-inputs | Create a new execution from an old one and start it from a specified task run id
 [**ReplayExecutionsByIds**](ExecutionsAPI.md#ReplayExecutionsByIds) | **Post** /api/v1/{tenant}/executions/replay/by-ids | Create new executions from old ones. Keep the flow revision
 [**ReplayExecutionsByQuery**](ExecutionsAPI.md#ReplayExecutionsByQuery) | **Post** /api/v1/{tenant}/executions/replay/by-query | Create new executions from old ones filter by query parameters. Keep the flow revision
 [**RestartExecution**](ExecutionsAPI.md#RestartExecution) | **Post** /api/v1/{tenant}/executions/{executionId}/restart | Restart a new execution from an old one
@@ -2127,6 +2128,83 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ReplayExecutionWithinputs
+
+> Execution ReplayExecutionWithinputs(ctx, executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+
+Create a new execution from an old one and start it from a specified task run id
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	executionId := "executionId_example" // string | the original execution id to clone
+	taskRunId := "taskRunId_example" // string | The taskrun id
+	revision := int32(56) // int32 | The flow revision to use for new execution
+	tenant := "tenant_example" // string | 
+	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExecutionsAPI.ReplayExecutionWithinputs(context.Background(), executionId, tenant).TaskRunId(taskRunId).Revision(revision).Breakpoints(breakpoints).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.ReplayExecutionWithinputs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplayExecutionWithinputs`: Execution
+	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.ReplayExecutionWithinputs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**executionId** | **string** | the original execution id to clone | 
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiReplayExecutionWithinputsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **taskRunId** | **string** | The taskrun id | 
+ **revision** | **int32** | The flow revision to use for new execution | 
+
+ **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
+
+### Return type
+
+[**Execution**](Execution.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ReplayExecutionsByIds
 
 > BulkResponse ReplayExecutionsByIds(ctx, tenant).RequestBody(requestBody).LatestRevision(latestRevision).Execute()
@@ -2859,7 +2937,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the executions to include (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
@@ -3034,7 +3112,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
 	flowId := "flowId_example" // string | A flow id filter (optional)
@@ -3200,7 +3278,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest() // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
+	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest([]string{"ExecutionsId_example"}, []openapiclient.Label{*openapiclient.NewLabel("Key_example", "Value_example")}) // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4155,7 +4233,7 @@ import (
 func main() {
 	executionId := "executionId_example" // string | The execution id
 	tenant := "tenant_example" // string | 
-	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest() // ExecutionControllerStateRequest | the taskRun id and state to apply
+	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest("TaskRunId_example", openapiclient.State.Type("CREATED")) // ExecutionControllerStateRequest | the taskRun id and state to apply
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

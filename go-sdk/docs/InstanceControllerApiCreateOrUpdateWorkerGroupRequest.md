@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The key of the worker group. | 
-**Description** | Pointer to **string** | The description of the worker group. | [optional] 
-**AllowedTenants** | Pointer to **[]string** |  | [optional] 
+**Description** | **string** | The description of the worker group. | 
+**AllowedTenants** | **[]string** |  | 
 
 ## Methods
 
 ### NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest
 
-`func NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest(key string, ) *InstanceControllerApiCreateOrUpdateWorkerGroupRequest`
+`func NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest(key string, description string, allowedTenants []string, ) *InstanceControllerApiCreateOrUpdateWorkerGroupRequest`
 
 NewInstanceControllerApiCreateOrUpdateWorkerGroupRequest instantiates a new InstanceControllerApiCreateOrUpdateWorkerGroupRequest object
 This constructor will assign default values to properties that have it defined,
@@ -66,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetAllowedTenants
 
@@ -91,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetAllowedTenants sets AllowedTenants field to given value.
 
-### HasAllowedTenants
-
-`func (o *InstanceControllerApiCreateOrUpdateWorkerGroupRequest) HasAllowedTenants() bool`
-
-HasAllowedTenants returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

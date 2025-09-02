@@ -21,14 +21,14 @@ var _ MappedNullable = &InputObject{}
 // InputObject struct for InputObject
 type InputObject struct {
 	// Deprecated
-	Name                 *string                `json:"name,omitempty"`
-	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
-	Type                 Type                   `json:"type"`
-	Description          *string                `json:"description,omitempty"`
-	DependsOn            *DependsOn             `json:"dependsOn,omitempty"`
-	Required             *bool                  `json:"required,omitempty"`
-	Defaults             map[string]interface{} `json:"defaults,omitempty"`
-	DisplayName          *string                `json:"displayName,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Id                   string     `json:"id" validate:"regexp=^[a-zA-Z0-9][.a-zA-Z0-9_-]*"`
+	Type                 Type       `json:"type"`
+	Description          *string    `json:"description,omitempty"`
+	DependsOn            *DependsOn `json:"dependsOn,omitempty"`
+	Required             *bool      `json:"required,omitempty"`
+	Defaults             *string    `json:"defaults,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,19 +233,19 @@ func (o *InputObject) SetRequired(v bool) {
 }
 
 // GetDefaults returns the Defaults field value if set, zero value otherwise.
-func (o *InputObject) GetDefaults() map[string]interface{} {
+func (o *InputObject) GetDefaults() string {
 	if o == nil || IsNil(o.Defaults) {
-		var ret map[string]interface{}
+		var ret string
 		return ret
 	}
-	return o.Defaults
+	return *o.Defaults
 }
 
 // GetDefaultsOk returns a tuple with the Defaults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InputObject) GetDefaultsOk() (map[string]interface{}, bool) {
+func (o *InputObject) GetDefaultsOk() (*string, bool) {
 	if o == nil || IsNil(o.Defaults) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Defaults, true
 }
@@ -259,9 +259,9 @@ func (o *InputObject) HasDefaults() bool {
 	return false
 }
 
-// SetDefaults gets a reference to the given map[string]interface{} and assigns it to the Defaults field.
-func (o *InputObject) SetDefaults(v map[string]interface{}) {
-	o.Defaults = v
+// SetDefaults gets a reference to the given string and assigns it to the Defaults field.
+func (o *InputObject) SetDefaults(v string) {
+	o.Defaults = &v
 }
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.

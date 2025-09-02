@@ -8,15 +8,15 @@ Name | Type | Description | Notes
 **Expected** | **map[string]interface{}** |  | 
 **Actual** | **map[string]interface{}** |  | 
 **IsSuccess** | **bool** |  | 
-**TaskId** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**ErrorMessage** | Pointer to **string** |  | [optional] 
+**TaskId** | **string** |  | 
+**Description** | **string** |  | 
+**ErrorMessage** | **string** |  | 
 
 ## Methods
 
 ### NewAssertionResult
 
-`func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool, ) *AssertionResult`
+`func NewAssertionResult(operator string, expected map[string]interface{}, actual map[string]interface{}, isSuccess bool, taskId string, description string, errorMessage string, ) *AssertionResult`
 
 NewAssertionResult instantiates a new AssertionResult object
 This constructor will assign default values to properties that have it defined,
@@ -130,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetTaskId sets TaskId field to given value.
 
-### HasTaskId
-
-`func (o *AssertionResult) HasTaskId() bool`
-
-HasTaskId returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -155,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *AssertionResult) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetErrorMessage
 
@@ -180,11 +170,6 @@ and a boolean to check if the value has been set.
 
 SetErrorMessage sets ErrorMessage field to given value.
 
-### HasErrorMessage
-
-`func (o *AssertionResult) HasErrorMessage() bool`
-
-HasErrorMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

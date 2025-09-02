@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MeControllerApiMe type satisfies the MappedNullable interface at compile time
@@ -19,12 +20,12 @@ var _ MappedNullable = &MeControllerApiMe{}
 
 // MeControllerApiMe struct for MeControllerApiMe
 type MeControllerApiMe struct {
-	Id                   *string                                      `json:"id,omitempty"`
-	SuperAdmin           *bool                                        `json:"superAdmin,omitempty"`
-	Restricted           *bool                                        `json:"restricted,omitempty"`
-	Profile              *MeControllerApiProfile                      `json:"profile,omitempty"`
-	Auths                []IAMTenantAccessControllerApiAuthentication `json:"auths,omitempty"`
-	Tenants              []MeControllerApiTenant                      `json:"tenants,omitempty"`
+	Id                   string                                       `json:"id"`
+	SuperAdmin           bool                                         `json:"superAdmin"`
+	Restricted           bool                                         `json:"restricted"`
+	Profile              MeControllerApiProfile                       `json:"profile"`
+	Auths                []IAMTenantAccessControllerApiAuthentication `json:"auths"`
+	Tenants              []MeControllerApiTenant                      `json:"tenants"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +35,14 @@ type _MeControllerApiMe MeControllerApiMe
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeControllerApiMe() *MeControllerApiMe {
+func NewMeControllerApiMe(id string, superAdmin bool, restricted bool, profile MeControllerApiProfile, auths []IAMTenantAccessControllerApiAuthentication, tenants []MeControllerApiTenant) *MeControllerApiMe {
 	this := MeControllerApiMe{}
+	this.Id = id
+	this.SuperAdmin = superAdmin
+	this.Restricted = restricted
+	this.Profile = profile
+	this.Auths = auths
+	this.Tenants = tenants
 	return &this
 }
 
@@ -47,194 +54,146 @@ func NewMeControllerApiMeWithDefaults() *MeControllerApiMe {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *MeControllerApiMe) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *MeControllerApiMe) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
+// GetSuperAdmin returns the SuperAdmin field value
 func (o *MeControllerApiMe) GetSuperAdmin() bool {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.SuperAdmin
+
+	return o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetSuperAdminOk() (*bool, bool) {
-	if o == nil || IsNil(o.SuperAdmin) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SuperAdmin, true
+	return &o.SuperAdmin, true
 }
 
-// HasSuperAdmin returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasSuperAdmin() bool {
-	if o != nil && !IsNil(o.SuperAdmin) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
+// SetSuperAdmin sets field value
 func (o *MeControllerApiMe) SetSuperAdmin(v bool) {
-	o.SuperAdmin = &v
+	o.SuperAdmin = v
 }
 
-// GetRestricted returns the Restricted field value if set, zero value otherwise.
+// GetRestricted returns the Restricted field value
 func (o *MeControllerApiMe) GetRestricted() bool {
-	if o == nil || IsNil(o.Restricted) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Restricted
+
+	return o.Restricted
 }
 
-// GetRestrictedOk returns a tuple with the Restricted field value if set, nil otherwise
+// GetRestrictedOk returns a tuple with the Restricted field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetRestrictedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Restricted) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Restricted, true
+	return &o.Restricted, true
 }
 
-// HasRestricted returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasRestricted() bool {
-	if o != nil && !IsNil(o.Restricted) {
-		return true
-	}
-
-	return false
-}
-
-// SetRestricted gets a reference to the given bool and assigns it to the Restricted field.
+// SetRestricted sets field value
 func (o *MeControllerApiMe) SetRestricted(v bool) {
-	o.Restricted = &v
+	o.Restricted = v
 }
 
-// GetProfile returns the Profile field value if set, zero value otherwise.
+// GetProfile returns the Profile field value
 func (o *MeControllerApiMe) GetProfile() MeControllerApiProfile {
-	if o == nil || IsNil(o.Profile) {
+	if o == nil {
 		var ret MeControllerApiProfile
 		return ret
 	}
-	return *o.Profile
+
+	return o.Profile
 }
 
-// GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
+// GetProfileOk returns a tuple with the Profile field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetProfileOk() (*MeControllerApiProfile, bool) {
-	if o == nil || IsNil(o.Profile) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Profile, true
+	return &o.Profile, true
 }
 
-// HasProfile returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasProfile() bool {
-	if o != nil && !IsNil(o.Profile) {
-		return true
-	}
-
-	return false
-}
-
-// SetProfile gets a reference to the given MeControllerApiProfile and assigns it to the Profile field.
+// SetProfile sets field value
 func (o *MeControllerApiMe) SetProfile(v MeControllerApiProfile) {
-	o.Profile = &v
+	o.Profile = v
 }
 
-// GetAuths returns the Auths field value if set, zero value otherwise.
+// GetAuths returns the Auths field value
 func (o *MeControllerApiMe) GetAuths() []IAMTenantAccessControllerApiAuthentication {
-	if o == nil || IsNil(o.Auths) {
+	if o == nil {
 		var ret []IAMTenantAccessControllerApiAuthentication
 		return ret
 	}
+
 	return o.Auths
 }
 
-// GetAuthsOk returns a tuple with the Auths field value if set, nil otherwise
+// GetAuthsOk returns a tuple with the Auths field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetAuthsOk() ([]IAMTenantAccessControllerApiAuthentication, bool) {
-	if o == nil || IsNil(o.Auths) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Auths, true
 }
 
-// HasAuths returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasAuths() bool {
-	if o != nil && !IsNil(o.Auths) {
-		return true
-	}
-
-	return false
-}
-
-// SetAuths gets a reference to the given []IAMTenantAccessControllerApiAuthentication and assigns it to the Auths field.
+// SetAuths sets field value
 func (o *MeControllerApiMe) SetAuths(v []IAMTenantAccessControllerApiAuthentication) {
 	o.Auths = v
 }
 
-// GetTenants returns the Tenants field value if set, zero value otherwise.
+// GetTenants returns the Tenants field value
 func (o *MeControllerApiMe) GetTenants() []MeControllerApiTenant {
-	if o == nil || IsNil(o.Tenants) {
+	if o == nil {
 		var ret []MeControllerApiTenant
 		return ret
 	}
+
 	return o.Tenants
 }
 
-// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
+// GetTenantsOk returns a tuple with the Tenants field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiMe) GetTenantsOk() ([]MeControllerApiTenant, bool) {
-	if o == nil || IsNil(o.Tenants) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tenants, true
 }
 
-// HasTenants returns a boolean if a field has been set.
-func (o *MeControllerApiMe) HasTenants() bool {
-	if o != nil && !IsNil(o.Tenants) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenants gets a reference to the given []MeControllerApiTenant and assigns it to the Tenants field.
+// SetTenants sets field value
 func (o *MeControllerApiMe) SetTenants(v []MeControllerApiTenant) {
 	o.Tenants = v
 }
@@ -249,24 +208,12 @@ func (o MeControllerApiMe) MarshalJSON() ([]byte, error) {
 
 func (o MeControllerApiMe) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.SuperAdmin) {
-		toSerialize["superAdmin"] = o.SuperAdmin
-	}
-	if !IsNil(o.Restricted) {
-		toSerialize["restricted"] = o.Restricted
-	}
-	if !IsNil(o.Profile) {
-		toSerialize["profile"] = o.Profile
-	}
-	if !IsNil(o.Auths) {
-		toSerialize["auths"] = o.Auths
-	}
-	if !IsNil(o.Tenants) {
-		toSerialize["tenants"] = o.Tenants
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["superAdmin"] = o.SuperAdmin
+	toSerialize["restricted"] = o.Restricted
+	toSerialize["profile"] = o.Profile
+	toSerialize["auths"] = o.Auths
+	toSerialize["tenants"] = o.Tenants
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -276,6 +223,32 @@ func (o MeControllerApiMe) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MeControllerApiMe) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"superAdmin",
+		"restricted",
+		"profile",
+		"auths",
+		"tenants",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMeControllerApiMe := _MeControllerApiMe{}
 
 	err = json.Unmarshal(data, &varMeControllerApiMe)

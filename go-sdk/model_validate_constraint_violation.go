@@ -20,14 +20,14 @@ var _ MappedNullable = &ValidateConstraintViolation{}
 
 // ValidateConstraintViolation struct for ValidateConstraintViolation
 type ValidateConstraintViolation struct {
-	Flow                 *string  `json:"flow,omitempty"`
-	Namespace            *string  `json:"namespace,omitempty"`
+	Flow                 string   `json:"flow"`
+	Namespace            string   `json:"namespace"`
 	Index                int32    `json:"index"`
-	Constraints          *string  `json:"constraints,omitempty"`
-	Outdated             *bool    `json:"outdated,omitempty"`
-	DeprecationPaths     []string `json:"deprecationPaths,omitempty"`
-	Warnings             []string `json:"warnings,omitempty"`
-	Infos                []string `json:"infos,omitempty"`
+	Constraints          string   `json:"constraints"`
+	Outdated             bool     `json:"outdated"`
+	DeprecationPaths     []string `json:"deprecationPaths"`
+	Warnings             []string `json:"warnings"`
+	Infos                []string `json:"infos"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,9 +37,16 @@ type _ValidateConstraintViolation ValidateConstraintViolation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewValidateConstraintViolation(index int32) *ValidateConstraintViolation {
+func NewValidateConstraintViolation(flow string, namespace string, index int32, constraints string, outdated bool, deprecationPaths []string, warnings []string, infos []string) *ValidateConstraintViolation {
 	this := ValidateConstraintViolation{}
+	this.Flow = flow
+	this.Namespace = namespace
 	this.Index = index
+	this.Constraints = constraints
+	this.Outdated = outdated
+	this.DeprecationPaths = deprecationPaths
+	this.Warnings = warnings
+	this.Infos = infos
 	return &this
 }
 
@@ -51,68 +58,52 @@ func NewValidateConstraintViolationWithDefaults() *ValidateConstraintViolation {
 	return &this
 }
 
-// GetFlow returns the Flow field value if set, zero value otherwise.
+// GetFlow returns the Flow field value
 func (o *ValidateConstraintViolation) GetFlow() string {
-	if o == nil || IsNil(o.Flow) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Flow
+
+	return o.Flow
 }
 
-// GetFlowOk returns a tuple with the Flow field value if set, nil otherwise
+// GetFlowOk returns a tuple with the Flow field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetFlowOk() (*string, bool) {
-	if o == nil || IsNil(o.Flow) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Flow, true
+	return &o.Flow, true
 }
 
-// HasFlow returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasFlow() bool {
-	if o != nil && !IsNil(o.Flow) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlow gets a reference to the given string and assigns it to the Flow field.
+// SetFlow sets field value
 func (o *ValidateConstraintViolation) SetFlow(v string) {
-	o.Flow = &v
+	o.Flow = v
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *ValidateConstraintViolation) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *ValidateConstraintViolation) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
 // GetIndex returns the Index field value
@@ -139,162 +130,122 @@ func (o *ValidateConstraintViolation) SetIndex(v int32) {
 	o.Index = v
 }
 
-// GetConstraints returns the Constraints field value if set, zero value otherwise.
+// GetConstraints returns the Constraints field value
 func (o *ValidateConstraintViolation) GetConstraints() string {
-	if o == nil || IsNil(o.Constraints) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Constraints
+
+	return o.Constraints
 }
 
-// GetConstraintsOk returns a tuple with the Constraints field value if set, nil otherwise
+// GetConstraintsOk returns a tuple with the Constraints field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetConstraintsOk() (*string, bool) {
-	if o == nil || IsNil(o.Constraints) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Constraints, true
+	return &o.Constraints, true
 }
 
-// HasConstraints returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasConstraints() bool {
-	if o != nil && !IsNil(o.Constraints) {
-		return true
-	}
-
-	return false
-}
-
-// SetConstraints gets a reference to the given string and assigns it to the Constraints field.
+// SetConstraints sets field value
 func (o *ValidateConstraintViolation) SetConstraints(v string) {
-	o.Constraints = &v
+	o.Constraints = v
 }
 
-// GetOutdated returns the Outdated field value if set, zero value otherwise.
+// GetOutdated returns the Outdated field value
 func (o *ValidateConstraintViolation) GetOutdated() bool {
-	if o == nil || IsNil(o.Outdated) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Outdated
+
+	return o.Outdated
 }
 
-// GetOutdatedOk returns a tuple with the Outdated field value if set, nil otherwise
+// GetOutdatedOk returns a tuple with the Outdated field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetOutdatedOk() (*bool, bool) {
-	if o == nil || IsNil(o.Outdated) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Outdated, true
+	return &o.Outdated, true
 }
 
-// HasOutdated returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasOutdated() bool {
-	if o != nil && !IsNil(o.Outdated) {
-		return true
-	}
-
-	return false
-}
-
-// SetOutdated gets a reference to the given bool and assigns it to the Outdated field.
+// SetOutdated sets field value
 func (o *ValidateConstraintViolation) SetOutdated(v bool) {
-	o.Outdated = &v
+	o.Outdated = v
 }
 
-// GetDeprecationPaths returns the DeprecationPaths field value if set, zero value otherwise.
+// GetDeprecationPaths returns the DeprecationPaths field value
 func (o *ValidateConstraintViolation) GetDeprecationPaths() []string {
-	if o == nil || IsNil(o.DeprecationPaths) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.DeprecationPaths
 }
 
-// GetDeprecationPathsOk returns a tuple with the DeprecationPaths field value if set, nil otherwise
+// GetDeprecationPathsOk returns a tuple with the DeprecationPaths field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetDeprecationPathsOk() ([]string, bool) {
-	if o == nil || IsNil(o.DeprecationPaths) {
+	if o == nil {
 		return nil, false
 	}
 	return o.DeprecationPaths, true
 }
 
-// HasDeprecationPaths returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasDeprecationPaths() bool {
-	if o != nil && !IsNil(o.DeprecationPaths) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeprecationPaths gets a reference to the given []string and assigns it to the DeprecationPaths field.
+// SetDeprecationPaths sets field value
 func (o *ValidateConstraintViolation) SetDeprecationPaths(v []string) {
 	o.DeprecationPaths = v
 }
 
-// GetWarnings returns the Warnings field value if set, zero value otherwise.
+// GetWarnings returns the Warnings field value
 func (o *ValidateConstraintViolation) GetWarnings() []string {
-	if o == nil || IsNil(o.Warnings) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Warnings
 }
 
-// GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
+// GetWarningsOk returns a tuple with the Warnings field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetWarningsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Warnings) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Warnings, true
 }
 
-// HasWarnings returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasWarnings() bool {
-	if o != nil && !IsNil(o.Warnings) {
-		return true
-	}
-
-	return false
-}
-
-// SetWarnings gets a reference to the given []string and assigns it to the Warnings field.
+// SetWarnings sets field value
 func (o *ValidateConstraintViolation) SetWarnings(v []string) {
 	o.Warnings = v
 }
 
-// GetInfos returns the Infos field value if set, zero value otherwise.
+// GetInfos returns the Infos field value
 func (o *ValidateConstraintViolation) GetInfos() []string {
-	if o == nil || IsNil(o.Infos) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Infos
 }
 
-// GetInfosOk returns a tuple with the Infos field value if set, nil otherwise
+// GetInfosOk returns a tuple with the Infos field value
 // and a boolean to check if the value has been set.
 func (o *ValidateConstraintViolation) GetInfosOk() ([]string, bool) {
-	if o == nil || IsNil(o.Infos) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Infos, true
 }
 
-// HasInfos returns a boolean if a field has been set.
-func (o *ValidateConstraintViolation) HasInfos() bool {
-	if o != nil && !IsNil(o.Infos) {
-		return true
-	}
-
-	return false
-}
-
-// SetInfos gets a reference to the given []string and assigns it to the Infos field.
+// SetInfos sets field value
 func (o *ValidateConstraintViolation) SetInfos(v []string) {
 	o.Infos = v
 }
@@ -309,28 +260,14 @@ func (o ValidateConstraintViolation) MarshalJSON() ([]byte, error) {
 
 func (o ValidateConstraintViolation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Flow) {
-		toSerialize["flow"] = o.Flow
-	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
+	toSerialize["flow"] = o.Flow
+	toSerialize["namespace"] = o.Namespace
 	toSerialize["index"] = o.Index
-	if !IsNil(o.Constraints) {
-		toSerialize["constraints"] = o.Constraints
-	}
-	if !IsNil(o.Outdated) {
-		toSerialize["outdated"] = o.Outdated
-	}
-	if !IsNil(o.DeprecationPaths) {
-		toSerialize["deprecationPaths"] = o.DeprecationPaths
-	}
-	if !IsNil(o.Warnings) {
-		toSerialize["warnings"] = o.Warnings
-	}
-	if !IsNil(o.Infos) {
-		toSerialize["infos"] = o.Infos
-	}
+	toSerialize["constraints"] = o.Constraints
+	toSerialize["outdated"] = o.Outdated
+	toSerialize["deprecationPaths"] = o.DeprecationPaths
+	toSerialize["warnings"] = o.Warnings
+	toSerialize["infos"] = o.Infos
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -344,7 +281,14 @@ func (o *ValidateConstraintViolation) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"flow",
+		"namespace",
 		"index",
+		"constraints",
+		"outdated",
+		"deprecationPaths",
+		"warnings",
+		"infos",
 	}
 
 	allProperties := make(map[string]interface{})

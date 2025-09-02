@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tenants** | Pointer to **[]string** |  | [optional] 
-**Groups** | Pointer to **[]string** |  | [optional] 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
+**Tenants** | **[]string** |  | 
+**Groups** | **[]string** |  | 
+**FirstName** | **string** |  | 
+**LastName** | **string** |  | 
 **Email** | **string** |  | 
-**Password** | Pointer to **string** |  | [optional] 
-**SuperAdmin** | Pointer to **bool** |  | [optional] 
-**Restricted** | Pointer to **bool** |  | [optional] 
+**Password** | **string** |  | 
+**SuperAdmin** | **bool** |  | 
+**Restricted** | **bool** |  | 
 
 ## Methods
 
 ### NewIAMUserControllerApiCreateOrUpdateUserRequest
 
-`func NewIAMUserControllerApiCreateOrUpdateUserRequest(email string, ) *IAMUserControllerApiCreateOrUpdateUserRequest`
+`func NewIAMUserControllerApiCreateOrUpdateUserRequest(tenants []string, groups []string, firstName string, lastName string, email string, password string, superAdmin bool, restricted bool, ) *IAMUserControllerApiCreateOrUpdateUserRequest`
 
 NewIAMUserControllerApiCreateOrUpdateUserRequest instantiates a new IAMUserControllerApiCreateOrUpdateUserRequest object
 This constructor will assign default values to properties that have it defined,
@@ -51,11 +51,6 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
-### HasTenants
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasTenants() bool`
-
-HasTenants returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -76,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
-### HasGroups
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -101,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetFirstName sets FirstName field to given value.
 
-### HasFirstName
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasFirstName() bool`
-
-HasFirstName returns a boolean if a field has been set.
 
 ### GetLastName
 
@@ -126,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetLastName sets LastName field to given value.
 
-### HasLastName
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasLastName() bool`
-
-HasLastName returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -171,11 +151,6 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
-### HasPassword
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasPassword() bool`
-
-HasPassword returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -196,11 +171,6 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
-### HasSuperAdmin
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasSuperAdmin() bool`
-
-HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetRestricted
 
@@ -221,11 +191,6 @@ and a boolean to check if the value has been set.
 
 SetRestricted sets Restricted field to given value.
 
-### HasRestricted
-
-`func (o *IAMUserControllerApiCreateOrUpdateUserRequest) HasRestricted() bool`
-
-HasRestricted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,8 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
-	"time"
 )
 
 // checks if the UsageEE type satisfies the MappedNullable interface at compile time
@@ -21,27 +19,12 @@ var _ MappedNullable = &UsageEE{}
 
 // UsageEE struct for UsageEE
 type UsageEE struct {
-	Groups               *GroupUsage          `json:"groups,omitempty"`
-	Users                *UserUsage           `json:"users,omitempty"`
-	Roles                *RoleUsage           `json:"roles,omitempty"`
-	Namespaces           *NamespaceUsage      `json:"namespaces,omitempty"`
-	Tenants              *TenantUsage         `json:"tenants,omitempty"`
-	Uuid                 string               `json:"uuid"`
-	StartUuid            string               `json:"startUuid"`
-	InstanceUuid         string               `json:"instanceUuid"`
-	ServerType           ServerType           `json:"serverType"`
-	Version              string               `json:"version"`
-	ZoneId               string               `json:"zoneId"`
-	Uri                  NullableString       `json:"uri,omitempty"`
-	Environments         []string             `json:"environments,omitempty"`
-	StartTime            time.Time            `json:"startTime"`
-	Host                 *HostUsage           `json:"host,omitempty"`
-	Configurations       *ConfigurationUsage  `json:"configurations,omitempty"`
-	Plugins              []PluginUsage        `json:"plugins,omitempty"`
-	Flows                *FlowUsage           `json:"flows,omitempty"`
-	Executions           *ExecutionUsage      `json:"executions,omitempty"`
-	Services             NullableServiceUsage `json:"services,omitempty"`
-	PluginMetrics        []PluginMetric       `json:"pluginMetrics,omitempty"`
+	Groups               *GroupUsage     `json:"groups,omitempty"`
+	Users                *UserUsage      `json:"users,omitempty"`
+	Roles                *RoleUsage      `json:"roles,omitempty"`
+	Tenants              *TenantUsage    `json:"tenants,omitempty"`
+	Flows                *FlowUsage      `json:"flows,omitempty"`
+	Executions           *ExecutionUsage `json:"executions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,15 +34,8 @@ type _UsageEE UsageEE
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageEE(uuid string, startUuid string, instanceUuid string, serverType ServerType, version string, zoneId string, startTime time.Time) *UsageEE {
+func NewUsageEE() *UsageEE {
 	this := UsageEE{}
-	this.Uuid = uuid
-	this.StartUuid = startUuid
-	this.InstanceUuid = instanceUuid
-	this.ServerType = serverType
-	this.Version = version
-	this.ZoneId = zoneId
-	this.StartTime = startTime
 	return &this
 }
 
@@ -167,38 +143,6 @@ func (o *UsageEE) SetRoles(v RoleUsage) {
 	o.Roles = &v
 }
 
-// GetNamespaces returns the Namespaces field value if set, zero value otherwise.
-func (o *UsageEE) GetNamespaces() NamespaceUsage {
-	if o == nil || IsNil(o.Namespaces) {
-		var ret NamespaceUsage
-		return ret
-	}
-	return *o.Namespaces
-}
-
-// GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetNamespacesOk() (*NamespaceUsage, bool) {
-	if o == nil || IsNil(o.Namespaces) {
-		return nil, false
-	}
-	return o.Namespaces, true
-}
-
-// HasNamespaces returns a boolean if a field has been set.
-func (o *UsageEE) HasNamespaces() bool {
-	if o != nil && !IsNil(o.Namespaces) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespaces gets a reference to the given NamespaceUsage and assigns it to the Namespaces field.
-func (o *UsageEE) SetNamespaces(v NamespaceUsage) {
-	o.Namespaces = &v
-}
-
 // GetTenants returns the Tenants field value if set, zero value otherwise.
 func (o *UsageEE) GetTenants() TenantUsage {
 	if o == nil || IsNil(o.Tenants) {
@@ -229,346 +173,6 @@ func (o *UsageEE) HasTenants() bool {
 // SetTenants gets a reference to the given TenantUsage and assigns it to the Tenants field.
 func (o *UsageEE) SetTenants(v TenantUsage) {
 	o.Tenants = &v
-}
-
-// GetUuid returns the Uuid field value
-func (o *UsageEE) GetUuid() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Uuid
-}
-
-// GetUuidOk returns a tuple with the Uuid field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetUuidOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Uuid, true
-}
-
-// SetUuid sets field value
-func (o *UsageEE) SetUuid(v string) {
-	o.Uuid = v
-}
-
-// GetStartUuid returns the StartUuid field value
-func (o *UsageEE) GetStartUuid() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.StartUuid
-}
-
-// GetStartUuidOk returns a tuple with the StartUuid field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetStartUuidOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.StartUuid, true
-}
-
-// SetStartUuid sets field value
-func (o *UsageEE) SetStartUuid(v string) {
-	o.StartUuid = v
-}
-
-// GetInstanceUuid returns the InstanceUuid field value
-func (o *UsageEE) GetInstanceUuid() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.InstanceUuid
-}
-
-// GetInstanceUuidOk returns a tuple with the InstanceUuid field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetInstanceUuidOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.InstanceUuid, true
-}
-
-// SetInstanceUuid sets field value
-func (o *UsageEE) SetInstanceUuid(v string) {
-	o.InstanceUuid = v
-}
-
-// GetServerType returns the ServerType field value
-func (o *UsageEE) GetServerType() ServerType {
-	if o == nil {
-		var ret ServerType
-		return ret
-	}
-
-	return o.ServerType
-}
-
-// GetServerTypeOk returns a tuple with the ServerType field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetServerTypeOk() (*ServerType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ServerType, true
-}
-
-// SetServerType sets field value
-func (o *UsageEE) SetServerType(v ServerType) {
-	o.ServerType = v
-}
-
-// GetVersion returns the Version field value
-func (o *UsageEE) GetVersion() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetVersionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Version, true
-}
-
-// SetVersion sets field value
-func (o *UsageEE) SetVersion(v string) {
-	o.Version = v
-}
-
-// GetZoneId returns the ZoneId field value
-func (o *UsageEE) GetZoneId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.ZoneId
-}
-
-// GetZoneIdOk returns a tuple with the ZoneId field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetZoneIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ZoneId, true
-}
-
-// SetZoneId sets field value
-func (o *UsageEE) SetZoneId(v string) {
-	o.ZoneId = v
-}
-
-// GetUri returns the Uri field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageEE) GetUri() string {
-	if o == nil || IsNil(o.Uri.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.Uri.Get()
-}
-
-// GetUriOk returns a tuple with the Uri field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageEE) GetUriOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Uri.Get(), o.Uri.IsSet()
-}
-
-// HasUri returns a boolean if a field has been set.
-func (o *UsageEE) HasUri() bool {
-	if o != nil && o.Uri.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetUri gets a reference to the given NullableString and assigns it to the Uri field.
-func (o *UsageEE) SetUri(v string) {
-	o.Uri.Set(&v)
-}
-
-// SetUriNil sets the value for Uri to be an explicit nil
-func (o *UsageEE) SetUriNil() {
-	o.Uri.Set(nil)
-}
-
-// UnsetUri ensures that no value is present for Uri, not even an explicit nil
-func (o *UsageEE) UnsetUri() {
-	o.Uri.Unset()
-}
-
-// GetEnvironments returns the Environments field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageEE) GetEnvironments() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-	return o.Environments
-}
-
-// GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageEE) GetEnvironmentsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Environments) {
-		return nil, false
-	}
-	return o.Environments, true
-}
-
-// HasEnvironments returns a boolean if a field has been set.
-func (o *UsageEE) HasEnvironments() bool {
-	if o != nil && !IsNil(o.Environments) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnvironments gets a reference to the given []string and assigns it to the Environments field.
-func (o *UsageEE) SetEnvironments(v []string) {
-	o.Environments = v
-}
-
-// GetStartTime returns the StartTime field value
-func (o *UsageEE) GetStartTime() time.Time {
-	if o == nil {
-		var ret time.Time
-		return ret
-	}
-
-	return o.StartTime
-}
-
-// GetStartTimeOk returns a tuple with the StartTime field value
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetStartTimeOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.StartTime, true
-}
-
-// SetStartTime sets field value
-func (o *UsageEE) SetStartTime(v time.Time) {
-	o.StartTime = v
-}
-
-// GetHost returns the Host field value if set, zero value otherwise.
-func (o *UsageEE) GetHost() HostUsage {
-	if o == nil || IsNil(o.Host) {
-		var ret HostUsage
-		return ret
-	}
-	return *o.Host
-}
-
-// GetHostOk returns a tuple with the Host field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetHostOk() (*HostUsage, bool) {
-	if o == nil || IsNil(o.Host) {
-		return nil, false
-	}
-	return o.Host, true
-}
-
-// HasHost returns a boolean if a field has been set.
-func (o *UsageEE) HasHost() bool {
-	if o != nil && !IsNil(o.Host) {
-		return true
-	}
-
-	return false
-}
-
-// SetHost gets a reference to the given HostUsage and assigns it to the Host field.
-func (o *UsageEE) SetHost(v HostUsage) {
-	o.Host = &v
-}
-
-// GetConfigurations returns the Configurations field value if set, zero value otherwise.
-func (o *UsageEE) GetConfigurations() ConfigurationUsage {
-	if o == nil || IsNil(o.Configurations) {
-		var ret ConfigurationUsage
-		return ret
-	}
-	return *o.Configurations
-}
-
-// GetConfigurationsOk returns a tuple with the Configurations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetConfigurationsOk() (*ConfigurationUsage, bool) {
-	if o == nil || IsNil(o.Configurations) {
-		return nil, false
-	}
-	return o.Configurations, true
-}
-
-// HasConfigurations returns a boolean if a field has been set.
-func (o *UsageEE) HasConfigurations() bool {
-	if o != nil && !IsNil(o.Configurations) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfigurations gets a reference to the given ConfigurationUsage and assigns it to the Configurations field.
-func (o *UsageEE) SetConfigurations(v ConfigurationUsage) {
-	o.Configurations = &v
-}
-
-// GetPlugins returns the Plugins field value if set, zero value otherwise.
-func (o *UsageEE) GetPlugins() []PluginUsage {
-	if o == nil || IsNil(o.Plugins) {
-		var ret []PluginUsage
-		return ret
-	}
-	return o.Plugins
-}
-
-// GetPluginsOk returns a tuple with the Plugins field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsageEE) GetPluginsOk() ([]PluginUsage, bool) {
-	if o == nil || IsNil(o.Plugins) {
-		return nil, false
-	}
-	return o.Plugins, true
-}
-
-// HasPlugins returns a boolean if a field has been set.
-func (o *UsageEE) HasPlugins() bool {
-	if o != nil && !IsNil(o.Plugins) {
-		return true
-	}
-
-	return false
-}
-
-// SetPlugins gets a reference to the given []PluginUsage and assigns it to the Plugins field.
-func (o *UsageEE) SetPlugins(v []PluginUsage) {
-	o.Plugins = v
 }
 
 // GetFlows returns the Flows field value if set, zero value otherwise.
@@ -635,82 +239,6 @@ func (o *UsageEE) SetExecutions(v ExecutionUsage) {
 	o.Executions = &v
 }
 
-// GetServices returns the Services field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageEE) GetServices() ServiceUsage {
-	if o == nil || IsNil(o.Services.Get()) {
-		var ret ServiceUsage
-		return ret
-	}
-	return *o.Services.Get()
-}
-
-// GetServicesOk returns a tuple with the Services field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageEE) GetServicesOk() (*ServiceUsage, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Services.Get(), o.Services.IsSet()
-}
-
-// HasServices returns a boolean if a field has been set.
-func (o *UsageEE) HasServices() bool {
-	if o != nil && o.Services.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetServices gets a reference to the given NullableServiceUsage and assigns it to the Services field.
-func (o *UsageEE) SetServices(v ServiceUsage) {
-	o.Services.Set(&v)
-}
-
-// SetServicesNil sets the value for Services to be an explicit nil
-func (o *UsageEE) SetServicesNil() {
-	o.Services.Set(nil)
-}
-
-// UnsetServices ensures that no value is present for Services, not even an explicit nil
-func (o *UsageEE) UnsetServices() {
-	o.Services.Unset()
-}
-
-// GetPluginMetrics returns the PluginMetrics field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UsageEE) GetPluginMetrics() []PluginMetric {
-	if o == nil {
-		var ret []PluginMetric
-		return ret
-	}
-	return o.PluginMetrics
-}
-
-// GetPluginMetricsOk returns a tuple with the PluginMetrics field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UsageEE) GetPluginMetricsOk() ([]PluginMetric, bool) {
-	if o == nil || IsNil(o.PluginMetrics) {
-		return nil, false
-	}
-	return o.PluginMetrics, true
-}
-
-// HasPluginMetrics returns a boolean if a field has been set.
-func (o *UsageEE) HasPluginMetrics() bool {
-	if o != nil && !IsNil(o.PluginMetrics) {
-		return true
-	}
-
-	return false
-}
-
-// SetPluginMetrics gets a reference to the given []PluginMetric and assigns it to the PluginMetrics field.
-func (o *UsageEE) SetPluginMetrics(v []PluginMetric) {
-	o.PluginMetrics = v
-}
-
 func (o UsageEE) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -730,45 +258,14 @@ func (o UsageEE) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Roles) {
 		toSerialize["roles"] = o.Roles
 	}
-	if !IsNil(o.Namespaces) {
-		toSerialize["namespaces"] = o.Namespaces
-	}
 	if !IsNil(o.Tenants) {
 		toSerialize["tenants"] = o.Tenants
-	}
-	toSerialize["uuid"] = o.Uuid
-	toSerialize["startUuid"] = o.StartUuid
-	toSerialize["instanceUuid"] = o.InstanceUuid
-	toSerialize["serverType"] = o.ServerType
-	toSerialize["version"] = o.Version
-	toSerialize["zoneId"] = o.ZoneId
-	if o.Uri.IsSet() {
-		toSerialize["uri"] = o.Uri.Get()
-	}
-	if o.Environments != nil {
-		toSerialize["environments"] = o.Environments
-	}
-	toSerialize["startTime"] = o.StartTime
-	if !IsNil(o.Host) {
-		toSerialize["host"] = o.Host
-	}
-	if !IsNil(o.Configurations) {
-		toSerialize["configurations"] = o.Configurations
-	}
-	if !IsNil(o.Plugins) {
-		toSerialize["plugins"] = o.Plugins
 	}
 	if !IsNil(o.Flows) {
 		toSerialize["flows"] = o.Flows
 	}
 	if !IsNil(o.Executions) {
 		toSerialize["executions"] = o.Executions
-	}
-	if o.Services.IsSet() {
-		toSerialize["services"] = o.Services.Get()
-	}
-	if o.PluginMetrics != nil {
-		toSerialize["pluginMetrics"] = o.PluginMetrics
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -779,33 +276,6 @@ func (o UsageEE) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *UsageEE) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"uuid",
-		"startUuid",
-		"instanceUuid",
-		"serverType",
-		"version",
-		"zoneId",
-		"startTime",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUsageEE := _UsageEE{}
 
 	err = json.Unmarshal(data, &varUsageEE)
@@ -822,24 +292,9 @@ func (o *UsageEE) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "groups")
 		delete(additionalProperties, "users")
 		delete(additionalProperties, "roles")
-		delete(additionalProperties, "namespaces")
 		delete(additionalProperties, "tenants")
-		delete(additionalProperties, "uuid")
-		delete(additionalProperties, "startUuid")
-		delete(additionalProperties, "instanceUuid")
-		delete(additionalProperties, "serverType")
-		delete(additionalProperties, "version")
-		delete(additionalProperties, "zoneId")
-		delete(additionalProperties, "uri")
-		delete(additionalProperties, "environments")
-		delete(additionalProperties, "startTime")
-		delete(additionalProperties, "host")
-		delete(additionalProperties, "configurations")
-		delete(additionalProperties, "plugins")
 		delete(additionalProperties, "flows")
 		delete(additionalProperties, "executions")
-		delete(additionalProperties, "services")
-		delete(additionalProperties, "pluginMetrics")
 		o.AdditionalProperties = additionalProperties
 	}
 

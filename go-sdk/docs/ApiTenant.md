@@ -4,26 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StorageIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
-**SecretIsolation** | Pointer to [**Isolation**](Isolation.md) |  | [optional] 
+**StorageIsolation** | [**Isolation**](Isolation.md) |  | 
+**SecretIsolation** | [**Isolation**](Isolation.md) |  | 
 **Id** | **string** |  | 
 **Name** | **string** |  | 
 **Deleted** | **bool** |  | 
-**WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
-**StorageType** | Pointer to **string** |  | [optional] 
-**StorageConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**SecretType** | Pointer to **string** |  | [optional] 
-**SecretReadOnly** | Pointer to **bool** |  | [optional] 
-**SecretConfiguration** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**RequireExistingNamespace** | Pointer to **bool** |  | [optional] 
-**OutputsInInternalStorage** | Pointer to **bool** |  | [optional] 
-**Logo** | Pointer to **string** |  | [optional] 
+**WorkerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
+**StorageType** | **string** |  | 
+**StorageConfiguration** | **map[string]map[string]interface{}** |  | 
+**SecretType** | **string** |  | 
+**SecretReadOnly** | **bool** |  | 
+**SecretConfiguration** | **map[string]map[string]interface{}** |  | 
+**RequireExistingNamespace** | **bool** |  | 
+**OutputsInInternalStorage** | **bool** |  | 
+**Logo** | **string** |  | 
 
 ## Methods
 
 ### NewApiTenant
 
-`func NewApiTenant(id string, name string, deleted bool, ) *ApiTenant`
+`func NewApiTenant(storageIsolation Isolation, secretIsolation Isolation, id string, name string, deleted bool, workerGroup WorkerGroup, storageType string, storageConfiguration map[string]map[string]interface{}, secretType string, secretReadOnly bool, secretConfiguration map[string]map[string]interface{}, requireExistingNamespace bool, outputsInInternalStorage bool, logo string, ) *ApiTenant`
 
 NewApiTenant instantiates a new ApiTenant object
 This constructor will assign default values to properties that have it defined,
@@ -57,11 +57,6 @@ and a boolean to check if the value has been set.
 
 SetStorageIsolation sets StorageIsolation field to given value.
 
-### HasStorageIsolation
-
-`func (o *ApiTenant) HasStorageIsolation() bool`
-
-HasStorageIsolation returns a boolean if a field has been set.
 
 ### GetSecretIsolation
 
@@ -82,11 +77,6 @@ and a boolean to check if the value has been set.
 
 SetSecretIsolation sets SecretIsolation field to given value.
 
-### HasSecretIsolation
-
-`func (o *ApiTenant) HasSecretIsolation() bool`
-
-HasSecretIsolation returns a boolean if a field has been set.
 
 ### GetId
 
@@ -167,11 +157,6 @@ and a boolean to check if the value has been set.
 
 SetWorkerGroup sets WorkerGroup field to given value.
 
-### HasWorkerGroup
-
-`func (o *ApiTenant) HasWorkerGroup() bool`
-
-HasWorkerGroup returns a boolean if a field has been set.
 
 ### GetStorageType
 
@@ -192,11 +177,6 @@ and a boolean to check if the value has been set.
 
 SetStorageType sets StorageType field to given value.
 
-### HasStorageType
-
-`func (o *ApiTenant) HasStorageType() bool`
-
-HasStorageType returns a boolean if a field has been set.
 
 ### GetStorageConfiguration
 
@@ -217,11 +197,6 @@ and a boolean to check if the value has been set.
 
 SetStorageConfiguration sets StorageConfiguration field to given value.
 
-### HasStorageConfiguration
-
-`func (o *ApiTenant) HasStorageConfiguration() bool`
-
-HasStorageConfiguration returns a boolean if a field has been set.
 
 ### GetSecretType
 
@@ -242,11 +217,6 @@ and a boolean to check if the value has been set.
 
 SetSecretType sets SecretType field to given value.
 
-### HasSecretType
-
-`func (o *ApiTenant) HasSecretType() bool`
-
-HasSecretType returns a boolean if a field has been set.
 
 ### GetSecretReadOnly
 
@@ -267,11 +237,6 @@ and a boolean to check if the value has been set.
 
 SetSecretReadOnly sets SecretReadOnly field to given value.
 
-### HasSecretReadOnly
-
-`func (o *ApiTenant) HasSecretReadOnly() bool`
-
-HasSecretReadOnly returns a boolean if a field has been set.
 
 ### GetSecretConfiguration
 
@@ -292,11 +257,6 @@ and a boolean to check if the value has been set.
 
 SetSecretConfiguration sets SecretConfiguration field to given value.
 
-### HasSecretConfiguration
-
-`func (o *ApiTenant) HasSecretConfiguration() bool`
-
-HasSecretConfiguration returns a boolean if a field has been set.
 
 ### GetRequireExistingNamespace
 
@@ -317,11 +277,6 @@ and a boolean to check if the value has been set.
 
 SetRequireExistingNamespace sets RequireExistingNamespace field to given value.
 
-### HasRequireExistingNamespace
-
-`func (o *ApiTenant) HasRequireExistingNamespace() bool`
-
-HasRequireExistingNamespace returns a boolean if a field has been set.
 
 ### GetOutputsInInternalStorage
 
@@ -342,11 +297,6 @@ and a boolean to check if the value has been set.
 
 SetOutputsInInternalStorage sets OutputsInInternalStorage field to given value.
 
-### HasOutputsInInternalStorage
-
-`func (o *ApiTenant) HasOutputsInInternalStorage() bool`
-
-HasOutputsInInternalStorage returns a boolean if a field has been set.
 
 ### GetLogo
 
@@ -367,11 +317,6 @@ and a boolean to check if the value has been set.
 
 SetLogo sets Logo field to given value.
 
-### HasLogo
-
-`func (o *ApiTenant) HasLogo() bool`
-
-HasLogo returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

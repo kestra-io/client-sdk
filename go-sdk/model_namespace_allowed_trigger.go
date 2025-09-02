@@ -20,8 +20,8 @@ var _ MappedNullable = &NamespaceAllowedTrigger{}
 
 // NamespaceAllowedTrigger struct for NamespaceAllowedTrigger
 type NamespaceAllowedTrigger struct {
-	Namespace            string  `json:"namespace"`
-	FlowId               *string `json:"flowId,omitempty"`
+	Namespace            string `json:"namespace"`
+	FlowId               string `json:"flowId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,9 +31,10 @@ type _NamespaceAllowedTrigger NamespaceAllowedTrigger
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNamespaceAllowedTrigger(namespace string) *NamespaceAllowedTrigger {
+func NewNamespaceAllowedTrigger(namespace string, flowId string) *NamespaceAllowedTrigger {
 	this := NamespaceAllowedTrigger{}
 	this.Namespace = namespace
+	this.FlowId = flowId
 	return &this
 }
 
@@ -69,36 +70,28 @@ func (o *NamespaceAllowedTrigger) SetNamespace(v string) {
 	o.Namespace = v
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// GetFlowId returns the FlowId field value
 func (o *NamespaceAllowedTrigger) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+
+	return o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// GetFlowIdOk returns a tuple with the FlowId field value
 // and a boolean to check if the value has been set.
 func (o *NamespaceAllowedTrigger) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return &o.FlowId, true
 }
 
-// HasFlowId returns a boolean if a field has been set.
-func (o *NamespaceAllowedTrigger) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId sets field value
 func (o *NamespaceAllowedTrigger) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId = v
 }
 
 func (o NamespaceAllowedTrigger) MarshalJSON() ([]byte, error) {
@@ -112,9 +105,7 @@ func (o NamespaceAllowedTrigger) MarshalJSON() ([]byte, error) {
 func (o NamespaceAllowedTrigger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["namespace"] = o.Namespace
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
-	}
+	toSerialize["flowId"] = o.FlowId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -129,6 +120,7 @@ func (o *NamespaceAllowedTrigger) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"namespace",
+		"flowId",
 	}
 
 	allProperties := make(map[string]interface{})

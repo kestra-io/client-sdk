@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutableTaskSubflowId type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &ExecutableTaskSubflowId{}
 
 // ExecutableTaskSubflowId struct for ExecutableTaskSubflowId
 type ExecutableTaskSubflowId struct {
-	Namespace            *string       `json:"namespace,omitempty"`
-	FlowId               *string       `json:"flowId,omitempty"`
+	Namespace            string        `json:"namespace"`
+	FlowId               string        `json:"flowId"`
 	Revision             NullableInt32 `json:"revision,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,8 +32,10 @@ type _ExecutableTaskSubflowId ExecutableTaskSubflowId
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutableTaskSubflowId() *ExecutableTaskSubflowId {
+func NewExecutableTaskSubflowId(namespace string, flowId string) *ExecutableTaskSubflowId {
 	this := ExecutableTaskSubflowId{}
+	this.Namespace = namespace
+	this.FlowId = flowId
 	return &this
 }
 
@@ -44,68 +47,52 @@ func NewExecutableTaskSubflowIdWithDefaults() *ExecutableTaskSubflowId {
 	return &this
 }
 
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
+// GetNamespace returns the Namespace field value
 func (o *ExecutableTaskSubflowId) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Namespace
+
+	return o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// GetNamespaceOk returns a tuple with the Namespace field value
 // and a boolean to check if the value has been set.
 func (o *ExecutableTaskSubflowId) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Namespace, true
+	return &o.Namespace, true
 }
 
-// HasNamespace returns a boolean if a field has been set.
-func (o *ExecutableTaskSubflowId) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+// SetNamespace sets field value
 func (o *ExecutableTaskSubflowId) SetNamespace(v string) {
-	o.Namespace = &v
+	o.Namespace = v
 }
 
-// GetFlowId returns the FlowId field value if set, zero value otherwise.
+// GetFlowId returns the FlowId field value
 func (o *ExecutableTaskSubflowId) GetFlowId() string {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.FlowId
+
+	return o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
+// GetFlowIdOk returns a tuple with the FlowId field value
 // and a boolean to check if the value has been set.
 func (o *ExecutableTaskSubflowId) GetFlowIdOk() (*string, bool) {
-	if o == nil || IsNil(o.FlowId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FlowId, true
+	return &o.FlowId, true
 }
 
-// HasFlowId returns a boolean if a field has been set.
-func (o *ExecutableTaskSubflowId) HasFlowId() bool {
-	if o != nil && !IsNil(o.FlowId) {
-		return true
-	}
-
-	return false
-}
-
-// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
+// SetFlowId sets field value
 func (o *ExecutableTaskSubflowId) SetFlowId(v string) {
-	o.FlowId = &v
+	o.FlowId = v
 }
 
 // GetRevision returns the Revision field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -161,12 +148,8 @@ func (o ExecutableTaskSubflowId) MarshalJSON() ([]byte, error) {
 
 func (o ExecutableTaskSubflowId) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.FlowId) {
-		toSerialize["flowId"] = o.FlowId
-	}
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["flowId"] = o.FlowId
 	if o.Revision.IsSet() {
 		toSerialize["revision"] = o.Revision.Get()
 	}
@@ -179,6 +162,28 @@ func (o ExecutableTaskSubflowId) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ExecutableTaskSubflowId) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"namespace",
+		"flowId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varExecutableTaskSubflowId := _ExecutableTaskSubflowId{}
 
 	err = json.Unmarshal(data, &varExecutableTaskSubflowId)

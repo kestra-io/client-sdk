@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **DependsOn** | Pointer to [**DependsOn**](DependsOn.md) |  | [optional] 
 **Required** | Pointer to **bool** |  | [optional] 
-**Defaults** | Pointer to **map[string]interface{}** |  | [optional] 
+**Defaults** | Pointer to [**string**](PropertyObject.md) |  | [optional] 
 **DisplayName** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -174,20 +174,20 @@ HasRequired returns a boolean if a field has been set.
 
 ### GetDefaults
 
-`func (o *InputObject) GetDefaults() map[string]interface{}`
+`func (o *InputObject) GetDefaults() string`
 
 GetDefaults returns the Defaults field if non-nil, zero value otherwise.
 
 ### GetDefaultsOk
 
-`func (o *InputObject) GetDefaultsOk() (*map[string]interface{}, bool)`
+`func (o *InputObject) GetDefaultsOk() (*string, bool)`
 
 GetDefaultsOk returns a tuple with the Defaults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaults
 
-`func (o *InputObject) SetDefaults(v map[string]interface{})`
+`func (o *InputObject) SetDefaults(v string)`
 
 SetDefaults sets Defaults field to given value.
 

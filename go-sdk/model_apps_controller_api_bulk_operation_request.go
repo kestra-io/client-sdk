@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppsControllerApiBulkOperationRequest type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &AppsControllerApiBulkOperationRequest{}
 
 // AppsControllerApiBulkOperationRequest struct for AppsControllerApiBulkOperationRequest
 type AppsControllerApiBulkOperationRequest struct {
-	Uids                 []string `json:"uids,omitempty"`
+	Uids                 []string `json:"uids"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -29,8 +30,9 @@ type _AppsControllerApiBulkOperationRequest AppsControllerApiBulkOperationReques
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppsControllerApiBulkOperationRequest() *AppsControllerApiBulkOperationRequest {
+func NewAppsControllerApiBulkOperationRequest(uids []string) *AppsControllerApiBulkOperationRequest {
 	this := AppsControllerApiBulkOperationRequest{}
+	this.Uids = uids
 	return &this
 }
 
@@ -42,34 +44,26 @@ func NewAppsControllerApiBulkOperationRequestWithDefaults() *AppsControllerApiBu
 	return &this
 }
 
-// GetUids returns the Uids field value if set, zero value otherwise.
+// GetUids returns the Uids field value
 func (o *AppsControllerApiBulkOperationRequest) GetUids() []string {
-	if o == nil || IsNil(o.Uids) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Uids
 }
 
-// GetUidsOk returns a tuple with the Uids field value if set, nil otherwise
+// GetUidsOk returns a tuple with the Uids field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiBulkOperationRequest) GetUidsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Uids) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Uids, true
 }
 
-// HasUids returns a boolean if a field has been set.
-func (o *AppsControllerApiBulkOperationRequest) HasUids() bool {
-	if o != nil && !IsNil(o.Uids) {
-		return true
-	}
-
-	return false
-}
-
-// SetUids gets a reference to the given []string and assigns it to the Uids field.
+// SetUids sets field value
 func (o *AppsControllerApiBulkOperationRequest) SetUids(v []string) {
 	o.Uids = v
 }
@@ -84,9 +78,7 @@ func (o AppsControllerApiBulkOperationRequest) MarshalJSON() ([]byte, error) {
 
 func (o AppsControllerApiBulkOperationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Uids) {
-		toSerialize["uids"] = o.Uids
-	}
+	toSerialize["uids"] = o.Uids
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -96,6 +88,27 @@ func (o AppsControllerApiBulkOperationRequest) ToMap() (map[string]interface{}, 
 }
 
 func (o *AppsControllerApiBulkOperationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uids",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAppsControllerApiBulkOperationRequest := _AppsControllerApiBulkOperationRequest{}
 
 	err = json.Unmarshal(data, &varAppsControllerApiBulkOperationRequest)

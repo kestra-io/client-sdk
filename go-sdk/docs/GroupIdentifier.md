@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TenantId** | Pointer to **NullableString** |  | [optional] 
-**GroupId** | Pointer to **string** |  | [optional] 
-**Membership** | Pointer to [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | [optional] 
-**ManagedExternally** | Pointer to **bool** |  | [optional] 
+**TenantId** | **NullableString** |  | 
+**GroupId** | **string** |  | 
+**Membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | 
+**ManagedExternally** | **bool** |  | 
 
 ## Methods
 
 ### NewGroupIdentifier
 
-`func NewGroupIdentifier() *GroupIdentifier`
+`func NewGroupIdentifier(tenantId NullableString, groupId string, membership GroupIdentifierMembership, managedExternally bool, ) *GroupIdentifier`
 
 NewGroupIdentifier instantiates a new GroupIdentifier object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
-### HasTenantId
-
-`func (o *GroupIdentifier) HasTenantId() bool`
-
-HasTenantId returns a boolean if a field has been set.
 
 ### SetTenantIdNil
 
@@ -82,11 +77,6 @@ and a boolean to check if the value has been set.
 
 SetGroupId sets GroupId field to given value.
 
-### HasGroupId
-
-`func (o *GroupIdentifier) HasGroupId() bool`
-
-HasGroupId returns a boolean if a field has been set.
 
 ### GetMembership
 
@@ -107,11 +97,6 @@ and a boolean to check if the value has been set.
 
 SetMembership sets Membership field to given value.
 
-### HasMembership
-
-`func (o *GroupIdentifier) HasMembership() bool`
-
-HasMembership returns a boolean if a field has been set.
 
 ### GetManagedExternally
 
@@ -132,11 +117,6 @@ and a boolean to check if the value has been set.
 
 SetManagedExternally sets ManagedExternally field to given value.
 
-### HasManagedExternally
-
-`func (o *GroupIdentifier) HasManagedExternally() bool`
-
-HasManagedExternally returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

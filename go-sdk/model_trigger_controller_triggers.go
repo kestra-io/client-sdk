@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the TriggerControllerTriggers type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &TriggerControllerTriggers{}
 
 // TriggerControllerTriggers struct for TriggerControllerTriggers
 type TriggerControllerTriggers struct {
-	AbstractTrigger      *AbstractTrigger `json:"abstractTrigger,omitempty"`
-	TriggerContext       *Trigger         `json:"triggerContext,omitempty"`
+	AbstractTrigger      AbstractTrigger `json:"abstractTrigger"`
+	TriggerContext       Trigger         `json:"triggerContext"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _TriggerControllerTriggers TriggerControllerTriggers
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTriggerControllerTriggers() *TriggerControllerTriggers {
+func NewTriggerControllerTriggers(abstractTrigger AbstractTrigger, triggerContext Trigger) *TriggerControllerTriggers {
 	this := TriggerControllerTriggers{}
+	this.AbstractTrigger = abstractTrigger
+	this.TriggerContext = triggerContext
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewTriggerControllerTriggersWithDefaults() *TriggerControllerTriggers {
 	return &this
 }
 
-// GetAbstractTrigger returns the AbstractTrigger field value if set, zero value otherwise.
+// GetAbstractTrigger returns the AbstractTrigger field value
 func (o *TriggerControllerTriggers) GetAbstractTrigger() AbstractTrigger {
-	if o == nil || IsNil(o.AbstractTrigger) {
+	if o == nil {
 		var ret AbstractTrigger
 		return ret
 	}
-	return *o.AbstractTrigger
+
+	return o.AbstractTrigger
 }
 
-// GetAbstractTriggerOk returns a tuple with the AbstractTrigger field value if set, nil otherwise
+// GetAbstractTriggerOk returns a tuple with the AbstractTrigger field value
 // and a boolean to check if the value has been set.
 func (o *TriggerControllerTriggers) GetAbstractTriggerOk() (*AbstractTrigger, bool) {
-	if o == nil || IsNil(o.AbstractTrigger) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AbstractTrigger, true
+	return &o.AbstractTrigger, true
 }
 
-// HasAbstractTrigger returns a boolean if a field has been set.
-func (o *TriggerControllerTriggers) HasAbstractTrigger() bool {
-	if o != nil && !IsNil(o.AbstractTrigger) {
-		return true
-	}
-
-	return false
-}
-
-// SetAbstractTrigger gets a reference to the given AbstractTrigger and assigns it to the AbstractTrigger field.
+// SetAbstractTrigger sets field value
 func (o *TriggerControllerTriggers) SetAbstractTrigger(v AbstractTrigger) {
-	o.AbstractTrigger = &v
+	o.AbstractTrigger = v
 }
 
-// GetTriggerContext returns the TriggerContext field value if set, zero value otherwise.
+// GetTriggerContext returns the TriggerContext field value
 func (o *TriggerControllerTriggers) GetTriggerContext() Trigger {
-	if o == nil || IsNil(o.TriggerContext) {
+	if o == nil {
 		var ret Trigger
 		return ret
 	}
-	return *o.TriggerContext
+
+	return o.TriggerContext
 }
 
-// GetTriggerContextOk returns a tuple with the TriggerContext field value if set, nil otherwise
+// GetTriggerContextOk returns a tuple with the TriggerContext field value
 // and a boolean to check if the value has been set.
 func (o *TriggerControllerTriggers) GetTriggerContextOk() (*Trigger, bool) {
-	if o == nil || IsNil(o.TriggerContext) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TriggerContext, true
+	return &o.TriggerContext, true
 }
 
-// HasTriggerContext returns a boolean if a field has been set.
-func (o *TriggerControllerTriggers) HasTriggerContext() bool {
-	if o != nil && !IsNil(o.TriggerContext) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggerContext gets a reference to the given Trigger and assigns it to the TriggerContext field.
+// SetTriggerContext sets field value
 func (o *TriggerControllerTriggers) SetTriggerContext(v Trigger) {
-	o.TriggerContext = &v
+	o.TriggerContext = v
 }
 
 func (o TriggerControllerTriggers) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o TriggerControllerTriggers) MarshalJSON() ([]byte, error) {
 
 func (o TriggerControllerTriggers) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AbstractTrigger) {
-		toSerialize["abstractTrigger"] = o.AbstractTrigger
-	}
-	if !IsNil(o.TriggerContext) {
-		toSerialize["triggerContext"] = o.TriggerContext
-	}
+	toSerialize["abstractTrigger"] = o.AbstractTrigger
+	toSerialize["triggerContext"] = o.TriggerContext
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o TriggerControllerTriggers) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *TriggerControllerTriggers) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"abstractTrigger",
+		"triggerContext",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varTriggerControllerTriggers := _TriggerControllerTriggers{}
 
 	err = json.Unmarshal(data, &varTriggerControllerTriggers)

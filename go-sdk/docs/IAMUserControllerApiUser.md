@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Username** | Pointer to **string** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
-**Tenants** | Pointer to [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | [optional] 
-**Auths** | Pointer to [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | [optional] 
-**Groups** | Pointer to [**[]IAMUserControllerApiGroup**](IAMUserControllerApiGroup.md) |  | [optional] 
-**SuperAdmin** | Pointer to **bool** |  | [optional] 
-**Restricted** | Pointer to **bool** |  | [optional] 
+**Id** | **string** |  | 
+**Username** | **string** |  | 
+**DisplayName** | **string** |  | 
+**FirstName** | **string** |  | 
+**LastName** | **string** |  | 
+**Email** | **string** |  | 
+**Tenants** | [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | 
+**Auths** | [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | 
+**Groups** | [**[]IAMUserControllerApiGroup**](IAMUserControllerApiGroup.md) |  | 
+**SuperAdmin** | **bool** |  | 
+**Restricted** | **bool** |  | 
 
 ## Methods
 
 ### NewIAMUserControllerApiUser
 
-`func NewIAMUserControllerApiUser() *IAMUserControllerApiUser`
+`func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool, ) *IAMUserControllerApiUser`
 
 NewIAMUserControllerApiUser instantiates a new IAMUserControllerApiUser object
 This constructor will assign default values to properties that have it defined,
@@ -54,11 +54,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *IAMUserControllerApiUser) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -79,11 +74,6 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
-### HasUsername
-
-`func (o *IAMUserControllerApiUser) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -104,11 +94,6 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
-### HasDisplayName
-
-`func (o *IAMUserControllerApiUser) HasDisplayName() bool`
-
-HasDisplayName returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -129,11 +114,6 @@ and a boolean to check if the value has been set.
 
 SetFirstName sets FirstName field to given value.
 
-### HasFirstName
-
-`func (o *IAMUserControllerApiUser) HasFirstName() bool`
-
-HasFirstName returns a boolean if a field has been set.
 
 ### GetLastName
 
@@ -154,11 +134,6 @@ and a boolean to check if the value has been set.
 
 SetLastName sets LastName field to given value.
 
-### HasLastName
-
-`func (o *IAMUserControllerApiUser) HasLastName() bool`
-
-HasLastName returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -179,11 +154,6 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
-
-`func (o *IAMUserControllerApiUser) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -204,11 +174,6 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
-### HasTenants
-
-`func (o *IAMUserControllerApiUser) HasTenants() bool`
-
-HasTenants returns a boolean if a field has been set.
 
 ### GetAuths
 
@@ -229,11 +194,6 @@ and a boolean to check if the value has been set.
 
 SetAuths sets Auths field to given value.
 
-### HasAuths
-
-`func (o *IAMUserControllerApiUser) HasAuths() bool`
-
-HasAuths returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -254,11 +214,6 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
-### HasGroups
-
-`func (o *IAMUserControllerApiUser) HasGroups() bool`
-
-HasGroups returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -279,11 +234,6 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
-### HasSuperAdmin
-
-`func (o *IAMUserControllerApiUser) HasSuperAdmin() bool`
-
-HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetRestricted
 
@@ -304,11 +254,6 @@ and a boolean to check if the value has been set.
 
 SetRestricted sets Restricted field to given value.
 
-### HasRestricted
-
-`func (o *IAMUserControllerApiUser) HasRestricted() bool`
-
-HasRestricted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

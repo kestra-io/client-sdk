@@ -23,6 +23,7 @@ type FlowForExecution struct {
 	Id                   string                        `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
 	Namespace            string                        `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
 	Revision             *int32                        `json:"revision,omitempty"`
+	Description          *string                       `json:"description,omitempty"`
 	Inputs               []InputObject                 `json:"inputs,omitempty"`
 	Outputs              []Output                      `json:"outputs,omitempty"`
 	Disabled             bool                          `json:"disabled"`
@@ -140,6 +141,38 @@ func (o *FlowForExecution) HasRevision() bool {
 // SetRevision gets a reference to the given int32 and assigns it to the Revision field.
 func (o *FlowForExecution) SetRevision(v int32) {
 	o.Revision = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FlowForExecution) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlowForExecution) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FlowForExecution) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FlowForExecution) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetInputs returns the Inputs field value if set, zero value otherwise.
@@ -517,6 +550,9 @@ func (o FlowForExecution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Revision) {
 		toSerialize["revision"] = o.Revision
 	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	if !IsNil(o.Inputs) {
 		toSerialize["inputs"] = o.Inputs
 	}
@@ -597,6 +633,7 @@ func (o *FlowForExecution) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "namespace")
 		delete(additionalProperties, "revision")
+		delete(additionalProperties, "description")
 		delete(additionalProperties, "inputs")
 		delete(additionalProperties, "outputs")
 		delete(additionalProperties, "disabled")

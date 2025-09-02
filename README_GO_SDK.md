@@ -4,8 +4,6 @@
 
 1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
 
-- As of 13/06/25, `the kestra-ee.yml` has been generated and used without modifications.
-- Micronaut OpenAPI version `6.16.2` was used, as of 13/06.25, this has not been committed into the core yet (only modified locally).
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
 Note: For now `go.mod` is generated with module name `github.com/GIT_USER_ID/GIT_REPO_ID` we will need to check if we can change that at generation time.

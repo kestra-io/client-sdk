@@ -34,12 +34,13 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -714,13 +715,14 @@ import (
 	"context"
 	"fmt"
 	"os"
+    "time"
 	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
 )
 
 func main() {
 	id := "id_example" // string | The id of the internal blueprint to update
 	tenant := "tenant_example" // string | 
-	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource() // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
+	blueprintControllerApiBlueprintItemWithSource := *openapiclient.NewBlueprintControllerApiBlueprintItemWithSource("Id_example", "Title_example", "Description_example", []string{"IncludedTasks_example"}, []string{"Tags_example"}, time.Now()) // BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

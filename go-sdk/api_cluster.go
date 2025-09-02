@@ -26,7 +26,7 @@ type ApiClusterEnterMaintenanceRequest struct {
 	ApiService *ClusterAPIService
 }
 
-func (r ApiClusterEnterMaintenanceRequest) Execute() (*http.Response, error) {
+func (r ApiClusterEnterMaintenanceRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.EnterMaintenanceExecute(r)
 }
 
@@ -46,16 +46,19 @@ func (a *ClusterAPIService) EnterMaintenance(ctx context.Context) ApiClusterEnte
 }
 
 // Execute executes the request
-func (a *ClusterAPIService) EnterMaintenanceExecute(r ApiClusterEnterMaintenanceRequest) (*http.Response, error) {
+//
+//	@return map[string]interface{}
+func (a *ClusterAPIService) EnterMaintenanceExecute(r ApiClusterEnterMaintenanceRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClusterAPIService.EnterMaintenance")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/instance/maintenance/enter"
@@ -74,7 +77,7 @@ func (a *ClusterAPIService) EnterMaintenanceExecute(r ApiClusterEnterMaintenance
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -83,19 +86,19 @@ func (a *ClusterAPIService) EnterMaintenanceExecute(r ApiClusterEnterMaintenance
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -103,10 +106,19 @@ func (a *ClusterAPIService) EnterMaintenanceExecute(r ApiClusterEnterMaintenance
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiClusterExitMaintenanceRequest struct {
@@ -114,7 +126,7 @@ type ApiClusterExitMaintenanceRequest struct {
 	ApiService *ClusterAPIService
 }
 
-func (r ApiClusterExitMaintenanceRequest) Execute() (*http.Response, error) {
+func (r ApiClusterExitMaintenanceRequest) Execute() (map[string]interface{}, *http.Response, error) {
 	return r.ApiService.ExitMaintenanceExecute(r)
 }
 
@@ -134,16 +146,19 @@ func (a *ClusterAPIService) ExitMaintenance(ctx context.Context) ApiClusterExitM
 }
 
 // Execute executes the request
-func (a *ClusterAPIService) ExitMaintenanceExecute(r ApiClusterExitMaintenanceRequest) (*http.Response, error) {
+//
+//	@return map[string]interface{}
+func (a *ClusterAPIService) ExitMaintenanceExecute(r ApiClusterExitMaintenanceRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ClusterAPIService.ExitMaintenance")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/instance/maintenance/exit"
@@ -162,7 +177,7 @@ func (a *ClusterAPIService) ExitMaintenanceExecute(r ApiClusterExitMaintenanceRe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -171,19 +186,19 @@ func (a *ClusterAPIService) ExitMaintenanceExecute(r ApiClusterExitMaintenanceRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -191,8 +206,17 @@ func (a *ClusterAPIService) ExitMaintenanceExecute(r ApiClusterExitMaintenanceRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

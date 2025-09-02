@@ -48,7 +48,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -118,7 +118,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -188,7 +188,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -258,7 +258,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest() // AppsControllerApiBulkOperationRequest | The list of Apps UID
+	appsControllerApiBulkOperationRequest := *openapiclient.NewAppsControllerApiBulkOperationRequest([]string{"Uids_example"}) // AppsControllerApiBulkOperationRequest | The list of Apps UID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

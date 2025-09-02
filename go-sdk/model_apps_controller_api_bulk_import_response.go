@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppsControllerApiBulkImportResponse type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &AppsControllerApiBulkImportResponse{}
 
 // AppsControllerApiBulkImportResponse struct for AppsControllerApiBulkImportResponse
 type AppsControllerApiBulkImportResponse struct {
-	Success              []string                                   `json:"success,omitempty"`
-	Errors               []AppsControllerApiBulkImportResponseError `json:"errors,omitempty"`
+	Success              []string                                   `json:"success"`
+	Errors               []AppsControllerApiBulkImportResponseError `json:"errors"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _AppsControllerApiBulkImportResponse AppsControllerApiBulkImportResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppsControllerApiBulkImportResponse() *AppsControllerApiBulkImportResponse {
+func NewAppsControllerApiBulkImportResponse(success []string, errors []AppsControllerApiBulkImportResponseError) *AppsControllerApiBulkImportResponse {
 	this := AppsControllerApiBulkImportResponse{}
+	this.Success = success
+	this.Errors = errors
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewAppsControllerApiBulkImportResponseWithDefaults() *AppsControllerApiBulk
 	return &this
 }
 
-// GetSuccess returns the Success field value if set, zero value otherwise.
+// GetSuccess returns the Success field value
 func (o *AppsControllerApiBulkImportResponse) GetSuccess() []string {
-	if o == nil || IsNil(o.Success) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Success
 }
 
-// GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
+// GetSuccessOk returns a tuple with the Success field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiBulkImportResponse) GetSuccessOk() ([]string, bool) {
-	if o == nil || IsNil(o.Success) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Success, true
 }
 
-// HasSuccess returns a boolean if a field has been set.
-func (o *AppsControllerApiBulkImportResponse) HasSuccess() bool {
-	if o != nil && !IsNil(o.Success) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuccess gets a reference to the given []string and assigns it to the Success field.
+// SetSuccess sets field value
 func (o *AppsControllerApiBulkImportResponse) SetSuccess(v []string) {
 	o.Success = v
 }
 
-// GetErrors returns the Errors field value if set, zero value otherwise.
+// GetErrors returns the Errors field value
 func (o *AppsControllerApiBulkImportResponse) GetErrors() []AppsControllerApiBulkImportResponseError {
-	if o == nil || IsNil(o.Errors) {
+	if o == nil {
 		var ret []AppsControllerApiBulkImportResponseError
 		return ret
 	}
+
 	return o.Errors
 }
 
-// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// GetErrorsOk returns a tuple with the Errors field value
 // and a boolean to check if the value has been set.
 func (o *AppsControllerApiBulkImportResponse) GetErrorsOk() ([]AppsControllerApiBulkImportResponseError, bool) {
-	if o == nil || IsNil(o.Errors) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Errors, true
 }
 
-// HasErrors returns a boolean if a field has been set.
-func (o *AppsControllerApiBulkImportResponse) HasErrors() bool {
-	if o != nil && !IsNil(o.Errors) {
-		return true
-	}
-
-	return false
-}
-
-// SetErrors gets a reference to the given []AppsControllerApiBulkImportResponseError and assigns it to the Errors field.
+// SetErrors sets field value
 func (o *AppsControllerApiBulkImportResponse) SetErrors(v []AppsControllerApiBulkImportResponseError) {
 	o.Errors = v
 }
@@ -117,12 +104,8 @@ func (o AppsControllerApiBulkImportResponse) MarshalJSON() ([]byte, error) {
 
 func (o AppsControllerApiBulkImportResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Success) {
-		toSerialize["success"] = o.Success
-	}
-	if !IsNil(o.Errors) {
-		toSerialize["errors"] = o.Errors
-	}
+	toSerialize["success"] = o.Success
+	toSerialize["errors"] = o.Errors
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o AppsControllerApiBulkImportResponse) ToMap() (map[string]interface{}, er
 }
 
 func (o *AppsControllerApiBulkImportResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"success",
+		"errors",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAppsControllerApiBulkImportResponse := _AppsControllerApiBulkImportResponse{}
 
 	err = json.Unmarshal(data, &varAppsControllerApiBulkImportResponse)

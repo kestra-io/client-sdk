@@ -21,6 +21,7 @@ var _ MappedNullable = &IAMTenantAccessControllerUserApiAutocomplete{}
 type IAMTenantAccessControllerUserApiAutocomplete struct {
 	Q                    NullableString `json:"q,omitempty"`
 	Ids                  []string       `json:"ids,omitempty"`
+	ExistingOnly         *bool          `json:"existingOnly,omitempty"`
 	Username             NullableString `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -120,6 +121,38 @@ func (o *IAMTenantAccessControllerUserApiAutocomplete) SetIds(v []string) {
 	o.Ids = v
 }
 
+// GetExistingOnly returns the ExistingOnly field value if set, zero value otherwise.
+func (o *IAMTenantAccessControllerUserApiAutocomplete) GetExistingOnly() bool {
+	if o == nil || IsNil(o.ExistingOnly) {
+		var ret bool
+		return ret
+	}
+	return *o.ExistingOnly
+}
+
+// GetExistingOnlyOk returns a tuple with the ExistingOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IAMTenantAccessControllerUserApiAutocomplete) GetExistingOnlyOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExistingOnly) {
+		return nil, false
+	}
+	return o.ExistingOnly, true
+}
+
+// HasExistingOnly returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerUserApiAutocomplete) HasExistingOnly() bool {
+	if o != nil && !IsNil(o.ExistingOnly) {
+		return true
+	}
+
+	return false
+}
+
+// SetExistingOnly gets a reference to the given bool and assigns it to the ExistingOnly field.
+func (o *IAMTenantAccessControllerUserApiAutocomplete) SetExistingOnly(v bool) {
+	o.ExistingOnly = &v
+}
+
 // GetUsername returns the Username field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IAMTenantAccessControllerUserApiAutocomplete) GetUsername() string {
 	if o == nil || IsNil(o.Username.Get()) {
@@ -179,6 +212,9 @@ func (o IAMTenantAccessControllerUserApiAutocomplete) ToMap() (map[string]interf
 	if o.Ids != nil {
 		toSerialize["ids"] = o.Ids
 	}
+	if !IsNil(o.ExistingOnly) {
+		toSerialize["existingOnly"] = o.ExistingOnly
+	}
 	if o.Username.IsSet() {
 		toSerialize["username"] = o.Username.Get()
 	}
@@ -206,6 +242,7 @@ func (o *IAMTenantAccessControllerUserApiAutocomplete) UnmarshalJSON(data []byte
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "q")
 		delete(additionalProperties, "ids")
+		delete(additionalProperties, "existingOnly")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties
 	}

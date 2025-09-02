@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**DeleteNamespace**](NamespacesAPI.md#DeleteNamespace) | **Delete** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**DeleteSecret**](NamespacesAPI.md#DeleteSecret) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**GetInheritedSecrets**](NamespacesAPI.md#GetInheritedSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**GetNamespace**](NamespacesAPI.md#GetNamespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
+[**GetNamespace**](NamespacesAPI.md#GetNamespace) | **Get** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**InheritedPluginDefaults**](NamespacesAPI.md#InheritedPluginDefaults) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**InheritedVariables**](NamespacesAPI.md#InheritedVariables) | **Get** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**ListNamespaceSecrets**](NamespacesAPI.md#ListNamespaceSecrets) | **Get** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -112,7 +112,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 > Namespace GetNamespace(ctx, id, tenant).Execute()
 
-Retrieve namespace details
+Get a namespace
 
 ### Example
 
@@ -611,7 +611,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
@@ -765,7 +765,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	apiSecretValue := *openapiclient.NewApiSecretValue("Key_example", "Value_example") // ApiSecretValue | 
+	apiSecretValue := *openapiclient.NewApiSecretValue([]openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example", "Value_example", "Description_example") // ApiSecretValue | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -819,7 +819,7 @@ Name | Type | Description  | Notes
 
 ## SearchNamespaces
 
-> PagedResultsNamespaceWithDisabled SearchNamespaces(ctx, tenant).Page(page).Size(size).Q(q).Sort(sort).Existing(existing).Execute()
+> PagedResultsNamespace SearchNamespaces(ctx, tenant).Page(page).Size(size).Existing(existing).Q(q).Sort(sort).Execute()
 
 Search for namespaces
 
@@ -838,19 +838,19 @@ import (
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
+	existing := true // bool | Return only existing namespace (default to false)
 	tenant := "tenant_example" // string | 
 	q := "q_example" // string | A string filter (optional)
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	existing := true // bool | Return only existing namespace (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.SearchNamespaces(context.Background(), tenant).Page(page).Size(size).Q(q).Sort(sort).Existing(existing).Execute()
+	resp, r, err := apiClient.NamespacesAPI.SearchNamespaces(context.Background(), tenant).Page(page).Size(size).Existing(existing).Q(q).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.SearchNamespaces``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `SearchNamespaces`: PagedResultsNamespaceWithDisabled
+	// response from `SearchNamespaces`: PagedResultsNamespace
 	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.SearchNamespaces`: %v\n", resp)
 }
 ```
@@ -872,14 +872,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
+ **existing** | **bool** | Return only existing namespace | [default to false]
 
  **q** | **string** | A string filter | 
  **sort** | **[]string** | The sort of current page | 
- **existing** | **bool** | Return only existing namespace | [default to false]
 
 ### Return type
 
-[**PagedResultsNamespaceWithDisabled**](PagedResultsNamespaceWithDisabled.md)
+[**PagedResultsNamespace**](PagedResultsNamespace.md)
 
 ### Authorization
 
@@ -916,7 +916,7 @@ import (
 func main() {
 	id := "id_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MeControllerApiUpdatePasswordRequest type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &MeControllerApiUpdatePasswordRequest{}
 
 // MeControllerApiUpdatePasswordRequest struct for MeControllerApiUpdatePasswordRequest
 type MeControllerApiUpdatePasswordRequest struct {
-	OldPassword          *string `json:"oldPassword,omitempty"`
-	NewPassword          *string `json:"newPassword,omitempty"`
+	OldPassword          string `json:"oldPassword"`
+	NewPassword          string `json:"newPassword"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _MeControllerApiUpdatePasswordRequest MeControllerApiUpdatePasswordRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeControllerApiUpdatePasswordRequest() *MeControllerApiUpdatePasswordRequest {
+func NewMeControllerApiUpdatePasswordRequest(oldPassword string, newPassword string) *MeControllerApiUpdatePasswordRequest {
 	this := MeControllerApiUpdatePasswordRequest{}
+	this.OldPassword = oldPassword
+	this.NewPassword = newPassword
 	return &this
 }
 
@@ -43,68 +46,52 @@ func NewMeControllerApiUpdatePasswordRequestWithDefaults() *MeControllerApiUpdat
 	return &this
 }
 
-// GetOldPassword returns the OldPassword field value if set, zero value otherwise.
+// GetOldPassword returns the OldPassword field value
 func (o *MeControllerApiUpdatePasswordRequest) GetOldPassword() string {
-	if o == nil || IsNil(o.OldPassword) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.OldPassword
+
+	return o.OldPassword
 }
 
-// GetOldPasswordOk returns a tuple with the OldPassword field value if set, nil otherwise
+// GetOldPasswordOk returns a tuple with the OldPassword field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiUpdatePasswordRequest) GetOldPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.OldPassword) {
+	if o == nil {
 		return nil, false
 	}
-	return o.OldPassword, true
+	return &o.OldPassword, true
 }
 
-// HasOldPassword returns a boolean if a field has been set.
-func (o *MeControllerApiUpdatePasswordRequest) HasOldPassword() bool {
-	if o != nil && !IsNil(o.OldPassword) {
-		return true
-	}
-
-	return false
-}
-
-// SetOldPassword gets a reference to the given string and assigns it to the OldPassword field.
+// SetOldPassword sets field value
 func (o *MeControllerApiUpdatePasswordRequest) SetOldPassword(v string) {
-	o.OldPassword = &v
+	o.OldPassword = v
 }
 
-// GetNewPassword returns the NewPassword field value if set, zero value otherwise.
+// GetNewPassword returns the NewPassword field value
 func (o *MeControllerApiUpdatePasswordRequest) GetNewPassword() string {
-	if o == nil || IsNil(o.NewPassword) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.NewPassword
+
+	return o.NewPassword
 }
 
-// GetNewPasswordOk returns a tuple with the NewPassword field value if set, nil otherwise
+// GetNewPasswordOk returns a tuple with the NewPassword field value
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiUpdatePasswordRequest) GetNewPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.NewPassword) {
+	if o == nil {
 		return nil, false
 	}
-	return o.NewPassword, true
+	return &o.NewPassword, true
 }
 
-// HasNewPassword returns a boolean if a field has been set.
-func (o *MeControllerApiUpdatePasswordRequest) HasNewPassword() bool {
-	if o != nil && !IsNil(o.NewPassword) {
-		return true
-	}
-
-	return false
-}
-
-// SetNewPassword gets a reference to the given string and assigns it to the NewPassword field.
+// SetNewPassword sets field value
 func (o *MeControllerApiUpdatePasswordRequest) SetNewPassword(v string) {
-	o.NewPassword = &v
+	o.NewPassword = v
 }
 
 func (o MeControllerApiUpdatePasswordRequest) MarshalJSON() ([]byte, error) {
@@ -117,12 +104,8 @@ func (o MeControllerApiUpdatePasswordRequest) MarshalJSON() ([]byte, error) {
 
 func (o MeControllerApiUpdatePasswordRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.OldPassword) {
-		toSerialize["oldPassword"] = o.OldPassword
-	}
-	if !IsNil(o.NewPassword) {
-		toSerialize["newPassword"] = o.NewPassword
-	}
+	toSerialize["oldPassword"] = o.OldPassword
+	toSerialize["newPassword"] = o.NewPassword
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o MeControllerApiUpdatePasswordRequest) ToMap() (map[string]interface{}, e
 }
 
 func (o *MeControllerApiUpdatePasswordRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"oldPassword",
+		"newPassword",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMeControllerApiUpdatePasswordRequest := _MeControllerApiUpdatePasswordRequest{}
 
 	err = json.Unmarshal(data, &varMeControllerApiUpdatePasswordRequest)

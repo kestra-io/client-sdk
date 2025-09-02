@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExecutionControllerApiValidateExecutionInputsResponseApiInputError type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &ExecutionControllerApiValidateExecutionInputsResponseApi
 
 // ExecutionControllerApiValidateExecutionInputsResponseApiInputError struct for ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 type ExecutionControllerApiValidateExecutionInputsResponseApiInputError struct {
-	Message              *string `json:"message,omitempty"`
+	Message              string `json:"message"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -29,8 +30,9 @@ type _ExecutionControllerApiValidateExecutionInputsResponseApiInputError Executi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerApiValidateExecutionInputsResponseApiInputError() *ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
+func NewExecutionControllerApiValidateExecutionInputsResponseApiInputError(message string) *ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
 	this := ExecutionControllerApiValidateExecutionInputsResponseApiInputError{}
+	this.Message = message
 	return &this
 }
 
@@ -42,36 +44,28 @@ func NewExecutionControllerApiValidateExecutionInputsResponseApiInputErrorWithDe
 	return &this
 }
 
-// GetMessage returns the Message field value if set, zero value otherwise.
+// GetMessage returns the Message field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputError) GetMessage() string {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Message
+
+	return o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputError) GetMessageOk() (*string, bool) {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Message, true
+	return &o.Message, true
 }
 
-// HasMessage returns a boolean if a field has been set.
-func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputError) HasMessage() bool {
-	if o != nil && !IsNil(o.Message) {
-		return true
-	}
-
-	return false
-}
-
-// SetMessage gets a reference to the given string and assigns it to the Message field.
+// SetMessage sets field value
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputError) SetMessage(v string) {
-	o.Message = &v
+	o.Message = v
 }
 
 func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputError) MarshalJSON() ([]byte, error) {
@@ -84,9 +78,7 @@ func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputError) Mars
 
 func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Message) {
-		toSerialize["message"] = o.Message
-	}
+	toSerialize["message"] = o.Message
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -96,6 +88,27 @@ func (o ExecutionControllerApiValidateExecutionInputsResponseApiInputError) ToMa
 }
 
 func (o *ExecutionControllerApiValidateExecutionInputsResponseApiInputError) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"message",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varExecutionControllerApiValidateExecutionInputsResponseApiInputError := _ExecutionControllerApiValidateExecutionInputsResponseApiInputError{}
 
 	err = json.Unmarshal(data, &varExecutionControllerApiValidateExecutionInputsResponseApiInputError)

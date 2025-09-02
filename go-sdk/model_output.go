@@ -25,6 +25,7 @@ type Output struct {
 	Value                map[string]interface{} `json:"value"`
 	Type                 Type                   `json:"type"`
 	DisplayName          *string                `json:"displayName,omitempty"`
+	Required             *bool                  `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -186,6 +187,38 @@ func (o *Output) SetDisplayName(v string) {
 	o.DisplayName = &v
 }
 
+// GetRequired returns the Required field value if set, zero value otherwise.
+func (o *Output) GetRequired() bool {
+	if o == nil || IsNil(o.Required) {
+		var ret bool
+		return ret
+	}
+	return *o.Required
+}
+
+// GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetRequiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.Required) {
+		return nil, false
+	}
+	return o.Required, true
+}
+
+// HasRequired returns a boolean if a field has been set.
+func (o *Output) HasRequired() bool {
+	if o != nil && !IsNil(o.Required) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequired gets a reference to the given bool and assigns it to the Required field.
+func (o *Output) SetRequired(v bool) {
+	o.Required = &v
+}
+
 func (o Output) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -204,6 +237,9 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	if !IsNil(o.DisplayName) {
 		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Required) {
+		toSerialize["required"] = o.Required
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -255,6 +291,7 @@ func (o *Output) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "displayName")
+		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PluginControllerApiPluginVersions type satisfies the MappedNullable interface at compile time
@@ -19,8 +20,8 @@ var _ MappedNullable = &PluginControllerApiPluginVersions{}
 
 // PluginControllerApiPluginVersions struct for PluginControllerApiPluginVersions
 type PluginControllerApiPluginVersions struct {
-	Type                 *string  `json:"type,omitempty"`
-	Versions             []string `json:"versions,omitempty"`
+	Type                 string   `json:"type"`
+	Versions             []string `json:"versions"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,10 @@ type _PluginControllerApiPluginVersions PluginControllerApiPluginVersions
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPluginControllerApiPluginVersions() *PluginControllerApiPluginVersions {
+func NewPluginControllerApiPluginVersions(type_ string, versions []string) *PluginControllerApiPluginVersions {
 	this := PluginControllerApiPluginVersions{}
+	this.Type = type_
+	this.Versions = versions
 	return &this
 }
 
@@ -43,66 +46,50 @@ func NewPluginControllerApiPluginVersionsWithDefaults() *PluginControllerApiPlug
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *PluginControllerApiPluginVersions) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PluginControllerApiPluginVersions) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *PluginControllerApiPluginVersions) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *PluginControllerApiPluginVersions) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetVersions returns the Versions field value if set, zero value otherwise.
+// GetVersions returns the Versions field value
 func (o *PluginControllerApiPluginVersions) GetVersions() []string {
-	if o == nil || IsNil(o.Versions) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Versions
 }
 
-// GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
+// GetVersionsOk returns a tuple with the Versions field value
 // and a boolean to check if the value has been set.
 func (o *PluginControllerApiPluginVersions) GetVersionsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Versions) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Versions, true
 }
 
-// HasVersions returns a boolean if a field has been set.
-func (o *PluginControllerApiPluginVersions) HasVersions() bool {
-	if o != nil && !IsNil(o.Versions) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersions gets a reference to the given []string and assigns it to the Versions field.
+// SetVersions sets field value
 func (o *PluginControllerApiPluginVersions) SetVersions(v []string) {
 	o.Versions = v
 }
@@ -117,12 +104,8 @@ func (o PluginControllerApiPluginVersions) MarshalJSON() ([]byte, error) {
 
 func (o PluginControllerApiPluginVersions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Versions) {
-		toSerialize["versions"] = o.Versions
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["versions"] = o.Versions
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -132,6 +115,28 @@ func (o PluginControllerApiPluginVersions) ToMap() (map[string]interface{}, erro
 }
 
 func (o *PluginControllerApiPluginVersions) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"versions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPluginControllerApiPluginVersions := _PluginControllerApiPluginVersions{}
 
 	err = json.Unmarshal(data, &varPluginControllerApiPluginVersions)

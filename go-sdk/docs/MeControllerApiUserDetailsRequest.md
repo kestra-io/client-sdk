@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
+**FirstName** | **string** |  | 
+**LastName** | **string** |  | 
+**Email** | **string** |  | 
 
 ## Methods
 
 ### NewMeControllerApiUserDetailsRequest
 
-`func NewMeControllerApiUserDetailsRequest() *MeControllerApiUserDetailsRequest`
+`func NewMeControllerApiUserDetailsRequest(firstName string, lastName string, email string, ) *MeControllerApiUserDetailsRequest`
 
 NewMeControllerApiUserDetailsRequest instantiates a new MeControllerApiUserDetailsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetFirstName sets FirstName field to given value.
 
-### HasFirstName
-
-`func (o *MeControllerApiUserDetailsRequest) HasFirstName() bool`
-
-HasFirstName returns a boolean if a field has been set.
 
 ### GetLastName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLastName sets LastName field to given value.
 
-### HasLastName
-
-`func (o *MeControllerApiUserDetailsRequest) HasLastName() bool`
-
-HasLastName returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
-
-`func (o *MeControllerApiUserDetailsRequest) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

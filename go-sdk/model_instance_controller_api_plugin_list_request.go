@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginListRequest type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &InstanceControllerApiPluginListRequest{}
 
 // InstanceControllerApiPluginListRequest struct for InstanceControllerApiPluginListRequest
 type InstanceControllerApiPluginListRequest struct {
-	Plugins              []string `json:"plugins,omitempty"`
+	Plugins              []string `json:"plugins"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -29,8 +30,9 @@ type _InstanceControllerApiPluginListRequest InstanceControllerApiPluginListRequ
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginListRequest() *InstanceControllerApiPluginListRequest {
+func NewInstanceControllerApiPluginListRequest(plugins []string) *InstanceControllerApiPluginListRequest {
 	this := InstanceControllerApiPluginListRequest{}
+	this.Plugins = plugins
 	return &this
 }
 
@@ -42,34 +44,26 @@ func NewInstanceControllerApiPluginListRequestWithDefaults() *InstanceController
 	return &this
 }
 
-// GetPlugins returns the Plugins field value if set, zero value otherwise.
+// GetPlugins returns the Plugins field value
 func (o *InstanceControllerApiPluginListRequest) GetPlugins() []string {
-	if o == nil || IsNil(o.Plugins) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Plugins
 }
 
-// GetPluginsOk returns a tuple with the Plugins field value if set, nil otherwise
+// GetPluginsOk returns a tuple with the Plugins field value
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginListRequest) GetPluginsOk() ([]string, bool) {
-	if o == nil || IsNil(o.Plugins) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Plugins, true
 }
 
-// HasPlugins returns a boolean if a field has been set.
-func (o *InstanceControllerApiPluginListRequest) HasPlugins() bool {
-	if o != nil && !IsNil(o.Plugins) {
-		return true
-	}
-
-	return false
-}
-
-// SetPlugins gets a reference to the given []string and assigns it to the Plugins field.
+// SetPlugins sets field value
 func (o *InstanceControllerApiPluginListRequest) SetPlugins(v []string) {
 	o.Plugins = v
 }
@@ -84,9 +78,7 @@ func (o InstanceControllerApiPluginListRequest) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiPluginListRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Plugins) {
-		toSerialize["plugins"] = o.Plugins
-	}
+	toSerialize["plugins"] = o.Plugins
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -96,6 +88,27 @@ func (o InstanceControllerApiPluginListRequest) ToMap() (map[string]interface{},
 }
 
 func (o *InstanceControllerApiPluginListRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"plugins",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstanceControllerApiPluginListRequest := _InstanceControllerApiPluginListRequest{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginListRequest)

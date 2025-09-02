@@ -12,6 +12,7 @@ package kestra_api_client
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Filter type satisfies the MappedNullable interface at compile time
@@ -19,7 +20,7 @@ var _ MappedNullable = &Filter{}
 
 // Filter struct for Filter
 type Filter struct {
-	Filter               *string                `json:"filter,omitempty"`
+	Filter               string                 `json:"filter"`
 	Expression           map[string]interface{} `json:"expression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -30,8 +31,9 @@ type _Filter Filter
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFilter() *Filter {
+func NewFilter(filter string) *Filter {
 	this := Filter{}
+	this.Filter = filter
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewFilterWithDefaults() *Filter {
 	return &this
 }
 
-// GetFilter returns the Filter field value if set, zero value otherwise.
+// GetFilter returns the Filter field value
 func (o *Filter) GetFilter() string {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Filter
+
+	return o.Filter
 }
 
-// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// GetFilterOk returns a tuple with the Filter field value
 // and a boolean to check if the value has been set.
 func (o *Filter) GetFilterOk() (*string, bool) {
-	if o == nil || IsNil(o.Filter) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Filter, true
+	return &o.Filter, true
 }
 
-// HasFilter returns a boolean if a field has been set.
-func (o *Filter) HasFilter() bool {
-	if o != nil && !IsNil(o.Filter) {
-		return true
-	}
-
-	return false
-}
-
-// SetFilter gets a reference to the given string and assigns it to the Filter field.
+// SetFilter sets field value
 func (o *Filter) SetFilter(v string) {
-	o.Filter = &v
+	o.Filter = v
 }
 
 // GetExpression returns the Expression field value if set, zero value otherwise.
@@ -117,9 +111,7 @@ func (o Filter) MarshalJSON() ([]byte, error) {
 
 func (o Filter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Filter) {
-		toSerialize["filter"] = o.Filter
-	}
+	toSerialize["filter"] = o.Filter
 	if !IsNil(o.Expression) {
 		toSerialize["expression"] = o.Expression
 	}
@@ -132,6 +124,27 @@ func (o Filter) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Filter) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"filter",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varFilter := _Filter{}
 
 	err = json.Unmarshal(data, &varFilter)

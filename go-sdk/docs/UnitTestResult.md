@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TestId** | **string** |  | 
 **TestType** | **string** |  | 
-**ExecutionId** | Pointer to **string** |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**ExecutionId** | **string** |  | 
+**Url** | **string** |  | 
 **State** | [**TestState**](TestState.md) |  | 
 **AssertionResults** | [**[]AssertionResult**](AssertionResult.md) |  | 
 **Errors** | [**[]AssertionRunError**](AssertionRunError.md) |  | 
-**Fixtures** | Pointer to [**Fixtures**](Fixtures.md) |  | [optional] 
+**Fixtures** | [**Fixtures**](Fixtures.md) |  | 
 
 ## Methods
 
 ### NewUnitTestResult
 
-`func NewUnitTestResult(testId string, testType string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError, ) *UnitTestResult`
+`func NewUnitTestResult(testId string, testType string, executionId string, url string, state TestState, assertionResults []AssertionResult, errors []AssertionRunError, fixtures Fixtures, ) *UnitTestResult`
 
 NewUnitTestResult instantiates a new UnitTestResult object
 This constructor will assign default values to properties that have it defined,
@@ -91,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetExecutionId sets ExecutionId field to given value.
 
-### HasExecutionId
-
-`func (o *UnitTestResult) HasExecutionId() bool`
-
-HasExecutionId returns a boolean if a field has been set.
 
 ### GetUrl
 
@@ -116,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *UnitTestResult) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 ### GetState
 
@@ -201,11 +191,6 @@ and a boolean to check if the value has been set.
 
 SetFixtures sets Fixtures field to given value.
 
-### HasFixtures
-
-`func (o *UnitTestResult) HasFixtures() bool`
-
-HasFixtures returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

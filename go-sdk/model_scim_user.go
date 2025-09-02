@@ -26,7 +26,7 @@ type ScimUser struct {
 	Meta                 Meta                      `json:"meta"`
 	Id                   *string                   `json:"id,omitempty"`
 	ExternalId           *string                   `json:"externalId,omitempty"`
-	ResourceType         *string                   `json:"resourceType,omitempty"`
+	ResourceType         string                    `json:"resourceType"`
 	PrimaryEmailAddress  NullableEmail             `json:"primaryEmailAddress,omitempty"`
 	Active               *bool                     `json:"active,omitempty"`
 	Emails               []Email                   `json:"emails,omitempty"`
@@ -42,9 +42,10 @@ type _ScimUser ScimUser
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScimUser(meta Meta) *ScimUser {
+func NewScimUser(meta Meta, resourceType string) *ScimUser {
 	this := ScimUser{}
 	this.Meta = meta
+	this.ResourceType = resourceType
 	return &this
 }
 
@@ -240,36 +241,28 @@ func (o *ScimUser) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+// GetResourceType returns the ResourceType field value
 func (o *ScimUser) GetResourceType() string {
-	if o == nil || IsNil(o.ResourceType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ResourceType
+
+	return o.ResourceType
 }
 
-// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// GetResourceTypeOk returns a tuple with the ResourceType field value
 // and a boolean to check if the value has been set.
 func (o *ScimUser) GetResourceTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.ResourceType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ResourceType, true
+	return &o.ResourceType, true
 }
 
-// HasResourceType returns a boolean if a field has been set.
-func (o *ScimUser) HasResourceType() bool {
-	if o != nil && !IsNil(o.ResourceType) {
-		return true
-	}
-
-	return false
-}
-
-// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+// SetResourceType sets field value
 func (o *ScimUser) SetResourceType(v string) {
-	o.ResourceType = &v
+	o.ResourceType = v
 }
 
 // GetPrimaryEmailAddress returns the PrimaryEmailAddress field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -501,9 +494,7 @@ func (o ScimUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if !IsNil(o.ResourceType) {
-		toSerialize["resourceType"] = o.ResourceType
-	}
+	toSerialize["resourceType"] = o.ResourceType
 	if o.PrimaryEmailAddress.IsSet() {
 		toSerialize["primaryEmailAddress"] = o.PrimaryEmailAddress.Get()
 	}
@@ -536,6 +527,7 @@ func (o *ScimUser) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"meta",
+		"resourceType",
 	}
 
 	allProperties := make(map[string]interface{})

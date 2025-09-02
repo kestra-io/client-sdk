@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attributes** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**ExternalId** | Pointer to **string** |  | [optional] 
-**SecurityIntegrationId** | Pointer to **string** |  | [optional] 
-**SecurityIntegrationName** | Pointer to **string** |  | [optional] 
+**Attributes** | **map[string]map[string]interface{}** |  | 
+**ExternalId** | **string** |  | 
+**SecurityIntegrationId** | **string** |  | 
+**SecurityIntegrationName** | **string** |  | 
 **TenantId** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewAbstractUserTenantIdentityProvider
 
-`func NewAbstractUserTenantIdentityProvider() *AbstractUserTenantIdentityProvider`
+`func NewAbstractUserTenantIdentityProvider(attributes map[string]map[string]interface{}, externalId string, securityIntegrationId string, securityIntegrationName string, ) *AbstractUserTenantIdentityProvider`
 
 NewAbstractUserTenantIdentityProvider instantiates a new AbstractUserTenantIdentityProvider object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetAttributes sets Attributes field to given value.
 
-### HasAttributes
-
-`func (o *AbstractUserTenantIdentityProvider) HasAttributes() bool`
-
-HasAttributes returns a boolean if a field has been set.
 
 ### GetExternalId
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetExternalId sets ExternalId field to given value.
 
-### HasExternalId
-
-`func (o *AbstractUserTenantIdentityProvider) HasExternalId() bool`
-
-HasExternalId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationId
 
@@ -98,11 +88,6 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationId sets SecurityIntegrationId field to given value.
 
-### HasSecurityIntegrationId
-
-`func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationId() bool`
-
-HasSecurityIntegrationId returns a boolean if a field has been set.
 
 ### GetSecurityIntegrationName
 
@@ -123,11 +108,6 @@ and a boolean to check if the value has been set.
 
 SetSecurityIntegrationName sets SecurityIntegrationName field to given value.
 
-### HasSecurityIntegrationName
-
-`func (o *AbstractUserTenantIdentityProvider) HasSecurityIntegrationName() bool`
-
-HasSecurityIntegrationName returns a boolean if a field has been set.
 
 ### GetTenantId
 

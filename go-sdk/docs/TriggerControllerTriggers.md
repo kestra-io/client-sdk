@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AbstractTrigger** | Pointer to [**AbstractTrigger**](AbstractTrigger.md) |  | [optional] 
-**TriggerContext** | Pointer to [**Trigger**](Trigger.md) |  | [optional] 
+**AbstractTrigger** | [**AbstractTrigger**](AbstractTrigger.md) |  | 
+**TriggerContext** | [**Trigger**](Trigger.md) |  | 
 
 ## Methods
 
 ### NewTriggerControllerTriggers
 
-`func NewTriggerControllerTriggers() *TriggerControllerTriggers`
+`func NewTriggerControllerTriggers(abstractTrigger AbstractTrigger, triggerContext Trigger, ) *TriggerControllerTriggers`
 
 NewTriggerControllerTriggers instantiates a new TriggerControllerTriggers object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetAbstractTrigger sets AbstractTrigger field to given value.
 
-### HasAbstractTrigger
-
-`func (o *TriggerControllerTriggers) HasAbstractTrigger() bool`
-
-HasAbstractTrigger returns a boolean if a field has been set.
 
 ### GetTriggerContext
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetTriggerContext sets TriggerContext field to given value.
 
-### HasTriggerContext
-
-`func (o *TriggerControllerTriggers) HasTriggerContext() bool`
-
-HasTriggerContext returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

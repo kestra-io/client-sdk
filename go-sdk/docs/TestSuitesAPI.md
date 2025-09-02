@@ -13,7 +13,9 @@ Method | HTTP request | Description
 [**GetTestSuite**](TestSuitesAPI.md#GetTestSuite) | **Get** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
 [**GetTestsLastResult**](TestSuitesAPI.md#GetTestsLastResult) | **Post** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 [**RunTestSuite**](TestSuitesAPI.md#RunTestSuite) | **Post** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+[**RunTestSuitesByQuery**](TestSuitesAPI.md#RunTestSuitesByQuery) | **Post** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
 [**SearchTestSuites**](TestSuitesAPI.md#SearchTestSuites) | **Get** /api/v1/{tenant}/tests/search | Search for tests
+[**SearchTestSuitesResults**](TestSuitesAPI.md#SearchTestSuitesResults) | **Get** /api/v1/{tenant}/tests/results/search | Search for tests results
 [**UpdateTestSuite**](TestSuitesAPI.md#UpdateTestSuite) | **Put** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 [**ValidateTestSuite**](TestSuitesAPI.md#ValidateTestSuite) | **Post** /api/v1/{tenant}/tests/validate | Validate a test
 
@@ -554,7 +556,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	testSuiteControllerSearchTestsLastResult := *openapiclient.NewTestSuiteControllerSearchTestsLastResult() // TestSuiteControllerSearchTestsLastResult | 
+	testSuiteControllerSearchTestsLastResult := *openapiclient.NewTestSuiteControllerSearchTestsLastResult([]openapiclient.TestSuiteControllerTestSuiteApiId{*openapiclient.NewTestSuiteControllerTestSuiteApiId("Namespace_example", "Id_example")}) // TestSuiteControllerSearchTestsLastResult | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -606,7 +608,7 @@ No authorization required
 
 ## RunTestSuite
 
-> []TestSuiteRunResult RunTestSuite(ctx, namespace, id, tenant).Execute()
+> TestSuiteRunResult RunTestSuite(ctx, namespace, id, tenant).TestSuiteControllerRunRequest(testSuiteControllerRunRequest).Execute()
 
 Run a full test
 
@@ -628,15 +630,16 @@ func main() {
 	namespace := "namespace_example" // string | The TestSuite namespace
 	id := "id_example" // string | The TestSuite ID
 	tenant := "tenant_example" // string | 
+	testSuiteControllerRunRequest := *openapiclient.NewTestSuiteControllerRunRequest([]string{"TestCases_example"}) // TestSuiteControllerRunRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TestSuitesAPI.RunTestSuite(context.Background(), namespace, id, tenant).Execute()
+	resp, r, err := apiClient.TestSuitesAPI.RunTestSuite(context.Background(), namespace, id, tenant).TestSuiteControllerRunRequest(testSuiteControllerRunRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.RunTestSuite``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RunTestSuite`: []TestSuiteRunResult
+	// response from `RunTestSuite`: TestSuiteRunResult
 	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.RunTestSuite`: %v\n", resp)
 }
 ```
@@ -661,10 +664,11 @@ Name | Type | Description  | Notes
 
 
 
+ **testSuiteControllerRunRequest** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md) |  | 
 
 ### Return type
 
-[**[]TestSuiteRunResult**](TestSuiteRunResult.md)
+[**TestSuiteRunResult**](TestSuiteRunResult.md)
 
 ### Authorization
 
@@ -672,7 +676,79 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RunTestSuitesByQuery
+
+> TestSuiteServiceTestRunByQueryResult RunTestSuitesByQuery(ctx, tenant).TestSuiteServiceRunByQueryRequest(testSuiteServiceRunByQueryRequest).Execute()
+
+Run multiple TestSuites by query
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	tenant := "tenant_example" // string | 
+	testSuiteServiceRunByQueryRequest := *openapiclient.NewTestSuiteServiceRunByQueryRequest("Namespace_example", "FlowId_example", false) // TestSuiteServiceRunByQueryRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.RunTestSuitesByQuery(context.Background(), tenant).TestSuiteServiceRunByQueryRequest(testSuiteServiceRunByQueryRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.RunTestSuitesByQuery``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RunTestSuitesByQuery`: TestSuiteServiceTestRunByQueryResult
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.RunTestSuitesByQuery`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRunTestSuitesByQueryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **testSuiteServiceRunByQueryRequest** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | 
+
+### Return type
+
+[**TestSuiteServiceTestRunByQueryResult**](TestSuiteServiceTestRunByQueryResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -682,7 +758,7 @@ No authorization required
 
 ## SearchTestSuites
 
-> PagedResultsTestSuite SearchTestSuites(ctx, tenant).Page(page).Size(size).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+> PagedResultsTestSuite SearchTestSuites(ctx, tenant).Page(page).Size(size).IncludeChildNamespaces(includeChildNamespaces).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
 
 Search for tests
 
@@ -703,6 +779,7 @@ import (
 func main() {
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
+	includeChildNamespaces := true // bool | Include child namespaces in filter or not (default to true)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 	namespace := "namespace_example" // string | The namespace to filter on (optional)
@@ -710,7 +787,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TestSuitesAPI.SearchTestSuites(context.Background(), tenant).Page(page).Size(size).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+	resp, r, err := apiClient.TestSuitesAPI.SearchTestSuites(context.Background(), tenant).Page(page).Size(size).IncludeChildNamespaces(includeChildNamespaces).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.SearchTestSuites``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -737,6 +814,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The current page | [default to 1]
  **size** | **int32** | The current page size | [default to 10]
+ **includeChildNamespaces** | **bool** | Include child namespaces in filter or not | [default to true]
 
  **sort** | **[]string** | The sort of current page | 
  **namespace** | **string** | The namespace to filter on | 
@@ -745,6 +823,88 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PagedResultsTestSuite**](PagedResultsTestSuite.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchTestSuitesResults
+
+> PagedResultsTestSuiteRunResult SearchTestSuitesResults(ctx, tenant).Page(page).Size(size).TestSuiteId(testSuiteId).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+
+Search for tests results
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
+)
+
+func main() {
+	page := int32(56) // int32 | The current page (default to 1)
+	size := int32(56) // int32 | The current page size (default to 10)
+	testSuiteId := "testSuiteId_example" // string | The test suite id to filter on
+	tenant := "tenant_example" // string | 
+	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
+	namespace := "namespace_example" // string | The namespace to filter on (optional)
+	flowId := "flowId_example" // string | The flow id to filter on (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TestSuitesAPI.SearchTestSuitesResults(context.Background(), tenant).Page(page).Size(size).TestSuiteId(testSuiteId).Sort(sort).Namespace(namespace).FlowId(flowId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TestSuitesAPI.SearchTestSuitesResults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SearchTestSuitesResults`: PagedResultsTestSuiteRunResult
+	fmt.Fprintf(os.Stdout, "Response from `TestSuitesAPI.SearchTestSuitesResults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**tenant** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchTestSuitesResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** | The current page | [default to 1]
+ **size** | **int32** | The current page size | [default to 10]
+ **testSuiteId** | **string** | The test suite id to filter on | 
+
+ **sort** | **[]string** | The sort of current page | 
+ **namespace** | **string** | The namespace to filter on | 
+ **flowId** | **string** | The flow id to filter on | 
+
+### Return type
+
+[**PagedResultsTestSuiteRunResult**](PagedResultsTestSuiteRunResult.md)
 
 ### Authorization
 

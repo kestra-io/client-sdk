@@ -4,33 +4,33 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Labels** | Pointer to [**[]Label**](Label.md) |  | [optional] 
+**Labels** | [**[]Label**](Label.md) |  | 
 **Id** | **string** |  | 
 **Namespace** | **string** |  | 
 **FlowId** | **string** |  | 
 **FlowRevision** | **int32** |  | 
-**TaskRunList** | Pointer to [**[]TaskRun**](TaskRun.md) |  | [optional] 
-**Inputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Outputs** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**TaskRunList** | [**[]TaskRun**](TaskRun.md) |  | 
+**Inputs** | **map[string]map[string]interface{}** |  | 
+**Outputs** | **map[string]map[string]interface{}** |  | 
+**Variables** | **map[string]map[string]interface{}** |  | 
 **State** | [**State**](State.md) |  | 
-**ParentId** | Pointer to **string** |  | [optional] 
-**OriginalId** | Pointer to **string** |  | [optional] 
-**Trigger** | Pointer to [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
+**ParentId** | **string** |  | 
+**OriginalId** | **string** |  | 
+**Trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | 
 **Deleted** | **bool** |  | 
-**Metadata** | Pointer to [**ExecutionMetadata**](ExecutionMetadata.md) |  | [optional] 
+**Metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | 
 **ScheduleDate** | Pointer to **NullableTime** |  | [optional] 
-**TraceParent** | Pointer to **string** |  | [optional] 
+**TraceParent** | **string** |  | 
 **Fixtures** | Pointer to [**[]TaskFixture**](TaskFixture.md) |  | [optional] 
 **Kind** | Pointer to [**NullableExecutionKind**](ExecutionKind.md) |  | [optional] 
 **Breakpoints** | Pointer to [**[]Breakpoint**](Breakpoint.md) |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
+**Url** | **string** |  | 
 
 ## Methods
 
 ### NewExecutionControllerExecutionResponse
 
-`func NewExecutionControllerExecutionResponse(id string, namespace string, flowId string, flowRevision int32, state State, deleted bool, ) *ExecutionControllerExecutionResponse`
+`func NewExecutionControllerExecutionResponse(labels []Label, id string, namespace string, flowId string, flowRevision int32, taskRunList []TaskRun, inputs map[string]map[string]interface{}, outputs map[string]map[string]interface{}, variables map[string]map[string]interface{}, state State, parentId string, originalId string, trigger ExecutionTrigger, deleted bool, metadata ExecutionMetadata, traceParent string, url string, ) *ExecutionControllerExecutionResponse`
 
 NewExecutionControllerExecutionResponse instantiates a new ExecutionControllerExecutionResponse object
 This constructor will assign default values to properties that have it defined,
@@ -64,11 +64,6 @@ and a boolean to check if the value has been set.
 
 SetLabels sets Labels field to given value.
 
-### HasLabels
-
-`func (o *ExecutionControllerExecutionResponse) HasLabels() bool`
-
-HasLabels returns a boolean if a field has been set.
 
 ### GetId
 
@@ -169,11 +164,6 @@ and a boolean to check if the value has been set.
 
 SetTaskRunList sets TaskRunList field to given value.
 
-### HasTaskRunList
-
-`func (o *ExecutionControllerExecutionResponse) HasTaskRunList() bool`
-
-HasTaskRunList returns a boolean if a field has been set.
 
 ### GetInputs
 
@@ -194,11 +184,6 @@ and a boolean to check if the value has been set.
 
 SetInputs sets Inputs field to given value.
 
-### HasInputs
-
-`func (o *ExecutionControllerExecutionResponse) HasInputs() bool`
-
-HasInputs returns a boolean if a field has been set.
 
 ### GetOutputs
 
@@ -219,11 +204,6 @@ and a boolean to check if the value has been set.
 
 SetOutputs sets Outputs field to given value.
 
-### HasOutputs
-
-`func (o *ExecutionControllerExecutionResponse) HasOutputs() bool`
-
-HasOutputs returns a boolean if a field has been set.
 
 ### GetVariables
 
@@ -244,11 +224,6 @@ and a boolean to check if the value has been set.
 
 SetVariables sets Variables field to given value.
 
-### HasVariables
-
-`func (o *ExecutionControllerExecutionResponse) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetState
 
@@ -289,11 +264,6 @@ and a boolean to check if the value has been set.
 
 SetParentId sets ParentId field to given value.
 
-### HasParentId
-
-`func (o *ExecutionControllerExecutionResponse) HasParentId() bool`
-
-HasParentId returns a boolean if a field has been set.
 
 ### GetOriginalId
 
@@ -314,11 +284,6 @@ and a boolean to check if the value has been set.
 
 SetOriginalId sets OriginalId field to given value.
 
-### HasOriginalId
-
-`func (o *ExecutionControllerExecutionResponse) HasOriginalId() bool`
-
-HasOriginalId returns a boolean if a field has been set.
 
 ### GetTrigger
 
@@ -339,11 +304,6 @@ and a boolean to check if the value has been set.
 
 SetTrigger sets Trigger field to given value.
 
-### HasTrigger
-
-`func (o *ExecutionControllerExecutionResponse) HasTrigger() bool`
-
-HasTrigger returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -384,11 +344,6 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
-### HasMetadata
-
-`func (o *ExecutionControllerExecutionResponse) HasMetadata() bool`
-
-HasMetadata returns a boolean if a field has been set.
 
 ### GetScheduleDate
 
@@ -444,11 +399,6 @@ and a boolean to check if the value has been set.
 
 SetTraceParent sets TraceParent field to given value.
 
-### HasTraceParent
-
-`func (o *ExecutionControllerExecutionResponse) HasTraceParent() bool`
-
-HasTraceParent returns a boolean if a field has been set.
 
 ### GetFixtures
 
@@ -574,11 +524,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *ExecutionControllerExecutionResponse) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
