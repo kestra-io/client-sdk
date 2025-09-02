@@ -111,14 +111,14 @@ paths:
           schema:
             type: string
             nullable: true
-        - name: permission
+        - name: resource
           in: query
-          description: A permission filter
+          description: A resource filter
           explode: false
           schema:
             nullable: true
             allOf:
-              - $ref: "#/components/schemas/Permission"
+              - $ref: "#/components/schemas/ResourceType_1"
         - name: startDate
           in: query
           description: The start datetime
@@ -158,7 +158,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2970,15 +2970,15 @@ paths:
           schema:
             type: string
             nullable: true
-        - name: permissions
+        - name: resources
           in: query
-          description: A permission filter
+          description: A resource filter
           explode: false
           schema:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/Permission"
+              $ref: "#/components/schemas/ResourceType_1"
         - name: startDate
           in: query
           description: The start datetime
@@ -3054,7 +3054,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+                $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -3164,15 +3164,15 @@ paths:
           schema:
             type: string
             nullable: true
-        - name: permissions
+        - name: resources
           in: query
-          description: A permission filter
+          description: A resource filter
           explode: false
           schema:
             type: array
             nullable: true
             items:
-              $ref: "#/components/schemas/Permission"
+              $ref: "#/components/schemas/ResourceType_1"
         - name: startDate
           in: query
           description: The start datetime
@@ -3217,7 +3217,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -13177,6 +13177,77 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BulkResponse"
+  /api/v1/{tenant}/tests/results/search:
+    get:
+      tags:
+        - TestSuites
+      summary: Search for tests results
+      description: "with optional filtering by namespace, test suite ID and flow ID.\
+        \ Requires TEST permission with the READ action."
+      operationId: searchTestSuitesResults
+      parameters:
+        - name: page
+          in: query
+          description: The current page
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 1
+        - name: size
+          in: query
+          description: The current page size
+          required: true
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 10
+        - name: sort
+          in: query
+          description: The sort of current page
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              type: string
+        - name: testSuiteId
+          in: query
+          description: The test suite id to filter on
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: namespace
+          in: query
+          description: The namespace to filter on
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: flowId
+          in: query
+          description: The flow id to filter on
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: searchTestSuitesResults 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_TestSuiteRunResult_"
   /api/v1/{tenant}/tests/results/search/last:
     post:
       tags:
@@ -14978,6 +15049,19 @@ components:
               type: array
               items:
                 type: object
+    AuditLogController.ApiAuditLogItem:
+      required:
+        - auditLog
+        - permission
+        - user
+      type: object
+      properties:
+        auditLog:
+          $ref: "#/components/schemas/AuditLog"
+        user:
+          $ref: "#/components/schemas/ApiUser"
+        permission:
+          $ref: "#/components/schemas/Permission"
     AuditLogController.AuditLogDiff:
       required:
         - after
@@ -15002,24 +15086,14 @@ components:
           format: date-time
         username:
           type: string
-    AuditLogController.AuditLogWithUser:
-      required:
-        - auditLog
-        - user
-      type: object
-      properties:
-        auditLog:
-          $ref: "#/components/schemas/AuditLog"
-        user:
-          $ref: "#/components/schemas/ApiUser"
     AuditLogController.FindRequest:
       required:
         - detail
-        - permission
+        - resource
       type: object
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/ResourceType_1"
         type:
           nullable: true
           allOf:
@@ -15030,17 +15104,15 @@ components:
             type: object
     AuditLogDetail:
       required:
-        - cls
-        - permission
         - type
       type: object
       properties:
-        type:
-          type: string
-        cls:
-          type: string
         permission:
           $ref: "#/components/schemas/Permission"
+        resourceType:
+          $ref: "#/components/schemas/ResourceType_1"
+        type:
+          type: string
         id:
           type: string
     AuthController.Auth:
@@ -18097,6 +18169,8 @@ components:
           type: string
         version:
           type: string
+        edition:
+          $ref: "#/components/schemas/MiscController.Edition"
         commitId:
           type: string
         commitDate:
@@ -18107,6 +18181,8 @@ components:
         isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
+          type: boolean
+        isUiAnonymousUsageEnabled:
           type: boolean
         isTemplateEnabled:
           type: boolean
@@ -18166,6 +18242,11 @@ components:
               type: boolean
             passwordRegexp:
               type: string
+    MiscController.Edition:
+      type: string
+      enum:
+        - OSS
+        - EE
     MiscController.Environment:
       required:
         - color
@@ -18412,7 +18493,7 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_AuditLogController.AuditLogWithUser_:
+    PagedResults_AuditLogController.ApiAuditLogItem_:
       required:
         - results
         - total
@@ -18421,7 +18502,7 @@ components:
         results:
           type: array
           items:
-            $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+            $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
         total:
           type: integer
           format: int64
@@ -18674,6 +18755,19 @@ components:
         total:
           type: integer
           format: int64
+    PagedResults_TestSuiteRunResult_:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
+        total:
+          type: integer
+          format: int64
     PagedResults_TestSuite_:
       required:
         - results
@@ -18772,8 +18866,6 @@ components:
         - INVITATION
         - GROUP_MEMBERSHIP
         - UNKNOWN
-      x-deprecated:
-        - INFRASTRUCTURE
     Plugin:
       type: object
       properties:
@@ -19190,6 +19282,33 @@ components:
           type: string
         required:
           type: boolean
+    ResourceType_1:
+      type: string
+      enum:
+        - AUDITLOG
+        - APP
+        - APP_EXECUTION
+        - BINDING
+        - DASHBOARD
+        - EXECUTION
+        - FLOW
+        - GROUP
+        - INVITATION
+        - NAMESPACE
+        - ROLE
+        - SECURITY_INTEGRATION
+        - SECRET
+        - SETTING
+        - TEMPLATE
+        - TENANT
+        - TENANT_ACCESS
+        - TESTSUITE
+        - TESTSUITE_RUN
+        - VERSIONED_PLUGIN
+        - USER
+        - WORKER_GROUP
+        - INSTANCE
+        - UNKNOWN
     RightSidebarConfiguration:
       type: object
       properties:
