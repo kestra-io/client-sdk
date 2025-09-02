@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TriggerControllerTriggers.JSON_PROPERTY_TRIGGER_CONTEXT
 })
 @JsonTypeName("TriggerController.Triggers")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class TriggerControllerTriggers {
   public static final String JSON_PROPERTY_ABSTRACT_TRIGGER = "abstractTrigger";
   @javax.annotation.Nonnull

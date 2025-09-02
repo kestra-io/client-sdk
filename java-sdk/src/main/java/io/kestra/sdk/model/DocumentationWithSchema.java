@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DocumentationWithSchema.JSON_PROPERTY_MARKDOWN,
   DocumentationWithSchema.JSON_PROPERTY_SCHEMA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class DocumentationWithSchema {
   public static final String JSON_PROPERTY_MARKDOWN = "markdown";
   @javax.annotation.Nullable

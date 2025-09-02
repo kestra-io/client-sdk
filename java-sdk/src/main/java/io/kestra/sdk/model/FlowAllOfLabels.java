@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowAllOfLabels.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("Flow_allOf_labels")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowAllOfLabels {
   public static final String JSON_PROPERTY_EMPTY = "empty";
   @javax.annotation.Nullable

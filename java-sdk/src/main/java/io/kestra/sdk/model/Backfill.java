@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Backfill.JSON_PROPERTY_LABELS,
   Backfill.JSON_PROPERTY_PREVIOUS_NEXT_EXECUTION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class Backfill {
   public static final String JSON_PROPERTY_START = "start";
   @javax.annotation.Nonnull

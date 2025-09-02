@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UserUsage.JSON_PROPERTY_OIDC_COUNT,
   UserUsage.JSON_PROPERTY_BASIC_AUTH_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class UserUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
   @javax.annotation.Nonnull

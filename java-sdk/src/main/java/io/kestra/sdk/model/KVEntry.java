@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVEntry.JSON_PROPERTY_UPDATE_DATE,
   KVEntry.JSON_PROPERTY_EXPIRATION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class KVEntry {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nonnull

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowTopologyGraphEdge.JSON_PROPERTY_RELATION
 })
 @JsonTypeName("FlowTopologyGraph.Edge")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowTopologyGraphEdge {
   public static final String JSON_PROPERTY_SOURCE = "source";
   @javax.annotation.Nonnull

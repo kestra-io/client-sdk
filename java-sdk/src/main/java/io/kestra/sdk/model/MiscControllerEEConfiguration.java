@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Banner;
 import io.kestra.sdk.model.LeftSidebarConfiguration;
+import io.kestra.sdk.model.MiscControllerEdition;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
@@ -41,11 +42,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   MiscControllerEEConfiguration.JSON_PROPERTY_UUID,
   MiscControllerEEConfiguration.JSON_PROPERTY_VERSION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_EDITION,
   MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_ID,
   MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_DATE,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_TASK_RUN_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_TEMPLATE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_ENVIRONMENT,
   MiscControllerEEConfiguration.JSON_PROPERTY_URL,
@@ -70,7 +73,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
 })
 @JsonTypeName("MiscController.EEConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_UUID = "uuid";
   @javax.annotation.Nullable
@@ -79,6 +82,10 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable
   private String version;
+
+  public static final String JSON_PROPERTY_EDITION = "edition";
+  @javax.annotation.Nullable
+  private MiscControllerEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
   @javax.annotation.Nullable
@@ -99,6 +106,10 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
   @javax.annotation.Nullable
   private Boolean isAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
+  @javax.annotation.Nullable
+  private Boolean isUiAnonymousUsageEnabled;
 
   public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
   @javax.annotation.Nullable
@@ -241,6 +252,31 @@ public class MiscControllerEEConfiguration {
     this.version = version;
   }
 
+  public MiscControllerEEConfiguration edition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    
+    this.edition = edition;
+    return this;
+  }
+
+  /**
+   * Get edition
+   * @return edition
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerEdition getEdition() {
+    return edition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    this.edition = edition;
+  }
+
   public MiscControllerEEConfiguration commitId(@javax.annotation.Nullable String commitId) {
     
     this.commitId = commitId;
@@ -364,6 +400,31 @@ public class MiscControllerEEConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isAnonymousUsageEnabled) {
     this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+  }
+
+  public MiscControllerEEConfiguration isUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isUiAnonymousUsageEnabled
+   * @return isUiAnonymousUsageEnabled
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsUiAnonymousUsageEnabled() {
+    return isUiAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
   }
 
   public MiscControllerEEConfiguration isTemplateEnabled(@javax.annotation.Nullable Boolean isTemplateEnabled) {
@@ -959,11 +1020,13 @@ public class MiscControllerEEConfiguration {
     MiscControllerEEConfiguration miscControllerEEConfiguration = (MiscControllerEEConfiguration) o;
     return Objects.equals(this.uuid, miscControllerEEConfiguration.uuid) &&
         Objects.equals(this.version, miscControllerEEConfiguration.version) &&
+        Objects.equals(this.edition, miscControllerEEConfiguration.edition) &&
         Objects.equals(this.commitId, miscControllerEEConfiguration.commitId) &&
         Objects.equals(this.commitDate, miscControllerEEConfiguration.commitDate) &&
         Objects.equals(this.isCustomDashboardsEnabled, miscControllerEEConfiguration.isCustomDashboardsEnabled) &&
         Objects.equals(this.isTaskRunEnabled, miscControllerEEConfiguration.isTaskRunEnabled) &&
         Objects.equals(this.isAnonymousUsageEnabled, miscControllerEEConfiguration.isAnonymousUsageEnabled) &&
+        Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerEEConfiguration.isUiAnonymousUsageEnabled) &&
         Objects.equals(this.isTemplateEnabled, miscControllerEEConfiguration.isTemplateEnabled) &&
         Objects.equals(this.environment, miscControllerEEConfiguration.environment) &&
         Objects.equals(this.url, miscControllerEEConfiguration.url) &&
@@ -990,7 +1053,7 @@ public class MiscControllerEEConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
   }
 
   @Override
@@ -999,11 +1062,13 @@ public class MiscControllerEEConfiguration {
     sb.append("class MiscControllerEEConfiguration {\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
     sb.append("    commitId: ").append(toIndentedString(commitId)).append("\n");
     sb.append("    commitDate: ").append(toIndentedString(commitDate)).append("\n");
     sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
     sb.append("    isTaskRunEnabled: ").append(toIndentedString(isTaskRunEnabled)).append("\n");
     sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
+    sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
     sb.append("    isTemplateEnabled: ").append(toIndentedString(isTemplateEnabled)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");

@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskForExecution.JSON_PROPERTY_INPUTS,
   TaskForExecution.JSON_PROPERTY_SUBFLOW_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class TaskForExecution {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SortRequest.JSON_PROPERTY_SORT_BY,
   SortRequest.JSON_PROPERTY_SORT_ORDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class SortRequest {
   public static final String JSON_PROPERTY_SORT_BY = "sortBy";
   @javax.annotation.Nullable

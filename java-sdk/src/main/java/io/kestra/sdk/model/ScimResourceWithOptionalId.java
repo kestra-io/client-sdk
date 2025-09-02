@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ScimResourceWithOptionalId.JSON_PROPERTY_EXTERNAL_ID,
   ScimResourceWithOptionalId.JSON_PROPERTY_RESOURCE_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ScimResourceWithOptionalId {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable

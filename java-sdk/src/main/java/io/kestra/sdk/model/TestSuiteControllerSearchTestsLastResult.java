@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerSearchTestsLastResult.JSON_PROPERTY_TEST_SUITE_IDS
 })
 @JsonTypeName("TestSuiteController.SearchTestsLastResult")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class TestSuiteControllerSearchTestsLastResult {
   public static final String JSON_PROPERTY_TEST_SUITE_IDS = "testSuiteIds";
   @javax.annotation.Nonnull

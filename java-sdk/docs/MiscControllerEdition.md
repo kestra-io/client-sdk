@@ -1,0 +1,13 @@
+
+
+# MiscControllerEdition
+
+## Enum
+
+
+* `OSS` (value: `"OSS"`)
+
+* `EE` (value: `"EE"`)
+
+
+

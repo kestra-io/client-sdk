@@ -43,9 +43,9 @@ docs/AssertionResult.md
 docs/AssertionRunError.md
 docs/AttributeReference.md
 docs/AuditLog.md
+docs/AuditLogControllerApiAuditLogItem.md
 docs/AuditLogControllerAuditLogDiff.md
 docs/AuditLogControllerAuditLogOption.md
-docs/AuditLogControllerAuditLogWithUser.md
 docs/AuditLogControllerFindRequest.md
 docs/AuditLogDetail.md
 docs/AuditLogsApi.md
@@ -249,6 +249,7 @@ docs/MiscControllerApiUsage.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
+docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -266,7 +267,7 @@ docs/PagedResultsApiGroupSummary.md
 docs/PagedResultsApiRoleSummary.md
 docs/PagedResultsAppsControllerApiApp.md
 docs/PagedResultsAppsControllerApiAppCatalogItem.md
-docs/PagedResultsAuditLogControllerAuditLogWithUser.md
+docs/PagedResultsAuditLogControllerApiAuditLogItem.md
 docs/PagedResultsBlueprint.md
 docs/PagedResultsBlueprintControllerApiBlueprintItem.md
 docs/PagedResultsDashboard.md
@@ -287,6 +288,7 @@ docs/PagedResultsSearchResultFlow.md
 docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
+docs/PagedResultsTestSuiteRunResult.md
 docs/PagedResultsTrigger.md
 docs/PagedResultsTriggerControllerTriggers.md
 docs/PatchOperation.md
@@ -321,6 +323,7 @@ docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
 docs/ResourceType.md
+docs/ResourceType1.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
 docs/RightSidebarConfiguration.md
 docs/RightSidebarConfigurationCustomLink.md
@@ -515,9 +518,9 @@ src/main/java/io/kestra/sdk/model/AssertionResult.java
 src/main/java/io/kestra/sdk/model/AssertionRunError.java
 src/main/java/io/kestra/sdk/model/AttributeReference.java
 src/main/java/io/kestra/sdk/model/AuditLog.java
+src/main/java/io/kestra/sdk/model/AuditLogControllerApiAuditLogItem.java
 src/main/java/io/kestra/sdk/model/AuditLogControllerAuditLogDiff.java
 src/main/java/io/kestra/sdk/model/AuditLogControllerAuditLogOption.java
-src/main/java/io/kestra/sdk/model/AuditLogControllerAuditLogWithUser.java
 src/main/java/io/kestra/sdk/model/AuditLogControllerFindRequest.java
 src/main/java/io/kestra/sdk/model/AuditLogDetail.java
 src/main/java/io/kestra/sdk/model/AuthControllerAuth.java
@@ -702,6 +705,7 @@ src/main/java/io/kestra/sdk/model/MiscControllerApiUsage.java
 src/main/java/io/kestra/sdk/model/MiscControllerBasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
+src/main/java/io/kestra/sdk/model/MiscControllerEdition.java
 src/main/java/io/kestra/sdk/model/MiscControllerEnvironment.java
 src/main/java/io/kestra/sdk/model/MiscControllerLicenseInfo.java
 src/main/java/io/kestra/sdk/model/MiscControllerPluginIdAndVersion.java
@@ -718,7 +722,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsApiGroupSummary.java
 src/main/java/io/kestra/sdk/model/PagedResultsApiRoleSummary.java
 src/main/java/io/kestra/sdk/model/PagedResultsAppsControllerApiApp.java
 src/main/java/io/kestra/sdk/model/PagedResultsAppsControllerApiAppCatalogItem.java
-src/main/java/io/kestra/sdk/model/PagedResultsAuditLogControllerAuditLogWithUser.java
+src/main/java/io/kestra/sdk/model/PagedResultsAuditLogControllerApiAuditLogItem.java
 src/main/java/io/kestra/sdk/model/PagedResultsBlueprint.java
 src/main/java/io/kestra/sdk/model/PagedResultsBlueprintControllerApiBlueprintItem.java
 src/main/java/io/kestra/sdk/model/PagedResultsDashboard.java
@@ -739,6 +743,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsSearchResultFlow.java
 src/main/java/io/kestra/sdk/model/PagedResultsTaskRun.java
 src/main/java/io/kestra/sdk/model/PagedResultsTenant.java
 src/main/java/io/kestra/sdk/model/PagedResultsTestSuite.java
+src/main/java/io/kestra/sdk/model/PagedResultsTestSuiteRunResult.java
 src/main/java/io/kestra/sdk/model/PagedResultsTrigger.java
 src/main/java/io/kestra/sdk/model/PagedResultsTriggerControllerTriggers.java
 src/main/java/io/kestra/sdk/model/PatchOperation.java
@@ -772,6 +777,7 @@ src/main/java/io/kestra/sdk/model/RBACServiceRoleAssignmentRoleOrigin.java
 src/main/java/io/kestra/sdk/model/Relation.java
 src/main/java/io/kestra/sdk/model/RelationType.java
 src/main/java/io/kestra/sdk/model/ResourceType.java
+src/main/java/io/kestra/sdk/model/ResourceType1.java
 src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java

@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiAutocomplete.JSON_PROPERTY_IDS,
   ApiAutocomplete.JSON_PROPERTY_EXISTING_ONLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
   @javax.annotation.Nullable

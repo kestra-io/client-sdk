@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerApiUsage.JSON_PROPERTY_EXECUTIONS
 })
 @JsonTypeName("MiscController.ApiUsage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerApiUsage {
   public static final String JSON_PROPERTY_FLOWS = "flows";
   @javax.annotation.Nullable

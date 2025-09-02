@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.JSON_PROPERTY_METADATA
 })
 @JsonTypeName("InstanceController.ApiPluginVersions.ApiPluginVersionAndMetadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull

@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_ID,
   IdentityProvider.JSON_PROPERTY_SECURITY_INTEGRATION_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IdentityProvider {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @javax.annotation.Nonnull

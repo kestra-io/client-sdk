@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintWithFlow.JSON_PROPERTY_DELETED,
   BlueprintWithFlow.JSON_PROPERTY_FLOW
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class BlueprintWithFlow {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull

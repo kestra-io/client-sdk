@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricTag.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("Metric.Tag")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MetricTag {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nonnull

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsMetricEntry.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_MetricEntry_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class PagedResultsMetricEntry {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nonnull

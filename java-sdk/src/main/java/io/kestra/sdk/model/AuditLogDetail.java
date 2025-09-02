@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Permission;
+import io.kestra.sdk.model.ResourceType1;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -28,30 +29,80 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * AuditLogDetail
  */
 @JsonPropertyOrder({
-  AuditLogDetail.JSON_PROPERTY_TYPE,
-  AuditLogDetail.JSON_PROPERTY_CLS,
   AuditLogDetail.JSON_PROPERTY_PERMISSION,
+  AuditLogDetail.JSON_PROPERTY_RESOURCE_TYPE,
+  AuditLogDetail.JSON_PROPERTY_TYPE,
   AuditLogDetail.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class AuditLogDetail {
+  public static final String JSON_PROPERTY_PERMISSION = "permission";
+  @javax.annotation.Nullable
+  private Permission permission;
+
+  public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
+  @javax.annotation.Nullable
+  private ResourceType1 resourceType;
+
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
   private String type;
-
-  public static final String JSON_PROPERTY_CLS = "cls";
-  @javax.annotation.Nonnull
-  private String cls;
-
-  public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nonnull
-  private Permission permission;
 
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable
   private String id;
 
   public AuditLogDetail() {
+  }
+
+  public AuditLogDetail permission(@javax.annotation.Nullable Permission permission) {
+    
+    this.permission = permission;
+    return this;
+  }
+
+  /**
+   * Get permission
+   * @return permission
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Permission getPermission() {
+    return permission;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermission(@javax.annotation.Nullable Permission permission) {
+    this.permission = permission;
+  }
+
+  public AuditLogDetail resourceType(@javax.annotation.Nullable ResourceType1 resourceType) {
+    
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  /**
+   * Get resourceType
+   * @return resourceType
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ResourceType1 getResourceType() {
+    return resourceType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@javax.annotation.Nullable ResourceType1 resourceType) {
+    this.resourceType = resourceType;
   }
 
   public AuditLogDetail type(@javax.annotation.Nonnull String type) {
@@ -77,56 +128,6 @@ public class AuditLogDetail {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
-  }
-
-  public AuditLogDetail cls(@javax.annotation.Nonnull String cls) {
-    
-    this.cls = cls;
-    return this;
-  }
-
-  /**
-   * Get cls
-   * @return cls
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCls() {
-    return cls;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCls(@javax.annotation.Nonnull String cls) {
-    this.cls = cls;
-  }
-
-  public AuditLogDetail permission(@javax.annotation.Nonnull Permission permission) {
-    
-    this.permission = permission;
-    return this;
-  }
-
-  /**
-   * Get permission
-   * @return permission
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Permission getPermission() {
-    return permission;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermission(@javax.annotation.Nonnull Permission permission) {
-    this.permission = permission;
   }
 
   public AuditLogDetail id(@javax.annotation.Nullable String id) {
@@ -163,24 +164,24 @@ public class AuditLogDetail {
       return false;
     }
     AuditLogDetail auditLogDetail = (AuditLogDetail) o;
-    return Objects.equals(this.type, auditLogDetail.type) &&
-        Objects.equals(this.cls, auditLogDetail.cls) &&
-        Objects.equals(this.permission, auditLogDetail.permission) &&
+    return Objects.equals(this.permission, auditLogDetail.permission) &&
+        Objects.equals(this.resourceType, auditLogDetail.resourceType) &&
+        Objects.equals(this.type, auditLogDetail.type) &&
         Objects.equals(this.id, auditLogDetail.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, cls, permission, id);
+    return Objects.hash(permission, resourceType, type, id);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuditLogDetail {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    cls: ").append(toIndentedString(cls)).append("\n");
     sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -54,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowInterface.JSON_PROPERTY_SLA,
   FlowInterface.JSON_PROPERTY_SOURCE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowInterface {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable

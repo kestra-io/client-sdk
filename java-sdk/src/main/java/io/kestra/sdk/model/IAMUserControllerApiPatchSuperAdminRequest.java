@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMUserController.ApiPatchSuperAdminRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IAMUserControllerApiPatchSuperAdminRequest {
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
   @javax.annotation.Nonnull

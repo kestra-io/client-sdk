@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Invitation.JSON_PROPERTY_SUPER_ADMIN,
   Invitation.JSON_PROPERTY_LINK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class Invitation {
   public static final String JSON_PROPERTY_IS_EXPIRED = "isExpired";
   @javax.annotation.Nonnull

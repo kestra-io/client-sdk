@@ -15,6 +15,7 @@ All URIs are relative to *http://localhost*
 | [**runTestSuite**](TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test |
 | [**runTestSuitesByQuery**](TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query |
 | [**searchTestSuites**](TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests |
+| [**searchTestSuitesResults**](TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results |
 | [**updateTestSuite**](TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source |
 | [**validateTestSuite**](TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test |
 
@@ -784,6 +785,84 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | searchTestSuites 200 response |  -  |
+
+
+## searchTestSuitesResults
+
+> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId)
+
+Search for tests results
+
+with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+### Example
+
+```java
+// Import classes:
+import io.kestra.sdk.internal.ApiClient;
+import io.kestra.sdk.internal.ApiException;
+import io.kestra.sdk.internal.Configuration;
+import io.kestra.sdk.internal.models.*;
+import io.kestra.sdk.api.TestSuitesApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+
+        TestSuitesApi apiInstance = new TestSuitesApi(defaultClient);
+        Integer page = 1; // Integer | The current page
+        Integer size = 10; // Integer | The current page size
+        String testSuiteId = "testSuiteId_example"; // String | The test suite id to filter on
+        String tenant = "tenant_example"; // String | 
+        List<String> sort = Arrays.asList(); // List<String> | The sort of current page
+        String namespace = "namespace_example"; // String | The namespace to filter on
+        String flowId = "flowId_example"; // String | The flow id to filter on
+        try {
+            PagedResultsTestSuiteRunResult result = apiInstance.searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TestSuitesApi#searchTestSuitesResults");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **page** | **Integer**| The current page | [default to 1] |
+| **size** | **Integer**| The current page size | [default to 10] |
+| **testSuiteId** | **String**| The test suite id to filter on | |
+| **tenant** | **String**|  | |
+| **sort** | [**List&lt;String&gt;**](String.md)| The sort of current page | [optional] |
+| **namespace** | **String**| The namespace to filter on | [optional] |
+| **flowId** | **String**| The flow id to filter on | [optional] |
+
+### Return type
+
+[**PagedResultsTestSuiteRunResult**](PagedResultsTestSuiteRunResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | searchTestSuitesResults 200 response |  -  |
 
 
 ## updateTestSuite

@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ValidateConstraintViolation.JSON_PROPERTY_WARNINGS,
   ValidateConstraintViolation.JSON_PROPERTY_INFOS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ValidateConstraintViolation {
   public static final String JSON_PROPERTY_FLOW = "flow";
   @javax.annotation.Nonnull

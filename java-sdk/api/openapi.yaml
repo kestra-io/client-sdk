@@ -126,14 +126,14 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: A permission filter
+      - description: A resource filter
         explode: false
         in: query
-        name: permission
+        name: resource
         required: false
         schema:
           allOf:
-          - $ref: "#/components/schemas/Permission"
+          - $ref: "#/components/schemas/ResourceType_1"
           nullable: true
         style: form
       - description: The start datetime
@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
           description: searchAuditLogsForAllTenants 200 response
       security:
       - bearerAuth: []
@@ -3444,14 +3444,14 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: A permission filter
+      - description: A resource filter
         explode: false
         in: query
-        name: permissions
+        name: resources
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/Permission"
+            $ref: "#/components/schemas/ResourceType_1"
           nullable: true
           type: array
         style: form
@@ -3543,7 +3543,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+                $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
           description: findAuditLog 200 response
       security:
       - bearerAuth: []
@@ -3679,14 +3679,14 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: A permission filter
+      - description: A resource filter
         explode: false
         in: query
-        name: permissions
+        name: resources
         required: false
         schema:
           items:
-            $ref: "#/components/schemas/Permission"
+            $ref: "#/components/schemas/ResourceType_1"
           nullable: true
           type: array
         style: form
@@ -3743,7 +3743,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagedResults_AuditLogController.AuditLogWithUser_"
+                $ref: "#/components/schemas/PagedResults_AuditLogController.ApiAuditLogItem_"
           description: searchAuditLogs 200 response
       security:
       - bearerAuth: []
@@ -15685,6 +15685,90 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /api/v1/{tenant}/tests/results/search:
+    get:
+      description: "with optional filtering by namespace, test suite ID and flow ID.\
+        \ Requires TEST permission with the READ action."
+      operationId: searchTestSuitesResults
+      parameters:
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          minimum: 1
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      - description: The test suite id to filter on
+        explode: false
+        in: query
+        name: testSuiteId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The namespace to filter on
+        explode: false
+        in: query
+        name: namespace
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: The flow id to filter on
+        explode: false
+        in: query
+        name: flowId
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_TestSuiteRunResult_"
+          description: searchTestSuitesResults 200 response
+      summary: Search for tests results
+      tags:
+      - TestSuites
+      x-accepts:
+      - application/json
   /api/v1/{tenant}/tests/results/search/last:
     post:
       description: Get multiple tests last result for a query.
@@ -17971,9 +18055,9 @@ components:
         id: id
         detail:
           permission: FLOW
-          cls: cls
           id: id
           type: type
+          resourceType: AUDITLOG
         type: READ
         impersonatedBy: impersonatedBy
         userId: userId
@@ -17981,38 +18065,7 @@ components:
       - appliedPatch
       - revertPatch
       type: object
-    AuditLogController.AuditLogDiff:
-      example:
-        before: before
-        after: after
-      properties:
-        before:
-          type: string
-        after:
-          type: string
-      required:
-      - after
-      - before
-      type: object
-    AuditLogController.AuditLogOption:
-      example:
-        date: 2000-01-23T04:56:07.000+00:00
-        id: id
-        username: username
-      properties:
-        id:
-          type: string
-        date:
-          format: date-time
-          type: string
-        username:
-          type: string
-      required:
-      - date
-      - id
-      - username
-      type: object
-    AuditLogController.AuditLogWithUser:
+    AuditLogController.ApiAuditLogItem:
       example:
         auditLog:
           date: 2000-01-23T04:56:07.000+00:00
@@ -18028,12 +18081,13 @@ components:
           id: id
           detail:
             permission: FLOW
-            cls: cls
             id: id
             type: type
+            resourceType: AUDITLOG
           type: READ
           impersonatedBy: impersonatedBy
           userId: userId
+        permission: null
         user:
           lastName: lastName
           auths:
@@ -18081,14 +18135,48 @@ components:
           $ref: "#/components/schemas/AuditLog"
         user:
           $ref: "#/components/schemas/ApiUser"
+        permission:
+          $ref: "#/components/schemas/Permission"
       required:
       - auditLog
+      - permission
       - user
+      type: object
+    AuditLogController.AuditLogDiff:
+      example:
+        before: before
+        after: after
+      properties:
+        before:
+          type: string
+        after:
+          type: string
+      required:
+      - after
+      - before
+      type: object
+    AuditLogController.AuditLogOption:
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        id: id
+        username: username
+      properties:
+        id:
+          type: string
+        date:
+          format: date-time
+          type: string
+        username:
+          type: string
+      required:
+      - date
+      - id
+      - username
       type: object
     AuditLogController.FindRequest:
       properties:
-        permission:
-          $ref: "#/components/schemas/Permission"
+        resource:
+          $ref: "#/components/schemas/ResourceType_1"
         type:
           allOf:
           - $ref: "#/components/schemas/CrudEventType"
@@ -18099,26 +18187,24 @@ components:
           type: object
       required:
       - detail
-      - permission
+      - resource
       type: object
     AuditLogDetail:
       example:
         permission: FLOW
-        cls: cls
         id: id
         type: type
+        resourceType: AUDITLOG
       properties:
-        type:
-          type: string
-        cls:
-          type: string
         permission:
           $ref: "#/components/schemas/Permission"
+        resourceType:
+          $ref: "#/components/schemas/ResourceType_1"
+        type:
+          type: string
         id:
           type: string
       required:
-      - cls
-      - permission
       - type
       type: object
     AuthController.Auth:
@@ -23708,6 +23794,8 @@ components:
           type: string
         version:
           type: string
+        edition:
+          $ref: "#/components/schemas/MiscController.Edition"
         commitId:
           type: string
         commitDate:
@@ -23718,6 +23806,8 @@ components:
         isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
+          type: boolean
+        isUiAnonymousUsageEnabled:
           type: boolean
         isTemplateEnabled:
           type: boolean
@@ -23783,6 +23873,7 @@ components:
           max: 6
         isBasicAuthInitialized: true
         inMaintenance: true
+        edition: OSS
         pluginManagementEnabled: true
         uuid: uuid
         isCustomDashboardsEnabled: true
@@ -23796,6 +23887,7 @@ components:
           version: version
         - id: id
           version: version
+        isUiAnonymousUsageEnabled: true
         mailServiceEnabled: true
         pluginCustomEnabled: true
         supportedSecrets:
@@ -23870,6 +23962,11 @@ components:
         isTemplateEnabled: true
         systemNamespace: systemNamespace
       type: object
+    MiscController.Edition:
+      enum:
+      - OSS
+      - EE
+      type: string
     MiscController.Environment:
       example:
         color: color
@@ -24251,7 +24348,7 @@ components:
       - results
       - total
       type: object
-    PagedResults_AuditLogController.AuditLogWithUser_:
+    PagedResults_AuditLogController.ApiAuditLogItem_:
       example:
         total: 0
         results:
@@ -24269,12 +24366,13 @@ components:
             id: id
             detail:
               permission: FLOW
-              cls: cls
               id: id
               type: type
+              resourceType: AUDITLOG
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
+          permission: null
           user:
             lastName: lastName
             auths:
@@ -24331,12 +24429,13 @@ components:
             id: id
             detail:
               permission: FLOW
-              cls: cls
               id: id
               type: type
+              resourceType: AUDITLOG
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
+          permission: null
           user:
             lastName: lastName
             auths:
@@ -24382,7 +24481,7 @@ components:
       properties:
         results:
           items:
-            $ref: "#/components/schemas/AuditLogController.AuditLogWithUser"
+            $ref: "#/components/schemas/AuditLogController.ApiAuditLogItem"
           type: array
         total:
           format: int64
@@ -27249,6 +27348,246 @@ components:
       - results
       - total
       type: object
+    PagedResults_TestSuiteRunResult_:
+      example:
+        total: 0
+        results:
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+        - endDate: 2000-01-23T04:56:07.000+00:00
+          namespace: namespace
+          id: id
+          testSuiteId: testSuiteId
+          state: ERROR
+          flowId: flowId
+          results:
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          - executionId: executionId
+            assertionResults:
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            - actual: "{}"
+              expected: "{}"
+              errorMessage: errorMessage
+              description: description
+              operator: operator
+              taskId: taskId
+              isSuccess: true
+            testType: testType
+            testId: testId
+            state: null
+            url: https://openapi-generator.tech
+            errors:
+            - details: details
+              message: message
+            - details: details
+              message: message
+            fixtures:
+              inputs:
+                key: ""
+              files:
+                key: files
+              trigger:
+                variables:
+                  key: "{}"
+                id: id
+                type: type
+              tasks:
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+              - outputs:
+                  key: "{}"
+                description:
+                  expression: expression
+                  value: value
+                id: id
+                state: null
+                value: value
+          startDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/TestSuiteRunResult"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
     PagedResults_TestSuite_:
       example:
         total: 0
@@ -28030,8 +28369,6 @@ components:
       - GROUP_MEMBERSHIP
       - UNKNOWN
       type: string
-      x-deprecated:
-      - INFRASTRUCTURE
     Plugin:
       example:
         longDescription: longDescription
@@ -28626,6 +28963,33 @@ components:
         required:
           type: boolean
       type: object
+    ResourceType_1:
+      enum:
+      - AUDITLOG
+      - APP
+      - APP_EXECUTION
+      - BINDING
+      - DASHBOARD
+      - EXECUTION
+      - FLOW
+      - GROUP
+      - INVITATION
+      - NAMESPACE
+      - ROLE
+      - SECURITY_INTEGRATION
+      - SECRET
+      - SETTING
+      - TEMPLATE
+      - TENANT
+      - TENANT_ACCESS
+      - TESTSUITE
+      - TESTSUITE_RUN
+      - VERSIONED_PLUGIN
+      - USER
+      - WORKER_GROUP
+      - INSTANCE
+      - UNKNOWN
+      type: string
     RightSidebarConfiguration:
       example:
         customLinks:

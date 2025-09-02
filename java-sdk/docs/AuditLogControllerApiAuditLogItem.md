@@ -1,6 +1,6 @@
 
 
-# AuditLogControllerAuditLogWithUser
+# AuditLogControllerApiAuditLogItem
 
 
 ## Properties
@@ -9,6 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**auditLog** | [**AuditLog**](AuditLog.md) |  |  |
 |**user** | [**ApiUser**](ApiUser.md) |  |  |
+|**permission** | **Permission** |  |  |
 
 
 

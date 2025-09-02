@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   HttpParameters.JSON_PROPERTY_CONVERSION_SERVICE,
   HttpParameters.JSON_PROPERTY_EMPTY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class HttpParameters {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @javax.annotation.Nonnull

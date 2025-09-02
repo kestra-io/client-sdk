@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionStatusEvent.JSON_PROPERTY_FLOW_ID,
   ExecutionStatusEvent.JSON_PROPERTY_STATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ExecutionStatusEvent {
   public static final String JSON_PROPERTY_EXECUTION_ID = "executionId";
   @javax.annotation.Nonnull

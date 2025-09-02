@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractTrigger.JSON_PROPERTY_LOG_TO_FILE,
   AbstractTrigger.JSON_PROPERTY_FAIL_ON_TRIGGER_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class AbstractTrigger {
   public static final String JSON_PROPERTY_MIN_LOG_LEVEL = "minLogLevel";
   @javax.annotation.Nullable

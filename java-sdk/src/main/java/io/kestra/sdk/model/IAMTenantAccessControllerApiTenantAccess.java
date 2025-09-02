@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiTenantAccess.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMTenantAccessController.ApiTenantAccess")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IAMTenantAccessControllerApiTenantAccess {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @javax.annotation.Nonnull

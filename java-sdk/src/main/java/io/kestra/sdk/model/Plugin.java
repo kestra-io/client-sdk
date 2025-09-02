@@ -61,7 +61,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_CATEGORIES,
   Plugin.JSON_PROPERTY_SUB_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class Plugin {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nullable

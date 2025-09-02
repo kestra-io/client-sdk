@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ConvertibleValuesListString.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("ConvertibleValues_List_String__")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ConvertibleValuesListString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @javax.annotation.Nonnull

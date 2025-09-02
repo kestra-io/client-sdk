@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiUserPermission.JSON_PROPERTY_ACTIONS
 })
 @JsonTypeName("IAMTenantAccessController.ApiUserPermission")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IAMTenantAccessControllerApiUserPermission {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
   @javax.annotation.Nonnull

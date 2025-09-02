@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerBasicAuthCredentials.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("MiscController.BasicAuthCredentials")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerBasicAuthCredentials {
   public static final String JSON_PROPERTY_UID = "uid";
   @javax.annotation.Nonnull

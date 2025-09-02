@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   LogEntry.JSON_PROPERTY_DELETED,
   LogEntry.JSON_PROPERTY_EXECUTION_KIND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class LogEntry {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @javax.annotation.Nonnull

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowId.JSON_PROPERTY_REVISION,
   FlowId.JSON_PROPERTY_TENANT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowId {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable

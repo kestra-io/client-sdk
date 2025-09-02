@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   State.JSON_PROPERTY_CURRENT,
   State.JSON_PROPERTY_HISTORIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class State {
   public static final String JSON_PROPERTY_DURATION = "duration";
   @javax.annotation.Nullable

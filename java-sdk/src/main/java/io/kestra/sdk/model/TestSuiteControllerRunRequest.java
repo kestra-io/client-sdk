@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerRunRequest.JSON_PROPERTY_TEST_CASES
 })
 @JsonTypeName("TestSuiteController.RunRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class TestSuiteControllerRunRequest {
   public static final String JSON_PROPERTY_TEST_CASES = "testCases";
   @javax.annotation.Nonnull

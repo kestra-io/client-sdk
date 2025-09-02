@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilter.JSON_PROPERTY_OPERATION,
   QueryFilter.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class QueryFilter {
   public static final String JSON_PROPERTY_FIELD = "field";
   @javax.annotation.Nonnull

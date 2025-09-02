@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IdWithNamespace.JSON_PROPERTY_NAMESPACE,
   IdWithNamespace.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IdWithNamespace {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @javax.annotation.Nullable

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventLogEntry.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_LogEntry_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class EventLogEntry {
   public static final String JSON_PROPERTY_DATA = "data";
   @javax.annotation.Nullable

@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilterResourceField.JSON_PROPERTY_FIELDS
 })
 @JsonTypeName("QueryFilter.ResourceField")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class QueryFilterResourceField {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull

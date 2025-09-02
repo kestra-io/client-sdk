@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.CrudEventType;
-import io.kestra.sdk.model.Permission;
+import io.kestra.sdk.model.ResourceType1;
 import java.util.HashMap;
 import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -35,16 +35,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * AuditLogControllerFindRequest
  */
 @JsonPropertyOrder({
-  AuditLogControllerFindRequest.JSON_PROPERTY_PERMISSION,
+  AuditLogControllerFindRequest.JSON_PROPERTY_RESOURCE,
   AuditLogControllerFindRequest.JSON_PROPERTY_TYPE,
   AuditLogControllerFindRequest.JSON_PROPERTY_DETAIL
 })
 @JsonTypeName("AuditLogController.FindRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class AuditLogControllerFindRequest {
-  public static final String JSON_PROPERTY_PERMISSION = "permission";
+  public static final String JSON_PROPERTY_RESOURCE = "resource";
   @javax.annotation.Nonnull
-  private Permission permission;
+  private ResourceType1 resource;
 
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nullable
@@ -57,29 +57,29 @@ public class AuditLogControllerFindRequest {
   public AuditLogControllerFindRequest() {
   }
 
-  public AuditLogControllerFindRequest permission(@javax.annotation.Nonnull Permission permission) {
+  public AuditLogControllerFindRequest resource(@javax.annotation.Nonnull ResourceType1 resource) {
     
-    this.permission = permission;
+    this.resource = resource;
     return this;
   }
 
   /**
-   * Get permission
-   * @return permission
+   * Get resource
+   * @return resource
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public Permission getPermission() {
-    return permission;
+  public ResourceType1 getResource() {
+    return resource;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonProperty(JSON_PROPERTY_RESOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermission(@javax.annotation.Nonnull Permission permission) {
-    this.permission = permission;
+  public void setResource(@javax.annotation.Nonnull ResourceType1 resource) {
+    this.resource = resource;
   }
 
   public AuditLogControllerFindRequest type(@javax.annotation.Nullable CrudEventType type) {
@@ -154,7 +154,7 @@ public class AuditLogControllerFindRequest {
       return false;
     }
     AuditLogControllerFindRequest auditLogControllerFindRequest = (AuditLogControllerFindRequest) o;
-    return Objects.equals(this.permission, auditLogControllerFindRequest.permission) &&
+    return Objects.equals(this.resource, auditLogControllerFindRequest.resource) &&
         equalsNullable(this.type, auditLogControllerFindRequest.type) &&
         Objects.equals(this.detail, auditLogControllerFindRequest.detail);
   }
@@ -165,7 +165,7 @@ public class AuditLogControllerFindRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(permission, hashCodeNullable(type), detail);
+    return Objects.hash(resource, hashCodeNullable(type), detail);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -179,7 +179,7 @@ public class AuditLogControllerFindRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuditLogControllerFindRequest {\n");
-    sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
+    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
     sb.append("}");

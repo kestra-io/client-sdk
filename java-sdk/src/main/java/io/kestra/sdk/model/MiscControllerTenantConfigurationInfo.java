@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerTenantConfigurationInfo.JSON_PROPERTY_SECRET_BY_TENANT
 })
 @JsonTypeName("MiscController.TenantConfigurationInfo")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerTenantConfigurationInfo {
   public static final String JSON_PROPERTY_STORAGE_BY_TENANT = "storageByTenant";
   @javax.annotation.Nonnull

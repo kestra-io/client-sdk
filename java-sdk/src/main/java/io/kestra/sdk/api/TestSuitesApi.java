@@ -22,6 +22,7 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.BulkResponse;
 import io.kestra.sdk.model.PagedResultsTestSuite;
+import io.kestra.sdk.model.PagedResultsTestSuiteRunResult;
 import io.kestra.sdk.model.TestSuite;
 import io.kestra.sdk.model.TestSuiteControllerRunRequest;
 import io.kestra.sdk.model.TestSuiteControllerSearchTestsLastResult;
@@ -40,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class TestSuitesApi extends BaseApi {
 
   public TestSuitesApi() {
@@ -992,6 +993,114 @@ public class TestSuitesApi extends BaseApi {
     String[] localVarAuthNames = new String[] {  };
 
     TypeReference<PagedResultsTestSuite> localVarReturnType = new TypeReference<PagedResultsTestSuite>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Search for tests results
+   * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param testSuiteId The test suite id to filter on (required)
+   * @param tenant  (required)
+   * @param sort The sort of current page (optional)
+   * @param namespace The namespace to filter on (optional)
+   * @param flowId The flow id to filter on (optional)
+   * @return PagedResultsTestSuiteRunResult
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String testSuiteId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId) throws ApiException {
+    return this.searchTestSuitesResults(page, size, testSuiteId, tenant, sort, namespace, flowId, Collections.emptyMap());
+  }
+
+
+  /**
+   * Search for tests results
+   * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param testSuiteId The test suite id to filter on (required)
+   * @param tenant  (required)
+   * @param sort The sort of current page (optional)
+   * @param namespace The namespace to filter on (optional)
+   * @param flowId The flow id to filter on (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsTestSuiteRunResult
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsTestSuiteRunResult searchTestSuitesResults(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nonnull String testSuiteId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> sort, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling searchTestSuitesResults");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling searchTestSuitesResults");
+    }
+    
+    // verify the required parameter 'testSuiteId' is set
+    if (testSuiteId == null) {
+      throw new ApiException(400, "Missing the required parameter 'testSuiteId' when calling searchTestSuitesResults");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling searchTestSuitesResults");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/{tenant}/tests/results/search"
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    localVarQueryParams.addAll(apiClient.parameterToPair("testSuiteId", testSuiteId));
+    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
+    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {  };
+
+    TypeReference<PagedResultsTestSuiteRunResult> localVarReturnType = new TypeReference<PagedResultsTestSuiteRunResult>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

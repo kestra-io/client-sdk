@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiCreateOrUpdateUserRequest.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiCreateOrUpdateUserRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IAMUserControllerApiCreateOrUpdateUserRequest {
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @javax.annotation.Nonnull

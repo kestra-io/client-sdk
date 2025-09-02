@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Blueprint.JSON_PROPERTY_PUBLISHED_AT,
   Blueprint.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class Blueprint {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull

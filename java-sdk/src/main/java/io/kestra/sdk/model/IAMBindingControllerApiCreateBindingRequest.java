@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_NAMESPACE_ID
 })
 @JsonTypeName("IAMBindingController.ApiCreateBindingRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class IAMBindingControllerApiCreateBindingRequest {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerPluginIdAndVersion.JSON_PROPERTY_VERSION
 })
 @JsonTypeName("MiscController.PluginIdAndVersion")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerPluginIdAndVersion {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull

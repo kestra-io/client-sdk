@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEnvironment.JSON_PROPERTY_COLOR
 })
 @JsonTypeName("MiscController.Environment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerEnvironment {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull

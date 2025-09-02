@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.AuditLogControllerAuditLogWithUser;
+import io.kestra.sdk.model.TestSuiteRunResult;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,33 +28,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * PagedResultsAuditLogControllerAuditLogWithUser
+ * PagedResultsTestSuiteRunResult
  */
 @JsonPropertyOrder({
-  PagedResultsAuditLogControllerAuditLogWithUser.JSON_PROPERTY_RESULTS,
-  PagedResultsAuditLogControllerAuditLogWithUser.JSON_PROPERTY_TOTAL
+  PagedResultsTestSuiteRunResult.JSON_PROPERTY_RESULTS,
+  PagedResultsTestSuiteRunResult.JSON_PROPERTY_TOTAL
 })
-@JsonTypeName("PagedResults_AuditLogController.AuditLogWithUser_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
-public class PagedResultsAuditLogControllerAuditLogWithUser {
+@JsonTypeName("PagedResults_TestSuiteRunResult_")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+public class PagedResultsTestSuiteRunResult {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nonnull
-  private List<AuditLogControllerAuditLogWithUser> results = new ArrayList<>();
+  private List<TestSuiteRunResult> results = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TOTAL = "total";
   @javax.annotation.Nonnull
   private Long total;
 
-  public PagedResultsAuditLogControllerAuditLogWithUser() {
+  public PagedResultsTestSuiteRunResult() {
   }
 
-  public PagedResultsAuditLogControllerAuditLogWithUser results(@javax.annotation.Nonnull List<AuditLogControllerAuditLogWithUser> results) {
+  public PagedResultsTestSuiteRunResult results(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
     
     this.results = results;
     return this;
   }
 
-  public PagedResultsAuditLogControllerAuditLogWithUser addResultsItem(AuditLogControllerAuditLogWithUser resultsItem) {
+  public PagedResultsTestSuiteRunResult addResultsItem(TestSuiteRunResult resultsItem) {
     if (this.results == null) {
       this.results = new ArrayList<>();
     }
@@ -70,18 +70,18 @@ public class PagedResultsAuditLogControllerAuditLogWithUser {
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public List<AuditLogControllerAuditLogWithUser> getResults() {
+  public List<TestSuiteRunResult> getResults() {
     return results;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<AuditLogControllerAuditLogWithUser> results) {
+  public void setResults(@javax.annotation.Nonnull List<TestSuiteRunResult> results) {
     this.results = results;
   }
 
-  public PagedResultsAuditLogControllerAuditLogWithUser total(@javax.annotation.Nonnull Long total) {
+  public PagedResultsTestSuiteRunResult total(@javax.annotation.Nonnull Long total) {
     
     this.total = total;
     return this;
@@ -114,9 +114,9 @@ public class PagedResultsAuditLogControllerAuditLogWithUser {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PagedResultsAuditLogControllerAuditLogWithUser pagedResultsAuditLogControllerAuditLogWithUser = (PagedResultsAuditLogControllerAuditLogWithUser) o;
-    return Objects.equals(this.results, pagedResultsAuditLogControllerAuditLogWithUser.results) &&
-        Objects.equals(this.total, pagedResultsAuditLogControllerAuditLogWithUser.total);
+    PagedResultsTestSuiteRunResult pagedResultsTestSuiteRunResult = (PagedResultsTestSuiteRunResult) o;
+    return Objects.equals(this.results, pagedResultsTestSuiteRunResult.results) &&
+        Objects.equals(this.total, pagedResultsTestSuiteRunResult.total);
   }
 
   @Override
@@ -127,7 +127,7 @@ public class PagedResultsAuditLogControllerAuditLogWithUser {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PagedResultsAuditLogControllerAuditLogWithUser {\n");
+    sb.append("class PagedResultsTestSuiteRunResult {\n");
     sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("}");

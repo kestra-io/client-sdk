@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DashboardControllerPreviewRequest.JSON_PROPERTY_GLOBAL_FILTER
 })
 @JsonTypeName("DashboardController.PreviewRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class DashboardControllerPreviewRequest {
   public static final String JSON_PROPERTY_CHART = "chart";
   @javax.annotation.Nonnull

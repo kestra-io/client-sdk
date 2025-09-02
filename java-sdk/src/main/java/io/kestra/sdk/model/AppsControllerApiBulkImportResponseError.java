@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkImportResponseError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("AppsController.ApiBulkImportResponse.Error")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class AppsControllerApiBulkImportResponseError {
   public static final String JSON_PROPERTY_SOURCE = "source";
   @javax.annotation.Nonnull

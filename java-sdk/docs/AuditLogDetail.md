@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**permission** | **Permission** |  |  [optional] |
+|**resourceType** | **ResourceType1** |  |  [optional] |
 |**type** | **String** |  |  |
-|**cls** | **String** |  |  |
-|**permission** | **Permission** |  |  |
 |**id** | **String** |  |  [optional] |
 
 

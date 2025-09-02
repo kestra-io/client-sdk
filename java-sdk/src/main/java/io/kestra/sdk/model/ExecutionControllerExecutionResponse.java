@@ -69,7 +69,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerExecutionResponse.JSON_PROPERTY_URL
 })
 @JsonTypeName("ExecutionController.ExecutionResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class ExecutionControllerExecutionResponse {
   public static final String JSON_PROPERTY_LABELS = "labels";
   @javax.annotation.Nonnull

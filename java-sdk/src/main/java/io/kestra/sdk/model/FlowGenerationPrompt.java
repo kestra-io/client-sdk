@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
   FlowGenerationPrompt.JSON_PROPERTY_FLOW_YAML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowGenerationPrompt {
   public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
   @javax.annotation.Nonnull

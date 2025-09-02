@@ -22,19 +22,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.ApiUser;
 import io.kestra.sdk.model.AuditLog;
+import io.kestra.sdk.model.Permission;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * AuditLogControllerAuditLogWithUser
+ * AuditLogControllerApiAuditLogItem
  */
 @JsonPropertyOrder({
-  AuditLogControllerAuditLogWithUser.JSON_PROPERTY_AUDIT_LOG,
-  AuditLogControllerAuditLogWithUser.JSON_PROPERTY_USER
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_AUDIT_LOG,
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER,
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_PERMISSION
 })
-@JsonTypeName("AuditLogController.AuditLogWithUser")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
-public class AuditLogControllerAuditLogWithUser {
+@JsonTypeName("AuditLogController.ApiAuditLogItem")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+public class AuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_AUDIT_LOG = "auditLog";
   @javax.annotation.Nonnull
   private AuditLog auditLog;
@@ -43,10 +45,14 @@ public class AuditLogControllerAuditLogWithUser {
   @javax.annotation.Nonnull
   private ApiUser user;
 
-  public AuditLogControllerAuditLogWithUser() {
+  public static final String JSON_PROPERTY_PERMISSION = "permission";
+  @javax.annotation.Nonnull
+  private Permission permission;
+
+  public AuditLogControllerApiAuditLogItem() {
   }
 
-  public AuditLogControllerAuditLogWithUser auditLog(@javax.annotation.Nonnull AuditLog auditLog) {
+  public AuditLogControllerApiAuditLogItem auditLog(@javax.annotation.Nonnull AuditLog auditLog) {
     
     this.auditLog = auditLog;
     return this;
@@ -71,7 +77,7 @@ public class AuditLogControllerAuditLogWithUser {
     this.auditLog = auditLog;
   }
 
-  public AuditLogControllerAuditLogWithUser user(@javax.annotation.Nonnull ApiUser user) {
+  public AuditLogControllerApiAuditLogItem user(@javax.annotation.Nonnull ApiUser user) {
     
     this.user = user;
     return this;
@@ -96,6 +102,31 @@ public class AuditLogControllerAuditLogWithUser {
     this.user = user;
   }
 
+  public AuditLogControllerApiAuditLogItem permission(@javax.annotation.Nonnull Permission permission) {
+    
+    this.permission = permission;
+    return this;
+  }
+
+  /**
+   * Get permission
+   * @return permission
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Permission getPermission() {
+    return permission;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPermission(@javax.annotation.Nonnull Permission permission) {
+    this.permission = permission;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -104,22 +135,24 @@ public class AuditLogControllerAuditLogWithUser {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AuditLogControllerAuditLogWithUser auditLogControllerAuditLogWithUser = (AuditLogControllerAuditLogWithUser) o;
-    return Objects.equals(this.auditLog, auditLogControllerAuditLogWithUser.auditLog) &&
-        Objects.equals(this.user, auditLogControllerAuditLogWithUser.user);
+    AuditLogControllerApiAuditLogItem auditLogControllerApiAuditLogItem = (AuditLogControllerApiAuditLogItem) o;
+    return Objects.equals(this.auditLog, auditLogControllerApiAuditLogItem.auditLog) &&
+        Objects.equals(this.user, auditLogControllerApiAuditLogItem.user) &&
+        Objects.equals(this.permission, auditLogControllerApiAuditLogItem.permission);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(auditLog, user);
+    return Objects.hash(auditLog, user, permission);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AuditLogControllerAuditLogWithUser {\n");
+    sb.append("class AuditLogControllerApiAuditLogItem {\n");
     sb.append("    auditLog: ").append(toIndentedString(auditLog)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
     sb.append("}");
     return sb.toString();
   }

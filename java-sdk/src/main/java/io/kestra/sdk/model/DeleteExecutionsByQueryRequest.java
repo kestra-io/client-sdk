@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DeleteExecutionsByQueryRequest.JSON_PROPERTY_FILTERS
 })
 @JsonTypeName("deleteExecutionsByQuery_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class DeleteExecutionsByQueryRequest {
   public static final String JSON_PROPERTY_FILTERS = "filters";
   @javax.annotation.Nullable

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVControllerApiDeleteBulkResponse.JSON_PROPERTY_KEYS
 })
 @JsonTypeName("KVController.ApiDeleteBulkResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class KVControllerApiDeleteBulkResponse {
   public static final String JSON_PROPERTY_KEYS = "keys";
   @javax.annotation.Nonnull

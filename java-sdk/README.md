@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: v1
 
-- Generator version: 7.14.0-SNAPSHOT
+- Generator version: 7.16.0-SNAPSHOT
 
 All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.<br/>
 Endpoints designated as Superadmin-only are not tenant-scoped.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.0-beta4</version>
+  <version>1.0.0-beta5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.0-beta4"
+compile "io.kestra:kestra-api-client:1.0.0-beta5"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.0-beta4.jar`
+- `target/kestra-api-client-1.0.0-beta5.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -423,6 +423,7 @@ Class | Method | HTTP request | Description
 *TestSuitesApi* | [**runTestSuite**](docs/TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
 *TestSuitesApi* | [**runTestSuitesByQuery**](docs/TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
 *TestSuitesApi* | [**searchTestSuites**](docs/TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
+*TestSuitesApi* | [**searchTestSuitesResults**](docs/TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results
 *TestSuitesApi* | [**updateTestSuite**](docs/TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 *TestSuitesApi* | [**validateTestSuite**](docs/TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
 *TriggersApi* | [**deleteBackfill**](docs/TriggersApi.md#deleteBackfill) | **POST** /api/v1/{tenant}/triggers/backfill/delete | Delete a backfill
@@ -509,9 +510,9 @@ Class | Method | HTTP request | Description
  - [AssertionRunError](docs/AssertionRunError.md)
  - [AttributeReference](docs/AttributeReference.md)
  - [AuditLog](docs/AuditLog.md)
+ - [AuditLogControllerApiAuditLogItem](docs/AuditLogControllerApiAuditLogItem.md)
  - [AuditLogControllerAuditLogDiff](docs/AuditLogControllerAuditLogDiff.md)
  - [AuditLogControllerAuditLogOption](docs/AuditLogControllerAuditLogOption.md)
- - [AuditLogControllerAuditLogWithUser](docs/AuditLogControllerAuditLogWithUser.md)
  - [AuditLogControllerFindRequest](docs/AuditLogControllerFindRequest.md)
  - [AuditLogDetail](docs/AuditLogDetail.md)
  - [AuthControllerAuth](docs/AuthControllerAuth.md)
@@ -696,6 +697,7 @@ Class | Method | HTTP request | Description
  - [MiscControllerBasicAuthCredentials](docs/MiscControllerBasicAuthCredentials.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
+ - [MiscControllerEdition](docs/MiscControllerEdition.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
  - [MiscControllerLicenseInfo](docs/MiscControllerLicenseInfo.md)
  - [MiscControllerPluginIdAndVersion](docs/MiscControllerPluginIdAndVersion.md)
@@ -712,7 +714,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsApiRoleSummary](docs/PagedResultsApiRoleSummary.md)
  - [PagedResultsAppsControllerApiApp](docs/PagedResultsAppsControllerApiApp.md)
  - [PagedResultsAppsControllerApiAppCatalogItem](docs/PagedResultsAppsControllerApiAppCatalogItem.md)
- - [PagedResultsAuditLogControllerAuditLogWithUser](docs/PagedResultsAuditLogControllerAuditLogWithUser.md)
+ - [PagedResultsAuditLogControllerApiAuditLogItem](docs/PagedResultsAuditLogControllerApiAuditLogItem.md)
  - [PagedResultsBlueprint](docs/PagedResultsBlueprint.md)
  - [PagedResultsBlueprintControllerApiBlueprintItem](docs/PagedResultsBlueprintControllerApiBlueprintItem.md)
  - [PagedResultsDashboard](docs/PagedResultsDashboard.md)
@@ -733,6 +735,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsTaskRun](docs/PagedResultsTaskRun.md)
  - [PagedResultsTenant](docs/PagedResultsTenant.md)
  - [PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
+ - [PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
  - [PagedResultsTrigger](docs/PagedResultsTrigger.md)
  - [PagedResultsTriggerControllerTriggers](docs/PagedResultsTriggerControllerTriggers.md)
  - [PatchOperation](docs/PatchOperation.md)
@@ -766,6 +769,7 @@ Class | Method | HTTP request | Description
  - [Relation](docs/Relation.md)
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
+ - [ResourceType1](docs/ResourceType1.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
  - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
  - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)

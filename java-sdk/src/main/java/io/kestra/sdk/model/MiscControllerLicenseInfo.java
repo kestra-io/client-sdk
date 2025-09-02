@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerLicenseInfo.JSON_PROPERTY_WORKER_GROUPS
 })
 @JsonTypeName("MiscController.LicenseInfo")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class MiscControllerLicenseInfo {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PropertyObject.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("Property_Object_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class PropertyObject {
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
   @javax.annotation.Nonnull

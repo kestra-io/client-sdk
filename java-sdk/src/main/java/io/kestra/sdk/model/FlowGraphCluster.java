@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraphCluster.JSON_PROPERTY_END
 })
 @JsonTypeName("FlowGraph.Cluster")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowGraphCluster {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
   @javax.annotation.Nonnull

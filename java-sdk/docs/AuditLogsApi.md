@@ -16,7 +16,7 @@ All URIs are relative to *http://localhost*
 
 ## exportAuditLogs
 
-> List&lt;Object&gt; exportAuditLogs(tenant, q, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type)
+> List&lt;Object&gt; exportAuditLogs(tenant, q, namespace, flowId, executionId, userId, id, resources, startDate, endDate, details, type)
 
 Export all audit logs as a streamed CSV file
 
@@ -53,13 +53,13 @@ public class Example {
         String executionId = "executionId_example"; // String | An execution filter
         String userId = "userId_example"; // String | A user id filter
         String id = "id_example"; // String | A id filter
-        List<Permission> permissions = Arrays.asList(); // List<Permission> | A permission filter
+        List<ResourceType1> resources = Arrays.asList(); // List<ResourceType1> | A resource filter
         OffsetDateTime startDate = OffsetDateTime.now(); // OffsetDateTime | The start datetime
         OffsetDateTime endDate = OffsetDateTime.now(); // OffsetDateTime | The end datetime
         Map<String, String> details = new HashMap(); // Map<String, String> | A list of auditLog details
         CrudEventType type = CrudEventType.fromValue("READ"); // CrudEventType | The event that create the audit log
         try {
-            List<Object> result = apiInstance.exportAuditLogs(tenant, q, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type);
+            List<Object> result = apiInstance.exportAuditLogs(tenant, q, namespace, flowId, executionId, userId, id, resources, startDate, endDate, details, type);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuditLogsApi#exportAuditLogs");
@@ -84,7 +84,7 @@ public class Example {
 | **executionId** | **String**| An execution filter | [optional] |
 | **userId** | **String**| A user id filter | [optional] |
 | **id** | **String**| A id filter | [optional] |
-| **permissions** | [**List&lt;Permission&gt;**](Permission.md)| A permission filter | [optional] |
+| **resources** | [**List&lt;ResourceType1&gt;**](ResourceType1.md)| A resource filter | [optional] |
 | **startDate** | **OffsetDateTime**| The start datetime | [optional] |
 | **endDate** | **OffsetDateTime**| The end datetime | [optional] |
 | **details** | [**Map&lt;String, String&gt;**](String.md)| A list of auditLog details | [optional] |
@@ -112,7 +112,7 @@ public class Example {
 
 ## findAuditLog
 
-> AuditLogControllerAuditLogWithUser findAuditLog(tenant, auditLogControllerFindRequest)
+> AuditLogControllerApiAuditLogItem findAuditLog(tenant, auditLogControllerFindRequest)
 
 Find a specific audit log
 
@@ -145,7 +145,7 @@ public class Example {
         String tenant = "tenant_example"; // String | 
         AuditLogControllerFindRequest auditLogControllerFindRequest = new AuditLogControllerFindRequest(); // AuditLogControllerFindRequest | The find request
         try {
-            AuditLogControllerAuditLogWithUser result = apiInstance.findAuditLog(tenant, auditLogControllerFindRequest);
+            AuditLogControllerApiAuditLogItem result = apiInstance.findAuditLog(tenant, auditLogControllerFindRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuditLogsApi#findAuditLog");
@@ -168,7 +168,7 @@ public class Example {
 
 ### Return type
 
-[**AuditLogControllerAuditLogWithUser**](AuditLogControllerAuditLogWithUser.md)
+[**AuditLogControllerApiAuditLogItem**](AuditLogControllerApiAuditLogItem.md)
 
 ### Authorization
 
@@ -422,7 +422,7 @@ public class Example {
 
 ## searchAuditLogs
 
-> PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type)
+> PagedResultsAuditLogControllerApiAuditLogItem searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, resources, startDate, endDate, details, type)
 
 Search for audit logs
 
@@ -462,13 +462,13 @@ public class Example {
         String executionId = "executionId_example"; // String | An execution filter
         String userId = "userId_example"; // String | A user id filter
         String id = "id_example"; // String | A id filter
-        List<Permission> permissions = Arrays.asList(); // List<Permission> | A permission filter
+        List<ResourceType1> resources = Arrays.asList(); // List<ResourceType1> | A resource filter
         OffsetDateTime startDate = OffsetDateTime.now(); // OffsetDateTime | The start datetime
         OffsetDateTime endDate = OffsetDateTime.now(); // OffsetDateTime | The end datetime
         Map<String, String> details = new HashMap(); // Map<String, String> | A list of auditLog details
         CrudEventType type = CrudEventType.fromValue("READ"); // CrudEventType | The event that create the audit log
         try {
-            PagedResultsAuditLogControllerAuditLogWithUser result = apiInstance.searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, permissions, startDate, endDate, details, type);
+            PagedResultsAuditLogControllerApiAuditLogItem result = apiInstance.searchAuditLogs(page, size, tenant, q, sort, namespace, flowId, executionId, userId, id, resources, startDate, endDate, details, type);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuditLogsApi#searchAuditLogs");
@@ -496,7 +496,7 @@ public class Example {
 | **executionId** | **String**| An execution filter | [optional] |
 | **userId** | **String**| A user id filter | [optional] |
 | **id** | **String**| A id filter | [optional] |
-| **permissions** | [**List&lt;Permission&gt;**](Permission.md)| A permission filter | [optional] |
+| **resources** | [**List&lt;ResourceType1&gt;**](ResourceType1.md)| A resource filter | [optional] |
 | **startDate** | **OffsetDateTime**| The start datetime | [optional] |
 | **endDate** | **OffsetDateTime**| The end datetime | [optional] |
 | **details** | [**Map&lt;String, String&gt;**](String.md)| A list of auditLog details | [optional] |
@@ -504,7 +504,7 @@ public class Example {
 
 ### Return type
 
-[**PagedResultsAuditLogControllerAuditLogWithUser**](PagedResultsAuditLogControllerAuditLogWithUser.md)
+[**PagedResultsAuditLogControllerApiAuditLogItem**](PagedResultsAuditLogControllerApiAuditLogItem.md)
 
 ### Authorization
 
@@ -524,7 +524,7 @@ public class Example {
 
 ## searchAuditLogsForAllTenants
 
-> PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogsForAllTenants(page, size, q, sort, namespace, flowId, executionId, userId, id, permission, startDate, endDate, details, type)
+> PagedResultsAuditLogControllerApiAuditLogItem searchAuditLogsForAllTenants(page, size, q, sort, namespace, flowId, executionId, userId, id, resource, startDate, endDate, details, type)
 
 Search for audit logs across all tenants, required to be SuperAdmin
 
@@ -563,13 +563,13 @@ public class Example {
         String executionId = "executionId_example"; // String | An execution filter
         String userId = "userId_example"; // String | A user id filter
         String id = "id_example"; // String | A id filter
-        Permission permission = Permission.fromValue("FLOW"); // Permission | A permission filter
+        ResourceType1 resource = ResourceType1.fromValue("AUDITLOG"); // ResourceType1 | A resource filter
         OffsetDateTime startDate = OffsetDateTime.now(); // OffsetDateTime | The start datetime
         OffsetDateTime endDate = OffsetDateTime.now(); // OffsetDateTime | The end datetime
         Map<String, String> details = new HashMap(); // Map<String, String> | A list of auditLog details
         CrudEventType type = CrudEventType.fromValue("READ"); // CrudEventType | The event that create the audit log
         try {
-            PagedResultsAuditLogControllerAuditLogWithUser result = apiInstance.searchAuditLogsForAllTenants(page, size, q, sort, namespace, flowId, executionId, userId, id, permission, startDate, endDate, details, type);
+            PagedResultsAuditLogControllerApiAuditLogItem result = apiInstance.searchAuditLogsForAllTenants(page, size, q, sort, namespace, flowId, executionId, userId, id, resource, startDate, endDate, details, type);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling AuditLogsApi#searchAuditLogsForAllTenants");
@@ -596,7 +596,7 @@ public class Example {
 | **executionId** | **String**| An execution filter | [optional] |
 | **userId** | **String**| A user id filter | [optional] |
 | **id** | **String**| A id filter | [optional] |
-| **permission** | [**Permission**](.md)| A permission filter | [optional] [enum: FLOW, BLUEPRINT, TEMPLATE, NAMESPACE, EXECUTION, USER, GROUP, ROLE, BINDING, AUDITLOG, SECRET, KVSTORE, IMPERSONATE, SETTING, INFRASTRUCTURE, APP, APPEXECUTION, TEST, DASHBOARD, TENANT_ACCESS, SERVICE_ACCOUNT, INVITATION, GROUP_MEMBERSHIP, UNKNOWN] |
+| **resource** | [**ResourceType1**](.md)| A resource filter | [optional] [enum: AUDITLOG, APP, APP_EXECUTION, BINDING, DASHBOARD, EXECUTION, FLOW, GROUP, INVITATION, NAMESPACE, ROLE, SECURITY_INTEGRATION, SECRET, SETTING, TEMPLATE, TENANT, TENANT_ACCESS, TESTSUITE, TESTSUITE_RUN, VERSIONED_PLUGIN, USER, WORKER_GROUP, INSTANCE, UNKNOWN] |
 | **startDate** | **OffsetDateTime**| The start datetime | [optional] |
 | **endDate** | **OffsetDateTime**| The end datetime | [optional] |
 | **details** | [**Map&lt;String, String&gt;**](String.md)| A list of auditLog details | [optional] |
@@ -604,7 +604,7 @@ public class Example {
 
 ### Return type
 
-[**PagedResultsAuditLogControllerAuditLogWithUser**](PagedResultsAuditLogControllerAuditLogWithUser.md)
+[**PagedResultsAuditLogControllerApiAuditLogItem**](PagedResultsAuditLogControllerApiAuditLogItem.md)
 
 ### Authorization
 

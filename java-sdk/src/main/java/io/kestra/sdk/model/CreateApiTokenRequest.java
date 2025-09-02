@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateApiTokenRequest.JSON_PROPERTY_MAX_AGE,
   CreateApiTokenRequest.JSON_PROPERTY_EXTENDED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class CreateApiTokenRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull
