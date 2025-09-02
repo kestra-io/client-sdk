@@ -16,18 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The MetricAggregation model module.
  * @module model/MetricAggregation
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class MetricAggregation {
     /**
      * Constructs a new <code>MetricAggregation</code>.
      * @alias module:model/MetricAggregation
      * @param name {String} 
+     * @param value {Number} 
      * @param date {Date} 
      */
-    constructor(name, date) { 
+    constructor(name, value, date) { 
         
-        MetricAggregation.initialize(this, name, date);
+        MetricAggregation.initialize(this, name, value, date);
     }
 
     /**
@@ -35,8 +36,9 @@ class MetricAggregation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, date) { 
+    static initialize(obj, name, value, date) { 
         obj['name'] = name;
+        obj['value'] = value;
         obj['date'] = date;
     }
 
@@ -87,7 +89,7 @@ class MetricAggregation {
 
 }
 
-MetricAggregation.RequiredProperties = ["name", "date"];
+MetricAggregation.RequiredProperties = ["name", "value", "date"];
 
 /**
  * @member {String} name

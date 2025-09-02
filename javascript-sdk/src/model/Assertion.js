@@ -21,7 +21,7 @@ import PropertyString from './PropertyString';
 /**
  * The Assertion model module.
  * @module model/Assertion
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Assertion {
     /**

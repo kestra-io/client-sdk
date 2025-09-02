@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**deleteNamespace**](NamespacesApi.md#deleteNamespace) | **DELETE** /api/v1/{tenant}/namespaces/{id} | Delete a namespace
 [**deleteSecret**](NamespacesApi.md#deleteSecret) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/secrets/{key} | Delete a secret for a namespace
 [**getInheritedSecrets**](NamespacesApi.md#getInheritedSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/inherited-secrets | List inherited secrets
-[**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Retrieve namespace details
+[**getNamespace**](NamespacesApi.md#getNamespace) | **GET** /api/v1/{tenant}/namespaces/{id} | Get a namespace
 [**inheritedPluginDefaults**](NamespacesApi.md#inheritedPluginDefaults) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults | List inherited plugin defaults
 [**inheritedVariables**](NamespacesApi.md#inheritedVariables) | **GET** /api/v1/{tenant}/namespaces/{id}/inherited-variables | List inherited variables
 [**listNamespaceSecrets**](NamespacesApi.md#listNamespaceSecrets) | **GET** /api/v1/{tenant}/namespaces/{namespace}/secrets | Get secrets for a namespace
@@ -293,7 +293,7 @@ Name | Type | Description  | Notes
 
 > Namespace getNamespace(id, tenant)
 
-Retrieve namespace details
+Get a namespace
 
 ### Example
 
@@ -625,7 +625,7 @@ Name | Type | Description  | Notes
 
 ## searchNamespaces
 
-> PagedResultsNamespaceWithDisabled searchNamespaces(page, size, tenant, opts)
+> PagedResultsNamespace searchNamespaces(page, size, existing, tenant, opts)
 
 Search for namespaces
 
@@ -645,13 +645,13 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
+let existing = false; // Boolean | Return only existing namespace
 let tenant = "tenant_example"; // String | 
 let opts = {
   'q': "q_example", // String | A string filter
-  'sort': ["null"], // [String] | The sort of current page
-  'existing': false // Boolean | Return only existing namespace
+  'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchNamespaces(page, size, tenant, opts, (error, data, response) => {
+apiInstance.searchNamespaces(page, size, existing, tenant, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -667,14 +667,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **Number**| The current page | [default to 1]
  **size** | **Number**| The current page size | [default to 10]
+ **existing** | **Boolean**| Return only existing namespace | [default to false]
  **tenant** | **String**|  | 
  **q** | **String**| A string filter | [optional] 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **existing** | **Boolean**| Return only existing namespace | [optional] [default to false]
 
 ### Return type
 
-[**PagedResultsNamespaceWithDisabled**](PagedResultsNamespaceWithDisabled.md)
+[**PagedResultsNamespace**](PagedResultsNamespace.md)
 
 ### Authorization
 

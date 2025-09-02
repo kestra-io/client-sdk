@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The BaseResourceSearchRequest model module.
  * @module model/BaseResourceSearchRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class BaseResourceSearchRequest {
     /**

@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiGroup model module.
  * @module model/IAMUserControllerApiGroup
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMUserControllerApiGroup {
     /**
      * Constructs a new <code>IAMUserControllerApiGroup</code>.
      * @alias module:model/IAMUserControllerApiGroup
+     * @param id {String} 
+     * @param tenantId {String} 
      */
-    constructor() { 
+    constructor(id, tenantId) { 
         
-        IAMUserControllerApiGroup.initialize(this);
+        IAMUserControllerApiGroup.initialize(this, id, tenantId);
     }
 
     /**
@@ -33,7 +35,9 @@ class IAMUserControllerApiGroup {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, tenantId) { 
+        obj['id'] = id;
+        obj['tenantId'] = tenantId;
     }
 
     /**
@@ -63,6 +67,12 @@ class IAMUserControllerApiGroup {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMUserControllerApiGroup</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMUserControllerApiGroup.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -78,7 +88,7 @@ class IAMUserControllerApiGroup {
 
 }
 
-
+IAMUserControllerApiGroup.RequiredProperties = ["id", "tenantId"];
 
 /**
  * @member {String} id

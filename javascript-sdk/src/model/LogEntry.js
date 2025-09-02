@@ -18,7 +18,7 @@ import Level from './Level';
 /**
  * The LogEntry model module.
  * @module model/LogEntry
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class LogEntry {
     /**
@@ -26,11 +26,15 @@ class LogEntry {
      * @alias module:model/LogEntry
      * @param namespace {String} 
      * @param flowId {String} 
+     * @param timestamp {Date} 
+     * @param level {module:model/Level} 
+     * @param thread {String} 
+     * @param message {String} 
      * @param deleted {Boolean} 
      */
-    constructor(namespace, flowId, deleted) { 
+    constructor(namespace, flowId, timestamp, level, thread, message, deleted) { 
         
-        LogEntry.initialize(this, namespace, flowId, deleted);
+        LogEntry.initialize(this, namespace, flowId, timestamp, level, thread, message, deleted);
     }
 
     /**
@@ -38,9 +42,13 @@ class LogEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId, deleted) { 
+    static initialize(obj, namespace, flowId, timestamp, level, thread, message, deleted) { 
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
+        obj['timestamp'] = timestamp;
+        obj['level'] = level;
+        obj['thread'] = thread;
+        obj['message'] = message;
         obj['deleted'] = deleted;
     }
 
@@ -149,7 +157,7 @@ class LogEntry {
 
 }
 
-LogEntry.RequiredProperties = ["namespace", "flowId", "deleted"];
+LogEntry.RequiredProperties = ["namespace", "flowId", "timestamp", "level", "thread", "message", "deleted"];
 
 /**
  * @member {String} namespace

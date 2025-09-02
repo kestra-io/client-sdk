@@ -16,17 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginDefault model module.
  * @module model/PluginDefault
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PluginDefault {
     /**
      * Constructs a new <code>PluginDefault</code>.
      * @alias module:model/PluginDefault
      * @param type {String} 
+     * @param forced {Boolean} 
+     * @param values {Object.<String, Object>} 
      */
-    constructor(type) { 
+    constructor(type, forced, values) { 
         
-        PluginDefault.initialize(this, type);
+        PluginDefault.initialize(this, type, forced, values);
     }
 
     /**
@@ -34,8 +36,10 @@ class PluginDefault {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type) { 
+    static initialize(obj, type, forced, values) { 
         obj['type'] = type;
+        obj['forced'] = forced;
+        obj['values'] = values;
     }
 
     /**
@@ -85,7 +89,7 @@ class PluginDefault {
 
 }
 
-PluginDefault.RequiredProperties = ["type"];
+PluginDefault.RequiredProperties = ["type", "forced", "values"];
 
 /**
  * @member {String} type

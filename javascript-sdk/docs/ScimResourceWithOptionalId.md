@@ -10,6 +10,6 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | 
 **id** | **String** |  | [optional] 
 **externalId** | **String** |  | [optional] 
-**resourceType** | **String** |  | [optional] 
+**resourceType** | **String** |  | 
 
 

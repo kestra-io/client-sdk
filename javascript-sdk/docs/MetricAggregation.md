@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
-**value** | **Number** |  | [optional] 
+**value** | **Number** |  | 
 **date** | **Date** |  | 
 
 

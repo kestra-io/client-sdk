@@ -17,17 +17,21 @@ import IAMInvitationControllerApiInvitationRole from './IAMInvitationControllerA
 /**
  * The IAMInvitationControllerApiInvitationCreateRequest model module.
  * @module model/IAMInvitationControllerApiInvitationCreateRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMInvitationControllerApiInvitationCreateRequest {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationCreateRequest</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationCreateRequest
+     * @param createUserIfNotExist {Boolean} 
+     * @param superAdmin {Boolean} 
+     * @param roles {Array.<module:model/IAMInvitationControllerApiInvitationRole>} 
+     * @param groups {Array.<String>} 
      * @param email {String} 
      */
-    constructor(email) { 
+    constructor(createUserIfNotExist, superAdmin, roles, groups, email) { 
         
-        IAMInvitationControllerApiInvitationCreateRequest.initialize(this, email);
+        IAMInvitationControllerApiInvitationCreateRequest.initialize(this, createUserIfNotExist, superAdmin, roles, groups, email);
     }
 
     /**
@@ -35,7 +39,11 @@ class IAMInvitationControllerApiInvitationCreateRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email) { 
+    static initialize(obj, createUserIfNotExist, superAdmin, roles, groups, email) { 
+        obj['createUserIfNotExist'] = createUserIfNotExist;
+        obj['superAdmin'] = superAdmin;
+        obj['roles'] = roles;
+        obj['groups'] = groups;
         obj['email'] = email;
     }
 
@@ -106,7 +114,7 @@ class IAMInvitationControllerApiInvitationCreateRequest {
 
 }
 
-IAMInvitationControllerApiInvitationCreateRequest.RequiredProperties = ["email"];
+IAMInvitationControllerApiInvitationCreateRequest.RequiredProperties = ["createUserIfNotExist", "superAdmin", "roles", "groups", "email"];
 
 /**
  * @member {Boolean} createUserIfNotExist

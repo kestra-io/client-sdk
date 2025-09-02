@@ -17,16 +17,18 @@ import ServiceType from './ServiceType';
 /**
  * The InstanceControllerApiActiveService model module.
  * @module model/InstanceControllerApiActiveService
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class InstanceControllerApiActiveService {
     /**
      * Constructs a new <code>InstanceControllerApiActiveService</code>.
      * @alias module:model/InstanceControllerApiActiveService
+     * @param type {module:model/ServiceType} 
+     * @param total {Number} 
      */
-    constructor() { 
+    constructor(type, total) { 
         
-        InstanceControllerApiActiveService.initialize(this);
+        InstanceControllerApiActiveService.initialize(this, type, total);
     }
 
     /**
@@ -34,7 +36,9 @@ class InstanceControllerApiActiveService {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, type, total) { 
+        obj['type'] = type;
+        obj['total'] = total;
     }
 
     /**
@@ -64,6 +68,12 @@ class InstanceControllerApiActiveService {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiActiveService</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of InstanceControllerApiActiveService.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
 
         return true;
     }
@@ -71,7 +81,7 @@ class InstanceControllerApiActiveService {
 
 }
 
-
+InstanceControllerApiActiveService.RequiredProperties = ["type", "total"];
 
 /**
  * @member {module:model/ServiceType} type

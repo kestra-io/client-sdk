@@ -20,7 +20,7 @@ import ScimResource from './ScimResource';
 /**
  * The ScimResourceWithOptionalId model module.
  * @module model/ScimResourceWithOptionalId
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ScimResourceWithOptionalId {
     /**
@@ -29,10 +29,11 @@ class ScimResourceWithOptionalId {
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
      * @param meta {module:model/Meta} 
+     * @param resourceType {String} 
      */
-    constructor(meta) { 
-        ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);
-        ScimResourceWithOptionalId.initialize(this, meta);
+    constructor(meta, resourceType) { 
+        ScimResource.initialize(this, meta, resourceType);BaseResourceScimResource.initialize(this);
+        ScimResourceWithOptionalId.initialize(this, meta, resourceType);
     }
 
     /**
@@ -40,8 +41,9 @@ class ScimResourceWithOptionalId {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, meta) { 
+    static initialize(obj, meta, resourceType) { 
         obj['meta'] = meta;
+        obj['resourceType'] = resourceType;
     }
 
     /**
@@ -125,7 +127,7 @@ class ScimResourceWithOptionalId {
 
 }
 
-ScimResourceWithOptionalId.RequiredProperties = ["meta"];
+ScimResourceWithOptionalId.RequiredProperties = ["meta", "resourceType"];
 
 /**
  * @member {Array.<String>} schemas

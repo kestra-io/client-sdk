@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | 
 **id** | **String** |  | [optional] 
 **externalId** | **String** |  | [optional] 
-**resourceType** | **String** |  | [optional] 
+**resourceType** | **String** |  | 
 **name** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **endpoint** | **String** |  | [optional] 

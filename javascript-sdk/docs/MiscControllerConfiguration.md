@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uuid** | **String** |  | [optional] 
 **version** | **String** |  | [optional] 
+**edition** | [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
 **commitId** | **String** |  | [optional] 
 **commitDate** | **Date** |  | [optional] 
 **isCustomDashboardsEnabled** | **Boolean** |  | [optional] 
 **isTaskRunEnabled** | **Boolean** |  | [optional] 
 **isAnonymousUsageEnabled** | **Boolean** |  | [optional] 
+**isUiAnonymousUsageEnabled** | **Boolean** |  | [optional] 
 **isTemplateEnabled** | **Boolean** |  | [optional] 
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **String** |  | [optional] 

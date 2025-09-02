@@ -21,13 +21,12 @@ import MiscControllerLicenseInfo from '../model/MiscControllerLicenseInfo';
 import Permission from '../model/Permission';
 import SetupConfiguration from '../model/SetupConfiguration';
 import SetupConfigurationSetupData from '../model/SetupConfigurationSetupData';
-import Usage from '../model/Usage';
 import UsageEE from '../model/UsageEE';
 
 /**
 * Misc service.
 * @module api/MiscApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class MiscApi {
 
@@ -168,7 +167,7 @@ export default class MiscApi {
      * Callback function to receive the result of the getUsages operation.
      * @callback module:api/MiscApi~getUsagesCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/Usage} data The data returned by the service call.
+     * @param {module:model/UsageEE} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -176,7 +175,7 @@ export default class MiscApi {
      * Retrieve instance usage information
      * @param {String} tenant 
      * @param {module:api/MiscApi~getUsagesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Usage}
+     * data is of type: {@link module:model/UsageEE}
      */
     getUsages(tenant, callback) {
       let postBody = null;
@@ -198,7 +197,7 @@ export default class MiscApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Usage;
+      let returnType = UsageEE;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/usages/all', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionTrigger model module.
  * @module model/ExecutionTrigger
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ExecutionTrigger {
     /**
@@ -24,10 +24,12 @@ class ExecutionTrigger {
      * @alias module:model/ExecutionTrigger
      * @param id {String} 
      * @param type {String} 
+     * @param variables {Object.<String, Object>} 
+     * @param logFile {String} 
      */
-    constructor(id, type) { 
+    constructor(id, type, variables, logFile) { 
         
-        ExecutionTrigger.initialize(this, id, type);
+        ExecutionTrigger.initialize(this, id, type, variables, logFile);
     }
 
     /**
@@ -35,9 +37,11 @@ class ExecutionTrigger {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type) { 
+    static initialize(obj, id, type, variables, logFile) { 
         obj['id'] = id;
         obj['type'] = type;
+        obj['variables'] = variables;
+        obj['logFile'] = logFile;
     }
 
     /**
@@ -98,7 +102,7 @@ class ExecutionTrigger {
 
 }
 
-ExecutionTrigger.RequiredProperties = ["id", "type"];
+ExecutionTrigger.RequiredProperties = ["id", "type", "variables", "logFile"];
 
 /**
  * @member {String} id

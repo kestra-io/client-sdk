@@ -20,7 +20,7 @@ import TestState from './TestState';
 /**
  * The UnitTestResult model module.
  * @module model/UnitTestResult
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class UnitTestResult {
     /**
@@ -28,13 +28,16 @@ class UnitTestResult {
      * @alias module:model/UnitTestResult
      * @param testId {String} 
      * @param testType {String} 
+     * @param executionId {String} 
+     * @param url {String} 
      * @param state {module:model/TestState} 
      * @param assertionResults {Array.<module:model/AssertionResult>} 
      * @param errors {Array.<module:model/AssertionRunError>} 
+     * @param fixtures {module:model/Fixtures} 
      */
-    constructor(testId, testType, state, assertionResults, errors) { 
+    constructor(testId, testType, executionId, url, state, assertionResults, errors, fixtures) { 
         
-        UnitTestResult.initialize(this, testId, testType, state, assertionResults, errors);
+        UnitTestResult.initialize(this, testId, testType, executionId, url, state, assertionResults, errors, fixtures);
     }
 
     /**
@@ -42,12 +45,15 @@ class UnitTestResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, testId, testType, state, assertionResults, errors) { 
+    static initialize(obj, testId, testType, executionId, url, state, assertionResults, errors, fixtures) { 
         obj['testId'] = testId;
         obj['testType'] = testType;
+        obj['executionId'] = executionId;
+        obj['url'] = url;
         obj['state'] = state;
         obj['assertionResults'] = assertionResults;
         obj['errors'] = errors;
+        obj['fixtures'] = fixtures;
     }
 
     /**
@@ -148,7 +154,7 @@ class UnitTestResult {
 
 }
 
-UnitTestResult.RequiredProperties = ["testId", "testType", "state", "assertionResults", "errors"];
+UnitTestResult.RequiredProperties = ["testId", "testType", "executionId", "url", "state", "assertionResults", "errors", "fixtures"];
 
 /**
  * @member {String} testId

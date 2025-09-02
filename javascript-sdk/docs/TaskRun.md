@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **namespace** | **String** |  | 
 **flowId** | **String** |  | 
 **taskId** | **String** |  | 
-**parentTaskRunId** | **String** |  | [optional] 
-**value** | **String** |  | [optional] 
-**attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | [optional] 
-**outputs** | **{String: Object}** |  | [optional] 
+**parentTaskRunId** | **String** |  | 
+**value** | **String** |  | 
+**attempts** | [**[TaskRunAttempt]**](TaskRunAttempt.md) |  | 
+**outputs** | **{String: Object}** |  | 
 **state** | [**State**](State.md) |  | 
-**iteration** | **Number** |  | [optional] 
-**dynamic** | **Boolean** |  | [optional] 
+**iteration** | **Number** |  | 
+**dynamic** | **Boolean** |  | 
 **forceExecution** | **Boolean** |  | [optional] 
 
 

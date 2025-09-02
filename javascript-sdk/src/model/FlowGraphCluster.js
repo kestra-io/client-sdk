@@ -17,16 +17,21 @@ import AbstractGraph from './AbstractGraph';
 /**
  * The FlowGraphCluster model module.
  * @module model/FlowGraphCluster
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowGraphCluster {
     /**
      * Constructs a new <code>FlowGraphCluster</code>.
      * @alias module:model/FlowGraphCluster
+     * @param cluster {module:model/AbstractGraph} 
+     * @param nodes {Array.<String>} 
+     * @param parents {Array.<String>} 
+     * @param start {String} 
+     * @param end {String} 
      */
-    constructor() { 
+    constructor(cluster, nodes, parents, start, end) { 
         
-        FlowGraphCluster.initialize(this);
+        FlowGraphCluster.initialize(this, cluster, nodes, parents, start, end);
     }
 
     /**
@@ -34,7 +39,12 @@ class FlowGraphCluster {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, cluster, nodes, parents, start, end) { 
+        obj['cluster'] = cluster;
+        obj['nodes'] = nodes;
+        obj['parents'] = parents;
+        obj['start'] = start;
+        obj['end'] = end;
     }
 
     /**
@@ -73,6 +83,12 @@ class FlowGraphCluster {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>FlowGraphCluster</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of FlowGraphCluster.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // validate the optional field `cluster`
         if (data['cluster']) { // data not null
           AbstractGraph.validateJSON(data['cluster']);
@@ -100,7 +116,7 @@ class FlowGraphCluster {
 
 }
 
-
+FlowGraphCluster.RequiredProperties = ["cluster", "nodes", "parents", "start", "end"];
 
 /**
  * @member {module:model/AbstractGraph} cluster

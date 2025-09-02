@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
+**id** | **String** |  | 
 **title** | **String** |  | 
-**description** | **String** |  | [optional] 
-**tags** | **[String]** |  | [optional] 
-**includedTasks** | **[String]** |  | [optional] 
-**publishedAt** | **Date** |  | [optional] 
+**description** | **String** |  | 
+**tags** | **[String]** |  | 
+**includedTasks** | **[String]** |  | 
+**publishedAt** | **Date** |  | 
 **deleted** | **Boolean** |  | 
 
 

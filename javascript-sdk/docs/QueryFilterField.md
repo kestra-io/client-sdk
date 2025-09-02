@@ -25,6 +25,8 @@
 
 * `TRIGGER_ID` (value: `"TRIGGER_ID"`)
 
+* `EXECUTION_ID` (value: `"EXECUTION_ID"`)
+
 * `CHILD_FILTER` (value: `"CHILD_FILTER"`)
 
 * `WORKER_ID` (value: `"WORKER_ID"`)

@@ -4,16 +4,94 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**exportAuditLogs**](AuditLogsApi.md#exportAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/export | Export all audit logs as a streamed CSV file
 [**findAuditLog**](AuditLogsApi.md#findAuditLog) | **POST** /api/v1/{tenant}/auditlogs/find | Find a specific audit log
+[**getGlobalResourceDiffFromAuditLog**](AuditLogsApi.md#getGlobalResourceDiffFromAuditLog) | **GET** /api/v1/auditlogs/{id}/diff | Retrieve the diff between audit logs from global resource like users
 [**getResourceDiffFromAuditLog**](AuditLogsApi.md#getResourceDiffFromAuditLog) | **GET** /api/v1/{tenant}/auditlogs/{id}/diff | Retrieve the diff between audit logs
 [**listAuditLogFromResourceId**](AuditLogsApi.md#listAuditLogFromResourceId) | **GET** /api/v1/{tenant}/auditlogs/history/{detailId} | Find all audit logs about a specific resource.
 [**searchAuditLogs**](AuditLogsApi.md#searchAuditLogs) | **GET** /api/v1/{tenant}/auditlogs/search | Search for audit logs
+[**searchAuditLogsForAllTenants**](AuditLogsApi.md#searchAuditLogsForAllTenants) | **GET** /api/v1/auditlogs/search | Search for audit logs across all tenants, required to be SuperAdmin
 
+
+
+## exportAuditLogs
+
+> [Object] exportAuditLogs(tenant, opts)
+
+Export all audit logs as a streamed CSV file
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'q': "q_example", // String | A string filter
+  'namespace': "namespace_example", // String | A namespace filter
+  'flowId': "flowId_example", // String | A flow id filter
+  'executionId': "executionId_example", // String | An execution filter
+  'userId': "userId_example", // String | A user id filter
+  'id': "id_example", // String | A id filter
+  'resources': [new KestraIoKestraSdk.ResourceType1()], // [ResourceType1] | A resource filter
+  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
+  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
+  'details': {key: "null"}, // {String: String} | A list of auditLog details
+  'type': new KestraIoKestraSdk.CrudEventType() // CrudEventType | The event that create the audit log
+};
+apiInstance.exportAuditLogs(tenant, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **q** | **String**| A string filter | [optional] 
+ **namespace** | **String**| A namespace filter | [optional] 
+ **flowId** | **String**| A flow id filter | [optional] 
+ **executionId** | **String**| An execution filter | [optional] 
+ **userId** | **String**| A user id filter | [optional] 
+ **id** | **String**| A id filter | [optional] 
+ **resources** | [**[ResourceType1]**](ResourceType1.md)| A resource filter | [optional] 
+ **startDate** | **Date**| The start datetime | [optional] 
+ **endDate** | **Date**| The end datetime | [optional] 
+ **details** | [**{String: String}**](String.md)| A list of auditLog details | [optional] 
+ **type** | [**CrudEventType**](.md)| The event that create the audit log | [optional] 
+
+### Return type
+
+**[Object]**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/csv
 
 
 ## findAuditLog
 
-> AuditLogControllerAuditLogWithUser findAuditLog(tenant, auditLogControllerFindRequest)
+> AuditLogControllerApiAuditLogItem findAuditLog(tenant, auditLogControllerFindRequest)
 
 Find a specific audit log
 
@@ -52,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuditLogControllerAuditLogWithUser**](AuditLogControllerAuditLogWithUser.md)
+[**AuditLogControllerApiAuditLogItem**](AuditLogControllerApiAuditLogItem.md)
 
 ### Authorization
 
@@ -61,6 +139,63 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## getGlobalResourceDiffFromAuditLog
+
+> AuditLogControllerAuditLogDiff getGlobalResourceDiffFromAuditLog(id, opts)
+
+Retrieve the diff between audit logs from global resource like users
+
+Retrieves the diff between the current version and a selected previous version of a given resource based on audit logs.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
+let id = "id_example"; // String | The id of the audit log
+let opts = {
+  'previousId': "previousId_example" // String | The id of a previous audit log to compare with
+};
+apiInstance.getGlobalResourceDiffFromAuditLog(id, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The id of the audit log | 
+ **previousId** | **String**| The id of a previous audit log to compare with | [optional] 
+
+### Return type
+
+[**AuditLogControllerAuditLogDiff**](AuditLogControllerAuditLogDiff.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -178,7 +313,7 @@ Name | Type | Description  | Notes
 
 ## searchAuditLogs
 
-> PagedResultsAuditLogControllerAuditLogWithUser searchAuditLogs(page, size, tenant, opts)
+> PagedResultsAuditLogControllerApiAuditLogItem searchAuditLogs(page, size, tenant, opts)
 
 Search for audit logs
 
@@ -207,7 +342,7 @@ let opts = {
   'executionId': "executionId_example", // String | An execution filter
   'userId': "userId_example", // String | A user id filter
   'id': "id_example", // String | A id filter
-  'permission': new KestraIoKestraSdk.Permission(), // Permission | A permission filter
+  'resources': [new KestraIoKestraSdk.ResourceType1()], // [ResourceType1] | A resource filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'details': {key: "null"}, // {String: String} | A list of auditLog details
@@ -237,7 +372,7 @@ Name | Type | Description  | Notes
  **executionId** | **String**| An execution filter | [optional] 
  **userId** | **String**| A user id filter | [optional] 
  **id** | **String**| A id filter | [optional] 
- **permission** | [**Permission**](.md)| A permission filter | [optional] 
+ **resources** | [**[ResourceType1]**](ResourceType1.md)| A resource filter | [optional] 
  **startDate** | **Date**| The start datetime | [optional] 
  **endDate** | **Date**| The end datetime | [optional] 
  **details** | [**{String: String}**](String.md)| A list of auditLog details | [optional] 
@@ -245,7 +380,86 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PagedResultsAuditLogControllerAuditLogWithUser**](PagedResultsAuditLogControllerAuditLogWithUser.md)
+[**PagedResultsAuditLogControllerApiAuditLogItem**](PagedResultsAuditLogControllerApiAuditLogItem.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## searchAuditLogsForAllTenants
+
+> PagedResultsAuditLogControllerApiAuditLogItem searchAuditLogsForAllTenants(page, size, opts)
+
+Search for audit logs across all tenants, required to be SuperAdmin
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.AuditLogsApi();
+let page = 1; // Number | The current page
+let size = 10; // Number | The current page size
+let opts = {
+  'q': "q_example", // String | A string filter
+  'sort': ["null"], // [String] | The sort of current page
+  'namespace': "namespace_example", // String | A namespace filter
+  'flowId': "flowId_example", // String | A flow id filter
+  'executionId': "executionId_example", // String | An execution filter
+  'userId': "userId_example", // String | A user id filter
+  'id': "id_example", // String | A id filter
+  'resource': new KestraIoKestraSdk.ResourceType1(), // ResourceType1 | A resource filter
+  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
+  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
+  'details': {key: "null"}, // {String: String} | A list of auditLog details
+  'type': new KestraIoKestraSdk.CrudEventType() // CrudEventType | The event that create the audit log
+};
+apiInstance.searchAuditLogsForAllTenants(page, size, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Number**| The current page | [default to 1]
+ **size** | **Number**| The current page size | [default to 10]
+ **q** | **String**| A string filter | [optional] 
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **namespace** | **String**| A namespace filter | [optional] 
+ **flowId** | **String**| A flow id filter | [optional] 
+ **executionId** | **String**| An execution filter | [optional] 
+ **userId** | **String**| A user id filter | [optional] 
+ **id** | **String**| A id filter | [optional] 
+ **resource** | [**ResourceType1**](.md)| A resource filter | [optional] 
+ **startDate** | **Date**| The start datetime | [optional] 
+ **endDate** | **Date**| The end datetime | [optional] 
+ **details** | [**{String: String}**](String.md)| A list of auditLog details | [optional] 
+ **type** | [**CrudEventType**](.md)| The event that create the audit log | [optional] 
+
+### Return type
+
+[**PagedResultsAuditLogControllerApiAuditLogItem**](PagedResultsAuditLogControllerApiAuditLogItem.md)
 
 ### Authorization
 

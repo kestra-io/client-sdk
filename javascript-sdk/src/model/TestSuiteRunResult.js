@@ -18,7 +18,7 @@ import UnitTestResult from './UnitTestResult';
 /**
  * The TestSuiteRunResult model module.
  * @module model/TestSuiteRunResult
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class TestSuiteRunResult {
     /**
@@ -31,10 +31,11 @@ class TestSuiteRunResult {
      * @param state {module:model/TestState} 
      * @param startDate {Date} 
      * @param endDate {Date} 
+     * @param results {Array.<module:model/UnitTestResult>} 
      */
-    constructor(id, testSuiteId, namespace, flowId, state, startDate, endDate) { 
+    constructor(id, testSuiteId, namespace, flowId, state, startDate, endDate, results) { 
         
-        TestSuiteRunResult.initialize(this, id, testSuiteId, namespace, flowId, state, startDate, endDate);
+        TestSuiteRunResult.initialize(this, id, testSuiteId, namespace, flowId, state, startDate, endDate, results);
     }
 
     /**
@@ -42,7 +43,7 @@ class TestSuiteRunResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, testSuiteId, namespace, flowId, state, startDate, endDate) { 
+    static initialize(obj, id, testSuiteId, namespace, flowId, state, startDate, endDate, results) { 
         obj['id'] = id;
         obj['testSuiteId'] = testSuiteId;
         obj['namespace'] = namespace;
@@ -50,6 +51,7 @@ class TestSuiteRunResult {
         obj['state'] = state;
         obj['startDate'] = startDate;
         obj['endDate'] = endDate;
+        obj['results'] = results;
     }
 
     /**
@@ -136,7 +138,7 @@ class TestSuiteRunResult {
 
 }
 
-TestSuiteRunResult.RequiredProperties = ["id", "testSuiteId", "namespace", "flowId", "state", "startDate", "endDate"];
+TestSuiteRunResult.RequiredProperties = ["id", "testSuiteId", "namespace", "flowId", "state", "startDate", "endDate", "results"];
 
 /**
  * @member {String} id

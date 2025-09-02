@@ -17,16 +17,20 @@ import IAMGroupControllerApiGroupMembership from './IAMGroupControllerApiGroupMe
 /**
  * The IAMGroupControllerApiGroupMember model module.
  * @module model/IAMGroupControllerApiGroupMember
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMGroupControllerApiGroupMember {
     /**
      * Constructs a new <code>IAMGroupControllerApiGroupMember</code>.
      * @alias module:model/IAMGroupControllerApiGroupMember
+     * @param id {String} 
+     * @param username {String} 
+     * @param displayName {String} 
+     * @param groups {Array.<module:model/IAMGroupControllerApiGroupMembership>} 
      */
-    constructor() { 
+    constructor(id, username, displayName, groups) { 
         
-        IAMGroupControllerApiGroupMember.initialize(this);
+        IAMGroupControllerApiGroupMember.initialize(this, id, username, displayName, groups);
     }
 
     /**
@@ -34,7 +38,11 @@ class IAMGroupControllerApiGroupMember {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, username, displayName, groups) { 
+        obj['id'] = id;
+        obj['username'] = username;
+        obj['displayName'] = displayName;
+        obj['groups'] = groups;
     }
 
     /**
@@ -70,6 +78,12 @@ class IAMGroupControllerApiGroupMember {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMGroupControllerApiGroupMember</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMGroupControllerApiGroupMember.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -99,7 +113,7 @@ class IAMGroupControllerApiGroupMember {
 
 }
 
-
+IAMGroupControllerApiGroupMember.RequiredProperties = ["id", "username", "displayName", "groups"];
 
 /**
  * @member {String} id

@@ -18,16 +18,18 @@ import FlowTopologyGraphEdge from './FlowTopologyGraphEdge';
 /**
  * The FlowTopologyGraph model module.
  * @module model/FlowTopologyGraph
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowTopologyGraph {
     /**
      * Constructs a new <code>FlowTopologyGraph</code>.
      * @alias module:model/FlowTopologyGraph
+     * @param nodes {Array.<module:model/FlowNode>} 
+     * @param edges {Array.<module:model/FlowTopologyGraphEdge>} 
      */
-    constructor() { 
+    constructor(nodes, edges) { 
         
-        FlowTopologyGraph.initialize(this);
+        FlowTopologyGraph.initialize(this, nodes, edges);
     }
 
     /**
@@ -35,7 +37,9 @@ class FlowTopologyGraph {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, nodes, edges) { 
+        obj['nodes'] = nodes;
+        obj['edges'] = edges;
     }
 
     /**
@@ -65,6 +69,12 @@ class FlowTopologyGraph {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>FlowTopologyGraph</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of FlowTopologyGraph.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         if (data['nodes']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['nodes'])) {
@@ -92,7 +102,7 @@ class FlowTopologyGraph {
 
 }
 
-
+FlowTopologyGraph.RequiredProperties = ["nodes", "edges"];
 
 /**
  * @member {Array.<module:model/FlowNode>} nodes

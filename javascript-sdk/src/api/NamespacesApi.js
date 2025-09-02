@@ -19,14 +19,14 @@ import ApiSecretMeta from '../model/ApiSecretMeta';
 import ApiSecretMetaEE from '../model/ApiSecretMetaEE';
 import ApiSecretValue from '../model/ApiSecretValue';
 import Namespace from '../model/Namespace';
-import PagedResultsNamespaceWithDisabled from '../model/PagedResultsNamespaceWithDisabled';
+import PagedResultsNamespace from '../model/PagedResultsNamespace';
 import PluginDefault from '../model/PluginDefault';
 import QueryFilter from '../model/QueryFilter';
 
 /**
 * Namespaces service.
 * @module api/NamespacesApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class NamespacesApi {
 
@@ -295,7 +295,7 @@ export default class NamespacesApi {
      */
 
     /**
-     * Retrieve namespace details
+     * Get a namespace
      * @param {String} id The namespace id
      * @param {String} tenant 
      * @param {module:api/NamespacesApi~getNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
@@ -616,7 +616,7 @@ export default class NamespacesApi {
      * Callback function to receive the result of the searchNamespaces operation.
      * @callback module:api/NamespacesApi~searchNamespacesCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsNamespaceWithDisabled} data The data returned by the service call.
+     * @param {module:model/PagedResultsNamespace} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -624,15 +624,15 @@ export default class NamespacesApi {
      * Search for namespaces
      * @param {Number} page The current page
      * @param {Number} size The current page size
+     * @param {Boolean} existing Return only existing namespace
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {Boolean} [existing = false)] Return only existing namespace
      * @param {module:api/NamespacesApi~searchNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsNamespaceWithDisabled}
+     * data is of type: {@link module:model/PagedResultsNamespace}
      */
-    searchNamespaces(page, size, tenant, opts, callback) {
+    searchNamespaces(page, size, existing, tenant, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -642,6 +642,10 @@ export default class NamespacesApi {
       // verify the required parameter 'size' is set
       if (size === undefined || size === null) {
         throw new Error("Missing the required parameter 'size' when calling searchNamespaces");
+      }
+      // verify the required parameter 'existing' is set
+      if (existing === undefined || existing === null) {
+        throw new Error("Missing the required parameter 'existing' when calling searchNamespaces");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -656,7 +660,7 @@ export default class NamespacesApi {
         'page': page,
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'existing': opts['existing']
+        'existing': existing
       };
       let headerParams = {
       };
@@ -666,7 +670,7 @@ export default class NamespacesApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = PagedResultsNamespaceWithDisabled;
+      let returnType = PagedResultsNamespace;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,

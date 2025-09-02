@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **type** | **String** |  | 
-**variables** | **{String: Object}** |  | [optional] 
-**logFile** | **String** |  | [optional] 
+**variables** | **{String: Object}** |  | 
+**logFile** | **String** |  | 
 
 

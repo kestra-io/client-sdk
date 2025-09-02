@@ -17,7 +17,7 @@ import TriggerControllerTriggers from './TriggerControllerTriggers';
 /**
  * The PagedResultsTriggerControllerTriggers model module.
  * @module model/PagedResultsTriggerControllerTriggers
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PagedResultsTriggerControllerTriggers {
     /**

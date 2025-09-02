@@ -16,16 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The BlueprintControllerApiBlueprintTagItem model module.
  * @module model/BlueprintControllerApiBlueprintTagItem
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class BlueprintControllerApiBlueprintTagItem {
     /**
      * Constructs a new <code>BlueprintControllerApiBlueprintTagItem</code>.
      * @alias module:model/BlueprintControllerApiBlueprintTagItem
+     * @param id {String} 
+     * @param name {String} 
+     * @param publishedAt {Date} 
      */
-    constructor() { 
+    constructor(id, name, publishedAt) { 
         
-        BlueprintControllerApiBlueprintTagItem.initialize(this);
+        BlueprintControllerApiBlueprintTagItem.initialize(this, id, name, publishedAt);
     }
 
     /**
@@ -33,7 +36,10 @@ class BlueprintControllerApiBlueprintTagItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, name, publishedAt) { 
+        obj['id'] = id;
+        obj['name'] = name;
+        obj['publishedAt'] = publishedAt;
     }
 
     /**
@@ -66,6 +72,12 @@ class BlueprintControllerApiBlueprintTagItem {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>BlueprintControllerApiBlueprintTagItem</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of BlueprintControllerApiBlueprintTagItem.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -81,7 +93,7 @@ class BlueprintControllerApiBlueprintTagItem {
 
 }
 
-
+BlueprintControllerApiBlueprintTagItem.RequiredProperties = ["id", "name", "publishedAt"];
 
 /**
  * @member {String} id

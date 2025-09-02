@@ -16,16 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyDuration model module.
  * @module model/PropertyDuration
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PropertyDuration {
     /**
      * Constructs a new <code>PropertyDuration</code>.
      * @alias module:model/PropertyDuration
+     * @param expression {String} 
      */
-    constructor() { 
+    constructor(expression) { 
         
-        PropertyDuration.initialize(this);
+        PropertyDuration.initialize(this, expression);
     }
 
     /**
@@ -33,7 +34,8 @@ class PropertyDuration {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, expression) { 
+        obj['expression'] = expression;
     }
 
     /**
@@ -63,6 +65,12 @@ class PropertyDuration {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PropertyDuration</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of PropertyDuration.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['expression'] && !(typeof data['expression'] === 'string' || data['expression'] instanceof String)) {
             throw new Error("Expected the field `expression` to be a primitive type in the JSON string but got " + data['expression']);
@@ -78,7 +86,7 @@ class PropertyDuration {
 
 }
 
-
+PropertyDuration.RequiredProperties = ["expression"];
 
 /**
  * @member {String} expression

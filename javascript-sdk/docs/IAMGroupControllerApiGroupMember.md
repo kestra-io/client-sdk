@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
-**username** | **String** |  | [optional] 
-**displayName** | **String** |  | [optional] 
-**groups** | [**[IAMGroupControllerApiGroupMembership]**](IAMGroupControllerApiGroupMembership.md) |  | [optional] 
+**id** | **String** |  | 
+**username** | **String** |  | 
+**displayName** | **String** |  | 
+**groups** | [**[IAMGroupControllerApiGroupMembership]**](IAMGroupControllerApiGroupMembership.md) |  | 
 
 

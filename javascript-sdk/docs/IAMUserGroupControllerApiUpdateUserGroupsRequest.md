@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groupIds** | **[String]** |  | [optional] 
+**groupIds** | **[String]** |  | 
 
 

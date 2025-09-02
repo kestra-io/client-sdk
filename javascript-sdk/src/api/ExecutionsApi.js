@@ -42,7 +42,7 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class ExecutionsApi {
 
@@ -1593,6 +1593,70 @@ export default class ExecutionsApi {
       let returnType = Execution;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{executionId}/replay', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the replayExecutionWithinputs operation.
+     * @callback module:api/ExecutionsApi~replayExecutionWithinputsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Execution} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create a new execution from an old one and start it from a specified task run id
+     * @param {String} executionId the original execution id to clone
+     * @param {String} taskRunId The taskrun id
+     * @param {Number} revision The flow revision to use for new execution
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
+     * @param {module:api/ExecutionsApi~replayExecutionWithinputsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/Execution}
+     */
+    replayExecutionWithinputs(executionId, taskRunId, revision, tenant, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'executionId' is set
+      if (executionId === undefined || executionId === null) {
+        throw new Error("Missing the required parameter 'executionId' when calling replayExecutionWithinputs");
+      }
+      // verify the required parameter 'taskRunId' is set
+      if (taskRunId === undefined || taskRunId === null) {
+        throw new Error("Missing the required parameter 'taskRunId' when calling replayExecutionWithinputs");
+      }
+      // verify the required parameter 'revision' is set
+      if (revision === undefined || revision === null) {
+        throw new Error("Missing the required parameter 'revision' when calling replayExecutionWithinputs");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling replayExecutionWithinputs");
+      }
+
+      let pathParams = {
+        'executionId': executionId,
+        'tenant': tenant
+      };
+      let queryParams = {
+        'taskRunId': taskRunId,
+        'revision': revision,
+        'breakpoints': opts['breakpoints']
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['application/json'];
+      let returnType = Execution;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/executions/{executionId}/replay-with-inputs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -13,12 +13,13 @@
 
 import ApiClient from '../ApiClient';
 import DependsOn from './DependsOn';
+import PropertyObject from './PropertyObject';
 import Type from './Type';
 
 /**
  * The InputObject model module.
  * @module model/InputObject
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class InputObject {
     /**
@@ -72,7 +73,7 @@ class InputObject {
                 obj['required'] = ApiClient.convertToType(data['required'], 'Boolean');
             }
             if (data.hasOwnProperty('defaults')) {
-                obj['defaults'] = ApiClient.convertToType(data['defaults'], Object);
+                obj['defaults'] = ApiClient.convertToType(data['defaults'], PropertyObject);
             }
             if (data.hasOwnProperty('displayName')) {
                 obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
@@ -108,6 +109,10 @@ class InputObject {
         // validate the optional field `dependsOn`
         if (data['dependsOn']) { // data not null
           DependsOn.validateJSON(data['dependsOn']);
+        }
+        // validate the optional field `defaults`
+        if (data['defaults']) { // data not null
+          PropertyObject.validateJSON(data['defaults']);
         }
         // ensure the json data is a string
         if (data['displayName'] && !(typeof data['displayName'] === 'string' || data['displayName'] instanceof String)) {
@@ -153,7 +158,7 @@ InputObject.prototype['dependsOn'] = undefined;
 InputObject.prototype['required'] = undefined;
 
 /**
- * @member {Object} defaults
+ * @member {module:model/PropertyObject} defaults
  */
 InputObject.prototype['defaults'] = undefined;
 

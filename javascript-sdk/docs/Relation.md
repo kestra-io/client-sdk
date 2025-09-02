@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**relationType** | [**RelationType**](RelationType.md) |  | [optional] 
-**value** | **String** |  | [optional] 
+**relationType** | [**RelationType**](RelationType.md) |  | 
+**value** | **String** |  | 
 
 

@@ -13,23 +13,22 @@
 
 import ApiClient from '../ApiClient';
 import Permission from './Permission';
+import ResourceType1 from './ResourceType1';
 
 /**
  * The AuditLogDetail model module.
  * @module model/AuditLogDetail
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuditLogDetail {
     /**
      * Constructs a new <code>AuditLogDetail</code>.
      * @alias module:model/AuditLogDetail
      * @param type {String} 
-     * @param cls {String} 
-     * @param permission {module:model/Permission} 
      */
-    constructor(type, cls, permission) { 
+    constructor(type) { 
         
-        AuditLogDetail.initialize(this, type, cls, permission);
+        AuditLogDetail.initialize(this, type);
     }
 
     /**
@@ -37,10 +36,8 @@ class AuditLogDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, cls, permission) { 
+    static initialize(obj, type) { 
         obj['type'] = type;
-        obj['cls'] = cls;
-        obj['permission'] = permission;
     }
 
     /**
@@ -54,14 +51,14 @@ class AuditLogDetail {
         if (data) {
             obj = obj || new AuditLogDetail();
 
-            if (data.hasOwnProperty('type')) {
-                obj['type'] = ApiClient.convertToType(data['type'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'String');
-            }
             if (data.hasOwnProperty('permission')) {
                 obj['permission'] = Permission.constructFromObject(data['permission']);
+            }
+            if (data.hasOwnProperty('resourceType')) {
+                obj['resourceType'] = ResourceType1.constructFromObject(data['resourceType']);
+            }
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
@@ -87,10 +84,6 @@ class AuditLogDetail {
             throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
         }
         // ensure the json data is a string
-        if (data['cls'] && !(typeof data['cls'] === 'string' || data['cls'] instanceof String)) {
-            throw new Error("Expected the field `cls` to be a primitive type in the JSON string but got " + data['cls']);
-        }
-        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -101,22 +94,22 @@ class AuditLogDetail {
 
 }
 
-AuditLogDetail.RequiredProperties = ["type", "cls", "permission"];
-
-/**
- * @member {String} type
- */
-AuditLogDetail.prototype['type'] = undefined;
-
-/**
- * @member {String} cls
- */
-AuditLogDetail.prototype['cls'] = undefined;
+AuditLogDetail.RequiredProperties = ["type"];
 
 /**
  * @member {module:model/Permission} permission
  */
 AuditLogDetail.prototype['permission'] = undefined;
+
+/**
+ * @member {module:model/ResourceType1} resourceType
+ */
+AuditLogDetail.prototype['resourceType'] = undefined;
+
+/**
+ * @member {String} type
+ */
+AuditLogDetail.prototype['type'] = undefined;
 
 /**
  * @member {String} id

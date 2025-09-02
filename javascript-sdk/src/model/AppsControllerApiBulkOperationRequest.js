@@ -16,16 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiBulkOperationRequest model module.
  * @module model/AppsControllerApiBulkOperationRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AppsControllerApiBulkOperationRequest {
     /**
      * Constructs a new <code>AppsControllerApiBulkOperationRequest</code>.
      * @alias module:model/AppsControllerApiBulkOperationRequest
+     * @param uids {Array.<String>} 
      */
-    constructor() { 
+    constructor(uids) { 
         
-        AppsControllerApiBulkOperationRequest.initialize(this);
+        AppsControllerApiBulkOperationRequest.initialize(this, uids);
     }
 
     /**
@@ -33,7 +34,8 @@ class AppsControllerApiBulkOperationRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, uids) { 
+        obj['uids'] = uids;
     }
 
     /**
@@ -60,6 +62,12 @@ class AppsControllerApiBulkOperationRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiBulkOperationRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AppsControllerApiBulkOperationRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is an array
         if (!Array.isArray(data['uids'])) {
             throw new Error("Expected the field `uids` to be an array in the JSON data but got " + data['uids']);
@@ -71,7 +79,7 @@ class AppsControllerApiBulkOperationRequest {
 
 }
 
-
+AppsControllerApiBulkOperationRequest.RequiredProperties = ["uids"];
 
 /**
  * @member {Array.<String>} uids

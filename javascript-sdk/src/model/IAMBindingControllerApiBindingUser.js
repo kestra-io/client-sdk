@@ -17,16 +17,20 @@ import UserType from './UserType';
 /**
  * The IAMBindingControllerApiBindingUser model module.
  * @module model/IAMBindingControllerApiBindingUser
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMBindingControllerApiBindingUser {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingUser</code>.
      * @alias module:model/IAMBindingControllerApiBindingUser
+     * @param id {String} 
+     * @param username {String} 
+     * @param displayName {String} 
+     * @param type {module:model/UserType} 
      */
-    constructor() { 
+    constructor(id, username, displayName, type) { 
         
-        IAMBindingControllerApiBindingUser.initialize(this);
+        IAMBindingControllerApiBindingUser.initialize(this, id, username, displayName, type);
     }
 
     /**
@@ -34,7 +38,11 @@ class IAMBindingControllerApiBindingUser {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, username, displayName, type) { 
+        obj['id'] = id;
+        obj['username'] = username;
+        obj['displayName'] = displayName;
+        obj['type'] = type;
     }
 
     /**
@@ -70,6 +78,12 @@ class IAMBindingControllerApiBindingUser {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMBindingControllerApiBindingUser</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMBindingControllerApiBindingUser.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -89,7 +103,7 @@ class IAMBindingControllerApiBindingUser {
 
 }
 
-
+IAMBindingControllerApiBindingUser.RequiredProperties = ["id", "username", "displayName", "type"];
 
 /**
  * @member {String} id

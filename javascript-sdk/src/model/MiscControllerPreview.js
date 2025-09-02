@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerPreview model module.
  * @module model/MiscControllerPreview
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class MiscControllerPreview {
     /**
      * Constructs a new <code>MiscControllerPreview</code>.
      * @alias module:model/MiscControllerPreview
+     * @param initial {Number} 
+     * @param max {Number} 
      */
-    constructor() { 
+    constructor(initial, max) { 
         
-        MiscControllerPreview.initialize(this);
+        MiscControllerPreview.initialize(this, initial, max);
     }
 
     /**
@@ -33,7 +35,9 @@ class MiscControllerPreview {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, initial, max) { 
+        obj['initial'] = initial;
+        obj['max'] = max;
     }
 
     /**
@@ -63,6 +67,12 @@ class MiscControllerPreview {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MiscControllerPreview</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of MiscControllerPreview.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
 
         return true;
     }
@@ -70,7 +80,7 @@ class MiscControllerPreview {
 
 }
 
-
+MiscControllerPreview.RequiredProperties = ["initial", "max"];
 
 /**
  * @member {Number} initial

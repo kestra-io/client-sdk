@@ -16,16 +16,25 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiApp model module.
  * @module model/AppsControllerApiApp
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AppsControllerApiApp {
     /**
      * Constructs a new <code>AppsControllerApiApp</code>.
      * @alias module:model/AppsControllerApiApp
+     * @param uid {String} 
+     * @param id {String} 
+     * @param name {String} 
+     * @param type {String} 
+     * @param namespace {String} 
+     * @param tags {Array.<String>} 
+     * @param enabled {Boolean} 
+     * @param created {Date} 
+     * @param updated {Date} 
      */
-    constructor() { 
+    constructor(uid, id, name, type, namespace, tags, enabled, created, updated) { 
         
-        AppsControllerApiApp.initialize(this);
+        AppsControllerApiApp.initialize(this, uid, id, name, type, namespace, tags, enabled, created, updated);
     }
 
     /**
@@ -33,7 +42,16 @@ class AppsControllerApiApp {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, uid, id, name, type, namespace, tags, enabled, created, updated) { 
+        obj['uid'] = uid;
+        obj['id'] = id;
+        obj['name'] = name;
+        obj['type'] = type;
+        obj['namespace'] = namespace;
+        obj['tags'] = tags;
+        obj['enabled'] = enabled;
+        obj['created'] = created;
+        obj['updated'] = updated;
     }
 
     /**
@@ -84,6 +102,12 @@ class AppsControllerApiApp {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiApp</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AppsControllerApiApp.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['uid'] && !(typeof data['uid'] === 'string' || data['uid'] instanceof String)) {
             throw new Error("Expected the field `uid` to be a primitive type in the JSON string but got " + data['uid']);
@@ -115,7 +139,7 @@ class AppsControllerApiApp {
 
 }
 
-
+AppsControllerApiApp.RequiredProperties = ["uid", "id", "name", "type", "namespace", "tags", "enabled", "created", "updated"];
 
 /**
  * @member {String} uid

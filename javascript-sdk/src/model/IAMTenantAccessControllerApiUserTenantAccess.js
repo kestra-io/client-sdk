@@ -18,16 +18,22 @@ import IAMTenantAccessControllerApiGroup from './IAMTenantAccessControllerApiGro
 /**
  * The IAMTenantAccessControllerApiUserTenantAccess model module.
  * @module model/IAMTenantAccessControllerApiUserTenantAccess
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMTenantAccessControllerApiUserTenantAccess {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserTenantAccess</code>.
      * @alias module:model/IAMTenantAccessControllerApiUserTenantAccess
+     * @param id {String} 
+     * @param username {String} 
+     * @param displayName {String} 
+     * @param description {String} 
+     * @param groups {Array.<module:model/IAMTenantAccessControllerApiGroup>} 
+     * @param auths {Array.<module:model/IAMTenantAccessControllerApiAuthentication>} 
      */
-    constructor() { 
+    constructor(id, username, displayName, description, groups, auths) { 
         
-        IAMTenantAccessControllerApiUserTenantAccess.initialize(this);
+        IAMTenantAccessControllerApiUserTenantAccess.initialize(this, id, username, displayName, description, groups, auths);
     }
 
     /**
@@ -35,7 +41,13 @@ class IAMTenantAccessControllerApiUserTenantAccess {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, username, displayName, description, groups, auths) { 
+        obj['id'] = id;
+        obj['username'] = username;
+        obj['displayName'] = displayName;
+        obj['description'] = description;
+        obj['groups'] = groups;
+        obj['auths'] = auths;
     }
 
     /**
@@ -77,6 +89,12 @@ class IAMTenantAccessControllerApiUserTenantAccess {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMTenantAccessControllerApiUserTenantAccess</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMTenantAccessControllerApiUserTenantAccess.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -120,7 +138,7 @@ class IAMTenantAccessControllerApiUserTenantAccess {
 
 }
 
-
+IAMTenantAccessControllerApiUserTenantAccess.RequiredProperties = ["id", "username", "displayName", "description", "groups", "auths"];
 
 /**
  * @member {String} id

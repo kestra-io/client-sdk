@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The AuthControllerResetPasswordRequest model module.
  * @module model/AuthControllerResetPasswordRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuthControllerResetPasswordRequest {
     /**
      * Constructs a new <code>AuthControllerResetPasswordRequest</code>.
      * @alias module:model/AuthControllerResetPasswordRequest
+     * @param token {String} 
+     * @param password {String} 
      */
-    constructor() { 
+    constructor(token, password) { 
         
-        AuthControllerResetPasswordRequest.initialize(this);
+        AuthControllerResetPasswordRequest.initialize(this, token, password);
     }
 
     /**
@@ -33,7 +35,9 @@ class AuthControllerResetPasswordRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, token, password) { 
+        obj['token'] = token;
+        obj['password'] = password;
     }
 
     /**
@@ -63,6 +67,12 @@ class AuthControllerResetPasswordRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AuthControllerResetPasswordRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AuthControllerResetPasswordRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['token'] && !(typeof data['token'] === 'string' || data['token'] instanceof String)) {
             throw new Error("Expected the field `token` to be a primitive type in the JSON string but got " + data['token']);
@@ -78,7 +88,7 @@ class AuthControllerResetPasswordRequest {
 
 }
 
-
+AuthControllerResetPasswordRequest.RequiredProperties = ["token", "password"];
 
 /**
  * @member {String} token

@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **expected** | **Object** |  | 
 **actual** | **Object** |  | 
 **isSuccess** | **Boolean** |  | 
-**taskId** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**errorMessage** | **String** |  | [optional] 
+**taskId** | **String** |  | 
+**description** | **String** |  | 
+**errorMessage** | **String** |  | 
 
 

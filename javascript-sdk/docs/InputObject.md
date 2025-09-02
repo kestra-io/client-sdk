@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **dependsOn** | [**DependsOn**](DependsOn.md) |  | [optional] 
 **required** | **Boolean** |  | [optional] 
-**defaults** | **Object** |  | [optional] 
+**defaults** | [**PropertyObject**](PropertyObject.md) |  | [optional] 
 **displayName** | **String** |  | [optional] 
 
 

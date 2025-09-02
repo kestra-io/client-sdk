@@ -13,4 +13,6 @@
 
 * `WORKER` (value: `"WORKER"`)
 
+* `INVALID` (value: `"INVALID"`)
+
 

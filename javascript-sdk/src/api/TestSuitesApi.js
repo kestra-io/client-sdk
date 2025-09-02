@@ -15,17 +15,21 @@
 import ApiClient from "../ApiClient";
 import BulkResponse from '../model/BulkResponse';
 import PagedResultsTestSuite from '../model/PagedResultsTestSuite';
+import PagedResultsTestSuiteRunResult from '../model/PagedResultsTestSuiteRunResult';
 import TestSuite from '../model/TestSuite';
+import TestSuiteControllerRunRequest from '../model/TestSuiteControllerRunRequest';
 import TestSuiteControllerSearchTestsLastResult from '../model/TestSuiteControllerSearchTestsLastResult';
 import TestSuiteControllerTestSuiteBulkRequest from '../model/TestSuiteControllerTestSuiteBulkRequest';
 import TestSuiteControllerTestsLastResultResponse from '../model/TestSuiteControllerTestsLastResultResponse';
 import TestSuiteRunResult from '../model/TestSuiteRunResult';
+import TestSuiteServiceRunByQueryRequest from '../model/TestSuiteServiceRunByQueryRequest';
+import TestSuiteServiceTestRunByQueryResult from '../model/TestSuiteServiceTestRunByQueryResult';
 import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 
 /**
 * TestSuites service.
 * @module api/TestSuitesApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class TestSuitesApi {
 
@@ -444,7 +448,7 @@ export default class TestSuitesApi {
      * Callback function to receive the result of the runTestSuite operation.
      * @callback module:api/TestSuitesApi~runTestSuiteCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/TestSuiteRunResult>} data The data returned by the service call.
+     * @param {module:model/TestSuiteRunResult} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -454,11 +458,14 @@ export default class TestSuitesApi {
      * @param {String} namespace The TestSuite namespace
      * @param {String} id The TestSuite ID
      * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/TestSuiteControllerRunRequest} [testSuiteControllerRunRequest] 
      * @param {module:api/TestSuitesApi~runTestSuiteCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/TestSuiteRunResult>}
+     * data is of type: {@link module:model/TestSuiteRunResult}
      */
-    runTestSuite(namespace, id, tenant, callback) {
-      let postBody = null;
+    runTestSuite(namespace, id, tenant, opts, callback) {
+      opts = opts || {};
+      let postBody = opts['testSuiteControllerRunRequest'];
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling runTestSuite");
@@ -485,11 +492,59 @@ export default class TestSuitesApi {
       };
 
       let authNames = [];
-      let contentTypes = [];
+      let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [TestSuiteRunResult];
+      let returnType = TestSuiteRunResult;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/{namespace}/{id}/run', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the runTestSuitesByQuery operation.
+     * @callback module:api/TestSuitesApi~runTestSuitesByQueryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/TestSuiteServiceTestRunByQueryResult} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Run multiple TestSuites by query
+     * Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+     * @param {String} tenant 
+     * @param {module:model/TestSuiteServiceRunByQueryRequest} testSuiteServiceRunByQueryRequest 
+     * @param {module:api/TestSuitesApi~runTestSuitesByQueryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/TestSuiteServiceTestRunByQueryResult}
+     */
+    runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest, callback) {
+      let postBody = testSuiteServiceRunByQueryRequest;
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling runTestSuitesByQuery");
+      }
+      // verify the required parameter 'testSuiteServiceRunByQueryRequest' is set
+      if (testSuiteServiceRunByQueryRequest === undefined || testSuiteServiceRunByQueryRequest === null) {
+        throw new Error("Missing the required parameter 'testSuiteServiceRunByQueryRequest' when calling runTestSuitesByQuery");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = TestSuiteServiceTestRunByQueryResult;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/run', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -508,6 +563,7 @@ export default class TestSuitesApi {
      * Searches for tests with optional filtering by namespace and flow ID. Requires TEST permission with the READ action.
      * @param {Number} page The current page
      * @param {Number} size The current page size
+     * @param {Boolean} includeChildNamespaces Include child namespaces in filter or not
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
@@ -516,7 +572,7 @@ export default class TestSuitesApi {
      * @param {module:api/TestSuitesApi~searchTestSuitesCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/PagedResultsTestSuite}
      */
-    searchTestSuites(page, size, tenant, opts, callback) {
+    searchTestSuites(page, size, includeChildNamespaces, tenant, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -526,6 +582,10 @@ export default class TestSuitesApi {
       // verify the required parameter 'size' is set
       if (size === undefined || size === null) {
         throw new Error("Missing the required parameter 'size' when calling searchTestSuites");
+      }
+      // verify the required parameter 'includeChildNamespaces' is set
+      if (includeChildNamespaces === undefined || includeChildNamespaces === null) {
+        throw new Error("Missing the required parameter 'includeChildNamespaces' when calling searchTestSuites");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -540,7 +600,8 @@ export default class TestSuitesApi {
         'size': size,
         'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
         'namespace': opts['namespace'],
-        'flowId': opts['flowId']
+        'flowId': opts['flowId'],
+        'includeChildNamespaces': includeChildNamespaces
       };
       let headerParams = {
       };
@@ -553,6 +614,75 @@ export default class TestSuitesApi {
       let returnType = PagedResultsTestSuite;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tests/search', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the searchTestSuitesResults operation.
+     * @callback module:api/TestSuitesApi~searchTestSuitesResultsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/PagedResultsTestSuiteRunResult} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Search for tests results
+     * with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} testSuiteId The test suite id to filter on
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} [sort] The sort of current page
+     * @param {String} [namespace] The namespace to filter on
+     * @param {String} [flowId] The flow id to filter on
+     * @param {module:api/TestSuitesApi~searchTestSuitesResultsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/PagedResultsTestSuiteRunResult}
+     */
+    searchTestSuitesResults(page, size, testSuiteId, tenant, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'page' is set
+      if (page === undefined || page === null) {
+        throw new Error("Missing the required parameter 'page' when calling searchTestSuitesResults");
+      }
+      // verify the required parameter 'size' is set
+      if (size === undefined || size === null) {
+        throw new Error("Missing the required parameter 'size' when calling searchTestSuitesResults");
+      }
+      // verify the required parameter 'testSuiteId' is set
+      if (testSuiteId === undefined || testSuiteId === null) {
+        throw new Error("Missing the required parameter 'testSuiteId' when calling searchTestSuitesResults");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling searchTestSuitesResults");
+      }
+
+      let pathParams = {
+        'tenant': tenant
+      };
+      let queryParams = {
+        'page': page,
+        'size': size,
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
+        'testSuiteId': testSuiteId,
+        'namespace': opts['namespace'],
+        'flowId': opts['flowId']
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = PagedResultsTestSuiteRunResult;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/tests/results/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

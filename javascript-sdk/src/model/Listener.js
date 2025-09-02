@@ -18,17 +18,19 @@ import Task from './Task';
 /**
  * The Listener model module.
  * @module model/Listener
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Listener {
     /**
      * Constructs a new <code>Listener</code>.
      * @alias module:model/Listener
+     * @param description {String} 
+     * @param conditions {Array.<module:model/Condition>} 
      * @param tasks {Array.<module:model/Task>} 
      */
-    constructor(tasks) { 
+    constructor(description, conditions, tasks) { 
         
-        Listener.initialize(this, tasks);
+        Listener.initialize(this, description, conditions, tasks);
     }
 
     /**
@@ -36,7 +38,9 @@ class Listener {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tasks) { 
+    static initialize(obj, description, conditions, tasks) { 
+        obj['description'] = description;
+        obj['conditions'] = conditions;
         obj['tasks'] = tasks;
     }
 
@@ -107,7 +111,7 @@ class Listener {
 
 }
 
-Listener.RequiredProperties = ["tasks"];
+Listener.RequiredProperties = ["description", "conditions", "tasks"];
 
 /**
  * @member {String} description

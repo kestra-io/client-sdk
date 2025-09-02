@@ -17,18 +17,21 @@ import IAMServiceAccountControllerApiGroup from './IAMServiceAccountControllerAp
 /**
  * The IAMServiceAccountControllerApiServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMServiceAccountControllerApiServiceAccountRequest {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountRequest</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountRequest
+     * @param groups {Array.<module:model/IAMServiceAccountControllerApiGroup>} 
      * @param name {String} 
+     * @param description {String} 
+     * @param superAdmin {Boolean} 
      */
-    constructor(name) { 
+    constructor(groups, name, description, superAdmin) { 
         
-        IAMServiceAccountControllerApiServiceAccountRequest.initialize(this, name);
+        IAMServiceAccountControllerApiServiceAccountRequest.initialize(this, groups, name, description, superAdmin);
     }
 
     /**
@@ -36,8 +39,11 @@ class IAMServiceAccountControllerApiServiceAccountRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
+    static initialize(obj, groups, name, description, superAdmin) { 
+        obj['groups'] = groups;
         obj['name'] = name;
+        obj['description'] = description;
+        obj['superAdmin'] = superAdmin;
     }
 
     /**
@@ -104,7 +110,7 @@ class IAMServiceAccountControllerApiServiceAccountRequest {
 
 }
 
-IAMServiceAccountControllerApiServiceAccountRequest.RequiredProperties = ["name"];
+IAMServiceAccountControllerApiServiceAccountRequest.RequiredProperties = ["groups", "name", "description", "superAdmin"];
 
 /**
  * @member {Array.<module:model/IAMServiceAccountControllerApiGroup>} groups

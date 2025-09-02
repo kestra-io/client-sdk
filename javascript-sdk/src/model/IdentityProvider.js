@@ -16,16 +16,20 @@ import ApiClient from '../ApiClient';
 /**
  * The IdentityProvider model module.
  * @module model/IdentityProvider
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IdentityProvider {
     /**
      * Constructs a new <code>IdentityProvider</code>.
      * @alias module:model/IdentityProvider
+     * @param attributes {Object.<String, Object>} 
+     * @param externalId {String} 
+     * @param securityIntegrationId {String} 
+     * @param securityIntegrationName {String} 
      */
-    constructor() { 
+    constructor(attributes, externalId, securityIntegrationId, securityIntegrationName) { 
         
-        IdentityProvider.initialize(this);
+        IdentityProvider.initialize(this, attributes, externalId, securityIntegrationId, securityIntegrationName);
     }
 
     /**
@@ -33,7 +37,11 @@ class IdentityProvider {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, attributes, externalId, securityIntegrationId, securityIntegrationName) { 
+        obj['attributes'] = attributes;
+        obj['externalId'] = externalId;
+        obj['securityIntegrationId'] = securityIntegrationId;
+        obj['securityIntegrationName'] = securityIntegrationName;
     }
 
     /**
@@ -69,6 +77,12 @@ class IdentityProvider {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IdentityProvider</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IdentityProvider.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['externalId'] && !(typeof data['externalId'] === 'string' || data['externalId'] instanceof String)) {
             throw new Error("Expected the field `externalId` to be a primitive type in the JSON string but got " + data['externalId']);
@@ -88,7 +102,7 @@ class IdentityProvider {
 
 }
 
-
+IdentityProvider.RequiredProperties = ["attributes", "externalId", "securityIntegrationId", "securityIntegrationName"];
 
 /**
  * @member {Object.<String, Object>} attributes

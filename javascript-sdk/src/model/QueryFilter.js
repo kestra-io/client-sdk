@@ -18,16 +18,19 @@ import QueryFilterOp from './QueryFilterOp';
 /**
  * The QueryFilter model module.
  * @module model/QueryFilter
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class QueryFilter {
     /**
      * Constructs a new <code>QueryFilter</code>.
      * @alias module:model/QueryFilter
+     * @param field {module:model/QueryFilterField} 
+     * @param operation {module:model/QueryFilterOp} 
+     * @param value {Object} 
      */
-    constructor() { 
+    constructor(field, operation, value) { 
         
-        QueryFilter.initialize(this);
+        QueryFilter.initialize(this, field, operation, value);
     }
 
     /**
@@ -35,7 +38,10 @@ class QueryFilter {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, field, operation, value) { 
+        obj['field'] = field;
+        obj['operation'] = operation;
+        obj['value'] = value;
     }
 
     /**
@@ -68,6 +74,12 @@ class QueryFilter {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>QueryFilter</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of QueryFilter.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
 
         return true;
     }
@@ -75,7 +87,7 @@ class QueryFilter {
 
 }
 
-
+QueryFilter.RequiredProperties = ["field", "operation", "value"];
 
 /**
  * @member {module:model/QueryFilterField} field

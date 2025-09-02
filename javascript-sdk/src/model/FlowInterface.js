@@ -25,7 +25,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowInterface model module.
  * @module model/FlowInterface
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowInterface {
     /**
@@ -77,6 +77,9 @@ class FlowInterface {
             if (data.hasOwnProperty('deleted')) {
                 obj['deleted'] = ApiClient.convertToType(data['deleted'], 'Boolean');
             }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
             if (data.hasOwnProperty('disabled')) {
                 obj['disabled'] = ApiClient.convertToType(data['disabled'], 'Boolean');
             }
@@ -125,6 +128,10 @@ class FlowInterface {
         // ensure the json data is a string
         if (data['tenantId'] && !(typeof data['tenantId'] === 'string' || data['tenantId'] instanceof String)) {
             throw new Error("Expected the field `tenantId` to be a primitive type in the JSON string but got " + data['tenantId']);
+        }
+        // ensure the json data is a string
+        if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
+            throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
         }
         if (data['labels']) { // data not null
             // ensure the json data is an array
@@ -211,6 +218,11 @@ FlowInterface.prototype['tenantId'] = undefined;
  * @member {Boolean} deleted
  */
 FlowInterface.prototype['deleted'] = undefined;
+
+/**
+ * @member {String} description
+ */
+FlowInterface.prototype['description'] = undefined;
 
 /**
  * @member {Boolean} disabled

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | [optional] 
-**type** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**baseUnit** | **String** |  | [optional] 
-**tags** | [**[MetricTag]**](MetricTag.md) |  | [optional] 
-**value** | **Object** |  | [optional] 
+**name** | **String** |  | 
+**type** | **String** |  | 
+**description** | **String** |  | 
+**baseUnit** | **String** |  | 
+**tags** | [**[MetricTag]**](MetricTag.md) |  | 
+**value** | **Object** |  | 
 
 

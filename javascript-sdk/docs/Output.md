@@ -9,5 +9,6 @@ Name | Type | Description | Notes
 **value** | **Object** |  | 
 **type** | [**Type**](Type.md) |  | 
 **displayName** | **String** |  | [optional] 
+**required** | **Boolean** |  | [optional] 
 
 

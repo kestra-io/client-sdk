@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **String** |  | [optional] 
-**name** | **String** |  | [optional] 
-**namespace** | **String** |  | [optional] 
-**tags** | **[String]** |  | [optional] 
-**disabled** | **Boolean** |  | [optional] 
-**source** | **String** |  | [optional] 
-**created** | **Date** |  | [optional] 
-**updated** | **Date** |  | [optional] 
+**uid** | **String** |  | 
+**name** | **String** |  | 
+**namespace** | **String** |  | 
+**tags** | **[String]** |  | 
+**disabled** | **Boolean** |  | 
+**source** | **String** |  | 
+**created** | **Date** |  | 
+**updated** | **Date** |  | 
 
 

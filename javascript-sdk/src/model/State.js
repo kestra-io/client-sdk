@@ -18,7 +18,7 @@ import StateType from './StateType';
 /**
  * The State model module.
  * @module model/State
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class State {
     /**

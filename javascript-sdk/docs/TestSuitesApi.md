@@ -13,7 +13,9 @@ Method | HTTP request | Description
 [**getTestSuite**](TestSuitesApi.md#getTestSuite) | **GET** /api/v1/{tenant}/tests/{namespace}/{id} | Retrieve a test
 [**getTestsLastResult**](TestSuitesApi.md#getTestsLastResult) | **POST** /api/v1/{tenant}/tests/results/search/last | Get tests last result
 [**runTestSuite**](TestSuitesApi.md#runTestSuite) | **POST** /api/v1/{tenant}/tests/{namespace}/{id}/run | Run a full test
+[**runTestSuitesByQuery**](TestSuitesApi.md#runTestSuitesByQuery) | **POST** /api/v1/{tenant}/tests/run | Run multiple TestSuites by query
 [**searchTestSuites**](TestSuitesApi.md#searchTestSuites) | **GET** /api/v1/{tenant}/tests/search | Search for tests
+[**searchTestSuitesResults**](TestSuitesApi.md#searchTestSuitesResults) | **GET** /api/v1/{tenant}/tests/results/search | Search for tests results
 [**updateTestSuite**](TestSuitesApi.md#updateTestSuite) | **PUT** /api/v1/{tenant}/tests/{namespace}/{id} | Update a test from YAML source
 [**validateTestSuite**](TestSuitesApi.md#validateTestSuite) | **POST** /api/v1/{tenant}/tests/validate | Validate a test
 
@@ -401,7 +403,7 @@ No authorization required
 
 ## runTestSuite
 
-> [TestSuiteRunResult] runTestSuite(namespace, id, tenant)
+> TestSuiteRunResult runTestSuite(namespace, id, tenant, opts)
 
 Run a full test
 
@@ -416,7 +418,10 @@ let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
 let namespace = "namespace_example"; // String | The TestSuite namespace
 let id = "id_example"; // String | The TestSuite ID
 let tenant = "tenant_example"; // String | 
-apiInstance.runTestSuite(namespace, id, tenant, (error, data, response) => {
+let opts = {
+  'testSuiteControllerRunRequest': new KestraIoKestraSdk.TestSuiteControllerRunRequest() // TestSuiteControllerRunRequest | 
+};
+apiInstance.runTestSuite(namespace, id, tenant, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -433,10 +438,11 @@ Name | Type | Description  | Notes
  **namespace** | **String**| The TestSuite namespace | 
  **id** | **String**| The TestSuite ID | 
  **tenant** | **String**|  | 
+ **testSuiteControllerRunRequest** | [**TestSuiteControllerRunRequest**](TestSuiteControllerRunRequest.md)|  | [optional] 
 
 ### Return type
 
-[**[TestSuiteRunResult]**](TestSuiteRunResult.md)
+[**TestSuiteRunResult**](TestSuiteRunResult.md)
 
 ### Authorization
 
@@ -444,13 +450,60 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## runTestSuitesByQuery
+
+> TestSuiteServiceTestRunByQueryResult runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest)
+
+Run multiple TestSuites by query
+
+Executes all TestSuites impacted by the specified filter. Requires TEST permission with the CREATE action.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+
+let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
+let tenant = "tenant_example"; // String | 
+let testSuiteServiceRunByQueryRequest = new KestraIoKestraSdk.TestSuiteServiceRunByQueryRequest(); // TestSuiteServiceRunByQueryRequest | 
+apiInstance.runTestSuitesByQuery(tenant, testSuiteServiceRunByQueryRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant** | **String**|  | 
+ **testSuiteServiceRunByQueryRequest** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md)|  | 
+
+### Return type
+
+[**TestSuiteServiceTestRunByQueryResult**](TestSuiteServiceTestRunByQueryResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## searchTestSuites
 
-> PagedResultsTestSuite searchTestSuites(page, size, tenant, opts)
+> PagedResultsTestSuite searchTestSuites(page, size, includeChildNamespaces, tenant, opts)
 
 Search for tests
 
@@ -464,13 +517,14 @@ import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
 let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
 let page = 1; // Number | The current page
 let size = 10; // Number | The current page size
+let includeChildNamespaces = true; // Boolean | Include child namespaces in filter or not
 let tenant = "tenant_example"; // String | 
 let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'namespace': "namespace_example", // String | The namespace to filter on
   'flowId': "flowId_example" // String | The flow id to filter on
 };
-apiInstance.searchTestSuites(page, size, tenant, opts, (error, data, response) => {
+apiInstance.searchTestSuites(page, size, includeChildNamespaces, tenant, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -486,6 +540,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **Number**| The current page | [default to 1]
  **size** | **Number**| The current page size | [default to 10]
+ **includeChildNamespaces** | **Boolean**| Include child namespaces in filter or not | [default to true]
  **tenant** | **String**|  | 
  **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
  **namespace** | **String**| The namespace to filter on | [optional] 
@@ -494,6 +549,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PagedResultsTestSuite**](PagedResultsTestSuite.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## searchTestSuitesResults
+
+> PagedResultsTestSuiteRunResult searchTestSuitesResults(page, size, testSuiteId, tenant, opts)
+
+Search for tests results
+
+with optional filtering by namespace, test suite ID and flow ID. Requires TEST permission with the READ action.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+
+let apiInstance = new KestraIoKestraSdk.TestSuitesApi();
+let page = 1; // Number | The current page
+let size = 10; // Number | The current page size
+let testSuiteId = "testSuiteId_example"; // String | The test suite id to filter on
+let tenant = "tenant_example"; // String | 
+let opts = {
+  'sort': ["null"], // [String] | The sort of current page
+  'namespace': "namespace_example", // String | The namespace to filter on
+  'flowId': "flowId_example" // String | The flow id to filter on
+};
+apiInstance.searchTestSuitesResults(page, size, testSuiteId, tenant, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Number**| The current page | [default to 1]
+ **size** | **Number**| The current page size | [default to 10]
+ **testSuiteId** | **String**| The test suite id to filter on | 
+ **tenant** | **String**|  | 
+ **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
+ **namespace** | **String**| The namespace to filter on | [optional] 
+ **flowId** | **String**| The flow id to filter on | [optional] 
+
+### Return type
+
+[**PagedResultsTestSuiteRunResult**](PagedResultsTestSuiteRunResult.md)
 
 ### Authorization
 

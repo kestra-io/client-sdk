@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**permission** | [**Permission**](Permission.md) |  | [optional] 
-**actions** | [**[Action]**](Action.md) |  | [optional] 
+**permission** | [**Permission**](Permission.md) |  | 
+**actions** | [**[Action]**](Action.md) |  | 
 
 

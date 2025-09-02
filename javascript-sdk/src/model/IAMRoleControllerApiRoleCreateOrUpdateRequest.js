@@ -17,7 +17,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
  * The IAMRoleControllerApiRoleCreateOrUpdateRequest model module.
  * @module model/IAMRoleControllerApiRoleCreateOrUpdateRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMRoleControllerApiRoleCreateOrUpdateRequest {
     /**
@@ -25,10 +25,12 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequest {
      * @alias module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest
      * @param permissions {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} 
      * @param name {String} 
+     * @param description {String} 
+     * @param isDefault {Boolean} 
      */
-    constructor(permissions, name) { 
+    constructor(permissions, name, description, isDefault) { 
         
-        IAMRoleControllerApiRoleCreateOrUpdateRequest.initialize(this, permissions, name);
+        IAMRoleControllerApiRoleCreateOrUpdateRequest.initialize(this, permissions, name, description, isDefault);
     }
 
     /**
@@ -36,9 +38,11 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, permissions, name) { 
+    static initialize(obj, permissions, name, description, isDefault) { 
         obj['permissions'] = permissions;
         obj['name'] = name;
+        obj['description'] = description;
+        obj['isDefault'] = isDefault;
     }
 
     /**
@@ -99,7 +103,7 @@ class IAMRoleControllerApiRoleCreateOrUpdateRequest {
 
 }
 
-IAMRoleControllerApiRoleCreateOrUpdateRequest.RequiredProperties = ["permissions", "name"];
+IAMRoleControllerApiRoleCreateOrUpdateRequest.RequiredProperties = ["permissions", "name", "description", "isDefault"];
 
 /**
  * @member {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} permissions

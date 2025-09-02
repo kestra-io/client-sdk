@@ -22,7 +22,7 @@ import ScimResourceWithOptionalId from './ScimResourceWithOptionalId';
 /**
  * The ResourceType model module.
  * @module model/ResourceType
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ResourceType {
     /**
@@ -32,10 +32,11 @@ class ResourceType {
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
      * @param meta {module:model/Meta} 
+     * @param resourceType {String} 
      */
-    constructor(meta) { 
-        ScimResourceWithOptionalId.initialize(this, meta);ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);
-        ResourceType.initialize(this, meta);
+    constructor(meta, resourceType) { 
+        ScimResourceWithOptionalId.initialize(this, meta, resourceType);ScimResource.initialize(this, meta, resourceType);BaseResourceScimResource.initialize(this);
+        ResourceType.initialize(this, meta, resourceType);
     }
 
     /**
@@ -43,8 +44,9 @@ class ResourceType {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, meta) { 
+    static initialize(obj, meta, resourceType) { 
         obj['meta'] = meta;
+        obj['resourceType'] = resourceType;
     }
 
     /**
@@ -170,7 +172,7 @@ class ResourceType {
 
 }
 
-ResourceType.RequiredProperties = ["meta"];
+ResourceType.RequiredProperties = ["meta", "resourceType"];
 
 /**
  * @member {Array.<String>} schemas

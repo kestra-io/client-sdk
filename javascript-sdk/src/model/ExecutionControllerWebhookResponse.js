@@ -19,16 +19,26 @@ import State from './State';
 /**
  * The ExecutionControllerWebhookResponse model module.
  * @module model/ExecutionControllerWebhookResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ExecutionControllerWebhookResponse {
     /**
      * Constructs a new <code>ExecutionControllerWebhookResponse</code>.
      * @alias module:model/ExecutionControllerWebhookResponse
+     * @param tenantId {String} 
+     * @param id {String} 
+     * @param namespace {String} 
+     * @param flowId {String} 
+     * @param flowRevision {Number} 
+     * @param trigger {module:model/ExecutionTrigger} 
+     * @param outputs {Object.<String, Object>} 
+     * @param labels {Array.<module:model/Label>} 
+     * @param state {module:model/State} 
+     * @param url {String} 
      */
-    constructor() { 
+    constructor(tenantId, id, namespace, flowId, flowRevision, trigger, outputs, labels, state, url) { 
         
-        ExecutionControllerWebhookResponse.initialize(this);
+        ExecutionControllerWebhookResponse.initialize(this, tenantId, id, namespace, flowId, flowRevision, trigger, outputs, labels, state, url);
     }
 
     /**
@@ -36,7 +46,17 @@ class ExecutionControllerWebhookResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, tenantId, id, namespace, flowId, flowRevision, trigger, outputs, labels, state, url) { 
+        obj['tenantId'] = tenantId;
+        obj['id'] = id;
+        obj['namespace'] = namespace;
+        obj['flowId'] = flowId;
+        obj['flowRevision'] = flowRevision;
+        obj['trigger'] = trigger;
+        obj['outputs'] = outputs;
+        obj['labels'] = labels;
+        obj['state'] = state;
+        obj['url'] = url;
     }
 
     /**
@@ -90,6 +110,12 @@ class ExecutionControllerWebhookResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerWebhookResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of ExecutionControllerWebhookResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['tenantId'] && !(typeof data['tenantId'] === 'string' || data['tenantId'] instanceof String)) {
             throw new Error("Expected the field `tenantId` to be a primitive type in the JSON string but got " + data['tenantId']);
@@ -135,7 +161,7 @@ class ExecutionControllerWebhookResponse {
 
 }
 
-
+ExecutionControllerWebhookResponse.RequiredProperties = ["tenantId", "id", "namespace", "flowId", "flowRevision", "trigger", "outputs", "labels", "state", "url"];
 
 /**
  * @member {String} tenantId

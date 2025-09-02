@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isExpired** | **Boolean** |  | [optional] 
+**isExpired** | **Boolean** |  | 
 **email** | **String** |  | 
-**id** | **String** |  | [optional] 
-**bindings** | [**[Binding]**](Binding.md) |  | [optional] 
-**groupIds** | **[String]** |  | [optional] 
-**tenantId** | **String** |  | [optional] 
-**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | [optional] 
-**sentAt** | **Date** |  | [optional] 
-**expiredAt** | **Date** |  | [optional] 
-**acceptedAt** | **Date** |  | [optional] 
+**id** | **String** |  | 
+**bindings** | [**[Binding]**](Binding.md) |  | 
+**groupIds** | **[String]** |  | 
+**tenantId** | **String** |  | 
+**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | 
+**sentAt** | **Date** |  | 
+**expiredAt** | **Date** |  | 
+**acceptedAt** | **Date** |  | 
 **deleted** | **Boolean** |  | 
-**userType** | [**UserType**](UserType.md) |  | [optional] 
-**superAdmin** | **Boolean** |  | [optional] 
-**link** | **String** |  | [optional] 
+**userType** | [**UserType**](UserType.md) |  | 
+**superAdmin** | **Boolean** |  | 
+**link** | **String** |  | 
 
 

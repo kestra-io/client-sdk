@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMTenantAccessControllerApiAuthentication model module.
  * @module model/IAMTenantAccessControllerApiAuthentication
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMTenantAccessControllerApiAuthentication {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiAuthentication</code>.
      * @alias module:model/IAMTenantAccessControllerApiAuthentication
+     * @param name {String} 
+     * @param type {String} 
      */
-    constructor() { 
+    constructor(name, type) { 
         
-        IAMTenantAccessControllerApiAuthentication.initialize(this);
+        IAMTenantAccessControllerApiAuthentication.initialize(this, name, type);
     }
 
     /**
@@ -33,7 +35,9 @@ class IAMTenantAccessControllerApiAuthentication {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, type) { 
+        obj['name'] = name;
+        obj['type'] = type;
     }
 
     /**
@@ -63,6 +67,12 @@ class IAMTenantAccessControllerApiAuthentication {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMTenantAccessControllerApiAuthentication</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMTenantAccessControllerApiAuthentication.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -78,7 +88,7 @@ class IAMTenantAccessControllerApiAuthentication {
 
 }
 
-
+IAMTenantAccessControllerApiAuthentication.RequiredProperties = ["name", "type"];
 
 /**
  * @member {String} name

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
-**description** | **String** |  | [optional] 
-**maxAge** | **String** |  | [optional] 
-**extended** | **Boolean** |  | [optional] 
+**description** | **String** |  | 
+**maxAge** | **String** |  | 
+**extended** | **Boolean** |  | 
 
 

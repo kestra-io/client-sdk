@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** |  | [optional] 
-**conditions** | [**[Condition]**](Condition.md) |  | [optional] 
+**description** | **String** |  | 
+**conditions** | [**[Condition]**](Condition.md) |  | 
 **tasks** | [**[Task]**](Task.md) |  | 
 
 

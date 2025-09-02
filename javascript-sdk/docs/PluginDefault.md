@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **String** |  | 
-**forced** | **Boolean** |  | [optional] 
-**values** | **{String: Object}** |  | [optional] 
+**forced** | **Boolean** |  | 
+**values** | **{String: Object}** |  | 
 
 

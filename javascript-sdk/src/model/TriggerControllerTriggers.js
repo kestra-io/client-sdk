@@ -18,16 +18,18 @@ import Trigger from './Trigger';
 /**
  * The TriggerControllerTriggers model module.
  * @module model/TriggerControllerTriggers
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class TriggerControllerTriggers {
     /**
      * Constructs a new <code>TriggerControllerTriggers</code>.
      * @alias module:model/TriggerControllerTriggers
+     * @param abstractTrigger {module:model/AbstractTrigger} 
+     * @param triggerContext {module:model/Trigger} 
      */
-    constructor() { 
+    constructor(abstractTrigger, triggerContext) { 
         
-        TriggerControllerTriggers.initialize(this);
+        TriggerControllerTriggers.initialize(this, abstractTrigger, triggerContext);
     }
 
     /**
@@ -35,7 +37,9 @@ class TriggerControllerTriggers {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, abstractTrigger, triggerContext) { 
+        obj['abstractTrigger'] = abstractTrigger;
+        obj['triggerContext'] = triggerContext;
     }
 
     /**
@@ -65,6 +69,12 @@ class TriggerControllerTriggers {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TriggerControllerTriggers</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of TriggerControllerTriggers.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // validate the optional field `abstractTrigger`
         if (data['abstractTrigger']) { // data not null
           AbstractTrigger.validateJSON(data['abstractTrigger']);
@@ -80,7 +90,7 @@ class TriggerControllerTriggers {
 
 }
 
-
+TriggerControllerTriggers.RequiredProperties = ["abstractTrigger", "triggerContext"];
 
 /**
  * @member {module:model/AbstractTrigger} abstractTrigger

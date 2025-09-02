@@ -17,20 +17,22 @@ import BindingType from './BindingType';
 /**
  * The Binding model module.
  * @module model/Binding
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Binding {
     /**
      * Constructs a new <code>Binding</code>.
      * @alias module:model/Binding
+     * @param id {String} 
      * @param type {module:model/BindingType} 
      * @param externalId {String} 
      * @param roleId {String} 
+     * @param namespaceId {String} 
      * @param deleted {Boolean} 
      */
-    constructor(type, externalId, roleId, deleted) { 
+    constructor(id, type, externalId, roleId, namespaceId, deleted) { 
         
-        Binding.initialize(this, type, externalId, roleId, deleted);
+        Binding.initialize(this, id, type, externalId, roleId, namespaceId, deleted);
     }
 
     /**
@@ -38,10 +40,12 @@ class Binding {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, externalId, roleId, deleted) { 
+    static initialize(obj, id, type, externalId, roleId, namespaceId, deleted) { 
+        obj['id'] = id;
         obj['type'] = type;
         obj['externalId'] = externalId;
         obj['roleId'] = roleId;
+        obj['namespaceId'] = namespaceId;
         obj['deleted'] = deleted;
     }
 
@@ -113,7 +117,7 @@ class Binding {
 
 }
 
-Binding.RequiredProperties = ["type", "externalId", "roleId", "deleted"];
+Binding.RequiredProperties = ["id", "type", "externalId", "roleId", "namespaceId", "deleted"];
 
 /**
  * @member {String} id

@@ -17,16 +17,21 @@ import StateType from './StateType';
 /**
  * The ExecutionControllerLastExecutionResponse model module.
  * @module model/ExecutionControllerLastExecutionResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ExecutionControllerLastExecutionResponse {
     /**
      * Constructs a new <code>ExecutionControllerLastExecutionResponse</code>.
      * @alias module:model/ExecutionControllerLastExecutionResponse
+     * @param id {String} 
+     * @param flowId {String} 
+     * @param namespace {String} 
+     * @param startDate {Date} 
+     * @param status {module:model/StateType} 
      */
-    constructor() { 
+    constructor(id, flowId, namespace, startDate, status) { 
         
-        ExecutionControllerLastExecutionResponse.initialize(this);
+        ExecutionControllerLastExecutionResponse.initialize(this, id, flowId, namespace, startDate, status);
     }
 
     /**
@@ -34,7 +39,12 @@ class ExecutionControllerLastExecutionResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, flowId, namespace, startDate, status) { 
+        obj['id'] = id;
+        obj['flowId'] = flowId;
+        obj['namespace'] = namespace;
+        obj['startDate'] = startDate;
+        obj['status'] = status;
     }
 
     /**
@@ -73,6 +83,12 @@ class ExecutionControllerLastExecutionResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerLastExecutionResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of ExecutionControllerLastExecutionResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -92,7 +108,7 @@ class ExecutionControllerLastExecutionResponse {
 
 }
 
-
+ExecutionControllerLastExecutionResponse.RequiredProperties = ["id", "flowId", "namespace", "startDate", "status"];
 
 /**
  * @member {String} id

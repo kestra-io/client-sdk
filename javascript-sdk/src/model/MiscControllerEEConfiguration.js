@@ -13,18 +13,20 @@
 
 import ApiClient from '../ApiClient';
 import Banner from './Banner';
-import CustomLink from './CustomLink';
+import LeftSidebarConfiguration from './LeftSidebarConfiguration';
 import MiscControllerConfiguration from './MiscControllerConfiguration';
+import MiscControllerEdition from './MiscControllerEdition';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPluginIdAndVersion from './MiscControllerPluginIdAndVersion';
 import MiscControllerPreview from './MiscControllerPreview';
 import MiscControllerTenantConfigurationInfo from './MiscControllerTenantConfigurationInfo';
 import QueryFilterResourceField from './QueryFilterResourceField';
+import RightSidebarConfiguration from './RightSidebarConfiguration';
 
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class MiscControllerEEConfiguration {
     /**
@@ -63,6 +65,9 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('version')) {
                 obj['version'] = ApiClient.convertToType(data['version'], 'String');
             }
+            if (data.hasOwnProperty('edition')) {
+                obj['edition'] = MiscControllerEdition.constructFromObject(data['edition']);
+            }
             if (data.hasOwnProperty('commitId')) {
                 obj['commitId'] = ApiClient.convertToType(data['commitId'], 'String');
             }
@@ -77,6 +82,9 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('isAnonymousUsageEnabled')) {
                 obj['isAnonymousUsageEnabled'] = ApiClient.convertToType(data['isAnonymousUsageEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isUiAnonymousUsageEnabled')) {
+                obj['isUiAnonymousUsageEnabled'] = ApiClient.convertToType(data['isUiAnonymousUsageEnabled'], 'Boolean');
             }
             if (data.hasOwnProperty('isTemplateEnabled')) {
                 obj['isTemplateEnabled'] = ApiClient.convertToType(data['isTemplateEnabled'], 'Boolean');
@@ -132,8 +140,11 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('outputsInInternalStorageEnabled')) {
                 obj['outputsInInternalStorageEnabled'] = ApiClient.convertToType(data['outputsInInternalStorageEnabled'], 'Boolean');
             }
-            if (data.hasOwnProperty('contextCustomLinks')) {
-                obj['contextCustomLinks'] = ApiClient.convertToType(data['contextCustomLinks'], {'String': CustomLink});
+            if (data.hasOwnProperty('leftSidebar')) {
+                obj['leftSidebar'] = LeftSidebarConfiguration.constructFromObject(data['leftSidebar']);
+            }
+            if (data.hasOwnProperty('rightSidebar')) {
+                obj['rightSidebar'] = RightSidebarConfiguration.constructFromObject(data['rightSidebar']);
             }
             if (data.hasOwnProperty('inMaintenance')) {
                 obj['inMaintenance'] = ApiClient.convertToType(data['inMaintenance'], 'Boolean');
@@ -221,6 +232,14 @@ class MiscControllerEEConfiguration {
         if (data['banner']) { // data not null
           Banner.validateJSON(data['banner']);
         }
+        // validate the optional field `leftSidebar`
+        if (data['leftSidebar']) { // data not null
+          LeftSidebarConfiguration.validateJSON(data['leftSidebar']);
+        }
+        // validate the optional field `rightSidebar`
+        if (data['rightSidebar']) { // data not null
+          RightSidebarConfiguration.validateJSON(data['rightSidebar']);
+        }
         // ensure the json data is a string
         if (data['passwordRegexp'] && !(typeof data['passwordRegexp'] === 'string' || data['passwordRegexp'] instanceof String)) {
             throw new Error("Expected the field `passwordRegexp` to be a primitive type in the JSON string but got " + data['passwordRegexp']);
@@ -243,6 +262,11 @@ MiscControllerEEConfiguration.prototype['uuid'] = undefined;
  * @member {String} version
  */
 MiscControllerEEConfiguration.prototype['version'] = undefined;
+
+/**
+ * @member {module:model/MiscControllerEdition} edition
+ */
+MiscControllerEEConfiguration.prototype['edition'] = undefined;
 
 /**
  * @member {String} commitId
@@ -268,6 +292,11 @@ MiscControllerEEConfiguration.prototype['isTaskRunEnabled'] = undefined;
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerEEConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
+
+/**
+ * @member {Boolean} isUiAnonymousUsageEnabled
+ */
+MiscControllerEEConfiguration.prototype['isUiAnonymousUsageEnabled'] = undefined;
 
 /**
  * @member {Boolean} isTemplateEnabled
@@ -360,9 +389,14 @@ MiscControllerEEConfiguration.prototype['mailServiceEnabled'] = undefined;
 MiscControllerEEConfiguration.prototype['outputsInInternalStorageEnabled'] = undefined;
 
 /**
- * @member {Object.<String, module:model/CustomLink>} contextCustomLinks
+ * @member {module:model/LeftSidebarConfiguration} leftSidebar
  */
-MiscControllerEEConfiguration.prototype['contextCustomLinks'] = undefined;
+MiscControllerEEConfiguration.prototype['leftSidebar'] = undefined;
+
+/**
+ * @member {module:model/RightSidebarConfiguration} rightSidebar
+ */
+MiscControllerEEConfiguration.prototype['rightSidebar'] = undefined;
 
 /**
  * @member {Boolean} inMaintenance
@@ -385,6 +419,10 @@ MiscControllerConfiguration.prototype['uuid'] = undefined;
  */
 MiscControllerConfiguration.prototype['version'] = undefined;
 /**
+ * @member {module:model/MiscControllerEdition} edition
+ */
+MiscControllerConfiguration.prototype['edition'] = undefined;
+/**
  * @member {String} commitId
  */
 MiscControllerConfiguration.prototype['commitId'] = undefined;
@@ -404,6 +442,10 @@ MiscControllerConfiguration.prototype['isTaskRunEnabled'] = undefined;
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
+/**
+ * @member {Boolean} isUiAnonymousUsageEnabled
+ */
+MiscControllerConfiguration.prototype['isUiAnonymousUsageEnabled'] = undefined;
 /**
  * @member {Boolean} isTemplateEnabled
  */

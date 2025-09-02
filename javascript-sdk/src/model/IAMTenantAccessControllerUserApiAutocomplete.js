@@ -17,7 +17,7 @@ import ApiAutocomplete from './ApiAutocomplete';
 /**
  * The IAMTenantAccessControllerUserApiAutocomplete model module.
  * @module model/IAMTenantAccessControllerUserApiAutocomplete
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMTenantAccessControllerUserApiAutocomplete {
     /**
@@ -55,6 +55,9 @@ class IAMTenantAccessControllerUserApiAutocomplete {
             }
             if (data.hasOwnProperty('ids')) {
                 obj['ids'] = ApiClient.convertToType(data['ids'], ['String']);
+            }
+            if (data.hasOwnProperty('existingOnly')) {
+                obj['existingOnly'] = ApiClient.convertToType(data['existingOnly'], 'Boolean');
             }
             if (data.hasOwnProperty('username')) {
                 obj['username'] = ApiClient.convertToType(data['username'], 'String');
@@ -101,6 +104,11 @@ IAMTenantAccessControllerUserApiAutocomplete.prototype['q'] = undefined;
 IAMTenantAccessControllerUserApiAutocomplete.prototype['ids'] = undefined;
 
 /**
+ * @member {Boolean} existingOnly
+ */
+IAMTenantAccessControllerUserApiAutocomplete.prototype['existingOnly'] = undefined;
+
+/**
  * @member {String} username
  */
 IAMTenantAccessControllerUserApiAutocomplete.prototype['username'] = undefined;
@@ -115,6 +123,10 @@ ApiAutocomplete.prototype['q'] = undefined;
  * @member {Array.<String>} ids
  */
 ApiAutocomplete.prototype['ids'] = undefined;
+/**
+ * @member {Boolean} existingOnly
+ */
+ApiAutocomplete.prototype['existingOnly'] = undefined;
 
 
 

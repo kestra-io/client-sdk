@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerTenantConfigurationInfo model module.
  * @module model/MiscControllerTenantConfigurationInfo
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class MiscControllerTenantConfigurationInfo {
     /**
      * Constructs a new <code>MiscControllerTenantConfigurationInfo</code>.
      * @alias module:model/MiscControllerTenantConfigurationInfo
+     * @param storageByTenant {Boolean} 
+     * @param secretByTenant {Boolean} 
      */
-    constructor() { 
+    constructor(storageByTenant, secretByTenant) { 
         
-        MiscControllerTenantConfigurationInfo.initialize(this);
+        MiscControllerTenantConfigurationInfo.initialize(this, storageByTenant, secretByTenant);
     }
 
     /**
@@ -33,7 +35,9 @@ class MiscControllerTenantConfigurationInfo {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storageByTenant, secretByTenant) { 
+        obj['storageByTenant'] = storageByTenant;
+        obj['secretByTenant'] = secretByTenant;
     }
 
     /**
@@ -63,6 +67,12 @@ class MiscControllerTenantConfigurationInfo {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MiscControllerTenantConfigurationInfo</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of MiscControllerTenantConfigurationInfo.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
 
         return true;
     }
@@ -70,7 +80,7 @@ class MiscControllerTenantConfigurationInfo {
 
 }
 
-
+MiscControllerTenantConfigurationInfo.RequiredProperties = ["storageByTenant", "secretByTenant"];
 
 /**
  * @member {Boolean} storageByTenant

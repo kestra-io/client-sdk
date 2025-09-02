@@ -18,7 +18,7 @@ import TimeWindow from './TimeWindow';
 /**
  * The Dashboard model module.
  * @module model/Dashboard
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Dashboard {
     /**

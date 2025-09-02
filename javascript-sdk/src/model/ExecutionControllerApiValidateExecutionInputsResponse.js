@@ -17,16 +17,19 @@ import ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue fro
 /**
  * The ExecutionControllerApiValidateExecutionInputsResponse model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ExecutionControllerApiValidateExecutionInputsResponse {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponse</code>.
      * @alias module:model/ExecutionControllerApiValidateExecutionInputsResponse
+     * @param id {String} 
+     * @param namespace {String} 
+     * @param inputs {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue>} 
      */
-    constructor() { 
+    constructor(id, namespace, inputs) { 
         
-        ExecutionControllerApiValidateExecutionInputsResponse.initialize(this);
+        ExecutionControllerApiValidateExecutionInputsResponse.initialize(this, id, namespace, inputs);
     }
 
     /**
@@ -34,7 +37,10 @@ class ExecutionControllerApiValidateExecutionInputsResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, namespace, inputs) { 
+        obj['id'] = id;
+        obj['namespace'] = namespace;
+        obj['inputs'] = inputs;
     }
 
     /**
@@ -67,6 +73,12 @@ class ExecutionControllerApiValidateExecutionInputsResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerApiValidateExecutionInputsResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of ExecutionControllerApiValidateExecutionInputsResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -92,7 +104,7 @@ class ExecutionControllerApiValidateExecutionInputsResponse {
 
 }
 
-
+ExecutionControllerApiValidateExecutionInputsResponse.RequiredProperties = ["id", "namespace", "inputs"];
 
 /**
  * @member {String} id

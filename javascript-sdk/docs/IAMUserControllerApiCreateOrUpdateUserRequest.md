@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenants** | **[String]** |  | [optional] 
-**groups** | **[String]** |  | [optional] 
-**firstName** | **String** |  | [optional] 
-**lastName** | **String** |  | [optional] 
+**tenants** | **[String]** |  | 
+**groups** | **[String]** |  | 
+**firstName** | **String** |  | 
+**lastName** | **String** |  | 
 **email** | **String** |  | 
-**password** | **String** |  | [optional] 
-**superAdmin** | **Boolean** |  | [optional] 
-**restricted** | **Boolean** |  | [optional] 
+**password** | **String** |  | 
+**superAdmin** | **Boolean** |  | 
+**restricted** | **Boolean** |  | 
 
 

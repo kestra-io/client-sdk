@@ -12,42 +12,28 @@
  */
 
 import ApiClient from '../ApiClient';
-import ConfigurationUsage from './ConfigurationUsage';
 import ExecutionUsage from './ExecutionUsage';
 import FlowUsage from './FlowUsage';
 import GroupUsage from './GroupUsage';
-import HostUsage from './HostUsage';
-import NamespaceUsage from './NamespaceUsage';
-import PluginMetric from './PluginMetric';
-import PluginUsage from './PluginUsage';
+import MiscControllerApiUsage from './MiscControllerApiUsage';
 import RoleUsage from './RoleUsage';
-import ServerType from './ServerType';
-import ServiceUsage from './ServiceUsage';
 import TenantUsage from './TenantUsage';
-import Usage from './Usage';
 import UserUsage from './UserUsage';
 
 /**
  * The UsageEE model module.
  * @module model/UsageEE
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class UsageEE {
     /**
      * Constructs a new <code>UsageEE</code>.
      * @alias module:model/UsageEE
-     * @implements module:model/Usage
-     * @param uuid {String} 
-     * @param startUuid {String} 
-     * @param instanceUuid {String} 
-     * @param serverType {module:model/ServerType} 
-     * @param version {String} 
-     * @param zoneId {String} 
-     * @param startTime {Date} 
+     * @implements module:model/MiscControllerApiUsage
      */
-    constructor(uuid, startUuid, instanceUuid, serverType, version, zoneId, startTime) { 
-        Usage.initialize(this, uuid, startUuid, instanceUuid, serverType, version, zoneId, startTime);
-        UsageEE.initialize(this, uuid, startUuid, instanceUuid, serverType, version, zoneId, startTime);
+    constructor() { 
+        MiscControllerApiUsage.initialize(this);
+        UsageEE.initialize(this);
     }
 
     /**
@@ -55,14 +41,7 @@ class UsageEE {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uuid, startUuid, instanceUuid, serverType, version, zoneId, startTime) { 
-        obj['uuid'] = uuid;
-        obj['startUuid'] = startUuid;
-        obj['instanceUuid'] = instanceUuid;
-        obj['serverType'] = serverType;
-        obj['version'] = version;
-        obj['zoneId'] = zoneId;
-        obj['startTime'] = startTime;
+    static initialize(obj) { 
     }
 
     /**
@@ -75,7 +54,7 @@ class UsageEE {
     static constructFromObject(data, obj) {
         if (data) {
             obj = obj || new UsageEE();
-            Usage.constructFromObject(data, obj);
+            MiscControllerApiUsage.constructFromObject(data, obj);
 
             if (data.hasOwnProperty('groups')) {
                 obj['groups'] = GroupUsage.constructFromObject(data['groups']);
@@ -86,59 +65,14 @@ class UsageEE {
             if (data.hasOwnProperty('roles')) {
                 obj['roles'] = RoleUsage.constructFromObject(data['roles']);
             }
-            if (data.hasOwnProperty('namespaces')) {
-                obj['namespaces'] = NamespaceUsage.constructFromObject(data['namespaces']);
-            }
             if (data.hasOwnProperty('tenants')) {
                 obj['tenants'] = TenantUsage.constructFromObject(data['tenants']);
-            }
-            if (data.hasOwnProperty('uuid')) {
-                obj['uuid'] = ApiClient.convertToType(data['uuid'], 'String');
-            }
-            if (data.hasOwnProperty('startUuid')) {
-                obj['startUuid'] = ApiClient.convertToType(data['startUuid'], 'String');
-            }
-            if (data.hasOwnProperty('instanceUuid')) {
-                obj['instanceUuid'] = ApiClient.convertToType(data['instanceUuid'], 'String');
-            }
-            if (data.hasOwnProperty('serverType')) {
-                obj['serverType'] = ServerType.constructFromObject(data['serverType']);
-            }
-            if (data.hasOwnProperty('version')) {
-                obj['version'] = ApiClient.convertToType(data['version'], 'String');
-            }
-            if (data.hasOwnProperty('zoneId')) {
-                obj['zoneId'] = ApiClient.convertToType(data['zoneId'], 'String');
-            }
-            if (data.hasOwnProperty('uri')) {
-                obj['uri'] = ApiClient.convertToType(data['uri'], 'String');
-            }
-            if (data.hasOwnProperty('environments')) {
-                obj['environments'] = ApiClient.convertToType(data['environments'], ['String']);
-            }
-            if (data.hasOwnProperty('startTime')) {
-                obj['startTime'] = ApiClient.convertToType(data['startTime'], 'Date');
-            }
-            if (data.hasOwnProperty('host')) {
-                obj['host'] = HostUsage.constructFromObject(data['host']);
-            }
-            if (data.hasOwnProperty('configurations')) {
-                obj['configurations'] = ConfigurationUsage.constructFromObject(data['configurations']);
-            }
-            if (data.hasOwnProperty('plugins')) {
-                obj['plugins'] = ApiClient.convertToType(data['plugins'], [PluginUsage]);
             }
             if (data.hasOwnProperty('flows')) {
                 obj['flows'] = FlowUsage.constructFromObject(data['flows']);
             }
             if (data.hasOwnProperty('executions')) {
                 obj['executions'] = ExecutionUsage.constructFromObject(data['executions']);
-            }
-            if (data.hasOwnProperty('services')) {
-                obj['services'] = ApiClient.convertToType(data['services'], ServiceUsage);
-            }
-            if (data.hasOwnProperty('pluginMetrics')) {
-                obj['pluginMetrics'] = ApiClient.convertToType(data['pluginMetrics'], [PluginMetric]);
             }
         }
         return obj;
@@ -150,12 +84,6 @@ class UsageEE {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>UsageEE</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of UsageEE.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `groups`
         if (data['groups']) { // data not null
           GroupUsage.validateJSON(data['groups']);
@@ -168,59 +96,9 @@ class UsageEE {
         if (data['roles']) { // data not null
           RoleUsage.validateJSON(data['roles']);
         }
-        // validate the optional field `namespaces`
-        if (data['namespaces']) { // data not null
-          NamespaceUsage.validateJSON(data['namespaces']);
-        }
         // validate the optional field `tenants`
         if (data['tenants']) { // data not null
           TenantUsage.validateJSON(data['tenants']);
-        }
-        // ensure the json data is a string
-        if (data['uuid'] && !(typeof data['uuid'] === 'string' || data['uuid'] instanceof String)) {
-            throw new Error("Expected the field `uuid` to be a primitive type in the JSON string but got " + data['uuid']);
-        }
-        // ensure the json data is a string
-        if (data['startUuid'] && !(typeof data['startUuid'] === 'string' || data['startUuid'] instanceof String)) {
-            throw new Error("Expected the field `startUuid` to be a primitive type in the JSON string but got " + data['startUuid']);
-        }
-        // ensure the json data is a string
-        if (data['instanceUuid'] && !(typeof data['instanceUuid'] === 'string' || data['instanceUuid'] instanceof String)) {
-            throw new Error("Expected the field `instanceUuid` to be a primitive type in the JSON string but got " + data['instanceUuid']);
-        }
-        // ensure the json data is a string
-        if (data['version'] && !(typeof data['version'] === 'string' || data['version'] instanceof String)) {
-            throw new Error("Expected the field `version` to be a primitive type in the JSON string but got " + data['version']);
-        }
-        // ensure the json data is a string
-        if (data['zoneId'] && !(typeof data['zoneId'] === 'string' || data['zoneId'] instanceof String)) {
-            throw new Error("Expected the field `zoneId` to be a primitive type in the JSON string but got " + data['zoneId']);
-        }
-        // ensure the json data is a string
-        if (data['uri'] && !(typeof data['uri'] === 'string' || data['uri'] instanceof String)) {
-            throw new Error("Expected the field `uri` to be a primitive type in the JSON string but got " + data['uri']);
-        }
-        // ensure the json data is an array
-        if (!Array.isArray(data['environments'])) {
-            throw new Error("Expected the field `environments` to be an array in the JSON data but got " + data['environments']);
-        }
-        // validate the optional field `host`
-        if (data['host']) { // data not null
-          HostUsage.validateJSON(data['host']);
-        }
-        // validate the optional field `configurations`
-        if (data['configurations']) { // data not null
-          ConfigurationUsage.validateJSON(data['configurations']);
-        }
-        if (data['plugins']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['plugins'])) {
-                throw new Error("Expected the field `plugins` to be an array in the JSON data but got " + data['plugins']);
-            }
-            // validate the optional field `plugins` (array)
-            for (const item of data['plugins']) {
-                PluginUsage.validateJSON(item);
-            };
         }
         // validate the optional field `flows`
         if (data['flows']) { // data not null
@@ -230,20 +108,6 @@ class UsageEE {
         if (data['executions']) { // data not null
           ExecutionUsage.validateJSON(data['executions']);
         }
-        // validate the optional field `services`
-        if (data['services']) { // data not null
-          ServiceUsage.validateJSON(data['services']);
-        }
-        if (data['pluginMetrics']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['pluginMetrics'])) {
-                throw new Error("Expected the field `pluginMetrics` to be an array in the JSON data but got " + data['pluginMetrics']);
-            }
-            // validate the optional field `pluginMetrics` (array)
-            for (const item of data['pluginMetrics']) {
-                PluginMetric.validateJSON(item);
-            };
-        }
 
         return true;
     }
@@ -251,7 +115,7 @@ class UsageEE {
 
 }
 
-UsageEE.RequiredProperties = ["uuid", "startUuid", "instanceUuid", "serverType", "version", "zoneId", "startTime"];
+
 
 /**
  * @member {module:model/GroupUsage} groups
@@ -269,74 +133,9 @@ UsageEE.prototype['users'] = undefined;
 UsageEE.prototype['roles'] = undefined;
 
 /**
- * @member {module:model/NamespaceUsage} namespaces
- */
-UsageEE.prototype['namespaces'] = undefined;
-
-/**
  * @member {module:model/TenantUsage} tenants
  */
 UsageEE.prototype['tenants'] = undefined;
-
-/**
- * @member {String} uuid
- */
-UsageEE.prototype['uuid'] = undefined;
-
-/**
- * @member {String} startUuid
- */
-UsageEE.prototype['startUuid'] = undefined;
-
-/**
- * @member {String} instanceUuid
- */
-UsageEE.prototype['instanceUuid'] = undefined;
-
-/**
- * @member {module:model/ServerType} serverType
- */
-UsageEE.prototype['serverType'] = undefined;
-
-/**
- * @member {String} version
- */
-UsageEE.prototype['version'] = undefined;
-
-/**
- * @member {String} zoneId
- */
-UsageEE.prototype['zoneId'] = undefined;
-
-/**
- * @member {String} uri
- */
-UsageEE.prototype['uri'] = undefined;
-
-/**
- * @member {Array.<String>} environments
- */
-UsageEE.prototype['environments'] = undefined;
-
-/**
- * @member {Date} startTime
- */
-UsageEE.prototype['startTime'] = undefined;
-
-/**
- * @member {module:model/HostUsage} host
- */
-UsageEE.prototype['host'] = undefined;
-
-/**
- * @member {module:model/ConfigurationUsage} configurations
- */
-UsageEE.prototype['configurations'] = undefined;
-
-/**
- * @member {Array.<module:model/PluginUsage>} plugins
- */
-UsageEE.prototype['plugins'] = undefined;
 
 /**
  * @member {module:model/FlowUsage} flows
@@ -348,82 +147,16 @@ UsageEE.prototype['flows'] = undefined;
  */
 UsageEE.prototype['executions'] = undefined;
 
-/**
- * @member {module:model/ServiceUsage} services
- */
-UsageEE.prototype['services'] = undefined;
 
-/**
- * @member {Array.<module:model/PluginMetric>} pluginMetrics
- */
-UsageEE.prototype['pluginMetrics'] = undefined;
-
-
-// Implement Usage interface:
-/**
- * @member {String} uuid
- */
-Usage.prototype['uuid'] = undefined;
-/**
- * @member {String} startUuid
- */
-Usage.prototype['startUuid'] = undefined;
-/**
- * @member {String} instanceUuid
- */
-Usage.prototype['instanceUuid'] = undefined;
-/**
- * @member {module:model/ServerType} serverType
- */
-Usage.prototype['serverType'] = undefined;
-/**
- * @member {String} version
- */
-Usage.prototype['version'] = undefined;
-/**
- * @member {String} zoneId
- */
-Usage.prototype['zoneId'] = undefined;
-/**
- * @member {String} uri
- */
-Usage.prototype['uri'] = undefined;
-/**
- * @member {Array.<String>} environments
- */
-Usage.prototype['environments'] = undefined;
-/**
- * @member {Date} startTime
- */
-Usage.prototype['startTime'] = undefined;
-/**
- * @member {module:model/HostUsage} host
- */
-Usage.prototype['host'] = undefined;
-/**
- * @member {module:model/ConfigurationUsage} configurations
- */
-Usage.prototype['configurations'] = undefined;
-/**
- * @member {Array.<module:model/PluginUsage>} plugins
- */
-Usage.prototype['plugins'] = undefined;
+// Implement MiscControllerApiUsage interface:
 /**
  * @member {module:model/FlowUsage} flows
  */
-Usage.prototype['flows'] = undefined;
+MiscControllerApiUsage.prototype['flows'] = undefined;
 /**
  * @member {module:model/ExecutionUsage} executions
  */
-Usage.prototype['executions'] = undefined;
-/**
- * @member {module:model/ServiceUsage} services
- */
-Usage.prototype['services'] = undefined;
-/**
- * @member {Array.<module:model/PluginMetric>} pluginMetrics
- */
-Usage.prototype['pluginMetrics'] = undefined;
+MiscControllerApiUsage.prototype['executions'] = undefined;
 
 
 

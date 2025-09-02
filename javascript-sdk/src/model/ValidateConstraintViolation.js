@@ -16,17 +16,24 @@ import ApiClient from '../ApiClient';
 /**
  * The ValidateConstraintViolation model module.
  * @module model/ValidateConstraintViolation
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ValidateConstraintViolation {
     /**
      * Constructs a new <code>ValidateConstraintViolation</code>.
      * @alias module:model/ValidateConstraintViolation
+     * @param flow {String} 
+     * @param namespace {String} 
      * @param index {Number} 
+     * @param constraints {String} 
+     * @param outdated {Boolean} 
+     * @param deprecationPaths {Array.<String>} 
+     * @param warnings {Array.<String>} 
+     * @param infos {Array.<String>} 
      */
-    constructor(index) { 
+    constructor(flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos) { 
         
-        ValidateConstraintViolation.initialize(this, index);
+        ValidateConstraintViolation.initialize(this, flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos);
     }
 
     /**
@@ -34,8 +41,15 @@ class ValidateConstraintViolation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, index) { 
+    static initialize(obj, flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos) { 
+        obj['flow'] = flow;
+        obj['namespace'] = namespace;
         obj['index'] = index;
+        obj['constraints'] = constraints;
+        obj['outdated'] = outdated;
+        obj['deprecationPaths'] = deprecationPaths;
+        obj['warnings'] = warnings;
+        obj['infos'] = infos;
     }
 
     /**
@@ -120,7 +134,7 @@ class ValidateConstraintViolation {
 
 }
 
-ValidateConstraintViolation.RequiredProperties = ["index"];
+ValidateConstraintViolation.RequiredProperties = ["flow", "namespace", "index", "constraints", "outdated", "deprecationPaths", "warnings", "infos"];
 
 /**
  * @member {String} flow

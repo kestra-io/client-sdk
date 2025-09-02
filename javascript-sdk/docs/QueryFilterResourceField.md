@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | [optional] 
-**fields** | [**[QueryFilterFieldOp]**](QueryFilterFieldOp.md) |  | [optional] 
+**name** | **String** |  | 
+**fields** | [**[QueryFilterFieldOp]**](QueryFilterFieldOp.md) |  | 
 
 

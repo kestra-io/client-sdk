@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **revision** | **Number** |  | [optional] 
 **tenantId** | **String** |  | [optional] 
 **deleted** | **Boolean** |  | [optional] 
+**description** | **String** |  | [optional] 
 **disabled** | **Boolean** |  | [optional] 
 **labels** | [**[Label]**](Label.md) |  | [optional] 
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 

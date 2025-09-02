@@ -17,7 +17,7 @@ import Label from './Label';
 /**
  * The Backfill model module.
  * @module model/Backfill
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Backfill {
     /**

@@ -17,19 +17,23 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
  * The Role model module.
  * @module model/Role
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Role {
     /**
      * Constructs a new <code>Role</code>.
      * @alias module:model/Role
      * @param isManaged {Boolean} 
+     * @param permissions {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} 
+     * @param id {String} 
      * @param name {String} 
+     * @param description {String} 
+     * @param isDefault {Boolean} 
      * @param deleted {Boolean} 
      */
-    constructor(isManaged, name, deleted) { 
+    constructor(isManaged, permissions, id, name, description, isDefault, deleted) { 
         
-        Role.initialize(this, isManaged, name, deleted);
+        Role.initialize(this, isManaged, permissions, id, name, description, isDefault, deleted);
     }
 
     /**
@@ -37,9 +41,13 @@ class Role {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isManaged, name, deleted) { 
+    static initialize(obj, isManaged, permissions, id, name, description, isDefault, deleted) { 
         obj['isManaged'] = isManaged;
+        obj['permissions'] = permissions;
+        obj['id'] = id;
         obj['name'] = name;
+        obj['description'] = description;
+        obj['isDefault'] = isDefault;
         obj['deleted'] = deleted;
     }
 
@@ -114,7 +122,7 @@ class Role {
 
 }
 
-Role.RequiredProperties = ["isManaged", "name", "deleted"];
+Role.RequiredProperties = ["isManaged", "permissions", "id", "name", "description", "isDefault", "deleted"];
 
 /**
  * @member {Boolean} isManaged

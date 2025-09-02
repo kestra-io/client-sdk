@@ -16,16 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The AuditLogControllerAuditLogOption model module.
  * @module model/AuditLogControllerAuditLogOption
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuditLogControllerAuditLogOption {
     /**
      * Constructs a new <code>AuditLogControllerAuditLogOption</code>.
      * @alias module:model/AuditLogControllerAuditLogOption
+     * @param id {String} 
+     * @param date {Date} 
+     * @param username {String} 
      */
-    constructor() { 
+    constructor(id, date, username) { 
         
-        AuditLogControllerAuditLogOption.initialize(this);
+        AuditLogControllerAuditLogOption.initialize(this, id, date, username);
     }
 
     /**
@@ -33,7 +36,10 @@ class AuditLogControllerAuditLogOption {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, date, username) { 
+        obj['id'] = id;
+        obj['date'] = date;
+        obj['username'] = username;
     }
 
     /**
@@ -66,6 +72,12 @@ class AuditLogControllerAuditLogOption {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AuditLogControllerAuditLogOption</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AuditLogControllerAuditLogOption.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -81,7 +93,7 @@ class AuditLogControllerAuditLogOption {
 
 }
 
-
+AuditLogControllerAuditLogOption.RequiredProperties = ["id", "date", "username"];
 
 /**
  * @member {String} id

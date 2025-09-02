@@ -18,21 +18,25 @@ import CrudEventType from './CrudEventType';
 /**
  * The BaseAuditLog model module.
  * @module model/BaseAuditLog
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class BaseAuditLog {
     /**
      * Constructs a new <code>BaseAuditLog</code>.
      * @alias module:model/BaseAuditLog
+     * @param tenantId {String} 
      * @param id {String} 
      * @param type {module:model/CrudEventType} 
      * @param detail {module:model/AuditLogDetail} 
      * @param date {Date} 
      * @param userId {String} 
+     * @param ipAddress {String} 
+     * @param impersonatedBy {String} 
+     * @param deleted {Boolean} 
      */
-    constructor(id, type, detail, date, userId) { 
+    constructor(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted) { 
         
-        BaseAuditLog.initialize(this, id, type, detail, date, userId);
+        BaseAuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted);
     }
 
     /**
@@ -40,12 +44,16 @@ class BaseAuditLog {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, detail, date, userId) { 
+    static initialize(obj, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted) { 
+        obj['tenantId'] = tenantId;
         obj['id'] = id;
         obj['type'] = type;
         obj['detail'] = detail;
         obj['date'] = date;
         obj['userId'] = userId;
+        obj['ipAddress'] = ipAddress;
+        obj['impersonatedBy'] = impersonatedBy;
+        obj['deleted'] = deleted;
     }
 
     /**
@@ -59,6 +67,9 @@ class BaseAuditLog {
         if (data) {
             obj = obj || new BaseAuditLog();
 
+            if (data.hasOwnProperty('tenantId')) {
+                obj['tenantId'] = ApiClient.convertToType(data['tenantId'], 'String');
+            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -100,6 +111,10 @@ class BaseAuditLog {
             }
         }
         // ensure the json data is a string
+        if (data['tenantId'] && !(typeof data['tenantId'] === 'string' || data['tenantId'] instanceof String)) {
+            throw new Error("Expected the field `tenantId` to be a primitive type in the JSON string but got " + data['tenantId']);
+        }
+        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -126,7 +141,12 @@ class BaseAuditLog {
 
 }
 
-BaseAuditLog.RequiredProperties = ["id", "type", "detail", "date", "userId"];
+BaseAuditLog.RequiredProperties = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted"];
+
+/**
+ * @member {String} tenantId
+ */
+BaseAuditLog.prototype['tenantId'] = undefined;
 
 /**
  * @member {String} id

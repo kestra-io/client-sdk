@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nodes** | [**[AbstractGraph]**](AbstractGraph.md) |  | [optional] 
-**edges** | [**[FlowGraphEdge]**](FlowGraphEdge.md) |  | [optional] 
-**clusters** | [**[FlowGraphCluster]**](FlowGraphCluster.md) |  | [optional] 
-**flowables** | **[String]** |  | [optional] 
+**nodes** | [**[AbstractGraph]**](AbstractGraph.md) |  | 
+**edges** | [**[FlowGraphEdge]**](FlowGraphEdge.md) |  | 
+**clusters** | [**[FlowGraphCluster]**](FlowGraphCluster.md) |  | 
+**flowables** | **[String]** |  | 
 
 

@@ -17,16 +17,18 @@ import RelationType from './RelationType';
 /**
  * The Relation model module.
  * @module model/Relation
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Relation {
     /**
      * Constructs a new <code>Relation</code>.
      * @alias module:model/Relation
+     * @param relationType {module:model/RelationType} 
+     * @param value {String} 
      */
-    constructor() { 
+    constructor(relationType, value) { 
         
-        Relation.initialize(this);
+        Relation.initialize(this, relationType, value);
     }
 
     /**
@@ -34,7 +36,9 @@ class Relation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, relationType, value) { 
+        obj['relationType'] = relationType;
+        obj['value'] = value;
     }
 
     /**
@@ -64,6 +68,12 @@ class Relation {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Relation</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of Relation.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['value'] && !(typeof data['value'] === 'string' || data['value'] instanceof String)) {
             throw new Error("Expected the field `value` to be a primitive type in the JSON string but got " + data['value']);
@@ -75,7 +85,7 @@ class Relation {
 
 }
 
-
+Relation.RequiredProperties = ["relationType", "value"];
 
 /**
  * @member {module:model/RelationType} relationType

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**filter** | **String** |  | [optional] 
+**filter** | **String** |  | 
 **expression** | **Object** |  | [optional] 
 
 

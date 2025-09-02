@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginControllerApiPluginVersions model module.
  * @module model/PluginControllerApiPluginVersions
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PluginControllerApiPluginVersions {
     /**
      * Constructs a new <code>PluginControllerApiPluginVersions</code>.
      * @alias module:model/PluginControllerApiPluginVersions
+     * @param type {String} 
+     * @param versions {Array.<String>} 
      */
-    constructor() { 
+    constructor(type, versions) { 
         
-        PluginControllerApiPluginVersions.initialize(this);
+        PluginControllerApiPluginVersions.initialize(this, type, versions);
     }
 
     /**
@@ -33,7 +35,9 @@ class PluginControllerApiPluginVersions {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, type, versions) { 
+        obj['type'] = type;
+        obj['versions'] = versions;
     }
 
     /**
@@ -63,6 +67,12 @@ class PluginControllerApiPluginVersions {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PluginControllerApiPluginVersions</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of PluginControllerApiPluginVersions.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['type'] && !(typeof data['type'] === 'string' || data['type'] instanceof String)) {
             throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
@@ -78,7 +88,7 @@ class PluginControllerApiPluginVersions {
 
 }
 
-
+PluginControllerApiPluginVersions.RequiredProperties = ["type", "versions"];
 
 /**
  * @member {String} type

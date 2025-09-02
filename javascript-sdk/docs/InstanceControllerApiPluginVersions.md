@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**groupId** | **String** |  | [optional] 
-**artifactId** | **String** |  | [optional] 
-**versions** | [**[InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata]**](InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | [optional] 
+**groupId** | **String** |  | 
+**artifactId** | **String** |  | 
+**versions** | [**[InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata]**](InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata.md) |  | 
 
 

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **appBlocks** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **charts** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **dataFilters** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
+**dataFiltersKPI** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **logExporters** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **additionalPlugins** | [**[PluginPluginElementMetadata]**](PluginPluginElementMetadata.md) |  | [optional] 
 **categories** | [**[PluginSubGroupPluginCategory]**](PluginSubGroupPluginCategory.md) |  | [optional] 

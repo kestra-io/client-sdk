@@ -16,16 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiUserDetailsRequest model module.
  * @module model/MeControllerApiUserDetailsRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class MeControllerApiUserDetailsRequest {
     /**
      * Constructs a new <code>MeControllerApiUserDetailsRequest</code>.
      * @alias module:model/MeControllerApiUserDetailsRequest
+     * @param firstName {String} 
+     * @param lastName {String} 
+     * @param email {String} 
      */
-    constructor() { 
+    constructor(firstName, lastName, email) { 
         
-        MeControllerApiUserDetailsRequest.initialize(this);
+        MeControllerApiUserDetailsRequest.initialize(this, firstName, lastName, email);
     }
 
     /**
@@ -33,7 +36,10 @@ class MeControllerApiUserDetailsRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, firstName, lastName, email) { 
+        obj['firstName'] = firstName;
+        obj['lastName'] = lastName;
+        obj['email'] = email;
     }
 
     /**
@@ -66,6 +72,12 @@ class MeControllerApiUserDetailsRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MeControllerApiUserDetailsRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of MeControllerApiUserDetailsRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['firstName'] && !(typeof data['firstName'] === 'string' || data['firstName'] instanceof String)) {
             throw new Error("Expected the field `firstName` to be a primitive type in the JSON string but got " + data['firstName']);
@@ -85,7 +97,7 @@ class MeControllerApiUserDetailsRequest {
 
 }
 
-
+MeControllerApiUserDetailsRequest.RequiredProperties = ["firstName", "lastName", "email"];
 
 /**
  * @member {String} firstName

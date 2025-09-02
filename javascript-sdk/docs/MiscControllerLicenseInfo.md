@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **String** |  | [optional] 
-**expiry** | **Date** |  | [optional] 
-**expired** | **Boolean** |  | [optional] 
-**maxServers** | **Number** |  | [optional] 
-**standalone** | **Boolean** |  | [optional] 
-**workerGroups** | **Boolean** |  | [optional] 
+**type** | **String** |  | 
+**expiry** | **Date** |  | 
+**expired** | **Boolean** |  | 
+**maxServers** | **Number** |  | 
+**standalone** | **Boolean** |  | 
+**workerGroups** | **Boolean** |  | 
 
 

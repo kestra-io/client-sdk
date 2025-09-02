@@ -17,16 +17,18 @@ import StateType from './StateType';
 /**
  * The ExecutionControllerStateRequest model module.
  * @module model/ExecutionControllerStateRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ExecutionControllerStateRequest {
     /**
      * Constructs a new <code>ExecutionControllerStateRequest</code>.
      * @alias module:model/ExecutionControllerStateRequest
+     * @param taskRunId {String} 
+     * @param state {module:model/StateType} 
      */
-    constructor() { 
+    constructor(taskRunId, state) { 
         
-        ExecutionControllerStateRequest.initialize(this);
+        ExecutionControllerStateRequest.initialize(this, taskRunId, state);
     }
 
     /**
@@ -34,7 +36,9 @@ class ExecutionControllerStateRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskRunId, state) { 
+        obj['taskRunId'] = taskRunId;
+        obj['state'] = state;
     }
 
     /**
@@ -64,6 +68,12 @@ class ExecutionControllerStateRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerStateRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of ExecutionControllerStateRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['taskRunId'] && !(typeof data['taskRunId'] === 'string' || data['taskRunId'] instanceof String)) {
             throw new Error("Expected the field `taskRunId` to be a primitive type in the JSON string but got " + data['taskRunId']);
@@ -75,7 +85,7 @@ class ExecutionControllerStateRequest {
 
 }
 
-
+ExecutionControllerStateRequest.RequiredProperties = ["taskRunId", "state"];
 
 /**
  * @member {String} taskRunId

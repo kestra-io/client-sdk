@@ -18,7 +18,7 @@ import FlowGenerationPrompt from '../model/FlowGenerationPrompt';
 /**
 * AI service.
 * @module api/AIApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class AIApi {
 

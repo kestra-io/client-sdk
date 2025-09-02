@@ -17,7 +17,7 @@ import MapObjectObject from './MapObjectObject';
 /**
  * The FlowForExecutionAllOfLabels model module.
  * @module model/FlowForExecutionAllOfLabels
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowForExecutionAllOfLabels {
     /**

@@ -17,7 +17,7 @@ import Trigger from './Trigger';
 /**
  * The TriggerControllerSetDisabledRequest model module.
  * @module model/TriggerControllerSetDisabledRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class TriggerControllerSetDisabledRequest {
     /**

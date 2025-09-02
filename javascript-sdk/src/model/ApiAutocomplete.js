@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiAutocomplete model module.
  * @module model/ApiAutocomplete
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ApiAutocomplete {
     /**
@@ -52,6 +52,9 @@ class ApiAutocomplete {
             }
             if (data.hasOwnProperty('ids')) {
                 obj['ids'] = ApiClient.convertToType(data['ids'], ['String']);
+            }
+            if (data.hasOwnProperty('existingOnly')) {
+                obj['existingOnly'] = ApiClient.convertToType(data['existingOnly'], 'Boolean');
             }
         }
         return obj;
@@ -89,6 +92,11 @@ ApiAutocomplete.prototype['q'] = undefined;
  * @member {Array.<String>} ids
  */
 ApiAutocomplete.prototype['ids'] = undefined;
+
+/**
+ * @member {Boolean} existingOnly
+ */
+ApiAutocomplete.prototype['existingOnly'] = undefined;
 
 
 

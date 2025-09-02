@@ -17,16 +17,19 @@ import AppResponseUILayout from './AppResponseUILayout';
 /**
  * The AppResponse model module.
  * @module model/AppResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AppResponse {
     /**
      * Constructs a new <code>AppResponse</code>.
      * @alias module:model/AppResponse
+     * @param dispatch {String} 
+     * @param stream {String} 
+     * @param layout {module:model/AppResponseUILayout} 
      */
-    constructor() { 
+    constructor(dispatch, stream, layout) { 
         
-        AppResponse.initialize(this);
+        AppResponse.initialize(this, dispatch, stream, layout);
     }
 
     /**
@@ -34,7 +37,10 @@ class AppResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, dispatch, stream, layout) { 
+        obj['dispatch'] = dispatch;
+        obj['stream'] = stream;
+        obj['layout'] = layout;
     }
 
     /**
@@ -67,6 +73,12 @@ class AppResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AppResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['dispatch'] && !(typeof data['dispatch'] === 'string' || data['dispatch'] instanceof String)) {
             throw new Error("Expected the field `dispatch` to be a primitive type in the JSON string but got " + data['dispatch']);
@@ -86,7 +98,7 @@ class AppResponse {
 
 }
 
-
+AppResponse.RequiredProperties = ["dispatch", "stream", "layout"];
 
 /**
  * @member {String} dispatch

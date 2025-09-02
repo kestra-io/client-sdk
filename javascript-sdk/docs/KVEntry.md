@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**creationDate** | **Date** |  | [optional] 
-**updateDate** | **Date** |  | [optional] 
-**expirationDate** | **Date** |  | [optional] 
+**key** | **String** |  | 
+**description** | **String** |  | 
+**creationDate** | **Date** |  | 
+**updateDate** | **Date** |  | 
+**expirationDate** | **Date** |  | 
 
 

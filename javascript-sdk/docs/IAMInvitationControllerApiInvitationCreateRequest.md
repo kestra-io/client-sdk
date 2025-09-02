@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**createUserIfNotExist** | **Boolean** |  | [optional] 
-**superAdmin** | **Boolean** |  | [optional] 
-**roles** | [**[IAMInvitationControllerApiInvitationRole]**](IAMInvitationControllerApiInvitationRole.md) |  | [optional] 
-**groups** | **[String]** |  | [optional] 
+**createUserIfNotExist** | **Boolean** |  | 
+**superAdmin** | **Boolean** |  | 
+**roles** | [**[IAMInvitationControllerApiInvitationRole]**](IAMInvitationControllerApiInvitationRole.md) |  | 
+**groups** | **[String]** |  | 
 **email** | **String** |  | 
 
 

@@ -21,7 +21,7 @@ import UserType from '../model/UserType';
 /**
 * TenantAccess service.
 * @module api/TenantAccessApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class TenantAccessApi {
 

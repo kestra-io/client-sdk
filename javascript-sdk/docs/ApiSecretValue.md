@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tags** | [**[ApiSecretTag]**](ApiSecretTag.md) |  | [optional] 
+**tags** | [**[ApiSecretTag]**](ApiSecretTag.md) |  | 
 **key** | **String** |  | 
 **value** | **String** |  | 
-**description** | **String** |  | [optional] 
+**description** | **String** |  | 
 
 

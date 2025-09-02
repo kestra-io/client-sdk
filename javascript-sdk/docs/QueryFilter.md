@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**field** | [**QueryFilterField**](QueryFilterField.md) |  | [optional] 
-**operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | [optional] 
-**value** | **Object** |  | [optional] 
+**field** | [**QueryFilterField**](QueryFilterField.md) |  | 
+**operation** | [**QueryFilterOp**](QueryFilterOp.md) |  | 
+**value** | **Object** |  | 
 
 

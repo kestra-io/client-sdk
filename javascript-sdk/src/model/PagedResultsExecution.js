@@ -17,7 +17,7 @@ import Execution from './Execution';
 /**
  * The PagedResultsExecution model module.
  * @module model/PagedResultsExecution
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PagedResultsExecution {
     /**

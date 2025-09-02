@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**blocks** | **[Object]** |  | [optional] 
+**blocks** | **[Object]** |  | 
 
 

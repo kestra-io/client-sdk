@@ -17,17 +17,18 @@ import InstanceControllerApiWorkerGroupItem from './InstanceControllerApiWorkerG
 /**
  * The InstanceControllerApiWorkerGroupList model module.
  * @module model/InstanceControllerApiWorkerGroupList
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class InstanceControllerApiWorkerGroupList {
     /**
      * Constructs a new <code>InstanceControllerApiWorkerGroupList</code>.
      * ApiWorkerGroupList.
      * @alias module:model/InstanceControllerApiWorkerGroupList
+     * @param workerGroups {Array.<module:model/InstanceControllerApiWorkerGroupItem>} The list of worker groups.
      */
-    constructor() { 
+    constructor(workerGroups) { 
         
-        InstanceControllerApiWorkerGroupList.initialize(this);
+        InstanceControllerApiWorkerGroupList.initialize(this, workerGroups);
     }
 
     /**
@@ -35,7 +36,8 @@ class InstanceControllerApiWorkerGroupList {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, workerGroups) { 
+        obj['workerGroups'] = workerGroups;
     }
 
     /**
@@ -62,6 +64,12 @@ class InstanceControllerApiWorkerGroupList {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiWorkerGroupList</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of InstanceControllerApiWorkerGroupList.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         if (data['workerGroups']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['workerGroups'])) {
@@ -79,7 +87,7 @@ class InstanceControllerApiWorkerGroupList {
 
 }
 
-
+InstanceControllerApiWorkerGroupList.RequiredProperties = ["workerGroups"];
 
 /**
  * The list of worker groups.

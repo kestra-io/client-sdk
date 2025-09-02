@@ -31,7 +31,7 @@ import Type from '../model/Type';
 /**
 * Plugins service.
 * @module api/PluginsApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class PluginsApi {
 
@@ -648,6 +648,80 @@ export default class PluginsApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/instance/versioned-plugins/available', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listAvailableVersionedPluginsForSecretManager operation.
+     * @callback module:api/PluginsApi~listAvailableVersionedPluginsForSecretManagerCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List available plugin artifacts for Kestra Secret Manager
+     * Superadmin-only. Lists all secret managers available for installation. Requires INFRASTRUCTURE permission.
+     * @param {module:api/PluginsApi~listAvailableVersionedPluginsForSecretManagerCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    listAvailableVersionedPluginsForSecretManager(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/instance/versioned-plugins/available/secrets-managers', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listAvailableVersionedPluginsForStorage operation.
+     * @callback module:api/PluginsApi~listAvailableVersionedPluginsForStorageCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List available plugin artifacts for Kestra Internal Storage
+     * Superadmin-only. Lists all internal storages available for installation. Requires INFRASTRUCTURE permission.
+     * @param {module:api/PluginsApi~listAvailableVersionedPluginsForStorageCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    listAvailableVersionedPluginsForStorage(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/instance/versioned-plugins/available/storages', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

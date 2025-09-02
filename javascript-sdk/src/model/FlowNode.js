@@ -16,17 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowNode model module.
  * @module model/FlowNode
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowNode {
     /**
      * Constructs a new <code>FlowNode</code>.
      * @alias module:model/FlowNode
      * @param uid {String} 
+     * @param namespace {String} 
+     * @param id {String} 
      */
-    constructor(uid) { 
+    constructor(uid, namespace, id) { 
         
-        FlowNode.initialize(this, uid);
+        FlowNode.initialize(this, uid, namespace, id);
     }
 
     /**
@@ -34,8 +36,10 @@ class FlowNode {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uid) { 
+    static initialize(obj, uid, namespace, id) { 
         obj['uid'] = uid;
+        obj['namespace'] = namespace;
+        obj['id'] = id;
     }
 
     /**
@@ -93,7 +97,7 @@ class FlowNode {
 
 }
 
-FlowNode.RequiredProperties = ["uid"];
+FlowNode.RequiredProperties = ["uid", "namespace", "id"];
 
 /**
  * @member {String} uid

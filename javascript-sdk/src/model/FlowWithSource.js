@@ -28,7 +28,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowWithSource model module.
  * @module model/FlowWithSource
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowWithSource {
     /**
@@ -82,6 +82,9 @@ class FlowWithSource {
             if (data.hasOwnProperty('revision')) {
                 obj['revision'] = ApiClient.convertToType(data['revision'], 'Number');
             }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
             if (data.hasOwnProperty('inputs')) {
                 obj['inputs'] = ApiClient.convertToType(data['inputs'], [InputObject]);
             }
@@ -108,9 +111,6 @@ class FlowWithSource {
             }
             if (data.hasOwnProperty('taskDefaults')) {
                 obj['taskDefaults'] = ApiClient.convertToType(data['taskDefaults'], [PluginDefault]);
-            }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
             if (data.hasOwnProperty('tasks')) {
                 obj['tasks'] = ApiClient.convertToType(data['tasks'], [Task]);
@@ -163,6 +163,10 @@ class FlowWithSource {
         if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
             throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
         }
+        // ensure the json data is a string
+        if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
+            throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
+        }
         if (data['inputs']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['inputs'])) {
@@ -210,10 +214,6 @@ class FlowWithSource {
             for (const item of data['taskDefaults']) {
                 PluginDefault.validateJSON(item);
             };
-        }
-        // ensure the json data is a string
-        if (data['description'] && !(typeof data['description'] === 'string' || data['description'] instanceof String)) {
-            throw new Error("Expected the field `description` to be a primitive type in the JSON string but got " + data['description']);
         }
         if (data['tasks']) { // data not null
             // ensure the json data is an array
@@ -314,6 +314,11 @@ FlowWithSource.prototype['namespace'] = undefined;
 FlowWithSource.prototype['revision'] = undefined;
 
 /**
+ * @member {String} description
+ */
+FlowWithSource.prototype['description'] = undefined;
+
+/**
  * @member {Array.<module:model/InputObject>} inputs
  */
 FlowWithSource.prototype['inputs'] = undefined;
@@ -358,11 +363,6 @@ FlowWithSource.prototype['finally'] = undefined;
  * @member {Array.<module:model/PluginDefault>} taskDefaults
  */
 FlowWithSource.prototype['taskDefaults'] = undefined;
-
-/**
- * @member {String} description
- */
-FlowWithSource.prototype['description'] = undefined;
 
 /**
  * @member {Array.<module:model/Task>} tasks
@@ -424,6 +424,10 @@ Flow.prototype['namespace'] = undefined;
  */
 Flow.prototype['revision'] = undefined;
 /**
+ * @member {String} description
+ */
+Flow.prototype['description'] = undefined;
+/**
  * @member {Array.<module:model/InputObject>} inputs
  */
 Flow.prototype['inputs'] = undefined;
@@ -460,10 +464,6 @@ Flow.prototype['finally'] = undefined;
  * @member {Array.<module:model/PluginDefault>} taskDefaults
  */
 Flow.prototype['taskDefaults'] = undefined;
-/**
- * @member {String} description
- */
-Flow.prototype['description'] = undefined;
 /**
  * @member {Array.<module:model/Task>} tasks
  */
@@ -513,6 +513,10 @@ AbstractFlow.prototype['namespace'] = undefined;
  * @member {Number} revision
  */
 AbstractFlow.prototype['revision'] = undefined;
+/**
+ * @member {String} description
+ */
+AbstractFlow.prototype['description'] = undefined;
 /**
  * @member {Array.<module:model/InputObject>} inputs
  */

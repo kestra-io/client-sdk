@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**KVType**](KVType.md) |  | [optional] 
-**value** | **Object** |  | [optional] 
+**type** | [**KVType**](KVType.md) |  | 
+**value** | **Object** |  | 
 
 

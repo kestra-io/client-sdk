@@ -17,16 +17,22 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
  * The IAMRoleControllerApiRoleDetail model module.
  * @module model/IAMRoleControllerApiRoleDetail
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class IAMRoleControllerApiRoleDetail {
     /**
      * Constructs a new <code>IAMRoleControllerApiRoleDetail</code>.
      * @alias module:model/IAMRoleControllerApiRoleDetail
+     * @param id {String} 
+     * @param name {String} 
+     * @param description {String} 
+     * @param permissions {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions} 
+     * @param isDefault {Boolean} 
+     * @param isManaged {Boolean} 
      */
-    constructor() { 
+    constructor(id, name, description, permissions, isDefault, isManaged) { 
         
-        IAMRoleControllerApiRoleDetail.initialize(this);
+        IAMRoleControllerApiRoleDetail.initialize(this, id, name, description, permissions, isDefault, isManaged);
     }
 
     /**
@@ -34,7 +40,13 @@ class IAMRoleControllerApiRoleDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, name, description, permissions, isDefault, isManaged) { 
+        obj['id'] = id;
+        obj['name'] = name;
+        obj['description'] = description;
+        obj['permissions'] = permissions;
+        obj['isDefault'] = isDefault;
+        obj['isManaged'] = isManaged;
     }
 
     /**
@@ -76,6 +88,12 @@ class IAMRoleControllerApiRoleDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMRoleControllerApiRoleDetail</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of IAMRoleControllerApiRoleDetail.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -99,7 +117,7 @@ class IAMRoleControllerApiRoleDetail {
 
 }
 
-
+IAMRoleControllerApiRoleDetail.RequiredProperties = ["id", "name", "description", "permissions", "isDefault", "isManaged"];
 
 /**
  * @member {String} id

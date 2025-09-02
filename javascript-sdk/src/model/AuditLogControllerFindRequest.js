@@ -13,21 +13,23 @@
 
 import ApiClient from '../ApiClient';
 import CrudEventType from './CrudEventType';
-import Permission from './Permission';
+import ResourceType1 from './ResourceType1';
 
 /**
  * The AuditLogControllerFindRequest model module.
  * @module model/AuditLogControllerFindRequest
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuditLogControllerFindRequest {
     /**
      * Constructs a new <code>AuditLogControllerFindRequest</code>.
      * @alias module:model/AuditLogControllerFindRequest
+     * @param resource {module:model/ResourceType1} 
+     * @param detail {Object.<String, Object>} 
      */
-    constructor() { 
+    constructor(resource, detail) { 
         
-        AuditLogControllerFindRequest.initialize(this);
+        AuditLogControllerFindRequest.initialize(this, resource, detail);
     }
 
     /**
@@ -35,7 +37,9 @@ class AuditLogControllerFindRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, resource, detail) { 
+        obj['resource'] = resource;
+        obj['detail'] = detail;
     }
 
     /**
@@ -49,8 +53,8 @@ class AuditLogControllerFindRequest {
         if (data) {
             obj = obj || new AuditLogControllerFindRequest();
 
-            if (data.hasOwnProperty('permission')) {
-                obj['permission'] = Permission.constructFromObject(data['permission']);
+            if (data.hasOwnProperty('resource')) {
+                obj['resource'] = ResourceType1.constructFromObject(data['resource']);
             }
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], CrudEventType);
@@ -68,6 +72,12 @@ class AuditLogControllerFindRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AuditLogControllerFindRequest</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AuditLogControllerFindRequest.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
 
         return true;
     }
@@ -75,12 +85,12 @@ class AuditLogControllerFindRequest {
 
 }
 
-
+AuditLogControllerFindRequest.RequiredProperties = ["resource", "detail"];
 
 /**
- * @member {module:model/Permission} permission
+ * @member {module:model/ResourceType1} resource
  */
-AuditLogControllerFindRequest.prototype['permission'] = undefined;
+AuditLogControllerFindRequest.prototype['resource'] = undefined;
 
 /**
  * @member {module:model/CrudEventType} type

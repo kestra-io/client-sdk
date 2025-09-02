@@ -19,22 +19,28 @@ import CrudEventType from './CrudEventType';
 /**
  * The AuditLog model module.
  * @module model/AuditLog
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuditLog {
     /**
      * Constructs a new <code>AuditLog</code>.
      * @alias module:model/AuditLog
      * @implements module:model/BaseAuditLog
+     * @param tenantId {String} 
      * @param id {String} 
      * @param type {module:model/CrudEventType} 
      * @param detail {module:model/AuditLogDetail} 
      * @param date {Date} 
      * @param userId {String} 
+     * @param ipAddress {String} 
+     * @param impersonatedBy {String} 
+     * @param deleted {Boolean} 
+     * @param appliedPatch {Array.<Object>} 
+     * @param revertPatch {Array.<Object>} 
      */
-    constructor(id, type, detail, date, userId) { 
-        BaseAuditLog.initialize(this, id, type, detail, date, userId);
-        AuditLog.initialize(this, id, type, detail, date, userId);
+    constructor(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch) { 
+        BaseAuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted);
+        AuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch);
     }
 
     /**
@@ -42,12 +48,18 @@ class AuditLog {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, detail, date, userId) { 
+    static initialize(obj, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted, appliedPatch, revertPatch) { 
+        obj['tenantId'] = tenantId;
         obj['id'] = id;
         obj['type'] = type;
         obj['detail'] = detail;
         obj['date'] = date;
         obj['userId'] = userId;
+        obj['ipAddress'] = ipAddress;
+        obj['impersonatedBy'] = impersonatedBy;
+        obj['deleted'] = deleted;
+        obj['appliedPatch'] = appliedPatch;
+        obj['revertPatch'] = revertPatch;
     }
 
     /**
@@ -62,6 +74,9 @@ class AuditLog {
             obj = obj || new AuditLog();
             BaseAuditLog.constructFromObject(data, obj);
 
+            if (data.hasOwnProperty('tenantId')) {
+                obj['tenantId'] = ApiClient.convertToType(data['tenantId'], 'String');
+            }
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -109,6 +124,10 @@ class AuditLog {
             }
         }
         // ensure the json data is a string
+        if (data['tenantId'] && !(typeof data['tenantId'] === 'string' || data['tenantId'] instanceof String)) {
+            throw new Error("Expected the field `tenantId` to be a primitive type in the JSON string but got " + data['tenantId']);
+        }
+        // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
         }
@@ -143,7 +162,12 @@ class AuditLog {
 
 }
 
-AuditLog.RequiredProperties = ["id", "type", "detail", "date", "userId"];
+AuditLog.RequiredProperties = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted", "appliedPatch", "revertPatch"];
+
+/**
+ * @member {String} tenantId
+ */
+AuditLog.prototype['tenantId'] = undefined;
 
 /**
  * @member {String} id
@@ -197,6 +221,10 @@ AuditLog.prototype['revertPatch'] = undefined;
 
 
 // Implement BaseAuditLog interface:
+/**
+ * @member {String} tenantId
+ */
+BaseAuditLog.prototype['tenantId'] = undefined;
 /**
  * @member {String} id
  */

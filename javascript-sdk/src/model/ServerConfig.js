@@ -18,17 +18,18 @@ import WorkerTaskRestartStrategy from './WorkerTaskRestartStrategy';
 /**
  * The ServerConfig model module.
  * @module model/ServerConfig
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ServerConfig {
     /**
      * Constructs a new <code>ServerConfig</code>.
      * @alias module:model/ServerConfig
      * @param terminationGracePeriod {String} 
+     * @param liveness {module:model/ServerConfigLiveness} 
      */
-    constructor(terminationGracePeriod) { 
+    constructor(terminationGracePeriod, liveness) { 
         
-        ServerConfig.initialize(this, terminationGracePeriod);
+        ServerConfig.initialize(this, terminationGracePeriod, liveness);
     }
 
     /**
@@ -36,8 +37,9 @@ class ServerConfig {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, terminationGracePeriod) { 
+    static initialize(obj, terminationGracePeriod, liveness) { 
         obj['terminationGracePeriod'] = terminationGracePeriod || '5m';
+        obj['liveness'] = liveness;
     }
 
     /**
@@ -91,7 +93,7 @@ class ServerConfig {
 
 }
 
-ServerConfig.RequiredProperties = ["terminationGracePeriod"];
+ServerConfig.RequiredProperties = ["terminationGracePeriod", "liveness"];
 
 /**
  * @member {module:model/WorkerTaskRestartStrategy} workerTaskRestartStrategy

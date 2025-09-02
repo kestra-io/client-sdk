@@ -20,7 +20,7 @@ import SchemaAttributeUniqueness from './SchemaAttributeUniqueness';
 /**
  * The SchemaAttribute model module.
  * @module model/SchemaAttribute
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class SchemaAttribute {
     /**

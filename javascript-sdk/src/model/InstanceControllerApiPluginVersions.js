@@ -17,16 +17,19 @@ import InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata from './In
 /**
  * The InstanceControllerApiPluginVersions model module.
  * @module model/InstanceControllerApiPluginVersions
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class InstanceControllerApiPluginVersions {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersions</code>.
      * @alias module:model/InstanceControllerApiPluginVersions
+     * @param groupId {String} 
+     * @param artifactId {String} 
+     * @param versions {Array.<module:model/InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata>} 
      */
-    constructor() { 
+    constructor(groupId, artifactId, versions) { 
         
-        InstanceControllerApiPluginVersions.initialize(this);
+        InstanceControllerApiPluginVersions.initialize(this, groupId, artifactId, versions);
     }
 
     /**
@@ -34,7 +37,10 @@ class InstanceControllerApiPluginVersions {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, groupId, artifactId, versions) { 
+        obj['groupId'] = groupId;
+        obj['artifactId'] = artifactId;
+        obj['versions'] = versions;
     }
 
     /**
@@ -67,6 +73,12 @@ class InstanceControllerApiPluginVersions {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginVersions</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of InstanceControllerApiPluginVersions.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['groupId'] && !(typeof data['groupId'] === 'string' || data['groupId'] instanceof String)) {
             throw new Error("Expected the field `groupId` to be a primitive type in the JSON string but got " + data['groupId']);
@@ -92,7 +104,7 @@ class InstanceControllerApiPluginVersions {
 
 }
 
-
+InstanceControllerApiPluginVersions.RequiredProperties = ["groupId", "artifactId", "versions"];
 
 /**
  * @member {String} groupId

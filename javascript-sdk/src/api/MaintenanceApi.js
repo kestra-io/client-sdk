@@ -17,7 +17,7 @@ import ApiClient from "../ApiClient";
 /**
 * Maintenance service.
 * @module api/MaintenanceApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class MaintenanceApi {
 
@@ -37,7 +37,7 @@ export default class MaintenanceApi {
      * Callback function to receive the result of the enterMaintenance operation.
      * @callback module:api/MaintenanceApi~enterMaintenanceCallback
      * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -45,6 +45,7 @@ export default class MaintenanceApi {
      * Enter cluster maintenance mode
      * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/MaintenanceApi~enterMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
      */
     enterMaintenance(callback) {
       let postBody = null;
@@ -60,8 +61,8 @@ export default class MaintenanceApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/instance/maintenance/enter', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -73,7 +74,7 @@ export default class MaintenanceApi {
      * Callback function to receive the result of the exitMaintenance operation.
      * @callback module:api/MaintenanceApi~exitMaintenanceCallback
      * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
+     * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -81,6 +82,7 @@ export default class MaintenanceApi {
      * Exit cluster maintenance mode
      * Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
      * @param {module:api/MaintenanceApi~exitMaintenanceCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
      */
     exitMaintenance(callback) {
       let postBody = null;
@@ -96,8 +98,8 @@ export default class MaintenanceApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/instance/maintenance/exit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

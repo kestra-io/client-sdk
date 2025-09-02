@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uuid** | **String** |  | [optional] 
 **version** | **String** |  | [optional] 
+**edition** | [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
 **commitId** | **String** |  | [optional] 
 **commitDate** | **Date** |  | [optional] 
 **isCustomDashboardsEnabled** | **Boolean** |  | [optional] 
 **isTaskRunEnabled** | **Boolean** |  | [optional] 
 **isAnonymousUsageEnabled** | **Boolean** |  | [optional] 
+**isUiAnonymousUsageEnabled** | **Boolean** |  | [optional] 
 **isTemplateEnabled** | **Boolean** |  | [optional] 
 **environment** | [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **url** | **String** |  | [optional] 
@@ -29,7 +31,8 @@ Name | Type | Description | Notes
 **banner** | [**Banner**](Banner.md) |  | [optional] 
 **mailServiceEnabled** | **Boolean** |  | [optional] 
 **outputsInInternalStorageEnabled** | **Boolean** |  | [optional] 
-**contextCustomLinks** | [**{String: CustomLink}**](CustomLink.md) |  | [optional] 
+**leftSidebar** | [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  | [optional] 
+**rightSidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  | [optional] 
 **inMaintenance** | **Boolean** |  | [optional] 
 **passwordRegexp** | **String** |  | [optional] 
 

@@ -17,16 +17,18 @@ import ServiceType from './ServiceType';
 /**
  * The Isolation model module.
  * @module model/Isolation
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Isolation {
     /**
      * Constructs a new <code>Isolation</code>.
      * @alias module:model/Isolation
+     * @param deniedServices {Array.<module:model/ServiceType>} 
+     * @param enabled {Boolean} 
      */
-    constructor() { 
+    constructor(deniedServices, enabled) { 
         
-        Isolation.initialize(this);
+        Isolation.initialize(this, deniedServices, enabled);
     }
 
     /**
@@ -34,7 +36,9 @@ class Isolation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, deniedServices, enabled) { 
+        obj['deniedServices'] = deniedServices;
+        obj['enabled'] = enabled;
     }
 
     /**
@@ -64,6 +68,12 @@ class Isolation {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Isolation</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of Isolation.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is an array
         if (!Array.isArray(data['deniedServices'])) {
             throw new Error("Expected the field `deniedServices` to be an array in the JSON data but got " + data['deniedServices']);
@@ -75,7 +85,7 @@ class Isolation {
 
 }
 
-
+Isolation.RequiredProperties = ["deniedServices", "enabled"];
 
 /**
  * @member {Array.<module:model/ServiceType>} deniedServices

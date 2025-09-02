@@ -16,16 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The KVControllerApiDeleteBulkResponse model module.
  * @module model/KVControllerApiDeleteBulkResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class KVControllerApiDeleteBulkResponse {
     /**
      * Constructs a new <code>KVControllerApiDeleteBulkResponse</code>.
      * @alias module:model/KVControllerApiDeleteBulkResponse
+     * @param keys {Array.<String>} 
      */
-    constructor() { 
+    constructor(keys) { 
         
-        KVControllerApiDeleteBulkResponse.initialize(this);
+        KVControllerApiDeleteBulkResponse.initialize(this, keys);
     }
 
     /**
@@ -33,7 +34,8 @@ class KVControllerApiDeleteBulkResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, keys) { 
+        obj['keys'] = keys;
     }
 
     /**
@@ -60,6 +62,12 @@ class KVControllerApiDeleteBulkResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>KVControllerApiDeleteBulkResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of KVControllerApiDeleteBulkResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is an array
         if (!Array.isArray(data['keys'])) {
             throw new Error("Expected the field `keys` to be an array in the JSON data but got " + data['keys']);
@@ -71,7 +79,7 @@ class KVControllerApiDeleteBulkResponse {
 
 }
 
-
+KVControllerApiDeleteBulkResponse.RequiredProperties = ["keys"];
 
 /**
  * @member {Array.<String>} keys

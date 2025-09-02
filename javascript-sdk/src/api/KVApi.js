@@ -21,7 +21,7 @@ import KVEntry from '../model/KVEntry';
 /**
 * KV service.
 * @module api/KVApi
-* @version v0.24.0
+* @version 1.0.0-beta5
 */
 export default class KVApi {
 
@@ -241,6 +241,54 @@ export default class KVApi {
       let returnType = [KVEntry];
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listKeysWithInheritence operation.
+     * @callback module:api/KVApi~listKeysWithInheritenceCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/KVEntry>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List all keys for a namespace and parent namespaces
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {module:api/KVApi~listKeysWithInheritenceCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<module:model/KVEntry>}
+     */
+    listKeysWithInheritence(namespace, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'namespace' is set
+      if (namespace === undefined || namespace === null) {
+        throw new Error("Missing the required parameter 'namespace' when calling listKeysWithInheritence");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling listKeysWithInheritence");
+      }
+
+      let pathParams = {
+        'namespace': namespace,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [KVEntry];
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/namespaces/{namespace}/kv/inheritance', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

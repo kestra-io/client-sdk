@@ -172,7 +172,7 @@ This endpoint does not need any parameter.
 
 ## getUsages
 
-> Usage getUsages(tenant)
+> UsageEE getUsages(tenant)
 
 Retrieve instance usage information
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Usage**](Usage.md)
+[**UsageEE**](UsageEE.md)
 
 ### Authorization
 

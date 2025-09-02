@@ -17,16 +17,17 @@ import TestSuiteRunResult from './TestSuiteRunResult';
 /**
  * The TestSuiteControllerTestsLastResultResponse model module.
  * @module model/TestSuiteControllerTestsLastResultResponse
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class TestSuiteControllerTestsLastResultResponse {
     /**
      * Constructs a new <code>TestSuiteControllerTestsLastResultResponse</code>.
      * @alias module:model/TestSuiteControllerTestsLastResultResponse
+     * @param results {Array.<module:model/TestSuiteRunResult>} 
      */
-    constructor() { 
+    constructor(results) { 
         
-        TestSuiteControllerTestsLastResultResponse.initialize(this);
+        TestSuiteControllerTestsLastResultResponse.initialize(this, results);
     }
 
     /**
@@ -34,7 +35,8 @@ class TestSuiteControllerTestsLastResultResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, results) { 
+        obj['results'] = results;
     }
 
     /**
@@ -61,6 +63,12 @@ class TestSuiteControllerTestsLastResultResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TestSuiteControllerTestsLastResultResponse</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of TestSuiteControllerTestsLastResultResponse.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         if (data['results']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['results'])) {
@@ -78,7 +86,7 @@ class TestSuiteControllerTestsLastResultResponse {
 
 }
 
-
+TestSuiteControllerTestsLastResultResponse.RequiredProperties = ["results"];
 
 /**
  * @member {Array.<module:model/TestSuiteRunResult>} results

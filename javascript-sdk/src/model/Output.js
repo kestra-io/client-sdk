@@ -17,7 +17,7 @@ import Type from './Type';
 /**
  * The Output model module.
  * @module model/Output
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Output {
     /**
@@ -68,6 +68,9 @@ class Output {
             }
             if (data.hasOwnProperty('displayName')) {
                 obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
+            }
+            if (data.hasOwnProperty('required')) {
+                obj['required'] = ApiClient.convertToType(data['required'], 'Boolean');
             }
         }
         return obj;
@@ -130,6 +133,11 @@ Output.prototype['type'] = undefined;
  * @member {String} displayName
  */
 Output.prototype['displayName'] = undefined;
+
+/**
+ * @member {Boolean} required
+ */
+Output.prototype['required'] = undefined;
 
 
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## enterMaintenance
 
-> enterMaintenance()
+> Object enterMaintenance()
 
 Enter cluster maintenance mode
 
@@ -35,7 +35,7 @@ apiInstance.enterMaintenance((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully.');
+    console.log('API called successfully. Returned data: ' + data);
   }
 });
 ```
@@ -46,7 +46,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -55,12 +55,12 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ## exitMaintenance
 
-> exitMaintenance()
+> Object exitMaintenance()
 
 Exit cluster maintenance mode
 
@@ -84,7 +84,7 @@ apiInstance.exitMaintenance((error, data, response) => {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully.');
+    console.log('API called successfully. Returned data: ' + data);
   }
 });
 ```
@@ -95,7 +95,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -104,5 +104,5 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 

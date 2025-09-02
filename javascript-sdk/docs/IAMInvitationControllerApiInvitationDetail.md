@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] 
-**roles** | [**[ApiRoleSummary]**](ApiRoleSummary.md) |  | [optional] 
-**groups** | [**[ApiGroupSummary]**](ApiGroupSummary.md) |  | [optional] 
-**tenantId** | **String** |  | [optional] 
-**email** | **String** |  | [optional] 
-**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | [optional] 
-**sentAt** | **Date** |  | [optional] 
-**expiredAt** | **Date** |  | [optional] 
-**acceptedAt** | **Date** |  | [optional] 
-**superAdmin** | **Boolean** |  | [optional] 
-**link** | **String** |  | [optional] 
+**id** | **String** |  | 
+**roles** | [**[ApiRoleSummary]**](ApiRoleSummary.md) |  | 
+**groups** | [**[ApiGroupSummary]**](ApiGroupSummary.md) |  | 
+**tenantId** | **String** |  | 
+**email** | **String** |  | 
+**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | 
+**sentAt** | **Date** |  | 
+**expiredAt** | **Date** |  | 
+**acceptedAt** | **Date** |  | 
+**superAdmin** | **Boolean** |  | 
+**link** | **String** |  | 
 
 

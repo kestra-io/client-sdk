@@ -28,7 +28,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The UpdateFlow200Response model module.
  * @module model/UpdateFlow200Response
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class UpdateFlow200Response {
     /**
@@ -147,6 +147,11 @@ UpdateFlow200Response.prototype['namespace'] = undefined;
 UpdateFlow200Response.prototype['revision'] = undefined;
 
 /**
+ * @member {String} description
+ */
+UpdateFlow200Response.prototype['description'] = undefined;
+
+/**
  * @member {Array.<module:model/InputObject>} inputs
  */
 UpdateFlow200Response.prototype['inputs'] = undefined;
@@ -191,11 +196,6 @@ UpdateFlow200Response.prototype['finally'] = undefined;
  * @member {Array.<module:model/PluginDefault>} taskDefaults
  */
 UpdateFlow200Response.prototype['taskDefaults'] = undefined;
-
-/**
- * @member {String} description
- */
-UpdateFlow200Response.prototype['description'] = undefined;
 
 /**
  * @member {Array.<module:model/Task>} tasks

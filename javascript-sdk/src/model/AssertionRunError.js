@@ -16,17 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The AssertionRunError model module.
  * @module model/AssertionRunError
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AssertionRunError {
     /**
      * Constructs a new <code>AssertionRunError</code>.
      * @alias module:model/AssertionRunError
      * @param message {String} 
+     * @param details {String} 
      */
-    constructor(message) { 
+    constructor(message, details) { 
         
-        AssertionRunError.initialize(this, message);
+        AssertionRunError.initialize(this, message, details);
     }
 
     /**
@@ -34,8 +35,9 @@ class AssertionRunError {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, message) { 
+    static initialize(obj, message, details) { 
         obj['message'] = message;
+        obj['details'] = details;
     }
 
     /**
@@ -86,7 +88,7 @@ class AssertionRunError {
 
 }
 
-AssertionRunError.RequiredProperties = ["message"];
+AssertionRunError.RequiredProperties = ["message", "details"];
 
 /**
  * @member {String} message

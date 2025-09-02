@@ -97,6 +97,13 @@ export default class QueryFilterField {
 
     
         /**
+         * value: "EXECUTION_ID"
+         * @const
+         */
+        "EXECUTION_ID" = "EXECUTION_ID";
+
+    
+        /**
          * value: "CHILD_FILTER"
          * @const
          */

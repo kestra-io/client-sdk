@@ -17,7 +17,7 @@ import TestSuite from './TestSuite';
 /**
  * The PagedResultsTestSuite model module.
  * @module model/PagedResultsTestSuite
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class PagedResultsTestSuite {
     /**

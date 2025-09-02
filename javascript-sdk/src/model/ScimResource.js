@@ -19,7 +19,7 @@ import ScimExtension from './ScimExtension';
 /**
  * The ScimResource model module.
  * @module model/ScimResource
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class ScimResource {
     /**
@@ -27,10 +27,11 @@ class ScimResource {
      * @alias module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
      * @param meta {module:model/Meta} 
+     * @param resourceType {String} 
      */
-    constructor(meta) { 
+    constructor(meta, resourceType) { 
         BaseResourceScimResource.initialize(this);
-        ScimResource.initialize(this, meta);
+        ScimResource.initialize(this, meta, resourceType);
     }
 
     /**
@@ -38,8 +39,9 @@ class ScimResource {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, meta) { 
+    static initialize(obj, meta, resourceType) { 
         obj['meta'] = meta;
+        obj['resourceType'] = resourceType;
     }
 
     /**
@@ -122,7 +124,7 @@ class ScimResource {
 
 }
 
-ScimResource.RequiredProperties = ["meta"];
+ScimResource.RequiredProperties = ["meta", "resourceType"];
 
 /**
  * @member {Array.<String>} schemas

@@ -18,7 +18,7 @@ import PluginSubGroupPluginCategory from './PluginSubGroupPluginCategory';
 /**
  * The Plugin model module.
  * @module model/Plugin
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class Plugin {
     /**
@@ -111,6 +111,9 @@ class Plugin {
             }
             if (data.hasOwnProperty('dataFilters')) {
                 obj['dataFilters'] = ApiClient.convertToType(data['dataFilters'], [PluginPluginElementMetadata]);
+            }
+            if (data.hasOwnProperty('dataFiltersKPI')) {
+                obj['dataFiltersKPI'] = ApiClient.convertToType(data['dataFiltersKPI'], [PluginPluginElementMetadata]);
             }
             if (data.hasOwnProperty('logExporters')) {
                 obj['logExporters'] = ApiClient.convertToType(data['logExporters'], [PluginPluginElementMetadata]);
@@ -280,6 +283,16 @@ class Plugin {
                 PluginPluginElementMetadata.validateJSON(item);
             };
         }
+        if (data['dataFiltersKPI']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['dataFiltersKPI'])) {
+                throw new Error("Expected the field `dataFiltersKPI` to be an array in the JSON data but got " + data['dataFiltersKPI']);
+            }
+            // validate the optional field `dataFiltersKPI` (array)
+            for (const item of data['dataFiltersKPI']) {
+                PluginPluginElementMetadata.validateJSON(item);
+            };
+        }
         if (data['logExporters']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['logExporters'])) {
@@ -421,6 +434,11 @@ Plugin.prototype['charts'] = undefined;
  * @member {Array.<module:model/PluginPluginElementMetadata>} dataFilters
  */
 Plugin.prototype['dataFilters'] = undefined;
+
+/**
+ * @member {Array.<module:model/PluginPluginElementMetadata>} dataFiltersKPI
+ */
+Plugin.prototype['dataFiltersKPI'] = undefined;
 
 /**
  * @member {Array.<module:model/PluginPluginElementMetadata>} logExporters

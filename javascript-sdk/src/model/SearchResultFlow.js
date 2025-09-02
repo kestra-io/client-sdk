@@ -17,16 +17,18 @@ import Flow from './Flow';
 /**
  * The SearchResultFlow model module.
  * @module model/SearchResultFlow
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class SearchResultFlow {
     /**
      * Constructs a new <code>SearchResultFlow</code>.
      * @alias module:model/SearchResultFlow
+     * @param model {module:model/Flow} 
+     * @param fragments {Array.<String>} 
      */
-    constructor() { 
+    constructor(model, fragments) { 
         
-        SearchResultFlow.initialize(this);
+        SearchResultFlow.initialize(this, model, fragments);
     }
 
     /**
@@ -34,7 +36,9 @@ class SearchResultFlow {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, model, fragments) { 
+        obj['model'] = model;
+        obj['fragments'] = fragments;
     }
 
     /**
@@ -64,6 +68,12 @@ class SearchResultFlow {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>SearchResultFlow</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of SearchResultFlow.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // validate the optional field `model`
         if (data['model']) { // data not null
           Flow.validateJSON(data['model']);
@@ -79,7 +89,7 @@ class SearchResultFlow {
 
 }
 
-
+SearchResultFlow.RequiredProperties = ["model", "fragments"];
 
 /**
  * @member {module:model/Flow} model

@@ -16,16 +16,18 @@ import ApiClient from '../ApiClient';
 /**
  * The AuditLogControllerAuditLogDiff model module.
  * @module model/AuditLogControllerAuditLogDiff
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class AuditLogControllerAuditLogDiff {
     /**
      * Constructs a new <code>AuditLogControllerAuditLogDiff</code>.
      * @alias module:model/AuditLogControllerAuditLogDiff
+     * @param before {String} 
+     * @param after {String} 
      */
-    constructor() { 
+    constructor(before, after) { 
         
-        AuditLogControllerAuditLogDiff.initialize(this);
+        AuditLogControllerAuditLogDiff.initialize(this, before, after);
     }
 
     /**
@@ -33,7 +35,9 @@ class AuditLogControllerAuditLogDiff {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, before, after) { 
+        obj['before'] = before;
+        obj['after'] = after;
     }
 
     /**
@@ -63,6 +67,12 @@ class AuditLogControllerAuditLogDiff {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AuditLogControllerAuditLogDiff</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of AuditLogControllerAuditLogDiff.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['before'] && !(typeof data['before'] === 'string' || data['before'] instanceof String)) {
             throw new Error("Expected the field `before` to be a primitive type in the JSON string but got " + data['before']);
@@ -78,7 +88,7 @@ class AuditLogControllerAuditLogDiff {
 
 }
 
-
+AuditLogControllerAuditLogDiff.RequiredProperties = ["before", "after"];
 
 /**
  * @member {String} before

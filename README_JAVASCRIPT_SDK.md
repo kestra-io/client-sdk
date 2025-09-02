@@ -3,13 +3,8 @@
 ## Steps to generate the SDK
 
 1. Update the `kestra-ee.yml` if necessary with latest openspec api changes.
-
-  - As of 29/07/25, `the kestra-ee.yml` has been generated and used without modifications.
-  - Micronaut OpenAPI version `6.17.3` was used
-
 2. Generate the SDK using the script `generate-sdks.sh` that uses the openapi-generator-cli docker image.
 
-3.
 ## Step to use
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.

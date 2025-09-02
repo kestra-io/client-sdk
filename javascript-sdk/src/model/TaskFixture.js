@@ -18,7 +18,7 @@ import StateType from './StateType';
 /**
  * The TaskFixture model module.
  * @module model/TaskFixture
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class TaskFixture {
     /**

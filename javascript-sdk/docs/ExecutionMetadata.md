@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attemptNumber** | **Number** |  | [optional] 
-**originalCreatedDate** | **Date** |  | [optional] 
+**attemptNumber** | **Number** |  | 
+**originalCreatedDate** | **Date** |  | 
 
 

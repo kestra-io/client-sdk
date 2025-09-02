@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **namespace** | **String** |  | 
 **revision** | **Number** |  | [optional] 
+**description** | **String** |  | [optional] 
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **disabled** | **Boolean** |  | 
@@ -16,7 +17,6 @@ Name | Type | Description | Notes
 **deleted** | **Boolean** |  | 
 **_finally** | [**[Task]**](Task.md) |  | [optional] 
 **taskDefaults** | [**[PluginDefault]**](PluginDefault.md) |  | [optional] 
-**description** | **String** |  | [optional] 
 **tasks** | [**[Task]**](Task.md) |  | 
 **errors** | [**[Task]**](Task.md) |  | [optional] 
 **listeners** | [**[Listener]**](Listener.md) |  | [optional] 

@@ -17,16 +17,19 @@ import Relation from './Relation';
 /**
  * The FlowGraphEdge model module.
  * @module model/FlowGraphEdge
- * @version v0.24.0
+ * @version 1.0.0-beta5
  */
 class FlowGraphEdge {
     /**
      * Constructs a new <code>FlowGraphEdge</code>.
      * @alias module:model/FlowGraphEdge
+     * @param source {String} 
+     * @param target {String} 
+     * @param relation {module:model/Relation} 
      */
-    constructor() { 
+    constructor(source, target, relation) { 
         
-        FlowGraphEdge.initialize(this);
+        FlowGraphEdge.initialize(this, source, target, relation);
     }
 
     /**
@@ -34,7 +37,10 @@ class FlowGraphEdge {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, source, target, relation) { 
+        obj['source'] = source;
+        obj['target'] = target;
+        obj['relation'] = relation;
     }
 
     /**
@@ -67,6 +73,12 @@ class FlowGraphEdge {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>FlowGraphEdge</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of FlowGraphEdge.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['source'] && !(typeof data['source'] === 'string' || data['source'] instanceof String)) {
             throw new Error("Expected the field `source` to be a primitive type in the JSON string but got " + data['source']);
@@ -86,7 +98,7 @@ class FlowGraphEdge {
 
 }
 
-
+FlowGraphEdge.RequiredProperties = ["source", "target", "relation"];
 
 /**
  * @member {String} source
