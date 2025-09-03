@@ -30,6 +30,14 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Extract COMPATIBLE_KESTRA_VERSION.properties
+        id: extract_compatible_kestra_version
+        working-directory: ./
+        run: echo "version=$(cat COMPATIBLE_KESTRA_VERSION.properties)" >> $GITHUB_OUTPUT
+
+      - name: print COMPATIBLE_KESTRA_VERSION
+        run: echo "Compatible Kestra version is ${{ steps.extract_compatible_kestra_version.outputs.version }}"
+
       # Caches
       - name: Gradle cache
         uses: actions/cache@v4
@@ -55,6 +63,22 @@ jobs:
       - name: Build with Gradle
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
         run: ./gradlew check
+
+      - name: Build local SDK and test it in an example project
+        if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
+        run: ./run-tests.sh ${{ steps.extract_compatible_kestra_version.outputs.version }}
+
+      - name: Test - Publish Test Results
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: Java Tests Report
+          reporter: java-junit
+          path: '**/build/test-results/test/TEST-*.xml'
+          list-suites: 'all'
+          list-tests: 'all'
+          fail-on-error: 'false'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Allure check
       - name: Auth to Google Cloud

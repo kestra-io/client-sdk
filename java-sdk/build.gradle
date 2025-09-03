@@ -31,12 +31,22 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add("-parameters")
 }
 
+// force the version for testing
+allprojects {
+    if (gradle.startParameter.projectProperties.containsKey('ciVersionOverride')) {
+        version = gradle.startParameter.projectProperties['ciVersionOverride']
+    }
+}
+
 /**********************************************************************************************************************\
  * Publish
  **********************************************************************************************************************/
 mavenPublishing {
-    publishToMavenCentral(true)
-    signAllPublications()
+    // Only sign for real releases (skip when doing CI-local publishes)
+    if (!project.hasProperty('ciVersionOverride')) {
+        publishToMavenCentral(true)
+        signAllPublications()
+    }
     coordinates("${project.group}", "${project.name}", "${project.version}")
     pom {
         name = "${project.name}"
