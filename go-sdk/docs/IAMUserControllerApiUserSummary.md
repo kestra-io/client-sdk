@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Username** | **string** |  | 
 **DisplayName** | **string** |  | 
-**Tenants** | [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | 
+**Tenants** | [**[]ApiTenantSummary**](ApiTenantSummary.md) |  | 
 **Auths** | [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | 
 **SuperAdmin** | **bool** |  | 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewIAMUserControllerApiUserSummary
 
-`func NewIAMUserControllerApiUserSummary(id string, username string, displayName string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, superAdmin bool, ) *IAMUserControllerApiUserSummary`
+`func NewIAMUserControllerApiUserSummary(id string, username string, displayName string, tenants []ApiTenantSummary, auths []IAMUserControllerApiUserAuth, superAdmin bool, ) *IAMUserControllerApiUserSummary`
 
 NewIAMUserControllerApiUserSummary instantiates a new IAMUserControllerApiUserSummary object
 This constructor will assign default values to properties that have it defined,
@@ -92,20 +92,20 @@ SetDisplayName sets DisplayName field to given value.
 
 ### GetTenants
 
-`func (o *IAMUserControllerApiUserSummary) GetTenants() []IAMUserControllerApiTenant`
+`func (o *IAMUserControllerApiUserSummary) GetTenants() []ApiTenantSummary`
 
 GetTenants returns the Tenants field if non-nil, zero value otherwise.
 
 ### GetTenantsOk
 
-`func (o *IAMUserControllerApiUserSummary) GetTenantsOk() (*[]IAMUserControllerApiTenant, bool)`
+`func (o *IAMUserControllerApiUserSummary) GetTenantsOk() (*[]ApiTenantSummary, bool)`
 
 GetTenantsOk returns a tuple with the Tenants field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTenants
 
-`func (o *IAMUserControllerApiUserSummary) SetTenants(v []IAMUserControllerApiTenant)`
+`func (o *IAMUserControllerApiUserSummary) SetTenants(v []ApiTenantSummary)`
 
 SetTenants sets Tenants field to given value.
 

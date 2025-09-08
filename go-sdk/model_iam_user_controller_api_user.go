@@ -26,7 +26,7 @@ type IAMUserControllerApiUser struct {
 	FirstName            string                         `json:"firstName"`
 	LastName             string                         `json:"lastName"`
 	Email                string                         `json:"email"`
-	Tenants              []IAMUserControllerApiTenant   `json:"tenants"`
+	Tenants              []ApiTenantSummary             `json:"tenants"`
 	Auths                []IAMUserControllerApiUserAuth `json:"auths"`
 	Groups               []IAMUserControllerApiGroup    `json:"groups"`
 	SuperAdmin           bool                           `json:"superAdmin"`
@@ -40,7 +40,7 @@ type _IAMUserControllerApiUser IAMUserControllerApiUser
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool) *IAMUserControllerApiUser {
+func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []ApiTenantSummary, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool) *IAMUserControllerApiUser {
 	this := IAMUserControllerApiUser{}
 	this.Id = id
 	this.Username = username
@@ -209,9 +209,9 @@ func (o *IAMUserControllerApiUser) SetEmail(v string) {
 }
 
 // GetTenants returns the Tenants field value
-func (o *IAMUserControllerApiUser) GetTenants() []IAMUserControllerApiTenant {
+func (o *IAMUserControllerApiUser) GetTenants() []ApiTenantSummary {
 	if o == nil {
-		var ret []IAMUserControllerApiTenant
+		var ret []ApiTenantSummary
 		return ret
 	}
 
@@ -220,7 +220,7 @@ func (o *IAMUserControllerApiUser) GetTenants() []IAMUserControllerApiTenant {
 
 // GetTenantsOk returns a tuple with the Tenants field value
 // and a boolean to check if the value has been set.
-func (o *IAMUserControllerApiUser) GetTenantsOk() ([]IAMUserControllerApiTenant, bool) {
+func (o *IAMUserControllerApiUser) GetTenantsOk() ([]ApiTenantSummary, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -228,7 +228,7 @@ func (o *IAMUserControllerApiUser) GetTenantsOk() ([]IAMUserControllerApiTenant,
 }
 
 // SetTenants sets field value
-func (o *IAMUserControllerApiUser) SetTenants(v []IAMUserControllerApiTenant) {
+func (o *IAMUserControllerApiUser) SetTenants(v []ApiTenantSummary) {
 	o.Tenants = v
 }
 

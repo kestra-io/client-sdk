@@ -22,7 +22,7 @@ var _ MappedNullable = &MiscControllerEEConfiguration{}
 type MiscControllerEEConfiguration struct {
 	Uuid                            *string                                `json:"uuid,omitempty"`
 	Version                         *string                                `json:"version,omitempty"`
-	Edition                         *MiscControllerEdition                 `json:"edition,omitempty"`
+	Edition                         *EditionProviderEdition                `json:"edition,omitempty"`
 	CommitId                        *string                                `json:"commitId,omitempty"`
 	CommitDate                      *time.Time                             `json:"commitDate,omitempty"`
 	IsCustomDashboardsEnabled       *bool                                  `json:"isCustomDashboardsEnabled,omitempty"`
@@ -38,6 +38,7 @@ type MiscControllerEEConfiguration struct {
 	ResourceToFilters               []QueryFilterResourceField             `json:"resourceToFilters,omitempty"`
 	IsAiEnabled                     *bool                                  `json:"isAiEnabled,omitempty"`
 	IsBasicAuthInitialized          *bool                                  `json:"isBasicAuthInitialized,omitempty"`
+	PluginsHash                     *int64                                 `json:"pluginsHash,omitempty"`
 	Tenants                         *MiscControllerTenantConfigurationInfo `json:"tenants,omitempty"`
 	SecretsEnabled                  *bool                                  `json:"secretsEnabled,omitempty"`
 	SupportedStorages               []MiscControllerPluginIdAndVersion     `json:"supportedStorages,omitempty"`
@@ -138,9 +139,9 @@ func (o *MiscControllerEEConfiguration) SetVersion(v string) {
 }
 
 // GetEdition returns the Edition field value if set, zero value otherwise.
-func (o *MiscControllerEEConfiguration) GetEdition() MiscControllerEdition {
+func (o *MiscControllerEEConfiguration) GetEdition() EditionProviderEdition {
 	if o == nil || IsNil(o.Edition) {
-		var ret MiscControllerEdition
+		var ret EditionProviderEdition
 		return ret
 	}
 	return *o.Edition
@@ -148,7 +149,7 @@ func (o *MiscControllerEEConfiguration) GetEdition() MiscControllerEdition {
 
 // GetEditionOk returns a tuple with the Edition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MiscControllerEEConfiguration) GetEditionOk() (*MiscControllerEdition, bool) {
+func (o *MiscControllerEEConfiguration) GetEditionOk() (*EditionProviderEdition, bool) {
 	if o == nil || IsNil(o.Edition) {
 		return nil, false
 	}
@@ -164,8 +165,8 @@ func (o *MiscControllerEEConfiguration) HasEdition() bool {
 	return false
 }
 
-// SetEdition gets a reference to the given MiscControllerEdition and assigns it to the Edition field.
-func (o *MiscControllerEEConfiguration) SetEdition(v MiscControllerEdition) {
+// SetEdition gets a reference to the given EditionProviderEdition and assigns it to the Edition field.
+func (o *MiscControllerEEConfiguration) SetEdition(v EditionProviderEdition) {
 	o.Edition = &v
 }
 
@@ -649,6 +650,38 @@ func (o *MiscControllerEEConfiguration) SetIsBasicAuthInitialized(v bool) {
 	o.IsBasicAuthInitialized = &v
 }
 
+// GetPluginsHash returns the PluginsHash field value if set, zero value otherwise.
+func (o *MiscControllerEEConfiguration) GetPluginsHash() int64 {
+	if o == nil || IsNil(o.PluginsHash) {
+		var ret int64
+		return ret
+	}
+	return *o.PluginsHash
+}
+
+// GetPluginsHashOk returns a tuple with the PluginsHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MiscControllerEEConfiguration) GetPluginsHashOk() (*int64, bool) {
+	if o == nil || IsNil(o.PluginsHash) {
+		return nil, false
+	}
+	return o.PluginsHash, true
+}
+
+// HasPluginsHash returns a boolean if a field has been set.
+func (o *MiscControllerEEConfiguration) HasPluginsHash() bool {
+	if o != nil && !IsNil(o.PluginsHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetPluginsHash gets a reference to the given int64 and assigns it to the PluginsHash field.
+func (o *MiscControllerEEConfiguration) SetPluginsHash(v int64) {
+	o.PluginsHash = &v
+}
+
 // GetTenants returns the Tenants field value if set, zero value otherwise.
 func (o *MiscControllerEEConfiguration) GetTenants() MiscControllerTenantConfigurationInfo {
 	if o == nil || IsNil(o.Tenants) {
@@ -1129,6 +1162,9 @@ func (o MiscControllerEEConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsBasicAuthInitialized) {
 		toSerialize["isBasicAuthInitialized"] = o.IsBasicAuthInitialized
 	}
+	if !IsNil(o.PluginsHash) {
+		toSerialize["pluginsHash"] = o.PluginsHash
+	}
 	if !IsNil(o.Tenants) {
 		toSerialize["tenants"] = o.Tenants
 	}
@@ -1208,6 +1244,7 @@ func (o *MiscControllerEEConfiguration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "resourceToFilters")
 		delete(additionalProperties, "isAiEnabled")
 		delete(additionalProperties, "isBasicAuthInitialized")
+		delete(additionalProperties, "pluginsHash")
 		delete(additionalProperties, "tenants")
 		delete(additionalProperties, "secretsEnabled")
 		delete(additionalProperties, "supportedStorages")

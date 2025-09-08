@@ -20,9 +20,8 @@ var _ MappedNullable = &AuditLogControllerApiAuditLogItem{}
 
 // AuditLogControllerApiAuditLogItem struct for AuditLogControllerApiAuditLogItem
 type AuditLogControllerApiAuditLogItem struct {
-	AuditLog             AuditLog   `json:"auditLog"`
-	User                 ApiUser    `json:"user"`
-	Permission           Permission `json:"permission"`
+	AuditLog             AuditLog `json:"auditLog"`
+	User                 ApiUser  `json:"user"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,10 @@ type _AuditLogControllerApiAuditLogItem AuditLogControllerApiAuditLogItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser, permission Permission) *AuditLogControllerApiAuditLogItem {
+func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser) *AuditLogControllerApiAuditLogItem {
 	this := AuditLogControllerApiAuditLogItem{}
 	this.AuditLog = auditLog
 	this.User = user
-	this.Permission = permission
 	return &this
 }
 
@@ -96,30 +94,6 @@ func (o *AuditLogControllerApiAuditLogItem) SetUser(v ApiUser) {
 	o.User = v
 }
 
-// GetPermission returns the Permission field value
-func (o *AuditLogControllerApiAuditLogItem) GetPermission() Permission {
-	if o == nil {
-		var ret Permission
-		return ret
-	}
-
-	return o.Permission
-}
-
-// GetPermissionOk returns a tuple with the Permission field value
-// and a boolean to check if the value has been set.
-func (o *AuditLogControllerApiAuditLogItem) GetPermissionOk() (*Permission, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Permission, true
-}
-
-// SetPermission sets field value
-func (o *AuditLogControllerApiAuditLogItem) SetPermission(v Permission) {
-	o.Permission = v
-}
-
 func (o AuditLogControllerApiAuditLogItem) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -132,7 +106,6 @@ func (o AuditLogControllerApiAuditLogItem) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	toSerialize["auditLog"] = o.AuditLog
 	toSerialize["user"] = o.User
-	toSerialize["permission"] = o.Permission
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -148,7 +121,6 @@ func (o *AuditLogControllerApiAuditLogItem) UnmarshalJSON(data []byte) (err erro
 	requiredProperties := []string{
 		"auditLog",
 		"user",
-		"permission",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -180,7 +152,6 @@ func (o *AuditLogControllerApiAuditLogItem) UnmarshalJSON(data []byte) (err erro
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "auditLog")
 		delete(additionalProperties, "user")
-		delete(additionalProperties, "permission")
 		o.AdditionalProperties = additionalProperties
 	}
 

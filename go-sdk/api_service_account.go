@@ -23,6 +23,118 @@ import (
 type ServiceAccountAPIService service
 
 type ApiCreateServiceAccountRequest struct {
+	ctx                                                       context.Context
+	ApiService                                                *ServiceAccountAPIService
+	iAMServiceAccountControllerApiCreateServiceAccountRequest *IAMServiceAccountControllerApiCreateServiceAccountRequest
+}
+
+// The service account
+func (r ApiCreateServiceAccountRequest) IAMServiceAccountControllerApiCreateServiceAccountRequest(iAMServiceAccountControllerApiCreateServiceAccountRequest IAMServiceAccountControllerApiCreateServiceAccountRequest) ApiCreateServiceAccountRequest {
+	r.iAMServiceAccountControllerApiCreateServiceAccountRequest = &iAMServiceAccountControllerApiCreateServiceAccountRequest
+	return r
+}
+
+func (r ApiCreateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	return r.ApiService.CreateServiceAccountExecute(r)
+}
+
+/*
+CreateServiceAccount Create a service account
+
+Superadmin-only. CReate service account with access to multiple tenants.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateServiceAccountRequest
+*/
+func (a *ServiceAccountAPIService) CreateServiceAccount(ctx context.Context) ApiCreateServiceAccountRequest {
+	return ApiCreateServiceAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IAMServiceAccountControllerApiServiceAccountDetail
+func (a *ServiceAccountAPIService) CreateServiceAccountExecute(r ApiCreateServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateServiceAccount")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iAMServiceAccountControllerApiCreateServiceAccountRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMServiceAccountControllerApiCreateServiceAccountRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.iAMServiceAccountControllerApiCreateServiceAccountRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateServiceAccountForTenantRequest struct {
 	ctx                                                 context.Context
 	ApiService                                          *ServiceAccountAPIService
 	tenant                                              string
@@ -30,24 +142,24 @@ type ApiCreateServiceAccountRequest struct {
 }
 
 // The service account
-func (r ApiCreateServiceAccountRequest) IAMServiceAccountControllerApiServiceAccountRequest(iAMServiceAccountControllerApiServiceAccountRequest IAMServiceAccountControllerApiServiceAccountRequest) ApiCreateServiceAccountRequest {
+func (r ApiCreateServiceAccountForTenantRequest) IAMServiceAccountControllerApiServiceAccountRequest(iAMServiceAccountControllerApiServiceAccountRequest IAMServiceAccountControllerApiServiceAccountRequest) ApiCreateServiceAccountForTenantRequest {
 	r.iAMServiceAccountControllerApiServiceAccountRequest = &iAMServiceAccountControllerApiServiceAccountRequest
 	return r
 }
 
-func (r ApiCreateServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
-	return r.ApiService.CreateServiceAccountExecute(r)
+func (r ApiCreateServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
+	return r.ApiService.CreateServiceAccountForTenantExecute(r)
 }
 
 /*
-CreateServiceAccount Create a user service account
+CreateServiceAccountForTenant Create a service account for the given tenant
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param tenant
-	@return ApiCreateServiceAccountRequest
+	@return ApiCreateServiceAccountForTenantRequest
 */
-func (a *ServiceAccountAPIService) CreateServiceAccount(ctx context.Context, tenant string) ApiCreateServiceAccountRequest {
-	return ApiCreateServiceAccountRequest{
+func (a *ServiceAccountAPIService) CreateServiceAccountForTenant(ctx context.Context, tenant string) ApiCreateServiceAccountForTenantRequest {
+	return ApiCreateServiceAccountForTenantRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tenant:     tenant,
@@ -57,7 +169,7 @@ func (a *ServiceAccountAPIService) CreateServiceAccount(ctx context.Context, ten
 // Execute executes the request
 //
 //	@return IAMServiceAccountControllerApiServiceAccountResponse
-func (a *ServiceAccountAPIService) CreateServiceAccountExecute(r ApiCreateServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
+func (a *ServiceAccountAPIService) CreateServiceAccountForTenantExecute(r ApiCreateServiceAccountForTenantRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -65,7 +177,7 @@ func (a *ServiceAccountAPIService) CreateServiceAccountExecute(r ApiCreateServic
 		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateServiceAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.CreateServiceAccountForTenant")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -140,7 +252,6 @@ type ApiDeleteServiceAccountRequest struct {
 	ctx        context.Context
 	ApiService *ServiceAccountAPIService
 	id         string
-	tenant     string
 }
 
 func (r ApiDeleteServiceAccountRequest) Execute() (*http.Response, error) {
@@ -150,17 +261,17 @@ func (r ApiDeleteServiceAccountRequest) Execute() (*http.Response, error) {
 /*
 DeleteServiceAccount Delete a service account
 
+Superadmin-only. Delete a service account including all its access.
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The user id
-	@param tenant
+	@param id The service account id
 	@return ApiDeleteServiceAccountRequest
 */
-func (a *ServiceAccountAPIService) DeleteServiceAccount(ctx context.Context, id string, tenant string) ApiDeleteServiceAccountRequest {
+func (a *ServiceAccountAPIService) DeleteServiceAccount(ctx context.Context, id string) ApiDeleteServiceAccountRequest {
 	return ApiDeleteServiceAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
-		tenant:     tenant,
 	}
 }
 
@@ -173,6 +284,99 @@ func (a *ServiceAccountAPIService) DeleteServiceAccountExecute(r ApiDeleteServic
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteServiceAccount")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteServiceAccountForTenantRequest struct {
+	ctx        context.Context
+	ApiService *ServiceAccountAPIService
+	id         string
+	tenant     string
+}
+
+func (r ApiDeleteServiceAccountForTenantRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteServiceAccountForTenantExecute(r)
+}
+
+/*
+DeleteServiceAccountForTenant Delete a service account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The service account id
+	@param tenant
+	@return ApiDeleteServiceAccountForTenantRequest
+*/
+func (a *ServiceAccountAPIService) DeleteServiceAccountForTenant(ctx context.Context, id string, tenant string) ApiDeleteServiceAccountForTenantRequest {
+	return ApiDeleteServiceAccountForTenantRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		tenant:     tenant,
+	}
+}
+
+// Execute executes the request
+func (a *ServiceAccountAPIService) DeleteServiceAccountForTenantExecute(r ApiDeleteServiceAccountForTenantRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.DeleteServiceAccountForTenant")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -234,23 +438,127 @@ type ApiGetServiceAccountRequest struct {
 	ctx        context.Context
 	ApiService *ServiceAccountAPIService
 	id         string
-	tenant     string
 }
 
-func (r ApiGetServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
+func (r ApiGetServiceAccountRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
 	return r.ApiService.GetServiceAccountExecute(r)
 }
 
 /*
-GetServiceAccount Retrieve a service account
+GetServiceAccount Get a service account
+
+Superadmin-only. Get user account details.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The service account id
+	@return ApiGetServiceAccountRequest
+*/
+func (a *ServiceAccountAPIService) GetServiceAccount(ctx context.Context, id string) ApiGetServiceAccountRequest {
+	return ApiGetServiceAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IAMServiceAccountControllerApiServiceAccountDetail
+func (a *ServiceAccountAPIService) GetServiceAccountExecute(r ApiGetServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.GetServiceAccount")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetServiceAccountForTenantRequest struct {
+	ctx        context.Context
+	ApiService *ServiceAccountAPIService
+	id         string
+	tenant     string
+}
+
+func (r ApiGetServiceAccountForTenantRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
+	return r.ApiService.GetServiceAccountForTenantExecute(r)
+}
+
+/*
+GetServiceAccountForTenant Retrieve a service account
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id The user id
 	@param tenant
-	@return ApiGetServiceAccountRequest
+	@return ApiGetServiceAccountForTenantRequest
 */
-func (a *ServiceAccountAPIService) GetServiceAccount(ctx context.Context, id string, tenant string) ApiGetServiceAccountRequest {
-	return ApiGetServiceAccountRequest{
+func (a *ServiceAccountAPIService) GetServiceAccountForTenant(ctx context.Context, id string, tenant string) ApiGetServiceAccountForTenantRequest {
+	return ApiGetServiceAccountForTenantRequest{
 		ApiService: a,
 		ctx:        ctx,
 		id:         id,
@@ -261,7 +569,7 @@ func (a *ServiceAccountAPIService) GetServiceAccount(ctx context.Context, id str
 // Execute executes the request
 //
 //	@return IAMServiceAccountControllerApiServiceAccountResponse
-func (a *ServiceAccountAPIService) GetServiceAccountExecute(r ApiGetServiceAccountRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
+func (a *ServiceAccountAPIService) GetServiceAccountForTenantExecute(r ApiGetServiceAccountForTenantRequest) (*IAMServiceAccountControllerApiServiceAccountResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -269,7 +577,7 @@ func (a *ServiceAccountAPIService) GetServiceAccountExecute(r ApiGetServiceAccou
 		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.GetServiceAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.GetServiceAccountForTenant")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -334,6 +642,365 @@ func (a *ServiceAccountAPIService) GetServiceAccountExecute(r ApiGetServiceAccou
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListServiceAccountsRequest struct {
+	ctx        context.Context
+	ApiService *ServiceAccountAPIService
+	page       *int32
+	size       *int32
+	q          *string
+	sort       *[]string
+}
+
+// The current page
+func (r ApiListServiceAccountsRequest) Page(page int32) ApiListServiceAccountsRequest {
+	r.page = &page
+	return r
+}
+
+// The current page size
+func (r ApiListServiceAccountsRequest) Size(size int32) ApiListServiceAccountsRequest {
+	r.size = &size
+	return r
+}
+
+// A string filter
+func (r ApiListServiceAccountsRequest) Q(q string) ApiListServiceAccountsRequest {
+	r.q = &q
+	return r
+}
+
+// The sort of current page
+func (r ApiListServiceAccountsRequest) Sort(sort []string) ApiListServiceAccountsRequest {
+	r.sort = &sort
+	return r
+}
+
+func (r ApiListServiceAccountsRequest) Execute() (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	return r.ApiService.ListServiceAccountsExecute(r)
+}
+
+/*
+ListServiceAccounts List service accounts. Superadmin-only.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListServiceAccountsRequest
+*/
+func (a *ServiceAccountAPIService) ListServiceAccounts(ctx context.Context) ApiListServiceAccountsRequest {
+	return ApiListServiceAccountsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//
+//	@return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+func (a *ServiceAccountAPIService) ListServiceAccountsExecute(r ApiListServiceAccountsRequest) (*PagedResultsIAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.ListServiceAccounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
+	}
+	if r.size == nil {
+		return localVarReturnValue, nil, reportError("size is required and must be specified")
+	}
+
+	if r.q != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "size", r.size, "form", "")
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "csv")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPatchServiceAccountDetailsRequest struct {
+	ctx                                                      context.Context
+	ApiService                                               *ServiceAccountAPIService
+	id                                                       string
+	iAMServiceAccountControllerApiPatchServiceAccountRequest *IAMServiceAccountControllerApiPatchServiceAccountRequest
+}
+
+// The service account details
+func (r ApiPatchServiceAccountDetailsRequest) IAMServiceAccountControllerApiPatchServiceAccountRequest(iAMServiceAccountControllerApiPatchServiceAccountRequest IAMServiceAccountControllerApiPatchServiceAccountRequest) ApiPatchServiceAccountDetailsRequest {
+	r.iAMServiceAccountControllerApiPatchServiceAccountRequest = &iAMServiceAccountControllerApiPatchServiceAccountRequest
+	return r
+}
+
+func (r ApiPatchServiceAccountDetailsRequest) Execute() (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	return r.ApiService.PatchServiceAccountDetailsExecute(r)
+}
+
+/*
+PatchServiceAccountDetails Update service account details
+
+Superadmin-only. Updates the details of a service account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The service account id
+	@return ApiPatchServiceAccountDetailsRequest
+*/
+func (a *ServiceAccountAPIService) PatchServiceAccountDetails(ctx context.Context, id string) ApiPatchServiceAccountDetailsRequest {
+	return ApiPatchServiceAccountDetailsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+//
+//	@return IAMServiceAccountControllerApiServiceAccountDetail
+func (a *ServiceAccountAPIService) PatchServiceAccountDetailsExecute(r ApiPatchServiceAccountDetailsRequest) (*IAMServiceAccountControllerApiServiceAccountDetail, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *IAMServiceAccountControllerApiServiceAccountDetail
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.PatchServiceAccountDetails")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.iAMServiceAccountControllerApiPatchServiceAccountRequest == nil {
+		return localVarReturnValue, nil, reportError("iAMServiceAccountControllerApiPatchServiceAccountRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.iAMServiceAccountControllerApiPatchServiceAccountRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPatchServiceAccountSuperAdminRequest struct {
+	ctx                       context.Context
+	ApiService                *ServiceAccountAPIService
+	id                        string
+	apiPatchSuperAdminRequest *ApiPatchSuperAdminRequest
+}
+
+func (r ApiPatchServiceAccountSuperAdminRequest) ApiPatchSuperAdminRequest(apiPatchSuperAdminRequest ApiPatchSuperAdminRequest) ApiPatchServiceAccountSuperAdminRequest {
+	r.apiPatchSuperAdminRequest = &apiPatchSuperAdminRequest
+	return r
+}
+
+func (r ApiPatchServiceAccountSuperAdminRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchServiceAccountSuperAdminExecute(r)
+}
+
+/*
+PatchServiceAccountSuperAdmin Update service account superadmin privileges
+
+Superadmin-only. Updates whether a service account is a superadmin.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The user id
+	@return ApiPatchServiceAccountSuperAdminRequest
+*/
+func (a *ServiceAccountAPIService) PatchServiceAccountSuperAdmin(ctx context.Context, id string) ApiPatchServiceAccountSuperAdminRequest {
+	return ApiPatchServiceAccountSuperAdminRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+	}
+}
+
+// Execute executes the request
+func (a *ServiceAccountAPIService) PatchServiceAccountSuperAdminExecute(r ApiPatchServiceAccountSuperAdminRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceAccountAPIService.PatchServiceAccountSuperAdmin")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/service-accounts/{id}/superadmin"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.apiPatchSuperAdminRequest == nil {
+		return nil, reportError("apiPatchSuperAdminRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.apiPatchSuperAdminRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiUpdateServiceAccountRequest struct {

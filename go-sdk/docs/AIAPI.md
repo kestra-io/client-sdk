@@ -28,7 +28,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	flowGenerationPrompt := *openapiclient.NewFlowGenerationPrompt("UserPrompt_example", "FlowYaml_example") // FlowGenerationPrompt | Prompt and context required for flow generation
+	flowGenerationPrompt := *openapiclient.NewFlowGenerationPrompt("ConversationId_example", "UserPrompt_example", "FlowYaml_example") // FlowGenerationPrompt | Prompt and context required for flow generation
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

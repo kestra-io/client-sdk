@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ConversationId** | **string** |  | 
 **UserPrompt** | **string** |  | 
 **FlowYaml** | **string** |  | 
 
@@ -11,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewFlowGenerationPrompt
 
-`func NewFlowGenerationPrompt(userPrompt string, flowYaml string, ) *FlowGenerationPrompt`
+`func NewFlowGenerationPrompt(conversationId string, userPrompt string, flowYaml string, ) *FlowGenerationPrompt`
 
 NewFlowGenerationPrompt instantiates a new FlowGenerationPrompt object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +26,26 @@ will change when the set of required properties is changed
 NewFlowGenerationPromptWithDefaults instantiates a new FlowGenerationPrompt object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetConversationId
+
+`func (o *FlowGenerationPrompt) GetConversationId() string`
+
+GetConversationId returns the ConversationId field if non-nil, zero value otherwise.
+
+### GetConversationIdOk
+
+`func (o *FlowGenerationPrompt) GetConversationIdOk() (*string, bool)`
+
+GetConversationIdOk returns a tuple with the ConversationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConversationId
+
+`func (o *FlowGenerationPrompt) SetConversationId(v string)`
+
+SetConversationId sets ConversationId field to given value.
+
 
 ### GetUserPrompt
 

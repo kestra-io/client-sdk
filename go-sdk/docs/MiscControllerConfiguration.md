@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
-**Edition** | Pointer to [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
+**Edition** | Pointer to [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **CommitId** | Pointer to **string** |  | [optional] 
 **CommitDate** | Pointer to **time.Time** |  | [optional] 
 **IsCustomDashboardsEnabled** | Pointer to **bool** |  | [optional] 
@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **ResourceToFilters** | Pointer to [**[]QueryFilterResourceField**](QueryFilterResourceField.md) |  | [optional] 
 **IsAiEnabled** | Pointer to **bool** |  | [optional] 
 **IsBasicAuthInitialized** | Pointer to **bool** |  | [optional] 
+**PluginsHash** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -94,20 +95,20 @@ HasVersion returns a boolean if a field has been set.
 
 ### GetEdition
 
-`func (o *MiscControllerConfiguration) GetEdition() MiscControllerEdition`
+`func (o *MiscControllerConfiguration) GetEdition() EditionProviderEdition`
 
 GetEdition returns the Edition field if non-nil, zero value otherwise.
 
 ### GetEditionOk
 
-`func (o *MiscControllerConfiguration) GetEditionOk() (*MiscControllerEdition, bool)`
+`func (o *MiscControllerConfiguration) GetEditionOk() (*EditionProviderEdition, bool)`
 
 GetEditionOk returns a tuple with the Edition field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEdition
 
-`func (o *MiscControllerConfiguration) SetEdition(v MiscControllerEdition)`
+`func (o *MiscControllerConfiguration) SetEdition(v EditionProviderEdition)`
 
 SetEdition sets Edition field to given value.
 
@@ -491,6 +492,31 @@ SetIsBasicAuthInitialized sets IsBasicAuthInitialized field to given value.
 `func (o *MiscControllerConfiguration) HasIsBasicAuthInitialized() bool`
 
 HasIsBasicAuthInitialized returns a boolean if a field has been set.
+
+### GetPluginsHash
+
+`func (o *MiscControllerConfiguration) GetPluginsHash() int64`
+
+GetPluginsHash returns the PluginsHash field if non-nil, zero value otherwise.
+
+### GetPluginsHashOk
+
+`func (o *MiscControllerConfiguration) GetPluginsHashOk() (*int64, bool)`
+
+GetPluginsHashOk returns a tuple with the PluginsHash field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPluginsHash
+
+`func (o *MiscControllerConfiguration) SetPluginsHash(v int64)`
+
+SetPluginsHash sets PluginsHash field to given value.
+
+### HasPluginsHash
+
+`func (o *MiscControllerConfiguration) HasPluginsHash() bool`
+
+HasPluginsHash returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

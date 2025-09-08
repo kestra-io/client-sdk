@@ -20,6 +20,7 @@ var _ MappedNullable = &FlowGenerationPrompt{}
 
 // FlowGenerationPrompt struct for FlowGenerationPrompt
 type FlowGenerationPrompt struct {
+	ConversationId       string `json:"conversationId"`
 	UserPrompt           string `json:"userPrompt"`
 	FlowYaml             string `json:"flowYaml"`
 	AdditionalProperties map[string]interface{}
@@ -31,8 +32,9 @@ type _FlowGenerationPrompt FlowGenerationPrompt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowGenerationPrompt(userPrompt string, flowYaml string) *FlowGenerationPrompt {
+func NewFlowGenerationPrompt(conversationId string, userPrompt string, flowYaml string) *FlowGenerationPrompt {
 	this := FlowGenerationPrompt{}
+	this.ConversationId = conversationId
 	this.UserPrompt = userPrompt
 	this.FlowYaml = flowYaml
 	return &this
@@ -44,6 +46,30 @@ func NewFlowGenerationPrompt(userPrompt string, flowYaml string) *FlowGeneration
 func NewFlowGenerationPromptWithDefaults() *FlowGenerationPrompt {
 	this := FlowGenerationPrompt{}
 	return &this
+}
+
+// GetConversationId returns the ConversationId field value
+func (o *FlowGenerationPrompt) GetConversationId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ConversationId
+}
+
+// GetConversationIdOk returns a tuple with the ConversationId field value
+// and a boolean to check if the value has been set.
+func (o *FlowGenerationPrompt) GetConversationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConversationId, true
+}
+
+// SetConversationId sets field value
+func (o *FlowGenerationPrompt) SetConversationId(v string) {
+	o.ConversationId = v
 }
 
 // GetUserPrompt returns the UserPrompt field value
@@ -104,6 +130,7 @@ func (o FlowGenerationPrompt) MarshalJSON() ([]byte, error) {
 
 func (o FlowGenerationPrompt) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["conversationId"] = o.ConversationId
 	toSerialize["userPrompt"] = o.UserPrompt
 	toSerialize["flowYaml"] = o.FlowYaml
 
@@ -119,6 +146,7 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"conversationId",
 		"userPrompt",
 		"flowYaml",
 	}
@@ -150,6 +178,7 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "conversationId")
 		delete(additionalProperties, "userPrompt")
 		delete(additionalProperties, "flowYaml")
 		o.AdditionalProperties = additionalProperties

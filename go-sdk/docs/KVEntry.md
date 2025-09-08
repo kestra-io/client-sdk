@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | 
-**Description** | **string** |  | 
+**Description** | Pointer to **NullableString** |  | [optional] 
 **CreationDate** | **time.Time** |  | 
 **UpdateDate** | **time.Time** |  | 
-**ExpirationDate** | **time.Time** |  | 
+**ExpirationDate** | Pointer to **NullableTime** |  | [optional] 
 
 ## Methods
 
 ### NewKVEntry
 
-`func NewKVEntry(key string, description string, creationDate time.Time, updateDate time.Time, expirationDate time.Time, ) *KVEntry`
+`func NewKVEntry(key string, creationDate time.Time, updateDate time.Time, ) *KVEntry`
 
 NewKVEntry instantiates a new KVEntry object
 This constructor will assign default values to properties that have it defined,
@@ -68,7 +68,22 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
 
+`func (o *KVEntry) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *KVEntry) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *KVEntry) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
 ### GetCreationDate
 
 `func (o *KVEntry) GetCreationDate() time.Time`
@@ -128,7 +143,22 @@ and a boolean to check if the value has been set.
 
 SetExpirationDate sets ExpirationDate field to given value.
 
+### HasExpirationDate
 
+`func (o *KVEntry) HasExpirationDate() bool`
+
+HasExpirationDate returns a boolean if a field has been set.
+
+### SetExpirationDateNil
+
+`func (o *KVEntry) SetExpirationDateNil(b bool)`
+
+ SetExpirationDateNil sets the value for ExpirationDate to be an explicit nil
+
+### UnsetExpirationDate
+`func (o *KVEntry) UnsetExpirationDate()`
+
+UnsetExpirationDate ensures that no value is present for ExpirationDate, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

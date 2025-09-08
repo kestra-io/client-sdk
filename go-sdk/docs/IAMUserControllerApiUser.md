@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **FirstName** | **string** |  | 
 **LastName** | **string** |  | 
 **Email** | **string** |  | 
-**Tenants** | [**[]IAMUserControllerApiTenant**](IAMUserControllerApiTenant.md) |  | 
+**Tenants** | [**[]ApiTenantSummary**](ApiTenantSummary.md) |  | 
 **Auths** | [**[]IAMUserControllerApiUserAuth**](IAMUserControllerApiUserAuth.md) |  | 
 **Groups** | [**[]IAMUserControllerApiGroup**](IAMUserControllerApiGroup.md) |  | 
 **SuperAdmin** | **bool** |  | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewIAMUserControllerApiUser
 
-`func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []IAMUserControllerApiTenant, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool, ) *IAMUserControllerApiUser`
+`func NewIAMUserControllerApiUser(id string, username string, displayName string, firstName string, lastName string, email string, tenants []ApiTenantSummary, auths []IAMUserControllerApiUserAuth, groups []IAMUserControllerApiGroup, superAdmin bool, restricted bool, ) *IAMUserControllerApiUser`
 
 NewIAMUserControllerApiUser instantiates a new IAMUserControllerApiUser object
 This constructor will assign default values to properties that have it defined,
@@ -157,20 +157,20 @@ SetEmail sets Email field to given value.
 
 ### GetTenants
 
-`func (o *IAMUserControllerApiUser) GetTenants() []IAMUserControllerApiTenant`
+`func (o *IAMUserControllerApiUser) GetTenants() []ApiTenantSummary`
 
 GetTenants returns the Tenants field if non-nil, zero value otherwise.
 
 ### GetTenantsOk
 
-`func (o *IAMUserControllerApiUser) GetTenantsOk() (*[]IAMUserControllerApiTenant, bool)`
+`func (o *IAMUserControllerApiUser) GetTenantsOk() (*[]ApiTenantSummary, bool)`
 
 GetTenantsOk returns a tuple with the Tenants field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTenants
 
-`func (o *IAMUserControllerApiUser) SetTenants(v []IAMUserControllerApiTenant)`
+`func (o *IAMUserControllerApiUser) SetTenants(v []ApiTenantSummary)`
 
 SetTenants sets Tenants field to given value.
 

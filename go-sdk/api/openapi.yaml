@@ -1463,6 +1463,291 @@ paths:
                 type: object
           description: resetPassword 200 response
       summary: Change a password for given token.
+  /api/v1/service-accounts:
+    get:
+      operationId: listServiceAccounts
+      parameters:
+      - description: A string filter
+        explode: false
+        in: query
+        name: q
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: The current page
+        explode: false
+        in: query
+        name: page
+        required: true
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: The current page size
+        explode: false
+        in: query
+        name: size
+        required: true
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - description: The sort of current page
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          nullable: true
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagedResults_IAMServiceAccountController.ApiServiceAccountDetail_"
+          description: Service account successfully created
+        "404":
+          description: Group not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: 'List service accounts. Superadmin-only. '
+      tags:
+      - ServiceAccount
+    post:
+      description: Superadmin-only. CReate service account with access to multiple
+        tenants.
+      operationId: createServiceAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IAMServiceAccountController.ApiCreateServiceAccountRequest"
+        description: The service account
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
+          description: Service account successfully created
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create a service account
+      tags:
+      - ServiceAccount
+  /api/v1/service-accounts/{id}:
+    delete:
+      description: Superadmin-only. Delete a service account including all its access.
+      operationId: deleteServiceAccount
+      parameters:
+      - description: The service account id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Service account successfully deleted
+        "404":
+          description: Service account not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete a service account
+      tags:
+      - ServiceAccount
+    get:
+      description: Superadmin-only. Get user account details.
+      operationId: getServiceAccount
+      parameters:
+      - description: The service account id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "404":
+          description: User not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
+          description: getServiceAccount 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Get a service account
+      tags:
+      - ServiceAccount
+    patch:
+      description: Superadmin-only. Updates the details of a service account.
+      operationId: patchServiceAccountDetails
+      parameters:
+      - description: The service account id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IAMServiceAccountController.ApiPatchServiceAccountRequest"
+        description: The service account details
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
+          description: patchServiceAccountDetails 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Update service account details
+      tags:
+      - ServiceAccount
+  /api/v1/service-accounts/{id}/api-tokens:
+    get:
+      operationId: listApiTokens
+      parameters:
+      - description: The user id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: listApiTokens 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: List API tokens for a specific user
+      tags:
+      - Users
+    post:
+      operationId: createApiTokensForUser
+      parameters:
+      - description: The user id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateApiTokenRequest"
+        description: The create api-token request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: createApiTokensForUser 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Create new API Token for a specific user
+      tags:
+      - Users
+  /api/v1/service-accounts/{id}/api-tokens/{tokenId}:
+    delete:
+      operationId: deleteApiToken
+      parameters:
+      - description: The user id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The token id
+        explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: deleteApiToken 200 response
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Delete an API Token for specific user and token id
+      tags:
+      - Users
+  /api/v1/service-accounts/{id}/superadmin:
+    patch:
+      description: Superadmin-only. Updates whether a service account is a superadmin.
+      operationId: patchServiceAccountSuperAdmin
+      parameters:
+      - description: The user id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApiPatchSuperAdminRequest"
+        required: true
+      responses:
+        "200":
+          description: Service account successfully updated
+        "404":
+          description: Service account not found
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      summary: Update service account superadmin privileges
+      tags:
+      - ServiceAccount
   /api/v1/setup:
     get:
       operationId: setupConfiguration
@@ -1878,7 +2163,7 @@ paths:
   /api/v1/users/{id}/api-tokens:
     get:
       description: Superadmin-only. Get all API token existing for a user.
-      operationId: listApiTokens
+      operationId: listApiTokens_1
       parameters:
       - description: The user id
         explode: false
@@ -1896,7 +2181,7 @@ paths:
             application/json:
               schema:
                 type: object
-          description: listApiTokens 200 response
+          description: listApiTokens_1 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -1905,7 +2190,7 @@ paths:
       - Users
     post:
       description: Superadmin-only. Create a new API token for a user.
-      operationId: createApiTokensForUser
+      operationId: createApiTokensForUser_1
       parameters:
       - description: The user id
         explode: false
@@ -1940,7 +2225,7 @@ paths:
   /api/v1/users/{id}/api-tokens/{tokenId}:
     delete:
       description: Superadmin-only. Delete an API token for a user.
-      operationId: deleteApiToken
+      operationId: deleteApiToken_1
       parameters:
       - description: The user id
         explode: false
@@ -2137,7 +2422,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/IAMUserController.ApiPatchSuperAdminRequest"
+              $ref: "#/components/schemas/ApiPatchSuperAdminRequest"
         required: true
       responses:
         "200":
@@ -8008,17 +8293,19 @@ paths:
         explode: false
         in: query
         name: taskRunId
-        required: true
+        required: false
         schema:
+          nullable: true
           type: string
         style: form
       - description: The flow revision to use for new execution
         explode: false
         in: query
         name: revision
-        required: true
+        required: false
         schema:
           format: int32
+          nullable: true
           type: integer
         style: form
       - description: "Set a list of breakpoints at specific tasks 'id.value', separated\
@@ -14098,7 +14385,7 @@ paths:
       - SecurityIntegrations
   /api/v1/{tenant}/service-accounts:
     post:
-      operationId: createServiceAccount
+      operationId: createServiceAccountForTenant
       parameters:
       - explode: false
         in: path
@@ -14126,14 +14413,14 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Create a user service account
+      summary: Create a service account for the given tenant
       tags:
       - ServiceAccount
   /api/v1/{tenant}/service-accounts/{id}:
     delete:
-      operationId: deleteServiceAccount
+      operationId: deleteServiceAccountForTenant
       parameters:
-      - description: The user id
+      - description: The service account id
         explode: false
         in: path
         name: id
@@ -14152,7 +14439,7 @@ paths:
         "404":
           description: Service account
         "200":
-          description: deleteServiceAccount 200 response
+          description: deleteServiceAccountForTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14160,7 +14447,7 @@ paths:
       tags:
       - ServiceAccount
     get:
-      operationId: getServiceAccount
+      operationId: getServiceAccountForTenant
       parameters:
       - description: The user id
         explode: false
@@ -14185,7 +14472,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountResponse"
-          description: getServiceAccount 200 response
+          description: getServiceAccountForTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14234,7 +14521,7 @@ paths:
       - ServiceAccount
   /api/v1/{tenant}/service-accounts/{id}/api-tokens:
     get:
-      operationId: listApiTokens_1
+      operationId: listApiTokensWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -14257,7 +14544,7 @@ paths:
             application/json:
               schema:
                 type: object
-          description: listApiTokens_1 200 response
+          description: listApiTokensWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14265,7 +14552,7 @@ paths:
       tags:
       - Users
     post:
-      operationId: createApiTokensForUser_1
+      operationId: createApiTokensForUserWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -14295,7 +14582,7 @@ paths:
             application/json:
               schema:
                 type: object
-          description: createApiTokensForUser_1 200 response
+          description: createApiTokensForUserWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -14304,7 +14591,7 @@ paths:
       - Users
   /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
-      operationId: deleteApiToken_1
+      operationId: deleteApiTokenWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -14335,7 +14622,7 @@ paths:
             application/json:
               schema:
                 type: object
-          description: deleteApiToken_1 200 response
+          description: deleteApiTokenWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -16586,6 +16873,15 @@ components:
       required:
       - ids
       type: object
+    ApiPatchSuperAdminRequest:
+      example:
+        superAdmin: true
+      properties:
+        superAdmin:
+          type: boolean
+      required:
+      - superAdmin
+      type: object
     ApiRoleSummary:
       example:
         isDefault: true
@@ -16740,6 +17036,19 @@ components:
       required:
       - deleted
       - logo
+      type: object
+    ApiTenantSummary:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
       type: object
     ApiUser:
       allOf:
@@ -17220,7 +17529,6 @@ components:
           type: READ
           impersonatedBy: impersonatedBy
           userId: userId
-        permission: null
         user:
           lastName: lastName
           auths:
@@ -17268,11 +17576,8 @@ components:
           $ref: "#/components/schemas/AuditLog"
         user:
           $ref: "#/components/schemas/ApiUser"
-        permission:
-          $ref: "#/components/schemas/Permission"
       required:
       - auditLog
-      - permission
       - user
       type: object
     AuditLogController.AuditLogDiff:
@@ -18048,6 +18353,11 @@ components:
         schema:
           $ref: "#/components/schemas/PluginSchema"
       type: object
+    EditionProvider.Edition:
+      enum:
+      - OSS
+      - EE
+      type: string
     Email:
       description: Scim core schema.
       properties:
@@ -19904,14 +20214,18 @@ components:
       type: object
     FlowGenerationPrompt:
       example:
+        conversationId: conversationId
         userPrompt: userPrompt
         flowYaml: flowYaml
       properties:
+        conversationId:
+          type: string
         userPrompt:
           type: string
         flowYaml:
           type: string
       required:
+      - conversationId
       - flowYaml
       - userPrompt
       type: object
@@ -21135,6 +21449,26 @@ components:
       - name
       - permissions
       type: object
+    IAMServiceAccountController.ApiCreateServiceAccountRequest:
+      description: Request payload for updating service account details
+      properties:
+        name:
+          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        description:
+          type: string
+        superAdmin:
+          type: boolean
+        tenants:
+          items:
+            type: string
+          type: array
+      required:
+      - description
+      - name
+      - superAdmin
+      - tenants
+      type: object
     IAMServiceAccountController.ApiGroup:
       example:
         id: id
@@ -21143,6 +21477,54 @@ components:
           type: string
       required:
       - id
+      type: object
+    IAMServiceAccountController.ApiPatchServiceAccountRequest:
+      description: Request payload for updating service account details
+      properties:
+        name:
+          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        description:
+          type: string
+      required:
+      - description
+      - name
+      type: object
+    IAMServiceAccountController.ApiServiceAccountDetail:
+      description: A User Service Account.
+      example:
+        tenants:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        name: name
+        description: description
+        id: id
+        superAdmin: true
+      properties:
+        id:
+          description: the identifier of this service account.
+          type: string
+        name:
+          description: the name of this service account.
+          pattern: "^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"
+          type: string
+        description:
+          description: the description of this service account.
+          type: string
+        tenants:
+          items:
+            $ref: "#/components/schemas/ApiTenantSummary"
+          type: array
+        superAdmin:
+          type: boolean
+      required:
+      - description
+      - id
+      - name
+      - superAdmin
+      - tenants
       type: object
     IAMServiceAccountController.ApiServiceAccountRequest:
       description: A User Service Account.
@@ -21466,32 +21848,12 @@ components:
       required:
       - restricted
       type: object
-    IAMUserController.ApiPatchSuperAdminRequest:
-      properties:
-        superAdmin:
-          type: boolean
-      required:
-      - superAdmin
-      type: object
     IAMUserController.ApiPatchUserPasswordRequest:
       properties:
         password:
           type: string
       required:
       - password
-      type: object
-    IAMUserController.ApiTenant:
-      example:
-        name: name
-        id: id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      required:
-      - id
-      - name
       type: object
     IAMUserController.ApiUser:
       example:
@@ -21535,7 +21897,7 @@ components:
           type: string
         tenants:
           items:
-            $ref: "#/components/schemas/IAMUserController.ApiTenant"
+            $ref: "#/components/schemas/ApiTenantSummary"
           type: array
         auths:
           items:
@@ -21606,7 +21968,7 @@ components:
           type: string
         tenants:
           items:
-            $ref: "#/components/schemas/IAMUserController.ApiTenant"
+            $ref: "#/components/schemas/ApiTenantSummary"
           type: array
         auths:
           items:
@@ -22442,6 +22804,7 @@ components:
         key:
           type: string
         description:
+          nullable: true
           type: string
         creationDate:
           format: date-time
@@ -22451,11 +22814,10 @@ components:
           type: string
         expirationDate:
           format: date-time
+          nullable: true
           type: string
       required:
       - creationDate
-      - description
-      - expirationDate
       - key
       - updateDate
       type: object
@@ -22928,7 +23290,7 @@ components:
         version:
           type: string
         edition:
-          $ref: "#/components/schemas/MiscController.Edition"
+          $ref: "#/components/schemas/EditionProvider.Edition"
         commitId:
           type: string
         commitDate:
@@ -22964,6 +23326,9 @@ components:
           type: boolean
         isBasicAuthInitialized:
           type: boolean
+        pluginsHash:
+          format: int64
+          type: integer
       type: object
     MiscController.EEConfiguration:
       allOf:
@@ -23009,6 +23374,7 @@ components:
         edition: OSS
         pluginManagementEnabled: true
         uuid: uuid
+        pluginsHash: 1
         isCustomDashboardsEnabled: true
         leftSidebar:
           disabledMenus:
@@ -23095,11 +23461,6 @@ components:
         isTemplateEnabled: true
         systemNamespace: systemNamespace
       type: object
-    MiscController.Edition:
-      enum:
-      - OSS
-      - EE
-      type: string
     MiscController.Environment:
       example:
         color: color
@@ -23505,7 +23866,6 @@ components:
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
-          permission: null
           user:
             lastName: lastName
             auths:
@@ -23568,7 +23928,6 @@ components:
             type: READ
             impersonatedBy: impersonatedBy
             userId: userId
-          permission: null
           user:
             lastName: lastName
             auths:
@@ -25089,6 +25448,40 @@ components:
         results:
           items:
             $ref: "#/components/schemas/IAMInvitationController.ApiInvitationDetail"
+          type: array
+        total:
+          format: int64
+          type: integer
+      required:
+      - results
+      - total
+      type: object
+    PagedResults_IAMServiceAccountController.ApiServiceAccountDetail_:
+      example:
+        total: 0
+        results:
+        - tenants:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          name: name
+          description: description
+          id: id
+          superAdmin: true
+        - tenants:
+          - name: name
+            id: id
+          - name: name
+            id: id
+          name: name
+          description: description
+          id: id
+          superAdmin: true
+      properties:
+        results:
+          items:
+            $ref: "#/components/schemas/IAMServiceAccountController.ApiServiceAccountDetail"
           type: array
         total:
           format: int64
@@ -29019,7 +29412,7 @@ components:
       - TERMINATED_GRACEFULLY
       - TERMINATED_FORCED
       - NOT_RUNNING
-      - EMPTY
+      - INACTIVE
       - MAINTENANCE
       type: string
     ServiceInstance:

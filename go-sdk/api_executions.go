@@ -3798,9 +3798,9 @@ type ApiReplayExecutionWithinputsRequest struct {
 	ctx         context.Context
 	ApiService  *ExecutionsAPIService
 	executionId string
+	tenant      string
 	taskRunId   *string
 	revision    *int32
-	tenant      string
 	breakpoints *string
 }
 
@@ -3866,15 +3866,13 @@ func (a *ExecutionsAPIService) ReplayExecutionWithinputsExecute(r ApiReplayExecu
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.taskRunId == nil {
-		return localVarReturnValue, nil, reportError("taskRunId is required and must be specified")
-	}
-	if r.revision == nil {
-		return localVarReturnValue, nil, reportError("revision is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "taskRunId", r.taskRunId, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
+	if r.taskRunId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "taskRunId", r.taskRunId, "form", "")
+	}
+	if r.revision != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "revision", r.revision, "form", "")
+	}
 	if r.breakpoints != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "breakpoints", r.breakpoints, "form", "")
 	}

@@ -2148,9 +2148,9 @@ import (
 
 func main() {
 	executionId := "executionId_example" // string | the original execution id to clone
-	taskRunId := "taskRunId_example" // string | The taskrun id
-	revision := int32(56) // int32 | The flow revision to use for new execution
 	tenant := "tenant_example" // string | 
+	taskRunId := "taskRunId_example" // string | The taskrun id (optional)
+	revision := int32(56) // int32 | The flow revision to use for new execution (optional)
 	breakpoints := "breakpoints_example" // string | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -2182,9 +2182,9 @@ Other parameters are passed through a pointer to a apiReplayExecutionWithinputsR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
  **taskRunId** | **string** | The taskrun id | 
  **revision** | **int32** | The flow revision to use for new execution | 
-
  **breakpoints** | **string** | Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | 
 
 ### Return type

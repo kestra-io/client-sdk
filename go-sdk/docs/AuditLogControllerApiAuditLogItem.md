@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuditLog** | [**AuditLog**](AuditLog.md) |  | 
 **User** | [**ApiUser**](ApiUser.md) |  | 
-**Permission** | [**Permission**](Permission.md) |  | 
 
 ## Methods
 
 ### NewAuditLogControllerApiAuditLogItem
 
-`func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser, permission Permission, ) *AuditLogControllerApiAuditLogItem`
+`func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser, ) *AuditLogControllerApiAuditLogItem`
 
 NewAuditLogControllerApiAuditLogItem instantiates a new AuditLogControllerApiAuditLogItem object
 This constructor will assign default values to properties that have it defined,
@@ -65,26 +64,6 @@ and a boolean to check if the value has been set.
 `func (o *AuditLogControllerApiAuditLogItem) SetUser(v ApiUser)`
 
 SetUser sets User field to given value.
-
-
-### GetPermission
-
-`func (o *AuditLogControllerApiAuditLogItem) GetPermission() Permission`
-
-GetPermission returns the Permission field if non-nil, zero value otherwise.
-
-### GetPermissionOk
-
-`func (o *AuditLogControllerApiAuditLogItem) GetPermissionOk() (*Permission, bool)`
-
-GetPermissionOk returns a tuple with the Permission field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPermission
-
-`func (o *AuditLogControllerApiAuditLogItem) SetPermission(v Permission)`
-
-SetPermission sets Permission field to given value.
 
 
 
