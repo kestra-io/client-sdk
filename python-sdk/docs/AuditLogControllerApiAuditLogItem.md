@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **audit_log** | [**AuditLog**](AuditLog.md) |  | 
 **user** | [**ApiUser**](ApiUser.md) |  | 
-**permission** | [**Permission**](Permission.md) |  | 
 
 ## Example
 

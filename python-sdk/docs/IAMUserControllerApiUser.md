@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **first_name** | **str** |  | 
 **last_name** | **str** |  | 
 **email** | **str** |  | 
-**tenants** | [**List[IAMUserControllerApiTenant]**](IAMUserControllerApiTenant.md) |  | 
+**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
 **auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
 **groups** | [**List[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | 
 **super_admin** | **bool** |  | 

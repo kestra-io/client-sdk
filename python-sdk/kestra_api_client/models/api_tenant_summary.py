@@ -17,20 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FlowGenerationPrompt(BaseModel):
+class ApiTenantSummary(BaseModel):
     """
-    FlowGenerationPrompt
+    ApiTenantSummary
     """ # noqa: E501
-    conversation_id: StrictStr = Field(alias="conversationId")
-    user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: StrictStr = Field(alias="flowYaml")
+    id: StrictStr
+    name: StrictStr
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
+    __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a JSON string"""
+        """Create an instance of ApiTenantSummary from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -82,7 +81,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a dict"""
+        """Create an instance of ApiTenantSummary from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +89,8 @@ class FlowGenerationPrompt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversationId": obj.get("conversationId"),
-            "userPrompt": obj.get("userPrompt"),
-            "flowYaml": obj.get("flowYaml")
+            "id": obj.get("id"),
+            "name": obj.get("name")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

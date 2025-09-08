@@ -18,11 +18,11 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from kestra_api_client.models.banner import Banner
+from kestra_api_client.models.edition_provider_edition import EditionProviderEdition
 from kestra_api_client.models.left_sidebar_configuration import LeftSidebarConfiguration
-from kestra_api_client.models.misc_controller_edition import MiscControllerEdition
 from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment
 from kestra_api_client.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion
 from kestra_api_client.models.misc_controller_preview import MiscControllerPreview
@@ -38,7 +38,7 @@ class MiscControllerEEConfiguration(BaseModel):
     """ # noqa: E501
     uuid: Optional[StrictStr] = None
     version: Optional[StrictStr] = None
-    edition: Optional[MiscControllerEdition] = None
+    edition: Optional[EditionProviderEdition] = None
     commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
     commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
     is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
@@ -54,6 +54,7 @@ class MiscControllerEEConfiguration(BaseModel):
     resource_to_filters: Optional[List[QueryFilterResourceField]] = Field(default=None, alias="resourceToFilters")
     is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
     is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
+    plugins_hash: Optional[StrictInt] = Field(default=None, alias="pluginsHash")
     tenants: Optional[MiscControllerTenantConfigurationInfo] = None
     secrets_enabled: Optional[StrictBool] = Field(default=None, alias="secretsEnabled")
     supported_storages: Optional[List[MiscControllerPluginIdAndVersion]] = Field(default=None, alias="supportedStorages")
@@ -68,7 +69,7 @@ class MiscControllerEEConfiguration(BaseModel):
     in_maintenance: Optional[StrictBool] = Field(default=None, alias="inMaintenance")
     password_regexp: Optional[StrictStr] = Field(default=None, alias="passwordRegexp")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash", "tenants", "secretsEnabled", "supportedStorages", "supportedSecrets", "pluginManagementEnabled", "pluginCustomEnabled", "banner", "mailServiceEnabled", "outputsInInternalStorageEnabled", "leftSidebar", "rightSidebar", "inMaintenance", "passwordRegexp"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -185,6 +186,7 @@ class MiscControllerEEConfiguration(BaseModel):
             "resourceToFilters": [QueryFilterResourceField.from_dict(_item) for _item in obj["resourceToFilters"]] if obj.get("resourceToFilters") is not None else None,
             "isAiEnabled": obj.get("isAiEnabled"),
             "isBasicAuthInitialized": obj.get("isBasicAuthInitialized"),
+            "pluginsHash": obj.get("pluginsHash"),
             "tenants": MiscControllerTenantConfigurationInfo.from_dict(obj["tenants"]) if obj.get("tenants") is not None else None,
             "secretsEnabled": obj.get("secretsEnabled"),
             "supportedStorages": [MiscControllerPluginIdAndVersion.from_dict(_item) for _item in obj["supportedStorages"]] if obj.get("supportedStorages") is not None else None,

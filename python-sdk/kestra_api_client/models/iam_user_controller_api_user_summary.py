@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List
-from kestra_api_client.models.iam_user_controller_api_tenant import IAMUserControllerApiTenant
+from kestra_api_client.models.api_tenant_summary import ApiTenantSummary
 from kestra_api_client.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,7 +31,7 @@ class IAMUserControllerApiUserSummary(BaseModel):
     id: StrictStr
     username: StrictStr
     display_name: StrictStr = Field(alias="displayName")
-    tenants: List[IAMUserControllerApiTenant]
+    tenants: List[ApiTenantSummary]
     auths: List[IAMUserControllerApiUserAuth]
     super_admin: StrictBool = Field(alias="superAdmin")
     additional_properties: Dict[str, Any] = {}
@@ -112,7 +112,7 @@ class IAMUserControllerApiUserSummary(BaseModel):
             "id": obj.get("id"),
             "username": obj.get("username"),
             "displayName": obj.get("displayName"),
-            "tenants": [IAMUserControllerApiTenant.from_dict(_item) for _item in obj["tenants"]] if obj.get("tenants") is not None else None,
+            "tenants": [ApiTenantSummary.from_dict(_item) for _item in obj["tenants"]] if obj.get("tenants") is not None else None,
             "auths": [IAMUserControllerApiUserAuth.from_dict(_item) for _item in obj["auths"]] if obj.get("auths") is not None else None,
             "superAdmin": obj.get("superAdmin")
         })

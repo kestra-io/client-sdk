@@ -17,20 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FlowGenerationPrompt(BaseModel):
+class IAMServiceAccountControllerApiCreateServiceAccountRequest(BaseModel):
     """
-    FlowGenerationPrompt
+    Request payload for updating service account details
     """ # noqa: E501
-    conversation_id: StrictStr = Field(alias="conversationId")
-    user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: StrictStr = Field(alias="flowYaml")
+    name: Annotated[str, Field(strict=True)]
+    description: StrictStr
+    super_admin: StrictBool = Field(alias="superAdmin")
+    tenants: List[StrictStr]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
+    __properties: ClassVar[List[str]] = ["name", "description", "superAdmin", "tenants"]
+
+    @field_validator('name')
+    def name_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$", value):
+            raise ValueError(r"must validate the regular expression /^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$/")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +59,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a JSON string"""
+        """Create an instance of IAMServiceAccountControllerApiCreateServiceAccountRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -82,7 +91,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a dict"""
+        """Create an instance of IAMServiceAccountControllerApiCreateServiceAccountRequest from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +99,10 @@ class FlowGenerationPrompt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversationId": obj.get("conversationId"),
-            "userPrompt": obj.get("userPrompt"),
-            "flowYaml": obj.get("flowYaml")
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "superAdmin": obj.get("superAdmin"),
+            "tenants": obj.get("tenants")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

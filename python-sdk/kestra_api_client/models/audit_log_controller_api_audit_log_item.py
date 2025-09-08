@@ -21,7 +21,6 @@ from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
 from kestra_api_client.models.api_user import ApiUser
 from kestra_api_client.models.audit_log import AuditLog
-from kestra_api_client.models.permission import Permission
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,9 +30,8 @@ class AuditLogControllerApiAuditLogItem(BaseModel):
     """ # noqa: E501
     audit_log: AuditLog = Field(alias="auditLog")
     user: ApiUser
-    permission: Permission
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["auditLog", "user", "permission"]
+    __properties: ClassVar[List[str]] = ["auditLog", "user"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,8 +98,7 @@ class AuditLogControllerApiAuditLogItem(BaseModel):
 
         _obj = cls.model_validate({
             "auditLog": AuditLog.from_dict(obj["auditLog"]) if obj.get("auditLog") is not None else None,
-            "user": ApiUser.from_dict(obj["user"]) if obj.get("user") is not None else None,
-            "permission": obj.get("permission")
+            "user": ApiUser.from_dict(obj["user"]) if obj.get("user") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

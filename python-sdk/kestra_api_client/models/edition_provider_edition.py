@@ -18,28 +18,20 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class ServiceServiceState(str, Enum):
+class EditionProviderEdition(str, Enum):
     """
-    ServiceServiceState
+    EditionProviderEdition
     """
 
     """
     allowed enum values
     """
-    CREATED = 'CREATED'
-    RUNNING = 'RUNNING'
-    ERROR = 'ERROR'
-    DISCONNECTED = 'DISCONNECTED'
-    TERMINATING = 'TERMINATING'
-    TERMINATED_GRACEFULLY = 'TERMINATED_GRACEFULLY'
-    TERMINATED_FORCED = 'TERMINATED_FORCED'
-    NOT_RUNNING = 'NOT_RUNNING'
-    INACTIVE = 'INACTIVE'
-    MAINTENANCE = 'MAINTENANCE'
+    OSS = 'OSS'
+    EE = 'EE'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of ServiceServiceState from a JSON string"""
+        """Create an instance of EditionProviderEdition from a JSON string"""
         return cls(json.loads(json_str))
 
 

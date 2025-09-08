@@ -6,10 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | 
-**description** | **str** |  | 
+**description** | **str** |  | [optional] 
 **creation_date** | **datetime** |  | 
 **update_date** | **datetime** |  | 
-**expiration_date** | **datetime** |  | 
+**expiration_date** | **datetime** |  | [optional] 
 
 ## Example
 

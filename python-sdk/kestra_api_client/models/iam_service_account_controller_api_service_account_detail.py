@@ -17,20 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
+from kestra_api_client.models.api_tenant_summary import ApiTenantSummary
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FlowGenerationPrompt(BaseModel):
+class IAMServiceAccountControllerApiServiceAccountDetail(BaseModel):
     """
-    FlowGenerationPrompt
+    A User Service Account.
     """ # noqa: E501
-    conversation_id: StrictStr = Field(alias="conversationId")
-    user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: StrictStr = Field(alias="flowYaml")
+    id: StrictStr = Field(description="the identifier of this service account.")
+    name: Annotated[str, Field(strict=True)] = Field(description="the name of this service account.")
+    description: StrictStr = Field(description="the description of this service account.")
+    tenants: List[ApiTenantSummary]
+    super_admin: StrictBool = Field(alias="superAdmin")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "tenants", "superAdmin"]
+
+    @field_validator('name')
+    def name_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$", value):
+            raise ValueError(r"must validate the regular expression /^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$/")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +61,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a JSON string"""
+        """Create an instance of IAMServiceAccountControllerApiServiceAccountDetail from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,6 +84,13 @@ class FlowGenerationPrompt(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in tenants (list)
+        _items = []
+        if self.tenants:
+            for _item_tenants in self.tenants:
+                if _item_tenants:
+                    _items.append(_item_tenants.to_dict())
+            _dict['tenants'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -82,7 +100,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a dict"""
+        """Create an instance of IAMServiceAccountControllerApiServiceAccountDetail from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +108,11 @@ class FlowGenerationPrompt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversationId": obj.get("conversationId"),
-            "userPrompt": obj.get("userPrompt"),
-            "flowYaml": obj.get("flowYaml")
+            "id": obj.get("id"),
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "tenants": [ApiTenantSummary.from_dict(_item) for _item in obj["tenants"]] if obj.get("tenants") is not None else None,
+            "superAdmin": obj.get("superAdmin")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

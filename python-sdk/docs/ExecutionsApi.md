@@ -2522,7 +2522,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replay_execution_withinputs**
-> Execution replay_execution_withinputs(execution_id, task_run_id, revision, tenant, breakpoints=breakpoints)
+> Execution replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2564,14 +2564,14 @@ with kestra_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestra_api_client.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | the original execution id to clone
-    task_run_id = 'task_run_id_example' # str | The taskrun id
-    revision = 56 # int | The flow revision to use for new execution
     tenant = 'tenant_example' # str | 
+    task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
+    revision = 56 # int | The flow revision to use for new execution (optional)
     breakpoints = 'breakpoints_example' # str | Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = api_instance.replay_execution_withinputs(execution_id, task_run_id, revision, tenant, breakpoints=breakpoints)
+        api_response = api_instance.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
         print("The response of ExecutionsApi->replay_execution_withinputs:\n")
         pprint(api_response)
     except Exception as e:
@@ -2586,9 +2586,9 @@ with kestra_api_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **execution_id** | **str**| the original execution id to clone | 
- **task_run_id** | **str**| The taskrun id | 
- **revision** | **int**| The flow revision to use for new execution | 
  **tenant** | **str**|  | 
+ **task_run_id** | **str**| The taskrun id | [optional] 
+ **revision** | **int**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **str**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type

@@ -17,20 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List
+from kestra_api_client.models.iam_service_account_controller_api_service_account_detail import IAMServiceAccountControllerApiServiceAccountDetail
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FlowGenerationPrompt(BaseModel):
+class PagedResultsIAMServiceAccountControllerApiServiceAccountDetail(BaseModel):
     """
-    FlowGenerationPrompt
+    PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
     """ # noqa: E501
-    conversation_id: StrictStr = Field(alias="conversationId")
-    user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: StrictStr = Field(alias="flowYaml")
+    results: List[IAMServiceAccountControllerApiServiceAccountDetail]
+    total: StrictInt
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
+    __properties: ClassVar[List[str]] = ["results", "total"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a JSON string"""
+        """Create an instance of PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,6 +73,13 @@ class FlowGenerationPrompt(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item_results in self.results:
+                if _item_results:
+                    _items.append(_item_results.to_dict())
+            _dict['results'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -82,7 +89,7 @@ class FlowGenerationPrompt(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of FlowGenerationPrompt from a dict"""
+        """Create an instance of PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from a dict"""
         if obj is None:
             return None
 
@@ -90,9 +97,8 @@ class FlowGenerationPrompt(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conversationId": obj.get("conversationId"),
-            "userPrompt": obj.get("userPrompt"),
-            "flowYaml": obj.get("flowYaml")
+            "results": [IAMServiceAccountControllerApiServiceAccountDetail.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None,
+            "total": obj.get("total")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

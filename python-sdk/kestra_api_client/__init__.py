@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0-beta5"
+__version__ = "1.0.0-beta6"
 
 # Define package exports
 __all__ = [
@@ -77,6 +77,7 @@ __all__ = [
     "ApiAutocomplete",
     "ApiGroupSummary",
     "ApiIds",
+    "ApiPatchSuperAdminRequest",
     "ApiRoleSummary",
     "ApiSecretListResponse",
     "ApiSecretMeta",
@@ -84,6 +85,7 @@ __all__ = [
     "ApiSecretTag",
     "ApiSecretValue",
     "ApiTenant",
+    "ApiTenantSummary",
     "ApiUser",
     "AppResponse",
     "AppResponseUILayout",
@@ -147,6 +149,7 @@ __all__ = [
     "DeletedInterface",
     "DependsOn",
     "DocumentationWithSchema",
+    "EditionProviderEdition",
     "Email",
     "EventAppResponse",
     "EventExecution",
@@ -214,7 +217,10 @@ __all__ = [
     "IAMRoleControllerApiRoleCreateOrUpdateRequest",
     "IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions",
     "IAMRoleControllerApiRoleDetail",
+    "IAMServiceAccountControllerApiCreateServiceAccountRequest",
     "IAMServiceAccountControllerApiGroup",
+    "IAMServiceAccountControllerApiPatchServiceAccountRequest",
+    "IAMServiceAccountControllerApiServiceAccountDetail",
     "IAMServiceAccountControllerApiServiceAccountRequest",
     "IAMServiceAccountControllerApiServiceAccountResponse",
     "IAMTenantAccessControllerApiAuthentication",
@@ -228,9 +234,7 @@ __all__ = [
     "IAMUserControllerApiCreateOrUpdateUserRequest",
     "IAMUserControllerApiGroup",
     "IAMUserControllerApiPatchRestrictedRequest",
-    "IAMUserControllerApiPatchSuperAdminRequest",
     "IAMUserControllerApiPatchUserPasswordRequest",
-    "IAMUserControllerApiTenant",
     "IAMUserControllerApiUser",
     "IAMUserControllerApiUserAuth",
     "IAMUserControllerApiUserSummary",
@@ -286,7 +290,6 @@ __all__ = [
     "MiscControllerBasicAuthCredentials",
     "MiscControllerConfiguration",
     "MiscControllerEEConfiguration",
-    "MiscControllerEdition",
     "MiscControllerEnvironment",
     "MiscControllerLicenseInfo",
     "MiscControllerPluginIdAndVersion",
@@ -313,6 +316,7 @@ __all__ = [
     "PagedResultsIAMBindingControllerApiBindingDetail",
     "PagedResultsIAMGroupControllerApiGroupMember",
     "PagedResultsIAMInvitationControllerApiInvitationDetail",
+    "PagedResultsIAMServiceAccountControllerApiServiceAccountDetail",
     "PagedResultsIAMTenantAccessControllerApiUserTenantAccess",
     "PagedResultsIAMUserControllerApiUserSummary",
     "PagedResultsInstanceControllerApiPluginArtifact",
@@ -510,6 +514,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.api_autocomplete import ApiAutocomplete as ApiAutocomplete
     from kestra_api_client.models.api_group_summary import ApiGroupSummary as ApiGroupSummary
     from kestra_api_client.models.api_ids import ApiIds as ApiIds
+    from kestra_api_client.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest as ApiPatchSuperAdminRequest
     from kestra_api_client.models.api_role_summary import ApiRoleSummary as ApiRoleSummary
     from kestra_api_client.models.api_secret_list_response import ApiSecretListResponse as ApiSecretListResponse
     from kestra_api_client.models.api_secret_meta import ApiSecretMeta as ApiSecretMeta
@@ -517,6 +522,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.api_secret_tag import ApiSecretTag as ApiSecretTag
     from kestra_api_client.models.api_secret_value import ApiSecretValue as ApiSecretValue
     from kestra_api_client.models.api_tenant import ApiTenant as ApiTenant
+    from kestra_api_client.models.api_tenant_summary import ApiTenantSummary as ApiTenantSummary
     from kestra_api_client.models.api_user import ApiUser as ApiUser
     from kestra_api_client.models.app_response import AppResponse as AppResponse
     from kestra_api_client.models.app_response_ui_layout import AppResponseUILayout as AppResponseUILayout
@@ -580,6 +586,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.deleted_interface import DeletedInterface as DeletedInterface
     from kestra_api_client.models.depends_on import DependsOn as DependsOn
     from kestra_api_client.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
+    from kestra_api_client.models.edition_provider_edition import EditionProviderEdition as EditionProviderEdition
     from kestra_api_client.models.email import Email as Email
     from kestra_api_client.models.event_app_response import EventAppResponse as EventAppResponse
     from kestra_api_client.models.event_execution import EventExecution as EventExecution
@@ -647,7 +654,10 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest as IAMRoleControllerApiRoleCreateOrUpdateRequest
     from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request_permissions import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions as IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
     from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail as IAMRoleControllerApiRoleDetail
+    from kestra_api_client.models.iam_service_account_controller_api_create_service_account_request import IAMServiceAccountControllerApiCreateServiceAccountRequest as IAMServiceAccountControllerApiCreateServiceAccountRequest
     from kestra_api_client.models.iam_service_account_controller_api_group import IAMServiceAccountControllerApiGroup as IAMServiceAccountControllerApiGroup
+    from kestra_api_client.models.iam_service_account_controller_api_patch_service_account_request import IAMServiceAccountControllerApiPatchServiceAccountRequest as IAMServiceAccountControllerApiPatchServiceAccountRequest
+    from kestra_api_client.models.iam_service_account_controller_api_service_account_detail import IAMServiceAccountControllerApiServiceAccountDetail as IAMServiceAccountControllerApiServiceAccountDetail
     from kestra_api_client.models.iam_service_account_controller_api_service_account_request import IAMServiceAccountControllerApiServiceAccountRequest as IAMServiceAccountControllerApiServiceAccountRequest
     from kestra_api_client.models.iam_service_account_controller_api_service_account_response import IAMServiceAccountControllerApiServiceAccountResponse as IAMServiceAccountControllerApiServiceAccountResponse
     from kestra_api_client.models.iam_tenant_access_controller_api_authentication import IAMTenantAccessControllerApiAuthentication as IAMTenantAccessControllerApiAuthentication
@@ -661,9 +671,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.iam_user_controller_api_create_or_update_user_request import IAMUserControllerApiCreateOrUpdateUserRequest as IAMUserControllerApiCreateOrUpdateUserRequest
     from kestra_api_client.models.iam_user_controller_api_group import IAMUserControllerApiGroup as IAMUserControllerApiGroup
     from kestra_api_client.models.iam_user_controller_api_patch_restricted_request import IAMUserControllerApiPatchRestrictedRequest as IAMUserControllerApiPatchRestrictedRequest
-    from kestra_api_client.models.iam_user_controller_api_patch_super_admin_request import IAMUserControllerApiPatchSuperAdminRequest as IAMUserControllerApiPatchSuperAdminRequest
     from kestra_api_client.models.iam_user_controller_api_patch_user_password_request import IAMUserControllerApiPatchUserPasswordRequest as IAMUserControllerApiPatchUserPasswordRequest
-    from kestra_api_client.models.iam_user_controller_api_tenant import IAMUserControllerApiTenant as IAMUserControllerApiTenant
     from kestra_api_client.models.iam_user_controller_api_user import IAMUserControllerApiUser as IAMUserControllerApiUser
     from kestra_api_client.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth as IAMUserControllerApiUserAuth
     from kestra_api_client.models.iam_user_controller_api_user_summary import IAMUserControllerApiUserSummary as IAMUserControllerApiUserSummary
@@ -719,7 +727,6 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials as MiscControllerBasicAuthCredentials
     from kestra_api_client.models.misc_controller_configuration import MiscControllerConfiguration as MiscControllerConfiguration
     from kestra_api_client.models.misc_controller_ee_configuration import MiscControllerEEConfiguration as MiscControllerEEConfiguration
-    from kestra_api_client.models.misc_controller_edition import MiscControllerEdition as MiscControllerEdition
     from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment as MiscControllerEnvironment
     from kestra_api_client.models.misc_controller_license_info import MiscControllerLicenseInfo as MiscControllerLicenseInfo
     from kestra_api_client.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion as MiscControllerPluginIdAndVersion
@@ -746,6 +753,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail as PagedResultsIAMBindingControllerApiBindingDetail
     from kestra_api_client.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember as PagedResultsIAMGroupControllerApiGroupMember
     from kestra_api_client.models.paged_results_iam_invitation_controller_api_invitation_detail import PagedResultsIAMInvitationControllerApiInvitationDetail as PagedResultsIAMInvitationControllerApiInvitationDetail
+    from kestra_api_client.models.paged_results_iam_service_account_controller_api_service_account_detail import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail as PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
     from kestra_api_client.models.paged_results_iam_tenant_access_controller_api_user_tenant_access import PagedResultsIAMTenantAccessControllerApiUserTenantAccess as PagedResultsIAMTenantAccessControllerApiUserTenantAccess
     from kestra_api_client.models.paged_results_iam_user_controller_api_user_summary import PagedResultsIAMUserControllerApiUserSummary as PagedResultsIAMUserControllerApiUserSummary
     from kestra_api_client.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact as PagedResultsInstanceControllerApiPluginArtifact
@@ -949,6 +957,7 @@ from kestra_api_client.models.api_auth import ApiAuth as ApiAuth
 from kestra_api_client.models.api_autocomplete import ApiAutocomplete as ApiAutocomplete
 from kestra_api_client.models.api_group_summary import ApiGroupSummary as ApiGroupSummary
 from kestra_api_client.models.api_ids import ApiIds as ApiIds
+from kestra_api_client.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest as ApiPatchSuperAdminRequest
 from kestra_api_client.models.api_role_summary import ApiRoleSummary as ApiRoleSummary
 from kestra_api_client.models.api_secret_list_response import ApiSecretListResponse as ApiSecretListResponse
 from kestra_api_client.models.api_secret_meta import ApiSecretMeta as ApiSecretMeta
@@ -956,6 +965,7 @@ from kestra_api_client.models.api_secret_meta_ee import ApiSecretMetaEE as ApiSe
 from kestra_api_client.models.api_secret_tag import ApiSecretTag as ApiSecretTag
 from kestra_api_client.models.api_secret_value import ApiSecretValue as ApiSecretValue
 from kestra_api_client.models.api_tenant import ApiTenant as ApiTenant
+from kestra_api_client.models.api_tenant_summary import ApiTenantSummary as ApiTenantSummary
 from kestra_api_client.models.api_user import ApiUser as ApiUser
 from kestra_api_client.models.app_response import AppResponse as AppResponse
 from kestra_api_client.models.app_response_ui_layout import AppResponseUILayout as AppResponseUILayout
@@ -1019,6 +1029,7 @@ from kestra_api_client.models.delete_executions_by_query_request import DeleteEx
 from kestra_api_client.models.deleted_interface import DeletedInterface as DeletedInterface
 from kestra_api_client.models.depends_on import DependsOn as DependsOn
 from kestra_api_client.models.documentation_with_schema import DocumentationWithSchema as DocumentationWithSchema
+from kestra_api_client.models.edition_provider_edition import EditionProviderEdition as EditionProviderEdition
 from kestra_api_client.models.email import Email as Email
 from kestra_api_client.models.event_app_response import EventAppResponse as EventAppResponse
 from kestra_api_client.models.event_execution import EventExecution as EventExecution
@@ -1086,7 +1097,10 @@ from kestra_api_client.models.iam_invitation_controller_api_invitation_role impo
 from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest as IAMRoleControllerApiRoleCreateOrUpdateRequest
 from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request_permissions import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions as IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail as IAMRoleControllerApiRoleDetail
+from kestra_api_client.models.iam_service_account_controller_api_create_service_account_request import IAMServiceAccountControllerApiCreateServiceAccountRequest as IAMServiceAccountControllerApiCreateServiceAccountRequest
 from kestra_api_client.models.iam_service_account_controller_api_group import IAMServiceAccountControllerApiGroup as IAMServiceAccountControllerApiGroup
+from kestra_api_client.models.iam_service_account_controller_api_patch_service_account_request import IAMServiceAccountControllerApiPatchServiceAccountRequest as IAMServiceAccountControllerApiPatchServiceAccountRequest
+from kestra_api_client.models.iam_service_account_controller_api_service_account_detail import IAMServiceAccountControllerApiServiceAccountDetail as IAMServiceAccountControllerApiServiceAccountDetail
 from kestra_api_client.models.iam_service_account_controller_api_service_account_request import IAMServiceAccountControllerApiServiceAccountRequest as IAMServiceAccountControllerApiServiceAccountRequest
 from kestra_api_client.models.iam_service_account_controller_api_service_account_response import IAMServiceAccountControllerApiServiceAccountResponse as IAMServiceAccountControllerApiServiceAccountResponse
 from kestra_api_client.models.iam_tenant_access_controller_api_authentication import IAMTenantAccessControllerApiAuthentication as IAMTenantAccessControllerApiAuthentication
@@ -1100,9 +1114,7 @@ from kestra_api_client.models.iam_tenant_access_controller_user_api_autocomplete
 from kestra_api_client.models.iam_user_controller_api_create_or_update_user_request import IAMUserControllerApiCreateOrUpdateUserRequest as IAMUserControllerApiCreateOrUpdateUserRequest
 from kestra_api_client.models.iam_user_controller_api_group import IAMUserControllerApiGroup as IAMUserControllerApiGroup
 from kestra_api_client.models.iam_user_controller_api_patch_restricted_request import IAMUserControllerApiPatchRestrictedRequest as IAMUserControllerApiPatchRestrictedRequest
-from kestra_api_client.models.iam_user_controller_api_patch_super_admin_request import IAMUserControllerApiPatchSuperAdminRequest as IAMUserControllerApiPatchSuperAdminRequest
 from kestra_api_client.models.iam_user_controller_api_patch_user_password_request import IAMUserControllerApiPatchUserPasswordRequest as IAMUserControllerApiPatchUserPasswordRequest
-from kestra_api_client.models.iam_user_controller_api_tenant import IAMUserControllerApiTenant as IAMUserControllerApiTenant
 from kestra_api_client.models.iam_user_controller_api_user import IAMUserControllerApiUser as IAMUserControllerApiUser
 from kestra_api_client.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth as IAMUserControllerApiUserAuth
 from kestra_api_client.models.iam_user_controller_api_user_summary import IAMUserControllerApiUserSummary as IAMUserControllerApiUserSummary
@@ -1158,7 +1170,6 @@ from kestra_api_client.models.misc_controller_api_usage import MiscControllerApi
 from kestra_api_client.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials as MiscControllerBasicAuthCredentials
 from kestra_api_client.models.misc_controller_configuration import MiscControllerConfiguration as MiscControllerConfiguration
 from kestra_api_client.models.misc_controller_ee_configuration import MiscControllerEEConfiguration as MiscControllerEEConfiguration
-from kestra_api_client.models.misc_controller_edition import MiscControllerEdition as MiscControllerEdition
 from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment as MiscControllerEnvironment
 from kestra_api_client.models.misc_controller_license_info import MiscControllerLicenseInfo as MiscControllerLicenseInfo
 from kestra_api_client.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion as MiscControllerPluginIdAndVersion
@@ -1185,6 +1196,7 @@ from kestra_api_client.models.paged_results_flow import PagedResultsFlow as Page
 from kestra_api_client.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail as PagedResultsIAMBindingControllerApiBindingDetail
 from kestra_api_client.models.paged_results_iam_group_controller_api_group_member import PagedResultsIAMGroupControllerApiGroupMember as PagedResultsIAMGroupControllerApiGroupMember
 from kestra_api_client.models.paged_results_iam_invitation_controller_api_invitation_detail import PagedResultsIAMInvitationControllerApiInvitationDetail as PagedResultsIAMInvitationControllerApiInvitationDetail
+from kestra_api_client.models.paged_results_iam_service_account_controller_api_service_account_detail import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail as PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
 from kestra_api_client.models.paged_results_iam_tenant_access_controller_api_user_tenant_access import PagedResultsIAMTenantAccessControllerApiUserTenantAccess as PagedResultsIAMTenantAccessControllerApiUserTenantAccess
 from kestra_api_client.models.paged_results_iam_user_controller_api_user_summary import PagedResultsIAMUserControllerApiUserSummary as PagedResultsIAMUserControllerApiUserSummary
 from kestra_api_client.models.paged_results_instance_controller_api_plugin_artifact import PagedResultsInstanceControllerApiPluginArtifact as PagedResultsInstanceControllerApiPluginArtifact

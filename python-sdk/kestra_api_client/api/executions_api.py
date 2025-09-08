@@ -9029,9 +9029,9 @@ class ExecutionsApi:
     def replay_execution_withinputs(
         self,
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        revision: Annotated[StrictInt, Field(description="The flow revision to use for new execution")],
         tenant: StrictStr,
+        task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
@@ -9051,12 +9051,12 @@ class ExecutionsApi:
 
         :param execution_id: the original execution id to clone (required)
         :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param revision: The flow revision to use for new execution (required)
-        :type revision: int
         :param tenant: (required)
         :type tenant: str
+        :param task_run_id: The taskrun id
+        :type task_run_id: str
+        :param revision: The flow revision to use for new execution
+        :type revision: int
         :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
@@ -9083,9 +9083,9 @@ class ExecutionsApi:
 
         _param = self._replay_execution_withinputs_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            tenant=tenant,
             breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -9111,9 +9111,9 @@ class ExecutionsApi:
     def replay_execution_withinputs_with_http_info(
         self,
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        revision: Annotated[StrictInt, Field(description="The flow revision to use for new execution")],
         tenant: StrictStr,
+        task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
@@ -9133,12 +9133,12 @@ class ExecutionsApi:
 
         :param execution_id: the original execution id to clone (required)
         :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param revision: The flow revision to use for new execution (required)
-        :type revision: int
         :param tenant: (required)
         :type tenant: str
+        :param task_run_id: The taskrun id
+        :type task_run_id: str
+        :param revision: The flow revision to use for new execution
+        :type revision: int
         :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
@@ -9165,9 +9165,9 @@ class ExecutionsApi:
 
         _param = self._replay_execution_withinputs_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            tenant=tenant,
             breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -9193,9 +9193,9 @@ class ExecutionsApi:
     def replay_execution_withinputs_without_preload_content(
         self,
         execution_id: Annotated[StrictStr, Field(description="the original execution id to clone")],
-        task_run_id: Annotated[StrictStr, Field(description="The taskrun id")],
-        revision: Annotated[StrictInt, Field(description="The flow revision to use for new execution")],
         tenant: StrictStr,
+        task_run_id: Annotated[Optional[StrictStr], Field(description="The taskrun id")] = None,
+        revision: Annotated[Optional[StrictInt], Field(description="The flow revision to use for new execution")] = None,
         breakpoints: Annotated[Optional[StrictStr], Field(description="Set a list of breakpoints at specific tasks 'id.value', separated by a coma.")] = None,
         _request_timeout: Union[
             None,
@@ -9215,12 +9215,12 @@ class ExecutionsApi:
 
         :param execution_id: the original execution id to clone (required)
         :type execution_id: str
-        :param task_run_id: The taskrun id (required)
-        :type task_run_id: str
-        :param revision: The flow revision to use for new execution (required)
-        :type revision: int
         :param tenant: (required)
         :type tenant: str
+        :param task_run_id: The taskrun id
+        :type task_run_id: str
+        :param revision: The flow revision to use for new execution
+        :type revision: int
         :param breakpoints: Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         :type breakpoints: str
         :param _request_timeout: timeout setting for this request. If one
@@ -9247,9 +9247,9 @@ class ExecutionsApi:
 
         _param = self._replay_execution_withinputs_serialize(
             execution_id=execution_id,
+            tenant=tenant,
             task_run_id=task_run_id,
             revision=revision,
-            tenant=tenant,
             breakpoints=breakpoints,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -9270,9 +9270,9 @@ class ExecutionsApi:
     def _replay_execution_withinputs_serialize(
         self,
         execution_id,
+        tenant,
         task_run_id,
         revision,
-        tenant,
         breakpoints,
         _request_auth,
         _content_type,

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uuid** | **str** |  | [optional] 
 **version** | **str** |  | [optional] 
-**edition** | [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
+**edition** | [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **commit_id** | **str** |  | [optional] 
 **commit_date** | **datetime** |  | [optional] 
 **is_custom_dashboards_enabled** | **bool** |  | [optional] 
@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **resource_to_filters** | [**List[QueryFilterResourceField]**](QueryFilterResourceField.md) |  | [optional] 
 **is_ai_enabled** | **bool** |  | [optional] 
 **is_basic_auth_initialized** | **bool** |  | [optional] 
+**plugins_hash** | **int** |  | [optional] 
 
 ## Example
 

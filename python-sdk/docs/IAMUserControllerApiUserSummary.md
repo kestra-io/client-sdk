@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **username** | **str** |  | 
 **display_name** | **str** |  | 
-**tenants** | [**List[IAMUserControllerApiTenant]**](IAMUserControllerApiTenant.md) |  | 
+**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
 **auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
 **super_admin** | **bool** |  | 
 

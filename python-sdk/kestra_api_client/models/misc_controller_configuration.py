@@ -18,9 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from kestra_api_client.models.misc_controller_edition import MiscControllerEdition
+from kestra_api_client.models.edition_provider_edition import EditionProviderEdition
 from kestra_api_client.models.misc_controller_environment import MiscControllerEnvironment
 from kestra_api_client.models.misc_controller_preview import MiscControllerPreview
 from kestra_api_client.models.query_filter_resource_field import QueryFilterResourceField
@@ -33,7 +33,7 @@ class MiscControllerConfiguration(BaseModel):
     """ # noqa: E501
     uuid: Optional[StrictStr] = None
     version: Optional[StrictStr] = None
-    edition: Optional[MiscControllerEdition] = None
+    edition: Optional[EditionProviderEdition] = None
     commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
     commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
     is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
@@ -49,8 +49,9 @@ class MiscControllerConfiguration(BaseModel):
     resource_to_filters: Optional[List[QueryFilterResourceField]] = Field(default=None, alias="resourceToFilters")
     is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
     is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
+    plugins_hash: Optional[StrictInt] = Field(default=None, alias="pluginsHash")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -140,7 +141,8 @@ class MiscControllerConfiguration(BaseModel):
             "hiddenLabelsPrefixes": obj.get("hiddenLabelsPrefixes"),
             "resourceToFilters": [QueryFilterResourceField.from_dict(_item) for _item in obj["resourceToFilters"]] if obj.get("resourceToFilters") is not None else None,
             "isAiEnabled": obj.get("isAiEnabled"),
-            "isBasicAuthInitialized": obj.get("isBasicAuthInitialized")
+            "isBasicAuthInitialized": obj.get("isBasicAuthInitialized"),
+            "pluginsHash": obj.get("pluginsHash")
         })
         # store additional fields in additional_properties
         for _key in obj.keys():
