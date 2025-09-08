@@ -43,9 +43,9 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     --additional-properties=packageVersion=$VERSION \
     --template-dir=/local/templates/python
 
-sed -i 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
-sed -i 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
-sed -i '/from kestra_api_client\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestra_api_client/api/executions_api.py
+sed -i '' -E 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
+sed -i '' -E 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
+sed -i '' -E '/from kestra_api_client\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestra_api_client/api/executions_api.py
 grep -vF '{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}' python-sdk/kestra_api_client/models/task.py > temp_file && mv temp_file python-sdk/kestra_api_client/models/task.py
 echo "from kestra_api_client.kestra_client import KestraClient as KestraClient" >> python-sdk/kestra_api_client/__init__.py
 fi

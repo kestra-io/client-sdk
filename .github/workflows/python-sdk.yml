@@ -38,6 +38,13 @@ jobs:
       - name: Install deps
         run: pip install -r requirements.txt
 
+      - name: Install tests deps
+        run: pip install -r test-requirements.txt
+
+      - name: Test with pytest
+        run: |
+          pytest --cov=kestra_api_client
+
       - name: Build a binary wheel and a source tarball
         env:
           VERSION: ${{ github.ref_name }}

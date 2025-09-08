@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0-beta6"
+__version__ = "1.0.0"
 
 # Define package exports
 __all__ = [
@@ -487,7 +487,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.api.users_api import UsersApi as UsersApi
     from kestra_api_client.api.worker_groups_api import WorkerGroupsApi as WorkerGroupsApi
     from kestra_api_client.api.default_api import DefaultApi as DefaultApi
-    
+
     # import ApiClient
     from kestra_api_client.api_response import ApiResponse as ApiResponse
     from kestra_api_client.api_client import ApiClient as ApiClient
@@ -498,7 +498,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.exceptions import ApiKeyError as ApiKeyError
     from kestra_api_client.exceptions import ApiAttributeError as ApiAttributeError
     from kestra_api_client.exceptions import ApiException as ApiException
-    
+
     # import models into sdk package
     from kestra_api_client.models.abstract_flow import AbstractFlow as AbstractFlow
     from kestra_api_client.models.abstract_flow_labels import AbstractFlowLabels as AbstractFlowLabels
@@ -884,7 +884,8 @@ if __import__("typing").TYPE_CHECKING:
     from kestra_api_client.models.worker_group import WorkerGroup as WorkerGroup
     from kestra_api_client.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
     from kestra_api_client.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
-    
+    from kestra_api_client.kestra_client import KestraClient as KestraClient
+
 else:
     from lazy_imports import LazyModule, as_package, load
 
@@ -935,6 +936,7 @@ from kestra_api_client.api.default_api import DefaultApi as DefaultApi
 from kestra_api_client.api_response import ApiResponse as ApiResponse
 from kestra_api_client.api_client import ApiClient as ApiClient
 from kestra_api_client.configuration import Configuration as Configuration
+from kestra_api_client.kestra_client import KestraClient as KestraClient
 from kestra_api_client.exceptions import OpenApiException as OpenApiException
 from kestra_api_client.exceptions import ApiTypeError as ApiTypeError
 from kestra_api_client.exceptions import ApiValueError as ApiValueError

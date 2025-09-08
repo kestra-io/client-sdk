@@ -13,16 +13,10 @@ else
   KESTRA_VERSION=$(cat ../COMPATIBLE_KESTRA_VERSION.properties)
 fi
 
-#CURRENT_TIMESTAMP=$(date -u "+%Y%m%d%H%M%S" 2>/dev/null || date -u -j "+%Y%m%d%H%M%S")
-
-LOCAL_CI_VERSION_TO_TEST="local-ci-version"
-
 echo "/n------------------------------------------------"
 echo "Build local SDK and test it in an example project"
 echo "docker KESTRA_VERSION used: $KESTRA_VERSION\n"
 
-echo "publish a local version $LOCAL_CI_VERSION_TO_TEST"
-log_and_run ./gradlew publishToMavenLocal -PciVersionOverride="${LOCAL_CI_VERSION_TO_TEST}"
 
 echo "start Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down
@@ -34,11 +28,14 @@ log_and_run docker compose -f docker-compose-ci.yml up -d --wait || {
    exit 1;
 }
 
-echo "compile"
-log_and_run sh -c 'cd ./java-sdk-test && ./gradlew clean compileJava'
+echo "install requirements"
+log_and_run pip install -r requirements.txt -r test-requirements.txt
+
+echo "install SDK locally so it can be imported and used in e2e tests"
+log_and_run pip install -e .
 
 echo "start tests"
-log_and_run sh -c 'cd ./java-sdk-test && ./gradlew check --info -Dtest.showStandardStreams=true'
+log_and_run pytest ./test_python_sdk
 
 echo "stop Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down

@@ -22,8 +22,6 @@ from .api.misc_api import MiscApi
 from .api.namespaces_api import NamespacesApi
 from .api.plugins_api import PluginsApi
 from .api.roles_api import RolesApi
-from .api.scim_api import SCIMApi
-from .api.scim_configuration_api import SCIMConfigurationApi
 from .api.security_integrations_api import SecurityIntegrationsApi
 from .api.services_api import ServicesApi
 from .api.tenants_api import TenantsApi
@@ -57,8 +55,6 @@ class KestraClient:
     namespaces: NamespacesApi = None
     plugins: PluginsApi = None
     roles: RolesApi = None
-    scim: SCIMApi = None
-    scim_configuration: SCIMConfigurationApi = None
     security_integrations: SecurityIntegrationsApi = None
     services: ServicesApi = None
     tenants: TenantsApi = None
@@ -91,12 +87,9 @@ class KestraClient:
         self.logs = LogsApi(self.api_client)
         self.maintenance = MaintenanceApi(self.api_client)
         self.metrics = MetricsApi(self.api_client)
-        self.misc = MiscApi(self.api_client)
         self.namespaces = NamespacesApi(self.api_client)
         self.plugins = PluginsApi(self.api_client)
         self.roles = RolesApi(self.api_client)
-        self.scim = SCIMApi(self.api_client)
-        self.scim_configuration = SCIMConfigurationApi(self.api_client)
         self.security_integrations = SecurityIntegrationsApi(self.api_client)
         self.services = ServicesApi(self.api_client)
         self.tenants = TenantsApi(self.api_client)

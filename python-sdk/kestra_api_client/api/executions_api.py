@@ -38,7 +38,6 @@ from kestra_api_client.models.flow_for_execution import FlowForExecution
 from kestra_api_client.models.flow_graph import FlowGraph
 from kestra_api_client.models.flow_scope import FlowScope
 from kestra_api_client.models.label import Label
-from kestra_api_client.models.list[label] import List[Label]
 from kestra_api_client.models.paged_results_execution import PagedResultsExecution
 from kestra_api_client.models.paged_results_task_run import PagedResultsTaskRun
 from kestra_api_client.models.query_filter import QueryFilter
