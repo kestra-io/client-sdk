@@ -2633,15 +2633,15 @@ public class ExecutionsApi extends BaseApi {
    * Create a new execution from an old one and start it from a specified task run id
    * 
    * @param executionId the original execution id to clone (required)
-   * @param taskRunId The taskrun id (required)
-   * @param revision The flow revision to use for new execution (required)
    * @param tenant  (required)
+   * @param taskRunId The taskrun id (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull Integer revision, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints) throws ApiException {
-    return this.replayExecutionWithinputs(executionId, taskRunId, revision, tenant, breakpoints, Collections.emptyMap());
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints) throws ApiException {
+    return this.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints, Collections.emptyMap());
   }
 
 
@@ -2649,30 +2649,20 @@ public class ExecutionsApi extends BaseApi {
    * Create a new execution from an old one and start it from a specified task run id
    * 
    * @param executionId the original execution id to clone (required)
-   * @param taskRunId The taskrun id (required)
-   * @param revision The flow revision to use for new execution (required)
    * @param tenant  (required)
+   * @param taskRunId The taskrun id (optional)
+   * @param revision The flow revision to use for new execution (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return Execution
    * @throws ApiException if fails to make API call
    */
-  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String taskRunId, @javax.annotation.Nonnull Integer revision, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
+  public Execution replayExecutionWithinputs(@javax.annotation.Nonnull String executionId, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable String taskRunId, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable String breakpoints, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'executionId' is set
     if (executionId == null) {
       throw new ApiException(400, "Missing the required parameter 'executionId' when calling replayExecutionWithinputs");
-    }
-    
-    // verify the required parameter 'taskRunId' is set
-    if (taskRunId == null) {
-      throw new ApiException(400, "Missing the required parameter 'taskRunId' when calling replayExecutionWithinputs");
-    }
-    
-    // verify the required parameter 'revision' is set
-    if (revision == null) {
-      throw new ApiException(400, "Missing the required parameter 'revision' when calling replayExecutionWithinputs");
     }
     
     // verify the required parameter 'tenant' is set

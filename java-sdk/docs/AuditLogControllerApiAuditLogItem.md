@@ -9,7 +9,6 @@
 |------------ | ------------- | ------------- | -------------|
 |**auditLog** | [**AuditLog**](AuditLog.md) |  |  |
 |**user** | [**ApiUser**](ApiUser.md) |  |  |
-|**permission** | **Permission** |  |  |
 
 
 

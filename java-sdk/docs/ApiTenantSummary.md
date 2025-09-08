@@ -1,13 +1,14 @@
 
 
-# IAMUserControllerApiPatchSuperAdminRequest
+# ApiTenantSummary
 
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**superAdmin** | **Boolean** |  |  |
+|**id** | **String** |  |  |
+|**name** | **String** |  |  |
 
 
 

@@ -10,7 +10,7 @@
 |**id** | **String** |  |  |
 |**username** | **String** |  |  |
 |**displayName** | **String** |  |  |
-|**tenants** | [**List&lt;IAMUserControllerApiTenant&gt;**](IAMUserControllerApiTenant.md) |  |  |
+|**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  |
 |**auths** | [**List&lt;IAMUserControllerApiUserAuth&gt;**](IAMUserControllerApiUserAuth.md) |  |  |
 |**superAdmin** | **Boolean** |  |  |
 

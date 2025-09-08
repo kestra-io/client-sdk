@@ -22,9 +22,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Gets or Sets MiscController.Edition
+ * Gets or Sets EditionProvider.Edition
  */
-public enum MiscControllerEdition {
+public enum EditionProviderEdition {
   
   OSS("OSS"),
   
@@ -32,7 +32,7 @@ public enum MiscControllerEdition {
 
   private String value;
 
-  MiscControllerEdition(String value) {
+  EditionProviderEdition(String value) {
     this.value = value;
   }
 
@@ -47,8 +47,8 @@ public enum MiscControllerEdition {
   }
 
   @JsonCreator
-  public static MiscControllerEdition fromValue(String value) {
-    for (MiscControllerEdition b : MiscControllerEdition.values()) {
+  public static EditionProviderEdition fromValue(String value) {
+    for (EditionProviderEdition b : EditionProviderEdition.values()) {
       if (b.value.equals(value)) {
         return b;
       }

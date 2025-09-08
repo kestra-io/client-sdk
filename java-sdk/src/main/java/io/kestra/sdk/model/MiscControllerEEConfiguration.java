@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Banner;
+import io.kestra.sdk.model.EditionProviderEdition;
 import io.kestra.sdk.model.LeftSidebarConfiguration;
-import io.kestra.sdk.model.MiscControllerEdition;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
@@ -58,6 +58,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEEConfiguration.JSON_PROPERTY_RESOURCE_TO_FILTERS,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_PLUGINS_HASH,
   MiscControllerEEConfiguration.JSON_PROPERTY_TENANTS,
   MiscControllerEEConfiguration.JSON_PROPERTY_SECRETS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_SUPPORTED_STORAGES,
@@ -85,7 +86,7 @@ public class MiscControllerEEConfiguration {
 
   public static final String JSON_PROPERTY_EDITION = "edition";
   @javax.annotation.Nullable
-  private MiscControllerEdition edition;
+  private EditionProviderEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
   @javax.annotation.Nullable
@@ -146,6 +147,10 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED = "isBasicAuthInitialized";
   @javax.annotation.Nullable
   private Boolean isBasicAuthInitialized;
+
+  public static final String JSON_PROPERTY_PLUGINS_HASH = "pluginsHash";
+  @javax.annotation.Nullable
+  private Long pluginsHash;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @javax.annotation.Nullable
@@ -252,7 +257,7 @@ public class MiscControllerEEConfiguration {
     this.version = version;
   }
 
-  public MiscControllerEEConfiguration edition(@javax.annotation.Nullable MiscControllerEdition edition) {
+  public MiscControllerEEConfiguration edition(@javax.annotation.Nullable EditionProviderEdition edition) {
     
     this.edition = edition;
     return this;
@@ -266,14 +271,14 @@ public class MiscControllerEEConfiguration {
   @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public MiscControllerEdition getEdition() {
+  public EditionProviderEdition getEdition() {
     return edition;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEdition(@javax.annotation.Nullable MiscControllerEdition edition) {
+  public void setEdition(@javax.annotation.Nullable EditionProviderEdition edition) {
     this.edition = edition;
   }
 
@@ -668,6 +673,31 @@ public class MiscControllerEEConfiguration {
     this.isBasicAuthInitialized = isBasicAuthInitialized;
   }
 
+  public MiscControllerEEConfiguration pluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+    
+    this.pluginsHash = pluginsHash;
+    return this;
+  }
+
+  /**
+   * Get pluginsHash
+   * @return pluginsHash
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getPluginsHash() {
+    return pluginsHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+    this.pluginsHash = pluginsHash;
+  }
+
   public MiscControllerEEConfiguration tenants(@javax.annotation.Nullable MiscControllerTenantConfigurationInfo tenants) {
     
     this.tenants = tenants;
@@ -1036,6 +1066,7 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.resourceToFilters, miscControllerEEConfiguration.resourceToFilters) &&
         Objects.equals(this.isAiEnabled, miscControllerEEConfiguration.isAiEnabled) &&
         Objects.equals(this.isBasicAuthInitialized, miscControllerEEConfiguration.isBasicAuthInitialized) &&
+        Objects.equals(this.pluginsHash, miscControllerEEConfiguration.pluginsHash) &&
         Objects.equals(this.tenants, miscControllerEEConfiguration.tenants) &&
         Objects.equals(this.secretsEnabled, miscControllerEEConfiguration.secretsEnabled) &&
         Objects.equals(this.supportedStorages, miscControllerEEConfiguration.supportedStorages) &&
@@ -1053,7 +1084,7 @@ public class MiscControllerEEConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, pluginsHash, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
   }
 
   @Override
@@ -1078,6 +1109,7 @@ public class MiscControllerEEConfiguration {
     sb.append("    resourceToFilters: ").append(toIndentedString(resourceToFilters)).append("\n");
     sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
     sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
+    sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
     sb.append("    secretsEnabled: ").append(toIndentedString(secretsEnabled)).append("\n");
     sb.append("    supportedStorages: ").append(toIndentedString(supportedStorages)).append("\n");

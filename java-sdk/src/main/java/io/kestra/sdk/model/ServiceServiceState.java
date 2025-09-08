@@ -42,7 +42,7 @@ public enum ServiceServiceState {
   
   NOT_RUNNING("NOT_RUNNING"),
   
-  EMPTY("EMPTY"),
+  INACTIVE("INACTIVE"),
   
   MAINTENANCE("MAINTENANCE");
 

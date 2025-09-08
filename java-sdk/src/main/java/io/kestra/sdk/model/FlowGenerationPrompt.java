@@ -27,11 +27,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * FlowGenerationPrompt
  */
 @JsonPropertyOrder({
+  FlowGenerationPrompt.JSON_PROPERTY_CONVERSATION_ID,
   FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
   FlowGenerationPrompt.JSON_PROPERTY_FLOW_YAML
 })
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
 public class FlowGenerationPrompt {
+  public static final String JSON_PROPERTY_CONVERSATION_ID = "conversationId";
+  @javax.annotation.Nonnull
+  private String conversationId;
+
   public static final String JSON_PROPERTY_USER_PROMPT = "userPrompt";
   @javax.annotation.Nonnull
   private String userPrompt;
@@ -41,6 +46,31 @@ public class FlowGenerationPrompt {
   private String flowYaml;
 
   public FlowGenerationPrompt() {
+  }
+
+  public FlowGenerationPrompt conversationId(@javax.annotation.Nonnull String conversationId) {
+    
+    this.conversationId = conversationId;
+    return this;
+  }
+
+  /**
+   * Get conversationId
+   * @return conversationId
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getConversationId() {
+    return conversationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setConversationId(@javax.annotation.Nonnull String conversationId) {
+    this.conversationId = conversationId;
   }
 
   public FlowGenerationPrompt userPrompt(@javax.annotation.Nonnull String userPrompt) {
@@ -102,19 +132,21 @@ public class FlowGenerationPrompt {
       return false;
     }
     FlowGenerationPrompt flowGenerationPrompt = (FlowGenerationPrompt) o;
-    return Objects.equals(this.userPrompt, flowGenerationPrompt.userPrompt) &&
+    return Objects.equals(this.conversationId, flowGenerationPrompt.conversationId) &&
+        Objects.equals(this.userPrompt, flowGenerationPrompt.userPrompt) &&
         Objects.equals(this.flowYaml, flowGenerationPrompt.flowYaml);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userPrompt, flowYaml);
+    return Objects.hash(conversationId, userPrompt, flowYaml);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FlowGenerationPrompt {\n");
+    sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
     sb.append("    userPrompt: ").append(toIndentedString(userPrompt)).append("\n");
     sb.append("    flowYaml: ").append(toIndentedString(flowYaml)).append("\n");
     sb.append("}");

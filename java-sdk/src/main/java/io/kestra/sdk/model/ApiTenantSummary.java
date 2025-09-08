@@ -24,44 +24,73 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * IAMUserControllerApiPatchSuperAdminRequest
+ * ApiTenantSummary
  */
 @JsonPropertyOrder({
-  IAMUserControllerApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN
+  ApiTenantSummary.JSON_PROPERTY_ID,
+  ApiTenantSummary.JSON_PROPERTY_NAME
 })
-@JsonTypeName("IAMUserController.ApiPatchSuperAdminRequest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class IAMUserControllerApiPatchSuperAdminRequest {
-  public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
+public class ApiTenantSummary {
+  public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
-  private Boolean superAdmin;
+  private String id;
 
-  public IAMUserControllerApiPatchSuperAdminRequest() {
+  public static final String JSON_PROPERTY_NAME = "name";
+  @javax.annotation.Nonnull
+  private String name;
+
+  public ApiTenantSummary() {
   }
 
-  public IAMUserControllerApiPatchSuperAdminRequest superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public ApiTenantSummary id(@javax.annotation.Nonnull String id) {
     
-    this.superAdmin = superAdmin;
+    this.id = id;
     return this;
   }
 
   /**
-   * Get superAdmin
-   * @return superAdmin
+   * Get id
+   * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public Boolean getSuperAdmin() {
-    return superAdmin;
+  public String getId() {
+    return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
-    this.superAdmin = superAdmin;
+  public void setId(@javax.annotation.Nonnull String id) {
+    this.id = id;
+  }
+
+  public ApiTenantSummary name(@javax.annotation.Nonnull String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Get name
+   * @return name
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(@javax.annotation.Nonnull String name) {
+    this.name = name;
   }
 
   @Override
@@ -72,20 +101,22 @@ public class IAMUserControllerApiPatchSuperAdminRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IAMUserControllerApiPatchSuperAdminRequest iaMUserControllerApiPatchSuperAdminRequest = (IAMUserControllerApiPatchSuperAdminRequest) o;
-    return Objects.equals(this.superAdmin, iaMUserControllerApiPatchSuperAdminRequest.superAdmin);
+    ApiTenantSummary apiTenantSummary = (ApiTenantSummary) o;
+    return Objects.equals(this.id, apiTenantSummary.id) &&
+        Objects.equals(this.name, apiTenantSummary.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superAdmin);
+    return Objects.hash(id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class IAMUserControllerApiPatchSuperAdminRequest {\n");
-    sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
+    sb.append("class ApiTenantSummary {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

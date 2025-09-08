@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.ApiTenantSummary;
-import io.kestra.sdk.model.IAMUserControllerApiUserAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,54 +28,49 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * IAMUserControllerApiUserSummary
+ * A User Service Account.
  */
 @JsonPropertyOrder({
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_ID,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_USERNAME,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_DISPLAY_NAME,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_TENANTS,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_AUTHS,
-  IAMUserControllerApiUserSummary.JSON_PROPERTY_SUPER_ADMIN
+  IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_ID,
+  IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_NAME,
+  IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_DESCRIPTION,
+  IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_TENANTS,
+  IAMServiceAccountControllerApiServiceAccountDetail.JSON_PROPERTY_SUPER_ADMIN
 })
-@JsonTypeName("IAMUserController.ApiUserSummary")
+@JsonTypeName("IAMServiceAccountController.ApiServiceAccountDetail")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
-public class IAMUserControllerApiUserSummary {
+public class IAMServiceAccountControllerApiServiceAccountDetail {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
   private String id;
 
-  public static final String JSON_PROPERTY_USERNAME = "username";
+  public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull
-  private String username;
+  private String name;
 
-  public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @javax.annotation.Nonnull
-  private String displayName;
+  private String description;
 
   public static final String JSON_PROPERTY_TENANTS = "tenants";
   @javax.annotation.Nonnull
   private List<ApiTenantSummary> tenants = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_AUTHS = "auths";
-  @javax.annotation.Nonnull
-  private List<IAMUserControllerApiUserAuth> auths = new ArrayList<>();
-
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
   @javax.annotation.Nonnull
   private Boolean superAdmin;
 
-  public IAMUserControllerApiUserSummary() {
+  public IAMServiceAccountControllerApiServiceAccountDetail() {
   }
 
-  public IAMUserControllerApiUserSummary id(@javax.annotation.Nonnull String id) {
+  public IAMServiceAccountControllerApiServiceAccountDetail id(@javax.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
   }
 
   /**
-   * Get id
+   * the identifier of this service account.
    * @return id
    */
   @javax.annotation.Nonnull
@@ -94,63 +88,63 @@ public class IAMUserControllerApiUserSummary {
     this.id = id;
   }
 
-  public IAMUserControllerApiUserSummary username(@javax.annotation.Nonnull String username) {
+  public IAMServiceAccountControllerApiServiceAccountDetail name(@javax.annotation.Nonnull String name) {
     
-    this.username = username;
+    this.name = name;
     return this;
   }
 
   /**
-   * Get username
-   * @return username
+   * the name of this service account.
+   * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getUsername() {
-    return username;
+  public String getName() {
+    return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
-    this.username = username;
+  public void setName(@javax.annotation.Nonnull String name) {
+    this.name = name;
   }
 
-  public IAMUserControllerApiUserSummary displayName(@javax.annotation.Nonnull String displayName) {
+  public IAMServiceAccountControllerApiServiceAccountDetail description(@javax.annotation.Nonnull String description) {
     
-    this.displayName = displayName;
+    this.description = description;
     return this;
   }
 
   /**
-   * Get displayName
-   * @return displayName
+   * the description of this service account.
+   * @return description
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getDisplayName() {
-    return displayName;
+  public String getDescription() {
+    return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDisplayName(@javax.annotation.Nonnull String displayName) {
-    this.displayName = displayName;
+  public void setDescription(@javax.annotation.Nonnull String description) {
+    this.description = description;
   }
 
-  public IAMUserControllerApiUserSummary tenants(@javax.annotation.Nonnull List<ApiTenantSummary> tenants) {
+  public IAMServiceAccountControllerApiServiceAccountDetail tenants(@javax.annotation.Nonnull List<ApiTenantSummary> tenants) {
     
     this.tenants = tenants;
     return this;
   }
 
-  public IAMUserControllerApiUserSummary addTenantsItem(ApiTenantSummary tenantsItem) {
+  public IAMServiceAccountControllerApiServiceAccountDetail addTenantsItem(ApiTenantSummary tenantsItem) {
     if (this.tenants == null) {
       this.tenants = new ArrayList<>();
     }
@@ -177,40 +171,7 @@ public class IAMUserControllerApiUserSummary {
     this.tenants = tenants;
   }
 
-  public IAMUserControllerApiUserSummary auths(@javax.annotation.Nonnull List<IAMUserControllerApiUserAuth> auths) {
-    
-    this.auths = auths;
-    return this;
-  }
-
-  public IAMUserControllerApiUserSummary addAuthsItem(IAMUserControllerApiUserAuth authsItem) {
-    if (this.auths == null) {
-      this.auths = new ArrayList<>();
-    }
-    this.auths.add(authsItem);
-    return this;
-  }
-
-  /**
-   * Get auths
-   * @return auths
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<IAMUserControllerApiUserAuth> getAuths() {
-    return auths;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AUTHS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAuths(@javax.annotation.Nonnull List<IAMUserControllerApiUserAuth> auths) {
-    this.auths = auths;
-  }
-
-  public IAMUserControllerApiUserSummary superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public IAMServiceAccountControllerApiServiceAccountDetail superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -243,29 +204,27 @@ public class IAMUserControllerApiUserSummary {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IAMUserControllerApiUserSummary iaMUserControllerApiUserSummary = (IAMUserControllerApiUserSummary) o;
-    return Objects.equals(this.id, iaMUserControllerApiUserSummary.id) &&
-        Objects.equals(this.username, iaMUserControllerApiUserSummary.username) &&
-        Objects.equals(this.displayName, iaMUserControllerApiUserSummary.displayName) &&
-        Objects.equals(this.tenants, iaMUserControllerApiUserSummary.tenants) &&
-        Objects.equals(this.auths, iaMUserControllerApiUserSummary.auths) &&
-        Objects.equals(this.superAdmin, iaMUserControllerApiUserSummary.superAdmin);
+    IAMServiceAccountControllerApiServiceAccountDetail iaMServiceAccountControllerApiServiceAccountDetail = (IAMServiceAccountControllerApiServiceAccountDetail) o;
+    return Objects.equals(this.id, iaMServiceAccountControllerApiServiceAccountDetail.id) &&
+        Objects.equals(this.name, iaMServiceAccountControllerApiServiceAccountDetail.name) &&
+        Objects.equals(this.description, iaMServiceAccountControllerApiServiceAccountDetail.description) &&
+        Objects.equals(this.tenants, iaMServiceAccountControllerApiServiceAccountDetail.tenants) &&
+        Objects.equals(this.superAdmin, iaMServiceAccountControllerApiServiceAccountDetail.superAdmin);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, displayName, tenants, auths, superAdmin);
+    return Objects.hash(id, name, description, tenants, superAdmin);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class IAMUserControllerApiUserSummary {\n");
+    sb.append("class IAMServiceAccountControllerApiServiceAccountDetail {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tenants: ").append(toIndentedString(tenants)).append("\n");
-    sb.append("    auths: ").append(toIndentedString(auths)).append("\n");
     sb.append("    superAdmin: ").append(toIndentedString(superAdmin)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.MiscControllerEdition;
+import io.kestra.sdk.model.EditionProviderEdition;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.QueryFilterResourceField;
@@ -52,7 +52,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerConfiguration.JSON_PROPERTY_HIDDEN_LABELS_PREFIXES,
   MiscControllerConfiguration.JSON_PROPERTY_RESOURCE_TO_FILTERS,
   MiscControllerConfiguration.JSON_PROPERTY_IS_AI_ENABLED,
-  MiscControllerConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED
+  MiscControllerConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED,
+  MiscControllerConfiguration.JSON_PROPERTY_PLUGINS_HASH
 })
 @JsonTypeName("MiscController.Configuration")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
@@ -67,7 +68,7 @@ public class MiscControllerConfiguration {
 
   public static final String JSON_PROPERTY_EDITION = "edition";
   @javax.annotation.Nullable
-  private MiscControllerEdition edition;
+  private EditionProviderEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
   @javax.annotation.Nullable
@@ -129,6 +130,10 @@ public class MiscControllerConfiguration {
   @javax.annotation.Nullable
   private Boolean isBasicAuthInitialized;
 
+  public static final String JSON_PROPERTY_PLUGINS_HASH = "pluginsHash";
+  @javax.annotation.Nullable
+  private Long pluginsHash;
+
   public MiscControllerConfiguration() {
   }
 
@@ -182,7 +187,7 @@ public class MiscControllerConfiguration {
     this.version = version;
   }
 
-  public MiscControllerConfiguration edition(@javax.annotation.Nullable MiscControllerEdition edition) {
+  public MiscControllerConfiguration edition(@javax.annotation.Nullable EditionProviderEdition edition) {
     
     this.edition = edition;
     return this;
@@ -196,14 +201,14 @@ public class MiscControllerConfiguration {
   @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public MiscControllerEdition getEdition() {
+  public EditionProviderEdition getEdition() {
     return edition;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EDITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEdition(@javax.annotation.Nullable MiscControllerEdition edition) {
+  public void setEdition(@javax.annotation.Nullable EditionProviderEdition edition) {
     this.edition = edition;
   }
 
@@ -598,6 +603,31 @@ public class MiscControllerConfiguration {
     this.isBasicAuthInitialized = isBasicAuthInitialized;
   }
 
+  public MiscControllerConfiguration pluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+    
+    this.pluginsHash = pluginsHash;
+    return this;
+  }
+
+  /**
+   * Get pluginsHash
+   * @return pluginsHash
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Long getPluginsHash() {
+    return pluginsHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PLUGINS_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPluginsHash(@javax.annotation.Nullable Long pluginsHash) {
+    this.pluginsHash = pluginsHash;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -624,12 +654,13 @@ public class MiscControllerConfiguration {
         Objects.equals(this.hiddenLabelsPrefixes, miscControllerConfiguration.hiddenLabelsPrefixes) &&
         Objects.equals(this.resourceToFilters, miscControllerConfiguration.resourceToFilters) &&
         Objects.equals(this.isAiEnabled, miscControllerConfiguration.isAiEnabled) &&
-        Objects.equals(this.isBasicAuthInitialized, miscControllerConfiguration.isBasicAuthInitialized);
+        Objects.equals(this.isBasicAuthInitialized, miscControllerConfiguration.isBasicAuthInitialized) &&
+        Objects.equals(this.pluginsHash, miscControllerConfiguration.pluginsHash);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, pluginsHash);
   }
 
   @Override
@@ -654,6 +685,7 @@ public class MiscControllerConfiguration {
     sb.append("    resourceToFilters: ").append(toIndentedString(resourceToFilters)).append("\n");
     sb.append("    isAiEnabled: ").append(toIndentedString(isAiEnabled)).append("\n");
     sb.append("    isBasicAuthInitialized: ").append(toIndentedString(isBasicAuthInitialized)).append("\n");
+    sb.append("    pluginsHash: ").append(toIndentedString(pluginsHash)).append("\n");
     sb.append("}");
     return sb.toString();
   }

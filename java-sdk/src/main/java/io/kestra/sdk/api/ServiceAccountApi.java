@@ -20,8 +20,13 @@ import io.kestra.sdk.internal.BaseApi;
 import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
+import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
+import io.kestra.sdk.model.IAMServiceAccountControllerApiCreateServiceAccountRequest;
+import io.kestra.sdk.model.IAMServiceAccountControllerApiPatchServiceAccountRequest;
+import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountDetail;
 import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountRequest;
 import io.kestra.sdk.model.IAMServiceAccountControllerApiServiceAccountResponse;
+import io.kestra.sdk.model.PagedResultsIAMServiceAccountControllerApiServiceAccountDetail;
 
 
 import java.util.ArrayList;
@@ -43,20 +48,94 @@ public class ServiceAccountApi extends BaseApi {
   }
 
   /**
-   * Create a user service account
+   * Create a service account
+   * Superadmin-only. CReate service account with access to multiple tenants.
+   * @param iaMServiceAccountControllerApiCreateServiceAccountRequest The service account (required)
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest) throws ApiException {
+    return this.createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest, Collections.emptyMap());
+  }
+
+
+  /**
+   * Create a service account
+   * Superadmin-only. CReate service account with access to multiple tenants.
+   * @param iaMServiceAccountControllerApiCreateServiceAccountRequest The service account (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail createServiceAccount(@javax.annotation.Nonnull IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = iaMServiceAccountControllerApiCreateServiceAccountRequest;
+    
+    // verify the required parameter 'iaMServiceAccountControllerApiCreateServiceAccountRequest' is set
+    if (iaMServiceAccountControllerApiCreateServiceAccountRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'iaMServiceAccountControllerApiCreateServiceAccountRequest' when calling createServiceAccount");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<IAMServiceAccountControllerApiServiceAccountDetail> localVarReturnType = new TypeReference<IAMServiceAccountControllerApiServiceAccountDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Create a service account for the given tenant
    * 
    * @param tenant  (required)
    * @param iaMServiceAccountControllerApiServiceAccountRequest The service account (required)
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccount(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest) throws ApiException {
-    return this.createServiceAccount(tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap());
+  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest) throws ApiException {
+    return this.createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest, Collections.emptyMap());
   }
 
 
   /**
-   * Create a user service account
+   * Create a service account for the given tenant
    * 
    * @param tenant  (required)
    * @param iaMServiceAccountControllerApiServiceAccountRequest The service account (required)
@@ -64,17 +143,17 @@ public class ServiceAccountApi extends BaseApi {
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccount(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountResponse createServiceAccountForTenant(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMServiceAccountControllerApiServiceAccountRequest;
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling createServiceAccount");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling createServiceAccountForTenant");
     }
     
     // verify the required parameter 'iaMServiceAccountControllerApiServiceAccountRequest' is set
     if (iaMServiceAccountControllerApiServiceAccountRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'iaMServiceAccountControllerApiServiceAccountRequest' when calling createServiceAccount");
+      throw new ApiException(400, "Missing the required parameter 'iaMServiceAccountControllerApiServiceAccountRequest' when calling createServiceAccountForTenant");
     }
     
     // create path and map variables
@@ -126,25 +205,23 @@ public class ServiceAccountApi extends BaseApi {
 
   /**
    * Delete a service account
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
+   * Superadmin-only. Delete a service account including all its access.
+   * @param id The service account id (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    this.deleteServiceAccount(id, tenant, Collections.emptyMap());
+  public void deleteServiceAccount(@javax.annotation.Nonnull String id) throws ApiException {
+    this.deleteServiceAccount(id, Collections.emptyMap());
   }
 
 
   /**
    * Delete a service account
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
+   * Superadmin-only. Delete a service account including all its access.
+   * @param id The service account id (required)
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -152,9 +229,83 @@ public class ServiceAccountApi extends BaseApi {
       throw new ApiException(400, "Missing the required parameter 'id' when calling deleteServiceAccount");
     }
     
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    apiClient.invokeAPI(
+        localVarPath,
+        "DELETE",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        null
+    );
+  }
+
+  /**
+   * Delete a service account
+   * 
+   * @param id The service account id (required)
+   * @param tenant  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+    this.deleteServiceAccountForTenant(id, tenant, Collections.emptyMap());
+  }
+
+
+  /**
+   * Delete a service account
+   * 
+   * @param id The service account id (required)
+   * @param tenant  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void deleteServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteServiceAccountForTenant");
+    }
+    
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteServiceAccount");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteServiceAccountForTenant");
     }
     
     // create path and map variables
@@ -205,6 +356,81 @@ public class ServiceAccountApi extends BaseApi {
   }
 
   /**
+   * Get a service account
+   * Superadmin-only. Get user account details.
+   * @param id The service account id (required)
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id) throws ApiException {
+    return this.getServiceAccount(id, Collections.emptyMap());
+  }
+
+
+  /**
+   * Get a service account
+   * Superadmin-only. Get user account details.
+   * @param id The service account id (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail getServiceAccount(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getServiceAccount");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<IAMServiceAccountControllerApiServiceAccountDetail> localVarReturnType = new TypeReference<IAMServiceAccountControllerApiServiceAccountDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
    * Retrieve a service account
    * 
    * @param id The user id (required)
@@ -212,8 +438,8 @@ public class ServiceAccountApi extends BaseApi {
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.getServiceAccount(id, tenant, Collections.emptyMap());
+  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
+    return this.getServiceAccountForTenant(id, tenant, Collections.emptyMap());
   }
 
 
@@ -226,17 +452,17 @@ public class ServiceAccountApi extends BaseApi {
    * @return IAMServiceAccountControllerApiServiceAccountResponse
    * @throws ApiException if fails to make API call
    */
-  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccount(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMServiceAccountControllerApiServiceAccountResponse getServiceAccountForTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getServiceAccount");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getServiceAccountForTenant");
     }
     
     // verify the required parameter 'tenant' is set
     if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getServiceAccount");
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling getServiceAccountForTenant");
     }
     
     // create path and map variables
@@ -284,6 +510,256 @@ public class ServiceAccountApi extends BaseApi {
         localVarContentType,
         localVarAuthNames,
         localVarReturnType
+    );
+  }
+
+  /**
+   * List service accounts. Superadmin-only. 
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param q A string filter (optional)
+   * @param sort The sort of current page (optional)
+   * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort) throws ApiException {
+    return this.listServiceAccounts(page, size, q, sort, Collections.emptyMap());
+  }
+
+
+  /**
+   * List service accounts. Superadmin-only. 
+   * 
+   * @param page The current page (required)
+   * @param size The current page size (required)
+   * @param q A string filter (optional)
+   * @param sort The sort of current page (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public PagedResultsIAMServiceAccountControllerApiServiceAccountDetail listServiceAccounts(@javax.annotation.Nonnull Integer page, @javax.annotation.Nonnull Integer size, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<String> sort, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+    
+    // verify the required parameter 'page' is set
+    if (page == null) {
+      throw new ApiException(400, "Missing the required parameter 'page' when calling listServiceAccounts");
+    }
+    
+    // verify the required parameter 'size' is set
+    if (size == null) {
+      throw new ApiException(400, "Missing the required parameter 'size' when calling listServiceAccounts");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
+    localVarQueryParams.addAll(apiClient.parameterToPair("page", page));
+    localVarQueryParams.addAll(apiClient.parameterToPair("size", size));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "sort", sort));
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail> localVarReturnType = new TypeReference<PagedResultsIAMServiceAccountControllerApiServiceAccountDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "GET",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Update service account details
+   * Superadmin-only. Updates the details of a service account.
+   * @param id The service account id (required)
+   * @param iaMServiceAccountControllerApiPatchServiceAccountRequest The service account details (required)
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest) throws ApiException {
+    return this.patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest, Collections.emptyMap());
+  }
+
+
+  /**
+   * Update service account details
+   * Superadmin-only. Updates the details of a service account.
+   * @param id The service account id (required)
+   * @param iaMServiceAccountControllerApiPatchServiceAccountRequest The service account details (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return IAMServiceAccountControllerApiServiceAccountDetail
+   * @throws ApiException if fails to make API call
+   */
+  public IAMServiceAccountControllerApiServiceAccountDetail patchServiceAccountDetails(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = iaMServiceAccountControllerApiPatchServiceAccountRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling patchServiceAccountDetails");
+    }
+    
+    // verify the required parameter 'iaMServiceAccountControllerApiPatchServiceAccountRequest' is set
+    if (iaMServiceAccountControllerApiPatchServiceAccountRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'iaMServiceAccountControllerApiPatchServiceAccountRequest' when calling patchServiceAccountDetails");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts/{id}"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      "application/json"
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    TypeReference<IAMServiceAccountControllerApiServiceAccountDetail> localVarReturnType = new TypeReference<IAMServiceAccountControllerApiServiceAccountDetail>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "PATCH",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType
+    );
+  }
+
+  /**
+   * Update service account superadmin privileges
+   * Superadmin-only. Updates whether a service account is a superadmin.
+   * @param id The user id (required)
+   * @param apiPatchSuperAdminRequest  (required)
+   * @throws ApiException if fails to make API call
+   */
+  public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest) throws ApiException {
+    this.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, Collections.emptyMap());
+  }
+
+
+  /**
+   * Update service account superadmin privileges
+   * Superadmin-only. Updates whether a service account is a superadmin.
+   * @param id The user id (required)
+   * @param apiPatchSuperAdminRequest  (required)
+   * @param additionalHeaders additionalHeaders for this call
+   * @throws ApiException if fails to make API call
+   */
+  public void patchServiceAccountSuperAdmin(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull ApiPatchSuperAdminRequest apiPatchSuperAdminRequest, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = apiPatchSuperAdminRequest;
+    
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling patchServiceAccountSuperAdmin");
+    }
+    
+    // verify the required parameter 'apiPatchSuperAdminRequest' is set
+    if (apiPatchSuperAdminRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'apiPatchSuperAdminRequest' when calling patchServiceAccountSuperAdmin");
+    }
+    
+    // create path and map variables
+    String localVarPath = "/api/v1/service-accounts/{id}/superadmin"
+      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    
+    
+    final String[] localVarAccepts = {
+      
+    };
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {
+      "application/json"
+    };
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
+
+    apiClient.invokeAPI(
+        localVarPath,
+        "PATCH",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        null
     );
   }
 

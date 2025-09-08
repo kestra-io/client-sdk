@@ -21,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -41,8 +45,8 @@ public class KVEntry {
   private String key;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
-  private String description;
+  @javax.annotation.Nullable
+  private JsonNullable<String> description = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_CREATION_DATE = "creationDate";
   @javax.annotation.Nonnull
@@ -53,8 +57,8 @@ public class KVEntry {
   private OffsetDateTime updateDate;
 
   public static final String JSON_PROPERTY_EXPIRATION_DATE = "expirationDate";
-  @javax.annotation.Nonnull
-  private OffsetDateTime expirationDate;
+  @javax.annotation.Nullable
+  private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.<OffsetDateTime>undefined();
 
   public KVEntry() {
   }
@@ -84,9 +88,9 @@ public class KVEntry {
     this.key = key;
   }
 
-  public KVEntry description(@javax.annotation.Nonnull String description) {
+  public KVEntry description(@javax.annotation.Nullable String description) {
+    this.description = JsonNullable.<String>of(description);
     
-    this.description = description;
     return this;
   }
 
@@ -94,19 +98,27 @@ public class KVEntry {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonIgnore
 
   public String getDescription() {
-    return description;
+        return description.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<String> getDescription_JsonNullable() {
+    return description;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  public void setDescription_JsonNullable(JsonNullable<String> description) {
     this.description = description;
+  }
+
+  public void setDescription(@javax.annotation.Nullable String description) {
+    this.description = JsonNullable.<String>of(description);
   }
 
   public KVEntry creationDate(@javax.annotation.Nonnull OffsetDateTime creationDate) {
@@ -159,9 +171,9 @@ public class KVEntry {
     this.updateDate = updateDate;
   }
 
-  public KVEntry expirationDate(@javax.annotation.Nonnull OffsetDateTime expirationDate) {
+  public KVEntry expirationDate(@javax.annotation.Nullable OffsetDateTime expirationDate) {
+    this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
     
-    this.expirationDate = expirationDate;
     return this;
   }
 
@@ -169,19 +181,27 @@ public class KVEntry {
    * Get expirationDate
    * @return expirationDate
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonIgnore
 
   public OffsetDateTime getExpirationDate() {
-    return expirationDate;
+        return expirationDate.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExpirationDate(@javax.annotation.Nonnull OffsetDateTime expirationDate) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<OffsetDateTime> getExpirationDate_JsonNullable() {
+    return expirationDate;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_EXPIRATION_DATE)
+  public void setExpirationDate_JsonNullable(JsonNullable<OffsetDateTime> expirationDate) {
     this.expirationDate = expirationDate;
+  }
+
+  public void setExpirationDate(@javax.annotation.Nullable OffsetDateTime expirationDate) {
+    this.expirationDate = JsonNullable.<OffsetDateTime>of(expirationDate);
   }
 
   @Override
@@ -194,15 +214,26 @@ public class KVEntry {
     }
     KVEntry kvEntry = (KVEntry) o;
     return Objects.equals(this.key, kvEntry.key) &&
-        Objects.equals(this.description, kvEntry.description) &&
+        equalsNullable(this.description, kvEntry.description) &&
         Objects.equals(this.creationDate, kvEntry.creationDate) &&
         Objects.equals(this.updateDate, kvEntry.updateDate) &&
-        Objects.equals(this.expirationDate, kvEntry.expirationDate);
+        equalsNullable(this.expirationDate, kvEntry.expirationDate);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, description, creationDate, updateDate, expirationDate);
+    return Objects.hash(key, hashCodeNullable(description), creationDate, updateDate, hashCodeNullable(expirationDate));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

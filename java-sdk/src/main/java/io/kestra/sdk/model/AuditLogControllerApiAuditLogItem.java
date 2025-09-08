@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.ApiUser;
 import io.kestra.sdk.model.AuditLog;
-import io.kestra.sdk.model.Permission;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -31,8 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  */
 @JsonPropertyOrder({
   AuditLogControllerApiAuditLogItem.JSON_PROPERTY_AUDIT_LOG,
-  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER,
-  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_PERMISSION
+  AuditLogControllerApiAuditLogItem.JSON_PROPERTY_USER
 })
 @JsonTypeName("AuditLogController.ApiAuditLogItem")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
@@ -44,10 +42,6 @@ public class AuditLogControllerApiAuditLogItem {
   public static final String JSON_PROPERTY_USER = "user";
   @javax.annotation.Nonnull
   private ApiUser user;
-
-  public static final String JSON_PROPERTY_PERMISSION = "permission";
-  @javax.annotation.Nonnull
-  private Permission permission;
 
   public AuditLogControllerApiAuditLogItem() {
   }
@@ -102,31 +96,6 @@ public class AuditLogControllerApiAuditLogItem {
     this.user = user;
   }
 
-  public AuditLogControllerApiAuditLogItem permission(@javax.annotation.Nonnull Permission permission) {
-    
-    this.permission = permission;
-    return this;
-  }
-
-  /**
-   * Get permission
-   * @return permission
-   */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Permission getPermission() {
-    return permission;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermission(@javax.annotation.Nonnull Permission permission) {
-    this.permission = permission;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -137,13 +106,12 @@ public class AuditLogControllerApiAuditLogItem {
     }
     AuditLogControllerApiAuditLogItem auditLogControllerApiAuditLogItem = (AuditLogControllerApiAuditLogItem) o;
     return Objects.equals(this.auditLog, auditLogControllerApiAuditLogItem.auditLog) &&
-        Objects.equals(this.user, auditLogControllerApiAuditLogItem.user) &&
-        Objects.equals(this.permission, auditLogControllerApiAuditLogItem.permission);
+        Objects.equals(this.user, auditLogControllerApiAuditLogItem.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(auditLog, user, permission);
+    return Objects.hash(auditLog, user);
   }
 
   @Override
@@ -152,7 +120,6 @@ public class AuditLogControllerApiAuditLogItem {
     sb.append("class AuditLogControllerApiAuditLogItem {\n");
     sb.append("    auditLog: ").append(toIndentedString(auditLog)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
-    sb.append("    permission: ").append(toIndentedString(permission)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -20,6 +20,7 @@ docs/ApiAuth.md
 docs/ApiAutocomplete.md
 docs/ApiGroupSummary.md
 docs/ApiIds.md
+docs/ApiPatchSuperAdminRequest.md
 docs/ApiRoleSummary.md
 docs/ApiSecretListResponse.md
 docs/ApiSecretMeta.md
@@ -27,6 +28,7 @@ docs/ApiSecretMetaEE.md
 docs/ApiSecretTag.md
 docs/ApiSecretValue.md
 docs/ApiTenant.md
+docs/ApiTenantSummary.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
@@ -100,6 +102,7 @@ docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
+docs/EditionProviderEdition.md
 docs/Email.md
 docs/EventAppResponse.md
 docs/EventExecution.md
@@ -171,7 +174,10 @@ docs/IAMInvitationControllerApiInvitationRole.md
 docs/IAMRoleControllerApiRoleCreateOrUpdateRequest.md
 docs/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md
 docs/IAMRoleControllerApiRoleDetail.md
+docs/IAMServiceAccountControllerApiCreateServiceAccountRequest.md
 docs/IAMServiceAccountControllerApiGroup.md
+docs/IAMServiceAccountControllerApiPatchServiceAccountRequest.md
+docs/IAMServiceAccountControllerApiServiceAccountDetail.md
 docs/IAMServiceAccountControllerApiServiceAccountRequest.md
 docs/IAMServiceAccountControllerApiServiceAccountResponse.md
 docs/IAMTenantAccessControllerApiAuthentication.md
@@ -185,9 +191,7 @@ docs/IAMTenantAccessControllerUserApiAutocomplete.md
 docs/IAMUserControllerApiCreateOrUpdateUserRequest.md
 docs/IAMUserControllerApiGroup.md
 docs/IAMUserControllerApiPatchRestrictedRequest.md
-docs/IAMUserControllerApiPatchSuperAdminRequest.md
 docs/IAMUserControllerApiPatchUserPasswordRequest.md
-docs/IAMUserControllerApiTenant.md
 docs/IAMUserControllerApiUser.md
 docs/IAMUserControllerApiUserAuth.md
 docs/IAMUserControllerApiUserSummary.md
@@ -249,7 +253,6 @@ docs/MiscControllerApiUsage.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
-docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -276,6 +279,7 @@ docs/PagedResultsFlow.md
 docs/PagedResultsIAMBindingControllerApiBindingDetail.md
 docs/PagedResultsIAMGroupControllerApiGroupMember.md
 docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md
+docs/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.md
 docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
 docs/PagedResultsIAMUserControllerApiUserSummary.md
 docs/PagedResultsInstanceControllerApiPluginArtifact.md
@@ -496,6 +500,7 @@ src/main/java/io/kestra/sdk/model/ApiAuth.java
 src/main/java/io/kestra/sdk/model/ApiAutocomplete.java
 src/main/java/io/kestra/sdk/model/ApiGroupSummary.java
 src/main/java/io/kestra/sdk/model/ApiIds.java
+src/main/java/io/kestra/sdk/model/ApiPatchSuperAdminRequest.java
 src/main/java/io/kestra/sdk/model/ApiRoleSummary.java
 src/main/java/io/kestra/sdk/model/ApiSecretListResponse.java
 src/main/java/io/kestra/sdk/model/ApiSecretMeta.java
@@ -503,6 +508,7 @@ src/main/java/io/kestra/sdk/model/ApiSecretMetaEE.java
 src/main/java/io/kestra/sdk/model/ApiSecretTag.java
 src/main/java/io/kestra/sdk/model/ApiSecretValue.java
 src/main/java/io/kestra/sdk/model/ApiTenant.java
+src/main/java/io/kestra/sdk/model/ApiTenantSummary.java
 src/main/java/io/kestra/sdk/model/ApiUser.java
 src/main/java/io/kestra/sdk/model/AppResponse.java
 src/main/java/io/kestra/sdk/model/AppResponseUILayout.java
@@ -566,6 +572,7 @@ src/main/java/io/kestra/sdk/model/DeleteExecutionsByQueryRequest.java
 src/main/java/io/kestra/sdk/model/DeletedInterface.java
 src/main/java/io/kestra/sdk/model/DependsOn.java
 src/main/java/io/kestra/sdk/model/DocumentationWithSchema.java
+src/main/java/io/kestra/sdk/model/EditionProviderEdition.java
 src/main/java/io/kestra/sdk/model/Email.java
 src/main/java/io/kestra/sdk/model/EventAppResponse.java
 src/main/java/io/kestra/sdk/model/EventExecution.java
@@ -633,7 +640,10 @@ src/main/java/io/kestra/sdk/model/IAMInvitationControllerApiInvitationRole.java
 src/main/java/io/kestra/sdk/model/IAMRoleControllerApiRoleCreateOrUpdateRequest.java
 src/main/java/io/kestra/sdk/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.java
 src/main/java/io/kestra/sdk/model/IAMRoleControllerApiRoleDetail.java
+src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiCreateServiceAccountRequest.java
 src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiGroup.java
+src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiPatchServiceAccountRequest.java
+src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiServiceAccountDetail.java
 src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiServiceAccountRequest.java
 src/main/java/io/kestra/sdk/model/IAMServiceAccountControllerApiServiceAccountResponse.java
 src/main/java/io/kestra/sdk/model/IAMTenantAccessControllerApiAuthentication.java
@@ -647,9 +657,7 @@ src/main/java/io/kestra/sdk/model/IAMTenantAccessControllerUserApiAutocomplete.j
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiCreateOrUpdateUserRequest.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiGroup.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiPatchRestrictedRequest.java
-src/main/java/io/kestra/sdk/model/IAMUserControllerApiPatchSuperAdminRequest.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiPatchUserPasswordRequest.java
-src/main/java/io/kestra/sdk/model/IAMUserControllerApiTenant.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiUser.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiUserAuth.java
 src/main/java/io/kestra/sdk/model/IAMUserControllerApiUserSummary.java
@@ -705,7 +713,6 @@ src/main/java/io/kestra/sdk/model/MiscControllerApiUsage.java
 src/main/java/io/kestra/sdk/model/MiscControllerBasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
-src/main/java/io/kestra/sdk/model/MiscControllerEdition.java
 src/main/java/io/kestra/sdk/model/MiscControllerEnvironment.java
 src/main/java/io/kestra/sdk/model/MiscControllerLicenseInfo.java
 src/main/java/io/kestra/sdk/model/MiscControllerPluginIdAndVersion.java
@@ -731,6 +738,7 @@ src/main/java/io/kestra/sdk/model/PagedResultsFlow.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMBindingControllerApiBindingDetail.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMGroupControllerApiGroupMember.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMInvitationControllerApiInvitationDetail.java
+src/main/java/io/kestra/sdk/model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.java
 src/main/java/io/kestra/sdk/model/PagedResultsIAMUserControllerApiUserSummary.java
 src/main/java/io/kestra/sdk/model/PagedResultsInstanceControllerApiPluginArtifact.java

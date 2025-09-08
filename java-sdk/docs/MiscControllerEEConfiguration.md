@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**uuid** | **String** |  |  [optional] |
 |**version** | **String** |  |  [optional] |
-|**edition** | **MiscControllerEdition** |  |  [optional] |
+|**edition** | **EditionProviderEdition** |  |  [optional] |
 |**commitId** | **String** |  |  [optional] |
 |**commitDate** | **OffsetDateTime** |  |  [optional] |
 |**isCustomDashboardsEnabled** | **Boolean** |  |  [optional] |
@@ -25,6 +25,7 @@
 |**resourceToFilters** | [**List&lt;QueryFilterResourceField&gt;**](QueryFilterResourceField.md) |  |  [optional] |
 |**isAiEnabled** | **Boolean** |  |  [optional] |
 |**isBasicAuthInitialized** | **Boolean** |  |  [optional] |
+|**pluginsHash** | **Long** |  |  [optional] |
 |**tenants** | [**MiscControllerTenantConfigurationInfo**](MiscControllerTenantConfigurationInfo.md) |  |  [optional] |
 |**secretsEnabled** | **Boolean** |  |  [optional] |
 |**supportedStorages** | [**List&lt;MiscControllerPluginIdAndVersion&gt;**](MiscControllerPluginIdAndVersion.md) |  |  [optional] |

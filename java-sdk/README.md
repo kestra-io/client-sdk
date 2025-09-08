@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>1.0.0-beta5</version>
+  <version>1.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:1.0.0-beta5"
+compile "io.kestra:kestra-api-client:1.0.0"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-1.0.0-beta5.jar`
+- `target/kestra-api-client-1.0.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -393,9 +393,15 @@ Class | Method | HTTP request | Description
 *SecurityIntegrationsApi* | [**enableSecurityIntegration**](docs/SecurityIntegrationsApi.md#enableSecurityIntegration) | **POST** /api/v1/{tenant}/security-integrations/{id}/enable | Enable a security integration
 *SecurityIntegrationsApi* | [**getSecurityIntegration**](docs/SecurityIntegrationsApi.md#getSecurityIntegration) | **GET** /api/v1/{tenant}/security-integrations/{id} | Retrieve a security integration
 *SecurityIntegrationsApi* | [**listSecurityIntegrations**](docs/SecurityIntegrationsApi.md#listSecurityIntegrations) | **GET** /api/v1/{tenant}/security-integrations | List all security integrations
-*ServiceAccountApi* | [**createServiceAccount**](docs/ServiceAccountApi.md#createServiceAccount) | **POST** /api/v1/{tenant}/service-accounts | Create a user service account
-*ServiceAccountApi* | [**deleteServiceAccount**](docs/ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
-*ServiceAccountApi* | [**getServiceAccount**](docs/ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+*ServiceAccountApi* | [**createServiceAccount**](docs/ServiceAccountApi.md#createServiceAccount) | **POST** /api/v1/service-accounts | Create a service account
+*ServiceAccountApi* | [**createServiceAccountForTenant**](docs/ServiceAccountApi.md#createServiceAccountForTenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+*ServiceAccountApi* | [**deleteServiceAccount**](docs/ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
+*ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
+*ServiceAccountApi* | [**getServiceAccount**](docs/ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
+*ServiceAccountApi* | [**getServiceAccountForTenant**](docs/ServiceAccountApi.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+*ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
+*ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
+*ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 *ServiceAccountApi* | [**updateServiceAccount**](docs/ServiceAccountApi.md#updateServiceAccount) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 *ServicesApi* | [**getActiveServices**](docs/ServicesApi.md#getActiveServices) | **GET** /api/v1/instance/services/active | List all active services
 *ServicesApi* | [**getService**](docs/ServicesApi.md#getService) | **GET** /api/v1/instance/services/{id} | Retrieve details of a specific service
@@ -445,18 +451,21 @@ Class | Method | HTTP request | Description
 *TriggersApi* | [**unpauseBackfillByQuery**](docs/TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
 *TriggersApi* | [**updateTrigger**](docs/TriggersApi.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
 *UsersApi* | [**autocompleteUsers**](docs/UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-*UsersApi* | [**createApiTokensForUser1**](docs/UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+*UsersApi* | [**createApiTokensForUser1**](docs/UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
+*UsersApi* | [**createApiTokensForUserWithTenant**](docs/UsersApi.md#createApiTokensForUserWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
 *UsersApi* | [**createUser**](docs/UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
-*UsersApi* | [**deleteApiToken**](docs/UsersApi.md#deleteApiToken) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-*UsersApi* | [**deleteApiToken1**](docs/UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+*UsersApi* | [**deleteApiToken**](docs/UsersApi.md#deleteApiToken) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+*UsersApi* | [**deleteApiToken1**](docs/UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+*UsersApi* | [**deleteApiTokenWithTenant**](docs/UsersApi.md#deleteApiTokenWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 *UsersApi* | [**deleteRefreshToken**](docs/UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 *UsersApi* | [**deleteUser**](docs/UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 *UsersApi* | [**deleteUserAuthMethod**](docs/UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
 *UsersApi* | [**getUser**](docs/UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 *UsersApi* | [**impersonate**](docs/UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
-*UsersApi* | [**listApiTokens**](docs/UsersApi.md#listApiTokens) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-*UsersApi* | [**listApiTokens1**](docs/UsersApi.md#listApiTokens1) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+*UsersApi* | [**listApiTokens**](docs/UsersApi.md#listApiTokens) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user
+*UsersApi* | [**listApiTokens1**](docs/UsersApi.md#listApiTokens1) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
+*UsersApi* | [**listApiTokensWithTenant**](docs/UsersApi.md#listApiTokensWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
 *UsersApi* | [**listUsers**](docs/UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
 *UsersApi* | [**patchUser**](docs/UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details
 *UsersApi* | [**patchUserDemo**](docs/UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
@@ -488,6 +497,7 @@ Class | Method | HTTP request | Description
  - [ApiAutocomplete](docs/ApiAutocomplete.md)
  - [ApiGroupSummary](docs/ApiGroupSummary.md)
  - [ApiIds](docs/ApiIds.md)
+ - [ApiPatchSuperAdminRequest](docs/ApiPatchSuperAdminRequest.md)
  - [ApiRoleSummary](docs/ApiRoleSummary.md)
  - [ApiSecretListResponse](docs/ApiSecretListResponse.md)
  - [ApiSecretMeta](docs/ApiSecretMeta.md)
@@ -495,6 +505,7 @@ Class | Method | HTTP request | Description
  - [ApiSecretTag](docs/ApiSecretTag.md)
  - [ApiSecretValue](docs/ApiSecretValue.md)
  - [ApiTenant](docs/ApiTenant.md)
+ - [ApiTenantSummary](docs/ApiTenantSummary.md)
  - [ApiUser](docs/ApiUser.md)
  - [AppResponse](docs/AppResponse.md)
  - [AppResponseUILayout](docs/AppResponseUILayout.md)
@@ -558,6 +569,7 @@ Class | Method | HTTP request | Description
  - [DeletedInterface](docs/DeletedInterface.md)
  - [DependsOn](docs/DependsOn.md)
  - [DocumentationWithSchema](docs/DocumentationWithSchema.md)
+ - [EditionProviderEdition](docs/EditionProviderEdition.md)
  - [Email](docs/Email.md)
  - [EventAppResponse](docs/EventAppResponse.md)
  - [EventExecution](docs/EventExecution.md)
@@ -625,7 +637,10 @@ Class | Method | HTTP request | Description
  - [IAMRoleControllerApiRoleCreateOrUpdateRequest](docs/IAMRoleControllerApiRoleCreateOrUpdateRequest.md)
  - [IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions](docs/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md)
  - [IAMRoleControllerApiRoleDetail](docs/IAMRoleControllerApiRoleDetail.md)
+ - [IAMServiceAccountControllerApiCreateServiceAccountRequest](docs/IAMServiceAccountControllerApiCreateServiceAccountRequest.md)
  - [IAMServiceAccountControllerApiGroup](docs/IAMServiceAccountControllerApiGroup.md)
+ - [IAMServiceAccountControllerApiPatchServiceAccountRequest](docs/IAMServiceAccountControllerApiPatchServiceAccountRequest.md)
+ - [IAMServiceAccountControllerApiServiceAccountDetail](docs/IAMServiceAccountControllerApiServiceAccountDetail.md)
  - [IAMServiceAccountControllerApiServiceAccountRequest](docs/IAMServiceAccountControllerApiServiceAccountRequest.md)
  - [IAMServiceAccountControllerApiServiceAccountResponse](docs/IAMServiceAccountControllerApiServiceAccountResponse.md)
  - [IAMTenantAccessControllerApiAuthentication](docs/IAMTenantAccessControllerApiAuthentication.md)
@@ -639,9 +654,7 @@ Class | Method | HTTP request | Description
  - [IAMUserControllerApiCreateOrUpdateUserRequest](docs/IAMUserControllerApiCreateOrUpdateUserRequest.md)
  - [IAMUserControllerApiGroup](docs/IAMUserControllerApiGroup.md)
  - [IAMUserControllerApiPatchRestrictedRequest](docs/IAMUserControllerApiPatchRestrictedRequest.md)
- - [IAMUserControllerApiPatchSuperAdminRequest](docs/IAMUserControllerApiPatchSuperAdminRequest.md)
  - [IAMUserControllerApiPatchUserPasswordRequest](docs/IAMUserControllerApiPatchUserPasswordRequest.md)
- - [IAMUserControllerApiTenant](docs/IAMUserControllerApiTenant.md)
  - [IAMUserControllerApiUser](docs/IAMUserControllerApiUser.md)
  - [IAMUserControllerApiUserAuth](docs/IAMUserControllerApiUserAuth.md)
  - [IAMUserControllerApiUserSummary](docs/IAMUserControllerApiUserSummary.md)
@@ -697,7 +710,6 @@ Class | Method | HTTP request | Description
  - [MiscControllerBasicAuthCredentials](docs/MiscControllerBasicAuthCredentials.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
- - [MiscControllerEdition](docs/MiscControllerEdition.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
  - [MiscControllerLicenseInfo](docs/MiscControllerLicenseInfo.md)
  - [MiscControllerPluginIdAndVersion](docs/MiscControllerPluginIdAndVersion.md)
@@ -723,6 +735,7 @@ Class | Method | HTTP request | Description
  - [PagedResultsIAMBindingControllerApiBindingDetail](docs/PagedResultsIAMBindingControllerApiBindingDetail.md)
  - [PagedResultsIAMGroupControllerApiGroupMember](docs/PagedResultsIAMGroupControllerApiGroupMember.md)
  - [PagedResultsIAMInvitationControllerApiInvitationDetail](docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md)
+ - [PagedResultsIAMServiceAccountControllerApiServiceAccountDetail](docs/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.md)
  - [PagedResultsIAMTenantAccessControllerApiUserTenantAccess](docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md)
  - [PagedResultsIAMUserControllerApiUserSummary](docs/PagedResultsIAMUserControllerApiUserSummary.md)
  - [PagedResultsInstanceControllerApiPluginArtifact](docs/PagedResultsInstanceControllerApiPluginArtifact.md)

@@ -2280,7 +2280,7 @@ public class Example {
 
 ## replayExecutionWithinputs
 
-> Execution replayExecutionWithinputs(executionId, taskRunId, revision, tenant, breakpoints)
+> Execution replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -2311,12 +2311,12 @@ public class Example {
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
         String executionId = "executionId_example"; // String | the original execution id to clone
+        String tenant = "tenant_example"; // String | 
         String taskRunId = "taskRunId_example"; // String | The taskrun id
         Integer revision = 56; // Integer | The flow revision to use for new execution
-        String tenant = "tenant_example"; // String | 
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         try {
-            Execution result = apiInstance.replayExecutionWithinputs(executionId, taskRunId, revision, tenant, breakpoints);
+            Execution result = apiInstance.replayExecutionWithinputs(executionId, tenant, taskRunId, revision, breakpoints);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#replayExecutionWithinputs");
@@ -2335,9 +2335,9 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **executionId** | **String**| the original execution id to clone | |
-| **taskRunId** | **String**| The taskrun id | |
-| **revision** | **Integer**| The flow revision to use for new execution | |
 | **tenant** | **String**|  | |
+| **taskRunId** | **String**| The taskrun id | [optional] |
+| **revision** | **Integer**| The flow revision to use for new execution | [optional] |
 | **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] |
 
 ### Return type
