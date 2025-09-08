@@ -30,14 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Extract COMPATIBLE_KESTRA_VERSION.properties
-        id: extract_compatible_kestra_version
-        working-directory: ./
-        run: echo "version=$(cat COMPATIBLE_KESTRA_VERSION.properties)" >> $GITHUB_OUTPUT
-
-      - name: print COMPATIBLE_KESTRA_VERSION
-        run: echo "Compatible Kestra version is ${{ steps.extract_compatible_kestra_version.outputs.version }}"
-
       # Caches
       - name: Gradle cache
         uses: actions/cache@v4
@@ -66,7 +58,7 @@ jobs:
 
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
-        run: ./run-tests.sh ${{ steps.extract_compatible_kestra_version.outputs.version }}
+        run: ./run-tests.sh
 
       - name: Test - Publish Test Results
         uses: dorny/test-reporter@v2
