@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The SetupConfiguration model module.
  * @module model/SetupConfiguration
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class SetupConfiguration {
     /**

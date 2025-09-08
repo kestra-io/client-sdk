@@ -27,7 +27,7 @@ import PagedResultsIAMGroupControllerApiGroupMember from '../model/PagedResultsI
 /**
 * Groups service.
 * @module api/GroupsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class GroupsApi {
 

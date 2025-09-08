@@ -22,7 +22,7 @@ import QueryFilter from '../model/QueryFilter';
 /**
 * Logs service.
 * @module api/LogsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class LogsApi {
 

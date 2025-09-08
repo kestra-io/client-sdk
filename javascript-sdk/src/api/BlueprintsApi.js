@@ -22,7 +22,7 @@ import PagedResultsBlueprintControllerApiBlueprintItem from '../model/PagedResul
 /**
 * Blueprints service.
 * @module api/BlueprintsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class BlueprintsApi {
 

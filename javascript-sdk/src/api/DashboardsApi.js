@@ -23,7 +23,7 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Dashboards service.
 * @module api/DashboardsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class DashboardsApi {
 

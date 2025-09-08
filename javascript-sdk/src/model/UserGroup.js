@@ -17,7 +17,7 @@ import UserGroupType from './UserGroupType';
 /**
  * The UserGroup model module.
  * @module model/UserGroup
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class UserGroup {
     /**

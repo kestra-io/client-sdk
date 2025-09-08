@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerBasicAuthCredentials model module.
  * @module model/MiscControllerBasicAuthCredentials
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class MiscControllerBasicAuthCredentials {
     /**

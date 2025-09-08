@@ -17,7 +17,7 @@ import DailyExecutionStatistics from './DailyExecutionStatistics';
 /**
  * The ExecutionUsage model module.
  * @module model/ExecutionUsage
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class ExecutionUsage {
     /**

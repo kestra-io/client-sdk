@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Blueprint model module.
  * @module model/Blueprint
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class Blueprint {
     /**

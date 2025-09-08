@@ -16,21 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The KVEntry model module.
  * @module model/KVEntry
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class KVEntry {
     /**
      * Constructs a new <code>KVEntry</code>.
      * @alias module:model/KVEntry
      * @param key {String} 
-     * @param description {String} 
      * @param creationDate {Date} 
      * @param updateDate {Date} 
-     * @param expirationDate {Date} 
      */
-    constructor(key, description, creationDate, updateDate, expirationDate) { 
+    constructor(key, creationDate, updateDate) { 
         
-        KVEntry.initialize(this, key, description, creationDate, updateDate, expirationDate);
+        KVEntry.initialize(this, key, creationDate, updateDate);
     }
 
     /**
@@ -38,12 +36,10 @@ class KVEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, key, description, creationDate, updateDate, expirationDate) { 
+    static initialize(obj, key, creationDate, updateDate) { 
         obj['key'] = key;
-        obj['description'] = description;
         obj['creationDate'] = creationDate;
         obj['updateDate'] = updateDate;
-        obj['expirationDate'] = expirationDate;
     }
 
     /**
@@ -103,7 +99,7 @@ class KVEntry {
 
 }
 
-KVEntry.RequiredProperties = ["key", "description", "creationDate", "updateDate", "expirationDate"];
+KVEntry.RequiredProperties = ["key", "creationDate", "updateDate"];
 
 /**
  * @member {String} key

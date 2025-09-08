@@ -18,7 +18,7 @@ import Trigger from './Trigger';
 /**
  * The TriggerControllerTriggers model module.
  * @module model/TriggerControllerTriggers
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class TriggerControllerTriggers {
     /**

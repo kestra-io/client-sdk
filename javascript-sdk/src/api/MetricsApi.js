@@ -19,7 +19,7 @@ import PagedResultsMetricEntry from '../model/PagedResultsMetricEntry';
 /**
 * Metrics service.
 * @module api/MetricsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class MetricsApi {
 

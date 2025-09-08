@@ -17,7 +17,7 @@ import InstanceControllerApiPluginVersionDetailsApiPluginClass from './InstanceC
 /**
  * The InstanceControllerApiPluginVersionDetailsApiPluginClasses model module.
  * @module model/InstanceControllerApiPluginVersionDetailsApiPluginClasses
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
     /**

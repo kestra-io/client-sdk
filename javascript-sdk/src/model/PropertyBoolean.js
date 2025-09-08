@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyBoolean model module.
  * @module model/PropertyBoolean
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class PropertyBoolean {
     /**

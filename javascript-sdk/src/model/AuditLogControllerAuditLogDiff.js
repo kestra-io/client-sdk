@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuditLogControllerAuditLogDiff model module.
  * @module model/AuditLogControllerAuditLogDiff
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class AuditLogControllerAuditLogDiff {
     /**

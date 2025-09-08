@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The BaseResourceScimResource model module.
  * @module model/BaseResourceScimResource
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class BaseResourceScimResource {
     /**

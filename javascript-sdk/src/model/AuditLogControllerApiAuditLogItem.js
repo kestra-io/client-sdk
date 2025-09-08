@@ -14,12 +14,11 @@
 import ApiClient from '../ApiClient';
 import ApiUser from './ApiUser';
 import AuditLog from './AuditLog';
-import Permission from './Permission';
 
 /**
  * The AuditLogControllerApiAuditLogItem model module.
  * @module model/AuditLogControllerApiAuditLogItem
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class AuditLogControllerApiAuditLogItem {
     /**
@@ -27,11 +26,10 @@ class AuditLogControllerApiAuditLogItem {
      * @alias module:model/AuditLogControllerApiAuditLogItem
      * @param auditLog {module:model/AuditLog} 
      * @param user {module:model/ApiUser} 
-     * @param permission {module:model/Permission} 
      */
-    constructor(auditLog, user, permission) { 
+    constructor(auditLog, user) { 
         
-        AuditLogControllerApiAuditLogItem.initialize(this, auditLog, user, permission);
+        AuditLogControllerApiAuditLogItem.initialize(this, auditLog, user);
     }
 
     /**
@@ -39,10 +37,9 @@ class AuditLogControllerApiAuditLogItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, auditLog, user, permission) { 
+    static initialize(obj, auditLog, user) { 
         obj['auditLog'] = auditLog;
         obj['user'] = user;
-        obj['permission'] = permission;
     }
 
     /**
@@ -61,9 +58,6 @@ class AuditLogControllerApiAuditLogItem {
             }
             if (data.hasOwnProperty('user')) {
                 obj['user'] = ApiUser.constructFromObject(data['user']);
-            }
-            if (data.hasOwnProperty('permission')) {
-                obj['permission'] = Permission.constructFromObject(data['permission']);
             }
         }
         return obj;
@@ -96,7 +90,7 @@ class AuditLogControllerApiAuditLogItem {
 
 }
 
-AuditLogControllerApiAuditLogItem.RequiredProperties = ["auditLog", "user", "permission"];
+AuditLogControllerApiAuditLogItem.RequiredProperties = ["auditLog", "user"];
 
 /**
  * @member {module:model/AuditLog} auditLog
@@ -107,11 +101,6 @@ AuditLogControllerApiAuditLogItem.prototype['auditLog'] = undefined;
  * @member {module:model/ApiUser} user
  */
 AuditLogControllerApiAuditLogItem.prototype['user'] = undefined;
-
-/**
- * @member {module:model/Permission} permission
- */
-AuditLogControllerApiAuditLogItem.prototype['permission'] = undefined;
 
 
 

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The QueryFilterOperation model module.
  * @module model/QueryFilterOperation
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class QueryFilterOperation {
     /**

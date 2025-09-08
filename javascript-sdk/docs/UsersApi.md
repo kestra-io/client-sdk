@@ -5,18 +5,21 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**autocompleteUsers**](UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-[**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-[**createApiTokensForUser1**](UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+[**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+[**createApiTokensForUser1**](UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
+[**createApiTokensForUserWithTenant**](UsersApi.md#createApiTokensForUserWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
 [**createUser**](UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
-[**deleteApiToken**](UsersApi.md#deleteApiToken) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**deleteApiToken1**](UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**deleteApiToken**](UsersApi.md#deleteApiToken) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**deleteApiToken1**](UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**deleteApiTokenWithTenant**](UsersApi.md#deleteApiTokenWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 [**deleteRefreshToken**](UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 [**deleteUser**](UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 [**deleteUserAuthMethod**](UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
 [**getUser**](UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 [**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
-[**listApiTokens**](UsersApi.md#listApiTokens) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-[**listApiTokens1**](UsersApi.md#listApiTokens1) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+[**listApiTokens**](UsersApi.md#listApiTokens) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user
+[**listApiTokens1**](UsersApi.md#listApiTokens1) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
+[**listApiTokensWithTenant**](UsersApi.md#listApiTokensWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
 [**listUsers**](UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
 [**patchUser**](UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details
 [**patchUserDemo**](UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo
@@ -83,11 +86,9 @@ Name | Type | Description  | Notes
 
 ## createApiTokensForUser
 
-> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+> Object createApiTokensForUser(id, createApiTokenRequest)
 
 Create new API Token for a specific user
-
-Superadmin-only. Create a new API token for a user.
 
 ### Example
 
@@ -124,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+**Object**
 
 ### Authorization
 
@@ -138,7 +139,62 @@ Name | Type | Description  | Notes
 
 ## createApiTokensForUser1
 
-> Object createApiTokensForUser1(id, tenant, createApiTokenRequest)
+> CreateApiTokenResponse createApiTokensForUser1(id, createApiTokenRequest)
+
+Create new API Token for a specific user
+
+Superadmin-only. Create a new API token for a user.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.UsersApi();
+let id = "id_example"; // String | The user id
+let createApiTokenRequest = new KestraIoKestraSdk.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
+apiInstance.createApiTokensForUser1(id, createApiTokenRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+
+### Return type
+
+[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## createApiTokensForUserWithTenant
+
+> Object createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest)
 
 Create new API Token for a specific user
 
@@ -159,7 +215,7 @@ let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let createApiTokenRequest = new KestraIoKestraSdk.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUser1(id, tenant, createApiTokenRequest, (error, data, response) => {
+apiInstance.createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -246,7 +302,60 @@ null (empty response body)
 
 ## deleteApiToken
 
-> deleteApiToken(id, tokenId)
+> Object deleteApiToken(id, tokenId)
+
+Delete an API Token for specific user and token id
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.UsersApi();
+let id = "id_example"; // String | The user id
+let tokenId = "tokenId_example"; // String | The token id
+apiInstance.deleteApiToken(id, tokenId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+ **tokenId** | **String**| The token id | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## deleteApiToken1
+
+> deleteApiToken1(id, tokenId)
 
 Delete an API Token for specific user and token id
 
@@ -268,7 +377,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiToken(id, tokenId, (error, data, response) => {
+apiInstance.deleteApiToken1(id, tokenId, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -299,9 +408,9 @@ null (empty response body)
 - **Accept**: Not defined
 
 
-## deleteApiToken1
+## deleteApiTokenWithTenant
 
-> Object deleteApiToken1(id, tokenId, tenant)
+> Object deleteApiTokenWithTenant(id, tokenId, tenant)
 
 Delete an API Token for specific user and token id
 
@@ -322,7 +431,7 @@ let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiToken1(id, tokenId, tenant, (error, data, response) => {
+apiInstance.deleteApiTokenWithTenant(id, tokenId, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -625,8 +734,6 @@ Name | Type | Description  | Notes
 
 List API tokens for a specific user
 
-Superadmin-only. Get all API token existing for a user.
-
 ### Example
 
 ```javascript
@@ -674,7 +781,60 @@ Name | Type | Description  | Notes
 
 ## listApiTokens1
 
-> Object listApiTokens1(id, tenant)
+> Object listApiTokens1(id)
+
+List API tokens for a specific user
+
+Superadmin-only. Get all API token existing for a user.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.UsersApi();
+let id = "id_example"; // String | The user id
+apiInstance.listApiTokens1(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| The user id | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## listApiTokensWithTenant
+
+> Object listApiTokensWithTenant(id, tenant)
 
 List API tokens for a specific user
 
@@ -694,7 +854,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokens1(id, tenant, (error, data, response) => {
+apiInstance.listApiTokensWithTenant(id, tenant, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -951,7 +1111,7 @@ Name | Type | Description  | Notes
 
 ## patchUserSuperAdmin
 
-> patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest)
+> patchUserSuperAdmin(id, apiPatchSuperAdminRequest)
 
 Update user superadmin privileges
 
@@ -972,8 +1132,8 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-let iAMUserControllerApiPatchSuperAdminRequest = new KestraIoKestraSdk.IAMUserControllerApiPatchSuperAdminRequest(); // IAMUserControllerApiPatchSuperAdminRequest | 
-apiInstance.patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest, (error, data, response) => {
+let apiPatchSuperAdminRequest = new KestraIoKestraSdk.ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
+apiInstance.patchUserSuperAdmin(id, apiPatchSuperAdminRequest, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -988,7 +1148,7 @@ apiInstance.patchUserSuperAdmin(id, iAMUserControllerApiPatchSuperAdminRequest, 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| The user id | 
- **iAMUserControllerApiPatchSuperAdminRequest** | [**IAMUserControllerApiPatchSuperAdminRequest**](IAMUserControllerApiPatchSuperAdminRequest.md)|  | 
+ **apiPatchSuperAdminRequest** | [**ApiPatchSuperAdminRequest**](ApiPatchSuperAdminRequest.md)|  | 
 
 ### Return type
 

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginControllerApiPluginVersions model module.
  * @module model/PluginControllerApiPluginVersions
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class PluginControllerApiPluginVersions {
     /**

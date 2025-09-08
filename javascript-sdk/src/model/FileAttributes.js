@@ -17,7 +17,7 @@ import FileAttributesFileType from './FileAttributesFileType';
 /**
  * The FileAttributes model module.
  * @module model/FileAttributes
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FileAttributes {
     /**

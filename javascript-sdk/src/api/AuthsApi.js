@@ -21,7 +21,7 @@ import MeControllerApiUserDetailsRequest from '../model/MeControllerApiUserDetai
 /**
 * Auths service.
 * @module api/AuthsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class AuthsApi {
 

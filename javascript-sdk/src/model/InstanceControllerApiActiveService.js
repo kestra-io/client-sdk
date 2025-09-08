@@ -17,7 +17,7 @@ import ServiceType from './ServiceType';
 /**
  * The InstanceControllerApiActiveService model module.
  * @module model/InstanceControllerApiActiveService
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InstanceControllerApiActiveService {
     /**

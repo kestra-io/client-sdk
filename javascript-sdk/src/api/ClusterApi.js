@@ -17,7 +17,7 @@ import ApiClient from "../ApiClient";
 /**
 * Cluster service.
 * @module api/ClusterApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class ClusterApi {
 

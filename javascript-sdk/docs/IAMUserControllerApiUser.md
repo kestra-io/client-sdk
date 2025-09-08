@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **firstName** | **String** |  | 
 **lastName** | **String** |  | 
 **email** | **String** |  | 
-**tenants** | [**[IAMUserControllerApiTenant]**](IAMUserControllerApiTenant.md) |  | 
+**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
 **auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
 **groups** | [**[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | 
 **superAdmin** | **Boolean** |  | 

@@ -17,7 +17,7 @@ import ServiceType from './ServiceType';
 /**
  * The Isolation model module.
  * @module model/Isolation
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class Isolation {
     /**

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiSecretTag model module.
  * @module model/ApiSecretTag
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class ApiSecretTag {
     /**

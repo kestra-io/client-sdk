@@ -16,18 +16,19 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowGenerationPrompt model module.
  * @module model/FlowGenerationPrompt
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FlowGenerationPrompt {
     /**
      * Constructs a new <code>FlowGenerationPrompt</code>.
      * @alias module:model/FlowGenerationPrompt
+     * @param conversationId {String} 
      * @param userPrompt {String} 
      * @param flowYaml {String} 
      */
-    constructor(userPrompt, flowYaml) { 
+    constructor(conversationId, userPrompt, flowYaml) { 
         
-        FlowGenerationPrompt.initialize(this, userPrompt, flowYaml);
+        FlowGenerationPrompt.initialize(this, conversationId, userPrompt, flowYaml);
     }
 
     /**
@@ -35,7 +36,8 @@ class FlowGenerationPrompt {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, userPrompt, flowYaml) { 
+    static initialize(obj, conversationId, userPrompt, flowYaml) { 
+        obj['conversationId'] = conversationId;
         obj['userPrompt'] = userPrompt;
         obj['flowYaml'] = flowYaml;
     }
@@ -51,6 +53,9 @@ class FlowGenerationPrompt {
         if (data) {
             obj = obj || new FlowGenerationPrompt();
 
+            if (data.hasOwnProperty('conversationId')) {
+                obj['conversationId'] = ApiClient.convertToType(data['conversationId'], 'String');
+            }
             if (data.hasOwnProperty('userPrompt')) {
                 obj['userPrompt'] = ApiClient.convertToType(data['userPrompt'], 'String');
             }
@@ -74,6 +79,10 @@ class FlowGenerationPrompt {
             }
         }
         // ensure the json data is a string
+        if (data['conversationId'] && !(typeof data['conversationId'] === 'string' || data['conversationId'] instanceof String)) {
+            throw new Error("Expected the field `conversationId` to be a primitive type in the JSON string but got " + data['conversationId']);
+        }
+        // ensure the json data is a string
         if (data['userPrompt'] && !(typeof data['userPrompt'] === 'string' || data['userPrompt'] instanceof String)) {
             throw new Error("Expected the field `userPrompt` to be a primitive type in the JSON string but got " + data['userPrompt']);
         }
@@ -88,7 +97,12 @@ class FlowGenerationPrompt {
 
 }
 
-FlowGenerationPrompt.RequiredProperties = ["userPrompt", "flowYaml"];
+FlowGenerationPrompt.RequiredProperties = ["conversationId", "userPrompt", "flowYaml"];
+
+/**
+ * @member {String} conversationId
+ */
+FlowGenerationPrompt.prototype['conversationId'] = undefined;
 
 /**
  * @member {String} userPrompt

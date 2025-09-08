@@ -12,14 +12,14 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiTenantSummary from './ApiTenantSummary';
 import IAMUserControllerApiGroup from './IAMUserControllerApiGroup';
-import IAMUserControllerApiTenant from './IAMUserControllerApiTenant';
 import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 
 /**
  * The IAMUserControllerApiUser model module.
  * @module model/IAMUserControllerApiUser
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class IAMUserControllerApiUser {
     /**
@@ -31,7 +31,7 @@ class IAMUserControllerApiUser {
      * @param firstName {String} 
      * @param lastName {String} 
      * @param email {String} 
-     * @param tenants {Array.<module:model/IAMUserControllerApiTenant>} 
+     * @param tenants {Array.<module:model/ApiTenantSummary>} 
      * @param auths {Array.<module:model/IAMUserControllerApiUserAuth>} 
      * @param groups {Array.<module:model/IAMUserControllerApiGroup>} 
      * @param superAdmin {Boolean} 
@@ -91,7 +91,7 @@ class IAMUserControllerApiUser {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
             if (data.hasOwnProperty('tenants')) {
-                obj['tenants'] = ApiClient.convertToType(data['tenants'], [IAMUserControllerApiTenant]);
+                obj['tenants'] = ApiClient.convertToType(data['tenants'], [ApiTenantSummary]);
             }
             if (data.hasOwnProperty('auths')) {
                 obj['auths'] = ApiClient.convertToType(data['auths'], [IAMUserControllerApiUserAuth]);
@@ -152,7 +152,7 @@ class IAMUserControllerApiUser {
             }
             // validate the optional field `tenants` (array)
             for (const item of data['tenants']) {
-                IAMUserControllerApiTenant.validateJSON(item);
+                ApiTenantSummary.validateJSON(item);
             };
         }
         if (data['auths']) { // data not null
@@ -215,7 +215,7 @@ IAMUserControllerApiUser.prototype['lastName'] = undefined;
 IAMUserControllerApiUser.prototype['email'] = undefined;
 
 /**
- * @member {Array.<module:model/IAMUserControllerApiTenant>} tenants
+ * @member {Array.<module:model/ApiTenantSummary>} tenants
  */
 IAMUserControllerApiUser.prototype['tenants'] = undefined;
 

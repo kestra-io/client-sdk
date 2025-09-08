@@ -17,7 +17,7 @@ import MapObjectObject from './MapObjectObject';
 /**
  * The FlowWithSourceAllOfLabels model module.
  * @module model/FlowWithSourceAllOfLabels
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FlowWithSourceAllOfLabels {
     /**

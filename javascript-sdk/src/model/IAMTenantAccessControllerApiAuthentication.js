@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMTenantAccessControllerApiAuthentication model module.
  * @module model/IAMTenantAccessControllerApiAuthentication
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class IAMTenantAccessControllerApiAuthentication {
     /**

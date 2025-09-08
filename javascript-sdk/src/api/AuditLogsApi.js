@@ -24,7 +24,7 @@ import ResourceType1 from '../model/ResourceType1';
 /**
 * AuditLogs service.
 * @module api/AuditLogsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class AuditLogsApi {
 

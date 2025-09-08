@@ -17,7 +17,7 @@ import Dashboard from './Dashboard';
 /**
  * The PagedResultsDashboard model module.
  * @module model/PagedResultsDashboard
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class PagedResultsDashboard {
     /**

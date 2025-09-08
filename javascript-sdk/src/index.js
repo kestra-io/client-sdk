@@ -27,6 +27,7 @@ import ApiAuth from './model/ApiAuth';
 import ApiAutocomplete from './model/ApiAutocomplete';
 import ApiGroupSummary from './model/ApiGroupSummary';
 import ApiIds from './model/ApiIds';
+import ApiPatchSuperAdminRequest from './model/ApiPatchSuperAdminRequest';
 import ApiRoleSummary from './model/ApiRoleSummary';
 import ApiSecretListResponse from './model/ApiSecretListResponse';
 import ApiSecretMeta from './model/ApiSecretMeta';
@@ -34,6 +35,7 @@ import ApiSecretMetaEE from './model/ApiSecretMetaEE';
 import ApiSecretTag from './model/ApiSecretTag';
 import ApiSecretValue from './model/ApiSecretValue';
 import ApiTenant from './model/ApiTenant';
+import ApiTenantSummary from './model/ApiTenantSummary';
 import ApiUser from './model/ApiUser';
 import AppResponse from './model/AppResponse';
 import AppResponseUILayout from './model/AppResponseUILayout';
@@ -97,6 +99,7 @@ import DeleteExecutionsByQueryRequest from './model/DeleteExecutionsByQueryReque
 import DeletedInterface from './model/DeletedInterface';
 import DependsOn from './model/DependsOn';
 import DocumentationWithSchema from './model/DocumentationWithSchema';
+import EditionProviderEdition from './model/EditionProviderEdition';
 import Email from './model/Email';
 import EventAppResponse from './model/EventAppResponse';
 import EventExecution from './model/EventExecution';
@@ -164,7 +167,10 @@ import IAMInvitationControllerApiInvitationRole from './model/IAMInvitationContr
 import IAMRoleControllerApiRoleCreateOrUpdateRequest from './model/IAMRoleControllerApiRoleCreateOrUpdateRequest';
 import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions';
 import IAMRoleControllerApiRoleDetail from './model/IAMRoleControllerApiRoleDetail';
+import IAMServiceAccountControllerApiCreateServiceAccountRequest from './model/IAMServiceAccountControllerApiCreateServiceAccountRequest';
 import IAMServiceAccountControllerApiGroup from './model/IAMServiceAccountControllerApiGroup';
+import IAMServiceAccountControllerApiPatchServiceAccountRequest from './model/IAMServiceAccountControllerApiPatchServiceAccountRequest';
+import IAMServiceAccountControllerApiServiceAccountDetail from './model/IAMServiceAccountControllerApiServiceAccountDetail';
 import IAMServiceAccountControllerApiServiceAccountRequest from './model/IAMServiceAccountControllerApiServiceAccountRequest';
 import IAMServiceAccountControllerApiServiceAccountResponse from './model/IAMServiceAccountControllerApiServiceAccountResponse';
 import IAMTenantAccessControllerApiAuthentication from './model/IAMTenantAccessControllerApiAuthentication';
@@ -178,9 +184,7 @@ import IAMTenantAccessControllerUserApiAutocomplete from './model/IAMTenantAcces
 import IAMUserControllerApiCreateOrUpdateUserRequest from './model/IAMUserControllerApiCreateOrUpdateUserRequest';
 import IAMUserControllerApiGroup from './model/IAMUserControllerApiGroup';
 import IAMUserControllerApiPatchRestrictedRequest from './model/IAMUserControllerApiPatchRestrictedRequest';
-import IAMUserControllerApiPatchSuperAdminRequest from './model/IAMUserControllerApiPatchSuperAdminRequest';
 import IAMUserControllerApiPatchUserPasswordRequest from './model/IAMUserControllerApiPatchUserPasswordRequest';
-import IAMUserControllerApiTenant from './model/IAMUserControllerApiTenant';
 import IAMUserControllerApiUser from './model/IAMUserControllerApiUser';
 import IAMUserControllerApiUserAuth from './model/IAMUserControllerApiUserAuth';
 import IAMUserControllerApiUserSummary from './model/IAMUserControllerApiUserSummary';
@@ -236,7 +240,6 @@ import MiscControllerApiUsage from './model/MiscControllerApiUsage';
 import MiscControllerBasicAuthCredentials from './model/MiscControllerBasicAuthCredentials';
 import MiscControllerConfiguration from './model/MiscControllerConfiguration';
 import MiscControllerEEConfiguration from './model/MiscControllerEEConfiguration';
-import MiscControllerEdition from './model/MiscControllerEdition';
 import MiscControllerEnvironment from './model/MiscControllerEnvironment';
 import MiscControllerLicenseInfo from './model/MiscControllerLicenseInfo';
 import MiscControllerPluginIdAndVersion from './model/MiscControllerPluginIdAndVersion';
@@ -262,6 +265,7 @@ import PagedResultsFlow from './model/PagedResultsFlow';
 import PagedResultsIAMBindingControllerApiBindingDetail from './model/PagedResultsIAMBindingControllerApiBindingDetail';
 import PagedResultsIAMGroupControllerApiGroupMember from './model/PagedResultsIAMGroupControllerApiGroupMember';
 import PagedResultsIAMInvitationControllerApiInvitationDetail from './model/PagedResultsIAMInvitationControllerApiInvitationDetail';
+import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from './model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail';
 import PagedResultsIAMTenantAccessControllerApiUserTenantAccess from './model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess';
 import PagedResultsIAMUserControllerApiUserSummary from './model/PagedResultsIAMUserControllerApiUserSummary';
 import PagedResultsInstanceControllerApiPluginArtifact from './model/PagedResultsInstanceControllerApiPluginArtifact';
@@ -460,7 +464,7 @@ import WorkerGroupsApi from './api/WorkerGroupsApi';
 * </pre>
 * </p>
 * @module index
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export {
     /**
@@ -554,6 +558,12 @@ export {
     ApiIds,
 
     /**
+     * The ApiPatchSuperAdminRequest model constructor.
+     * @property {module:model/ApiPatchSuperAdminRequest}
+     */
+    ApiPatchSuperAdminRequest,
+
+    /**
      * The ApiRoleSummary model constructor.
      * @property {module:model/ApiRoleSummary}
      */
@@ -594,6 +604,12 @@ export {
      * @property {module:model/ApiTenant}
      */
     ApiTenant,
+
+    /**
+     * The ApiTenantSummary model constructor.
+     * @property {module:model/ApiTenantSummary}
+     */
+    ApiTenantSummary,
 
     /**
      * The ApiUser model constructor.
@@ -972,6 +988,12 @@ export {
      * @property {module:model/DocumentationWithSchema}
      */
     DocumentationWithSchema,
+
+    /**
+     * The EditionProviderEdition model constructor.
+     * @property {module:model/EditionProviderEdition}
+     */
+    EditionProviderEdition,
 
     /**
      * The Email model constructor.
@@ -1376,10 +1398,28 @@ export {
     IAMRoleControllerApiRoleDetail,
 
     /**
+     * The IAMServiceAccountControllerApiCreateServiceAccountRequest model constructor.
+     * @property {module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest}
+     */
+    IAMServiceAccountControllerApiCreateServiceAccountRequest,
+
+    /**
      * The IAMServiceAccountControllerApiGroup model constructor.
      * @property {module:model/IAMServiceAccountControllerApiGroup}
      */
     IAMServiceAccountControllerApiGroup,
+
+    /**
+     * The IAMServiceAccountControllerApiPatchServiceAccountRequest model constructor.
+     * @property {module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest}
+     */
+    IAMServiceAccountControllerApiPatchServiceAccountRequest,
+
+    /**
+     * The IAMServiceAccountControllerApiServiceAccountDetail model constructor.
+     * @property {module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    IAMServiceAccountControllerApiServiceAccountDetail,
 
     /**
      * The IAMServiceAccountControllerApiServiceAccountRequest model constructor.
@@ -1460,22 +1500,10 @@ export {
     IAMUserControllerApiPatchRestrictedRequest,
 
     /**
-     * The IAMUserControllerApiPatchSuperAdminRequest model constructor.
-     * @property {module:model/IAMUserControllerApiPatchSuperAdminRequest}
-     */
-    IAMUserControllerApiPatchSuperAdminRequest,
-
-    /**
      * The IAMUserControllerApiPatchUserPasswordRequest model constructor.
      * @property {module:model/IAMUserControllerApiPatchUserPasswordRequest}
      */
     IAMUserControllerApiPatchUserPasswordRequest,
-
-    /**
-     * The IAMUserControllerApiTenant model constructor.
-     * @property {module:model/IAMUserControllerApiTenant}
-     */
-    IAMUserControllerApiTenant,
 
     /**
      * The IAMUserControllerApiUser model constructor.
@@ -1808,12 +1836,6 @@ export {
     MiscControllerEEConfiguration,
 
     /**
-     * The MiscControllerEdition model constructor.
-     * @property {module:model/MiscControllerEdition}
-     */
-    MiscControllerEdition,
-
-    /**
      * The MiscControllerEnvironment model constructor.
      * @property {module:model/MiscControllerEnvironment}
      */
@@ -1962,6 +1984,12 @@ export {
      * @property {module:model/PagedResultsIAMInvitationControllerApiInvitationDetail}
      */
     PagedResultsIAMInvitationControllerApiInvitationDetail,
+
+    /**
+     * The PagedResultsIAMServiceAccountControllerApiServiceAccountDetail model constructor.
+     * @property {module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    PagedResultsIAMServiceAccountControllerApiServiceAccountDetail,
 
     /**
      * The PagedResultsIAMTenantAccessControllerApiUserTenantAccess model constructor.

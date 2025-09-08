@@ -24,7 +24,7 @@ import Role from '../model/Role';
 /**
 * Roles service.
 * @module api/RolesApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class RolesApi {
 

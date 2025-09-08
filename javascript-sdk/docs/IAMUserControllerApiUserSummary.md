@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **username** | **String** |  | 
 **displayName** | **String** |  | 
-**tenants** | [**[IAMUserControllerApiTenant]**](IAMUserControllerApiTenant.md) |  | 
+**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
 **auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
 **superAdmin** | **Boolean** |  | 
 

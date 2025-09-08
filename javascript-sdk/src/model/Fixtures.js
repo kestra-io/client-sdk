@@ -18,7 +18,7 @@ import TriggerFixture from './TriggerFixture';
 /**
  * The Fixtures model module.
  * @module model/Fixtures
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class Fixtures {
     /**

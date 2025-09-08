@@ -1668,7 +1668,7 @@ Name | Type | Description  | Notes
 
 ## replayExecutionWithinputs
 
-> Execution replayExecutionWithinputs(executionId, taskRunId, revision, tenant, opts)
+> Execution replayExecutionWithinputs(executionId, tenant, opts)
 
 Create a new execution from an old one and start it from a specified task run id
 
@@ -1687,13 +1687,13 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
 let executionId = "executionId_example"; // String | the original execution id to clone
-let taskRunId = "taskRunId_example"; // String | The taskrun id
-let revision = 56; // Number | The flow revision to use for new execution
 let tenant = "tenant_example"; // String | 
 let opts = {
+  'taskRunId': "taskRunId_example", // String | The taskrun id
+  'revision': 56, // Number | The flow revision to use for new execution
   'breakpoints': "breakpoints_example" // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
 };
-apiInstance.replayExecutionWithinputs(executionId, taskRunId, revision, tenant, opts, (error, data, response) => {
+apiInstance.replayExecutionWithinputs(executionId, tenant, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -1708,9 +1708,9 @@ apiInstance.replayExecutionWithinputs(executionId, taskRunId, revision, tenant, 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **executionId** | **String**| the original execution id to clone | 
- **taskRunId** | **String**| The taskrun id | 
- **revision** | **Number**| The flow revision to use for new execution | 
  **tenant** | **String**|  | 
+ **taskRunId** | **String**| The taskrun id | [optional] 
+ **revision** | **Number**| The flow revision to use for new execution | [optional] 
  **breakpoints** | **String**| Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. | [optional] 
 
 ### Return type

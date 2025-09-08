@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiBulkImportResponseError model module.
  * @module model/AppsControllerApiBulkImportResponseError
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class AppsControllerApiBulkImportResponseError {
     /**

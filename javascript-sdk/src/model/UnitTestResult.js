@@ -20,7 +20,7 @@ import TestState from './TestState';
 /**
  * The UnitTestResult model module.
  * @module model/UnitTestResult
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class UnitTestResult {
     /**

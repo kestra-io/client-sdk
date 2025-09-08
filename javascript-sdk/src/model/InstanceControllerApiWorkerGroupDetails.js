@@ -17,7 +17,7 @@ import ServiceInstance from './ServiceInstance';
 /**
  * The InstanceControllerApiWorkerGroupDetails model module.
  * @module model/InstanceControllerApiWorkerGroupDetails
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InstanceControllerApiWorkerGroupDetails {
     /**

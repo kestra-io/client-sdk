@@ -17,7 +17,7 @@ import AuditLogControllerApiAuditLogItem from './AuditLogControllerApiAuditLogIt
 /**
  * The PagedResultsAuditLogControllerApiAuditLogItem model module.
  * @module model/PagedResultsAuditLogControllerApiAuditLogItem
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class PagedResultsAuditLogControllerApiAuditLogItem {
     /**

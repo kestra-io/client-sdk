@@ -29,7 +29,7 @@ import PreviewAppRequest from '../model/PreviewAppRequest';
 /**
 * Apps service.
 * @module api/AppsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class AppsApi {
 

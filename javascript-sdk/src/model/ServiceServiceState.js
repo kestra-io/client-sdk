@@ -76,10 +76,10 @@ export default class ServiceServiceState {
 
     
         /**
-         * value: "EMPTY"
+         * value: "INACTIVE"
          * @const
          */
-        "EMPTY" = "EMPTY";
+        "INACTIVE" = "INACTIVE";
 
     
         /**

@@ -17,7 +17,7 @@ import AppResponseUILayout from './AppResponseUILayout';
 /**
  * The AppResponse model module.
  * @module model/AppResponse
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class AppResponse {
     /**

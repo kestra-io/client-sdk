@@ -17,7 +17,7 @@ import AbstractGraph from './AbstractGraph';
 /**
  * The FlowGraphCluster model module.
  * @module model/FlowGraphCluster
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FlowGraphCluster {
     /**

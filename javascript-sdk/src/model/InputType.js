@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InputType model module.
  * @module model/InputType
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InputType {
     /**

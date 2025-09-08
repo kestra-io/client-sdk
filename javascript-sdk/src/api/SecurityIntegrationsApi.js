@@ -18,7 +18,7 @@ import CreateSecurityIntegrationRequest from '../model/CreateSecurityIntegration
 /**
 * SecurityIntegrations service.
 * @module api/SecurityIntegrationsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class SecurityIntegrationsApi {
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **uuid** | **String** |  | [optional] 
 **version** | **String** |  | [optional] 
-**edition** | [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
+**edition** | [**EditionProviderEdition**](EditionProviderEdition.md) |  | [optional] 
 **commitId** | **String** |  | [optional] 
 **commitDate** | **Date** |  | [optional] 
 **isCustomDashboardsEnabled** | **Boolean** |  | [optional] 
@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **resourceToFilters** | [**[QueryFilterResourceField]**](QueryFilterResourceField.md) |  | [optional] 
 **isAiEnabled** | **Boolean** |  | [optional] 
 **isBasicAuthInitialized** | **Boolean** |  | [optional] 
+**pluginsHash** | **Number** |  | [optional] 
 **tenants** | [**MiscControllerTenantConfigurationInfo**](MiscControllerTenantConfigurationInfo.md) |  | [optional] 
 **secretsEnabled** | **Boolean** |  | [optional] 
 **supportedStorages** | [**[MiscControllerPluginIdAndVersion]**](MiscControllerPluginIdAndVersion.md) |  | [optional] 

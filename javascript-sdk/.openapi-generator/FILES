@@ -17,6 +17,7 @@ docs/ApiAuth.md
 docs/ApiAutocomplete.md
 docs/ApiGroupSummary.md
 docs/ApiIds.md
+docs/ApiPatchSuperAdminRequest.md
 docs/ApiRoleSummary.md
 docs/ApiSecretListResponse.md
 docs/ApiSecretMeta.md
@@ -24,6 +25,7 @@ docs/ApiSecretMetaEE.md
 docs/ApiSecretTag.md
 docs/ApiSecretValue.md
 docs/ApiTenant.md
+docs/ApiTenantSummary.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
@@ -97,6 +99,7 @@ docs/DeleteExecutionsByQueryRequest.md
 docs/DeletedInterface.md
 docs/DependsOn.md
 docs/DocumentationWithSchema.md
+docs/EditionProviderEdition.md
 docs/Email.md
 docs/EventAppResponse.md
 docs/EventExecution.md
@@ -168,7 +171,10 @@ docs/IAMInvitationControllerApiInvitationRole.md
 docs/IAMRoleControllerApiRoleCreateOrUpdateRequest.md
 docs/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md
 docs/IAMRoleControllerApiRoleDetail.md
+docs/IAMServiceAccountControllerApiCreateServiceAccountRequest.md
 docs/IAMServiceAccountControllerApiGroup.md
+docs/IAMServiceAccountControllerApiPatchServiceAccountRequest.md
+docs/IAMServiceAccountControllerApiServiceAccountDetail.md
 docs/IAMServiceAccountControllerApiServiceAccountRequest.md
 docs/IAMServiceAccountControllerApiServiceAccountResponse.md
 docs/IAMTenantAccessControllerApiAuthentication.md
@@ -182,9 +188,7 @@ docs/IAMTenantAccessControllerUserApiAutocomplete.md
 docs/IAMUserControllerApiCreateOrUpdateUserRequest.md
 docs/IAMUserControllerApiGroup.md
 docs/IAMUserControllerApiPatchRestrictedRequest.md
-docs/IAMUserControllerApiPatchSuperAdminRequest.md
 docs/IAMUserControllerApiPatchUserPasswordRequest.md
-docs/IAMUserControllerApiTenant.md
 docs/IAMUserControllerApiUser.md
 docs/IAMUserControllerApiUserAuth.md
 docs/IAMUserControllerApiUserSummary.md
@@ -246,7 +250,6 @@ docs/MiscControllerApiUsage.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
-docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -273,6 +276,7 @@ docs/PagedResultsFlow.md
 docs/PagedResultsIAMBindingControllerApiBindingDetail.md
 docs/PagedResultsIAMGroupControllerApiGroupMember.md
 docs/PagedResultsIAMInvitationControllerApiInvitationDetail.md
+docs/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.md
 docs/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.md
 docs/PagedResultsIAMUserControllerApiUserSummary.md
 docs/PagedResultsInstanceControllerApiPluginArtifact.md
@@ -473,6 +477,7 @@ src/model/ApiAuth.js
 src/model/ApiAutocomplete.js
 src/model/ApiGroupSummary.js
 src/model/ApiIds.js
+src/model/ApiPatchSuperAdminRequest.js
 src/model/ApiRoleSummary.js
 src/model/ApiSecretListResponse.js
 src/model/ApiSecretMeta.js
@@ -480,6 +485,7 @@ src/model/ApiSecretMetaEE.js
 src/model/ApiSecretTag.js
 src/model/ApiSecretValue.js
 src/model/ApiTenant.js
+src/model/ApiTenantSummary.js
 src/model/ApiUser.js
 src/model/AppResponse.js
 src/model/AppResponseUILayout.js
@@ -543,6 +549,7 @@ src/model/DeleteExecutionsByQueryRequest.js
 src/model/DeletedInterface.js
 src/model/DependsOn.js
 src/model/DocumentationWithSchema.js
+src/model/EditionProviderEdition.js
 src/model/Email.js
 src/model/EventAppResponse.js
 src/model/EventExecution.js
@@ -610,7 +617,10 @@ src/model/IAMInvitationControllerApiInvitationRole.js
 src/model/IAMRoleControllerApiRoleCreateOrUpdateRequest.js
 src/model/IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.js
 src/model/IAMRoleControllerApiRoleDetail.js
+src/model/IAMServiceAccountControllerApiCreateServiceAccountRequest.js
 src/model/IAMServiceAccountControllerApiGroup.js
+src/model/IAMServiceAccountControllerApiPatchServiceAccountRequest.js
+src/model/IAMServiceAccountControllerApiServiceAccountDetail.js
 src/model/IAMServiceAccountControllerApiServiceAccountRequest.js
 src/model/IAMServiceAccountControllerApiServiceAccountResponse.js
 src/model/IAMTenantAccessControllerApiAuthentication.js
@@ -624,9 +634,7 @@ src/model/IAMTenantAccessControllerUserApiAutocomplete.js
 src/model/IAMUserControllerApiCreateOrUpdateUserRequest.js
 src/model/IAMUserControllerApiGroup.js
 src/model/IAMUserControllerApiPatchRestrictedRequest.js
-src/model/IAMUserControllerApiPatchSuperAdminRequest.js
 src/model/IAMUserControllerApiPatchUserPasswordRequest.js
-src/model/IAMUserControllerApiTenant.js
 src/model/IAMUserControllerApiUser.js
 src/model/IAMUserControllerApiUserAuth.js
 src/model/IAMUserControllerApiUserSummary.js
@@ -682,7 +690,6 @@ src/model/MiscControllerApiUsage.js
 src/model/MiscControllerBasicAuthCredentials.js
 src/model/MiscControllerConfiguration.js
 src/model/MiscControllerEEConfiguration.js
-src/model/MiscControllerEdition.js
 src/model/MiscControllerEnvironment.js
 src/model/MiscControllerLicenseInfo.js
 src/model/MiscControllerPluginIdAndVersion.js
@@ -708,6 +715,7 @@ src/model/PagedResultsFlow.js
 src/model/PagedResultsIAMBindingControllerApiBindingDetail.js
 src/model/PagedResultsIAMGroupControllerApiGroupMember.js
 src/model/PagedResultsIAMInvitationControllerApiInvitationDetail.js
+src/model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail.js
 src/model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess.js
 src/model/PagedResultsIAMUserControllerApiUserSummary.js
 src/model/PagedResultsInstanceControllerApiPluginArtifact.js

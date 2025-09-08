@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **String** |  | 
-**description** | **String** |  | 
+**description** | **String** |  | [optional] 
 **creationDate** | **Date** |  | 
 **updateDate** | **Date** |  | 
-**expirationDate** | **Date** |  | 
+**expirationDate** | **Date** |  | [optional] 
 
 

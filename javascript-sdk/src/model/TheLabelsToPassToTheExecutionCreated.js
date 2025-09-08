@@ -17,7 +17,7 @@ import MapObjectObject from './MapObjectObject';
 /**
  * The TheLabelsToPassToTheExecutionCreated model module.
  * @module model/TheLabelsToPassToTheExecutionCreated
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class TheLabelsToPassToTheExecutionCreated {
     /**

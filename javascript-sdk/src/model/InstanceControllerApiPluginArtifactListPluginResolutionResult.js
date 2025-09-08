@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginArtifactListPluginResolutionResult model module.
  * @module model/InstanceControllerApiPluginArtifactListPluginResolutionResult
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InstanceControllerApiPluginArtifactListPluginResolutionResult {
     /**

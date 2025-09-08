@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The RightSidebarConfigurationCustomLink model module.
  * @module model/RightSidebarConfigurationCustomLink
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class RightSidebarConfigurationCustomLink {
     /**

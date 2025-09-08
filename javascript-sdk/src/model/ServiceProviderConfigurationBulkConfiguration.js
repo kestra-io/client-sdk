@@ -17,7 +17,7 @@ import ServiceProviderConfigurationSupportedConfiguration from './ServiceProvide
 /**
  * The ServiceProviderConfigurationBulkConfiguration model module.
  * @module model/ServiceProviderConfigurationBulkConfiguration
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class ServiceProviderConfigurationBulkConfiguration {
     /**

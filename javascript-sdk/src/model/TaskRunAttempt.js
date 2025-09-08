@@ -18,7 +18,7 @@ import State from './State';
 /**
  * The TaskRunAttempt model module.
  * @module model/TaskRunAttempt
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class TaskRunAttempt {
     /**

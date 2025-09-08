@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PagedResultsMapStringObject model module.
  * @module model/PagedResultsMapStringObject
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class PagedResultsMapStringObject {
     /**

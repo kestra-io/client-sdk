@@ -13,13 +13,18 @@
 
 
 import ApiClient from "../ApiClient";
+import ApiPatchSuperAdminRequest from '../model/ApiPatchSuperAdminRequest';
+import IAMServiceAccountControllerApiCreateServiceAccountRequest from '../model/IAMServiceAccountControllerApiCreateServiceAccountRequest';
+import IAMServiceAccountControllerApiPatchServiceAccountRequest from '../model/IAMServiceAccountControllerApiPatchServiceAccountRequest';
+import IAMServiceAccountControllerApiServiceAccountDetail from '../model/IAMServiceAccountControllerApiServiceAccountDetail';
 import IAMServiceAccountControllerApiServiceAccountRequest from '../model/IAMServiceAccountControllerApiServiceAccountRequest';
 import IAMServiceAccountControllerApiServiceAccountResponse from '../model/IAMServiceAccountControllerApiServiceAccountResponse';
+import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from '../model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail';
 
 /**
 * ServiceAccount service.
 * @module api/ServiceAccountApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class ServiceAccountApi {
 
@@ -39,26 +44,68 @@ export default class ServiceAccountApi {
      * Callback function to receive the result of the createServiceAccount operation.
      * @callback module:api/ServiceAccountApi~createServiceAccountCallback
      * @param {String} error Error message, if any.
+     * @param {module:model/IAMServiceAccountControllerApiServiceAccountDetail} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create a service account
+     * Superadmin-only. CReate service account with access to multiple tenants.
+     * @param {module:model/IAMServiceAccountControllerApiCreateServiceAccountRequest} iAMServiceAccountControllerApiCreateServiceAccountRequest The service account
+     * @param {module:api/ServiceAccountApi~createServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    createServiceAccount(iAMServiceAccountControllerApiCreateServiceAccountRequest, callback) {
+      let postBody = iAMServiceAccountControllerApiCreateServiceAccountRequest;
+      // verify the required parameter 'iAMServiceAccountControllerApiCreateServiceAccountRequest' is set
+      if (iAMServiceAccountControllerApiCreateServiceAccountRequest === undefined || iAMServiceAccountControllerApiCreateServiceAccountRequest === null) {
+        throw new Error("Missing the required parameter 'iAMServiceAccountControllerApiCreateServiceAccountRequest' when calling createServiceAccount");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = IAMServiceAccountControllerApiServiceAccountDetail;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the createServiceAccountForTenant operation.
+     * @callback module:api/ServiceAccountApi~createServiceAccountForTenantCallback
+     * @param {String} error Error message, if any.
      * @param {module:model/IAMServiceAccountControllerApiServiceAccountResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
-     * Create a user service account
+     * Create a service account for the given tenant
      * @param {String} tenant 
      * @param {module:model/IAMServiceAccountControllerApiServiceAccountRequest} iAMServiceAccountControllerApiServiceAccountRequest The service account
-     * @param {module:api/ServiceAccountApi~createServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/ServiceAccountApi~createServiceAccountForTenantCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse}
      */
-    createServiceAccount(tenant, iAMServiceAccountControllerApiServiceAccountRequest, callback) {
+    createServiceAccountForTenant(tenant, iAMServiceAccountControllerApiServiceAccountRequest, callback) {
       let postBody = iAMServiceAccountControllerApiServiceAccountRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createServiceAccount");
+        throw new Error("Missing the required parameter 'tenant' when calling createServiceAccountForTenant");
       }
       // verify the required parameter 'iAMServiceAccountControllerApiServiceAccountRequest' is set
       if (iAMServiceAccountControllerApiServiceAccountRequest === undefined || iAMServiceAccountControllerApiServiceAccountRequest === null) {
-        throw new Error("Missing the required parameter 'iAMServiceAccountControllerApiServiceAccountRequest' when calling createServiceAccount");
+        throw new Error("Missing the required parameter 'iAMServiceAccountControllerApiServiceAccountRequest' when calling createServiceAccountForTenant");
       }
 
       let pathParams = {
@@ -92,19 +139,61 @@ export default class ServiceAccountApi {
 
     /**
      * Delete a service account
-     * @param {String} id The user id
-     * @param {String} tenant 
+     * Superadmin-only. Delete a service account including all its access.
+     * @param {String} id The service account id
      * @param {module:api/ServiceAccountApi~deleteServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteServiceAccount(id, tenant, callback) {
+    deleteServiceAccount(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
         throw new Error("Missing the required parameter 'id' when calling deleteServiceAccount");
       }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the deleteServiceAccountForTenant operation.
+     * @callback module:api/ServiceAccountApi~deleteServiceAccountForTenantCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Delete a service account
+     * @param {String} id The service account id
+     * @param {String} tenant 
+     * @param {module:api/ServiceAccountApi~deleteServiceAccountForTenantCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    deleteServiceAccountForTenant(id, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling deleteServiceAccountForTenant");
+      }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteServiceAccount");
+        throw new Error("Missing the required parameter 'tenant' when calling deleteServiceAccountForTenant");
       }
 
       let pathParams = {
@@ -133,6 +222,49 @@ export default class ServiceAccountApi {
      * Callback function to receive the result of the getServiceAccount operation.
      * @callback module:api/ServiceAccountApi~getServiceAccountCallback
      * @param {String} error Error message, if any.
+     * @param {module:model/IAMServiceAccountControllerApiServiceAccountDetail} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get a service account
+     * Superadmin-only. Get user account details.
+     * @param {String} id The service account id
+     * @param {module:api/ServiceAccountApi~getServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    getServiceAccount(id, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling getServiceAccount");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = IAMServiceAccountControllerApiServiceAccountDetail;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the getServiceAccountForTenant operation.
+     * @callback module:api/ServiceAccountApi~getServiceAccountForTenantCallback
+     * @param {String} error Error message, if any.
      * @param {module:model/IAMServiceAccountControllerApiServiceAccountResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
@@ -141,18 +273,18 @@ export default class ServiceAccountApi {
      * Retrieve a service account
      * @param {String} id The user id
      * @param {String} tenant 
-     * @param {module:api/ServiceAccountApi~getServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/ServiceAccountApi~getServiceAccountForTenantCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/IAMServiceAccountControllerApiServiceAccountResponse}
      */
-    getServiceAccount(id, tenant, callback) {
+    getServiceAccountForTenant(id, tenant, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling getServiceAccount");
+        throw new Error("Missing the required parameter 'id' when calling getServiceAccountForTenant");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling getServiceAccount");
+        throw new Error("Missing the required parameter 'tenant' when calling getServiceAccountForTenant");
       }
 
       let pathParams = {
@@ -172,6 +304,155 @@ export default class ServiceAccountApi {
       let returnType = IAMServiceAccountControllerApiServiceAccountResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/service-accounts/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listServiceAccounts operation.
+     * @callback module:api/ServiceAccountApi~listServiceAccountsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List service accounts. Superadmin-only. 
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} [q] A string filter
+     * @param {Array.<String>} [sort] The sort of current page
+     * @param {module:api/ServiceAccountApi~listServiceAccountsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    listServiceAccounts(page, size, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'page' is set
+      if (page === undefined || page === null) {
+        throw new Error("Missing the required parameter 'page' when calling listServiceAccounts");
+      }
+      // verify the required parameter 'size' is set
+      if (size === undefined || size === null) {
+        throw new Error("Missing the required parameter 'size' when calling listServiceAccounts");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'q': opts['q'],
+        'page': page,
+        'size': size,
+        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv')
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = PagedResultsIAMServiceAccountControllerApiServiceAccountDetail;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the patchServiceAccountDetails operation.
+     * @callback module:api/ServiceAccountApi~patchServiceAccountDetailsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/IAMServiceAccountControllerApiServiceAccountDetail} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update service account details
+     * Superadmin-only. Updates the details of a service account.
+     * @param {String} id The service account id
+     * @param {module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest} iAMServiceAccountControllerApiPatchServiceAccountRequest The service account details
+     * @param {module:api/ServiceAccountApi~patchServiceAccountDetailsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMServiceAccountControllerApiServiceAccountDetail}
+     */
+    patchServiceAccountDetails(id, iAMServiceAccountControllerApiPatchServiceAccountRequest, callback) {
+      let postBody = iAMServiceAccountControllerApiPatchServiceAccountRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling patchServiceAccountDetails");
+      }
+      // verify the required parameter 'iAMServiceAccountControllerApiPatchServiceAccountRequest' is set
+      if (iAMServiceAccountControllerApiPatchServiceAccountRequest === undefined || iAMServiceAccountControllerApiPatchServiceAccountRequest === null) {
+        throw new Error("Missing the required parameter 'iAMServiceAccountControllerApiPatchServiceAccountRequest' when calling patchServiceAccountDetails");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = IAMServiceAccountControllerApiServiceAccountDetail;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the patchServiceAccountSuperAdmin operation.
+     * @callback module:api/ServiceAccountApi~patchServiceAccountSuperAdminCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update service account superadmin privileges
+     * Superadmin-only. Updates whether a service account is a superadmin.
+     * @param {String} id The user id
+     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
+     * @param {module:api/ServiceAccountApi~patchServiceAccountSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, callback) {
+      let postBody = apiPatchSuperAdminRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling patchServiceAccountSuperAdmin");
+      }
+      // verify the required parameter 'apiPatchSuperAdminRequest' is set
+      if (apiPatchSuperAdminRequest === undefined || apiPatchSuperAdminRequest === null) {
+        throw new Error("Missing the required parameter 'apiPatchSuperAdminRequest' when calling patchServiceAccountSuperAdmin");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}/superadmin', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

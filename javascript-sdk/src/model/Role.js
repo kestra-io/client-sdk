@@ -17,7 +17,7 @@ import IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions from './IAMRoleC
 /**
  * The Role model module.
  * @module model/Role
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class Role {
     /**

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMInvitationControllerApiInvitationRole model module.
  * @module model/IAMInvitationControllerApiInvitationRole
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class IAMInvitationControllerApiInvitationRole {
     /**

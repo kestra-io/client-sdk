@@ -19,7 +19,7 @@
 
 * `NOT_RUNNING` (value: `"NOT_RUNNING"`)
 
-* `EMPTY` (value: `"EMPTY"`)
+* `INACTIVE` (value: `"INACTIVE"`)
 
 * `MAINTENANCE` (value: `"MAINTENANCE"`)
 

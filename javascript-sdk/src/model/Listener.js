@@ -18,7 +18,7 @@ import Task from './Task';
 /**
  * The Listener model module.
  * @module model/Listener
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class Listener {
     /**

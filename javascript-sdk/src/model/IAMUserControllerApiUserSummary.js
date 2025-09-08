@@ -12,13 +12,13 @@
  */
 
 import ApiClient from '../ApiClient';
-import IAMUserControllerApiTenant from './IAMUserControllerApiTenant';
+import ApiTenantSummary from './ApiTenantSummary';
 import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 
 /**
  * The IAMUserControllerApiUserSummary model module.
  * @module model/IAMUserControllerApiUserSummary
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class IAMUserControllerApiUserSummary {
     /**
@@ -27,7 +27,7 @@ class IAMUserControllerApiUserSummary {
      * @param id {String} 
      * @param username {String} 
      * @param displayName {String} 
-     * @param tenants {Array.<module:model/IAMUserControllerApiTenant>} 
+     * @param tenants {Array.<module:model/ApiTenantSummary>} 
      * @param auths {Array.<module:model/IAMUserControllerApiUserAuth>} 
      * @param superAdmin {Boolean} 
      */
@@ -71,7 +71,7 @@ class IAMUserControllerApiUserSummary {
                 obj['displayName'] = ApiClient.convertToType(data['displayName'], 'String');
             }
             if (data.hasOwnProperty('tenants')) {
-                obj['tenants'] = ApiClient.convertToType(data['tenants'], [IAMUserControllerApiTenant]);
+                obj['tenants'] = ApiClient.convertToType(data['tenants'], [ApiTenantSummary]);
             }
             if (data.hasOwnProperty('auths')) {
                 obj['auths'] = ApiClient.convertToType(data['auths'], [IAMUserControllerApiUserAuth]);
@@ -114,7 +114,7 @@ class IAMUserControllerApiUserSummary {
             }
             // validate the optional field `tenants` (array)
             for (const item of data['tenants']) {
-                IAMUserControllerApiTenant.validateJSON(item);
+                ApiTenantSummary.validateJSON(item);
             };
         }
         if (data['auths']) { // data not null
@@ -152,7 +152,7 @@ IAMUserControllerApiUserSummary.prototype['username'] = undefined;
 IAMUserControllerApiUserSummary.prototype['displayName'] = undefined;
 
 /**
- * @member {Array.<module:model/IAMUserControllerApiTenant>} tenants
+ * @member {Array.<module:model/ApiTenantSummary>} tenants
  */
 IAMUserControllerApiUserSummary.prototype['tenants'] = undefined;
 

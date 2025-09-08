@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMGroupControllerApiCreateGroupRequest model module.
  * @module model/IAMGroupControllerApiCreateGroupRequest
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class IAMGroupControllerApiCreateGroupRequest {
     /**

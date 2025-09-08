@@ -19,7 +19,7 @@ import AuthControllerResetPasswordRequest from '../model/AuthControllerResetPass
 /**
 * Default service.
 * @module api/DefaultApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class DefaultApi {
 

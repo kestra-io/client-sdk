@@ -17,7 +17,7 @@ import PluginArtifactMetadata from './PluginArtifactMetadata';
 /**
  * The InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata model module.
  * @module model/InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
     /**

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import MiscControllerEdition from './MiscControllerEdition';
+import EditionProviderEdition from './EditionProviderEdition';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPreview from './MiscControllerPreview';
 import QueryFilterResourceField from './QueryFilterResourceField';
@@ -20,7 +20,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class MiscControllerConfiguration {
     /**
@@ -58,7 +58,7 @@ class MiscControllerConfiguration {
                 obj['version'] = ApiClient.convertToType(data['version'], 'String');
             }
             if (data.hasOwnProperty('edition')) {
-                obj['edition'] = MiscControllerEdition.constructFromObject(data['edition']);
+                obj['edition'] = EditionProviderEdition.constructFromObject(data['edition']);
             }
             if (data.hasOwnProperty('commitId')) {
                 obj['commitId'] = ApiClient.convertToType(data['commitId'], 'String');
@@ -104,6 +104,9 @@ class MiscControllerConfiguration {
             }
             if (data.hasOwnProperty('isBasicAuthInitialized')) {
                 obj['isBasicAuthInitialized'] = ApiClient.convertToType(data['isBasicAuthInitialized'], 'Boolean');
+            }
+            if (data.hasOwnProperty('pluginsHash')) {
+                obj['pluginsHash'] = ApiClient.convertToType(data['pluginsHash'], 'Number');
             }
         }
         return obj;
@@ -177,7 +180,7 @@ MiscControllerConfiguration.prototype['uuid'] = undefined;
 MiscControllerConfiguration.prototype['version'] = undefined;
 
 /**
- * @member {module:model/MiscControllerEdition} edition
+ * @member {module:model/EditionProviderEdition} edition
  */
 MiscControllerConfiguration.prototype['edition'] = undefined;
 
@@ -255,6 +258,11 @@ MiscControllerConfiguration.prototype['isAiEnabled'] = undefined;
  * @member {Boolean} isBasicAuthInitialized
  */
 MiscControllerConfiguration.prototype['isBasicAuthInitialized'] = undefined;
+
+/**
+ * @member {Number} pluginsHash
+ */
+MiscControllerConfiguration.prototype['pluginsHash'] = undefined;
 
 
 

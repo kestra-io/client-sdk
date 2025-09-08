@@ -23,7 +23,7 @@ import UserUsage from './UserUsage';
 /**
  * The UsageEE model module.
  * @module model/UsageEE
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class UsageEE {
     /**

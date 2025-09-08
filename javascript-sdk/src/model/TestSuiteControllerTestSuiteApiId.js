@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TestSuiteControllerTestSuiteApiId model module.
  * @module model/TestSuiteControllerTestSuiteApiId
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class TestSuiteControllerTestSuiteApiId {
     /**

@@ -42,7 +42,7 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class ExecutionsApi {
 
@@ -1609,28 +1609,20 @@ export default class ExecutionsApi {
     /**
      * Create a new execution from an old one and start it from a specified task run id
      * @param {String} executionId the original execution id to clone
-     * @param {String} taskRunId The taskrun id
-     * @param {Number} revision The flow revision to use for new execution
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
+     * @param {String} [taskRunId] The taskrun id
+     * @param {Number} [revision] The flow revision to use for new execution
      * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:api/ExecutionsApi~replayExecutionWithinputsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/Execution}
      */
-    replayExecutionWithinputs(executionId, taskRunId, revision, tenant, opts, callback) {
+    replayExecutionWithinputs(executionId, tenant, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'executionId' is set
       if (executionId === undefined || executionId === null) {
         throw new Error("Missing the required parameter 'executionId' when calling replayExecutionWithinputs");
-      }
-      // verify the required parameter 'taskRunId' is set
-      if (taskRunId === undefined || taskRunId === null) {
-        throw new Error("Missing the required parameter 'taskRunId' when calling replayExecutionWithinputs");
-      }
-      // verify the required parameter 'revision' is set
-      if (revision === undefined || revision === null) {
-        throw new Error("Missing the required parameter 'revision' when calling replayExecutionWithinputs");
       }
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -1642,8 +1634,8 @@ export default class ExecutionsApi {
         'tenant': tenant
       };
       let queryParams = {
-        'taskRunId': taskRunId,
-        'revision': revision,
+        'taskRunId': opts['taskRunId'],
+        'revision': opts['revision'],
         'breakpoints': opts['breakpoints']
       };
       let headerParams = {

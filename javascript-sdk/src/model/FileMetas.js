@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The FileMetas model module.
  * @module model/FileMetas
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FileMetas {
     /**

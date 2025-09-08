@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowNode model module.
  * @module model/FlowNode
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class FlowNode {
     /**

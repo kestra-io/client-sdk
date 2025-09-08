@@ -13,9 +13,9 @@
 
 import ApiClient from '../ApiClient';
 import Banner from './Banner';
+import EditionProviderEdition from './EditionProviderEdition';
 import LeftSidebarConfiguration from './LeftSidebarConfiguration';
 import MiscControllerConfiguration from './MiscControllerConfiguration';
-import MiscControllerEdition from './MiscControllerEdition';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPluginIdAndVersion from './MiscControllerPluginIdAndVersion';
 import MiscControllerPreview from './MiscControllerPreview';
@@ -26,7 +26,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class MiscControllerEEConfiguration {
     /**
@@ -66,7 +66,7 @@ class MiscControllerEEConfiguration {
                 obj['version'] = ApiClient.convertToType(data['version'], 'String');
             }
             if (data.hasOwnProperty('edition')) {
-                obj['edition'] = MiscControllerEdition.constructFromObject(data['edition']);
+                obj['edition'] = EditionProviderEdition.constructFromObject(data['edition']);
             }
             if (data.hasOwnProperty('commitId')) {
                 obj['commitId'] = ApiClient.convertToType(data['commitId'], 'String');
@@ -112,6 +112,9 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('isBasicAuthInitialized')) {
                 obj['isBasicAuthInitialized'] = ApiClient.convertToType(data['isBasicAuthInitialized'], 'Boolean');
+            }
+            if (data.hasOwnProperty('pluginsHash')) {
+                obj['pluginsHash'] = ApiClient.convertToType(data['pluginsHash'], 'Number');
             }
             if (data.hasOwnProperty('tenants')) {
                 obj['tenants'] = MiscControllerTenantConfigurationInfo.constructFromObject(data['tenants']);
@@ -264,7 +267,7 @@ MiscControllerEEConfiguration.prototype['uuid'] = undefined;
 MiscControllerEEConfiguration.prototype['version'] = undefined;
 
 /**
- * @member {module:model/MiscControllerEdition} edition
+ * @member {module:model/EditionProviderEdition} edition
  */
 MiscControllerEEConfiguration.prototype['edition'] = undefined;
 
@@ -344,6 +347,11 @@ MiscControllerEEConfiguration.prototype['isAiEnabled'] = undefined;
 MiscControllerEEConfiguration.prototype['isBasicAuthInitialized'] = undefined;
 
 /**
+ * @member {Number} pluginsHash
+ */
+MiscControllerEEConfiguration.prototype['pluginsHash'] = undefined;
+
+/**
  * @member {module:model/MiscControllerTenantConfigurationInfo} tenants
  */
 MiscControllerEEConfiguration.prototype['tenants'] = undefined;
@@ -419,7 +427,7 @@ MiscControllerConfiguration.prototype['uuid'] = undefined;
  */
 MiscControllerConfiguration.prototype['version'] = undefined;
 /**
- * @member {module:model/MiscControllerEdition} edition
+ * @member {module:model/EditionProviderEdition} edition
  */
 MiscControllerConfiguration.prototype['edition'] = undefined;
 /**
@@ -482,6 +490,10 @@ MiscControllerConfiguration.prototype['isAiEnabled'] = undefined;
  * @member {Boolean} isBasicAuthInitialized
  */
 MiscControllerConfiguration.prototype['isBasicAuthInitialized'] = undefined;
+/**
+ * @member {Number} pluginsHash
+ */
+MiscControllerConfiguration.prototype['pluginsHash'] = undefined;
 
 
 

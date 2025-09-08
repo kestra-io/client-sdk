@@ -19,7 +19,7 @@ import CrudEventType from './CrudEventType';
 /**
  * The AuditLog model module.
  * @module model/AuditLog
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class AuditLog {
     /**

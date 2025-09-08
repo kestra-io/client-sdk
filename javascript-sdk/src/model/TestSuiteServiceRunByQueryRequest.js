@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TestSuiteServiceRunByQueryRequest model module.
  * @module model/TestSuiteServiceRunByQueryRequest
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class TestSuiteServiceRunByQueryRequest {
     /**

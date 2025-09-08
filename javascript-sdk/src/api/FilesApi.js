@@ -18,7 +18,7 @@ import FileAttributes from '../model/FileAttributes';
 /**
 * Files service.
 * @module api/FilesApi
-* @version 1.0.0-beta5
+* @version 1.0.0
 */
 export default class FilesApi {
 

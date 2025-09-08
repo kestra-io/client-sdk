@@ -22,7 +22,7 @@ import ScimResourceWithOptionalId from './ScimResourceWithOptionalId';
 /**
  * The ResourceType model module.
  * @module model/ResourceType
- * @version 1.0.0-beta5
+ * @version 1.0.0
  */
 class ResourceType {
     /**
