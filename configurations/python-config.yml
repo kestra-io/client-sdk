@@ -9,8 +9,8 @@ globalProperties:
 hideGenerationTimestamp: true
 
 additionalProperties:
-  packageName: kestra_api_client
-  projectName: "@kestra-io/kestra_api_client"
+  packageName: kestrapy
+  projectName: "@kestra-io/kestrapy"
   packageAuthorEmail: "contact@kestra.io"
   disallowAdditionalPropertiesIfNotPresent: false
   customEmail: "contact@kestra.io"

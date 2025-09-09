@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.update_flow200_response import UpdateFlow200Response
+from kestrapy.models.update_flow200_response import UpdateFlow200Response
 
 # TODO update the JSON string below
 json = "{}"

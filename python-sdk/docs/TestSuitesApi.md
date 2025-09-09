@@ -1,4 +1,4 @@
-# kestra_api_client.TestSuitesApi
+# kestrapy.TestSuitesApi
 
 All URIs are relative to *http://localhost*
 
@@ -31,22 +31,22 @@ Creates a new test from a YAML definition. Requires TEST permission with the CRE
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite import TestSuite
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite import TestSuite
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The TestSuite source code
 
@@ -101,21 +101,21 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     namespace = 'namespace_example' # str | The TestSuite namespace
     id = 'id_example' # str | The TestSuite ID
     tenant = 'tenant_example' # str | 
@@ -172,25 +172,25 @@ Deletes a test by namespace and ID. Requires TEST permission with the DELETE act
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
-    test_suite_controller_test_suite_bulk_request = kestra_api_client.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
+    test_suite_controller_test_suite_bulk_request = kestrapy.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
 
     try:
         # Delete multiple tests by id
@@ -243,25 +243,25 @@ Disable a test by namespace and ID. Requires TEST permission with the UPDATE act
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
-    test_suite_controller_test_suite_bulk_request = kestra_api_client.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
+    test_suite_controller_test_suite_bulk_request = kestrapy.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
 
     try:
         # Disable multiple tests by id
@@ -314,25 +314,25 @@ Enable a test by namespace and ID. Requires TEST permission with the UPDATE acti
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.bulk_response import BulkResponse
-from kestra_api_client.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.bulk_response import BulkResponse
+from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
-    test_suite_controller_test_suite_bulk_request = kestra_api_client.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
+    test_suite_controller_test_suite_bulk_request = kestrapy.TestSuiteControllerTestSuiteBulkRequest() # TestSuiteControllerTestSuiteBulkRequest | 
 
     try:
         # Enable multiple tests by id
@@ -385,22 +385,22 @@ Get a test result once it was run.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite_run_result import TestSuiteRunResult
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite_run_result import TestSuiteRunResult
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     id = 'id_example' # str | The test run ID
     tenant = 'tenant_example' # str | 
 
@@ -455,22 +455,22 @@ Retrieves a test by namespace and ID. Requires TEST permission with the READ act
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite import TestSuite
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite import TestSuite
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     namespace = 'namespace_example' # str | The TestSuite namespace
     id = 'id_example' # str | The TestSuite ID
     tenant = 'tenant_example' # str | 
@@ -527,25 +527,25 @@ Get multiple tests last result for a query.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite_controller_search_tests_last_result import TestSuiteControllerSearchTestsLastResult
-from kestra_api_client.models.test_suite_controller_tests_last_result_response import TestSuiteControllerTestsLastResultResponse
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite_controller_search_tests_last_result import TestSuiteControllerSearchTestsLastResult
+from kestrapy.models.test_suite_controller_tests_last_result_response import TestSuiteControllerTestsLastResultResponse
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
-    test_suite_controller_search_tests_last_result = kestra_api_client.TestSuiteControllerSearchTestsLastResult() # TestSuiteControllerSearchTestsLastResult | 
+    test_suite_controller_search_tests_last_result = kestrapy.TestSuiteControllerSearchTestsLastResult() # TestSuiteControllerSearchTestsLastResult | 
 
     try:
         # Get tests last result
@@ -598,27 +598,27 @@ Executes all test cases in the specified test. Requires TEST permission with the
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite_controller_run_request import TestSuiteControllerRunRequest
-from kestra_api_client.models.test_suite_run_result import TestSuiteRunResult
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite_controller_run_request import TestSuiteControllerRunRequest
+from kestrapy.models.test_suite_run_result import TestSuiteRunResult
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     namespace = 'namespace_example' # str | The TestSuite namespace
     id = 'id_example' # str | The TestSuite ID
     tenant = 'tenant_example' # str | 
-    test_suite_controller_run_request = kestra_api_client.TestSuiteControllerRunRequest() # TestSuiteControllerRunRequest |  (optional)
+    test_suite_controller_run_request = kestrapy.TestSuiteControllerRunRequest() # TestSuiteControllerRunRequest |  (optional)
 
     try:
         # Run a full test
@@ -673,25 +673,25 @@ Executes all TestSuites impacted by the specified filter. Requires TEST permissi
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
-from kestra_api_client.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
+from kestrapy.models.test_suite_service_test_run_by_query_result import TestSuiteServiceTestRunByQueryResult
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
-    test_suite_service_run_by_query_request = kestra_api_client.TestSuiteServiceRunByQueryRequest() # TestSuiteServiceRunByQueryRequest | 
+    test_suite_service_run_by_query_request = kestrapy.TestSuiteServiceRunByQueryRequest() # TestSuiteServiceRunByQueryRequest | 
 
     try:
         # Run multiple TestSuites by query
@@ -744,22 +744,22 @@ Searches for tests with optional filtering by namespace and flow ID. Requires TE
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_test_suite import PagedResultsTestSuite
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     include_child_namespaces = True # bool | Include child namespaces in filter or not (default to True)
@@ -824,22 +824,22 @@ with optional filtering by namespace, test suite ID and flow ID. Requires TEST p
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     test_suite_id = 'test_suite_id_example' # str | The test suite id to filter on
@@ -904,22 +904,22 @@ Updates an existing test with a new YAML definition. Requires TEST permission wi
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.test_suite import TestSuite
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.test_suite import TestSuite
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     namespace = 'namespace_example' # str | The TestSuite namespace
     id = 'id_example' # str | The TestSuite ID
     tenant = 'tenant_example' # str | 
@@ -978,22 +978,22 @@ Validates a test YAML definition without persisting it. Returns constraint viola
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.validate_constraint_violation import ValidateConstraintViolation
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TestSuitesApi(api_client)
+    api_instance = kestrapy.TestSuitesApi(api_client)
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The TestSuite source code
 

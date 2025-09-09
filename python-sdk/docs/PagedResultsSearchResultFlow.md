@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
+from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
 
 # TODO update the JSON string below
 json = "{}"

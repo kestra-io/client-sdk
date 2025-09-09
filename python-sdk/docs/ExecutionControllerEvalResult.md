@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.execution_controller_eval_result import ExecutionControllerEvalResult
+from kestrapy.models.execution_controller_eval_result import ExecutionControllerEvalResult
 
 # TODO update the JSON string below
 json = "{}"

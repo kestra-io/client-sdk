@@ -1,4 +1,4 @@
-# kestra_api_client.ServicesApi
+# kestrapy.ServicesApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,14 +22,14 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -39,20 +39,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
 
     try:
         # List all active services
@@ -103,14 +103,14 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.service_instance import ServiceInstance
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.service_instance import ServiceInstance
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -120,20 +120,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
     id = 'id_example' # str | 
 
     try:
@@ -188,16 +188,16 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_instance_controller_api_service_instance import PagedResultsInstanceControllerApiServiceInstance
-from kestra_api_client.models.service_service_state import ServiceServiceState
-from kestra_api_client.models.service_type import ServiceType
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_instance_controller_api_service_instance import PagedResultsInstanceControllerApiServiceInstance
+from kestrapy.models.service_service_state import ServiceServiceState
+from kestrapy.models.service_type import ServiceType
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -207,25 +207,25 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.ServicesApi(api_client)
+    api_instance = kestrapy.ServicesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    state = [kestra_api_client.ServiceServiceState()] # List[ServiceServiceState] | The state filter (optional)
-    type = [kestra_api_client.ServiceType()] # List[ServiceType] | The server type filter (optional)
+    state = [kestrapy.ServiceServiceState()] # List[ServiceServiceState] | The state filter (optional)
+    type = [kestrapy.ServiceType()] # List[ServiceType] | The server type filter (optional)
 
     try:
         # Search for a service (e.g. Worker, Executor, etc)

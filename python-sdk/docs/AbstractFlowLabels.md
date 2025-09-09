@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.abstract_flow_labels import AbstractFlowLabels
+from kestrapy.models.abstract_flow_labels import AbstractFlowLabels
 
 # TODO update the JSON string below
 json = "{}"

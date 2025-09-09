@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink
+from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink
 
 # TODO update the JSON string below
 json = "{}"

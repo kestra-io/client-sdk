@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
+from kestrapy.models.instance_controller_api_active_service_list import InstanceControllerApiActiveServiceList
 
 # TODO update the JSON string below
 json = "{}"

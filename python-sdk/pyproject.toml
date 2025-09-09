@@ -1,5 +1,5 @@
 [project]
-name = "kestra_api_client"
+name = "kestrapy"
 version = "1.0.0"
 description = "Kestra EE"
 authors = [
@@ -41,7 +41,7 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-  "kestra_api_client",
+  "kestrapy",
   #"test",  # auto-generated tests
   "tests", # hand-written tests
 ]
@@ -79,7 +79,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-  "kestra_api_client.configuration",
+  "kestrapy.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true

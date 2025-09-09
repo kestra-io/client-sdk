@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.cache import Cache
+from kestrapy.models.cache import Cache
 
 # TODO update the JSON string below
 json = "{}"

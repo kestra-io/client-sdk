@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.plugin_artifact_metadata import PluginArtifactMetadata
+from kestrapy.models.plugin_artifact_metadata import PluginArtifactMetadata
 
 # TODO update the JSON string below
 json = "{}"

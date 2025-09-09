@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.paged_results_tenant import PagedResultsTenant
+from kestrapy.models.paged_results_tenant import PagedResultsTenant
 
 # TODO update the JSON string below
 json = "{}"

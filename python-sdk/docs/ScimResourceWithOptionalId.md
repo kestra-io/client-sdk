@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.scim_resource_with_optional_id import ScimResourceWithOptionalId
+from kestrapy.models.scim_resource_with_optional_id import ScimResourceWithOptionalId
 
 # TODO update the JSON string below
 json = "{}"

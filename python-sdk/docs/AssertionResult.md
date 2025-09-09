@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.assertion_result import AssertionResult
+from kestrapy.models.assertion_result import AssertionResult
 
 # TODO update the JSON string below
 json = "{}"

@@ -1,4 +1,4 @@
-# kestra_api_client.RolesApi
+# kestrapy.RolesApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,15 +24,15 @@ List roles for autocomplete
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.api_autocomplete import ApiAutocomplete
-from kestra_api_client.models.api_role_summary import ApiRoleSummary
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.api_autocomplete import ApiAutocomplete
+from kestrapy.models.api_role_summary import ApiRoleSummary
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -42,22 +42,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
-    api_autocomplete = kestra_api_client.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
+    api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
 
     try:
         # List roles for autocomplete
@@ -110,15 +110,15 @@ Create a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
-from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
+from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -128,22 +128,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
-    iam_role_controller_api_role_create_or_update_request = kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+    iam_role_controller_api_role_create_or_update_request = kestrapy.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
     try:
         # Create a role
@@ -197,13 +197,13 @@ Delete a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -213,20 +213,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
 
@@ -279,14 +279,14 @@ Retrieve a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -296,20 +296,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
 
@@ -365,15 +365,15 @@ List roles by ids
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.api_ids import ApiIds
-from kestra_api_client.models.role import Role
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.api_ids import ApiIds
+from kestrapy.models.role import Role
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -383,22 +383,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
-    api_ids = kestra_api_client.ApiIds() # ApiIds | The ids that must be present on results
+    api_ids = kestrapy.ApiIds() # ApiIds | The ids that must be present on results
 
     try:
         # List roles by ids
@@ -451,14 +451,14 @@ Search for roles
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_api_role_summary import PagedResultsApiRoleSummary
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSummary
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -468,20 +468,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -542,15 +542,15 @@ Update a role
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
-from kestra_api_client.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_role_controller_api_role_create_or_update_request import IAMRoleControllerApiRoleCreateOrUpdateRequest
+from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControllerApiRoleDetail
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -560,23 +560,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.RolesApi(api_client)
+    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
-    iam_role_controller_api_role_create_or_update_request = kestra_api_client.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
+    iam_role_controller_api_role_create_or_update_request = kestrapy.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
     try:
         # Update a role

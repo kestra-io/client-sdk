@@ -1,4 +1,4 @@
-# kestra_api_client.LogsApi
+# kestrapy.LogsApi
 
 All URIs are relative to *http://localhost*
 
@@ -23,13 +23,13 @@ Delete logs for a specific execution, taskrun or task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -39,23 +39,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    min_level = kestra_api_client.Level() # Level | The min log level filter (optional)
+    min_level = kestrapy.Level() # Level | The min log level filter (optional)
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
     task_id = 'task_id_example' # str | The task id (optional)
     attempt = 56 # int | The attempt number (optional)
@@ -113,13 +113,13 @@ Delete logs for a specific execution, taskrun or task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -129,20 +129,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     namespace = 'namespace_example' # str | The namespace
     flow_id = 'flow_id_example' # str | The flow identifier
     trigger_id = 'trigger_id_example' # str | The trigger id
@@ -199,13 +199,13 @@ Download logs for a specific execution, taskrun or task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -215,23 +215,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    min_level = kestra_api_client.Level() # Level | The min log level filter (optional)
+    min_level = kestrapy.Level() # Level | The min log level filter (optional)
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
     task_id = 'task_id_example' # str | The task id (optional)
     attempt = 56 # int | The attempt number (optional)
@@ -291,14 +291,14 @@ Follow logs for a specific execution
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.event_log_entry import EventLogEntry
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.event_log_entry import EventLogEntry
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -308,23 +308,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    min_level = kestra_api_client.Level() # Level | The min log level filter (optional)
+    min_level = kestrapy.Level() # Level | The min log level filter (optional)
 
     try:
         # Follow logs for a specific execution
@@ -378,14 +378,14 @@ Get logs for a specific execution, taskrun or task
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.log_entry import LogEntry
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.log_entry import LogEntry
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -395,23 +395,23 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
-    min_level = kestra_api_client.Level() # Level | The min log level filter (optional)
+    min_level = kestrapy.Level() # Level | The min log level filter (optional)
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
     task_id = 'task_id_example' # str | The task id (optional)
     attempt = 56 # int | The attempt number (optional)
@@ -471,15 +471,15 @@ Search for logs
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_log_entry import PagedResultsLogEntry
-from kestra_api_client.models.query_filter import QueryFilter
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_log_entry import PagedResultsLogEntry
+from kestrapy.models.query_filter import QueryFilter
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -489,30 +489,30 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.LogsApi(api_client)
+    api_instance = kestrapy.LogsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    filters = [kestra_api_client.QueryFilter()] # List[QueryFilter] | Filters (optional)
+    filters = [kestrapy.QueryFilter()] # List[QueryFilter] | Filters (optional)
     q = 'q_example' # str | A string filter (optional)
     namespace = 'namespace_example' # str | A namespace filter prefix (optional)
     flow_id = 'flow_id_example' # str | A flow id filter (optional)
     trigger_id = 'trigger_id_example' # str | A trigger id filter (optional)
-    min_level = kestra_api_client.Level() # Level | The min log level filter (optional)
+    min_level = kestrapy.Level() # Level | The min log level filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
 

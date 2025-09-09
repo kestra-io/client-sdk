@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.iam_tenant_access_controller_api_create_tenant_access_request import IAMTenantAccessControllerApiCreateTenantAccessRequest
+from kestrapy.models.iam_tenant_access_controller_api_create_tenant_access_request import IAMTenantAccessControllerApiCreateTenantAccessRequest
 
 # TODO update the JSON string below
 json = "{}"

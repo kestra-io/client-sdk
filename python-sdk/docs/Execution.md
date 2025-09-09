@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.execution import Execution
+from kestrapy.models.execution import Execution
 
 # TODO update the JSON string below
 json = "{}"

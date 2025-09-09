@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.namespace_allowed_trigger import NamespaceAllowedTrigger
+from kestrapy.models.namespace_allowed_trigger import NamespaceAllowedTrigger
 
 # TODO update the JSON string below
 json = "{}"

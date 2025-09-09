@@ -1,4 +1,4 @@
-# kestra_api_client.TenantsApi
+# kestrapy.TenantsApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,23 +24,23 @@ Superadmin-only.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.tenant import Tenant
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.tenant import Tenant
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
-    tenant = kestra_api_client.Tenant() # Tenant | 
+    api_instance = kestrapy.TenantsApi(api_client)
+    tenant = kestrapy.Tenant() # Tenant | 
 
     try:
         # Create a tenant
@@ -92,21 +92,21 @@ Superadmin-only. Deletes all resources linked to the tenant, including flows, na
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     id = 'id_example' # str | The tenant id
 
     try:
@@ -157,22 +157,22 @@ Superadmin-only.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_tenant import PagedResultsTenant
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_tenant import PagedResultsTenant
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     q = 'q_example' # str | A string filter (optional)
@@ -231,22 +231,22 @@ Superadmin-only.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.tenant import Tenant
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.tenant import Tenant
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     id = 'id_example' # str | The tenant id
 
     try:
@@ -297,22 +297,22 @@ Get tenant dependencies
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.flow_topology_graph import FlowTopologyGraph
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.flow_topology_graph import FlowTopologyGraph
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     destination_only = False # bool | if true, list only destination dependencies, otherwise list also source dependencies (default to False)
     tenant = 'tenant_example' # str | 
 
@@ -367,22 +367,22 @@ Superadmin-only.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.api_tenant import ApiTenant
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.api_tenant import ApiTenant
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     id = 'id_example' # str | The tenant id
     logo = None # bytearray | The logo file (optional)
 
@@ -437,24 +437,24 @@ Superadmin-only.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.tenant import Tenant
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.tenant import Tenant
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.TenantsApi(api_client)
+    api_instance = kestrapy.TenantsApi(api_client)
     id = 'id_example' # str | The tenant id
-    tenant = kestra_api_client.Tenant() # Tenant | 
+    tenant = kestrapy.Tenant() # Tenant | 
 
     try:
         # Update a tenant

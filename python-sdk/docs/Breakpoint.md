@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.breakpoint import Breakpoint
+from kestrapy.models.breakpoint import Breakpoint
 
 # TODO update the JSON string below
 json = "{}"

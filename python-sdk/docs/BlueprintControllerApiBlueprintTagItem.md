@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.blueprint_controller_api_blueprint_tag_item import BlueprintControllerApiBlueprintTagItem
+from kestrapy.models.blueprint_controller_api_blueprint_tag_item import BlueprintControllerApiBlueprintTagItem
 
 # TODO update the JSON string below
 json = "{}"

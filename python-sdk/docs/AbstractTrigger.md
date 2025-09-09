@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.abstract_trigger import AbstractTrigger
+from kestrapy.models.abstract_trigger import AbstractTrigger
 
 # TODO update the JSON string below
 json = "{}"

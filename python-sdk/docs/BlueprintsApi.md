@@ -1,4 +1,4 @@
-# kestra_api_client.BlueprintsApi
+# kestrapy.BlueprintsApi
 
 All URIs are relative to *http://localhost*
 
@@ -27,24 +27,24 @@ Creates a new internal (custom) blueprint for the current tenant. Requires BLUEP
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     tenant = 'tenant_example' # str | 
-    blueprint_controller_api_blueprint_item_with_source = kestra_api_client.BlueprintControllerApiBlueprintItemWithSource() # BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
+    blueprint_controller_api_blueprint_item_with_source = kestrapy.BlueprintControllerApiBlueprintItemWithSource() # BlueprintControllerApiBlueprintItemWithSource | The internal blueprint to create
 
     try:
         # Create a new internal blueprint
@@ -97,21 +97,21 @@ Deletes an internal (custom) blueprint for the current tenant. Requires BLUEPRIN
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The internal blueprint id to delete
     tenant = 'tenant_example' # str | 
 
@@ -164,25 +164,25 @@ Retrieves details of a specific community blueprint.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
-from kestra_api_client.models.blueprint_controller_kind import BlueprintControllerKind
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
+from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The blueprint id
-    kind = kestra_api_client.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
+    kind = kestrapy.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
     tenant = 'tenant_example' # str | 
 
     try:
@@ -237,24 +237,24 @@ Retrieves the topology graph representation of a specific community blueprint.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_kind import BlueprintControllerKind
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The blueprint id
-    kind = kestra_api_client.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
+    kind = kestrapy.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
     tenant = 'tenant_example' # str | 
 
     try:
@@ -309,24 +309,24 @@ Retrieves the YAML source code for a specific community blueprint.
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_kind import BlueprintControllerKind
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The blueprint id
-    kind = kestra_api_client.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
+    kind = kestrapy.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
     tenant = 'tenant_example' # str | 
 
     try:
@@ -381,22 +381,22 @@ Retrieves details of a specific internal (custom) blueprint. Requires BLUEPRINT 
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The blueprint id
     tenant = 'tenant_example' # str | 
 
@@ -451,21 +451,21 @@ Retrieves the YAML source code for a specific internal (custom) blueprint. Requi
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The blueprint id
     tenant = 'tenant_example' # str | 
 
@@ -520,26 +520,26 @@ Lists all community blueprints of the specified kind. Community blueprints are s
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_kind import BlueprintControllerKind
-from kestra_api_client.models.paged_results_blueprint_controller_api_blueprint_item import PagedResultsBlueprintControllerApiBlueprintItem
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_kind import BlueprintControllerKind
+from kestrapy.models.paged_results_blueprint_controller_api_blueprint_item import PagedResultsBlueprintControllerApiBlueprintItem
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 1 # int | The current page size (default to 1)
-    kind = kestra_api_client.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
+    kind = kestrapy.BlueprintControllerKind() # BlueprintControllerKind | The blueprint kind
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
     sort = 'sort_example' # str | The sort of current page (optional)
@@ -601,22 +601,22 @@ Lists all internal (custom) blueprints for the current tenant. Requires BLUEPRIN
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_blueprint import PagedResultsBlueprint
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_blueprint import PagedResultsBlueprint
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 1 # int | The current page size (default to 1)
     tenant = 'tenant_example' # str | 
@@ -679,26 +679,26 @@ Updates an existing internal (custom) blueprint for the current tenant. Requires
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
-from kestra_api_client.models.blueprint_with_flow import BlueprintWithFlow
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.blueprint_controller_api_blueprint_item_with_source import BlueprintControllerApiBlueprintItemWithSource
+from kestrapy.models.blueprint_with_flow import BlueprintWithFlow
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BlueprintsApi(api_client)
+    api_instance = kestrapy.BlueprintsApi(api_client)
     id = 'id_example' # str | The id of the internal blueprint to update
     tenant = 'tenant_example' # str | 
-    blueprint_controller_api_blueprint_item_with_source = kestra_api_client.BlueprintControllerApiBlueprintItemWithSource() # BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
+    blueprint_controller_api_blueprint_item_with_source = kestrapy.BlueprintControllerApiBlueprintItemWithSource() # BlueprintControllerApiBlueprintItemWithSource | The new internal blueprint for update
 
     try:
         # Update an internal blueprint

@@ -1,4 +1,4 @@
-# kestra_api_client.BindingsApi
+# kestrapy.BindingsApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,15 +22,15 @@ Create multiple bindings
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
-from kestra_api_client.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
+from kestrapy.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -40,22 +40,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BindingsApi(api_client)
+    api_instance = kestrapy.BindingsApi(api_client)
     tenant = 'tenant_example' # str | 
-    iam_binding_controller_api_create_binding_request = [kestra_api_client.IAMBindingControllerApiCreateBindingRequest()] # List[IAMBindingControllerApiCreateBindingRequest] | The bindings
+    iam_binding_controller_api_create_binding_request = [kestrapy.IAMBindingControllerApiCreateBindingRequest()] # List[IAMBindingControllerApiCreateBindingRequest] | The bindings
 
     try:
         # Create multiple bindings
@@ -108,15 +108,15 @@ Create a binding
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
-from kestra_api_client.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
+from kestrapy.models.iam_binding_controller_api_create_binding_request import IAMBindingControllerApiCreateBindingRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -126,22 +126,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BindingsApi(api_client)
+    api_instance = kestrapy.BindingsApi(api_client)
     tenant = 'tenant_example' # str | 
-    iam_binding_controller_api_create_binding_request = kestra_api_client.IAMBindingControllerApiCreateBindingRequest() # IAMBindingControllerApiCreateBindingRequest | The binding
+    iam_binding_controller_api_create_binding_request = kestrapy.IAMBindingControllerApiCreateBindingRequest() # IAMBindingControllerApiCreateBindingRequest | The binding
 
     try:
         # Create a binding
@@ -194,13 +194,13 @@ Delete a binding
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -210,20 +210,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BindingsApi(api_client)
+    api_instance = kestrapy.BindingsApi(api_client)
     id = 'id_example' # str | The binding id
     tenant = 'tenant_example' # str | 
 
@@ -276,14 +276,14 @@ Retrieve a binding
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.iam_binding_controller_api_binding_detail import IAMBindingControllerApiBindingDetail
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -293,20 +293,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BindingsApi(api_client)
+    api_instance = kestrapy.BindingsApi(api_client)
     id = 'id_example' # str | The binding id
     tenant = 'tenant_example' # str | 
 
@@ -361,14 +361,14 @@ Search for bindings
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.paged_results_iam_binding_controller_api_binding_detail import PagedResultsIAMBindingControllerApiBindingDetail
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -378,26 +378,26 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.BindingsApi(api_client)
+    api_instance = kestrapy.BindingsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
     q = 'q_example' # str | A string filter (optional)
     sort = ['sort_example'] # List[str] | The sort of current page (optional)
-    type = kestra_api_client.BindingType() # BindingType | Binding type filter (optional)
+    type = kestrapy.BindingType() # BindingType | Binding type filter (optional)
     id = 'id_example' # str | External id filter (optional)
     namespace = 'namespace_example' # str | A namespace filter (optional)
 

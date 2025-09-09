@@ -1,4 +1,4 @@
-from kestra_api_client import KestraClient, Configuration
+from kestrapy import KestraClient, Configuration
 import pytest
 import random
 import string

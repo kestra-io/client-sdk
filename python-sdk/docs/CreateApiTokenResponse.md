@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.create_api_token_response import CreateApiTokenResponse
+from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 
 # TODO update the JSON string below
 json = "{}"

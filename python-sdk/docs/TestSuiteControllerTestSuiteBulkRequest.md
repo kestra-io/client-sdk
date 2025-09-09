@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
+from kestrapy.models.test_suite_controller_test_suite_bulk_request import TestSuiteControllerTestSuiteBulkRequest
 
 # TODO update the JSON string below
 json = "{}"

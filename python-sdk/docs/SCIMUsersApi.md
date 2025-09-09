@@ -1,4 +1,4 @@
-# kestra_api_client.SCIMUsersApi
+# kestrapy.SCIMUsersApi
 
 All URIs are relative to *http://localhost*
 
@@ -22,26 +22,26 @@ Create
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.scim_resource import ScimResource
-from kestra_api_client.models.scim_user import ScimUser
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.scim_resource import ScimResource
+from kestrapy.models.scim_user import ScimUser
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
-    scim_user = kestra_api_client.ScimUser() # ScimUser | 
+    scim_user = kestrapy.ScimUser() # ScimUser | 
     attributes = 'attributes_example' # str |  (optional)
     excluded_attributes = 'excluded_attributes_example' # str |  (optional)
 
@@ -100,21 +100,21 @@ Delete from the backing store
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     id = 'id_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
@@ -170,26 +170,26 @@ Search
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.scim_resource import ScimResource
-from kestra_api_client.models.search_request import SearchRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.scim_resource import ScimResource
+from kestrapy.models.search_request import SearchRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
-    search_request = kestra_api_client.SearchRequest() # SearchRequest | 
+    search_request = kestrapy.SearchRequest() # SearchRequest | 
 
     try:
         api_response = api_instance.find_users(integration, tenant, search_request)
@@ -243,22 +243,22 @@ Find by id
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.scim_resource import ScimResource
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.scim_resource import ScimResource
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     id = 'id_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
@@ -320,26 +320,26 @@ Patch a portion of the backing store
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.patch_request import PatchRequest
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.patch_request import PatchRequest
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     id = 'id_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
-    patch_request = kestra_api_client.PatchRequest() # PatchRequest | 
+    patch_request = kestrapy.PatchRequest() # PatchRequest | 
     attributes = 'attributes_example' # str |  (optional)
     excluded_attributes = 'excluded_attributes_example' # str |  (optional)
 
@@ -397,29 +397,29 @@ Find by a combination of query parameters
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.scim_resource import ScimResource
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.scim_resource import ScimResource
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
     attributes = 'attributes_example' # str |  (optional)
     excluded_attributes = 'excluded_attributes_example' # str |  (optional)
     filter = 'filter_example' # str |  (optional)
     sort_by = 'sort_by_example' # str |  (optional)
-    sort_order = kestra_api_client.SortOrder() # SortOrder |  (optional)
+    sort_order = kestrapy.SortOrder() # SortOrder |  (optional)
     start_index = 56 # int |  (optional)
     count = 56 # int |  (optional)
 
@@ -482,26 +482,26 @@ Update
 
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.scim_resource import ScimResource
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.scim_resource import ScimResource
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.SCIMUsersApi(api_client)
+    api_instance = kestrapy.SCIMUsersApi(api_client)
     id = 'id_example' # str | 
     integration = 'integration_example' # str | 
     tenant = 'tenant_example' # str | 
-    scim_resource = kestra_api_client.ScimResource() # ScimResource | 
+    scim_resource = kestrapy.ScimResource() # ScimResource | 
     attributes = 'attributes_example' # str |  (optional)
     excluded_attributes = 'excluded_attributes_example' # str |  (optional)
 

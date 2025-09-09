@@ -1,4 +1,4 @@
-# kestra_api_client.WorkerGroupsApi
+# kestrapy.WorkerGroupsApi
 
 All URIs are relative to *http://localhost*
 
@@ -24,15 +24,15 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
-from kestra_api_client.models.instance_controller_api_worker_group import InstanceControllerApiWorkerGroup
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
+from kestrapy.models.instance_controller_api_worker_group import InstanceControllerApiWorkerGroup
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -42,21 +42,21 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.WorkerGroupsApi(api_client)
-    instance_controller_api_create_or_update_worker_group_request = kestra_api_client.InstanceControllerApiCreateOrUpdateWorkerGroupRequest() # InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+    api_instance = kestrapy.WorkerGroupsApi(api_client)
+    instance_controller_api_create_or_update_worker_group_request = kestrapy.InstanceControllerApiCreateOrUpdateWorkerGroupRequest() # InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
     try:
         # Create a worker group
@@ -110,13 +110,13 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -126,20 +126,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.WorkerGroupsApi(api_client)
+    api_instance = kestrapy.WorkerGroupsApi(api_client)
     id = 'id_example' # str | 
 
     try:
@@ -194,14 +194,14 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.instance_controller_api_worker_group_details import InstanceControllerApiWorkerGroupDetails
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_worker_group_details import InstanceControllerApiWorkerGroupDetails
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -211,20 +211,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.WorkerGroupsApi(api_client)
+    api_instance = kestrapy.WorkerGroupsApi(api_client)
     id = 'id_example' # str | 
 
     try:
@@ -279,14 +279,14 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.instance_controller_api_worker_group_list import InstanceControllerApiWorkerGroupList
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_worker_group_list import InstanceControllerApiWorkerGroupList
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -296,20 +296,20 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.WorkerGroupsApi(api_client)
+    api_instance = kestrapy.WorkerGroupsApi(api_client)
 
     try:
         # List all worker groups
@@ -360,15 +360,15 @@ Requires a role with the INFRASTRUCTURE permission (Superadmin-only).
 * Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
-import kestra_api_client
-from kestra_api_client.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
-from kestra_api_client.models.instance_controller_api_worker_group import InstanceControllerApiWorkerGroup
-from kestra_api_client.rest import ApiException
+import kestrapy
+from kestrapy.models.instance_controller_api_create_or_update_worker_group_request import InstanceControllerApiCreateOrUpdateWorkerGroupRequest
+from kestrapy.models.instance_controller_api_worker_group import InstanceControllerApiWorkerGroup
+from kestrapy.rest import ApiException
 from pprint import pprint
 
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     host = "http://localhost"
 )
 
@@ -378,22 +378,22 @@ configuration = kestra_api_client.Configuration(
 # satisfies your auth use case.
 
 # Configure HTTP basic authorization: basicAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     username = os.environ["USERNAME"],
     password = os.environ["PASSWORD"]
 )
 
 # Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestra_api_client.Configuration(
+configuration = kestrapy.Configuration(
     access_token = os.environ["BEARER_TOKEN"]
 )
 
 # Enter a context with an instance of the API client
-with kestra_api_client.ApiClient(configuration) as api_client:
+with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestra_api_client.WorkerGroupsApi(api_client)
+    api_instance = kestrapy.WorkerGroupsApi(api_client)
     id = 'id_example' # str | 
-    instance_controller_api_create_or_update_worker_group_request = kestra_api_client.InstanceControllerApiCreateOrUpdateWorkerGroupRequest() # InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
+    instance_controller_api_create_or_update_worker_group_request = kestrapy.InstanceControllerApiCreateOrUpdateWorkerGroupRequest() # InstanceControllerApiCreateOrUpdateWorkerGroupRequest | The worker group definition
 
     try:
         # Update a worker group

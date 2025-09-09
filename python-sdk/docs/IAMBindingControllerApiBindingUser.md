@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.iam_binding_controller_api_binding_user import IAMBindingControllerApiBindingUser
+from kestrapy.models.iam_binding_controller_api_binding_user import IAMBindingControllerApiBindingUser
 
 # TODO update the JSON string below
 json = "{}"

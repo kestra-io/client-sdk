@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.right_sidebar_configuration import RightSidebarConfiguration
+from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration
 
 # TODO update the JSON string below
 json = "{}"

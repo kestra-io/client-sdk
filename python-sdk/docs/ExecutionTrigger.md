@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.execution_trigger import ExecutionTrigger
+from kestrapy.models.execution_trigger import ExecutionTrigger
 
 # TODO update the JSON string below
 json = "{}"

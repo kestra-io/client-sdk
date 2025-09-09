@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from kestra_api_client.models.query_filter_operation import QueryFilterOperation
+from kestrapy.models.query_filter_operation import QueryFilterOperation
 
 # TODO update the JSON string below
 json = "{}"
