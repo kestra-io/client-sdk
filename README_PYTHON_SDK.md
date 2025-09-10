@@ -14,12 +14,12 @@
      ```
    - In the `executions_api.py`, delete the following import, this is an wrong generation from Micronaut OpenAPI generator:
      ```python
-     from kestra_api_client.models.list[label] import List[Label]
+     from kestrapy.models.list[label] import List[Label]
      ```
 
   - In the `__init__.py` add the following import, its the custom kestra client that gather all API clients:
      ```python
-     from kestra_api_client.kestra_client import KestraClient as KestraClient
+     from kestrapy.kestra_client import KestraClient as KestraClient
      ```
   - In the `task.py`, delete the following part, from the type validator:
       ```python
@@ -30,7 +30,7 @@
 ## Step to use
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.
-Use the `from kestra_api_client import KestraClient` manually written that gather everything in one client.
+Use the `from kestrapy import KestraClient` manually written that gather everything in one client.
 
 Then you can create a Configuration, configure it and instantiate the client:
 ```python
