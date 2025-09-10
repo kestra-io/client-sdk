@@ -487,7 +487,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestrapy.api.users_api import UsersApi as UsersApi
     from kestrapy.api.worker_groups_api import WorkerGroupsApi as WorkerGroupsApi
     from kestrapy.api.default_api import DefaultApi as DefaultApi
-    
+
     # import ApiClient
     from kestrapy.api_response import ApiResponse as ApiResponse
     from kestrapy.api_client import ApiClient as ApiClient
@@ -498,7 +498,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestrapy.exceptions import ApiKeyError as ApiKeyError
     from kestrapy.exceptions import ApiAttributeError as ApiAttributeError
     from kestrapy.exceptions import ApiException as ApiException
-    
+
     # import models into sdk package
     from kestrapy.models.abstract_flow import AbstractFlow as AbstractFlow
     from kestrapy.models.abstract_flow_labels import AbstractFlowLabels as AbstractFlowLabels
@@ -884,7 +884,7 @@ if __import__("typing").TYPE_CHECKING:
     from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
     from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
     from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
-    
+
 else:
     from lazy_imports import LazyModule, as_package, load
 
@@ -1327,6 +1327,7 @@ from kestrapy.models.value_path_expression import ValuePathExpression as ValuePa
 from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
+from kestrapy.kestra_client import KestraClient as KestraClient
 
 """,
             name=__name__,
