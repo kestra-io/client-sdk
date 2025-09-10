@@ -60,25 +60,35 @@ from pprint import pprint
 # See configuration.py for a list of all supported configuration parameters.
 configuration = kestrapy.Configuration(
     host = "http://localhost"
+    username = "<USERNAME>"
+    password = "<PASSWORD>"
 )
 
 
-
-# Enter a context with an instance of the API client
-with kestrapy.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = kestrapy.AIApi(api_client)
-    tenant = 'tenant_example' # str | 
-    flow_generation_prompt = kestrapy.FlowGenerationPrompt() # FlowGenerationPrompt | Prompt and context required for flow generation
-
-    try:
-        # Generate or regenerate a flow based on a prompt
-        api_response = api_instance.generate_flow(tenant, flow_generation_prompt)
-        print("The response of AIApi->generate_flow:\n")
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling AIApi->generate_flow: %s\n" % e)
-
+api_client = kestrapy.ApiClient(configuration)
+api_instance = kestrapy.FlowsApi(api_client)
+tenant = 'main'
+flow_id = 'sdk'
+namespace = 'demo'
+body = f"""id: {flow_id}
+namespace: {namespace}
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    message: Hello from the SDK! 👋
+"""
+try:
+    api_response = api_instance.create_flow(tenant, body)
+    print(api_response)
+except kestrapy.rest.ApiException as e:
+    if e.status == 422 and "Flow id already exists" in json.loads(e.body).get("message", ""):
+        try:
+            api_response = api_instance.update_flow(flow_id, namespace, tenant, body)
+            print(api_response)
+        except ValueError:
+            print("Flow updated successfully")
+    else:
+        print(e)
 ```
 
 ## Documentation for API Endpoints
