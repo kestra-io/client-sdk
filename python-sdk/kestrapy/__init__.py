@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0"
+__version__ = "1.0.0-beta7"
 
 # Define package exports
 __all__ = [
@@ -884,7 +884,6 @@ if __import__("typing").TYPE_CHECKING:
     from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
     from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
     from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
-    from kestrapy.kestra_client import KestraClient as KestraClient
 
 else:
     from lazy_imports import LazyModule, as_package, load

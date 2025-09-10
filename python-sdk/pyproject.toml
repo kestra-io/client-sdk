@@ -1,6 +1,6 @@
 [project]
 name = "kestrapy"
-version = "1.0.0"
+version = "1.0.0-beta7"
 description = "Kestra EE"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
