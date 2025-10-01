@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uids** | **List[str]** |  | 
+**uids** | **List[str]** |  | [optional] 
 
 ## Example
 

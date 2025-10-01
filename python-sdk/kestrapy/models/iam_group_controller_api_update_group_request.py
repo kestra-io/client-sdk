@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class IAMGroupControllerApiUpdateGroupRequest(BaseModel):
     Represents updatable properties for a Group.
     """ # noqa: E501
     name: StrictStr = Field(description="of the group.")
-    description: StrictStr = Field(description="of the group.")
+    description: Optional[StrictStr] = Field(default=None, description="of the group.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description"]
 

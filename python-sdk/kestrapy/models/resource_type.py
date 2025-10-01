@@ -36,7 +36,7 @@ class ResourceType(BaseModel):
     meta: Meta
     id: Optional[StrictStr] = None
     external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
-    resource_type: StrictStr = Field(alias="resourceType")
+    resource_type: Optional[StrictStr] = Field(default=None, alias="resourceType")
     name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
     description: Optional[StrictStr] = None
     endpoint: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None

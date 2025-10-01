@@ -27,10 +27,10 @@ class KVEntry(BaseModel):
     """
     KVEntry
     """ # noqa: E501
-    key: StrictStr
+    key: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
-    creation_date: datetime = Field(alias="creationDate")
-    update_date: datetime = Field(alias="updateDate")
+    creation_date: Optional[datetime] = Field(default=None, alias="creationDate")
+    update_date: Optional[datetime] = Field(default=None, alias="updateDate")
     expiration_date: Optional[datetime] = Field(default=None, alias="expirationDate")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "description", "creationDate", "updateDate", "expirationDate"]

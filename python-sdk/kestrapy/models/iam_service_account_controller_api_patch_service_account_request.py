@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,7 @@ class IAMServiceAccountControllerApiPatchServiceAccountRequest(BaseModel):
     Request payload for updating service account details
     """ # noqa: E501
     name: Annotated[str, Field(strict=True)]
-    description: StrictStr
+    description: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "description"]
 

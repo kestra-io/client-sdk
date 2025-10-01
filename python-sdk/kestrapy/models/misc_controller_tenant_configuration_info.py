@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class MiscControllerTenantConfigurationInfo(BaseModel):
     """
     MiscControllerTenantConfigurationInfo
     """ # noqa: E501
-    storage_by_tenant: StrictBool = Field(alias="storageByTenant")
-    secret_by_tenant: StrictBool = Field(alias="secretByTenant")
+    storage_by_tenant: Optional[StrictBool] = Field(default=None, alias="storageByTenant")
+    secret_by_tenant: Optional[StrictBool] = Field(default=None, alias="secretByTenant")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["storageByTenant", "secretByTenant"]
 

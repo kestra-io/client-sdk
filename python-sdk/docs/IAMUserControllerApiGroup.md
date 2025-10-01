@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**tenant_id** | **str** |  | 
+**id** | **str** |  | [optional] 
+**tenant_id** | **str** |  | [optional] 
 
 ## Example
 

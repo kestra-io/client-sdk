@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **test_id** | **str** |  | 
 **test_type** | **str** |  | 
-**execution_id** | **str** |  | 
-**url** | **str** |  | 
+**execution_id** | **str** |  | [optional] 
+**url** | **str** |  | [optional] 
 **state** | [**TestState**](TestState.md) |  | 
 **assertion_results** | [**List[AssertionResult]**](AssertionResult.md) |  | 
 **errors** | [**List[AssertionRunError]**](AssertionRunError.md) |  | 
-**fixtures** | [**Fixtures**](Fixtures.md) |  | 
+**fixtures** | [**Fixtures**](Fixtures.md) |  | [optional] 
 
 ## Example
 

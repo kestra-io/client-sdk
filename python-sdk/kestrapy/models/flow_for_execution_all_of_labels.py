@@ -17,23 +17,23 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from kestrapy.models.map_object_object import MapObjectObject
+from kestrapy.models.flow_labels_map import FlowLabelsMap
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-FLOWFOREXECUTIONALLOFLABELS_ONE_OF_SCHEMAS = ["List[str]", "MapObjectObject"]
+FLOWFOREXECUTIONALLOFLABELS_ONE_OF_SCHEMAS = ["FlowLabelsMap", "List[Label]"]
 
 class FlowForExecutionAllOfLabels(BaseModel):
     """
     FlowForExecutionAllOfLabels
     """
-    # data type: List[str]
-    oneof_schema_1_validator: Optional[List[StrictStr]] = None
-    # data type: MapObjectObject
-    oneof_schema_2_validator: Optional[MapObjectObject] = None
-    actual_instance: Optional[Union[List[str], MapObjectObject]] = None
-    one_of_schemas: Set[str] = { "List[str]", "MapObjectObject" }
+    # data type: List[Label]
+    oneof_schema_1_validator: Optional[List[Label]] = Field(default=None, description="A list of Label objects (key/value pairs).")
+    # data type: FlowLabelsMap
+    oneof_schema_2_validator: Optional[FlowLabelsMap] = None
+    actual_instance: Optional[Union[FlowLabelsMap, List[Label]]] = None
+    one_of_schemas: Set[str] = { "FlowLabelsMap", "List[Label]" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -56,23 +56,23 @@ class FlowForExecutionAllOfLabels(BaseModel):
         instance = FlowForExecutionAllOfLabels.model_construct()
         error_messages = []
         match = 0
-        # validate data type: List[str]
+        # validate data type: List[Label]
         try:
             instance.oneof_schema_1_validator = v
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # validate data type: MapObjectObject
-        if not isinstance(v, MapObjectObject):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `MapObjectObject`")
+        # validate data type: FlowLabelsMap
+        if not isinstance(v, FlowLabelsMap):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `FlowLabelsMap`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in FlowForExecutionAllOfLabels with oneOf schemas: List[str], MapObjectObject. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in FlowForExecutionAllOfLabels with oneOf schemas: FlowLabelsMap, List[Label]. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in FlowForExecutionAllOfLabels with oneOf schemas: List[str], MapObjectObject. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in FlowForExecutionAllOfLabels with oneOf schemas: FlowLabelsMap, List[Label]. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -87,7 +87,7 @@ class FlowForExecutionAllOfLabels(BaseModel):
         error_messages = []
         match = 0
 
-        # deserialize data into List[str]
+        # deserialize data into List[Label]
         try:
             # validation
             instance.oneof_schema_1_validator = json.loads(json_str)
@@ -96,19 +96,19 @@ class FlowForExecutionAllOfLabels(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into MapObjectObject
+        # deserialize data into FlowLabelsMap
         try:
-            instance.actual_instance = MapObjectObject.from_json(json_str)
+            instance.actual_instance = FlowLabelsMap.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into FlowForExecutionAllOfLabels with oneOf schemas: List[str], MapObjectObject. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into FlowForExecutionAllOfLabels with oneOf schemas: FlowLabelsMap, List[Label]. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into FlowForExecutionAllOfLabels with oneOf schemas: List[str], MapObjectObject. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into FlowForExecutionAllOfLabels with oneOf schemas: FlowLabelsMap, List[Label]. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -122,7 +122,7 @@ class FlowForExecutionAllOfLabels(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], List[str], MapObjectObject]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], FlowLabelsMap, List[Label]]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

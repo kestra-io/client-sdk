@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.plugin_artifact_metadata import PluginArtifactMetadata
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata(BaseModel):
     """
     InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
     """ # noqa: E501
-    version: StrictStr
-    metadata: PluginArtifactMetadata
+    version: Optional[StrictStr] = None
+    metadata: Optional[PluginArtifactMetadata] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["version", "metadata"]
 

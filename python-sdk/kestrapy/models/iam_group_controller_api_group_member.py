@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.iam_group_controller_api_group_membership import IAMGroupControllerApiGroupMembership
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class IAMGroupControllerApiGroupMember(BaseModel):
     """
     IAMGroupControllerApiGroupMember
     """ # noqa: E501
-    id: StrictStr
-    username: StrictStr
-    display_name: StrictStr = Field(alias="displayName")
-    groups: List[IAMGroupControllerApiGroupMembership]
+    id: Optional[StrictStr] = None
+    username: Optional[StrictStr] = None
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    groups: Optional[List[IAMGroupControllerApiGroupMembership]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "username", "displayName", "groups"]
 

@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**create_user_if_not_exist** | **bool** |  | 
-**super_admin** | **bool** |  | 
-**roles** | [**List[IAMInvitationControllerApiInvitationRole]**](IAMInvitationControllerApiInvitationRole.md) |  | 
-**groups** | **List[str]** |  | 
+**create_user_if_not_exist** | **bool** |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
+**roles** | [**List[IAMInvitationControllerApiInvitationRole]**](IAMInvitationControllerApiInvitationRole.md) |  | [optional] 
+**groups** | **List[str]** |  | [optional] 
 **email** | **str** |  | 
 
 ## Example

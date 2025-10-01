@@ -34,13 +34,13 @@ class TaskRun(BaseModel):
     namespace: StrictStr
     flow_id: StrictStr = Field(alias="flowId")
     task_id: StrictStr = Field(alias="taskId")
-    parent_task_run_id: StrictStr = Field(alias="parentTaskRunId")
-    value: StrictStr
-    attempts: List[TaskRunAttempt]
+    parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
+    value: Optional[StrictStr] = None
+    attempts: Optional[List[TaskRunAttempt]] = None
     outputs: Dict[str, Dict[str, Any]]
     state: State
-    iteration: StrictInt
-    dynamic: StrictBool
+    iteration: Optional[StrictInt] = None
+    dynamic: Optional[StrictBool] = None
     force_execution: Optional[StrictBool] = Field(default=None, alias="forceExecution")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["items", "id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic", "forceExecution"]

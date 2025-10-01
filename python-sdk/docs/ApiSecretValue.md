@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tags** | [**List[ApiSecretTag]**](ApiSecretTag.md) |  | 
+**tags** | [**List[ApiSecretTag]**](ApiSecretTag.md) |  | [optional] 
 **key** | **str** |  | 
 **value** | **str** |  | 
-**description** | **str** |  | 
+**description** | **str** |  | [optional] 
 
 ## Example
 

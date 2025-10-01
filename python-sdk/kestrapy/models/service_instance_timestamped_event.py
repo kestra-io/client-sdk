@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.service_service_state import ServiceServiceState
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,10 +28,10 @@ class ServiceInstanceTimestampedEvent(BaseModel):
     """
     ServiceInstanceTimestampedEvent
     """ # noqa: E501
-    ts: datetime
-    value: StrictStr
-    type: StrictStr
-    state: ServiceServiceState
+    ts: Optional[datetime] = None
+    value: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    state: Optional[ServiceServiceState] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["ts", "value", "type", "state"]
 

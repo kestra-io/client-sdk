@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class ApiRoleSummary(BaseModel):
     """
     ApiRoleSummary
     """ # noqa: E501
-    id: StrictStr
-    name: StrictStr
-    is_default: StrictBool = Field(alias="isDefault")
-    is_managed: StrictBool = Field(alias="isManaged")
+    id: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    is_default: Optional[StrictBool] = Field(default=None, alias="isDefault")
+    is_managed: Optional[StrictBool] = Field(default=None, alias="isManaged")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "isDefault", "isManaged"]
 

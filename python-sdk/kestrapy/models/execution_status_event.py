@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.state import State
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,11 +27,11 @@ class ExecutionStatusEvent(BaseModel):
     """
     ExecutionStatusEvent
     """ # noqa: E501
-    execution_id: StrictStr = Field(alias="executionId")
-    tenant_id: StrictStr = Field(alias="tenantId")
-    namespace: StrictStr
-    flow_id: StrictStr = Field(alias="flowId")
-    state: State
+    execution_id: Optional[StrictStr] = Field(default=None, alias="executionId")
+    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    namespace: Optional[StrictStr] = None
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
+    state: Optional[State] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["executionId", "tenantId", "namespace", "flowId", "state"]
 

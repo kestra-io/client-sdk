@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class MeControllerApiTenant(BaseModel):
     """
     MeControllerApiTenant
     """ # noqa: E501
-    id: StrictStr
-    name: StrictStr
-    logo: StrictStr
+    id: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    logo: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "logo"]
 

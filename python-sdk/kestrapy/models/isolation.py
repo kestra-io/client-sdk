@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.service_type import ServiceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class Isolation(BaseModel):
     """
     Isolation
     """ # noqa: E501
-    denied_services: List[ServiceType] = Field(alias="deniedServices")
-    enabled: StrictBool
+    denied_services: Optional[List[ServiceType]] = Field(default=None, alias="deniedServices")
+    enabled: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["deniedServices", "enabled"]
 

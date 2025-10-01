@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.instance_controller_api_plugin_version_details_api_plugin_class import InstanceControllerApiPluginVersionDetailsApiPluginClass
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClasses(BaseModel):
     """
     InstanceControllerApiPluginVersionDetailsApiPluginClasses
     """ # noqa: E501
-    type: StrictStr
-    classes: List[InstanceControllerApiPluginVersionDetailsApiPluginClass]
+    type: Optional[StrictStr] = None
+    classes: Optional[List[InstanceControllerApiPluginVersionDetailsApiPluginClass]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "classes"]
 

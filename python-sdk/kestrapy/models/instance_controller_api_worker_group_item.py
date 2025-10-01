@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class InstanceControllerApiWorkerGroupItem(BaseModel):
     """
     ApiWorkerGroup.
     """ # noqa: E501
-    id: StrictStr = Field(description="The ID of worker group.")
-    key: StrictStr = Field(description="The key of the worker group.")
-    description: StrictStr = Field(description="The description of the worker group.")
-    active_workers: StrictInt = Field(description="The number of active workers for the group.", alias="activeWorkers")
+    id: Optional[StrictStr] = Field(default=None, description="The ID of worker group.")
+    key: Optional[StrictStr] = Field(default=None, description="The key of the worker group.")
+    description: Optional[StrictStr] = Field(default=None, description="The description of the worker group.")
+    active_workers: Optional[StrictInt] = Field(default=None, description="The number of active workers for the group.", alias="activeWorkers")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "key", "description", "activeWorkers"]
 

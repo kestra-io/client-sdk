@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value_path_expression** | [**ValuePathExpression**](ValuePathExpression.md) |  | 
+**value_path_expression** | [**ValuePathExpression**](ValuePathExpression.md) |  | [optional] 
 
 ## Example
 

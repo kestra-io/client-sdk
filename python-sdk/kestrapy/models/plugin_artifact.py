@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,12 +26,12 @@ class PluginArtifact(BaseModel):
     """
     PluginArtifact
     """ # noqa: E501
-    group_id: StrictStr = Field(alias="groupId")
-    artifact_id: StrictStr = Field(alias="artifactId")
-    extension: StrictStr
-    classifier: StrictStr
-    version: StrictStr
-    uri: StrictStr
+    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
+    artifact_id: Optional[StrictStr] = Field(default=None, alias="artifactId")
+    extension: Optional[StrictStr] = None
+    classifier: Optional[StrictStr] = None
+    version: Optional[StrictStr] = None
+    uri: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["groupId", "artifactId", "extension", "classifier", "version", "uri"]
 

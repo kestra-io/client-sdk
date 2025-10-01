@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**artifact_id** | **str** |  | 
-**group_id** | **str** |  | 
-**version** | **str** |  | 
-**title** | **str** |  | 
-**description** | **str** |  | 
-**icon** | **str** |  | 
-**classes** | [**List[InstanceControllerApiPluginVersionDetailsApiPluginClasses]**](InstanceControllerApiPluginVersionDetailsApiPluginClasses.md) |  | 
+**artifact_id** | **str** |  | [optional] 
+**group_id** | **str** |  | [optional] 
+**version** | **str** |  | [optional] 
+**title** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**icon** | **str** |  | [optional] 
+**classes** | [**List[InstanceControllerApiPluginVersionDetailsApiPluginClasses]**](InstanceControllerApiPluginVersionDetailsApiPluginClasses.md) |  | [optional] 
 
 ## Example
 

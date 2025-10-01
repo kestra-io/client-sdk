@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.kv_type import KVType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class KVControllerTypedValue(BaseModel):
     """
     KVControllerTypedValue
     """ # noqa: E501
-    type: KVType
-    value: Dict[str, Any]
+    type: Optional[KVType] = None
+    value: Optional[Dict[str, Any]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "value"]
 

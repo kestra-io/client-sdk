@@ -28,12 +28,12 @@ class BlueprintControllerApiBlueprintItemWithSource(BaseModel):
     """
     BlueprintControllerApiBlueprintItemWithSource
     """ # noqa: E501
-    id: StrictStr
-    title: StrictStr
-    description: StrictStr
-    included_tasks: List[StrictStr] = Field(alias="includedTasks")
-    tags: List[StrictStr]
-    published_at: datetime = Field(alias="publishedAt")
+    id: Optional[StrictStr] = None
+    title: Optional[StrictStr] = None
+    description: Optional[StrictStr] = None
+    included_tasks: Optional[List[StrictStr]] = Field(default=None, alias="includedTasks")
+    tags: Optional[List[StrictStr]] = None
+    published_at: Optional[datetime] = Field(default=None, alias="publishedAt")
     source: Optional[StrictStr] = None
     kind: Optional[BlueprintControllerKind] = None
     additional_properties: Dict[str, Any] = {}

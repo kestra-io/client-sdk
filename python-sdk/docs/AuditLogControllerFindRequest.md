@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resource** | [**ResourceType1**](ResourceType1.md) |  | 
+**resource** | [**ResourceType1**](ResourceType1.md) |  | [optional] 
 **type** | [**CrudEventType**](CrudEventType.md) |  | [optional] 
-**detail** | **Dict[str, object]** |  | 
+**detail** | **Dict[str, object]** |  | [optional] 
 
 ## Example
 

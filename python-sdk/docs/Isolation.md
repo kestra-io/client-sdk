@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**denied_services** | [**List[ServiceType]**](ServiceType.md) |  | 
-**enabled** | **bool** |  | 
+**denied_services** | [**List[ServiceType]**](ServiceType.md) |  | [optional] 
+**enabled** | **bool** |  | [optional] 
 
 ## Example
 

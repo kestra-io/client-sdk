@@ -39,7 +39,7 @@ class ServiceProviderConfiguration(BaseModel):
     meta: Meta
     id: Optional[StrictStr] = None
     external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
-    resource_type: StrictStr = Field(alias="resourceType")
+    resource_type: Optional[StrictStr] = Field(default=None, alias="resourceType")
     documentation_url: Optional[StrictStr] = Field(default=None, alias="documentationUrl")
     patch: Optional[ServiceProviderConfigurationSupportedConfiguration] = None
     bulk: Optional[ServiceProviderConfigurationBulkConfiguration] = None

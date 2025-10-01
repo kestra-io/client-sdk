@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.user_type import UserType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class IAMBindingControllerApiBindingUser(BaseModel):
     """
     IAMBindingControllerApiBindingUser
     """ # noqa: E501
-    id: StrictStr
-    username: StrictStr
-    display_name: StrictStr = Field(alias="displayName")
-    type: UserType
+    id: Optional[StrictStr] = None
+    username: Optional[StrictStr] = None
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    type: Optional[UserType] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "username", "displayName", "type"]
 

@@ -5,20 +5,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**is_expired** | **bool** |  | 
+**is_expired** | **bool** |  | [optional] 
 **email** | **str** |  | 
-**id** | **str** |  | 
-**bindings** | [**List[Binding]**](Binding.md) |  | 
-**group_ids** | **List[str]** |  | 
-**tenant_id** | **str** |  | 
-**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | 
-**sent_at** | **datetime** |  | 
-**expired_at** | **datetime** |  | 
-**accepted_at** | **datetime** |  | 
+**id** | **str** |  | [optional] 
+**bindings** | [**List[Binding]**](Binding.md) |  | [optional] 
+**group_ids** | **List[str]** |  | [optional] 
+**tenant_id** | **str** |  | [optional] 
+**status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | [optional] 
+**sent_at** | **datetime** |  | [optional] 
+**expired_at** | **datetime** |  | [optional] 
+**accepted_at** | **datetime** |  | [optional] 
 **deleted** | **bool** |  | 
-**user_type** | [**UserType**](UserType.md) |  | 
-**super_admin** | **bool** |  | 
-**link** | **str** |  | 
+**user_type** | [**UserType**](UserType.md) |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
+**link** | **str** |  | [optional] 
 
 ## Example
 

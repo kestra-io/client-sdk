@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**KVType**](KVType.md) |  | 
-**value** | **object** |  | 
+**type** | [**KVType**](KVType.md) |  | [optional] 
+**value** | **object** |  | [optional] 
 
 ## Example
 

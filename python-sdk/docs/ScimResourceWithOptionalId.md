@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | 
 **id** | **str** |  | [optional] 
 **external_id** | **str** |  | [optional] 
-**resource_type** | **str** |  | 
+**resource_type** | **str** |  | [optional] 
 
 ## Example
 

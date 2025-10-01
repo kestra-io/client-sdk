@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **namespace** | **str** |  | 
-**flow_id** | **str** |  | 
+**flow_id** | **str** |  | [optional] 
 
 ## Example
 

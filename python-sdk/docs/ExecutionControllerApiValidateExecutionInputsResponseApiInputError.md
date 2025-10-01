@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**message** | **str** |  | 
+**message** | **str** |  | [optional] 
 
 ## Example
 

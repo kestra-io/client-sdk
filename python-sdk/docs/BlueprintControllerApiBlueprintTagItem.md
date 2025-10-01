@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**name** | **str** |  | 
-**published_at** | **datetime** |  | 
+**id** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**published_at** | **datetime** |  | [optional] 
 
 ## Example
 

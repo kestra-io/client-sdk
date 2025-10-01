@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.api_secret_tag import ApiSecretTag
 from typing import Optional, Set
@@ -28,10 +28,10 @@ class ApiSecretValue(BaseModel):
     """
     ApiSecretValue
     """ # noqa: E501
-    tags: List[ApiSecretTag]
+    tags: Optional[List[ApiSecretTag]] = None
     key: Annotated[str, Field(min_length=1, strict=True)]
     value: Annotated[str, Field(min_length=1, strict=True)]
-    description: StrictStr
+    description: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tags", "key", "value", "description"]
 

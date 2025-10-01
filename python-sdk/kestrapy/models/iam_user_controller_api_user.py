@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.api_tenant_summary import ApiTenantSummary
 from kestrapy.models.iam_user_controller_api_group import IAMUserControllerApiGroup
 from kestrapy.models.iam_user_controller_api_user_auth import IAMUserControllerApiUserAuth
@@ -29,17 +29,17 @@ class IAMUserControllerApiUser(BaseModel):
     """
     IAMUserControllerApiUser
     """ # noqa: E501
-    id: StrictStr
-    username: StrictStr
-    display_name: StrictStr = Field(alias="displayName")
-    first_name: StrictStr = Field(alias="firstName")
-    last_name: StrictStr = Field(alias="lastName")
-    email: StrictStr
-    tenants: List[ApiTenantSummary]
-    auths: List[IAMUserControllerApiUserAuth]
-    groups: List[IAMUserControllerApiGroup]
-    super_admin: StrictBool = Field(alias="superAdmin")
-    restricted: StrictBool
+    id: Optional[StrictStr] = None
+    username: Optional[StrictStr] = None
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    email: Optional[StrictStr] = None
+    tenants: Optional[List[ApiTenantSummary]] = None
+    auths: Optional[List[IAMUserControllerApiUserAuth]] = None
+    groups: Optional[List[IAMUserControllerApiGroup]] = None
+    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
+    restricted: Optional[StrictBool] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "username", "displayName", "firstName", "lastName", "email", "tenants", "auths", "groups", "superAdmin", "restricted"]
 

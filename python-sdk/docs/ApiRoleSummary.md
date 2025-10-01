@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**name** | **str** |  | 
-**is_default** | **bool** |  | 
-**is_managed** | **bool** |  | 
+**id** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**is_default** | **bool** |  | [optional] 
+**is_managed** | **bool** |  | [optional] 
 
 ## Example
 

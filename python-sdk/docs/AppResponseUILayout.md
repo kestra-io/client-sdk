@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**blocks** | **List[object]** |  | 
+**blocks** | **List[object]** |  | [optional] 
 
 ## Example
 

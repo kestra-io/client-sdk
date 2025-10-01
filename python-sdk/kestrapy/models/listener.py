@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.condition import Condition
 from kestrapy.models.task import Task
@@ -29,8 +29,8 @@ class Listener(BaseModel):
     """
     Listener
     """ # noqa: E501
-    description: StrictStr
-    conditions: List[Condition]
+    description: Optional[StrictStr] = None
+    conditions: Optional[List[Condition]] = None
     tasks: Annotated[List[Task], Field(min_length=1)]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["description", "conditions", "tasks"]

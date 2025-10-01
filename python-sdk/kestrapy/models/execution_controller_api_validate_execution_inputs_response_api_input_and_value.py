@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.execution_controller_api_validate_execution_inputs_response_api_input_error import ExecutionControllerApiValidateExecutionInputsResponseApiInputError
 from kestrapy.models.input_object import InputObject
 from typing import Optional, Set
@@ -28,11 +28,11 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue(Base
     """
     ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
     """ # noqa: E501
-    input: InputObject
-    value: Dict[str, Any]
-    enabled: StrictBool
-    is_default: StrictBool = Field(alias="isDefault")
-    errors: List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]
+    input: Optional[InputObject] = None
+    value: Optional[Dict[str, Any]] = None
+    enabled: Optional[StrictBool] = None
+    is_default: Optional[StrictBool] = Field(default=None, alias="isDefault")
+    errors: Optional[List[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["input", "value", "enabled", "isDefault", "errors"]
 

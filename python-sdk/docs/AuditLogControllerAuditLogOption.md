@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**var_date** | **datetime** |  | 
-**username** | **str** |  | 
+**id** | **str** |  | [optional] 
+**var_date** | **datetime** |  | [optional] 
+**username** | **str** |  | [optional] 
 
 ## Example
 

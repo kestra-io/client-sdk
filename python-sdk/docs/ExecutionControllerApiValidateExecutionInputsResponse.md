@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**namespace** | **str** |  | 
-**inputs** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | 
+**id** | **str** |  | [optional] 
+**namespace** | **str** |  | [optional] 
+**inputs** | [**List[ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.md) |  | [optional] 
 
 ## Example
 

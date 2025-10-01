@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**success** | **List[str]** |  | 
-**errors** | [**List[AppsControllerApiBulkImportResponseError]**](AppsControllerApiBulkImportResponseError.md) |  | 
+**success** | **List[str]** |  | [optional] 
+**errors** | [**List[AppsControllerApiBulkImportResponseError]**](AppsControllerApiBulkImportResponseError.md) |  | [optional] 
 
 ## Example
 

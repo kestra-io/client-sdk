@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.iam_tenant_access_controller_api_authentication import IAMTenantAccessControllerApiAuthentication
 from kestrapy.models.iam_tenant_access_controller_api_group import IAMTenantAccessControllerApiGroup
 from typing import Optional, Set
@@ -28,12 +28,12 @@ class IAMTenantAccessControllerApiUserTenantAccess(BaseModel):
     """
     IAMTenantAccessControllerApiUserTenantAccess
     """ # noqa: E501
-    id: StrictStr
-    username: StrictStr
-    display_name: StrictStr = Field(alias="displayName")
-    description: StrictStr
-    groups: List[IAMTenantAccessControllerApiGroup]
-    auths: List[IAMTenantAccessControllerApiAuthentication]
+    id: Optional[StrictStr] = None
+    username: Optional[StrictStr] = None
+    display_name: Optional[StrictStr] = Field(default=None, alias="displayName")
+    description: Optional[StrictStr] = None
+    groups: Optional[List[IAMTenantAccessControllerApiGroup]] = None
+    auths: Optional[List[IAMTenantAccessControllerApiAuthentication]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "username", "displayName", "description", "groups", "auths"]
 

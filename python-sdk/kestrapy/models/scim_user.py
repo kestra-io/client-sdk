@@ -38,7 +38,7 @@ class ScimUser(BaseModel):
     meta: Meta
     id: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
     external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
-    resource_type: StrictStr = Field(alias="resourceType")
+    resource_type: Optional[StrictStr] = Field(default=None, alias="resourceType")
     primary_email_address: Optional[Email] = Field(default=None, alias="primaryEmailAddress")
     active: Optional[StrictBool] = None
     emails: Optional[List[Email]] = None

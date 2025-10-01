@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **read_only** | **bool** |  | 
 **results** | [**List[ApiSecretMeta]**](ApiSecretMeta.md) |  | 
-**total** | **int** |  | 
+**total** | **int** |  | [optional] 
 
 ## Example
 

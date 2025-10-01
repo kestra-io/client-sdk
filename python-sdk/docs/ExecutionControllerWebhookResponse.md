@@ -5,16 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenant_id** | **str** |  | 
-**id** | **str** |  | 
-**namespace** | **str** |  | 
-**flow_id** | **str** |  | 
-**flow_revision** | **int** |  | 
-**trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | 
-**outputs** | **Dict[str, object]** |  | 
-**labels** | [**List[Label]**](Label.md) |  | 
-**state** | [**State**](State.md) |  | 
-**url** | **str** |  | 
+**tenant_id** | **str** |  | [optional] 
+**id** | **str** |  | [optional] 
+**namespace** | **str** |  | [optional] 
+**flow_id** | **str** |  | [optional] 
+**flow_revision** | **int** |  | [optional] 
+**trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
+**outputs** | **Dict[str, object]** |  | [optional] 
+**labels** | [**List[Label]**](Label.md) |  | [optional] 
+**state** | [**State**](State.md) |  | [optional] 
+**url** | **str** |  | [optional] 
 
 ## Example
 

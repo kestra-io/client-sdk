@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**version** | **str** |  | 
-**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | 
+**version** | **str** |  | [optional] 
+**metadata** | [**PluginArtifactMetadata**](PluginArtifactMetadata.md) |  | [optional] 
 
 ## Example
 

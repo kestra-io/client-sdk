@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**name** | **str** |  | 
-**external** | **bool** |  | 
-**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | 
+**id** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**external** | **bool** |  | [optional] 
+**membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | [optional] 
 
 ## Example
 

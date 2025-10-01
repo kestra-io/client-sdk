@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**task_run_id** | **str** |  | 
-**state** | [**StateType**](StateType.md) |  | 
+**task_run_id** | **str** |  | [optional] 
+**state** | [**StateType**](StateType.md) |  | [optional] 
 
 ## Example
 

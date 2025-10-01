@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.apps_controller_api_bulk_import_response_error import AppsControllerApiBulkImportResponseError
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class AppsControllerApiBulkImportResponse(BaseModel):
     """
     AppsControllerApiBulkImportResponse
     """ # noqa: E501
-    success: List[StrictStr]
-    errors: List[AppsControllerApiBulkImportResponseError]
+    success: Optional[List[StrictStr]] = None
+    errors: Optional[List[AppsControllerApiBulkImportResponseError]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["success", "errors"]
 

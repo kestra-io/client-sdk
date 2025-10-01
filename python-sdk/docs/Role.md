@@ -6,11 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **is_managed** | **bool** |  | 
-**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | 
-**id** | **str** |  | 
+**permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
+**id** | **str** |  | [optional] 
 **name** | **str** |  | 
-**description** | **str** |  | 
-**is_default** | **bool** |  | 
+**description** | **str** |  | [optional] 
+**is_default** | **bool** |  | [optional] 
 **deleted** | **bool** |  | 
 
 ## Example

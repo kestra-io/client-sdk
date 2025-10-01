@@ -35,23 +35,23 @@ class Execution(BaseModel):
     """
     Execution
     """ # noqa: E501
-    labels: List[Label]
+    labels: Optional[List[Label]] = None
     id: StrictStr
     namespace: StrictStr
     flow_id: StrictStr = Field(alias="flowId")
     flow_revision: StrictInt = Field(alias="flowRevision")
-    task_run_list: List[TaskRun] = Field(alias="taskRunList")
-    inputs: Dict[str, Dict[str, Any]]
-    outputs: Dict[str, Dict[str, Any]]
-    variables: Dict[str, Dict[str, Any]]
+    task_run_list: Optional[List[TaskRun]] = Field(default=None, alias="taskRunList")
+    inputs: Optional[Dict[str, Dict[str, Any]]] = None
+    outputs: Optional[Dict[str, Dict[str, Any]]] = None
+    variables: Optional[Dict[str, Dict[str, Any]]] = None
     state: State
-    parent_id: StrictStr = Field(alias="parentId")
-    original_id: StrictStr = Field(alias="originalId")
-    trigger: ExecutionTrigger
+    parent_id: Optional[StrictStr] = Field(default=None, alias="parentId")
+    original_id: Optional[StrictStr] = Field(default=None, alias="originalId")
+    trigger: Optional[ExecutionTrigger] = None
     deleted: StrictBool
-    metadata: ExecutionMetadata
+    metadata: Optional[ExecutionMetadata] = None
     schedule_date: Optional[datetime] = Field(default=None, alias="scheduleDate")
-    trace_parent: StrictStr = Field(alias="traceParent")
+    trace_parent: Optional[StrictStr] = Field(default=None, alias="traceParent")
     fixtures: Optional[List[TaskFixture]] = None
     kind: Optional[ExecutionKind] = None
     breakpoints: Optional[List[Breakpoint]] = None

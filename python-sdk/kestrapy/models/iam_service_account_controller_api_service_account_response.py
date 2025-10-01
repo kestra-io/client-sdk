@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.iam_service_account_controller_api_group import IAMServiceAccountControllerApiGroup
 from typing import Optional, Set
@@ -28,11 +28,11 @@ class IAMServiceAccountControllerApiServiceAccountResponse(BaseModel):
     """
     A User Service Account.
     """ # noqa: E501
-    id: StrictStr = Field(description="the identifier of this service account.")
+    id: Optional[StrictStr] = Field(default=None, description="the identifier of this service account.")
     name: Annotated[str, Field(strict=True)] = Field(description="the name of this service account.")
-    description: StrictStr = Field(description="the description of this service account.")
-    groups: List[IAMServiceAccountControllerApiGroup]
-    super_admin: StrictBool = Field(alias="superAdmin")
+    description: Optional[StrictStr] = Field(default=None, description="the description of this service account.")
+    groups: Optional[List[IAMServiceAccountControllerApiGroup]] = None
+    super_admin: Optional[StrictBool] = Field(default=None, alias="superAdmin")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "description", "groups", "superAdmin"]
 

@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.execution_trigger import ExecutionTrigger
 from kestrapy.models.label import Label
 from kestrapy.models.state import State
@@ -29,16 +29,16 @@ class ExecutionControllerWebhookResponse(BaseModel):
     """
     ExecutionControllerWebhookResponse
     """ # noqa: E501
-    tenant_id: StrictStr = Field(alias="tenantId")
-    id: StrictStr
-    namespace: StrictStr
-    flow_id: StrictStr = Field(alias="flowId")
-    flow_revision: StrictInt = Field(alias="flowRevision")
-    trigger: ExecutionTrigger
-    outputs: Dict[str, Dict[str, Any]]
-    labels: List[Label]
-    state: State
-    url: StrictStr
+    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    id: Optional[StrictStr] = None
+    namespace: Optional[StrictStr] = None
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
+    flow_revision: Optional[StrictInt] = Field(default=None, alias="flowRevision")
+    trigger: Optional[ExecutionTrigger] = None
+    outputs: Optional[Dict[str, Dict[str, Any]]] = None
+    labels: Optional[List[Label]] = None
+    state: Optional[State] = None
+    url: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["tenantId", "id", "namespace", "flowId", "flowRevision", "trigger", "outputs", "labels", "state", "url"]
 

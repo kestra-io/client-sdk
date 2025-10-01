@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.flow_node import FlowNode
 from kestrapy.models.flow_topology_graph_edge import FlowTopologyGraphEdge
 from typing import Optional, Set
@@ -28,8 +28,8 @@ class FlowTopologyGraph(BaseModel):
     """
     FlowTopologyGraph
     """ # noqa: E501
-    nodes: List[FlowNode]
-    edges: List[FlowTopologyGraphEdge]
+    nodes: Optional[List[FlowNode]] = None
+    edges: Optional[List[FlowTopologyGraphEdge]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["nodes", "edges"]
 

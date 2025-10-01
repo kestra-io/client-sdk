@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,9 +26,9 @@ class ApiAuth(BaseModel):
     """
     ApiAuth
     """ # noqa: E501
-    uid: StrictStr
-    type: StrictStr
-    name: StrictStr
+    uid: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uid", "type", "name"]
 

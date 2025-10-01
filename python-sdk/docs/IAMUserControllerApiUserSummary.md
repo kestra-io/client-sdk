@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**username** | **str** |  | 
-**display_name** | **str** |  | 
-**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
-**auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
-**super_admin** | **bool** |  | 
+**id** | **str** |  | [optional] 
+**username** | **str** |  | [optional] 
+**display_name** | **str** |  | [optional] 
+**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
+**auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
 
 ## Example
 

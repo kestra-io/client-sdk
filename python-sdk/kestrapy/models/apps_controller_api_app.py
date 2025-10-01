@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,17 +27,18 @@ class AppsControllerApiApp(BaseModel):
     """
     AppsControllerApiApp
     """ # noqa: E501
-    uid: StrictStr
-    id: StrictStr
-    name: StrictStr
-    type: StrictStr
-    namespace: StrictStr
-    tags: List[StrictStr]
-    enabled: StrictBool
-    created: datetime
-    updated: datetime
+    uid: Optional[StrictStr] = None
+    id: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    namespace: Optional[StrictStr] = None
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
+    tags: Optional[List[StrictStr]] = None
+    enabled: Optional[StrictBool] = None
+    created: Optional[datetime] = None
+    updated: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uid", "id", "name", "type", "namespace", "tags", "enabled", "created", "updated"]
+    __properties: ClassVar[List[str]] = ["uid", "id", "name", "type", "namespace", "flowId", "tags", "enabled", "created", "updated"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -102,6 +103,7 @@ class AppsControllerApiApp(BaseModel):
             "name": obj.get("name"),
             "type": obj.get("type"),
             "namespace": obj.get("namespace"),
+            "flowId": obj.get("flowId"),
             "tags": obj.get("tags"),
             "enabled": obj.get("enabled"),
             "created": obj.get("created"),

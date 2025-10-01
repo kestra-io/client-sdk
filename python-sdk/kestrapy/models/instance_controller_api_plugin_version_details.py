@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.instance_controller_api_plugin_version_details_api_plugin_classes import InstanceControllerApiPluginVersionDetailsApiPluginClasses
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,13 +27,13 @@ class InstanceControllerApiPluginVersionDetails(BaseModel):
     """
     InstanceControllerApiPluginVersionDetails
     """ # noqa: E501
-    artifact_id: StrictStr = Field(alias="artifactId")
-    group_id: StrictStr = Field(alias="groupId")
-    version: StrictStr
-    title: StrictStr
-    description: StrictStr
-    icon: StrictStr
-    classes: List[InstanceControllerApiPluginVersionDetailsApiPluginClasses]
+    artifact_id: Optional[StrictStr] = Field(default=None, alias="artifactId")
+    group_id: Optional[StrictStr] = Field(default=None, alias="groupId")
+    version: Optional[StrictStr] = None
+    title: Optional[StrictStr] = None
+    description: Optional[StrictStr] = None
+    icon: Optional[StrictStr] = None
+    classes: Optional[List[InstanceControllerApiPluginVersionDetailsApiPluginClasses]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["artifactId", "groupId", "version", "title", "description", "icon", "classes"]
 

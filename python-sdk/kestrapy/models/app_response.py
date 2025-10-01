@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.app_response_ui_layout import AppResponseUILayout
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,9 @@ class AppResponse(BaseModel):
     """
     AppResponse
     """ # noqa: E501
-    dispatch: StrictStr
-    stream: StrictStr
-    layout: AppResponseUILayout
+    dispatch: Optional[StrictStr] = None
+    stream: Optional[StrictStr] = None
+    layout: Optional[AppResponseUILayout] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["dispatch", "stream", "layout"]
 

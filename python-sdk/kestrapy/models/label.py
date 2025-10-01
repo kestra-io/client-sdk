@@ -17,17 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
 class Label(BaseModel):
     """
-    Label
+    A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
     """ # noqa: E501
-    key: StrictStr
-    value: StrictStr
+    key: Annotated[str, Field(min_length=1, strict=True)]
+    value: Annotated[str, Field(min_length=1, strict=True)]
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "value"]
 

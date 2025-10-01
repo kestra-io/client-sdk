@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class KVControllerApiDeleteBulkResponse(BaseModel):
     """
     KVControllerApiDeleteBulkResponse
     """ # noqa: E501
-    keys: List[StrictStr]
+    keys: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["keys"]
 

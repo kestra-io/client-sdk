@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class NamespaceAllowedTrigger(BaseModel):
     NamespaceAllowedTrigger
     """ # noqa: E501
     namespace: StrictStr
-    flow_id: StrictStr = Field(alias="flowId")
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["namespace", "flowId"]
 

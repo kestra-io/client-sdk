@@ -5,27 +5,27 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**labels** | [**List[Label]**](Label.md) |  | 
+**labels** | [**List[Label]**](Label.md) |  | [optional] 
 **id** | **str** |  | 
 **namespace** | **str** |  | 
 **flow_id** | **str** |  | 
 **flow_revision** | **int** |  | 
-**task_run_list** | [**List[TaskRun]**](TaskRun.md) |  | 
-**inputs** | **Dict[str, object]** |  | 
-**outputs** | **Dict[str, object]** |  | 
-**variables** | **Dict[str, object]** |  | 
+**task_run_list** | [**List[TaskRun]**](TaskRun.md) |  | [optional] 
+**inputs** | **Dict[str, object]** |  | [optional] 
+**outputs** | **Dict[str, object]** |  | [optional] 
+**variables** | **Dict[str, object]** |  | [optional] 
 **state** | [**State**](State.md) |  | 
-**parent_id** | **str** |  | 
-**original_id** | **str** |  | 
-**trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | 
+**parent_id** | **str** |  | [optional] 
+**original_id** | **str** |  | [optional] 
+**trigger** | [**ExecutionTrigger**](ExecutionTrigger.md) |  | [optional] 
 **deleted** | **bool** |  | 
-**metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | 
+**metadata** | [**ExecutionMetadata**](ExecutionMetadata.md) |  | [optional] 
 **schedule_date** | **datetime** |  | [optional] 
-**trace_parent** | **str** |  | 
+**trace_parent** | **str** |  | [optional] 
 **fixtures** | [**List[TaskFixture]**](TaskFixture.md) |  | [optional] 
 **kind** | [**ExecutionKind**](ExecutionKind.md) |  | [optional] 
 **breakpoints** | [**List[Breakpoint]**](Breakpoint.md) |  | [optional] 
-**url** | **str** |  | 
+**url** | **str** |  | [optional] 
 
 ## Example
 

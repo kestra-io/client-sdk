@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **str** |  | 
-**name** | **str** |  | 
-**namespace** | **str** |  | 
-**tags** | **List[str]** |  | 
-**disabled** | **bool** |  | 
-**source** | **str** |  | 
-**created** | **datetime** |  | 
-**updated** | **datetime** |  | 
+**uid** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**namespace** | **str** |  | [optional] 
+**tags** | **List[str]** |  | [optional] 
+**disabled** | **bool** |  | [optional] 
+**source** | **str** |  | [optional] 
+**created** | **datetime** |  | [optional] 
+**updated** | **datetime** |  | [optional] 
 
 ## Example
 

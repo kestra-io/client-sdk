@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | [**List[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | 
+**results** | [**List[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | [optional] 
 
 ## Example
 

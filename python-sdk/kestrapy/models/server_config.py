@@ -30,7 +30,7 @@ class ServerConfig(BaseModel):
     """ # noqa: E501
     worker_task_restart_strategy: Optional[WorkerTaskRestartStrategy] = Field(default=None, alias="workerTaskRestartStrategy")
     termination_grace_period: StrictStr = Field(alias="terminationGracePeriod")
-    liveness: ServerConfigLiveness
+    liveness: Optional[ServerConfigLiveness] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["workerTaskRestartStrategy", "terminationGracePeriod", "liveness"]
 

@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**type** | [**ServiceType**](ServiceType.md) |  | 
-**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
-**server** | [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  | 
-**created_at** | **datetime** |  | 
-**updated_at** | **datetime** |  | 
+**id** | **str** |  | [optional] 
+**type** | [**ServiceType**](ServiceType.md) |  | [optional] 
+**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
+**server** | [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  | [optional] 
+**created_at** | **datetime** |  | [optional] 
+**updated_at** | **datetime** |  | [optional] 
 
 ## Example
 

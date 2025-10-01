@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**username** | **str** |  | 
-**display_name** | **str** |  | 
-**description** | **str** |  | 
-**groups** | [**List[IAMTenantAccessControllerApiGroup]**](IAMTenantAccessControllerApiGroup.md) |  | 
-**auths** | [**List[IAMTenantAccessControllerApiAuthentication]**](IAMTenantAccessControllerApiAuthentication.md) |  | 
+**id** | **str** |  | [optional] 
+**username** | **str** |  | [optional] 
+**display_name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**groups** | [**List[IAMTenantAccessControllerApiGroup]**](IAMTenantAccessControllerApiGroup.md) |  | [optional] 
+**auths** | [**List[IAMTenantAccessControllerApiAuthentication]**](IAMTenantAccessControllerApiAuthentication.md) |  | [optional] 
 
 ## Example
 

@@ -7,9 +7,9 @@ Request payload for updating service account details
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**description** | **str** |  | 
-**super_admin** | **bool** |  | 
-**tenants** | **List[str]** |  | 
+**description** | **str** |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
+**tenants** | **List[str]** |  | [optional] 
 
 ## Example
 

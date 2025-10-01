@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.service_instance import ServiceInstance
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,11 +27,11 @@ class InstanceControllerApiWorkerGroupDetails(BaseModel):
     """
     ApiWorkerGroupDetails.
     """ # noqa: E501
-    id: StrictStr = Field(description="The ID of worker group.")
-    key: StrictStr = Field(description="The key of the worker group.")
-    description: StrictStr = Field(description="The description of the worker group.")
-    allowed_tenants: List[StrictStr] = Field(alias="allowedTenants")
-    workers: List[ServiceInstance] = Field(description="The list of workers for the group.")
+    id: Optional[StrictStr] = Field(default=None, description="The ID of worker group.")
+    key: Optional[StrictStr] = Field(default=None, description="The key of the worker group.")
+    description: Optional[StrictStr] = Field(default=None, description="The description of the worker group.")
+    allowed_tenants: Optional[List[StrictStr]] = Field(default=None, alias="allowedTenants")
+    workers: Optional[List[ServiceInstance]] = Field(default=None, description="The list of workers for the group.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "key", "description", "allowedTenants", "workers"]
 

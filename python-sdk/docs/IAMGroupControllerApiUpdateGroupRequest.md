@@ -7,7 +7,7 @@ Represents updatable properties for a Group.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | of the group. | 
-**description** | **str** | of the group. | 
+**description** | **str** | of the group. | [optional] 
 
 ## Example
 

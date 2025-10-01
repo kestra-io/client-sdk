@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class MetricAggregation(BaseModel):
     MetricAggregation
     """ # noqa: E501
     name: StrictStr
-    value: Union[StrictFloat, StrictInt]
+    value: Optional[Union[StrictFloat, StrictInt]] = None
     var_date: datetime = Field(alias="date")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["name", "value", "date"]

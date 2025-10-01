@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult
 from kestrapy.models.test_suite_service_run_by_query_request import TestSuiteServiceRunByQueryRequest
 from typing import Optional, Set
@@ -28,11 +28,11 @@ class TestSuiteServiceTestRunByQueryResult(BaseModel):
     """
     TestSuiteServiceTestRunByQueryResult
     """ # noqa: E501
-    request_made: TestSuiteServiceRunByQueryRequest = Field(alias="requestMade")
-    tenant_id: StrictStr = Field(alias="tenantId")
-    number_of_test_suites_to_be_run: StrictInt = Field(alias="numberOfTestSuitesToBeRun")
-    number_of_test_cases_to_be_run: StrictInt = Field(alias="numberOfTestCasesToBeRun")
-    results: List[TestSuiteRunResult]
+    request_made: Optional[TestSuiteServiceRunByQueryRequest] = Field(default=None, alias="requestMade")
+    tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
+    number_of_test_suites_to_be_run: Optional[StrictInt] = Field(default=None, alias="numberOfTestSuitesToBeRun")
+    number_of_test_cases_to_be_run: Optional[StrictInt] = Field(default=None, alias="numberOfTestCasesToBeRun")
+    results: Optional[List[TestSuiteRunResult]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["requestMade", "tenantId", "numberOfTestSuitesToBeRun", "numberOfTestCasesToBeRun", "results"]
 

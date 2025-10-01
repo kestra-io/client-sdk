@@ -578,7 +578,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_audit_logs_for_all_tenants**
-> PagedResultsAuditLogControllerApiAuditLogItem search_audit_logs_for_all_tenants(page, size, q=q, sort=sort, namespace=namespace, flow_id=flow_id, execution_id=execution_id, user_id=user_id, id=id, resource=resource, start_date=start_date, end_date=end_date, details=details, type=type)
+> PagedResultsAuditLogControllerApiAuditLogItem search_audit_logs_for_all_tenants(page, size, q=q, sort=sort, namespace=namespace, flow_id=flow_id, execution_id=execution_id, user_id=user_id, id=id, resources=resources, start_date=start_date, end_date=end_date, details=details, type=type)
 
 Search for audit logs across all tenants, required to be SuperAdmin
 
@@ -590,6 +590,7 @@ Search for audit logs across all tenants, required to be SuperAdmin
 ```python
 import kestrapy
 from kestrapy.models.paged_results_audit_log_controller_api_audit_log_item import PagedResultsAuditLogControllerApiAuditLogItem
+from kestrapy.models.resource_type1 import ResourceType1
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -628,7 +629,7 @@ with kestrapy.ApiClient(configuration) as api_client:
     execution_id = 'execution_id_example' # str | An execution filter (optional)
     user_id = 'user_id_example' # str | A user id filter (optional)
     id = 'id_example' # str | A id filter (optional)
-    resource = kestrapy.ResourceType1() # ResourceType1 | A resource filter (optional)
+    resources = [kestrapy.ResourceType1()] # List[ResourceType1] | A resource filter (optional)
     start_date = '2013-10-20T19:20:30+01:00' # datetime | The start datetime (optional)
     end_date = '2013-10-20T19:20:30+01:00' # datetime | The end datetime (optional)
     details = {'key': 'details_example'} # Dict[str, str] | A list of auditLog details (optional)
@@ -636,7 +637,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for audit logs across all tenants, required to be SuperAdmin
-        api_response = api_instance.search_audit_logs_for_all_tenants(page, size, q=q, sort=sort, namespace=namespace, flow_id=flow_id, execution_id=execution_id, user_id=user_id, id=id, resource=resource, start_date=start_date, end_date=end_date, details=details, type=type)
+        api_response = api_instance.search_audit_logs_for_all_tenants(page, size, q=q, sort=sort, namespace=namespace, flow_id=flow_id, execution_id=execution_id, user_id=user_id, id=id, resources=resources, start_date=start_date, end_date=end_date, details=details, type=type)
         print("The response of AuditLogsApi->search_audit_logs_for_all_tenants:\n")
         pprint(api_response)
     except Exception as e:
@@ -659,7 +660,7 @@ Name | Type | Description  | Notes
  **execution_id** | **str**| An execution filter | [optional] 
  **user_id** | **str**| A user id filter | [optional] 
  **id** | **str**| A id filter | [optional] 
- **resource** | [**ResourceType1**](.md)| A resource filter | [optional] 
+ **resources** | [**List[ResourceType1]**](ResourceType1.md)| A resource filter | [optional] 
  **start_date** | **datetime**| The start datetime | [optional] 
  **end_date** | **datetime**| The end datetime | [optional] 
  **details** | [**Dict[str, str]**](str.md)| A list of auditLog details | [optional] 

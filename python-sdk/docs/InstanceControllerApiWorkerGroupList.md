@@ -6,7 +6,7 @@ ApiWorkerGroupList.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**worker_groups** | [**List[InstanceControllerApiWorkerGroupItem]**](InstanceControllerApiWorkerGroupItem.md) | The list of worker groups. | 
+**worker_groups** | [**List[InstanceControllerApiWorkerGroupItem]**](InstanceControllerApiWorkerGroupItem.md) | The list of worker groups. | [optional] 
 
 ## Example
 

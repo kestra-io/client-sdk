@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plugins** | **List[str]** |  | 
+**plugins** | **List[str]** |  | [optional] 
 
 ## Example
 

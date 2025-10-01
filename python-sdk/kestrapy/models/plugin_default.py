@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class PluginDefault(BaseModel):
     PluginDefault
     """ # noqa: E501
     type: StrictStr
-    forced: StrictBool
-    values: Dict[str, Dict[str, Any]]
+    forced: Optional[StrictBool] = None
+    values: Optional[Dict[str, Dict[str, Any]]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "forced", "values"]
 

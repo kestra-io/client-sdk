@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.relation_type import RelationType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,8 @@ class Relation(BaseModel):
     """
     Relation
     """ # noqa: E501
-    relation_type: RelationType = Field(alias="relationType")
-    value: StrictStr
+    relation_type: Optional[RelationType] = Field(default=None, alias="relationType")
+    value: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["relationType", "value"]
 

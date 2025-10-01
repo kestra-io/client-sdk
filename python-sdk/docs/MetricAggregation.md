@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**value** | **float** |  | 
+**value** | **float** |  | [optional] 
 **var_date** | **datetime** |  | 
 
 ## Example

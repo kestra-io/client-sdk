@@ -26,10 +26,10 @@ class AbstractUserTenantIdentityProvider(BaseModel):
     """
     AbstractUserTenantIdentityProvider
     """ # noqa: E501
-    attributes: Dict[str, Dict[str, Any]]
-    external_id: StrictStr = Field(alias="externalId")
-    security_integration_id: StrictStr = Field(alias="securityIntegrationId")
-    security_integration_name: StrictStr = Field(alias="securityIntegrationName")
+    attributes: Optional[Dict[str, Dict[str, Any]]] = None
+    external_id: Optional[StrictStr] = Field(default=None, alias="externalId")
+    security_integration_id: Optional[StrictStr] = Field(default=None, alias="securityIntegrationId")
+    security_integration_name: Optional[StrictStr] = Field(default=None, alias="securityIntegrationName")
     tenant_id: Optional[StrictStr] = Field(default=None, alias="tenantId")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attributes", "externalId", "securityIntegrationId", "securityIntegrationName", "tenantId"]

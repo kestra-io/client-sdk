@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.test_suite_controller_test_suite_api_id import TestSuiteControllerTestSuiteApiId
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class TestSuiteControllerSearchTestsLastResult(BaseModel):
     """
     TestSuiteControllerSearchTestsLastResult
     """ # noqa: E501
-    test_suite_ids: List[TestSuiteControllerTestSuiteApiId] = Field(alias="testSuiteIds")
+    test_suite_ids: Optional[List[TestSuiteControllerTestSuiteApiId]] = Field(default=None, alias="testSuiteIds")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["testSuiteIds"]
 

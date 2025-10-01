@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.instance_controller_api_worker_group_item import InstanceControllerApiWorkerGroupItem
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class InstanceControllerApiWorkerGroupList(BaseModel):
     """
     ApiWorkerGroupList.
     """ # noqa: E501
-    worker_groups: List[InstanceControllerApiWorkerGroupItem] = Field(description="The list of worker groups.", alias="workerGroups")
+    worker_groups: Optional[List[InstanceControllerApiWorkerGroupItem]] = Field(default=None, description="The list of worker groups.", alias="workerGroups")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["workerGroups"]
 

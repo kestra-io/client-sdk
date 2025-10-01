@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
 **type** | **str** |  | 
-**variables** | **Dict[str, object]** |  | 
-**log_file** | **str** |  | 
+**variables** | **Dict[str, object]** |  | [optional] 
+**log_file** | **str** |  | [optional] 
 
 ## Example
 

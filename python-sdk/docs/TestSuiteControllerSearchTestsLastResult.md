@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**test_suite_ids** | [**List[TestSuiteControllerTestSuiteApiId]**](TestSuiteControllerTestSuiteApiId.md) |  | 
+**test_suite_ids** | [**List[TestSuiteControllerTestSuiteApiId]**](TestSuiteControllerTestSuiteApiId.md) |  | [optional] 
 
 ## Example
 

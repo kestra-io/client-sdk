@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,9 +30,9 @@ class AssertionResult(BaseModel):
     expected: Dict[str, Any]
     actual: Dict[str, Any]
     is_success: StrictBool = Field(alias="isSuccess")
-    task_id: StrictStr = Field(alias="taskId")
-    description: StrictStr
-    error_message: StrictStr = Field(alias="errorMessage")
+    task_id: Optional[StrictStr] = Field(default=None, alias="taskId")
+    description: Optional[StrictStr] = None
+    error_message: Optional[StrictStr] = Field(default=None, alias="errorMessage")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["operator", "expected", "actual", "isSuccess", "taskId", "description", "errorMessage"]
 

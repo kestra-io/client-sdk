@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dispatch** | **str** |  | 
-**stream** | **str** |  | 
-**layout** | [**AppResponseUILayout**](AppResponseUILayout.md) |  | 
+**dispatch** | **str** |  | [optional] 
+**stream** | **str** |  | [optional] 
+**layout** | [**AppResponseUILayout**](AppResponseUILayout.md) |  | [optional] 
 
 ## Example
 

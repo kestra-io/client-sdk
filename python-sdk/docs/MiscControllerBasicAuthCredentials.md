@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uid** | **str** |  | 
-**username** | **str** |  | 
-**password** | **str** |  | 
+**uid** | **str** |  | [optional] 
+**username** | **str** |  | [optional] 
+**password** | **str** |  | [optional] 
 
 ## Example
 

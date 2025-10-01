@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**username** | **str** |  | 
-**display_name** | **str** |  | 
-**groups** | [**List[IAMGroupControllerApiGroupMembership]**](IAMGroupControllerApiGroupMembership.md) |  | 
+**id** | **str** |  | [optional] 
+**username** | **str** |  | [optional] 
+**display_name** | **str** |  | [optional] 
+**groups** | [**List[IAMGroupControllerApiGroupMembership]**](IAMGroupControllerApiGroupMembership.md) |  | [optional] 
 
 ## Example
 

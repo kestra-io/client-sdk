@@ -7,7 +7,7 @@ Request payload for updating service account details
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**description** | **str** |  | 
+**description** | **str** |  | [optional] 
 
 ## Example
 

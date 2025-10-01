@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request_made** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | 
-**tenant_id** | **str** |  | 
-**number_of_test_suites_to_be_run** | **int** |  | 
-**number_of_test_cases_to_be_run** | **int** |  | 
-**results** | [**List[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | 
+**request_made** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | [optional] 
+**tenant_id** | **str** |  | [optional] 
+**number_of_test_suites_to_be_run** | **int** |  | [optional] 
+**number_of_test_cases_to_be_run** | **int** |  | [optional] 
+**results** | [**List[TestSuiteRunResult]**](TestSuiteRunResult.md) |  | [optional] 
 
 ## Example
 

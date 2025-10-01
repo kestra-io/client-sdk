@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class TestSuiteControllerRunRequest(BaseModel):
     """
     TestSuiteControllerRunRequest
     """ # noqa: E501
-    test_cases: List[StrictStr] = Field(alias="testCases")
+    test_cases: Optional[List[StrictStr]] = Field(default=None, alias="testCases")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["testCases"]
 

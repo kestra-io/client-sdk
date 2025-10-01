@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**username** | **str** |  | 
-**display_name** | **str** |  | 
-**first_name** | **str** |  | 
-**last_name** | **str** |  | 
-**email** | **str** |  | 
-**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
-**auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
-**groups** | [**List[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | 
-**super_admin** | **bool** |  | 
-**restricted** | **bool** |  | 
+**id** | **str** |  | [optional] 
+**username** | **str** |  | [optional] 
+**display_name** | **str** |  | [optional] 
+**first_name** | **str** |  | [optional] 
+**last_name** | **str** |  | [optional] 
+**email** | **str** |  | [optional] 
+**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
+**auths** | [**List[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
+**groups** | [**List[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
+**restricted** | **bool** |  | [optional] 
 
 ## Example
 

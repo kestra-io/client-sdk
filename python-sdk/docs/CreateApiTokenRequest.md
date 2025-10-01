@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**description** | **str** |  | 
-**max_age** | **str** |  | 
-**extended** | **bool** |  | 
+**description** | **str** |  | [optional] 
+**max_age** | **str** |  | [optional] 
+**extended** | **bool** |  | [optional] 
 
 ## Example
 

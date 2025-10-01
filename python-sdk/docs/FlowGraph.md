@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**nodes** | [**List[AbstractGraph]**](AbstractGraph.md) |  | 
-**edges** | [**List[FlowGraphEdge]**](FlowGraphEdge.md) |  | 
-**clusters** | [**List[FlowGraphCluster]**](FlowGraphCluster.md) |  | 
-**flowables** | **List[str]** |  | 
+**nodes** | [**List[AbstractGraph]**](AbstractGraph.md) |  | [optional] 
+**edges** | [**List[FlowGraphEdge]**](FlowGraphEdge.md) |  | [optional] 
+**clusters** | [**List[FlowGraphCluster]**](FlowGraphCluster.md) |  | [optional] 
+**flowables** | **List[str]** |  | [optional] 
 
 ## Example
 

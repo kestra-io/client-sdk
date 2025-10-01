@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.abstract_graph import AbstractGraph
 from kestrapy.models.flow_graph_cluster import FlowGraphCluster
 from kestrapy.models.flow_graph_edge import FlowGraphEdge
@@ -29,10 +29,10 @@ class FlowGraph(BaseModel):
     """
     FlowGraph
     """ # noqa: E501
-    nodes: List[AbstractGraph]
-    edges: List[FlowGraphEdge]
-    clusters: List[FlowGraphCluster]
-    flowables: List[StrictStr]
+    nodes: Optional[List[AbstractGraph]] = None
+    edges: Optional[List[FlowGraphEdge]] = None
+    clusters: Optional[List[FlowGraphCluster]] = None
+    flowables: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["nodes", "edges", "clusters", "flowables"]
 

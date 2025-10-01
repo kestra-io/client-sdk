@@ -36,10 +36,10 @@ class LogEntry(BaseModel):
     task_run_id: Optional[StrictStr] = Field(default=None, alias="taskRunId")
     attempt_number: Optional[StrictInt] = Field(default=None, alias="attemptNumber")
     trigger_id: Optional[StrictStr] = Field(default=None, alias="triggerId")
-    timestamp: datetime
-    level: Level
-    thread: StrictStr
-    message: StrictStr
+    timestamp: Optional[datetime] = None
+    level: Optional[Level] = None
+    thread: Optional[StrictStr] = None
+    message: Optional[StrictStr] = None
     deleted: StrictBool
     execution_kind: Optional[ExecutionKind] = Field(default=None, alias="executionKind")
     additional_properties: Dict[str, Any] = {}

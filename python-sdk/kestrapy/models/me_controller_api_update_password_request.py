@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,8 +26,8 @@ class MeControllerApiUpdatePasswordRequest(BaseModel):
     """
     MeControllerApiUpdatePasswordRequest
     """ # noqa: E501
-    old_password: StrictStr = Field(alias="oldPassword")
-    new_password: StrictStr = Field(alias="newPassword")
+    old_password: Optional[StrictStr] = Field(default=None, alias="oldPassword")
+    new_password: Optional[StrictStr] = Field(default=None, alias="newPassword")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["oldPassword", "newPassword"]
 

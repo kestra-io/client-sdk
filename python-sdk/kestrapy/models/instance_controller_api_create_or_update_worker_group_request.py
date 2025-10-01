@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class InstanceControllerApiCreateOrUpdateWorkerGroupRequest(BaseModel):
     ApiCreateWorkerGroupRequest.
     """ # noqa: E501
     key: StrictStr = Field(description="The key of the worker group.")
-    description: StrictStr = Field(description="The description of the worker group.")
-    allowed_tenants: List[StrictStr] = Field(alias="allowedTenants")
+    description: Optional[StrictStr] = Field(default=None, description="The description of the worker group.")
+    allowed_tenants: Optional[List[StrictStr]] = Field(default=None, alias="allowedTenants")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["key", "description", "allowedTenants"]
 

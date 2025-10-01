@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cluster** | [**AbstractGraph**](AbstractGraph.md) |  | 
-**nodes** | **List[str]** |  | 
-**parents** | **List[str]** |  | 
-**start** | **str** |  | 
-**end** | **str** |  | 
+**cluster** | [**AbstractGraph**](AbstractGraph.md) |  | [optional] 
+**nodes** | **List[str]** |  | [optional] 
+**parents** | **List[str]** |  | [optional] 
+**start** | **str** |  | [optional] 
+**end** | **str** |  | [optional] 
 
 ## Example
 

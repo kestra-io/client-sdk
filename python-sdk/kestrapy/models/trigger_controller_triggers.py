@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.abstract_trigger import AbstractTrigger
 from kestrapy.models.trigger import Trigger
 from typing import Optional, Set
@@ -28,8 +28,8 @@ class TriggerControllerTriggers(BaseModel):
     """
     TriggerControllerTriggers
     """ # noqa: E501
-    abstract_trigger: AbstractTrigger = Field(alias="abstractTrigger")
-    trigger_context: Trigger = Field(alias="triggerContext")
+    abstract_trigger: Optional[AbstractTrigger] = Field(default=None, alias="abstractTrigger")
+    trigger_context: Optional[Trigger] = Field(default=None, alias="triggerContext")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["abstractTrigger", "triggerContext"]
 

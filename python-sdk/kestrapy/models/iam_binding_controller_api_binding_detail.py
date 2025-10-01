@@ -30,10 +30,10 @@ class IAMBindingControllerApiBindingDetail(BaseModel):
     """
     IAMBindingControllerApiBindingDetail
     """ # noqa: E501
-    id: StrictStr
-    type: BindingType
+    id: Optional[StrictStr] = None
+    type: Optional[BindingType] = None
     namespace: Optional[StrictStr] = None
-    role: IAMBindingControllerApiRole
+    role: Optional[IAMBindingControllerApiRole] = None
     group: Optional[IAMBindingControllerApiBindingGroup] = None
     user: Optional[IAMBindingControllerApiBindingUser] = None
     additional_properties: Dict[str, Any] = {}

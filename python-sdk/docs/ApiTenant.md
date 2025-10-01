@@ -5,20 +5,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storage_isolation** | [**Isolation**](Isolation.md) |  | 
-**secret_isolation** | [**Isolation**](Isolation.md) |  | 
+**storage_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
+**secret_isolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **id** | **str** |  | 
 **name** | **str** |  | 
 **deleted** | **bool** |  | 
-**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | 
-**storage_type** | **str** |  | 
-**storage_configuration** | **Dict[str, object]** |  | 
-**secret_type** | **str** |  | 
-**secret_read_only** | **bool** |  | 
-**secret_configuration** | **Dict[str, object]** |  | 
-**require_existing_namespace** | **bool** |  | 
-**outputs_in_internal_storage** | **bool** |  | 
-**logo** | **str** |  | 
+**worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**storage_type** | **str** |  | [optional] 
+**storage_configuration** | **Dict[str, object]** |  | [optional] 
+**secret_type** | **str** |  | [optional] 
+**secret_read_only** | **bool** |  | [optional] 
+**secret_configuration** | **Dict[str, object]** |  | [optional] 
+**require_existing_namespace** | **bool** |  | [optional] 
+**outputs_in_internal_storage** | **bool** |  | [optional] 
+**logo** | **str** |  | [optional] 
 
 ## Example
 

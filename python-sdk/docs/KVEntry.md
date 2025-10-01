@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
+**key** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**creation_date** | **datetime** |  | 
-**update_date** | **datetime** |  | 
+**creation_date** | **datetime** |  | [optional] 
+**update_date** | **datetime** |  | [optional] 
 **expiration_date** | **datetime** |  | [optional] 
 
 ## Example

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
-**icon** | **str** |  | 
+**name** | **str** |  | [optional] 
+**icon** | **str** |  | [optional] 
 
 ## Example
 

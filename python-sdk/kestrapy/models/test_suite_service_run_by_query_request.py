@@ -26,8 +26,8 @@ class TestSuiteServiceRunByQueryRequest(BaseModel):
     """
     TestSuiteServiceRunByQueryRequest
     """ # noqa: E501
-    namespace: Optional[StrictStr]
-    flow_id: Optional[StrictStr] = Field(alias="flowId")
+    namespace: Optional[StrictStr] = None
+    flow_id: Optional[StrictStr] = Field(default=None, alias="flowId")
     include_child_namespaces: StrictBool = Field(description="Should child namespaces be included or not", alias="includeChildNamespaces")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["namespace", "flowId", "includeChildNamespaces"]

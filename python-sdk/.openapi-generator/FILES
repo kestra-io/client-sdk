@@ -5,7 +5,6 @@
 README.md
 docs/AIApi.md
 docs/AbstractFlow.md
-docs/AbstractFlowLabels.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
 docs/AbstractMetricEntryObject.md
@@ -132,10 +131,8 @@ docs/FilesApi.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
-docs/FlowAllOfLabels.md
 docs/FlowControllerTaskValidationType.md
 docs/FlowForExecution.md
-docs/FlowForExecutionAllOfLabels.md
 docs/FlowGenerationPrompt.md
 docs/FlowGraph.md
 docs/FlowGraphCluster.md
@@ -149,7 +146,6 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowWithSource.md
-docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
@@ -288,7 +284,6 @@ docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
-docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -318,10 +313,7 @@ docs/PropertyObject.md
 docs/PropertyString.md
 docs/QueryFilter.md
 docs/QueryFilterField.md
-docs/QueryFilterFieldOp.md
 docs/QueryFilterOp.md
-docs/QueryFilterOperation.md
-docs/QueryFilterResourceField.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
@@ -338,6 +330,7 @@ docs/SCIMGroupsApi.md
 docs/SCIMUsersApi.md
 docs/SLA.md
 docs/SLABehavior.md
+docs/SLALabels.md
 docs/SLAType.md
 docs/SchemaAttribute.md
 docs/SchemaAttributeMutability.md
@@ -468,7 +461,6 @@ kestrapy/configuration.py
 kestrapy/exceptions.py
 kestrapy/models/__init__.py
 kestrapy/models/abstract_flow.py
-kestrapy/models/abstract_flow_labels.py
 kestrapy/models/abstract_graph.py
 kestrapy/models/abstract_graph_branch_type.py
 kestrapy/models/abstract_metric_entry_object.py
@@ -583,10 +575,8 @@ kestrapy/models/file_metas.py
 kestrapy/models/filter.py
 kestrapy/models/fixtures.py
 kestrapy/models/flow.py
-kestrapy/models/flow_all_of_labels.py
 kestrapy/models/flow_controller_task_validation_type.py
 kestrapy/models/flow_for_execution.py
-kestrapy/models/flow_for_execution_all_of_labels.py
 kestrapy/models/flow_generation_prompt.py
 kestrapy/models/flow_graph.py
 kestrapy/models/flow_graph_cluster.py
@@ -600,7 +590,6 @@ kestrapy/models/flow_topology_graph.py
 kestrapy/models/flow_topology_graph_edge.py
 kestrapy/models/flow_usage.py
 kestrapy/models/flow_with_source.py
-kestrapy/models/flow_with_source_all_of_labels.py
 kestrapy/models/group_identifier.py
 kestrapy/models/group_identifier_membership.py
 kestrapy/models/group_usage.py
@@ -730,7 +719,6 @@ kestrapy/models/paged_results_map_string_object.py
 kestrapy/models/paged_results_metric_entry.py
 kestrapy/models/paged_results_namespace.py
 kestrapy/models/paged_results_search_result_flow.py
-kestrapy/models/paged_results_task_run.py
 kestrapy/models/paged_results_tenant.py
 kestrapy/models/paged_results_test_suite.py
 kestrapy/models/paged_results_test_suite_run_result.py
@@ -759,10 +747,7 @@ kestrapy/models/property_object.py
 kestrapy/models/property_string.py
 kestrapy/models/query_filter.py
 kestrapy/models/query_filter_field.py
-kestrapy/models/query_filter_field_op.py
 kestrapy/models/query_filter_op.py
-kestrapy/models/query_filter_operation.py
-kestrapy/models/query_filter_resource_field.py
 kestrapy/models/rbac_service_role_assignment_role_origin.py
 kestrapy/models/relation.py
 kestrapy/models/relation_type.py
@@ -804,6 +789,7 @@ kestrapy/models/setup_configuration.py
 kestrapy/models/setup_configuration_setup_data.py
 kestrapy/models/sla.py
 kestrapy/models/sla_behavior.py
+kestrapy/models/sla_labels.py
 kestrapy/models/sla_type.py
 kestrapy/models/sort_order.py
 kestrapy/models/sort_request.py

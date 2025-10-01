@@ -6,11 +6,11 @@ A User Service Account.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | the identifier of this service account. | 
+**id** | **str** | the identifier of this service account. | [optional] 
 **name** | **str** | the name of this service account. | 
-**description** | **str** | the description of this service account. | 
-**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
-**super_admin** | **bool** |  | 
+**description** | **str** | the description of this service account. | [optional] 
+**tenants** | [**List[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
+**super_admin** | **bool** |  | [optional] 
 
 ## Example
 

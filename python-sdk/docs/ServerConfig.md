@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **worker_task_restart_strategy** | [**WorkerTaskRestartStrategy**](WorkerTaskRestartStrategy.md) |  | [optional] 
 **termination_grace_period** | **str** |  | [default to '5m']
-**liveness** | [**ServerConfigLiveness**](ServerConfigLiveness.md) |  | 
+**liveness** | [**ServerConfigLiveness**](ServerConfigLiveness.md) |  | [optional] 
 
 ## Example
 

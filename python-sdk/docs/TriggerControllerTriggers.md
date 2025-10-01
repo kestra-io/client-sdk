@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**abstract_trigger** | [**AbstractTrigger**](AbstractTrigger.md) |  | 
-**trigger_context** | [**Trigger**](Trigger.md) |  | 
+**abstract_trigger** | [**AbstractTrigger**](AbstractTrigger.md) |  | [optional] 
+**trigger_context** | [**Trigger**](Trigger.md) |  | [optional] 
 
 ## Example
 

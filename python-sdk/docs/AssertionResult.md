@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **expected** | **object** |  | 
 **actual** | **object** |  | 
 **is_success** | **bool** |  | 
-**task_id** | **str** |  | 
-**description** | **str** |  | 
-**error_message** | **str** |  | 
+**task_id** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**error_message** | **str** |  | [optional] 
 
 ## Example
 

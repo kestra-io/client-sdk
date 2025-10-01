@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **state** | [**TestState**](TestState.md) |  | 
 **start_date** | **datetime** |  | 
 **end_date** | **datetime** |  | 
-**results** | [**List[UnitTestResult]**](UnitTestResult.md) |  | 
+**results** | [**List[UnitTestResult]**](UnitTestResult.md) |  | [optional] 
 
 ## Example
 

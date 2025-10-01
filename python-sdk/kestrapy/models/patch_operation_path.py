@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.value_path_expression import ValuePathExpression
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class PatchOperationPath(BaseModel):
     """
     PatchOperationPath
     """ # noqa: E501
-    value_path_expression: ValuePathExpression = Field(alias="valuePathExpression")
+    value_path_expression: Optional[ValuePathExpression] = Field(default=None, alias="valuePathExpression")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["valuePathExpression"]
 

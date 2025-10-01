@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.api_user import ApiUser
 from kestrapy.models.audit_log import AuditLog
 from typing import Optional, Set
@@ -28,8 +28,8 @@ class AuditLogControllerApiAuditLogItem(BaseModel):
     """
     AuditLogControllerApiAuditLogItem
     """ # noqa: E501
-    audit_log: AuditLog = Field(alias="auditLog")
-    user: ApiUser
+    audit_log: Optional[AuditLog] = Field(default=None, alias="auditLog")
+    user: Optional[ApiUser] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["auditLog", "user"]
 

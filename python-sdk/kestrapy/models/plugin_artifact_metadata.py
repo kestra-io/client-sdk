@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,11 +26,11 @@ class PluginArtifactMetadata(BaseModel):
     """
     PluginArtifactMetadata
     """ # noqa: E501
-    uri: StrictStr
-    name: StrictStr
-    size: StrictInt
-    last_modified_time: StrictInt = Field(alias="lastModifiedTime")
-    creation_time: StrictInt = Field(alias="creationTime")
+    uri: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    size: Optional[StrictInt] = None
+    last_modified_time: Optional[StrictInt] = Field(default=None, alias="lastModifiedTime")
+    creation_time: Optional[StrictInt] = Field(default=None, alias="creationTime")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uri", "name", "size", "lastModifiedTime", "creationTime"]
 

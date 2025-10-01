@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**namespace** | **str** |  | 
-**flow_id** | **str** |  | 
+**namespace** | **str** |  | [optional] 
+**flow_id** | **str** |  | [optional] 
 **include_child_namespaces** | **bool** | Should child namespaces be included or not | [default to True]
 
 ## Example

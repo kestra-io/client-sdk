@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,12 +27,12 @@ class MiscControllerLicenseInfo(BaseModel):
     """
     MiscControllerLicenseInfo
     """ # noqa: E501
-    type: StrictStr
-    expiry: datetime
-    expired: StrictBool
-    max_servers: StrictInt = Field(alias="maxServers")
-    standalone: StrictBool
-    worker_groups: StrictBool = Field(alias="workerGroups")
+    type: Optional[StrictStr] = None
+    expiry: Optional[datetime] = None
+    expired: Optional[StrictBool] = None
+    max_servers: Optional[StrictInt] = Field(default=None, alias="maxServers")
+    standalone: Optional[StrictBool] = None
+    worker_groups: Optional[StrictBool] = Field(default=None, alias="workerGroups")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "expiry", "expired", "maxServers", "standalone", "workerGroups"]
 

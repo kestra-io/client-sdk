@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**type** | [**BindingType**](BindingType.md) |  | 
+**id** | **str** |  | [optional] 
+**type** | [**BindingType**](BindingType.md) |  | [optional] 
 **namespace** | **str** |  | [optional] 
-**role** | [**IAMBindingControllerApiRole**](IAMBindingControllerApiRole.md) |  | 
+**role** | [**IAMBindingControllerApiRole**](IAMBindingControllerApiRole.md) |  | [optional] 
 **group** | [**IAMBindingControllerApiBindingGroup**](IAMBindingControllerApiBindingGroup.md) |  | [optional] 
 **user** | [**IAMBindingControllerApiBindingUser**](IAMBindingControllerApiBindingUser.md) |  | [optional] 
 

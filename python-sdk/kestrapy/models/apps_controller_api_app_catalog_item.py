@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,11 +26,11 @@ class AppsControllerApiAppCatalogItem(BaseModel):
     """
     AppsControllerApiAppCatalogItem
     """ # noqa: E501
-    uid: StrictStr
-    name: StrictStr
-    description: StrictStr
-    type: StrictStr
-    tags: List[StrictStr]
+    uid: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    description: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    tags: Optional[List[StrictStr]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["uid", "name", "description", "type", "tags"]
 

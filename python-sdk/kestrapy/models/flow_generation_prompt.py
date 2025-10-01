@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class FlowGenerationPrompt(BaseModel):
     """ # noqa: E501
     conversation_id: StrictStr = Field(alias="conversationId")
     user_prompt: StrictStr = Field(alias="userPrompt")
-    flow_yaml: StrictStr = Field(alias="flowYaml")
+    flow_yaml: Optional[StrictStr] = Field(default=None, alias="flowYaml")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["conversationId", "userPrompt", "flowYaml"]
 

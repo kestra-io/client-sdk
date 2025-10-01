@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **conversation_id** | **str** |  | 
 **user_prompt** | **str** |  | 
-**flow_yaml** | **str** |  | 
+**flow_yaml** | **str** |  | [optional] 
 
 ## Example
 

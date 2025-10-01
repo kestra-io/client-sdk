@@ -2173,7 +2173,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -2212,8 +2212,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param resource: A resource filter
-        :type resource: ResourceType1
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -2254,7 +2254,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            resource=resource,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -2291,7 +2291,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -2330,8 +2330,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param resource: A resource filter
-        :type resource: ResourceType1
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -2372,7 +2372,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            resource=resource,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -2409,7 +2409,7 @@ class AuditLogsApi:
         execution_id: Annotated[Optional[StrictStr], Field(description="An execution filter")] = None,
         user_id: Annotated[Optional[StrictStr], Field(description="A user id filter")] = None,
         id: Annotated[Optional[StrictStr], Field(description="A id filter")] = None,
-        resource: Annotated[Optional[Any], Field(description="A resource filter")] = None,
+        resources: Annotated[Optional[List[ResourceType1]], Field(description="A resource filter")] = None,
         start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
         end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
         details: Annotated[Optional[Dict[str, StrictStr]], Field(description="A list of auditLog details")] = None,
@@ -2448,8 +2448,8 @@ class AuditLogsApi:
         :type user_id: str
         :param id: A id filter
         :type id: str
-        :param resource: A resource filter
-        :type resource: ResourceType1
+        :param resources: A resource filter
+        :type resources: List[ResourceType1]
         :param start_date: The start datetime
         :type start_date: datetime
         :param end_date: The end datetime
@@ -2490,7 +2490,7 @@ class AuditLogsApi:
             execution_id=execution_id,
             user_id=user_id,
             id=id,
-            resource=resource,
+            resources=resources,
             start_date=start_date,
             end_date=end_date,
             details=details,
@@ -2522,7 +2522,7 @@ class AuditLogsApi:
         execution_id,
         user_id,
         id,
-        resource,
+        resources,
         start_date,
         end_date,
         details,
@@ -2537,6 +2537,7 @@ class AuditLogsApi:
 
         _collection_formats: Dict[str, str] = {
             'sort': 'csv',
+            'resources': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -2586,9 +2587,9 @@ class AuditLogsApi:
             
             _query_params.append(('id', id))
             
-        if resource is not None:
+        if resources is not None:
             
-            _query_params.append(('resource', resource.value))
+            _query_params.append(('resources', resources))
             
         if start_date is not None:
             if isinstance(start_date, datetime):

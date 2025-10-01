@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,10 +26,10 @@ class MeControllerApiProfile(BaseModel):
     """
     MeControllerApiProfile
     """ # noqa: E501
-    email: StrictStr
-    first_name: StrictStr = Field(alias="firstName")
-    last_name: StrictStr = Field(alias="lastName")
-    username: StrictStr
+    email: Optional[StrictStr] = None
+    first_name: Optional[StrictStr] = Field(default=None, alias="firstName")
+    last_name: Optional[StrictStr] = Field(default=None, alias="lastName")
+    username: Optional[StrictStr] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["email", "firstName", "lastName", "username"]
 

@@ -28,9 +28,9 @@ class AuditLogControllerFindRequest(BaseModel):
     """
     AuditLogControllerFindRequest
     """ # noqa: E501
-    resource: ResourceType1
+    resource: Optional[ResourceType1] = None
     type: Optional[CrudEventType] = None
-    detail: Dict[str, Dict[str, Any]]
+    detail: Optional[Dict[str, Dict[str, Any]]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["resource", "type", "detail"]
 

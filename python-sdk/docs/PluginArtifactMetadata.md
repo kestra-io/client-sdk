@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uri** | **str** |  | 
-**name** | **str** |  | 
-**size** | **int** |  | 
-**last_modified_time** | **int** |  | 
-**creation_time** | **int** |  | 
+**uri** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**size** | **int** |  | [optional] 
+**last_modified_time** | **int** |  | [optional] 
+**creation_time** | **int** |  | [optional] 
 
 ## Example
 

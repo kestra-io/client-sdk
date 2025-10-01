@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.instance_controller_api_server_instance import InstanceControllerApiServerInstance
 from kestrapy.models.service_service_state import ServiceServiceState
 from kestrapy.models.service_type import ServiceType
@@ -30,12 +30,12 @@ class InstanceControllerApiServiceInstance(BaseModel):
     """
     InstanceControllerApiServiceInstance
     """ # noqa: E501
-    id: StrictStr
-    type: ServiceType
-    state: ServiceServiceState
-    server: InstanceControllerApiServerInstance
-    created_at: datetime = Field(alias="createdAt")
-    updated_at: datetime = Field(alias="updatedAt")
+    id: Optional[StrictStr] = None
+    type: Optional[ServiceType] = None
+    state: Optional[ServiceServiceState] = None
+    server: Optional[InstanceControllerApiServerInstance] = None
+    created_at: Optional[datetime] = Field(default=None, alias="createdAt")
+    updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "state", "server", "createdAt", "updatedAt"]
 

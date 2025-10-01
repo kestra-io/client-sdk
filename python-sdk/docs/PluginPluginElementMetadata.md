@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cls** | **str** |  | 
-**deprecated** | **bool** |  | 
+**cls** | **str** |  | [optional] 
+**deprecated** | **bool** |  | [optional] 
 
 ## Example
 

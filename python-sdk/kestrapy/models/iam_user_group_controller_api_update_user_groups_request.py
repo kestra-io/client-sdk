@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class IAMUserGroupControllerApiUpdateUserGroupsRequest(BaseModel):
     """
     IAMUserGroupControllerApiUpdateUserGroupsRequest
     """ # noqa: E501
-    group_ids: List[StrictStr] = Field(alias="groupIds")
+    group_ids: Optional[List[StrictStr]] = Field(default=None, alias="groupIds")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["groupIds"]
 

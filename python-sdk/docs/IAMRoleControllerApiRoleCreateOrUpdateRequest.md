@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | 
 **name** | **str** |  | 
-**description** | **str** |  | 
-**is_default** | **bool** |  | 
+**description** | **str** |  | [optional] 
+**is_default** | **bool** |  | [optional] 
 
 ## Example
 

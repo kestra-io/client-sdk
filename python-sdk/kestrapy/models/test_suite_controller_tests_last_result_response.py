@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.test_suite_run_result import TestSuiteRunResult
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class TestSuiteControllerTestsLastResultResponse(BaseModel):
     """
     TestSuiteControllerTestsLastResultResponse
     """ # noqa: E501
-    results: List[TestSuiteRunResult]
+    results: Optional[List[TestSuiteRunResult]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["results"]
 

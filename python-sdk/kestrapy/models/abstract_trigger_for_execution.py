@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -29,7 +29,7 @@ class AbstractTriggerForExecution(BaseModel):
     """ # noqa: E501
     id: Annotated[str, Field(min_length=1, strict=True)]
     type: Annotated[str, Field(min_length=1, strict=True)]
-    version: Optional[Annotated[str, Field(strict=True)]] = None
+    version: Optional[StrictStr] = Field(default=None, description="Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). ")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "version"]
 
@@ -45,16 +45,6 @@ class AbstractTriggerForExecution(BaseModel):
         """Validates the regular expression"""
         if not re.match(r"\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*", value):
             raise ValueError(r"must validate the regular expression /\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*/")
-        return value
-
-    @field_validator('version')
-    def version_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"\d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)", value):
-            raise ValueError(r"must validate the regular expression /\d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)/")
         return value
 
     model_config = ConfigDict(

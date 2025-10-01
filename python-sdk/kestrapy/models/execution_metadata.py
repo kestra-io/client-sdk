@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class ExecutionMetadata(BaseModel):
     """
     ExecutionMetadata
     """ # noqa: E501
-    attempt_number: StrictInt = Field(alias="attemptNumber")
-    original_created_date: datetime = Field(alias="originalCreatedDate")
+    attempt_number: Optional[StrictInt] = Field(default=None, alias="attemptNumber")
+    original_created_date: Optional[datetime] = Field(default=None, alias="originalCreatedDate")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["attemptNumber", "originalCreatedDate"]
 

@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**done** | **bool** |  | 
+**done** | **bool** |  | [optional] 
 **repository_type** | **str** |  | [optional] 
 **queue_type** | **str** |  | [optional] 
 **storage_type** | **str** |  | [optional] 
 **secret_type** | **str** |  | [optional] 
-**password_regexp** | **str** |  | 
+**password_regexp** | **str** |  | [optional] 
 
 ## Example
 
