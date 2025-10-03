@@ -22,7 +22,7 @@ import SortOrder from '../model/SortOrder';
 /**
 * SCIMUsers service.
 * @module api/SCIMUsersApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class SCIMUsersApi {
 

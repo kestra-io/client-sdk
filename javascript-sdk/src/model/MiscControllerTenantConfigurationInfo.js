@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerTenantConfigurationInfo model module.
  * @module model/MiscControllerTenantConfigurationInfo
- * @version v0.24.0
+ * @version v0.24.1
  */
 class MiscControllerTenantConfigurationInfo {
     /**

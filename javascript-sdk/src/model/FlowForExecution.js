@@ -14,8 +14,8 @@
 import ApiClient from '../ApiClient';
 import AbstractFlow from './AbstractFlow';
 import AbstractTriggerForExecution from './AbstractTriggerForExecution';
-import FlowForExecutionAllOfLabels from './FlowForExecutionAllOfLabels';
 import InputObject from './InputObject';
+import Label from './Label';
 import Output from './Output';
 import TaskForExecution from './TaskForExecution';
 import WorkerGroup from './WorkerGroup';
@@ -23,7 +23,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowForExecution model module.
  * @module model/FlowForExecution
- * @version v0.24.0
+ * @version v0.24.1
  */
 class FlowForExecution {
     /**
@@ -85,7 +85,7 @@ class FlowForExecution {
                 obj['disabled'] = ApiClient.convertToType(data['disabled'], 'Boolean');
             }
             if (data.hasOwnProperty('labels')) {
-                obj['labels'] = FlowForExecutionAllOfLabels.constructFromObject(data['labels']);
+                obj['labels'] = ApiClient.convertToType(data['labels'], [Label]);
             }
             if (data.hasOwnProperty('variables')) {
                 obj['variables'] = ApiClient.convertToType(data['variables'], {'String': Object});
@@ -155,9 +155,15 @@ class FlowForExecution {
                 Output.validateJSON(item);
             };
         }
-        // validate the optional field `labels`
         if (data['labels']) { // data not null
-          FlowForExecutionAllOfLabels.validateJSON(data['labels']);
+            // ensure the json data is an array
+            if (!Array.isArray(data['labels'])) {
+                throw new Error("Expected the field `labels` to be an array in the JSON data but got " + data['labels']);
+            }
+            // validate the optional field `labels` (array)
+            for (const item of data['labels']) {
+                Label.validateJSON(item);
+            };
         }
         // validate the optional field `workerGroup`
         if (data['workerGroup']) { // data not null
@@ -253,7 +259,8 @@ FlowForExecution.prototype['outputs'] = undefined;
 FlowForExecution.prototype['disabled'] = undefined;
 
 /**
- * @member {module:model/FlowForExecutionAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 FlowForExecution.prototype['labels'] = undefined;
 
@@ -324,7 +331,8 @@ AbstractFlow.prototype['outputs'] = undefined;
  */
 AbstractFlow.prototype['disabled'] = undefined;
 /**
- * @member {module:model/AbstractFlowLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 AbstractFlow.prototype['labels'] = undefined;
 /**

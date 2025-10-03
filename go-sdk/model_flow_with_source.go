@@ -25,9 +25,10 @@ type FlowWithSource struct {
 	Revision  *int32        `json:"revision,omitempty"`
 	Inputs    []InputObject `json:"inputs,omitempty"`
 	// Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.
-	Outputs     []Output                          `json:"outputs,omitempty"`
-	Disabled    bool                              `json:"disabled"`
-	Labels      *FlowWithSourceAllOfLabels        `json:"labels,omitempty"`
+	Outputs  []Output `json:"outputs,omitempty"`
+	Disabled bool     `json:"disabled"`
+	// Labels as a list of Label (key/value pairs) or as a map of string to string.
+	Labels      []Label                           `json:"labels,omitempty"`
 	Variables   map[string]map[string]interface{} `json:"variables,omitempty"`
 	WorkerGroup *WorkerGroup                      `json:"workerGroup,omitempty"`
 	Deleted     bool                              `json:"deleted"`
@@ -241,17 +242,17 @@ func (o *FlowWithSource) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *FlowWithSource) GetLabels() FlowWithSourceAllOfLabels {
+func (o *FlowWithSource) GetLabels() []Label {
 	if o == nil || IsNil(o.Labels) {
-		var ret FlowWithSourceAllOfLabels
+		var ret []Label
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlowWithSource) GetLabelsOk() (*FlowWithSourceAllOfLabels, bool) {
+func (o *FlowWithSource) GetLabelsOk() ([]Label, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -267,9 +268,9 @@ func (o *FlowWithSource) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given FlowWithSourceAllOfLabels and assigns it to the Labels field.
-func (o *FlowWithSource) SetLabels(v FlowWithSourceAllOfLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+func (o *FlowWithSource) SetLabels(v []Label) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.

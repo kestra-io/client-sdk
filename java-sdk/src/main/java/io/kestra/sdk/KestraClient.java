@@ -126,10 +126,6 @@ public class KestraClient {
         return new RolesApi(this.apiClient);
     }
 
-    public ScimApi scim() {
-        return new ScimApi(this.apiClient);
-    }
-
     public ScimConfigurationApi scimConfiguration() {
         return new ScimConfigurationApi(this.apiClient);
     }
@@ -140,14 +136,6 @@ public class KestraClient {
 
     public ServicesApi services() {
         return new ServicesApi(this.apiClient);
-    }
-
-    public StatsApi stats() {
-        return new StatsApi(this.apiClient);
-    }
-
-    public TemplatesApi templates() {
-        return new TemplatesApi(this.apiClient);
     }
 
     public TenantsApi tenants() {

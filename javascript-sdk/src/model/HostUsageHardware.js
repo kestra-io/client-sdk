@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The HostUsageHardware model module.
  * @module model/HostUsageHardware
- * @version v0.24.0
+ * @version v0.24.1
  */
 class HostUsageHardware {
     /**

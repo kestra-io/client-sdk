@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "v0.24.0"
+__version__ = "v0.24.1"
 
 # Define package exports
 __all__ = [
@@ -64,7 +64,6 @@ __all__ = [
     "ApiAttributeError",
     "ApiException",
     "AbstractFlow",
-    "AbstractFlowLabels",
     "AbstractGraph",
     "AbstractGraphBranchType",
     "AbstractMetricEntryObject",
@@ -139,7 +138,6 @@ __all__ = [
     "CreateApiTokenResponse",
     "CreateSecurityIntegrationRequest",
     "CrudEventType",
-    "CustomLink",
     "DailyExecutionStatistics",
     "DailyExecutionStatisticsDuration",
     "DailyExecutionStatisticsExecutionCounts",
@@ -178,10 +176,8 @@ __all__ = [
     "Filter",
     "Fixtures",
     "Flow",
-    "FlowAllOfLabels",
     "FlowControllerTaskValidationType",
     "FlowForExecution",
-    "FlowForExecutionAllOfLabels",
     "FlowGenerationPrompt",
     "FlowGraph",
     "FlowGraphCluster",
@@ -195,7 +191,6 @@ __all__ = [
     "FlowTopologyGraphEdge",
     "FlowUsage",
     "FlowWithSource",
-    "FlowWithSourceAllOfLabels",
     "GroupIdentifier",
     "GroupIdentifierMembership",
     "GroupUsage",
@@ -272,6 +267,7 @@ __all__ = [
     "KVEntry",
     "KVType",
     "Label",
+    "LeftSidebarConfiguration",
     "Level",
     "Listener",
     "LogEntry",
@@ -290,6 +286,7 @@ __all__ = [
     "MiscControllerBasicAuthCredentials",
     "MiscControllerConfiguration",
     "MiscControllerEEConfiguration",
+    "MiscControllerEdition",
     "MiscControllerEnvironment",
     "MiscControllerLicenseInfo",
     "MiscControllerPluginIdAndVersion",
@@ -366,10 +363,13 @@ __all__ = [
     "RelationType",
     "ResourceType",
     "ResourceTypeSchemaExtensionConfiguration",
+    "RightSidebarConfiguration",
+    "RightSidebarConfigurationCustomLink",
     "Role",
     "RoleUsage",
     "SLA",
     "SLABehavior",
+    "SLALabels",
     "SLAType",
     "SchemaAttribute",
     "SchemaAttributeMutability",
@@ -501,7 +501,6 @@ from kestrapy.exceptions import ApiException as ApiException
 
 # import models into sdk package
 from kestrapy.models.abstract_flow import AbstractFlow as AbstractFlow
-from kestrapy.models.abstract_flow_labels import AbstractFlowLabels as AbstractFlowLabels
 from kestrapy.models.abstract_graph import AbstractGraph as AbstractGraph
 from kestrapy.models.abstract_graph_branch_type import AbstractGraphBranchType as AbstractGraphBranchType
 from kestrapy.models.abstract_metric_entry_object import AbstractMetricEntryObject as AbstractMetricEntryObject
@@ -576,7 +575,6 @@ from kestrapy.models.create_api_token_request import CreateApiTokenRequest as Cr
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse as CreateApiTokenResponse
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest as CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType as CrudEventType
-from kestrapy.models.custom_link import CustomLink as CustomLink
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics as DailyExecutionStatistics
 from kestrapy.models.daily_execution_statistics_duration import DailyExecutionStatisticsDuration as DailyExecutionStatisticsDuration
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts as DailyExecutionStatisticsExecutionCounts
@@ -615,10 +613,8 @@ from kestrapy.models.file_metas import FileMetas as FileMetas
 from kestrapy.models.filter import Filter as Filter
 from kestrapy.models.fixtures import Fixtures as Fixtures
 from kestrapy.models.flow import Flow as Flow
-from kestrapy.models.flow_all_of_labels import FlowAllOfLabels as FlowAllOfLabels
 from kestrapy.models.flow_controller_task_validation_type import FlowControllerTaskValidationType as FlowControllerTaskValidationType
 from kestrapy.models.flow_for_execution import FlowForExecution as FlowForExecution
-from kestrapy.models.flow_for_execution_all_of_labels import FlowForExecutionAllOfLabels as FlowForExecutionAllOfLabels
 from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt as FlowGenerationPrompt
 from kestrapy.models.flow_graph import FlowGraph as FlowGraph
 from kestrapy.models.flow_graph_cluster import FlowGraphCluster as FlowGraphCluster
@@ -632,7 +628,6 @@ from kestrapy.models.flow_topology_graph import FlowTopologyGraph as FlowTopolog
 from kestrapy.models.flow_topology_graph_edge import FlowTopologyGraphEdge as FlowTopologyGraphEdge
 from kestrapy.models.flow_usage import FlowUsage as FlowUsage
 from kestrapy.models.flow_with_source import FlowWithSource as FlowWithSource
-from kestrapy.models.flow_with_source_all_of_labels import FlowWithSourceAllOfLabels as FlowWithSourceAllOfLabels
 from kestrapy.models.group_identifier import GroupIdentifier as GroupIdentifier
 from kestrapy.models.group_identifier_membership import GroupIdentifierMembership as GroupIdentifierMembership
 from kestrapy.models.group_usage import GroupUsage as GroupUsage
@@ -709,6 +704,7 @@ from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue as 
 from kestrapy.models.kv_entry import KVEntry as KVEntry
 from kestrapy.models.kv_type import KVType as KVType
 from kestrapy.models.label import Label as Label
+from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration as LeftSidebarConfiguration
 from kestrapy.models.level import Level as Level
 from kestrapy.models.listener import Listener as Listener
 from kestrapy.models.log_entry import LogEntry as LogEntry
@@ -727,6 +723,7 @@ from kestrapy.models.metric_tag import MetricTag as MetricTag
 from kestrapy.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials as MiscControllerBasicAuthCredentials
 from kestrapy.models.misc_controller_configuration import MiscControllerConfiguration as MiscControllerConfiguration
 from kestrapy.models.misc_controller_ee_configuration import MiscControllerEEConfiguration as MiscControllerEEConfiguration
+from kestrapy.models.misc_controller_edition import MiscControllerEdition as MiscControllerEdition
 from kestrapy.models.misc_controller_environment import MiscControllerEnvironment as MiscControllerEnvironment
 from kestrapy.models.misc_controller_license_info import MiscControllerLicenseInfo as MiscControllerLicenseInfo
 from kestrapy.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion as MiscControllerPluginIdAndVersion
@@ -803,10 +800,13 @@ from kestrapy.models.relation import Relation as Relation
 from kestrapy.models.relation_type import RelationType as RelationType
 from kestrapy.models.resource_type import ResourceType as ResourceType
 from kestrapy.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration as ResourceTypeSchemaExtensionConfiguration
+from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration as RightSidebarConfiguration
+from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink as RightSidebarConfigurationCustomLink
 from kestrapy.models.role import Role as Role
 from kestrapy.models.role_usage import RoleUsage as RoleUsage
 from kestrapy.models.sla import SLA as SLA
 from kestrapy.models.sla_behavior import SLABehavior as SLABehavior
+from kestrapy.models.sla_labels import SLALabels as SLALabels
 from kestrapy.models.sla_type import SLAType as SLAType
 from kestrapy.models.schema_attribute import SchemaAttribute as SchemaAttribute
 from kestrapy.models.schema_attribute_mutability import SchemaAttributeMutability as SchemaAttributeMutability
@@ -885,3 +885,4 @@ from kestrapy.models.value_path_expression import ValuePathExpression as ValuePa
 from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
+from kestrapy.kestra_client import KestraClient as KestraClient

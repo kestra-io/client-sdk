@@ -21,7 +21,7 @@ import InstanceControllerApiWorkerGroupList from '../model/InstanceControllerApi
 /**
 * WorkerGroups service.
 * @module api/WorkerGroupsApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class WorkerGroupsApi {
 

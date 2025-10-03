@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
+**Edition** | Pointer to [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
 **CommitId** | Pointer to **string** |  | [optional] 
 **CommitDate** | Pointer to **time.Time** |  | [optional] 
 **IsCustomDashboardsEnabled** | Pointer to **bool** |  | [optional] 
 **IsTaskRunEnabled** | Pointer to **bool** |  | [optional] 
 **IsAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
+**IsUiAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsTemplateEnabled** | Pointer to **bool** |  | [optional] 
 **Environment** | Pointer to [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
@@ -29,7 +31,8 @@ Name | Type | Description | Notes
 **Banner** | Pointer to [**Banner**](Banner.md) |  | [optional] 
 **MailServiceEnabled** | Pointer to **bool** |  | [optional] 
 **OutputsInInternalStorageEnabled** | Pointer to **bool** |  | [optional] 
-**ContextCustomLinks** | Pointer to [**map[string]CustomLink**](CustomLink.md) |  | [optional] 
+**LeftSidebar** | Pointer to [**LeftSidebarConfiguration**](LeftSidebarConfiguration.md) |  | [optional] 
+**RightSidebar** | Pointer to [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  | [optional] 
 **InMaintenance** | Pointer to **bool** |  | [optional] 
 **PasswordRegexp** | Pointer to **string** |  | [optional] 
 
@@ -101,6 +104,31 @@ SetVersion sets Version field to given value.
 `func (o *MiscControllerEEConfiguration) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetEdition
+
+`func (o *MiscControllerEEConfiguration) GetEdition() MiscControllerEdition`
+
+GetEdition returns the Edition field if non-nil, zero value otherwise.
+
+### GetEditionOk
+
+`func (o *MiscControllerEEConfiguration) GetEditionOk() (*MiscControllerEdition, bool)`
+
+GetEditionOk returns a tuple with the Edition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEdition
+
+`func (o *MiscControllerEEConfiguration) SetEdition(v MiscControllerEdition)`
+
+SetEdition sets Edition field to given value.
+
+### HasEdition
+
+`func (o *MiscControllerEEConfiguration) HasEdition() bool`
+
+HasEdition returns a boolean if a field has been set.
 
 ### GetCommitId
 
@@ -226,6 +254,31 @@ SetIsAnonymousUsageEnabled sets IsAnonymousUsageEnabled field to given value.
 `func (o *MiscControllerEEConfiguration) HasIsAnonymousUsageEnabled() bool`
 
 HasIsAnonymousUsageEnabled returns a boolean if a field has been set.
+
+### GetIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabled() bool`
+
+GetIsUiAnonymousUsageEnabled returns the IsUiAnonymousUsageEnabled field if non-nil, zero value otherwise.
+
+### GetIsUiAnonymousUsageEnabledOk
+
+`func (o *MiscControllerEEConfiguration) GetIsUiAnonymousUsageEnabledOk() (*bool, bool)`
+
+GetIsUiAnonymousUsageEnabledOk returns a tuple with the IsUiAnonymousUsageEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerEEConfiguration) SetIsUiAnonymousUsageEnabled(v bool)`
+
+SetIsUiAnonymousUsageEnabled sets IsUiAnonymousUsageEnabled field to given value.
+
+### HasIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerEEConfiguration) HasIsUiAnonymousUsageEnabled() bool`
+
+HasIsUiAnonymousUsageEnabled returns a boolean if a field has been set.
 
 ### GetIsTemplateEnabled
 
@@ -677,30 +730,55 @@ SetOutputsInInternalStorageEnabled sets OutputsInInternalStorageEnabled field to
 
 HasOutputsInInternalStorageEnabled returns a boolean if a field has been set.
 
-### GetContextCustomLinks
+### GetLeftSidebar
 
-`func (o *MiscControllerEEConfiguration) GetContextCustomLinks() map[string]CustomLink`
+`func (o *MiscControllerEEConfiguration) GetLeftSidebar() LeftSidebarConfiguration`
 
-GetContextCustomLinks returns the ContextCustomLinks field if non-nil, zero value otherwise.
+GetLeftSidebar returns the LeftSidebar field if non-nil, zero value otherwise.
 
-### GetContextCustomLinksOk
+### GetLeftSidebarOk
 
-`func (o *MiscControllerEEConfiguration) GetContextCustomLinksOk() (*map[string]CustomLink, bool)`
+`func (o *MiscControllerEEConfiguration) GetLeftSidebarOk() (*LeftSidebarConfiguration, bool)`
 
-GetContextCustomLinksOk returns a tuple with the ContextCustomLinks field if it's non-nil, zero value otherwise
+GetLeftSidebarOk returns a tuple with the LeftSidebar field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContextCustomLinks
+### SetLeftSidebar
 
-`func (o *MiscControllerEEConfiguration) SetContextCustomLinks(v map[string]CustomLink)`
+`func (o *MiscControllerEEConfiguration) SetLeftSidebar(v LeftSidebarConfiguration)`
 
-SetContextCustomLinks sets ContextCustomLinks field to given value.
+SetLeftSidebar sets LeftSidebar field to given value.
 
-### HasContextCustomLinks
+### HasLeftSidebar
 
-`func (o *MiscControllerEEConfiguration) HasContextCustomLinks() bool`
+`func (o *MiscControllerEEConfiguration) HasLeftSidebar() bool`
 
-HasContextCustomLinks returns a boolean if a field has been set.
+HasLeftSidebar returns a boolean if a field has been set.
+
+### GetRightSidebar
+
+`func (o *MiscControllerEEConfiguration) GetRightSidebar() RightSidebarConfiguration`
+
+GetRightSidebar returns the RightSidebar field if non-nil, zero value otherwise.
+
+### GetRightSidebarOk
+
+`func (o *MiscControllerEEConfiguration) GetRightSidebarOk() (*RightSidebarConfiguration, bool)`
+
+GetRightSidebarOk returns a tuple with the RightSidebar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRightSidebar
+
+`func (o *MiscControllerEEConfiguration) SetRightSidebar(v RightSidebarConfiguration)`
+
+SetRightSidebar sets RightSidebar field to given value.
+
+### HasRightSidebar
+
+`func (o *MiscControllerEEConfiguration) HasRightSidebar() bool`
+
+HasRightSidebar returns a boolean if a field has been set.
 
 ### GetInMaintenance
 

@@ -21,18 +21,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.Banner;
-import io.kestra.sdk.model.CustomLink;
+import io.kestra.sdk.model.LeftSidebarConfiguration;
+import io.kestra.sdk.model.MiscControllerEdition;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPluginIdAndVersion;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.MiscControllerTenantConfigurationInfo;
 import io.kestra.sdk.model.QueryFilterResourceField;
+import io.kestra.sdk.model.RightSidebarConfiguration;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -45,11 +45,13 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   MiscControllerEEConfiguration.JSON_PROPERTY_UUID,
   MiscControllerEEConfiguration.JSON_PROPERTY_VERSION,
+  MiscControllerEEConfiguration.JSON_PROPERTY_EDITION,
   MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_ID,
   MiscControllerEEConfiguration.JSON_PROPERTY_COMMIT_DATE,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_TASK_RUN_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerEEConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_IS_TEMPLATE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_ENVIRONMENT,
   MiscControllerEEConfiguration.JSON_PROPERTY_URL,
@@ -68,12 +70,13 @@ import java.util.StringJoiner;
   MiscControllerEEConfiguration.JSON_PROPERTY_BANNER,
   MiscControllerEEConfiguration.JSON_PROPERTY_MAIL_SERVICE_ENABLED,
   MiscControllerEEConfiguration.JSON_PROPERTY_OUTPUTS_IN_INTERNAL_STORAGE_ENABLED,
-  MiscControllerEEConfiguration.JSON_PROPERTY_CONTEXT_CUSTOM_LINKS,
+  MiscControllerEEConfiguration.JSON_PROPERTY_LEFT_SIDEBAR,
+  MiscControllerEEConfiguration.JSON_PROPERTY_RIGHT_SIDEBAR,
   MiscControllerEEConfiguration.JSON_PROPERTY_IN_MAINTENANCE,
   MiscControllerEEConfiguration.JSON_PROPERTY_PASSWORD_REGEXP
 })
 @JsonTypeName("MiscController.EEConfiguration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_UUID = "uuid";
   @javax.annotation.Nullable
@@ -82,6 +85,10 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable
   private String version;
+
+  public static final String JSON_PROPERTY_EDITION = "edition";
+  @javax.annotation.Nullable
+  private MiscControllerEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
   @javax.annotation.Nullable
@@ -102,6 +109,10 @@ public class MiscControllerEEConfiguration {
   public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
   @javax.annotation.Nullable
   private Boolean isAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
+  @javax.annotation.Nullable
+  private Boolean isUiAnonymousUsageEnabled;
 
   public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
   @javax.annotation.Nullable
@@ -175,9 +186,13 @@ public class MiscControllerEEConfiguration {
   @javax.annotation.Nullable
   private Boolean outputsInInternalStorageEnabled;
 
-  public static final String JSON_PROPERTY_CONTEXT_CUSTOM_LINKS = "contextCustomLinks";
+  public static final String JSON_PROPERTY_LEFT_SIDEBAR = "leftSidebar";
   @javax.annotation.Nullable
-  private Map<String, CustomLink> contextCustomLinks = new HashMap<>();
+  private LeftSidebarConfiguration leftSidebar;
+
+  public static final String JSON_PROPERTY_RIGHT_SIDEBAR = "rightSidebar";
+  @javax.annotation.Nullable
+  private RightSidebarConfiguration rightSidebar;
 
   public static final String JSON_PROPERTY_IN_MAINTENANCE = "inMaintenance";
   @javax.annotation.Nullable
@@ -238,6 +253,31 @@ public class MiscControllerEEConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
+  }
+
+  public MiscControllerEEConfiguration edition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    
+    this.edition = edition;
+    return this;
+  }
+
+  /**
+   * Get edition
+   * @return edition
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerEdition getEdition() {
+    return edition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    this.edition = edition;
   }
 
   public MiscControllerEEConfiguration commitId(@javax.annotation.Nullable String commitId) {
@@ -363,6 +403,31 @@ public class MiscControllerEEConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isAnonymousUsageEnabled) {
     this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+  }
+
+  public MiscControllerEEConfiguration isUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isUiAnonymousUsageEnabled
+   * @return isUiAnonymousUsageEnabled
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsUiAnonymousUsageEnabled() {
+    return isUiAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
   }
 
   public MiscControllerEEConfiguration isTemplateEnabled(@javax.annotation.Nullable Boolean isTemplateEnabled) {
@@ -847,37 +912,54 @@ public class MiscControllerEEConfiguration {
     this.outputsInInternalStorageEnabled = outputsInInternalStorageEnabled;
   }
 
-  public MiscControllerEEConfiguration contextCustomLinks(@javax.annotation.Nullable Map<String, CustomLink> contextCustomLinks) {
+  public MiscControllerEEConfiguration leftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
     
-    this.contextCustomLinks = contextCustomLinks;
-    return this;
-  }
-
-  public MiscControllerEEConfiguration putContextCustomLinksItem(String key, CustomLink contextCustomLinksItem) {
-    if (this.contextCustomLinks == null) {
-      this.contextCustomLinks = new HashMap<>();
-    }
-    this.contextCustomLinks.put(key, contextCustomLinksItem);
+    this.leftSidebar = leftSidebar;
     return this;
   }
 
   /**
-   * Get contextCustomLinks
-   * @return contextCustomLinks
+   * Get leftSidebar
+   * @return leftSidebar
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT_CUSTOM_LINKS)
+  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, CustomLink> getContextCustomLinks() {
-    return contextCustomLinks;
+  public LeftSidebarConfiguration getLeftSidebar() {
+    return leftSidebar;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT_CUSTOM_LINKS)
+  @JsonProperty(JSON_PROPERTY_LEFT_SIDEBAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContextCustomLinks(@javax.annotation.Nullable Map<String, CustomLink> contextCustomLinks) {
-    this.contextCustomLinks = contextCustomLinks;
+  public void setLeftSidebar(@javax.annotation.Nullable LeftSidebarConfiguration leftSidebar) {
+    this.leftSidebar = leftSidebar;
+  }
+
+  public MiscControllerEEConfiguration rightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    
+    this.rightSidebar = rightSidebar;
+    return this;
+  }
+
+  /**
+   * Get rightSidebar
+   * @return rightSidebar
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RightSidebarConfiguration getRightSidebar() {
+    return rightSidebar;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RIGHT_SIDEBAR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRightSidebar(@javax.annotation.Nullable RightSidebarConfiguration rightSidebar) {
+    this.rightSidebar = rightSidebar;
   }
 
   public MiscControllerEEConfiguration inMaintenance(@javax.annotation.Nullable Boolean inMaintenance) {
@@ -941,11 +1023,13 @@ public class MiscControllerEEConfiguration {
     MiscControllerEEConfiguration miscControllerEEConfiguration = (MiscControllerEEConfiguration) o;
     return Objects.equals(this.uuid, miscControllerEEConfiguration.uuid) &&
         Objects.equals(this.version, miscControllerEEConfiguration.version) &&
+        Objects.equals(this.edition, miscControllerEEConfiguration.edition) &&
         Objects.equals(this.commitId, miscControllerEEConfiguration.commitId) &&
         Objects.equals(this.commitDate, miscControllerEEConfiguration.commitDate) &&
         Objects.equals(this.isCustomDashboardsEnabled, miscControllerEEConfiguration.isCustomDashboardsEnabled) &&
         Objects.equals(this.isTaskRunEnabled, miscControllerEEConfiguration.isTaskRunEnabled) &&
         Objects.equals(this.isAnonymousUsageEnabled, miscControllerEEConfiguration.isAnonymousUsageEnabled) &&
+        Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerEEConfiguration.isUiAnonymousUsageEnabled) &&
         Objects.equals(this.isTemplateEnabled, miscControllerEEConfiguration.isTemplateEnabled) &&
         Objects.equals(this.environment, miscControllerEEConfiguration.environment) &&
         Objects.equals(this.url, miscControllerEEConfiguration.url) &&
@@ -964,14 +1048,15 @@ public class MiscControllerEEConfiguration {
         Objects.equals(this.banner, miscControllerEEConfiguration.banner) &&
         Objects.equals(this.mailServiceEnabled, miscControllerEEConfiguration.mailServiceEnabled) &&
         Objects.equals(this.outputsInInternalStorageEnabled, miscControllerEEConfiguration.outputsInInternalStorageEnabled) &&
-        Objects.equals(this.contextCustomLinks, miscControllerEEConfiguration.contextCustomLinks) &&
+        Objects.equals(this.leftSidebar, miscControllerEEConfiguration.leftSidebar) &&
+        Objects.equals(this.rightSidebar, miscControllerEEConfiguration.rightSidebar) &&
         Objects.equals(this.inMaintenance, miscControllerEEConfiguration.inMaintenance) &&
         Objects.equals(this.passwordRegexp, miscControllerEEConfiguration.passwordRegexp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, contextCustomLinks, inMaintenance, passwordRegexp);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized, tenants, secretsEnabled, supportedStorages, supportedSecrets, pluginManagementEnabled, pluginCustomEnabled, banner, mailServiceEnabled, outputsInInternalStorageEnabled, leftSidebar, rightSidebar, inMaintenance, passwordRegexp);
   }
 
   @Override
@@ -980,11 +1065,13 @@ public class MiscControllerEEConfiguration {
     sb.append("class MiscControllerEEConfiguration {\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
     sb.append("    commitId: ").append(toIndentedString(commitId)).append("\n");
     sb.append("    commitDate: ").append(toIndentedString(commitDate)).append("\n");
     sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
     sb.append("    isTaskRunEnabled: ").append(toIndentedString(isTaskRunEnabled)).append("\n");
     sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
+    sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
     sb.append("    isTemplateEnabled: ").append(toIndentedString(isTemplateEnabled)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -1003,7 +1090,8 @@ public class MiscControllerEEConfiguration {
     sb.append("    banner: ").append(toIndentedString(banner)).append("\n");
     sb.append("    mailServiceEnabled: ").append(toIndentedString(mailServiceEnabled)).append("\n");
     sb.append("    outputsInInternalStorageEnabled: ").append(toIndentedString(outputsInInternalStorageEnabled)).append("\n");
-    sb.append("    contextCustomLinks: ").append(toIndentedString(contextCustomLinks)).append("\n");
+    sb.append("    leftSidebar: ").append(toIndentedString(leftSidebar)).append("\n");
+    sb.append("    rightSidebar: ").append(toIndentedString(rightSidebar)).append("\n");
     sb.append("    inMaintenance: ").append(toIndentedString(inMaintenance)).append("\n");
     sb.append("    passwordRegexp: ").append(toIndentedString(passwordRegexp)).append("\n");
     sb.append("}");
@@ -1073,6 +1161,16 @@ public class MiscControllerEEConfiguration {
       }
     }
 
+    // add `edition` to the URL query string
+    if (getEdition() != null) {
+      try {
+        joiner.add(String.format("%sedition%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEdition()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
     // add `commitId` to the URL query string
     if (getCommitId() != null) {
       try {
@@ -1117,6 +1215,16 @@ public class MiscControllerEEConfiguration {
     if (getIsAnonymousUsageEnabled() != null) {
       try {
         joiner.add(String.format("%sisAnonymousUsageEnabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsAnonymousUsageEnabled()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `isUiAnonymousUsageEnabled` to the URL query string
+    if (getIsUiAnonymousUsageEnabled() != null) {
+      try {
+        joiner.add(String.format("%sisUiAnonymousUsageEnabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsUiAnonymousUsageEnabled()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
@@ -1287,14 +1395,14 @@ public class MiscControllerEEConfiguration {
       }
     }
 
-    // add `contextCustomLinks` to the URL query string
-    if (getContextCustomLinks() != null) {
-      for (String _key : getContextCustomLinks().keySet()) {
-        if (getContextCustomLinks().get(_key) != null) {
-          joiner.add(getContextCustomLinks().get(_key).toUrlQueryString(String.format("%scontextCustomLinks%s%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
-        }
-      }
+    // add `leftSidebar` to the URL query string
+    if (getLeftSidebar() != null) {
+      joiner.add(getLeftSidebar().toUrlQueryString(prefix + "leftSidebar" + suffix));
+    }
+
+    // add `rightSidebar` to the URL query string
+    if (getRightSidebar() != null) {
+      joiner.add(getRightSidebar().toUrlQueryString(prefix + "rightSidebar" + suffix));
     }
 
     // add `inMaintenance` to the URL query string

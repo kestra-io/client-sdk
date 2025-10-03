@@ -22,8 +22,8 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.abstract_trigger import AbstractTrigger
 from kestrapy.models.concurrency import Concurrency
-from kestrapy.models.flow_with_source_all_of_labels import FlowWithSourceAllOfLabels
 from kestrapy.models.input_object import InputObject
+from kestrapy.models.label import Label
 from kestrapy.models.listener import Listener
 from kestrapy.models.output import Output
 from kestrapy.models.plugin_default import PluginDefault
@@ -43,7 +43,7 @@ class FlowWithSource(BaseModel):
     inputs: Optional[List[InputObject]] = None
     outputs: Optional[List[Output]] = Field(default=None, description="Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages.")
     disabled: StrictBool
-    labels: Optional[FlowWithSourceAllOfLabels] = None
+    labels: Optional[List[Label]] = Field(default=None, description="Labels as a list of Label (key/value pairs) or as a map of string to string.")
     variables: Optional[Dict[str, Dict[str, Any]]] = None
     worker_group: Optional[WorkerGroup] = Field(default=None, alias="workerGroup")
     deleted: StrictBool
@@ -131,9 +131,13 @@ class FlowWithSource(BaseModel):
                 if _item_outputs:
                     _items.append(_item_outputs.to_dict())
             _dict['outputs'] = _items
-        # override the default output from pydantic by calling `to_dict()` of labels
+        # override the default output from pydantic by calling `to_dict()` of each item in labels (list)
+        _items = []
         if self.labels:
-            _dict['labels'] = self.labels.to_dict()
+            for _item_labels in self.labels:
+                if _item_labels:
+                    _items.append(_item_labels.to_dict())
+            _dict['labels'] = _items
         # override the default output from pydantic by calling `to_dict()` of worker_group
         if self.worker_group:
             _dict['workerGroup'] = self.worker_group.to_dict()
@@ -226,7 +230,7 @@ class FlowWithSource(BaseModel):
             "inputs": [InputObject.from_dict(_item) for _item in obj["inputs"]] if obj.get("inputs") is not None else None,
             "outputs": [Output.from_dict(_item) for _item in obj["outputs"]] if obj.get("outputs") is not None else None,
             "disabled": obj.get("disabled"),
-            "labels": FlowWithSourceAllOfLabels.from_dict(obj["labels"]) if obj.get("labels") is not None else None,
+            "labels": [Label.from_dict(_item) for _item in obj["labels"]] if obj.get("labels") is not None else None,
             "variables": obj.get("variables"),
             "workerGroup": WorkerGroup.from_dict(obj["workerGroup"]) if obj.get("workerGroup") is not None else None,
             "deleted": obj.get("deleted"),

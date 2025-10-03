@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MapObjectObject model module.
  * @module model/MapObjectObject
- * @version v0.24.0
+ * @version v0.24.1
  */
 class MapObjectObject {
     /**

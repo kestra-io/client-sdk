@@ -19,7 +19,7 @@ import ScimExtension from './ScimExtension';
 /**
  * The ScimResource model module.
  * @module model/ScimResource
- * @version v0.24.0
+ * @version v0.24.1
  */
 class ScimResource {
     /**

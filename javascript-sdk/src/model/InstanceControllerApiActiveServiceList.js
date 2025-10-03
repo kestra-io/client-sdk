@@ -17,7 +17,7 @@ import InstanceControllerApiActiveService from './InstanceControllerApiActiveSer
 /**
  * The InstanceControllerApiActiveServiceList model module.
  * @module model/InstanceControllerApiActiveServiceList
- * @version v0.24.0
+ * @version v0.24.1
  */
 class InstanceControllerApiActiveServiceList {
     /**

@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   StateHistory.JSON_PROPERTY_DATE
 })
 @JsonTypeName("State.History")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class StateHistory {
   public static final String JSON_PROPERTY_STATE = "state";
   @javax.annotation.Nonnull

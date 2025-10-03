@@ -1,10 +1,10 @@
 import {KestraClient} from "@kestra-io/kestra-api";
 
 const host = "http://localhost:8080"
-const username = "root@root.com"
+const username = "ycoornaert@kestra.io"
 const password = "Root!1234"
 const token = "UDXY2MY3DJX2NUE7HAH7CPWK3AUKXTVL2HGXFA5DT73HZLCAJ3HFOCJKBIR3GSKGTJBVDBPO2P353ZIDD2GMDAEEN7MLCHY25GUCIE6R2ZKKLID5PFUFYR6H7IX3T35CLYGT4PU7IGOB7XX6GJEV5W5IJU2XEQTMGAYFCOLQGNEUS6DXPIZEYUCUGR5GU";
-const tenantId = "test";
+const tenantId = "main";
 
 
 function callback(error, data, response, source) {

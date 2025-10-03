@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiTenant model module.
  * @module model/IAMUserControllerApiTenant
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMUserControllerApiTenant {
     /**

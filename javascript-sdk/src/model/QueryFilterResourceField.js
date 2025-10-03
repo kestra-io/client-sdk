@@ -17,7 +17,7 @@ import QueryFilterFieldOp from './QueryFilterFieldOp';
 /**
  * The QueryFilterResourceField model module.
  * @module model/QueryFilterResourceField
- * @version v0.24.0
+ * @version v0.24.1
  */
 class QueryFilterResourceField {
     /**

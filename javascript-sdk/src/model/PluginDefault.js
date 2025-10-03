@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginDefault model module.
  * @module model/PluginDefault
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PluginDefault {
     /**

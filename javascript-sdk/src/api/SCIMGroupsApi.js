@@ -22,7 +22,7 @@ import SortOrder from '../model/SortOrder';
 /**
 * SCIMGroups service.
 * @module api/SCIMGroupsApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class SCIMGroupsApi {
 

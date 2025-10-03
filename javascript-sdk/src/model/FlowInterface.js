@@ -25,7 +25,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The FlowInterface model module.
  * @module model/FlowInterface
- * @version v0.24.0
+ * @version v0.24.1
  */
 class FlowInterface {
     /**

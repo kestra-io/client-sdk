@@ -18,7 +18,7 @@ import PatchOperation from './PatchOperation';
 /**
  * The PatchRequest model module.
  * @module model/PatchRequest
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PatchRequest {
     /**

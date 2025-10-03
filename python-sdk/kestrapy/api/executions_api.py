@@ -38,7 +38,6 @@ from kestrapy.models.flow_for_execution import FlowForExecution
 from kestrapy.models.flow_graph import FlowGraph
 from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.label import Label
-from kestrapy.models.list[label] import List[Label]
 from kestrapy.models.paged_results_execution import PagedResultsExecution
 from kestrapy.models.paged_results_task_run import PagedResultsTaskRun
 from kestrapy.models.query_filter import QueryFilter

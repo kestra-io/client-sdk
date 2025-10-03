@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerPreview model module.
  * @module model/MiscControllerPreview
- * @version v0.24.0
+ * @version v0.24.1
  */
 class MiscControllerPreview {
     /**

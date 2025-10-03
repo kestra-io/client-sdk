@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   KVEntry.JSON_PROPERTY_UPDATE_DATE,
   KVEntry.JSON_PROPERTY_EXPIRATION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class KVEntry {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nullable

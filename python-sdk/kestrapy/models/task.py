@@ -58,8 +58,6 @@ class Task(BaseModel):
     @field_validator('type')
     def type_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not re.match(r"\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*", value):
-            raise ValueError(r"must validate the regular expression /\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*/")
         return value
 
     @field_validator('version')

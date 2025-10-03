@@ -17,7 +17,7 @@ import MetricEntry from './MetricEntry';
 /**
  * The PagedResultsMetricEntry model module.
  * @module model/PagedResultsMetricEntry
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PagedResultsMetricEntry {
     /**

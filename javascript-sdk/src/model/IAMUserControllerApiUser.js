@@ -19,7 +19,7 @@ import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 /**
  * The IAMUserControllerApiUser model module.
  * @module model/IAMUserControllerApiUser
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMUserControllerApiUser {
     /**

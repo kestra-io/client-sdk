@@ -18,7 +18,7 @@ import IAMTenantAccessControllerApiRoleAssignment from './IAMTenantAccessControl
 /**
  * The IAMTenantAccessControllerApiTenantAccess model module.
  * @module model/IAMTenantAccessControllerApiTenantAccess
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMTenantAccessControllerApiTenantAccess {
     /**

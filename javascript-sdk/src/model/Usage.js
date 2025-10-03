@@ -24,7 +24,7 @@ import ServiceUsage from './ServiceUsage';
 /**
  * The Usage model module.
  * @module model/Usage
- * @version v0.24.0
+ * @version v0.24.1
  */
 class Usage {
     /**

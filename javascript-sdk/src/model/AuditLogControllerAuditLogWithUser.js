@@ -18,7 +18,7 @@ import AuditLog from './AuditLog';
 /**
  * The AuditLogControllerAuditLogWithUser model module.
  * @module model/AuditLogControllerAuditLogWithUser
- * @version v0.24.0
+ * @version v0.24.1
  */
 class AuditLogControllerAuditLogWithUser {
     /**

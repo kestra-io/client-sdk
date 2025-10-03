@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionControllerEvalResult model module.
  * @module model/ExecutionControllerEvalResult
- * @version v0.24.0
+ * @version v0.24.1
  */
 class ExecutionControllerEvalResult {
     /**

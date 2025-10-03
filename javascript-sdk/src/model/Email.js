@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Email model module.
  * @module model/Email
- * @version v0.24.0
+ * @version v0.24.1
  */
 class Email {
     /**

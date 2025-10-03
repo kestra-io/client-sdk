@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionMetadata model module.
  * @module model/ExecutionMetadata
- * @version v0.24.0
+ * @version v0.24.1
  */
 class ExecutionMetadata {
     /**

@@ -8,11 +8,11 @@ def generate_random_id(length=8):
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
 
 
-tenant_id = "test"
+tenant_id = "main"
 
 configuration = Configuration()
 configuration.host = "http://localhost:8080"
-configuration.username = "root@root.com"
+configuration.username = "ycoornaert@kestra.io"
 configuration.password = "Root!1234"
 
 kestra_client = KestraClient(configuration)

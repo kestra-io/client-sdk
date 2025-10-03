@@ -17,7 +17,7 @@ import Blueprint from './Blueprint';
 /**
  * The PagedResultsBlueprint model module.
  * @module model/PagedResultsBlueprint
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PagedResultsBlueprint {
     /**

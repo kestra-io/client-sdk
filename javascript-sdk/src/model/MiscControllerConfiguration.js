@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import MiscControllerEdition from './MiscControllerEdition';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPreview from './MiscControllerPreview';
 import QueryFilterResourceField from './QueryFilterResourceField';
@@ -19,7 +20,7 @@ import QueryFilterResourceField from './QueryFilterResourceField';
 /**
  * The MiscControllerConfiguration model module.
  * @module model/MiscControllerConfiguration
- * @version v0.24.0
+ * @version v0.24.1
  */
 class MiscControllerConfiguration {
     /**
@@ -56,6 +57,9 @@ class MiscControllerConfiguration {
             if (data.hasOwnProperty('version')) {
                 obj['version'] = ApiClient.convertToType(data['version'], 'String');
             }
+            if (data.hasOwnProperty('edition')) {
+                obj['edition'] = MiscControllerEdition.constructFromObject(data['edition']);
+            }
             if (data.hasOwnProperty('commitId')) {
                 obj['commitId'] = ApiClient.convertToType(data['commitId'], 'String');
             }
@@ -70,6 +74,9 @@ class MiscControllerConfiguration {
             }
             if (data.hasOwnProperty('isAnonymousUsageEnabled')) {
                 obj['isAnonymousUsageEnabled'] = ApiClient.convertToType(data['isAnonymousUsageEnabled'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isUiAnonymousUsageEnabled')) {
+                obj['isUiAnonymousUsageEnabled'] = ApiClient.convertToType(data['isUiAnonymousUsageEnabled'], 'Boolean');
             }
             if (data.hasOwnProperty('isTemplateEnabled')) {
                 obj['isTemplateEnabled'] = ApiClient.convertToType(data['isTemplateEnabled'], 'Boolean');
@@ -170,6 +177,11 @@ MiscControllerConfiguration.prototype['uuid'] = undefined;
 MiscControllerConfiguration.prototype['version'] = undefined;
 
 /**
+ * @member {module:model/MiscControllerEdition} edition
+ */
+MiscControllerConfiguration.prototype['edition'] = undefined;
+
+/**
  * @member {String} commitId
  */
 MiscControllerConfiguration.prototype['commitId'] = undefined;
@@ -193,6 +205,11 @@ MiscControllerConfiguration.prototype['isTaskRunEnabled'] = undefined;
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
+
+/**
+ * @member {Boolean} isUiAnonymousUsageEnabled
+ */
+MiscControllerConfiguration.prototype['isUiAnonymousUsageEnabled'] = undefined;
 
 /**
  * @member {Boolean} isTemplateEnabled

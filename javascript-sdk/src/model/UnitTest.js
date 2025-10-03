@@ -18,7 +18,7 @@ import Fixtures from './Fixtures';
 /**
  * The UnitTest model module.
  * @module model/UnitTest
- * @version v0.24.0
+ * @version v0.24.1
  */
 class UnitTest {
     /**

@@ -59,7 +59,7 @@ import java.util.StringJoiner;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
 })
 @JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   public static final String JSON_PROPERTY_F_L_O_W = "FLOW";
   @javax.annotation.Nullable

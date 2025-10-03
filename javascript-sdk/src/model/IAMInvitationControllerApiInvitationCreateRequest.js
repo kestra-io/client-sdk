@@ -17,7 +17,7 @@ import IAMInvitationControllerApiInvitationRole from './IAMInvitationControllerA
 /**
  * The IAMInvitationControllerApiInvitationCreateRequest model module.
  * @module model/IAMInvitationControllerApiInvitationCreateRequest
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMInvitationControllerApiInvitationCreateRequest {
     /**

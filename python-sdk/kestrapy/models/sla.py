@@ -20,8 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from kestrapy.models.flow_with_source_all_of_labels import FlowWithSourceAllOfLabels
 from kestrapy.models.sla_behavior import SLABehavior
+from kestrapy.models.sla_labels import SLALabels
 from kestrapy.models.sla_type import SLAType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,7 +33,7 @@ class SLA(BaseModel):
     id: Annotated[str, Field(min_length=1, strict=True)]
     type: SLAType
     behavior: SLABehavior
-    labels: Optional[FlowWithSourceAllOfLabels] = None
+    labels: Optional[SLALabels] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "behavior", "labels"]
 
@@ -101,7 +101,7 @@ class SLA(BaseModel):
             "id": obj.get("id"),
             "type": obj.get("type"),
             "behavior": obj.get("behavior"),
-            "labels": FlowWithSourceAllOfLabels.from_dict(obj["labels"]) if obj.get("labels") is not None else None
+            "labels": SLALabels.from_dict(obj["labels"]) if obj.get("labels") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

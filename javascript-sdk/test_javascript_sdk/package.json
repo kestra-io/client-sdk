@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@kestra-io/kestra-api": "file:..",
+    "@kestra-io/kestra-sdk": "file:..",
     "kestra_api": "file:.."
   }
 }

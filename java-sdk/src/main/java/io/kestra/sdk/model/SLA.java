@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.FlowWithSourceAllOfLabels;
 import io.kestra.sdk.model.SLABehavior;
+import io.kestra.sdk.model.SLALabels;
 import io.kestra.sdk.model.SLAType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   SLA.JSON_PROPERTY_BEHAVIOR,
   SLA.JSON_PROPERTY_LABELS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class SLA {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -54,7 +54,7 @@ public class SLA {
 
   public static final String JSON_PROPERTY_LABELS = "labels";
   @javax.annotation.Nullable
-  private FlowWithSourceAllOfLabels labels;
+  private SLALabels labels;
 
   public SLA() {
   }
@@ -134,7 +134,7 @@ public class SLA {
     this.behavior = behavior;
   }
 
-  public SLA labels(@javax.annotation.Nullable FlowWithSourceAllOfLabels labels) {
+  public SLA labels(@javax.annotation.Nullable SLALabels labels) {
     
     this.labels = labels;
     return this;
@@ -148,14 +148,14 @@ public class SLA {
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FlowWithSourceAllOfLabels getLabels() {
+  public SLALabels getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable FlowWithSourceAllOfLabels labels) {
+  public void setLabels(@javax.annotation.Nullable SLALabels labels) {
     this.labels = labels;
   }
 

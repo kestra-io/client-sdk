@@ -42,7 +42,6 @@ client.go
 configuration.go
 docs/AIAPI.md
 docs/AbstractFlow.md
-docs/AbstractFlowLabels.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
 docs/AbstractMetricEntryObject.md
@@ -125,7 +124,6 @@ docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/CustomLink.md
 docs/DailyExecutionStatistics.md
 docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
@@ -168,10 +166,8 @@ docs/FilesAPI.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
-docs/FlowAllOfLabels.md
 docs/FlowControllerTaskValidationType.md
 docs/FlowForExecution.md
-docs/FlowForExecutionAllOfLabels.md
 docs/FlowGenerationPrompt.md
 docs/FlowGraph.md
 docs/FlowGraphCluster.md
@@ -185,7 +181,6 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowWithSource.md
-docs/FlowWithSourceAllOfLabels.md
 docs/FlowsAPI.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
@@ -266,6 +261,7 @@ docs/KVControllerTypedValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
+docs/LeftSidebarConfiguration.md
 docs/Level.md
 docs/Listener.md
 docs/LogEntry.md
@@ -288,6 +284,7 @@ docs/MiscAPI.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
+docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -365,6 +362,8 @@ docs/Relation.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
+docs/RightSidebarConfiguration.md
+docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesAPI.md
@@ -373,6 +372,7 @@ docs/SCIMGroupsAPI.md
 docs/SCIMUsersAPI.md
 docs/SLA.md
 docs/SLABehavior.md
+docs/SLALabels.md
 docs/SLAType.md
 docs/Schema.md
 docs/SchemaAttribute.md
@@ -465,7 +465,6 @@ git_push.sh
 go.mod
 go.sum
 model_abstract_flow.go
-model_abstract_flow_labels.go
 model_abstract_graph.go
 model_abstract_graph_branch_type.go
 model_abstract_metric_entry_object_.go
@@ -540,7 +539,6 @@ model_create_api_token_request.go
 model_create_api_token_response.go
 model_create_security_integration_request.go
 model_crud_event_type.go
-model_custom_link.go
 model_daily_execution_statistics.go
 model_daily_execution_statistics_duration.go
 model_daily_execution_statistics_execution_counts.go
@@ -579,10 +577,8 @@ model_file_metas.go
 model_filter.go
 model_fixtures.go
 model_flow.go
-model_flow_all_of_labels.go
 model_flow_controller_task_validation_type.go
 model_flow_for_execution.go
-model_flow_for_execution_all_of_labels.go
 model_flow_generation_prompt.go
 model_flow_graph.go
 model_flow_graph_cluster.go
@@ -596,7 +592,6 @@ model_flow_topology_graph.go
 model_flow_topology_graph_edge.go
 model_flow_usage.go
 model_flow_with_source.go
-model_flow_with_source_all_of_labels.go
 model_group_identifier.go
 model_group_identifier_membership.go
 model_group_usage.go
@@ -673,6 +668,7 @@ model_kv_controller_typed_value.go
 model_kv_entry.go
 model_kv_type.go
 model_label.go
+model_left_sidebar_configuration.go
 model_level.go
 model_listener.go
 model_log_entry.go
@@ -690,6 +686,7 @@ model_metric_entry.go
 model_metric_tag.go
 model_misc_controller_basic_auth_credentials.go
 model_misc_controller_configuration.go
+model_misc_controller_edition.go
 model_misc_controller_ee_configuration.go
 model_misc_controller_environment.go
 model_misc_controller_license_info.go
@@ -766,6 +763,8 @@ model_relation.go
 model_relation_type.go
 model_resource_type.go
 model_resource_type_schema_extension_configuration.go
+model_right_sidebar_configuration.go
+model_right_sidebar_configuration_custom_link.go
 model_role.go
 model_role_usage.go
 model_schema.go
@@ -804,6 +803,7 @@ model_setup_configuration.go
 model_setup_configuration_setup_data.go
 model_sla.go
 model_sla_behavior.go
+model_sla_labels.go
 model_sla_type.go
 model_sort_order.go
 model_sort_request.go

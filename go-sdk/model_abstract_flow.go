@@ -20,13 +20,14 @@ var _ MappedNullable = &AbstractFlow{}
 
 // AbstractFlow struct for AbstractFlow
 type AbstractFlow struct {
-	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
-	Namespace            string                 `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
-	Revision             *int32                 `json:"revision,omitempty"`
-	Inputs               []InputObject          `json:"inputs,omitempty"`
-	Outputs              []Output               `json:"outputs,omitempty"`
-	Disabled             bool                   `json:"disabled"`
-	Labels               *AbstractFlowLabels    `json:"labels,omitempty"`
+	Id        string        `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9._-]*"`
+	Namespace string        `json:"namespace" validate:"regexp=^[a-z0-9][a-z0-9._-]*"`
+	Revision  *int32        `json:"revision,omitempty"`
+	Inputs    []InputObject `json:"inputs,omitempty"`
+	Outputs   []Output      `json:"outputs,omitempty"`
+	Disabled  bool          `json:"disabled"`
+	// Labels as a list of Label (key/value pairs) or as a map of string to string.
+	Labels               []Label                `json:"labels,omitempty"`
 	Variables            map[string]interface{} `json:"variables,omitempty"`
 	WorkerGroup          *WorkerGroup           `json:"workerGroup,omitempty"`
 	Deleted              bool                   `json:"deleted"`
@@ -225,17 +226,17 @@ func (o *AbstractFlow) SetDisabled(v bool) {
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *AbstractFlow) GetLabels() AbstractFlowLabels {
+func (o *AbstractFlow) GetLabels() []Label {
 	if o == nil || IsNil(o.Labels) {
-		var ret AbstractFlowLabels
+		var ret []Label
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AbstractFlow) GetLabelsOk() (*AbstractFlowLabels, bool) {
+func (o *AbstractFlow) GetLabelsOk() ([]Label, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
@@ -251,9 +252,9 @@ func (o *AbstractFlow) HasLabels() bool {
 	return false
 }
 
-// SetLabels gets a reference to the given AbstractFlowLabels and assigns it to the Labels field.
-func (o *AbstractFlow) SetLabels(v AbstractFlowLabels) {
-	o.Labels = &v
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+func (o *AbstractFlow) SetLabels(v []Label) {
+	o.Labels = v
 }
 
 // GetVariables returns the Variables field value if set, zero value otherwise.

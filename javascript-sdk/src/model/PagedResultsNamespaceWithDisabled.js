@@ -17,7 +17,7 @@ import NamespaceWithDisabled from './NamespaceWithDisabled';
 /**
  * The PagedResultsNamespaceWithDisabled model module.
  * @module model/PagedResultsNamespaceWithDisabled
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PagedResultsNamespaceWithDisabled {
     /**

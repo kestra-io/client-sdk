@@ -24,7 +24,7 @@ type AbstractUser struct {
 	GroupList            []GroupIdentifier                    `json:"groupList,omitempty"`
 	Groups               []map[string]interface{}             `json:"groups,omitempty"`
 	Username             string                               `json:"username"`
-	Email                string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	Email                string                               "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&â€™*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
 	SuperAdmin           *bool                                `json:"superAdmin,omitempty"`
 	Id                   *string                              `json:"id,omitempty"`
 	Name                 *string                              `json:"name,omitempty"`

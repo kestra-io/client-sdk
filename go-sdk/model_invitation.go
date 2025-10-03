@@ -22,7 +22,7 @@ var _ MappedNullable = &Invitation{}
 // Invitation struct for Invitation
 type Invitation struct {
 	IsExpired            *bool                       `json:"isExpired,omitempty"`
-	Email                string                      "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&’*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
+	Email                string                      "json:\"email\" validate:\"regexp=^$|^[a-zA-Z0-9_!#$%&â€™*+\\/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$\""
 	Id                   *string                     `json:"id,omitempty"`
 	Bindings             []Binding                   `json:"bindings,omitempty"`
 	GroupIds             []string                    `json:"groupIds,omitempty"`

@@ -6,7 +6,6 @@ api/openapi.yaml
 build.gradle
 build.sbt
 docs/AbstractFlow.md
-docs/AbstractFlowLabels.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
 docs/AbstractMetricEntryObject.md
@@ -90,7 +89,6 @@ docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/CustomLink.md
 docs/DailyExecutionStatistics.md
 docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
@@ -133,10 +131,8 @@ docs/FilesApi.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
-docs/FlowAllOfLabels.md
 docs/FlowControllerTaskValidationType.md
 docs/FlowForExecution.md
-docs/FlowForExecutionAllOfLabels.md
 docs/FlowGenerationPrompt.md
 docs/FlowGraph.md
 docs/FlowGraphCluster.md
@@ -150,7 +146,6 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowWithSource.md
-docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
@@ -231,6 +226,7 @@ docs/KVEntry.md
 docs/KVType.md
 docs/KvApi.md
 docs/Label.md
+docs/LeftSidebarConfiguration.md
 docs/Level.md
 docs/Listener.md
 docs/LogEntry.md
@@ -253,6 +249,7 @@ docs/MiscApi.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
+docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -330,11 +327,14 @@ docs/Relation.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
+docs/RightSidebarConfiguration.md
+docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesApi.md
 docs/SLA.md
 docs/SLABehavior.md
+docs/SLALabels.md
 docs/SLAType.md
 docs/Schema.md
 docs/SchemaAttribute.md
@@ -488,7 +488,6 @@ src/main/java/io/kestra/sdk/internal/auth/Authentication.java
 src/main/java/io/kestra/sdk/internal/auth/HttpBasicAuth.java
 src/main/java/io/kestra/sdk/internal/auth/HttpBearerAuth.java
 src/main/java/io/kestra/sdk/model/AbstractFlow.java
-src/main/java/io/kestra/sdk/model/AbstractFlowLabels.java
 src/main/java/io/kestra/sdk/model/AbstractGraph.java
 src/main/java/io/kestra/sdk/model/AbstractGraphBranchType.java
 src/main/java/io/kestra/sdk/model/AbstractMetricEntryObject.java
@@ -563,7 +562,6 @@ src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
-src/main/java/io/kestra/sdk/model/CustomLink.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatistics.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsDuration.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatisticsExecutionCounts.java
@@ -602,10 +600,8 @@ src/main/java/io/kestra/sdk/model/FileMetas.java
 src/main/java/io/kestra/sdk/model/Filter.java
 src/main/java/io/kestra/sdk/model/Fixtures.java
 src/main/java/io/kestra/sdk/model/Flow.java
-src/main/java/io/kestra/sdk/model/FlowAllOfLabels.java
 src/main/java/io/kestra/sdk/model/FlowControllerTaskValidationType.java
 src/main/java/io/kestra/sdk/model/FlowForExecution.java
-src/main/java/io/kestra/sdk/model/FlowForExecutionAllOfLabels.java
 src/main/java/io/kestra/sdk/model/FlowGenerationPrompt.java
 src/main/java/io/kestra/sdk/model/FlowGraph.java
 src/main/java/io/kestra/sdk/model/FlowGraphCluster.java
@@ -619,7 +615,6 @@ src/main/java/io/kestra/sdk/model/FlowTopologyGraph.java
 src/main/java/io/kestra/sdk/model/FlowTopologyGraphEdge.java
 src/main/java/io/kestra/sdk/model/FlowUsage.java
 src/main/java/io/kestra/sdk/model/FlowWithSource.java
-src/main/java/io/kestra/sdk/model/FlowWithSourceAllOfLabels.java
 src/main/java/io/kestra/sdk/model/GroupIdentifier.java
 src/main/java/io/kestra/sdk/model/GroupIdentifierMembership.java
 src/main/java/io/kestra/sdk/model/GroupUsage.java
@@ -696,6 +691,7 @@ src/main/java/io/kestra/sdk/model/KVControllerTypedValue.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java
+src/main/java/io/kestra/sdk/model/LeftSidebarConfiguration.java
 src/main/java/io/kestra/sdk/model/Level.java
 src/main/java/io/kestra/sdk/model/Listener.java
 src/main/java/io/kestra/sdk/model/LogEntry.java
@@ -714,6 +710,7 @@ src/main/java/io/kestra/sdk/model/MetricTag.java
 src/main/java/io/kestra/sdk/model/MiscControllerBasicAuthCredentials.java
 src/main/java/io/kestra/sdk/model/MiscControllerConfiguration.java
 src/main/java/io/kestra/sdk/model/MiscControllerEEConfiguration.java
+src/main/java/io/kestra/sdk/model/MiscControllerEdition.java
 src/main/java/io/kestra/sdk/model/MiscControllerEnvironment.java
 src/main/java/io/kestra/sdk/model/MiscControllerLicenseInfo.java
 src/main/java/io/kestra/sdk/model/MiscControllerPluginIdAndVersion.java
@@ -789,10 +786,13 @@ src/main/java/io/kestra/sdk/model/Relation.java
 src/main/java/io/kestra/sdk/model/RelationType.java
 src/main/java/io/kestra/sdk/model/ResourceType.java
 src/main/java/io/kestra/sdk/model/ResourceTypeSchemaExtensionConfiguration.java
+src/main/java/io/kestra/sdk/model/RightSidebarConfiguration.java
+src/main/java/io/kestra/sdk/model/RightSidebarConfigurationCustomLink.java
 src/main/java/io/kestra/sdk/model/Role.java
 src/main/java/io/kestra/sdk/model/RoleUsage.java
 src/main/java/io/kestra/sdk/model/SLA.java
 src/main/java/io/kestra/sdk/model/SLABehavior.java
+src/main/java/io/kestra/sdk/model/SLALabels.java
 src/main/java/io/kestra/sdk/model/SLAType.java
 src/main/java/io/kestra/sdk/model/Schema.java
 src/main/java/io/kestra/sdk/model/SchemaAttribute.java

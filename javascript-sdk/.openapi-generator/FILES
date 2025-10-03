@@ -4,7 +4,6 @@
 README.md
 docs/AIApi.md
 docs/AbstractFlow.md
-docs/AbstractFlowLabels.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
 docs/AbstractMetricEntryObject.md
@@ -87,7 +86,6 @@ docs/CreateApiTokenRequest.md
 docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
-docs/CustomLink.md
 docs/DailyExecutionStatistics.md
 docs/DailyExecutionStatisticsDuration.md
 docs/DailyExecutionStatisticsExecutionCounts.md
@@ -130,10 +128,8 @@ docs/FilesApi.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
-docs/FlowAllOfLabels.md
 docs/FlowControllerTaskValidationType.md
 docs/FlowForExecution.md
-docs/FlowForExecutionAllOfLabels.md
 docs/FlowGenerationPrompt.md
 docs/FlowGraph.md
 docs/FlowGraphCluster.md
@@ -147,7 +143,6 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowWithSource.md
-docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
@@ -228,6 +223,7 @@ docs/KVControllerTypedValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
+docs/LeftSidebarConfiguration.md
 docs/Level.md
 docs/Listener.md
 docs/LogEntry.md
@@ -250,6 +246,7 @@ docs/MiscApi.md
 docs/MiscControllerBasicAuthCredentials.md
 docs/MiscControllerConfiguration.md
 docs/MiscControllerEEConfiguration.md
+docs/MiscControllerEdition.md
 docs/MiscControllerEnvironment.md
 docs/MiscControllerLicenseInfo.md
 docs/MiscControllerPluginIdAndVersion.md
@@ -327,6 +324,8 @@ docs/Relation.md
 docs/RelationType.md
 docs/ResourceType.md
 docs/ResourceTypeSchemaExtensionConfiguration.md
+docs/RightSidebarConfiguration.md
+docs/RightSidebarConfigurationCustomLink.md
 docs/Role.md
 docs/RoleUsage.md
 docs/RolesApi.md
@@ -335,6 +334,7 @@ docs/SCIMGroupsApi.md
 docs/SCIMUsersApi.md
 docs/SLA.md
 docs/SLABehavior.md
+docs/SLALabels.md
 docs/SLAType.md
 docs/Schema.md
 docs/SchemaAttribute.md
@@ -465,7 +465,6 @@ src/api/UsersApi.js
 src/api/WorkerGroupsApi.js
 src/index.js
 src/model/AbstractFlow.js
-src/model/AbstractFlowLabels.js
 src/model/AbstractGraph.js
 src/model/AbstractGraphBranchType.js
 src/model/AbstractMetricEntryObject.js
@@ -540,7 +539,6 @@ src/model/CreateApiTokenRequest.js
 src/model/CreateApiTokenResponse.js
 src/model/CreateSecurityIntegrationRequest.js
 src/model/CrudEventType.js
-src/model/CustomLink.js
 src/model/DailyExecutionStatistics.js
 src/model/DailyExecutionStatisticsDuration.js
 src/model/DailyExecutionStatisticsExecutionCounts.js
@@ -579,10 +577,8 @@ src/model/FileMetas.js
 src/model/Filter.js
 src/model/Fixtures.js
 src/model/Flow.js
-src/model/FlowAllOfLabels.js
 src/model/FlowControllerTaskValidationType.js
 src/model/FlowForExecution.js
-src/model/FlowForExecutionAllOfLabels.js
 src/model/FlowGenerationPrompt.js
 src/model/FlowGraph.js
 src/model/FlowGraphCluster.js
@@ -596,7 +592,6 @@ src/model/FlowTopologyGraph.js
 src/model/FlowTopologyGraphEdge.js
 src/model/FlowUsage.js
 src/model/FlowWithSource.js
-src/model/FlowWithSourceAllOfLabels.js
 src/model/GroupIdentifier.js
 src/model/GroupIdentifierMembership.js
 src/model/GroupUsage.js
@@ -673,6 +668,7 @@ src/model/KVControllerTypedValue.js
 src/model/KVEntry.js
 src/model/KVType.js
 src/model/Label.js
+src/model/LeftSidebarConfiguration.js
 src/model/Level.js
 src/model/Listener.js
 src/model/LogEntry.js
@@ -691,6 +687,7 @@ src/model/MetricTag.js
 src/model/MiscControllerBasicAuthCredentials.js
 src/model/MiscControllerConfiguration.js
 src/model/MiscControllerEEConfiguration.js
+src/model/MiscControllerEdition.js
 src/model/MiscControllerEnvironment.js
 src/model/MiscControllerLicenseInfo.js
 src/model/MiscControllerPluginIdAndVersion.js
@@ -766,10 +763,13 @@ src/model/Relation.js
 src/model/RelationType.js
 src/model/ResourceType.js
 src/model/ResourceTypeSchemaExtensionConfiguration.js
+src/model/RightSidebarConfiguration.js
+src/model/RightSidebarConfigurationCustomLink.js
 src/model/Role.js
 src/model/RoleUsage.js
 src/model/SLA.js
 src/model/SLABehavior.js
+src/model/SLALabels.js
 src/model/SLAType.js
 src/model/Schema.js
 src/model/SchemaAttribute.js

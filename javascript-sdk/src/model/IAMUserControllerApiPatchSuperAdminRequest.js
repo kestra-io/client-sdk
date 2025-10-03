@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiPatchSuperAdminRequest model module.
  * @module model/IAMUserControllerApiPatchSuperAdminRequest
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMUserControllerApiPatchSuperAdminRequest {
     /**

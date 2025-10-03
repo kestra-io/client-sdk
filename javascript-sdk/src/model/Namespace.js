@@ -22,7 +22,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Namespace model module.
  * @module model/Namespace
- * @version v0.24.0
+ * @version v0.24.1
  */
 class Namespace {
     /**

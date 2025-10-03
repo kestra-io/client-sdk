@@ -40,7 +40,7 @@ import java.util.StringJoiner;
   ServerConfig.JSON_PROPERTY_TERMINATION_GRACE_PERIOD,
   ServerConfig.JSON_PROPERTY_LIVENESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ServerConfig {
   public static final String JSON_PROPERTY_WORKER_TASK_RESTART_STRATEGY = "workerTaskRestartStrategy";
   @javax.annotation.Nullable

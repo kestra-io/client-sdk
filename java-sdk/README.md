@@ -4,7 +4,7 @@ Kestra EE
 
 - API version: v1
 
-- Build date: 2025-08-05T13:38:05.347663356Z[Etc/UTC]
+- Build date: 2025-10-03T07:32:20.514591171Z[Etc/UTC]
 
 - Generator version: 7.14.0-SNAPSHOT
 
@@ -45,7 +45,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>v0.24.0</version>
+  <version>v0.24.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:v0.24.0"
+compile "io.kestra:kestra-api-client:v0.24.1"
 ```
 
 ### Others
@@ -68,7 +68,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-v0.24.0.jar`
+- `target/kestra-api-client-v0.24.1.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -468,7 +468,6 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [AbstractFlow](docs/AbstractFlow.md)
- - [AbstractFlowLabels](docs/AbstractFlowLabels.md)
  - [AbstractGraph](docs/AbstractGraph.md)
  - [AbstractGraphBranchType](docs/AbstractGraphBranchType.md)
  - [AbstractMetricEntryObject](docs/AbstractMetricEntryObject.md)
@@ -543,7 +542,6 @@ Class | Method | HTTP request | Description
  - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
- - [CustomLink](docs/CustomLink.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)
  - [DailyExecutionStatisticsDuration](docs/DailyExecutionStatisticsDuration.md)
  - [DailyExecutionStatisticsExecutionCounts](docs/DailyExecutionStatisticsExecutionCounts.md)
@@ -582,10 +580,8 @@ Class | Method | HTTP request | Description
  - [Filter](docs/Filter.md)
  - [Fixtures](docs/Fixtures.md)
  - [Flow](docs/Flow.md)
- - [FlowAllOfLabels](docs/FlowAllOfLabels.md)
  - [FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [FlowForExecution](docs/FlowForExecution.md)
- - [FlowForExecutionAllOfLabels](docs/FlowForExecutionAllOfLabels.md)
  - [FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
  - [FlowGraph](docs/FlowGraph.md)
  - [FlowGraphCluster](docs/FlowGraphCluster.md)
@@ -599,7 +595,6 @@ Class | Method | HTTP request | Description
  - [FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [FlowUsage](docs/FlowUsage.md)
  - [FlowWithSource](docs/FlowWithSource.md)
- - [FlowWithSourceAllOfLabels](docs/FlowWithSourceAllOfLabels.md)
  - [GroupIdentifier](docs/GroupIdentifier.md)
  - [GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [GroupUsage](docs/GroupUsage.md)
@@ -676,6 +671,7 @@ Class | Method | HTTP request | Description
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
+ - [LeftSidebarConfiguration](docs/LeftSidebarConfiguration.md)
  - [Level](docs/Level.md)
  - [Listener](docs/Listener.md)
  - [LogEntry](docs/LogEntry.md)
@@ -694,6 +690,7 @@ Class | Method | HTTP request | Description
  - [MiscControllerBasicAuthCredentials](docs/MiscControllerBasicAuthCredentials.md)
  - [MiscControllerConfiguration](docs/MiscControllerConfiguration.md)
  - [MiscControllerEEConfiguration](docs/MiscControllerEEConfiguration.md)
+ - [MiscControllerEdition](docs/MiscControllerEdition.md)
  - [MiscControllerEnvironment](docs/MiscControllerEnvironment.md)
  - [MiscControllerLicenseInfo](docs/MiscControllerLicenseInfo.md)
  - [MiscControllerPluginIdAndVersion](docs/MiscControllerPluginIdAndVersion.md)
@@ -769,10 +766,13 @@ Class | Method | HTTP request | Description
  - [RelationType](docs/RelationType.md)
  - [ResourceType](docs/ResourceType.md)
  - [ResourceTypeSchemaExtensionConfiguration](docs/ResourceTypeSchemaExtensionConfiguration.md)
+ - [RightSidebarConfiguration](docs/RightSidebarConfiguration.md)
+ - [RightSidebarConfigurationCustomLink](docs/RightSidebarConfigurationCustomLink.md)
  - [Role](docs/Role.md)
  - [RoleUsage](docs/RoleUsage.md)
  - [SLA](docs/SLA.md)
  - [SLABehavior](docs/SLABehavior.md)
+ - [SLALabels](docs/SLALabels.md)
  - [SLAType](docs/SLAType.md)
  - [Schema](docs/Schema.md)
  - [SchemaAttribute](docs/SchemaAttribute.md)

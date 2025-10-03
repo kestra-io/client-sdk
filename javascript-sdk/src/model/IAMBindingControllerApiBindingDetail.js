@@ -20,7 +20,7 @@ import IAMBindingControllerApiRole from './IAMBindingControllerApiRole';
 /**
  * The IAMBindingControllerApiBindingDetail model module.
  * @module model/IAMBindingControllerApiBindingDetail
- * @version v0.24.0
+ * @version v0.24.1
  */
 class IAMBindingControllerApiBindingDetail {
     /**

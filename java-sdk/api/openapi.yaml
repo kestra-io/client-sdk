@@ -16554,7 +16554,11 @@ components:
         disabled:
           type: boolean
         labels:
-          $ref: "#/components/schemas/AbstractFlow_labels"
+          description: Labels as a list of Label (key/value pairs) or as a map of
+            string to string.
+          items:
+            $ref: "#/components/schemas/Label"
+          type: array
         variables:
           additionalProperties: true
           type: object
@@ -16730,7 +16734,7 @@ components:
         username:
           type: string
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: "^$|^[a-zA-Z0-9_!#$%&â€™*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           type: string
         superAdmin:
           type: boolean
@@ -18086,19 +18090,6 @@ components:
       - LOGIN_FAILURE
       - ACCOUNT_LOCKED
       type: string
-    CustomLink:
-      example:
-        name: name
-        title: title
-        url: url
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-      type: object
     DailyExecutionStatistics:
       example:
         duration:
@@ -19333,7 +19324,11 @@ components:
           disabled:
             type: boolean
           labels:
-            $ref: "#/components/schemas/Flow_allOf_labels"
+            description: Labels as a list of Label (key/value pairs) or as a map of
+              string to string.
+            items:
+              $ref: "#/components/schemas/Label"
+            type: array
           workerGroup:
             $ref: "#/components/schemas/WorkerGroup"
           deleted:
@@ -19566,14 +19561,14 @@ components:
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         - id: id
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         afterExecution:
         - taskCache:
             ttl: ttl
@@ -19669,8 +19664,10 @@ components:
           type: type
         revision: 1
         labels:
-        - Flow_allOf_labels
-        - Flow_allOf_labels
+        - value: value
+          key: key
+        - value: value
+          key: key
         concurrency:
           limit: 1
           behavior: QUEUE
@@ -19814,7 +19811,11 @@ components:
           disabled:
             type: boolean
           labels:
-            $ref: "#/components/schemas/FlowForExecution_allOf_labels"
+            description: Labels as a list of Label (key/value pairs) or as a map of
+              string to string.
+            items:
+              $ref: "#/components/schemas/Label"
+            type: array
           variables:
             additionalProperties: true
             type: object
@@ -19994,8 +19995,10 @@ components:
           version: version
         revision: 1
         labels:
-        - FlowForExecution_allOf_labels
-        - FlowForExecution_allOf_labels
+        - value: value
+          key: key
+        - value: value
+          key: key
         deleted: true
         namespace: namespace
         disabled: true
@@ -20329,14 +20332,14 @@ components:
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         - id: id
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         source: source
         revision: 0
         labels:
@@ -20479,7 +20482,11 @@ components:
           disabled:
             type: boolean
           labels:
-            $ref: "#/components/schemas/FlowWithSource_allOf_labels"
+            description: Labels as a list of Label (key/value pairs) or as a map of
+              string to string.
+            items:
+              $ref: "#/components/schemas/Label"
+            type: array
           workerGroup:
             $ref: "#/components/schemas/WorkerGroup"
           deleted:
@@ -20672,14 +20679,14 @@ components:
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         - id: id
           type: MAX_DURATION
           behavior: FAIL
           labels:
-          - FlowWithSource_allOf_labels
-          - FlowWithSource_allOf_labels
+          - SLA_labels
+          - SLA_labels
         afterExecution:
         - taskCache:
             ttl: ttl
@@ -20774,7 +20781,11 @@ components:
             key: "{}"
           type: type
         revision: 1
-        labels: null
+        labels:
+        - value: value
+          key: key
+        - value: value
+          key: key
         concurrency:
           limit: 1
           behavior: QUEUE
@@ -22378,7 +22389,7 @@ components:
         isExpired:
           type: boolean
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: "^$|^[a-zA-Z0-9_!#$%&â€™*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           type: string
         id:
           type: string
@@ -22496,17 +22507,32 @@ components:
       - JSON
       type: string
     Label:
+      description: A key/value pair that can be attached to a Flow or Execution. Labels
+        are often used to organize and categorize objects.
       example:
         value: value
         key: key
       properties:
         key:
+          minLength: 1
           type: string
         value:
+          minLength: 1
           type: string
       required:
       - key
       - value
+      type: object
+    LeftSidebarConfiguration:
+      example:
+        disabledMenus:
+        - disabledMenus
+        - disabledMenus
+      properties:
+        disabledMenus:
+          items:
+            type: string
+          type: array
       type: object
     Level:
       enum:
@@ -22891,6 +22917,8 @@ components:
           type: string
         version:
           type: string
+        edition:
+          $ref: "#/components/schemas/MiscController.Edition"
         commitId:
           type: string
         commitDate:
@@ -22901,6 +22929,8 @@ components:
         isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
+          type: boolean
+        isUiAnonymousUsageEnabled:
           type: boolean
         isTemplateEnabled:
           type: boolean
@@ -22951,10 +22981,10 @@ components:
             type: boolean
           outputsInInternalStorageEnabled:
             type: boolean
-          contextCustomLinks:
-            additionalProperties:
-              $ref: "#/components/schemas/CustomLink"
-            type: object
+          leftSidebar:
+            $ref: "#/components/schemas/LeftSidebarConfiguration"
+          rightSidebar:
+            $ref: "#/components/schemas/RightSidebarConfiguration"
           inMaintenance:
             type: boolean
           passwordRegexp:
@@ -22966,15 +22996,21 @@ components:
           max: 6
         isBasicAuthInitialized: true
         inMaintenance: true
+        edition: OSS
         pluginManagementEnabled: true
         uuid: uuid
         isCustomDashboardsEnabled: true
+        leftSidebar:
+          disabledMenus:
+          - disabledMenus
+          - disabledMenus
         outputsInInternalStorageEnabled: true
         supportedStorages:
         - id: id
           version: version
         - id: id
           version: version
+        isUiAnonymousUsageEnabled: true
         mailServiceEnabled: true
         pluginCustomEnabled: true
         supportedSecrets:
@@ -22989,11 +23025,6 @@ components:
         hiddenLabelsPrefixes:
         - hiddenLabelsPrefixes
         - hiddenLabelsPrefixes
-        contextCustomLinks:
-          key:
-            name: name
-            title: title
-            url: url
         resourceToFilters:
         - name: name
           fields:
@@ -23038,6 +23069,11 @@ components:
         commitId: commitId
         isAnonymousUsageEnabled: true
         version: version
+        rightSidebar:
+          customLinks:
+            key:
+              title: title
+              url: url
         passwordRegexp: passwordRegexp
         url: url
         commitDate: 2000-01-23T04:56:07.000+00:00
@@ -23049,6 +23085,11 @@ components:
         isTemplateEnabled: true
         systemNamespace: systemNamespace
       type: object
+    MiscController.Edition:
+      enum:
+      - OSS
+      - EE
+      type: string
     MiscController.Environment:
       example:
         color: color
@@ -24368,14 +24409,14 @@ components:
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           - id: id
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           afterExecution:
           - taskCache:
               ttl: ttl
@@ -24471,8 +24512,10 @@ components:
             type: type
           revision: 1
           labels:
-          - Flow_allOf_labels
-          - Flow_allOf_labels
+          - value: value
+            key: key
+          - value: value
+            key: key
           concurrency:
             limit: 1
             behavior: QUEUE
@@ -24743,14 +24786,14 @@ components:
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           - id: id
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           afterExecution:
           - taskCache:
               ttl: ttl
@@ -24846,8 +24889,10 @@ components:
             type: type
           revision: 1
           labels:
-          - Flow_allOf_labels
-          - Flow_allOf_labels
+          - value: value
+            key: key
+          - value: value
+            key: key
           concurrency:
             limit: 1
             behavior: QUEUE
@@ -25639,14 +25684,14 @@ components:
               type: MAX_DURATION
               behavior: FAIL
               labels:
-              - FlowWithSource_allOf_labels
-              - FlowWithSource_allOf_labels
+              - SLA_labels
+              - SLA_labels
             - id: id
               type: MAX_DURATION
               behavior: FAIL
               labels:
-              - FlowWithSource_allOf_labels
-              - FlowWithSource_allOf_labels
+              - SLA_labels
+              - SLA_labels
             afterExecution:
             - taskCache:
                 ttl: ttl
@@ -25742,8 +25787,10 @@ components:
               type: type
             revision: 1
             labels:
-            - Flow_allOf_labels
-            - Flow_allOf_labels
+            - value: value
+              key: key
+            - value: value
+              key: key
             concurrency:
               limit: 1
               behavior: QUEUE
@@ -26018,14 +26065,14 @@ components:
               type: MAX_DURATION
               behavior: FAIL
               labels:
-              - FlowWithSource_allOf_labels
-              - FlowWithSource_allOf_labels
+              - SLA_labels
+              - SLA_labels
             - id: id
               type: MAX_DURATION
               behavior: FAIL
               labels:
-              - FlowWithSource_allOf_labels
-              - FlowWithSource_allOf_labels
+              - SLA_labels
+              - SLA_labels
             afterExecution:
             - taskCache:
                 ttl: ttl
@@ -26121,8 +26168,10 @@ components:
               type: type
             revision: 1
             labels:
-            - Flow_allOf_labels
-            - Flow_allOf_labels
+            - value: value
+              key: key
+            - value: value
+              key: key
             concurrency:
               limit: 1
               behavior: QUEUE
@@ -27822,6 +27871,28 @@ components:
         required:
           type: boolean
       type: object
+    RightSidebarConfiguration:
+      example:
+        customLinks:
+          key:
+            title: title
+            url: url
+      properties:
+        customLinks:
+          additionalProperties:
+            $ref: "#/components/schemas/RightSidebarConfiguration.CustomLink"
+          type: object
+      type: object
+    RightSidebarConfiguration.CustomLink:
+      example:
+        title: title
+        url: url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+      type: object
     Role:
       example:
         isDefault: true
@@ -27937,8 +28008,8 @@ components:
         type: MAX_DURATION
         behavior: FAIL
         labels:
-        - FlowWithSource_allOf_labels
-        - FlowWithSource_allOf_labels
+        - SLA_labels
+        - SLA_labels
       properties:
         id:
           minLength: 1
@@ -27948,7 +28019,7 @@ components:
         behavior:
           $ref: "#/components/schemas/SLA.Behavior"
         labels:
-          $ref: "#/components/schemas/FlowWithSource_allOf_labels"
+          $ref: "#/components/schemas/SLA_labels"
       required:
       - behavior
       - id
@@ -28338,14 +28409,14 @@ components:
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           - id: id
             type: MAX_DURATION
             behavior: FAIL
             labels:
-            - FlowWithSource_allOf_labels
-            - FlowWithSource_allOf_labels
+            - SLA_labels
+            - SLA_labels
           afterExecution:
           - taskCache:
               ttl: ttl
@@ -28441,8 +28512,10 @@ components:
             type: type
           revision: 1
           labels:
-          - Flow_allOf_labels
-          - Flow_allOf_labels
+          - value: value
+            key: key
+          - value: value
+            key: key
           concurrency:
             limit: 1
             behavior: QUEUE
@@ -31028,13 +31101,6 @@ components:
           format: binary
           type: string
       type: object
-    AbstractFlow_labels:
-      oneOf:
-      - items:
-          description: TODO default missing array inner type to string
-          type: string
-        type: array
-      - $ref: "#/components/schemas/Map_Object.Object_"
     The_labels_to_pass_to_the_execution_created_:
       oneOf:
       - items:
@@ -31107,27 +31173,6 @@ components:
           format: int64
           type: integer
       type: object
-    Flow_allOf_labels:
-      oneOf:
-      - items:
-          description: TODO default missing array inner type to string
-          type: string
-        type: array
-      - $ref: "#/components/schemas/Map_Object.Object_"
-    FlowForExecution_allOf_labels:
-      oneOf:
-      - items:
-          description: TODO default missing array inner type to string
-          type: string
-        type: array
-      - $ref: "#/components/schemas/Map_Object.Object_"
-    FlowWithSource_allOf_labels:
-      oneOf:
-      - items:
-          description: TODO default missing array inner type to string
-          type: string
-        type: array
-      - $ref: "#/components/schemas/Map_Object.Object_"
     IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions:
       example:
         NAMESPACE:
@@ -31324,6 +31369,13 @@ components:
             type: string
           type: array
       type: object
+    SLA_labels:
+      oneOf:
+      - items:
+          description: TODO default missing array inner type to string
+          type: string
+        type: array
+      - $ref: "#/components/schemas/Map_Object.Object_"
   securitySchemes:
     basicAuth:
       scheme: basic

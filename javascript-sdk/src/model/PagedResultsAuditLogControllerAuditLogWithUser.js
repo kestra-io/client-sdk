@@ -17,7 +17,7 @@ import AuditLogControllerAuditLogWithUser from './AuditLogControllerAuditLogWith
 /**
  * The PagedResultsAuditLogControllerAuditLogWithUser model module.
  * @module model/PagedResultsAuditLogControllerAuditLogWithUser
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PagedResultsAuditLogControllerAuditLogWithUser {
     /**

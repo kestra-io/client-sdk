@@ -31,7 +31,7 @@ import Type from '../model/Type';
 /**
 * Plugins service.
 * @module api/PluginsApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class PluginsApi {
 

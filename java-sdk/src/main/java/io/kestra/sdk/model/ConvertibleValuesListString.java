@@ -34,7 +34,7 @@ import java.util.StringJoiner;
   ConvertibleValuesListString.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("ConvertibleValues_List_String__")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ConvertibleValuesListString {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @javax.annotation.Nonnull

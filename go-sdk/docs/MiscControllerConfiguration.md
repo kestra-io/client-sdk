@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
+**Edition** | Pointer to [**MiscControllerEdition**](MiscControllerEdition.md) |  | [optional] 
 **CommitId** | Pointer to **string** |  | [optional] 
 **CommitDate** | Pointer to **time.Time** |  | [optional] 
 **IsCustomDashboardsEnabled** | Pointer to **bool** |  | [optional] 
 **IsTaskRunEnabled** | Pointer to **bool** |  | [optional] 
 **IsAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
+**IsUiAnonymousUsageEnabled** | Pointer to **bool** |  | [optional] 
 **IsTemplateEnabled** | Pointer to **bool** |  | [optional] 
 **Environment** | Pointer to [**MiscControllerEnvironment**](MiscControllerEnvironment.md) |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
@@ -89,6 +91,31 @@ SetVersion sets Version field to given value.
 `func (o *MiscControllerConfiguration) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetEdition
+
+`func (o *MiscControllerConfiguration) GetEdition() MiscControllerEdition`
+
+GetEdition returns the Edition field if non-nil, zero value otherwise.
+
+### GetEditionOk
+
+`func (o *MiscControllerConfiguration) GetEditionOk() (*MiscControllerEdition, bool)`
+
+GetEditionOk returns a tuple with the Edition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEdition
+
+`func (o *MiscControllerConfiguration) SetEdition(v MiscControllerEdition)`
+
+SetEdition sets Edition field to given value.
+
+### HasEdition
+
+`func (o *MiscControllerConfiguration) HasEdition() bool`
+
+HasEdition returns a boolean if a field has been set.
 
 ### GetCommitId
 
@@ -214,6 +241,31 @@ SetIsAnonymousUsageEnabled sets IsAnonymousUsageEnabled field to given value.
 `func (o *MiscControllerConfiguration) HasIsAnonymousUsageEnabled() bool`
 
 HasIsAnonymousUsageEnabled returns a boolean if a field has been set.
+
+### GetIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerConfiguration) GetIsUiAnonymousUsageEnabled() bool`
+
+GetIsUiAnonymousUsageEnabled returns the IsUiAnonymousUsageEnabled field if non-nil, zero value otherwise.
+
+### GetIsUiAnonymousUsageEnabledOk
+
+`func (o *MiscControllerConfiguration) GetIsUiAnonymousUsageEnabledOk() (*bool, bool)`
+
+GetIsUiAnonymousUsageEnabledOk returns a tuple with the IsUiAnonymousUsageEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerConfiguration) SetIsUiAnonymousUsageEnabled(v bool)`
+
+SetIsUiAnonymousUsageEnabled sets IsUiAnonymousUsageEnabled field to given value.
+
+### HasIsUiAnonymousUsageEnabled
+
+`func (o *MiscControllerConfiguration) HasIsUiAnonymousUsageEnabled() bool`
+
+HasIsUiAnonymousUsageEnabled returns a boolean if a field has been set.
 
 ### GetIsTemplateEnabled
 

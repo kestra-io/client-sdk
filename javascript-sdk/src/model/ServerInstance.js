@@ -18,7 +18,7 @@ import ServerInstanceType from './ServerInstanceType';
 /**
  * The ServerInstance model module.
  * @module model/ServerInstance
- * @version v0.24.0
+ * @version v0.24.1
  */
 class ServerInstance {
     /**

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The NamespaceUsage model module.
  * @module model/NamespaceUsage
- * @version v0.24.0
+ * @version v0.24.1
  */
 class NamespaceUsage {
     /**

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.MiscControllerEdition;
 import io.kestra.sdk.model.MiscControllerEnvironment;
 import io.kestra.sdk.model.MiscControllerPreview;
 import io.kestra.sdk.model.QueryFilterResourceField;
@@ -39,11 +40,13 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   MiscControllerConfiguration.JSON_PROPERTY_UUID,
   MiscControllerConfiguration.JSON_PROPERTY_VERSION,
+  MiscControllerConfiguration.JSON_PROPERTY_EDITION,
   MiscControllerConfiguration.JSON_PROPERTY_COMMIT_ID,
   MiscControllerConfiguration.JSON_PROPERTY_COMMIT_DATE,
   MiscControllerConfiguration.JSON_PROPERTY_IS_CUSTOM_DASHBOARDS_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_IS_TASK_RUN_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED,
+  MiscControllerConfiguration.JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_IS_TEMPLATE_ENABLED,
   MiscControllerConfiguration.JSON_PROPERTY_ENVIRONMENT,
   MiscControllerConfiguration.JSON_PROPERTY_URL,
@@ -55,7 +58,7 @@ import java.util.StringJoiner;
   MiscControllerConfiguration.JSON_PROPERTY_IS_BASIC_AUTH_INITIALIZED
 })
 @JsonTypeName("MiscController.Configuration")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class MiscControllerConfiguration {
   public static final String JSON_PROPERTY_UUID = "uuid";
   @javax.annotation.Nullable
@@ -64,6 +67,10 @@ public class MiscControllerConfiguration {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable
   private String version;
+
+  public static final String JSON_PROPERTY_EDITION = "edition";
+  @javax.annotation.Nullable
+  private MiscControllerEdition edition;
 
   public static final String JSON_PROPERTY_COMMIT_ID = "commitId";
   @javax.annotation.Nullable
@@ -84,6 +91,10 @@ public class MiscControllerConfiguration {
   public static final String JSON_PROPERTY_IS_ANONYMOUS_USAGE_ENABLED = "isAnonymousUsageEnabled";
   @javax.annotation.Nullable
   private Boolean isAnonymousUsageEnabled;
+
+  public static final String JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED = "isUiAnonymousUsageEnabled";
+  @javax.annotation.Nullable
+  private Boolean isUiAnonymousUsageEnabled;
 
   public static final String JSON_PROPERTY_IS_TEMPLATE_ENABLED = "isTemplateEnabled";
   @javax.annotation.Nullable
@@ -172,6 +183,31 @@ public class MiscControllerConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
+  }
+
+  public MiscControllerConfiguration edition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    
+    this.edition = edition;
+    return this;
+  }
+
+  /**
+   * Get edition
+   * @return edition
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public MiscControllerEdition getEdition() {
+    return edition;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEdition(@javax.annotation.Nullable MiscControllerEdition edition) {
+    this.edition = edition;
   }
 
   public MiscControllerConfiguration commitId(@javax.annotation.Nullable String commitId) {
@@ -297,6 +333,31 @@ public class MiscControllerConfiguration {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isAnonymousUsageEnabled) {
     this.isAnonymousUsageEnabled = isAnonymousUsageEnabled;
+  }
+
+  public MiscControllerConfiguration isUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
+    return this;
+  }
+
+  /**
+   * Get isUiAnonymousUsageEnabled
+   * @return isUiAnonymousUsageEnabled
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsUiAnonymousUsageEnabled() {
+    return isUiAnonymousUsageEnabled;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_UI_ANONYMOUS_USAGE_ENABLED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsUiAnonymousUsageEnabled(@javax.annotation.Nullable Boolean isUiAnonymousUsageEnabled) {
+    this.isUiAnonymousUsageEnabled = isUiAnonymousUsageEnabled;
   }
 
   public MiscControllerConfiguration isTemplateEnabled(@javax.annotation.Nullable Boolean isTemplateEnabled) {
@@ -551,11 +612,13 @@ public class MiscControllerConfiguration {
     MiscControllerConfiguration miscControllerConfiguration = (MiscControllerConfiguration) o;
     return Objects.equals(this.uuid, miscControllerConfiguration.uuid) &&
         Objects.equals(this.version, miscControllerConfiguration.version) &&
+        Objects.equals(this.edition, miscControllerConfiguration.edition) &&
         Objects.equals(this.commitId, miscControllerConfiguration.commitId) &&
         Objects.equals(this.commitDate, miscControllerConfiguration.commitDate) &&
         Objects.equals(this.isCustomDashboardsEnabled, miscControllerConfiguration.isCustomDashboardsEnabled) &&
         Objects.equals(this.isTaskRunEnabled, miscControllerConfiguration.isTaskRunEnabled) &&
         Objects.equals(this.isAnonymousUsageEnabled, miscControllerConfiguration.isAnonymousUsageEnabled) &&
+        Objects.equals(this.isUiAnonymousUsageEnabled, miscControllerConfiguration.isUiAnonymousUsageEnabled) &&
         Objects.equals(this.isTemplateEnabled, miscControllerConfiguration.isTemplateEnabled) &&
         Objects.equals(this.environment, miscControllerConfiguration.environment) &&
         Objects.equals(this.url, miscControllerConfiguration.url) &&
@@ -569,7 +632,7 @@ public class MiscControllerConfiguration {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, version, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized);
+    return Objects.hash(uuid, version, edition, commitId, commitDate, isCustomDashboardsEnabled, isTaskRunEnabled, isAnonymousUsageEnabled, isUiAnonymousUsageEnabled, isTemplateEnabled, environment, url, preview, systemNamespace, hiddenLabelsPrefixes, resourceToFilters, isAiEnabled, isBasicAuthInitialized);
   }
 
   @Override
@@ -578,11 +641,13 @@ public class MiscControllerConfiguration {
     sb.append("class MiscControllerConfiguration {\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
     sb.append("    commitId: ").append(toIndentedString(commitId)).append("\n");
     sb.append("    commitDate: ").append(toIndentedString(commitDate)).append("\n");
     sb.append("    isCustomDashboardsEnabled: ").append(toIndentedString(isCustomDashboardsEnabled)).append("\n");
     sb.append("    isTaskRunEnabled: ").append(toIndentedString(isTaskRunEnabled)).append("\n");
     sb.append("    isAnonymousUsageEnabled: ").append(toIndentedString(isAnonymousUsageEnabled)).append("\n");
+    sb.append("    isUiAnonymousUsageEnabled: ").append(toIndentedString(isUiAnonymousUsageEnabled)).append("\n");
     sb.append("    isTemplateEnabled: ").append(toIndentedString(isTemplateEnabled)).append("\n");
     sb.append("    environment: ").append(toIndentedString(environment)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -659,6 +724,16 @@ public class MiscControllerConfiguration {
       }
     }
 
+    // add `edition` to the URL query string
+    if (getEdition() != null) {
+      try {
+        joiner.add(String.format("%sedition%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEdition()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
     // add `commitId` to the URL query string
     if (getCommitId() != null) {
       try {
@@ -703,6 +778,16 @@ public class MiscControllerConfiguration {
     if (getIsAnonymousUsageEnabled() != null) {
       try {
         joiner.add(String.format("%sisAnonymousUsageEnabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsAnonymousUsageEnabled()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `isUiAnonymousUsageEnabled` to the URL query string
+    if (getIsUiAnonymousUsageEnabled() != null) {
+      try {
+        joiner.add(String.format("%sisUiAnonymousUsageEnabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsUiAnonymousUsageEnabled()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

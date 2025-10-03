@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DependsOn model module.
  * @module model/DependsOn
- * @version v0.24.0
+ * @version v0.24.1
  */
 class DependsOn {
     /**

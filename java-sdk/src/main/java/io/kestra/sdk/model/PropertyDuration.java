@@ -34,7 +34,7 @@ import java.util.StringJoiner;
   PropertyDuration.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("Property_Duration_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class PropertyDuration {
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
   @javax.annotation.Nullable

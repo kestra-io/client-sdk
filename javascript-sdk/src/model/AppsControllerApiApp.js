@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiApp model module.
  * @module model/AppsControllerApiApp
- * @version v0.24.0
+ * @version v0.24.1
  */
 class AppsControllerApiApp {
     /**

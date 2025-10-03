@@ -15,7 +15,6 @@
 
 # import models into model package
 from kestrapy.models.abstract_flow import AbstractFlow
-from kestrapy.models.abstract_flow_labels import AbstractFlowLabels
 from kestrapy.models.abstract_graph import AbstractGraph
 from kestrapy.models.abstract_graph_branch_type import AbstractGraphBranchType
 from kestrapy.models.abstract_metric_entry_object import AbstractMetricEntryObject
@@ -90,7 +89,6 @@ from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.models.create_security_integration_request import CreateSecurityIntegrationRequest
 from kestrapy.models.crud_event_type import CrudEventType
-from kestrapy.models.custom_link import CustomLink
 from kestrapy.models.daily_execution_statistics import DailyExecutionStatistics
 from kestrapy.models.daily_execution_statistics_duration import DailyExecutionStatisticsDuration
 from kestrapy.models.daily_execution_statistics_execution_counts import DailyExecutionStatisticsExecutionCounts
@@ -129,10 +127,8 @@ from kestrapy.models.file_metas import FileMetas
 from kestrapy.models.filter import Filter
 from kestrapy.models.fixtures import Fixtures
 from kestrapy.models.flow import Flow
-from kestrapy.models.flow_all_of_labels import FlowAllOfLabels
 from kestrapy.models.flow_controller_task_validation_type import FlowControllerTaskValidationType
 from kestrapy.models.flow_for_execution import FlowForExecution
-from kestrapy.models.flow_for_execution_all_of_labels import FlowForExecutionAllOfLabels
 from kestrapy.models.flow_generation_prompt import FlowGenerationPrompt
 from kestrapy.models.flow_graph import FlowGraph
 from kestrapy.models.flow_graph_cluster import FlowGraphCluster
@@ -146,7 +142,6 @@ from kestrapy.models.flow_topology_graph import FlowTopologyGraph
 from kestrapy.models.flow_topology_graph_edge import FlowTopologyGraphEdge
 from kestrapy.models.flow_usage import FlowUsage
 from kestrapy.models.flow_with_source import FlowWithSource
-from kestrapy.models.flow_with_source_all_of_labels import FlowWithSourceAllOfLabels
 from kestrapy.models.group_identifier import GroupIdentifier
 from kestrapy.models.group_identifier_membership import GroupIdentifierMembership
 from kestrapy.models.group_usage import GroupUsage
@@ -223,6 +218,7 @@ from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.kv_type import KVType
 from kestrapy.models.label import Label
+from kestrapy.models.left_sidebar_configuration import LeftSidebarConfiguration
 from kestrapy.models.level import Level
 from kestrapy.models.listener import Listener
 from kestrapy.models.log_entry import LogEntry
@@ -241,6 +237,7 @@ from kestrapy.models.metric_tag import MetricTag
 from kestrapy.models.misc_controller_basic_auth_credentials import MiscControllerBasicAuthCredentials
 from kestrapy.models.misc_controller_configuration import MiscControllerConfiguration
 from kestrapy.models.misc_controller_ee_configuration import MiscControllerEEConfiguration
+from kestrapy.models.misc_controller_edition import MiscControllerEdition
 from kestrapy.models.misc_controller_environment import MiscControllerEnvironment
 from kestrapy.models.misc_controller_license_info import MiscControllerLicenseInfo
 from kestrapy.models.misc_controller_plugin_id_and_version import MiscControllerPluginIdAndVersion
@@ -317,10 +314,13 @@ from kestrapy.models.relation import Relation
 from kestrapy.models.relation_type import RelationType
 from kestrapy.models.resource_type import ResourceType
 from kestrapy.models.resource_type_schema_extension_configuration import ResourceTypeSchemaExtensionConfiguration
+from kestrapy.models.right_sidebar_configuration import RightSidebarConfiguration
+from kestrapy.models.right_sidebar_configuration_custom_link import RightSidebarConfigurationCustomLink
 from kestrapy.models.role import Role
 from kestrapy.models.role_usage import RoleUsage
 from kestrapy.models.sla import SLA
 from kestrapy.models.sla_behavior import SLABehavior
+from kestrapy.models.sla_labels import SLALabels
 from kestrapy.models.sla_type import SLAType
 from kestrapy.models.schema_attribute import SchemaAttribute
 from kestrapy.models.schema_attribute_mutability import SchemaAttributeMutability

@@ -20,7 +20,7 @@ import ServiceProviderConfiguration from '../model/ServiceProviderConfiguration'
 /**
 * SCIMConfiguration service.
 * @module api/SCIMConfigurationApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class SCIMConfigurationApi {
 

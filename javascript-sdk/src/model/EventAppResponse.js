@@ -17,7 +17,7 @@ import AppResponse from './AppResponse';
 /**
  * The EventAppResponse model module.
  * @module model/EventAppResponse
- * @version v0.24.0
+ * @version v0.24.1
  */
 class EventAppResponse {
     /**

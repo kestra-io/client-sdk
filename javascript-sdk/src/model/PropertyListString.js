@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PropertyListString model module.
  * @module model/PropertyListString
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PropertyListString {
     /**

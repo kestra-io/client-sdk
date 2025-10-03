@@ -17,7 +17,7 @@ import QueryFilterOperation from './QueryFilterOperation';
 /**
  * The QueryFilterFieldOp model module.
  * @module model/QueryFilterFieldOp
- * @version v0.24.0
+ * @version v0.24.1
  */
 class QueryFilterFieldOp {
     /**

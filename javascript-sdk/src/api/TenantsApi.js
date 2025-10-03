@@ -21,7 +21,7 @@ import Tenant from '../model/Tenant';
 /**
 * Tenants service.
 * @module api/TenantsApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class TenantsApi {
 

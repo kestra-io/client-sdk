@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The BlueprintControllerApiBlueprintTagItem model module.
  * @module model/BlueprintControllerApiBlueprintTagItem
- * @version v0.24.0
+ * @version v0.24.1
  */
 class BlueprintControllerApiBlueprintTagItem {
     /**

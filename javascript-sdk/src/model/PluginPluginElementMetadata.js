@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginPluginElementMetadata model module.
  * @module model/PluginPluginElementMetadata
- * @version v0.24.0
+ * @version v0.24.1
  */
 class PluginPluginElementMetadata {
     /**

@@ -17,7 +17,7 @@ import MetricTag from './MetricTag';
 /**
  * The Metric model module.
  * @module model/Metric
- * @version v0.24.0
+ * @version v0.24.1
  */
 class Metric {
     /**

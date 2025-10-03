@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**AbstractFlowLabels**](AbstractFlowLabels.md) |  | [optional] 
+**Labels** | Pointer to [**[]Label**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
 **Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
@@ -171,20 +171,20 @@ SetDisabled sets Disabled field to given value.
 
 ### GetLabels
 
-`func (o *AbstractFlow) GetLabels() AbstractFlowLabels`
+`func (o *AbstractFlow) GetLabels() []Label`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *AbstractFlow) GetLabelsOk() (*AbstractFlowLabels, bool)`
+`func (o *AbstractFlow) GetLabelsOk() (*[]Label, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *AbstractFlow) SetLabels(v AbstractFlowLabels)`
+`func (o *AbstractFlow) SetLabels(v []Label)`
 
 SetLabels sets Labels field to given value.
 

@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   ExecutionUsage.JSON_PROPERTY_DAILY_EXECUTIONS_COUNT,
   ExecutionUsage.JSON_PROPERTY_DAILY_TASK_RUNS_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class ExecutionUsage {
   public static final String JSON_PROPERTY_DAILY_EXECUTIONS_COUNT = "dailyExecutionsCount";
   @javax.annotation.Nullable

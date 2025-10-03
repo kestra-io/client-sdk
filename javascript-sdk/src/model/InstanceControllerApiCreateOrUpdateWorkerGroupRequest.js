@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiCreateOrUpdateWorkerGroupRequest model module.
  * @module model/InstanceControllerApiCreateOrUpdateWorkerGroupRequest
- * @version v0.24.0
+ * @version v0.24.1
  */
 class InstanceControllerApiCreateOrUpdateWorkerGroupRequest {
     /**

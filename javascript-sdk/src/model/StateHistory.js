@@ -17,7 +17,7 @@ import StateType from './StateType';
 /**
  * The StateHistory model module.
  * @module model/StateHistory
- * @version v0.24.0
+ * @version v0.24.1
  */
 class StateHistory {
     /**

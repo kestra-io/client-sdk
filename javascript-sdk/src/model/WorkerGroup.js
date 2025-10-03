@@ -17,7 +17,7 @@ import WorkerGroupFallback from './WorkerGroupFallback';
 /**
  * The WorkerGroup model module.
  * @module model/WorkerGroup
- * @version v0.24.0
+ * @version v0.24.1
  */
 class WorkerGroup {
     /**

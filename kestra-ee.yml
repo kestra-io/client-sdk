@@ -13945,9 +13945,13 @@ components:
         disabled:
           type: boolean
         labels:
+          type: array
+          description: Labels as a list of Label (key/value pairs) or as a map of
+            string to string.
           oneOf:
-            - type: array
             - $ref: "#/components/schemas/Map_Object.Object_"
+          items:
+            $ref: "#/components/schemas/Label"
         variables:
           type: object
           additionalProperties: true
@@ -14087,7 +14091,7 @@ components:
         username:
           type: string
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: "^$|^[a-zA-Z0-9_!#$%&â€™*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           type: string
         superAdmin:
           type: boolean
@@ -14970,15 +14974,6 @@ components:
         - IMPERSONATE
         - LOGIN_FAILURE
         - ACCOUNT_LOCKED
-    CustomLink:
-      type: object
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
     DailyExecutionStatistics:
       required:
         - duration
@@ -15534,9 +15529,13 @@ components:
             disabled:
               type: boolean
             labels:
+              type: array
+              description: Labels as a list of Label (key/value pairs) or as a map of
+                string to string.
               oneOf:
-                - type: array
                 - $ref: "#/components/schemas/Map_Object.Object_"
+              items:
+                $ref: "#/components/schemas/Label"
             workerGroup:
               $ref: "#/components/schemas/WorkerGroup"
             deleted:
@@ -15641,9 +15640,13 @@ components:
             disabled:
               type: boolean
             labels:
+              type: array
+              description: Labels as a list of Label (key/value pairs) or as a map of
+                string to string.
               oneOf:
-                - type: array
                 - $ref: "#/components/schemas/Map_Object.Object_"
+              items:
+                $ref: "#/components/schemas/Label"
             variables:
               type: object
               additionalProperties: true
@@ -15875,9 +15878,13 @@ components:
             disabled:
               type: boolean
             labels:
+              type: array
+              description: Labels as a list of Label (key/value pairs) or as a map of
+                string to string.
               oneOf:
-                - type: array
                 - $ref: "#/components/schemas/Map_Object.Object_"
+              items:
+                $ref: "#/components/schemas/Label"
             workerGroup:
               $ref: "#/components/schemas/WorkerGroup"
             deleted:
@@ -16846,7 +16853,7 @@ components:
         isExpired:
           type: boolean
         email:
-          pattern: "^$|^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
+          pattern: "^$|^[a-zA-Z0-9_!#$%&â€™*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
           type: string
         id:
           type: string
@@ -16948,9 +16955,20 @@ components:
       type: object
       properties:
         key:
+          minLength: 1
           type: string
         value:
+          minLength: 1
           type: string
+      description: A key/value pair that can be attached to a Flow or Execution. Labels
+        are often used to organize and categorize objects.
+    LeftSidebarConfiguration:
+      type: object
+      properties:
+        disabledMenus:
+          type: array
+          items:
+            type: string
     Level:
       type: string
       enum:
@@ -17204,6 +17222,8 @@ components:
           type: string
         version:
           type: string
+        edition:
+          $ref: "#/components/schemas/MiscController.Edition"
         commitId:
           type: string
         commitDate:
@@ -17214,6 +17234,8 @@ components:
         isTaskRunEnabled:
           type: boolean
         isAnonymousUsageEnabled:
+          type: boolean
+        isUiAnonymousUsageEnabled:
           type: boolean
         isTemplateEnabled:
           type: boolean
@@ -17265,14 +17287,19 @@ components:
               type: boolean
             outputsInInternalStorageEnabled:
               type: boolean
-            contextCustomLinks:
-              type: object
-              additionalProperties:
-                $ref: "#/components/schemas/CustomLink"
+            leftSidebar:
+              $ref: "#/components/schemas/LeftSidebarConfiguration"
+            rightSidebar:
+              $ref: "#/components/schemas/RightSidebarConfiguration"
             inMaintenance:
               type: boolean
             passwordRegexp:
               type: string
+    MiscController.Edition:
+      type: string
+      enum:
+        - OSS
+        - EE
     MiscController.Environment:
       type: object
       properties:
@@ -18273,6 +18300,20 @@ components:
           type: string
         required:
           type: boolean
+    RightSidebarConfiguration:
+      type: object
+      properties:
+        customLinks:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/RightSidebarConfiguration.CustomLink"
+    RightSidebarConfiguration.CustomLink:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
     Role:
       required:
         - deleted

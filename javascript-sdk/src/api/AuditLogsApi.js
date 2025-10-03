@@ -24,7 +24,7 @@ import Permission from '../model/Permission';
 /**
 * AuditLogs service.
 * @module api/AuditLogsApi
-* @version v0.24.0
+* @version v0.24.1
 */
 export default class AuditLogsApi {
 

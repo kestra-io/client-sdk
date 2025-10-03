@@ -40,7 +40,7 @@ import java.util.StringJoiner;
   IAMServiceAccountControllerApiServiceAccountRequest.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMServiceAccountController.ApiServiceAccountRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class IAMServiceAccountControllerApiServiceAccountRequest {
   public static final String JSON_PROPERTY_GROUPS = "groups";
   @javax.annotation.Nullable

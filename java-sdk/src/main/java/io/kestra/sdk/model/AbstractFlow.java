@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.AbstractFlowLabels;
 import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ import java.util.StringJoiner;
   AbstractFlow.JSON_PROPERTY_WORKER_GROUP,
   AbstractFlow.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-05T13:38:05.347663356Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-10-03T07:32:20.514591171Z[Etc/UTC]", comments = "Generator version: 7.14.0-SNAPSHOT")
 public class AbstractFlow {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -78,7 +78,7 @@ public class AbstractFlow {
 
   public static final String JSON_PROPERTY_LABELS = "labels";
   @javax.annotation.Nullable
-  private AbstractFlowLabels labels;
+  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @javax.annotation.Nullable
@@ -262,28 +262,36 @@ public class AbstractFlow {
     this.disabled = disabled;
   }
 
-  public AbstractFlow labels(@javax.annotation.Nullable AbstractFlowLabels labels) {
+  public AbstractFlow labels(@javax.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
   }
 
+  public AbstractFlow addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
+    return this;
+  }
+
   /**
-   * Get labels
+   * Labels as a list of Label (key/value pairs) or as a map of string to string.
    * @return labels
    */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AbstractFlowLabels getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
   @JsonProperty(JSON_PROPERTY_LABELS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable AbstractFlowLabels labels) {
+  public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
@@ -519,7 +527,12 @@ public class AbstractFlow {
 
     // add `labels` to the URL query string
     if (getLabels() != null) {
-      joiner.add(getLabels().toUrlQueryString(prefix + "labels" + suffix));
+      for (int i = 0; i < getLabels().size(); i++) {
+        if (getLabels().get(i) != null) {
+          joiner.add(getLabels().get(i).toUrlQueryString(String.format("%slabels%s%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
     }
 
     // add `variables` to the URL query string

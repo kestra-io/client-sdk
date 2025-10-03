@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The NamespaceAllowedTrigger model module.
  * @module model/NamespaceAllowedTrigger
- * @version v0.24.0
+ * @version v0.24.1
  */
 class NamespaceAllowedTrigger {
     /**
