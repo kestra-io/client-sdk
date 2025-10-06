@@ -22,12 +22,10 @@ class ExecutionMetadata {
     /**
      * Constructs a new <code>ExecutionMetadata</code>.
      * @alias module:model/ExecutionMetadata
-     * @param attemptNumber {Number} 
-     * @param originalCreatedDate {Date} 
      */
-    constructor(attemptNumber, originalCreatedDate) { 
+    constructor() { 
         
-        ExecutionMetadata.initialize(this, attemptNumber, originalCreatedDate);
+        ExecutionMetadata.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class ExecutionMetadata {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attemptNumber, originalCreatedDate) { 
-        obj['attemptNumber'] = attemptNumber;
-        obj['originalCreatedDate'] = originalCreatedDate;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class ExecutionMetadata {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionMetadata</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ExecutionMetadata.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
 
         return true;
     }
@@ -80,7 +70,7 @@ class ExecutionMetadata {
 
 }
 
-ExecutionMetadata.RequiredProperties = ["attemptNumber", "originalCreatedDate"];
+
 
 /**
  * @member {Number} attemptNumber

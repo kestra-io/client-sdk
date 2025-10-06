@@ -16,8 +16,8 @@ import AbstractFlow from './AbstractFlow';
 import AbstractTrigger from './AbstractTrigger';
 import Concurrency from './Concurrency';
 import Flow from './Flow';
-import FlowWithSourceAllOfLabels from './FlowWithSourceAllOfLabels';
 import InputObject from './InputObject';
+import Label from './Label';
 import Listener from './Listener';
 import Output from './Output';
 import PluginDefault from './PluginDefault';
@@ -95,7 +95,7 @@ class FlowWithSource {
                 obj['disabled'] = ApiClient.convertToType(data['disabled'], 'Boolean');
             }
             if (data.hasOwnProperty('labels')) {
-                obj['labels'] = FlowWithSourceAllOfLabels.constructFromObject(data['labels']);
+                obj['labels'] = ApiClient.convertToType(data['labels'], [Label]);
             }
             if (data.hasOwnProperty('variables')) {
                 obj['variables'] = ApiClient.convertToType(data['variables'], {'String': Object});
@@ -187,9 +187,15 @@ class FlowWithSource {
                 Output.validateJSON(item);
             };
         }
-        // validate the optional field `labels`
         if (data['labels']) { // data not null
-          FlowWithSourceAllOfLabels.validateJSON(data['labels']);
+            // ensure the json data is an array
+            if (!Array.isArray(data['labels'])) {
+                throw new Error("Expected the field `labels` to be an array in the JSON data but got " + data['labels']);
+            }
+            // validate the optional field `labels` (array)
+            for (const item of data['labels']) {
+                Label.validateJSON(item);
+            };
         }
         // validate the optional field `workerGroup`
         if (data['workerGroup']) { // data not null
@@ -335,7 +341,8 @@ FlowWithSource.prototype['outputs'] = undefined;
 FlowWithSource.prototype['disabled'] = undefined;
 
 /**
- * @member {module:model/FlowWithSourceAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 FlowWithSource.prototype['labels'] = undefined;
 
@@ -441,7 +448,8 @@ Flow.prototype['outputs'] = undefined;
  */
 Flow.prototype['disabled'] = undefined;
 /**
- * @member {module:model/FlowAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 Flow.prototype['labels'] = undefined;
 /**
@@ -530,7 +538,8 @@ AbstractFlow.prototype['outputs'] = undefined;
  */
 AbstractFlow.prototype['disabled'] = undefined;
 /**
- * @member {module:model/AbstractFlowLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 AbstractFlow.prototype['labels'] = undefined;
 /**

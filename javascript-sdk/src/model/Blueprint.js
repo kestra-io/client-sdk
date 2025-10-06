@@ -22,17 +22,12 @@ class Blueprint {
     /**
      * Constructs a new <code>Blueprint</code>.
      * @alias module:model/Blueprint
-     * @param id {String} 
      * @param title {String} 
-     * @param description {String} 
-     * @param tags {Array.<String>} 
-     * @param includedTasks {Array.<String>} 
-     * @param publishedAt {Date} 
      * @param deleted {Boolean} 
      */
-    constructor(id, title, description, tags, includedTasks, publishedAt, deleted) { 
+    constructor(title, deleted) { 
         
-        Blueprint.initialize(this, id, title, description, tags, includedTasks, publishedAt, deleted);
+        Blueprint.initialize(this, title, deleted);
     }
 
     /**
@@ -40,13 +35,8 @@ class Blueprint {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, title, description, tags, includedTasks, publishedAt, deleted) { 
-        obj['id'] = id;
+    static initialize(obj, title, deleted) { 
         obj['title'] = title;
-        obj['description'] = description;
-        obj['tags'] = tags;
-        obj['includedTasks'] = includedTasks;
-        obj['publishedAt'] = publishedAt;
         obj['deleted'] = deleted;
     }
 
@@ -125,7 +115,7 @@ class Blueprint {
 
 }
 
-Blueprint.RequiredProperties = ["id", "title", "description", "tags", "includedTasks", "publishedAt", "deleted"];
+Blueprint.RequiredProperties = ["title", "deleted"];
 
 /**
  * @member {String} id

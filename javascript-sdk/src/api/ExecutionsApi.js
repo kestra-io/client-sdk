@@ -35,7 +35,6 @@ import FlowGraph from '../model/FlowGraph';
 import FlowScope from '../model/FlowScope';
 import Label from '../model/Label';
 import PagedResultsExecution from '../model/PagedResultsExecution';
-import PagedResultsTaskRun from '../model/PagedResultsTaskRun';
 import QueryFilter from '../model/QueryFilter';
 import StateType from '../model/StateType';
 
@@ -964,7 +963,7 @@ export default class ExecutionsApi {
 
     /**
      * Get flow information's for an execution
-     * @param {String} executionId The execution that you want flow information's
+     * @param {String} executionId The execution that you want flow informations
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~getFlowFromExecutionByIdCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/FlowForExecution}
@@ -2308,86 +2307,6 @@ export default class ExecutionsApi {
       let returnType = PagedResultsExecution;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the searchTaskRun operation.
-     * @callback module:api/ExecutionsApi~searchTaskRunCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsTaskRun} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Search for taskruns, only available with the Elasticsearch repository
-     * @param {Number} page The current page
-     * @param {Number} size The current page size
-     * @param {String} tenant 
-     * @param {Object} opts Optional parameters
-     * @param {Array.<String>} [sort] The sort of current page
-     * @param {Array.<module:model/QueryFilter>} [filters] Filters
-     * @param {String} [q] A string filter
-     * @param {String} [namespace] A namespace filter prefix
-     * @param {String} [flowId] A flow id filter
-     * @param {Date} [startDate] The start datetime
-     * @param {Date} [endDate] The end datetime
-     * @param {String} [timeRange] A time range filter relative to the current time
-     * @param {Array.<module:model/StateType>} [state] A state filter
-     * @param {Array.<String>} [labels] A labels filter as a list of 'key:value'
-     * @param {String} [triggerExecutionId] The trigger execution id
-     * @param {module:model/ExecutionRepositoryInterfaceChildFilter} [childFilter] A execution child filter
-     * @param {module:api/ExecutionsApi~searchTaskRunCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsTaskRun}
-     */
-    searchTaskRun(page, size, tenant, opts, callback) {
-      opts = opts || {};
-      let postBody = null;
-      // verify the required parameter 'page' is set
-      if (page === undefined || page === null) {
-        throw new Error("Missing the required parameter 'page' when calling searchTaskRun");
-      }
-      // verify the required parameter 'size' is set
-      if (size === undefined || size === null) {
-        throw new Error("Missing the required parameter 'size' when calling searchTaskRun");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling searchTaskRun");
-      }
-
-      let pathParams = {
-        'tenant': tenant
-      };
-      let queryParams = {
-        'page': page,
-        'size': size,
-        'sort': this.apiClient.buildCollectionParam(opts['sort'], 'csv'),
-        'filters': this.apiClient.buildCollectionParam(opts['filters'], 'csv'),
-        'q': opts['q'],
-        'namespace': opts['namespace'],
-        'flowId': opts['flowId'],
-        'startDate': opts['startDate'],
-        'endDate': opts['endDate'],
-        'timeRange': opts['timeRange'],
-        'state': this.apiClient.buildCollectionParam(opts['state'], 'csv'),
-        'labels': this.apiClient.buildCollectionParam(opts['labels'], 'multi'),
-        'triggerExecutionId': opts['triggerExecutionId'],
-        'childFilter': opts['childFilter']
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = PagedResultsTaskRun;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/taskruns/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

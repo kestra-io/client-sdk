@@ -329,6 +329,42 @@ export default class MiscApi {
     }
 
     /**
+     * Callback function to receive the result of the mainTenantFlows operation.
+     * @callback module:api/MiscApi~mainTenantFlowsCallback
+     * @param {String} error Error message, if any.
+     * @param {Boolean} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Check if flows are present on the main tenant.
+     * @param {module:api/MiscApi~mainTenantFlowsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Boolean}
+     */
+    mainTenantFlows(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'Boolean';
+      return this.apiClient.callApi(
+        '/api/v1/main-tenant-flows', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
      * Callback function to receive the result of the setupConfiguration operation.
      * @callback module:api/MiscApi~setupConfigurationCallback
      * @param {String} error Error message, if any.

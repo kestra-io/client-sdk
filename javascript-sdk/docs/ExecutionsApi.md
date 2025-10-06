@@ -43,7 +43,6 @@ Method | HTTP request | Description
 [**resumeExecutionsByQuery**](ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 [**searchExecutions**](ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 [**searchExecutionsByFlowId**](ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-[**searchTaskRun**](ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 [**setLabelsOnTerminatedExecution**](ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 [**setLabelsOnTerminatedExecutionsByIds**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 [**setLabelsOnTerminatedExecutionsByQuery**](ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
@@ -988,7 +987,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution that you want flow information's
+let executionId = "executionId_example"; // String | The execution that you want flow informations
 let tenant = "tenant_example"; // String | 
 apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response) => {
   if (error) {
@@ -1004,7 +1003,7 @@ apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution that you want flow information&#39;s | 
+ **executionId** | **String**| The execution that you want flow informations | 
  **tenant** | **String**|  | 
 
 ### Return type
@@ -2421,87 +2420,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PagedResultsExecution**](PagedResultsExecution.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## searchTaskRun
-
-> PagedResultsTaskRun searchTaskRun(page, size, tenant, opts)
-
-Search for taskruns, only available with the Elasticsearch repository
-
-### Example
-
-```javascript
-import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
-let defaultClient = KestraIoKestraSdk.ApiClient.instance;
-// Configure HTTP basic authorization: basicAuth
-let basicAuth = defaultClient.authentications['basicAuth'];
-basicAuth.username = 'YOUR USERNAME';
-basicAuth.password = 'YOUR PASSWORD';
-// Configure Bearer (Bearer) access token for authorization: bearerAuth
-let bearerAuth = defaultClient.authentications['bearerAuth'];
-bearerAuth.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let page = 1; // Number | The current page
-let size = 10; // Number | The current page size
-let tenant = "tenant_example"; // String | 
-let opts = {
-  'sort': ["null"], // [String] | The sort of current page
-  'filters': [new KestraIoKestraSdk.QueryFilter()], // [QueryFilter] | Filters
-  'q': "q_example", // String | A string filter
-  'namespace': "namespace_example", // String | A namespace filter prefix
-  'flowId': "flowId_example", // String | A flow id filter
-  'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
-  'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
-  'timeRange': "PT5M", // String | A time range filter relative to the current time
-  'state': [new KestraIoKestraSdk.StateType()], // [StateType] | A state filter
-  'labels': ["null"], // [String] | A labels filter as a list of 'key:value'
-  'triggerExecutionId': "triggerExecutionId_example", // String | The trigger execution id
-  'childFilter': new KestraIoKestraSdk.ExecutionRepositoryInterfaceChildFilter() // ExecutionRepositoryInterfaceChildFilter | A execution child filter
-};
-apiInstance.searchTaskRun(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **Number**| The current page | [default to 1]
- **size** | **Number**| The current page size | [default to 10]
- **tenant** | **String**|  | 
- **sort** | [**[String]**](String.md)| The sort of current page | [optional] 
- **filters** | [**[QueryFilter]**](QueryFilter.md)| Filters | [optional] 
- **q** | **String**| A string filter | [optional] 
- **namespace** | **String**| A namespace filter prefix | [optional] 
- **flowId** | **String**| A flow id filter | [optional] 
- **startDate** | **Date**| The start datetime | [optional] 
- **endDate** | **Date**| The end datetime | [optional] 
- **timeRange** | **String**| A time range filter relative to the current time | [optional] 
- **state** | [**[StateType]**](StateType.md)| A state filter | [optional] 
- **labels** | [**[String]**](String.md)| A labels filter as a list of &#39;key:value&#39; | [optional] 
- **triggerExecutionId** | **String**| The trigger execution id | [optional] 
- **childFilter** | [**ExecutionRepositoryInterfaceChildFilter**](.md)| A execution child filter | [optional] 
-
-### Return type
-
-[**PagedResultsTaskRun**](PagedResultsTaskRun.md)
 
 ### Authorization
 

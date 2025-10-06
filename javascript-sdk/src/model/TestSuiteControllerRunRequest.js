@@ -22,11 +22,10 @@ class TestSuiteControllerRunRequest {
     /**
      * Constructs a new <code>TestSuiteControllerRunRequest</code>.
      * @alias module:model/TestSuiteControllerRunRequest
-     * @param testCases {Array.<String>} 
      */
-    constructor(testCases) { 
+    constructor() { 
         
-        TestSuiteControllerRunRequest.initialize(this, testCases);
+        TestSuiteControllerRunRequest.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class TestSuiteControllerRunRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, testCases) { 
-        obj['testCases'] = testCases;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class TestSuiteControllerRunRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TestSuiteControllerRunRequest</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of TestSuiteControllerRunRequest.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['testCases'])) {
             throw new Error("Expected the field `testCases` to be an array in the JSON data but got " + data['testCases']);
@@ -79,7 +71,7 @@ class TestSuiteControllerRunRequest {
 
 }
 
-TestSuiteControllerRunRequest.RequiredProperties = ["testCases"];
+
 
 /**
  * @member {Array.<String>} testCases

@@ -22,11 +22,10 @@ class IAMUserGroupControllerApiUpdateUserGroupsRequest {
     /**
      * Constructs a new <code>IAMUserGroupControllerApiUpdateUserGroupsRequest</code>.
      * @alias module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest
-     * @param groupIds {Array.<String>} 
      */
-    constructor(groupIds) { 
+    constructor() { 
         
-        IAMUserGroupControllerApiUpdateUserGroupsRequest.initialize(this, groupIds);
+        IAMUserGroupControllerApiUpdateUserGroupsRequest.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class IAMUserGroupControllerApiUpdateUserGroupsRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, groupIds) { 
-        obj['groupIds'] = groupIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class IAMUserGroupControllerApiUpdateUserGroupsRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMUserGroupControllerApiUpdateUserGroupsRequest</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMUserGroupControllerApiUpdateUserGroupsRequest.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['groupIds'])) {
             throw new Error("Expected the field `groupIds` to be an array in the JSON data but got " + data['groupIds']);
@@ -79,7 +71,7 @@ class IAMUserGroupControllerApiUpdateUserGroupsRequest {
 
 }
 
-IAMUserGroupControllerApiUpdateUserGroupsRequest.RequiredProperties = ["groupIds"];
+
 
 /**
  * @member {Array.<String>} groupIds

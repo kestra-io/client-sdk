@@ -24,12 +24,10 @@ class ExecutionTrigger {
      * @alias module:model/ExecutionTrigger
      * @param id {String} 
      * @param type {String} 
-     * @param variables {Object.<String, Object>} 
-     * @param logFile {String} 
      */
-    constructor(id, type, variables, logFile) { 
+    constructor(id, type) { 
         
-        ExecutionTrigger.initialize(this, id, type, variables, logFile);
+        ExecutionTrigger.initialize(this, id, type);
     }
 
     /**
@@ -37,11 +35,9 @@ class ExecutionTrigger {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, variables, logFile) { 
+    static initialize(obj, id, type) { 
         obj['id'] = id;
         obj['type'] = type;
-        obj['variables'] = variables;
-        obj['logFile'] = logFile;
     }
 
     /**
@@ -102,7 +98,7 @@ class ExecutionTrigger {
 
 }
 
-ExecutionTrigger.RequiredProperties = ["id", "type", "variables", "logFile"];
+ExecutionTrigger.RequiredProperties = ["id", "type"];
 
 /**
  * @member {String} id

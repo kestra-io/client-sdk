@@ -237,7 +237,6 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.ExecutionsApi* | [**resumeExecutionsByQuery**](docs/ExecutionsApi.md#resumeExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/resume/by-query | Resume executions filter by query parameters
 *KestraIoKestraSdk.ExecutionsApi* | [**searchExecutions**](docs/ExecutionsApi.md#searchExecutions) | **GET** /api/v1/{tenant}/executions/search | Search for executions
 *KestraIoKestraSdk.ExecutionsApi* | [**searchExecutionsByFlowId**](docs/ExecutionsApi.md#searchExecutionsByFlowId) | **GET** /api/v1/{tenant}/executions | Search for executions for a flow
-*KestraIoKestraSdk.ExecutionsApi* | [**searchTaskRun**](docs/ExecutionsApi.md#searchTaskRun) | **GET** /api/v1/{tenant}/taskruns/search | Search for taskruns, only available with the Elasticsearch repository
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecution**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecution) | **POST** /api/v1/{tenant}/executions/{executionId}/labels | Add or update labels of a terminated execution
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByIds**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByIds) | **POST** /api/v1/{tenant}/executions/labels/by-ids | Set labels on a list of executions
 *KestraIoKestraSdk.ExecutionsApi* | [**setLabelsOnTerminatedExecutionsByQuery**](docs/ExecutionsApi.md#setLabelsOnTerminatedExecutionsByQuery) | **POST** /api/v1/{tenant}/executions/labels/by-query | Set label on executions filter by query parameters
@@ -337,6 +336,7 @@ Class | Method | HTTP request | Description
 *KestraIoKestraSdk.MiscApi* | [**licenseInfo**](docs/MiscApi.md#licenseInfo) | **GET** /api/v1/license-info | Retrieve license information
 *KestraIoKestraSdk.MiscApi* | [**listActions**](docs/MiscApi.md#listActions) | **GET** /api/v1/{tenant}/acls/actions | Retrieve list of actions
 *KestraIoKestraSdk.MiscApi* | [**listPermissions**](docs/MiscApi.md#listPermissions) | **GET** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
+*KestraIoKestraSdk.MiscApi* | [**mainTenantFlows**](docs/MiscApi.md#mainTenantFlows) | **GET** /api/v1/main-tenant-flows | Check if flows are present on the main tenant.
 *KestraIoKestraSdk.MiscApi* | [**setupConfiguration**](docs/MiscApi.md#setupConfiguration) | **GET** /api/v1/setup | Retrieve current setup configuration
 *KestraIoKestraSdk.MiscApi* | [**setupKestra**](docs/MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
 *KestraIoKestraSdk.MiscApi* | [**tenantUsage**](docs/MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
@@ -497,7 +497,6 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [KestraIoKestraSdk.AbstractFlow](docs/AbstractFlow.md)
- - [KestraIoKestraSdk.AbstractFlowLabels](docs/AbstractFlowLabels.md)
  - [KestraIoKestraSdk.AbstractGraph](docs/AbstractGraph.md)
  - [KestraIoKestraSdk.AbstractGraphBranchType](docs/AbstractGraphBranchType.md)
  - [KestraIoKestraSdk.AbstractMetricEntryObject](docs/AbstractMetricEntryObject.md)
@@ -612,10 +611,8 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.Filter](docs/Filter.md)
  - [KestraIoKestraSdk.Fixtures](docs/Fixtures.md)
  - [KestraIoKestraSdk.Flow](docs/Flow.md)
- - [KestraIoKestraSdk.FlowAllOfLabels](docs/FlowAllOfLabels.md)
  - [KestraIoKestraSdk.FlowControllerTaskValidationType](docs/FlowControllerTaskValidationType.md)
  - [KestraIoKestraSdk.FlowForExecution](docs/FlowForExecution.md)
- - [KestraIoKestraSdk.FlowForExecutionAllOfLabels](docs/FlowForExecutionAllOfLabels.md)
  - [KestraIoKestraSdk.FlowGenerationPrompt](docs/FlowGenerationPrompt.md)
  - [KestraIoKestraSdk.FlowGraph](docs/FlowGraph.md)
  - [KestraIoKestraSdk.FlowGraphCluster](docs/FlowGraphCluster.md)
@@ -629,7 +626,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.FlowTopologyGraphEdge](docs/FlowTopologyGraphEdge.md)
  - [KestraIoKestraSdk.FlowUsage](docs/FlowUsage.md)
  - [KestraIoKestraSdk.FlowWithSource](docs/FlowWithSource.md)
- - [KestraIoKestraSdk.FlowWithSourceAllOfLabels](docs/FlowWithSourceAllOfLabels.md)
  - [KestraIoKestraSdk.GroupIdentifier](docs/GroupIdentifier.md)
  - [KestraIoKestraSdk.GroupIdentifierMembership](docs/GroupIdentifierMembership.md)
  - [KestraIoKestraSdk.GroupUsage](docs/GroupUsage.md)
@@ -758,7 +754,6 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.PagedResultsMetricEntry](docs/PagedResultsMetricEntry.md)
  - [KestraIoKestraSdk.PagedResultsNamespace](docs/PagedResultsNamespace.md)
  - [KestraIoKestraSdk.PagedResultsSearchResultFlow](docs/PagedResultsSearchResultFlow.md)
- - [KestraIoKestraSdk.PagedResultsTaskRun](docs/PagedResultsTaskRun.md)
  - [KestraIoKestraSdk.PagedResultsTenant](docs/PagedResultsTenant.md)
  - [KestraIoKestraSdk.PagedResultsTestSuite](docs/PagedResultsTestSuite.md)
  - [KestraIoKestraSdk.PagedResultsTestSuiteRunResult](docs/PagedResultsTestSuiteRunResult.md)
@@ -787,10 +782,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.PropertyString](docs/PropertyString.md)
  - [KestraIoKestraSdk.QueryFilter](docs/QueryFilter.md)
  - [KestraIoKestraSdk.QueryFilterField](docs/QueryFilterField.md)
- - [KestraIoKestraSdk.QueryFilterFieldOp](docs/QueryFilterFieldOp.md)
  - [KestraIoKestraSdk.QueryFilterOp](docs/QueryFilterOp.md)
- - [KestraIoKestraSdk.QueryFilterOperation](docs/QueryFilterOperation.md)
- - [KestraIoKestraSdk.QueryFilterResourceField](docs/QueryFilterResourceField.md)
  - [KestraIoKestraSdk.RBACServiceRoleAssignmentRoleOrigin](docs/RBACServiceRoleAssignmentRoleOrigin.md)
  - [KestraIoKestraSdk.Relation](docs/Relation.md)
  - [KestraIoKestraSdk.RelationType](docs/RelationType.md)
@@ -803,6 +795,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.RoleUsage](docs/RoleUsage.md)
  - [KestraIoKestraSdk.SLA](docs/SLA.md)
  - [KestraIoKestraSdk.SLABehavior](docs/SLABehavior.md)
+ - [KestraIoKestraSdk.SLALabels](docs/SLALabels.md)
  - [KestraIoKestraSdk.SLAType](docs/SLAType.md)
  - [KestraIoKestraSdk.Schema](docs/Schema.md)
  - [KestraIoKestraSdk.SchemaAttribute](docs/SchemaAttribute.md)

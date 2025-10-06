@@ -22,11 +22,10 @@ class ApiIds {
     /**
      * Constructs a new <code>ApiIds</code>.
      * @alias module:model/ApiIds
-     * @param ids {Array.<String>} 
      */
-    constructor(ids) { 
+    constructor() { 
         
-        ApiIds.initialize(this, ids);
+        ApiIds.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class ApiIds {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, ids) { 
-        obj['ids'] = ids;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class ApiIds {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ApiIds</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ApiIds.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['ids'])) {
             throw new Error("Expected the field `ids` to be an array in the JSON data but got " + data['ids']);
@@ -79,7 +71,7 @@ class ApiIds {
 
 }
 
-ApiIds.RequiredProperties = ["ids"];
+
 
 /**
  * @member {Array.<String>} ids

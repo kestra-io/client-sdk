@@ -23,15 +23,10 @@ class ExecutionStatusEvent {
     /**
      * Constructs a new <code>ExecutionStatusEvent</code>.
      * @alias module:model/ExecutionStatusEvent
-     * @param executionId {String} 
-     * @param tenantId {String} 
-     * @param namespace {String} 
-     * @param flowId {String} 
-     * @param state {module:model/State} 
      */
-    constructor(executionId, tenantId, namespace, flowId, state) { 
+    constructor() { 
         
-        ExecutionStatusEvent.initialize(this, executionId, tenantId, namespace, flowId, state);
+        ExecutionStatusEvent.initialize(this);
     }
 
     /**
@@ -39,12 +34,7 @@ class ExecutionStatusEvent {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, executionId, tenantId, namespace, flowId, state) { 
-        obj['executionId'] = executionId;
-        obj['tenantId'] = tenantId;
-        obj['namespace'] = namespace;
-        obj['flowId'] = flowId;
-        obj['state'] = state;
+    static initialize(obj) { 
     }
 
     /**
@@ -83,12 +73,6 @@ class ExecutionStatusEvent {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionStatusEvent</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ExecutionStatusEvent.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['executionId'] && !(typeof data['executionId'] === 'string' || data['executionId'] instanceof String)) {
             throw new Error("Expected the field `executionId` to be a primitive type in the JSON string but got " + data['executionId']);
@@ -116,7 +100,7 @@ class ExecutionStatusEvent {
 
 }
 
-ExecutionStatusEvent.RequiredProperties = ["executionId", "tenantId", "namespace", "flowId", "state"];
+
 
 /**
  * @member {String} executionId

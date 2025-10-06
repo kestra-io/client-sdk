@@ -22,19 +22,10 @@ class AppsControllerApiApp {
     /**
      * Constructs a new <code>AppsControllerApiApp</code>.
      * @alias module:model/AppsControllerApiApp
-     * @param uid {String} 
-     * @param id {String} 
-     * @param name {String} 
-     * @param type {String} 
-     * @param namespace {String} 
-     * @param tags {Array.<String>} 
-     * @param enabled {Boolean} 
-     * @param created {Date} 
-     * @param updated {Date} 
      */
-    constructor(uid, id, name, type, namespace, tags, enabled, created, updated) { 
+    constructor() { 
         
-        AppsControllerApiApp.initialize(this, uid, id, name, type, namespace, tags, enabled, created, updated);
+        AppsControllerApiApp.initialize(this);
     }
 
     /**
@@ -42,16 +33,7 @@ class AppsControllerApiApp {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uid, id, name, type, namespace, tags, enabled, created, updated) { 
-        obj['uid'] = uid;
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['type'] = type;
-        obj['namespace'] = namespace;
-        obj['tags'] = tags;
-        obj['enabled'] = enabled;
-        obj['created'] = created;
-        obj['updated'] = updated;
+    static initialize(obj) { 
     }
 
     /**
@@ -80,6 +62,9 @@ class AppsControllerApiApp {
             if (data.hasOwnProperty('namespace')) {
                 obj['namespace'] = ApiClient.convertToType(data['namespace'], 'String');
             }
+            if (data.hasOwnProperty('flowId')) {
+                obj['flowId'] = ApiClient.convertToType(data['flowId'], 'String');
+            }
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
             }
@@ -102,12 +87,6 @@ class AppsControllerApiApp {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiApp</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppsControllerApiApp.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['uid'] && !(typeof data['uid'] === 'string' || data['uid'] instanceof String)) {
             throw new Error("Expected the field `uid` to be a primitive type in the JSON string but got " + data['uid']);
@@ -128,6 +107,10 @@ class AppsControllerApiApp {
         if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
             throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
         }
+        // ensure the json data is a string
+        if (data['flowId'] && !(typeof data['flowId'] === 'string' || data['flowId'] instanceof String)) {
+            throw new Error("Expected the field `flowId` to be a primitive type in the JSON string but got " + data['flowId']);
+        }
         // ensure the json data is an array
         if (!Array.isArray(data['tags'])) {
             throw new Error("Expected the field `tags` to be an array in the JSON data but got " + data['tags']);
@@ -139,7 +122,7 @@ class AppsControllerApiApp {
 
 }
 
-AppsControllerApiApp.RequiredProperties = ["uid", "id", "name", "type", "namespace", "tags", "enabled", "created", "updated"];
+
 
 /**
  * @member {String} uid
@@ -165,6 +148,11 @@ AppsControllerApiApp.prototype['type'] = undefined;
  * @member {String} namespace
  */
 AppsControllerApiApp.prototype['namespace'] = undefined;
+
+/**
+ * @member {String} flowId
+ */
+AppsControllerApiApp.prototype['flowId'] = undefined;
 
 /**
  * @member {Array.<String>} tags

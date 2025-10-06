@@ -23,15 +23,11 @@ class IAMInvitationControllerApiInvitationCreateRequest {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationCreateRequest</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationCreateRequest
-     * @param createUserIfNotExist {Boolean} 
-     * @param superAdmin {Boolean} 
-     * @param roles {Array.<module:model/IAMInvitationControllerApiInvitationRole>} 
-     * @param groups {Array.<String>} 
      * @param email {String} 
      */
-    constructor(createUserIfNotExist, superAdmin, roles, groups, email) { 
+    constructor(email) { 
         
-        IAMInvitationControllerApiInvitationCreateRequest.initialize(this, createUserIfNotExist, superAdmin, roles, groups, email);
+        IAMInvitationControllerApiInvitationCreateRequest.initialize(this, email);
     }
 
     /**
@@ -39,11 +35,7 @@ class IAMInvitationControllerApiInvitationCreateRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, createUserIfNotExist, superAdmin, roles, groups, email) { 
-        obj['createUserIfNotExist'] = createUserIfNotExist;
-        obj['superAdmin'] = superAdmin;
-        obj['roles'] = roles;
-        obj['groups'] = groups;
+    static initialize(obj, email) { 
         obj['email'] = email;
     }
 
@@ -114,7 +106,7 @@ class IAMInvitationControllerApiInvitationCreateRequest {
 
 }
 
-IAMInvitationControllerApiInvitationCreateRequest.RequiredProperties = ["createUserIfNotExist", "superAdmin", "roles", "groups", "email"];
+IAMInvitationControllerApiInvitationCreateRequest.RequiredProperties = ["email"];
 
 /**
  * @member {Boolean} createUserIfNotExist

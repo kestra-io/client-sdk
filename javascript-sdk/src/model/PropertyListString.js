@@ -22,11 +22,10 @@ class PropertyListString {
     /**
      * Constructs a new <code>PropertyListString</code>.
      * @alias module:model/PropertyListString
-     * @param expression {String} 
      */
-    constructor(expression) { 
+    constructor() { 
         
-        PropertyListString.initialize(this, expression);
+        PropertyListString.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class PropertyListString {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, expression) { 
-        obj['expression'] = expression;
+    static initialize(obj) { 
     }
 
     /**
@@ -65,12 +63,6 @@ class PropertyListString {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PropertyListString</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PropertyListString.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['expression'] && !(typeof data['expression'] === 'string' || data['expression'] instanceof String)) {
             throw new Error("Expected the field `expression` to be a primitive type in the JSON string but got " + data['expression']);
@@ -86,7 +78,7 @@ class PropertyListString {
 
 }
 
-PropertyListString.RequiredProperties = ["expression"];
+
 
 /**
  * @member {String} expression

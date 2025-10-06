@@ -51,9 +51,6 @@ class ExecutionUsage {
             if (data.hasOwnProperty('dailyExecutionsCount')) {
                 obj['dailyExecutionsCount'] = ApiClient.convertToType(data['dailyExecutionsCount'], [DailyExecutionStatistics]);
             }
-            if (data.hasOwnProperty('dailyTaskRunsCount')) {
-                obj['dailyTaskRunsCount'] = ApiClient.convertToType(data['dailyTaskRunsCount'], [DailyExecutionStatistics]);
-            }
         }
         return obj;
     }
@@ -74,16 +71,6 @@ class ExecutionUsage {
                 DailyExecutionStatistics.validateJSON(item);
             };
         }
-        if (data['dailyTaskRunsCount']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['dailyTaskRunsCount'])) {
-                throw new Error("Expected the field `dailyTaskRunsCount` to be an array in the JSON data but got " + data['dailyTaskRunsCount']);
-            }
-            // validate the optional field `dailyTaskRunsCount` (array)
-            for (const item of data['dailyTaskRunsCount']) {
-                DailyExecutionStatistics.validateJSON(item);
-            };
-        }
 
         return true;
     }
@@ -97,11 +84,6 @@ class ExecutionUsage {
  * @member {Array.<module:model/DailyExecutionStatistics>} dailyExecutionsCount
  */
 ExecutionUsage.prototype['dailyExecutionsCount'] = undefined;
-
-/**
- * @member {Array.<module:model/DailyExecutionStatistics>} dailyTaskRunsCount
- */
-ExecutionUsage.prototype['dailyTaskRunsCount'] = undefined;
 
 
 

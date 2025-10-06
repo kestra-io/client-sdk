@@ -23,13 +23,10 @@ class CreateApiTokenRequest {
      * Constructs a new <code>CreateApiTokenRequest</code>.
      * @alias module:model/CreateApiTokenRequest
      * @param name {String} 
-     * @param description {String} 
-     * @param maxAge {String} 
-     * @param extended {Boolean} 
      */
-    constructor(name, description, maxAge, extended) { 
+    constructor(name) { 
         
-        CreateApiTokenRequest.initialize(this, name, description, maxAge, extended);
+        CreateApiTokenRequest.initialize(this, name);
     }
 
     /**
@@ -37,11 +34,8 @@ class CreateApiTokenRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description, maxAge, extended) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
-        obj['maxAge'] = maxAge;
-        obj['extended'] = extended;
     }
 
     /**
@@ -102,7 +96,7 @@ class CreateApiTokenRequest {
 
 }
 
-CreateApiTokenRequest.RequiredProperties = ["name", "description", "maxAge", "extended"];
+CreateApiTokenRequest.RequiredProperties = ["name"];
 
 /**
  * @member {String} name

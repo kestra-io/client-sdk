@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**licenseInfo**](MiscApi.md#licenseInfo) | **GET** /api/v1/license-info | Retrieve license information
 [**listActions**](MiscApi.md#listActions) | **GET** /api/v1/{tenant}/acls/actions | Retrieve list of actions
 [**listPermissions**](MiscApi.md#listPermissions) | **GET** /api/v1/{tenant}/acls/permissions | Retrieve list of permissions
+[**mainTenantFlows**](MiscApi.md#mainTenantFlows) | **GET** /api/v1/main-tenant-flows | Check if flows are present on the main tenant.
 [**setupConfiguration**](MiscApi.md#setupConfiguration) | **GET** /api/v1/setup | Retrieve current setup configuration
 [**setupKestra**](MiscApi.md#setupKestra) | **POST** /api/v1/setup | Create the first Superadmin user
 [**tenantUsage**](MiscApi.md#tenantUsage) | **GET** /api/v1/{tenant}/usages | Retrieve usage information for the current tenant
@@ -365,6 +366,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[Permission]**](Permission.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## mainTenantFlows
+
+> Boolean mainTenantFlows()
+
+Check if flows are present on the main tenant.
+
+### Example
+
+```javascript
+import KestraIoKestraSdk from '@kestra-io/kestra-sdk';
+let defaultClient = KestraIoKestraSdk.ApiClient.instance;
+// Configure HTTP basic authorization: basicAuth
+let basicAuth = defaultClient.authentications['basicAuth'];
+basicAuth.username = 'YOUR USERNAME';
+basicAuth.password = 'YOUR PASSWORD';
+// Configure Bearer (Bearer) access token for authorization: bearerAuth
+let bearerAuth = defaultClient.authentications['bearerAuth'];
+bearerAuth.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new KestraIoKestraSdk.MiscApi();
+apiInstance.mainTenantFlows((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Boolean**
 
 ### Authorization
 

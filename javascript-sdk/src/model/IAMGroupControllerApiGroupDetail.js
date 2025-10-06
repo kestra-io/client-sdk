@@ -22,13 +22,10 @@ class IAMGroupControllerApiGroupDetail {
     /**
      * Constructs a new <code>IAMGroupControllerApiGroupDetail</code>.
      * @alias module:model/IAMGroupControllerApiGroupDetail
-     * @param id {String} 
-     * @param name {String} 
-     * @param description {String} 
      */
-    constructor(id, name, description) { 
+    constructor() { 
         
-        IAMGroupControllerApiGroupDetail.initialize(this, id, name, description);
+        IAMGroupControllerApiGroupDetail.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class IAMGroupControllerApiGroupDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, description) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['description'] = description;
+    static initialize(obj) { 
     }
 
     /**
@@ -72,12 +66,6 @@ class IAMGroupControllerApiGroupDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMGroupControllerApiGroupDetail</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMGroupControllerApiGroupDetail.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -97,7 +85,7 @@ class IAMGroupControllerApiGroupDetail {
 
 }
 
-IAMGroupControllerApiGroupDetail.RequiredProperties = ["id", "name", "description"];
+
 
 /**
  * @member {String} id

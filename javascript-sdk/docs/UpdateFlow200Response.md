@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **inputs** | [**[InputObject]**](InputObject.md) |  | [optional] 
 **outputs** | [**[Output]**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **disabled** | **Boolean** |  | 
-**labels** | [**FlowAllOfLabels**](FlowAllOfLabels.md) |  | [optional] 
+**labels** | [**[Label]**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
 **variables** | **{String: Object}** |  | [optional] 
 **workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **deleted** | **Boolean** |  | 

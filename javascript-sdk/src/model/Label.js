@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class Label {
     /**
      * Constructs a new <code>Label</code>.
+     * A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
      * @alias module:model/Label
      * @param key {String} 
      * @param value {String} 

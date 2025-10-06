@@ -23,7 +23,6 @@ import MiscApi from './api/MiscApi';
 import NamespacesApi from './api/NamespacesApi';
 import PluginsApi from './api/PluginsApi';
 import RolesApi from './api/RolesApi';
-import SCIMApi from './api/SCIMApi';
 import SCIMConfigurationApi from './api/SCIMConfigurationApi';
 import SecurityIntegrationsApi from './api/SecurityIntegrationsApi';
 import ServicesApi from './api/ServicesApi';
@@ -77,7 +76,6 @@ class KestraClient {
         this.pluginsApi = new PluginsApi(this.apiClient);
         this.rolesApi = new RolesApi(this.apiClient);
         this.scimConfigurationApi = new SCIMConfigurationApi(this.apiClient);
-        this.scimApi = new SCIMApi(this.apiClient);
         this.securityIntegrationsApi = new SecurityIntegrationsApi(this.apiClient);
         this.servicesApi = new ServicesApi(this.apiClient);
         this.tenantsApi = new TenantsApi(this.apiClient);

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**done** | **Boolean** |  | 
+**done** | **Boolean** |  | [optional] 
 **repositoryType** | **String** |  | [optional] 
 **queueType** | **String** |  | [optional] 
 **storageType** | **String** |  | [optional] 
 **secretType** | **String** |  | [optional] 
-**passwordRegexp** | **String** |  | 
+**passwordRegexp** | **String** |  | [optional] 
 
 

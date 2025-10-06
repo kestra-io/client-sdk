@@ -23,12 +23,10 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionDetailsApiPluginClasses</code>.
      * @alias module:model/InstanceControllerApiPluginVersionDetailsApiPluginClasses
-     * @param type {String} 
-     * @param classes {Array.<module:model/InstanceControllerApiPluginVersionDetailsApiPluginClass>} 
      */
-    constructor(type, classes) { 
+    constructor() { 
         
-        InstanceControllerApiPluginVersionDetailsApiPluginClasses.initialize(this, type, classes);
+        InstanceControllerApiPluginVersionDetailsApiPluginClasses.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, classes) { 
-        obj['type'] = type;
-        obj['classes'] = classes;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginVersionDetailsApiPluginClasses</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiPluginVersionDetailsApiPluginClasses.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['type'] && !(typeof data['type'] === 'string' || data['type'] instanceof String)) {
             throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
@@ -95,7 +85,7 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClasses {
 
 }
 
-InstanceControllerApiPluginVersionDetailsApiPluginClasses.RequiredProperties = ["type", "classes"];
+
 
 /**
  * @member {String} type

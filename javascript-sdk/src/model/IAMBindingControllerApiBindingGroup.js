@@ -22,12 +22,10 @@ class IAMBindingControllerApiBindingGroup {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingGroup</code>.
      * @alias module:model/IAMBindingControllerApiBindingGroup
-     * @param id {String} 
-     * @param name {String} 
      */
-    constructor(id, name) { 
+    constructor() { 
         
-        IAMBindingControllerApiBindingGroup.initialize(this, id, name);
+        IAMBindingControllerApiBindingGroup.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class IAMBindingControllerApiBindingGroup {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name) { 
-        obj['id'] = id;
-        obj['name'] = name;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class IAMBindingControllerApiBindingGroup {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMBindingControllerApiBindingGroup</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMBindingControllerApiBindingGroup.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -88,7 +78,7 @@ class IAMBindingControllerApiBindingGroup {
 
 }
 
-IAMBindingControllerApiBindingGroup.RequiredProperties = ["id", "name"];
+
 
 /**
  * @member {String} id

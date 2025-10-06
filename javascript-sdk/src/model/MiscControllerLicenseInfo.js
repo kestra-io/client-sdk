@@ -22,16 +22,10 @@ class MiscControllerLicenseInfo {
     /**
      * Constructs a new <code>MiscControllerLicenseInfo</code>.
      * @alias module:model/MiscControllerLicenseInfo
-     * @param type {String} 
-     * @param expiry {Date} 
-     * @param expired {Boolean} 
-     * @param maxServers {Number} 
-     * @param standalone {Boolean} 
-     * @param workerGroups {Boolean} 
      */
-    constructor(type, expiry, expired, maxServers, standalone, workerGroups) { 
+    constructor() { 
         
-        MiscControllerLicenseInfo.initialize(this, type, expiry, expired, maxServers, standalone, workerGroups);
+        MiscControllerLicenseInfo.initialize(this);
     }
 
     /**
@@ -39,13 +33,7 @@ class MiscControllerLicenseInfo {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, expiry, expired, maxServers, standalone, workerGroups) { 
-        obj['type'] = type;
-        obj['expiry'] = expiry;
-        obj['expired'] = expired;
-        obj['maxServers'] = maxServers;
-        obj['standalone'] = standalone;
-        obj['workerGroups'] = workerGroups;
+    static initialize(obj) { 
     }
 
     /**
@@ -87,12 +75,6 @@ class MiscControllerLicenseInfo {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MiscControllerLicenseInfo</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MiscControllerLicenseInfo.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['type'] && !(typeof data['type'] === 'string' || data['type'] instanceof String)) {
             throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
@@ -104,7 +86,7 @@ class MiscControllerLicenseInfo {
 
 }
 
-MiscControllerLicenseInfo.RequiredProperties = ["type", "expiry", "expired", "maxServers", "standalone", "workerGroups"];
+
 
 /**
  * @member {String} type

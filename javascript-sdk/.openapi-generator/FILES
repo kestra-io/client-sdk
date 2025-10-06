@@ -4,7 +4,6 @@
 README.md
 docs/AIApi.md
 docs/AbstractFlow.md
-docs/AbstractFlowLabels.md
 docs/AbstractGraph.md
 docs/AbstractGraphBranchType.md
 docs/AbstractMetricEntryObject.md
@@ -131,10 +130,8 @@ docs/FilesApi.md
 docs/Filter.md
 docs/Fixtures.md
 docs/Flow.md
-docs/FlowAllOfLabels.md
 docs/FlowControllerTaskValidationType.md
 docs/FlowForExecution.md
-docs/FlowForExecutionAllOfLabels.md
 docs/FlowGenerationPrompt.md
 docs/FlowGraph.md
 docs/FlowGraphCluster.md
@@ -148,7 +145,6 @@ docs/FlowTopologyGraph.md
 docs/FlowTopologyGraphEdge.md
 docs/FlowUsage.md
 docs/FlowWithSource.md
-docs/FlowWithSourceAllOfLabels.md
 docs/FlowsApi.md
 docs/GroupIdentifier.md
 docs/GroupIdentifierMembership.md
@@ -286,7 +282,6 @@ docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
-docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -316,10 +311,7 @@ docs/PropertyObject.md
 docs/PropertyString.md
 docs/QueryFilter.md
 docs/QueryFilterField.md
-docs/QueryFilterFieldOp.md
 docs/QueryFilterOp.md
-docs/QueryFilterOperation.md
-docs/QueryFilterResourceField.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
@@ -336,6 +328,7 @@ docs/SCIMGroupsApi.md
 docs/SCIMUsersApi.md
 docs/SLA.md
 docs/SLABehavior.md
+docs/SLALabels.md
 docs/SLAType.md
 docs/Schema.md
 docs/SchemaAttribute.md
@@ -464,7 +457,6 @@ src/api/UsersApi.js
 src/api/WorkerGroupsApi.js
 src/index.js
 src/model/AbstractFlow.js
-src/model/AbstractFlowLabels.js
 src/model/AbstractGraph.js
 src/model/AbstractGraphBranchType.js
 src/model/AbstractMetricEntryObject.js
@@ -579,10 +571,8 @@ src/model/FileMetas.js
 src/model/Filter.js
 src/model/Fixtures.js
 src/model/Flow.js
-src/model/FlowAllOfLabels.js
 src/model/FlowControllerTaskValidationType.js
 src/model/FlowForExecution.js
-src/model/FlowForExecutionAllOfLabels.js
 src/model/FlowGenerationPrompt.js
 src/model/FlowGraph.js
 src/model/FlowGraphCluster.js
@@ -596,7 +586,6 @@ src/model/FlowTopologyGraph.js
 src/model/FlowTopologyGraphEdge.js
 src/model/FlowUsage.js
 src/model/FlowWithSource.js
-src/model/FlowWithSourceAllOfLabels.js
 src/model/GroupIdentifier.js
 src/model/GroupIdentifierMembership.js
 src/model/GroupUsage.js
@@ -725,7 +714,6 @@ src/model/PagedResultsMapStringObject.js
 src/model/PagedResultsMetricEntry.js
 src/model/PagedResultsNamespace.js
 src/model/PagedResultsSearchResultFlow.js
-src/model/PagedResultsTaskRun.js
 src/model/PagedResultsTenant.js
 src/model/PagedResultsTestSuite.js
 src/model/PagedResultsTestSuiteRunResult.js
@@ -754,10 +742,7 @@ src/model/PropertyObject.js
 src/model/PropertyString.js
 src/model/QueryFilter.js
 src/model/QueryFilterField.js
-src/model/QueryFilterFieldOp.js
 src/model/QueryFilterOp.js
-src/model/QueryFilterOperation.js
-src/model/QueryFilterResourceField.js
 src/model/RBACServiceRoleAssignmentRoleOrigin.js
 src/model/Relation.js
 src/model/RelationType.js
@@ -770,6 +755,7 @@ src/model/Role.js
 src/model/RoleUsage.js
 src/model/SLA.js
 src/model/SLABehavior.js
+src/model/SLALabels.js
 src/model/SLAType.js
 src/model/Schema.js
 src/model/SchemaAttribute.js

@@ -24,12 +24,10 @@ class AuditLogControllerFindRequest {
     /**
      * Constructs a new <code>AuditLogControllerFindRequest</code>.
      * @alias module:model/AuditLogControllerFindRequest
-     * @param resource {module:model/ResourceType1} 
-     * @param detail {Object.<String, Object>} 
      */
-    constructor(resource, detail) { 
+    constructor() { 
         
-        AuditLogControllerFindRequest.initialize(this, resource, detail);
+        AuditLogControllerFindRequest.initialize(this);
     }
 
     /**
@@ -37,9 +35,7 @@ class AuditLogControllerFindRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, resource, detail) { 
-        obj['resource'] = resource;
-        obj['detail'] = detail;
+    static initialize(obj) { 
     }
 
     /**
@@ -72,12 +68,6 @@ class AuditLogControllerFindRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AuditLogControllerFindRequest</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AuditLogControllerFindRequest.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
 
         return true;
     }
@@ -85,7 +75,7 @@ class AuditLogControllerFindRequest {
 
 }
 
-AuditLogControllerFindRequest.RequiredProperties = ["resource", "detail"];
+
 
 /**
  * @member {module:model/ResourceType1} resource

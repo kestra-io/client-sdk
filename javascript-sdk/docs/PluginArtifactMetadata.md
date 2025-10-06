@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uri** | **String** |  | 
-**name** | **String** |  | 
-**size** | **Number** |  | 
-**lastModifiedTime** | **Number** |  | 
-**creationTime** | **Number** |  | 
+**uri** | **String** |  | [optional] 
+**name** | **String** |  | [optional] 
+**size** | **Number** |  | [optional] 
+**lastModifiedTime** | **Number** |  | [optional] 
+**creationTime** | **Number** |  | [optional] 
 
 

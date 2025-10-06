@@ -24,11 +24,10 @@ class IAMGroupControllerApiUpdateGroupRequest {
      * Represents updatable properties for a Group.
      * @alias module:model/IAMGroupControllerApiUpdateGroupRequest
      * @param name {String} of the group.
-     * @param description {String} of the group.
      */
-    constructor(name, description) { 
+    constructor(name) { 
         
-        IAMGroupControllerApiUpdateGroupRequest.initialize(this, name, description);
+        IAMGroupControllerApiUpdateGroupRequest.initialize(this, name);
     }
 
     /**
@@ -36,9 +35,8 @@ class IAMGroupControllerApiUpdateGroupRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
     }
 
     /**
@@ -89,7 +87,7 @@ class IAMGroupControllerApiUpdateGroupRequest {
 
 }
 
-IAMGroupControllerApiUpdateGroupRequest.RequiredProperties = ["name", "description"];
+IAMGroupControllerApiUpdateGroupRequest.RequiredProperties = ["name"];
 
 /**
  * of the group.

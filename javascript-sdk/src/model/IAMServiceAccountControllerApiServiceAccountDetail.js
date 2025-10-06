@@ -24,15 +24,11 @@ class IAMServiceAccountControllerApiServiceAccountDetail {
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountDetail</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountDetail
-     * @param id {String} the identifier of this service account.
      * @param name {String} the name of this service account.
-     * @param description {String} the description of this service account.
-     * @param tenants {Array.<module:model/ApiTenantSummary>} 
-     * @param superAdmin {Boolean} 
      */
-    constructor(id, name, description, tenants, superAdmin) { 
+    constructor(name) { 
         
-        IAMServiceAccountControllerApiServiceAccountDetail.initialize(this, id, name, description, tenants, superAdmin);
+        IAMServiceAccountControllerApiServiceAccountDetail.initialize(this, name);
     }
 
     /**
@@ -40,12 +36,8 @@ class IAMServiceAccountControllerApiServiceAccountDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, description, tenants, superAdmin) { 
-        obj['id'] = id;
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
-        obj['tenants'] = tenants;
-        obj['superAdmin'] = superAdmin;
     }
 
     /**
@@ -119,7 +111,7 @@ class IAMServiceAccountControllerApiServiceAccountDetail {
 
 }
 
-IAMServiceAccountControllerApiServiceAccountDetail.RequiredProperties = ["id", "name", "description", "tenants", "superAdmin"];
+IAMServiceAccountControllerApiServiceAccountDetail.RequiredProperties = ["name"];
 
 /**
  * the identifier of this service account.

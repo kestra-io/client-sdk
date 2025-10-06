@@ -20,7 +20,6 @@ import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPluginIdAndVersion from './MiscControllerPluginIdAndVersion';
 import MiscControllerPreview from './MiscControllerPreview';
 import MiscControllerTenantConfigurationInfo from './MiscControllerTenantConfigurationInfo';
-import QueryFilterResourceField from './QueryFilterResourceField';
 import RightSidebarConfiguration from './RightSidebarConfiguration';
 
 /**
@@ -77,9 +76,6 @@ class MiscControllerEEConfiguration {
             if (data.hasOwnProperty('isCustomDashboardsEnabled')) {
                 obj['isCustomDashboardsEnabled'] = ApiClient.convertToType(data['isCustomDashboardsEnabled'], 'Boolean');
             }
-            if (data.hasOwnProperty('isTaskRunEnabled')) {
-                obj['isTaskRunEnabled'] = ApiClient.convertToType(data['isTaskRunEnabled'], 'Boolean');
-            }
             if (data.hasOwnProperty('isAnonymousUsageEnabled')) {
                 obj['isAnonymousUsageEnabled'] = ApiClient.convertToType(data['isAnonymousUsageEnabled'], 'Boolean');
             }
@@ -103,9 +99,6 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('hiddenLabelsPrefixes')) {
                 obj['hiddenLabelsPrefixes'] = ApiClient.convertToType(data['hiddenLabelsPrefixes'], ['String']);
-            }
-            if (data.hasOwnProperty('resourceToFilters')) {
-                obj['resourceToFilters'] = ApiClient.convertToType(data['resourceToFilters'], [QueryFilterResourceField]);
             }
             if (data.hasOwnProperty('isAiEnabled')) {
                 obj['isAiEnabled'] = ApiClient.convertToType(data['isAiEnabled'], 'Boolean');
@@ -197,16 +190,6 @@ class MiscControllerEEConfiguration {
         if (!Array.isArray(data['hiddenLabelsPrefixes'])) {
             throw new Error("Expected the field `hiddenLabelsPrefixes` to be an array in the JSON data but got " + data['hiddenLabelsPrefixes']);
         }
-        if (data['resourceToFilters']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['resourceToFilters'])) {
-                throw new Error("Expected the field `resourceToFilters` to be an array in the JSON data but got " + data['resourceToFilters']);
-            }
-            // validate the optional field `resourceToFilters` (array)
-            for (const item of data['resourceToFilters']) {
-                QueryFilterResourceField.validateJSON(item);
-            };
-        }
         // validate the optional field `tenants`
         if (data['tenants']) { // data not null
           MiscControllerTenantConfigurationInfo.validateJSON(data['tenants']);
@@ -287,11 +270,6 @@ MiscControllerEEConfiguration.prototype['commitDate'] = undefined;
 MiscControllerEEConfiguration.prototype['isCustomDashboardsEnabled'] = undefined;
 
 /**
- * @member {Boolean} isTaskRunEnabled
- */
-MiscControllerEEConfiguration.prototype['isTaskRunEnabled'] = undefined;
-
-/**
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerEEConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
@@ -330,11 +308,6 @@ MiscControllerEEConfiguration.prototype['systemNamespace'] = undefined;
  * @member {Array.<String>} hiddenLabelsPrefixes
  */
 MiscControllerEEConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
-
-/**
- * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
- */
-MiscControllerEEConfiguration.prototype['resourceToFilters'] = undefined;
 
 /**
  * @member {Boolean} isAiEnabled
@@ -443,10 +416,6 @@ MiscControllerConfiguration.prototype['commitDate'] = undefined;
  */
 MiscControllerConfiguration.prototype['isCustomDashboardsEnabled'] = undefined;
 /**
- * @member {Boolean} isTaskRunEnabled
- */
-MiscControllerConfiguration.prototype['isTaskRunEnabled'] = undefined;
-/**
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
@@ -478,10 +447,6 @@ MiscControllerConfiguration.prototype['systemNamespace'] = undefined;
  * @member {Array.<String>} hiddenLabelsPrefixes
  */
 MiscControllerConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
-/**
- * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
- */
-MiscControllerConfiguration.prototype['resourceToFilters'] = undefined;
 /**
  * @member {Boolean} isAiEnabled
  */

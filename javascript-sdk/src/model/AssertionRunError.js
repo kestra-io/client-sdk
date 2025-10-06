@@ -23,11 +23,10 @@ class AssertionRunError {
      * Constructs a new <code>AssertionRunError</code>.
      * @alias module:model/AssertionRunError
      * @param message {String} 
-     * @param details {String} 
      */
-    constructor(message, details) { 
+    constructor(message) { 
         
-        AssertionRunError.initialize(this, message, details);
+        AssertionRunError.initialize(this, message);
     }
 
     /**
@@ -35,9 +34,8 @@ class AssertionRunError {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, message, details) { 
+    static initialize(obj, message) { 
         obj['message'] = message;
-        obj['details'] = details;
     }
 
     /**
@@ -88,7 +86,7 @@ class AssertionRunError {
 
 }
 
-AssertionRunError.RequiredProperties = ["message", "details"];
+AssertionRunError.RequiredProperties = ["message"];
 
 /**
  * @member {String} message

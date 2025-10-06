@@ -29,17 +29,12 @@ class TaskRun {
      * @param namespace {String} 
      * @param flowId {String} 
      * @param taskId {String} 
-     * @param parentTaskRunId {String} 
-     * @param value {String} 
-     * @param attempts {Array.<module:model/TaskRunAttempt>} 
      * @param outputs {Object.<String, Object>} 
      * @param state {module:model/State} 
-     * @param iteration {Number} 
-     * @param dynamic {Boolean} 
      */
-    constructor(id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic) { 
+    constructor(id, executionId, namespace, flowId, taskId, outputs, state) { 
         
-        TaskRun.initialize(this, id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic);
+        TaskRun.initialize(this, id, executionId, namespace, flowId, taskId, outputs, state);
     }
 
     /**
@@ -47,19 +42,14 @@ class TaskRun {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, executionId, namespace, flowId, taskId, parentTaskRunId, value, attempts, outputs, state, iteration, dynamic) { 
+    static initialize(obj, id, executionId, namespace, flowId, taskId, outputs, state) { 
         obj['id'] = id;
         obj['executionId'] = executionId;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['taskId'] = taskId;
-        obj['parentTaskRunId'] = parentTaskRunId;
-        obj['value'] = value;
-        obj['attempts'] = attempts;
         obj['outputs'] = outputs;
         obj['state'] = state;
-        obj['iteration'] = iteration;
-        obj['dynamic'] = dynamic;
     }
 
     /**
@@ -184,7 +174,7 @@ class TaskRun {
 
 }
 
-TaskRun.RequiredProperties = ["id", "executionId", "namespace", "flowId", "taskId", "parentTaskRunId", "value", "attempts", "outputs", "state", "iteration", "dynamic"];
+TaskRun.RequiredProperties = ["id", "executionId", "namespace", "flowId", "taskId", "outputs", "state"];
 
 /**
  * @member {String} items

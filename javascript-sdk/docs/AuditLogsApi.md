@@ -422,7 +422,7 @@ let opts = {
   'executionId': "executionId_example", // String | An execution filter
   'userId': "userId_example", // String | A user id filter
   'id': "id_example", // String | A id filter
-  'resource': new KestraIoKestraSdk.ResourceType1(), // ResourceType1 | A resource filter
+  'resources': [new KestraIoKestraSdk.ResourceType1()], // [ResourceType1] | A resource filter
   'startDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The start datetime
   'endDate': new Date("2013-10-20T19:20:30+01:00"), // Date | The end datetime
   'details': {key: "null"}, // {String: String} | A list of auditLog details
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
  **executionId** | **String**| An execution filter | [optional] 
  **userId** | **String**| A user id filter | [optional] 
  **id** | **String**| A id filter | [optional] 
- **resource** | [**ResourceType1**](.md)| A resource filter | [optional] 
+ **resources** | [**[ResourceType1]**](ResourceType1.md)| A resource filter | [optional] 
  **startDate** | **Date**| The start datetime | [optional] 
  **endDate** | **Date**| The end datetime | [optional] 
  **details** | [**{String: String}**](String.md)| A list of auditLog details | [optional] 

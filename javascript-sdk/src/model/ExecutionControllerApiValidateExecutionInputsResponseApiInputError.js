@@ -22,11 +22,10 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputError</code>.
      * @alias module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError
-     * @param message {String} 
      */
-    constructor(message) { 
+    constructor() { 
         
-        ExecutionControllerApiValidateExecutionInputsResponseApiInputError.initialize(this, message);
+        ExecutionControllerApiValidateExecutionInputsResponseApiInputError.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, message) { 
-        obj['message'] = message;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputError</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ExecutionControllerApiValidateExecutionInputsResponseApiInputError.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['message'] && !(typeof data['message'] === 'string' || data['message'] instanceof String)) {
             throw new Error("Expected the field `message` to be a primitive type in the JSON string but got " + data['message']);
@@ -79,7 +71,7 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
 
 }
 
-ExecutionControllerApiValidateExecutionInputsResponseApiInputError.RequiredProperties = ["message"];
+
 
 /**
  * @member {String} message

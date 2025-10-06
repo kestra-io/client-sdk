@@ -22,14 +22,10 @@ class MeControllerApiProfile {
     /**
      * Constructs a new <code>MeControllerApiProfile</code>.
      * @alias module:model/MeControllerApiProfile
-     * @param email {String} 
-     * @param firstName {String} 
-     * @param lastName {String} 
-     * @param username {String} 
      */
-    constructor(email, firstName, lastName, username) { 
+    constructor() { 
         
-        MeControllerApiProfile.initialize(this, email, firstName, lastName, username);
+        MeControllerApiProfile.initialize(this);
     }
 
     /**
@@ -37,11 +33,7 @@ class MeControllerApiProfile {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, email, firstName, lastName, username) { 
-        obj['email'] = email;
-        obj['firstName'] = firstName;
-        obj['lastName'] = lastName;
-        obj['username'] = username;
+    static initialize(obj) { 
     }
 
     /**
@@ -77,12 +69,6 @@ class MeControllerApiProfile {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MeControllerApiProfile</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MeControllerApiProfile.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['email'] && !(typeof data['email'] === 'string' || data['email'] instanceof String)) {
             throw new Error("Expected the field `email` to be a primitive type in the JSON string but got " + data['email']);
@@ -106,7 +92,7 @@ class MeControllerApiProfile {
 
 }
 
-MeControllerApiProfile.RequiredProperties = ["email", "firstName", "lastName", "username"];
+
 
 /**
  * @member {String} email

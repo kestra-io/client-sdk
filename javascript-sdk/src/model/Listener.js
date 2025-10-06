@@ -24,13 +24,11 @@ class Listener {
     /**
      * Constructs a new <code>Listener</code>.
      * @alias module:model/Listener
-     * @param description {String} 
-     * @param conditions {Array.<module:model/Condition>} 
      * @param tasks {Array.<module:model/Task>} 
      */
-    constructor(description, conditions, tasks) { 
+    constructor(tasks) { 
         
-        Listener.initialize(this, description, conditions, tasks);
+        Listener.initialize(this, tasks);
     }
 
     /**
@@ -38,9 +36,7 @@ class Listener {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, description, conditions, tasks) { 
-        obj['description'] = description;
-        obj['conditions'] = conditions;
+    static initialize(obj, tasks) { 
         obj['tasks'] = tasks;
     }
 
@@ -111,7 +107,7 @@ class Listener {
 
 }
 
-Listener.RequiredProperties = ["description", "conditions", "tasks"];
+Listener.RequiredProperties = ["tasks"];
 
 /**
  * @member {String} description

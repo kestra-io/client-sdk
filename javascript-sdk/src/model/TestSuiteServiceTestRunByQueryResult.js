@@ -24,15 +24,10 @@ class TestSuiteServiceTestRunByQueryResult {
     /**
      * Constructs a new <code>TestSuiteServiceTestRunByQueryResult</code>.
      * @alias module:model/TestSuiteServiceTestRunByQueryResult
-     * @param requestMade {module:model/TestSuiteServiceRunByQueryRequest} 
-     * @param tenantId {String} 
-     * @param numberOfTestSuitesToBeRun {Number} 
-     * @param numberOfTestCasesToBeRun {Number} 
-     * @param results {Array.<module:model/TestSuiteRunResult>} 
      */
-    constructor(requestMade, tenantId, numberOfTestSuitesToBeRun, numberOfTestCasesToBeRun, results) { 
+    constructor() { 
         
-        TestSuiteServiceTestRunByQueryResult.initialize(this, requestMade, tenantId, numberOfTestSuitesToBeRun, numberOfTestCasesToBeRun, results);
+        TestSuiteServiceTestRunByQueryResult.initialize(this);
     }
 
     /**
@@ -40,12 +35,7 @@ class TestSuiteServiceTestRunByQueryResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, requestMade, tenantId, numberOfTestSuitesToBeRun, numberOfTestCasesToBeRun, results) { 
-        obj['requestMade'] = requestMade;
-        obj['tenantId'] = tenantId;
-        obj['numberOfTestSuitesToBeRun'] = numberOfTestSuitesToBeRun;
-        obj['numberOfTestCasesToBeRun'] = numberOfTestCasesToBeRun;
-        obj['results'] = results;
+    static initialize(obj) { 
     }
 
     /**
@@ -84,12 +74,6 @@ class TestSuiteServiceTestRunByQueryResult {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TestSuiteServiceTestRunByQueryResult</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of TestSuiteServiceTestRunByQueryResult.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `requestMade`
         if (data['requestMade']) { // data not null
           TestSuiteServiceRunByQueryRequest.validateJSON(data['requestMade']);
@@ -115,7 +99,7 @@ class TestSuiteServiceTestRunByQueryResult {
 
 }
 
-TestSuiteServiceTestRunByQueryResult.RequiredProperties = ["requestMade", "tenantId", "numberOfTestSuitesToBeRun", "numberOfTestCasesToBeRun", "results"];
+
 
 /**
  * @member {module:model/TestSuiteServiceRunByQueryRequest} requestMade

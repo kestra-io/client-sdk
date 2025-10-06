@@ -23,12 +23,10 @@ class PluginDefault {
      * Constructs a new <code>PluginDefault</code>.
      * @alias module:model/PluginDefault
      * @param type {String} 
-     * @param forced {Boolean} 
-     * @param values {Object.<String, Object>} 
      */
-    constructor(type, forced, values) { 
+    constructor(type) { 
         
-        PluginDefault.initialize(this, type, forced, values);
+        PluginDefault.initialize(this, type);
     }
 
     /**
@@ -36,10 +34,8 @@ class PluginDefault {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, forced, values) { 
+    static initialize(obj, type) { 
         obj['type'] = type;
-        obj['forced'] = forced;
-        obj['values'] = values;
     }
 
     /**
@@ -89,7 +85,7 @@ class PluginDefault {
 
 }
 
-PluginDefault.RequiredProperties = ["type", "forced", "values"];
+PluginDefault.RequiredProperties = ["type"];
 
 /**
  * @member {String} type

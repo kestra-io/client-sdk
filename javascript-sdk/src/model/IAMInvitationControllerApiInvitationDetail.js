@@ -25,21 +25,10 @@ class IAMInvitationControllerApiInvitationDetail {
     /**
      * Constructs a new <code>IAMInvitationControllerApiInvitationDetail</code>.
      * @alias module:model/IAMInvitationControllerApiInvitationDetail
-     * @param id {String} 
-     * @param roles {Array.<module:model/ApiRoleSummary>} 
-     * @param groups {Array.<module:model/ApiGroupSummary>} 
-     * @param tenantId {String} 
-     * @param email {String} 
-     * @param status {module:model/InvitationInvitationStatus} 
-     * @param sentAt {Date} 
-     * @param expiredAt {Date} 
-     * @param acceptedAt {Date} 
-     * @param superAdmin {Boolean} 
-     * @param link {String} 
      */
-    constructor(id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, superAdmin, link) { 
+    constructor() { 
         
-        IAMInvitationControllerApiInvitationDetail.initialize(this, id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, superAdmin, link);
+        IAMInvitationControllerApiInvitationDetail.initialize(this);
     }
 
     /**
@@ -47,18 +36,7 @@ class IAMInvitationControllerApiInvitationDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, roles, groups, tenantId, email, status, sentAt, expiredAt, acceptedAt, superAdmin, link) { 
-        obj['id'] = id;
-        obj['roles'] = roles;
-        obj['groups'] = groups;
-        obj['tenantId'] = tenantId;
-        obj['email'] = email;
-        obj['status'] = status;
-        obj['sentAt'] = sentAt;
-        obj['expiredAt'] = expiredAt;
-        obj['acceptedAt'] = acceptedAt;
-        obj['superAdmin'] = superAdmin;
-        obj['link'] = link;
+    static initialize(obj) { 
     }
 
     /**
@@ -115,12 +93,6 @@ class IAMInvitationControllerApiInvitationDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMInvitationControllerApiInvitationDetail</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMInvitationControllerApiInvitationDetail.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -164,7 +136,7 @@ class IAMInvitationControllerApiInvitationDetail {
 
 }
 
-IAMInvitationControllerApiInvitationDetail.RequiredProperties = ["id", "roles", "groups", "tenantId", "email", "status", "sentAt", "expiredAt", "acceptedAt", "superAdmin", "link"];
+
 
 /**
  * @member {String} id

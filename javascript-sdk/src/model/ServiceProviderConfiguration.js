@@ -35,11 +35,10 @@ class ServiceProviderConfiguration {
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
      * @param meta {module:model/Meta} 
-     * @param resourceType {String} 
      */
-    constructor(meta, resourceType) { 
-        ScimResourceWithOptionalId.initialize(this, meta, resourceType);ScimResource.initialize(this, meta, resourceType);BaseResourceScimResource.initialize(this);
-        ServiceProviderConfiguration.initialize(this, meta, resourceType);
+    constructor(meta) { 
+        ScimResourceWithOptionalId.initialize(this, meta);ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);
+        ServiceProviderConfiguration.initialize(this, meta);
     }
 
     /**
@@ -47,9 +46,8 @@ class ServiceProviderConfiguration {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, meta, resourceType) { 
+    static initialize(obj, meta) { 
         obj['meta'] = meta;
-        obj['resourceType'] = resourceType;
     }
 
     /**
@@ -196,7 +194,7 @@ class ServiceProviderConfiguration {
 
 }
 
-ServiceProviderConfiguration.RequiredProperties = ["meta", "resourceType"];
+ServiceProviderConfiguration.RequiredProperties = ["meta"];
 
 /**
  * @member {Array.<String>} schemas

@@ -23,12 +23,10 @@ class FlowNode {
      * Constructs a new <code>FlowNode</code>.
      * @alias module:model/FlowNode
      * @param uid {String} 
-     * @param namespace {String} 
-     * @param id {String} 
      */
-    constructor(uid, namespace, id) { 
+    constructor(uid) { 
         
-        FlowNode.initialize(this, uid, namespace, id);
+        FlowNode.initialize(this, uid);
     }
 
     /**
@@ -36,10 +34,8 @@ class FlowNode {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uid, namespace, id) { 
+    static initialize(obj, uid) { 
         obj['uid'] = uid;
-        obj['namespace'] = namespace;
-        obj['id'] = id;
     }
 
     /**
@@ -97,7 +93,7 @@ class FlowNode {
 
 }
 
-FlowNode.RequiredProperties = ["uid", "namespace", "id"];
+FlowNode.RequiredProperties = ["uid"];
 
 /**
  * @member {String} uid

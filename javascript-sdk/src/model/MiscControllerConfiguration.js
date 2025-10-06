@@ -15,7 +15,6 @@ import ApiClient from '../ApiClient';
 import EditionProviderEdition from './EditionProviderEdition';
 import MiscControllerEnvironment from './MiscControllerEnvironment';
 import MiscControllerPreview from './MiscControllerPreview';
-import QueryFilterResourceField from './QueryFilterResourceField';
 
 /**
  * The MiscControllerConfiguration model module.
@@ -69,9 +68,6 @@ class MiscControllerConfiguration {
             if (data.hasOwnProperty('isCustomDashboardsEnabled')) {
                 obj['isCustomDashboardsEnabled'] = ApiClient.convertToType(data['isCustomDashboardsEnabled'], 'Boolean');
             }
-            if (data.hasOwnProperty('isTaskRunEnabled')) {
-                obj['isTaskRunEnabled'] = ApiClient.convertToType(data['isTaskRunEnabled'], 'Boolean');
-            }
             if (data.hasOwnProperty('isAnonymousUsageEnabled')) {
                 obj['isAnonymousUsageEnabled'] = ApiClient.convertToType(data['isAnonymousUsageEnabled'], 'Boolean');
             }
@@ -95,9 +91,6 @@ class MiscControllerConfiguration {
             }
             if (data.hasOwnProperty('hiddenLabelsPrefixes')) {
                 obj['hiddenLabelsPrefixes'] = ApiClient.convertToType(data['hiddenLabelsPrefixes'], ['String']);
-            }
-            if (data.hasOwnProperty('resourceToFilters')) {
-                obj['resourceToFilters'] = ApiClient.convertToType(data['resourceToFilters'], [QueryFilterResourceField]);
             }
             if (data.hasOwnProperty('isAiEnabled')) {
                 obj['isAiEnabled'] = ApiClient.convertToType(data['isAiEnabled'], 'Boolean');
@@ -150,16 +143,6 @@ class MiscControllerConfiguration {
         if (!Array.isArray(data['hiddenLabelsPrefixes'])) {
             throw new Error("Expected the field `hiddenLabelsPrefixes` to be an array in the JSON data but got " + data['hiddenLabelsPrefixes']);
         }
-        if (data['resourceToFilters']) { // data not null
-            // ensure the json data is an array
-            if (!Array.isArray(data['resourceToFilters'])) {
-                throw new Error("Expected the field `resourceToFilters` to be an array in the JSON data but got " + data['resourceToFilters']);
-            }
-            // validate the optional field `resourceToFilters` (array)
-            for (const item of data['resourceToFilters']) {
-                QueryFilterResourceField.validateJSON(item);
-            };
-        }
 
         return true;
     }
@@ -200,11 +183,6 @@ MiscControllerConfiguration.prototype['commitDate'] = undefined;
 MiscControllerConfiguration.prototype['isCustomDashboardsEnabled'] = undefined;
 
 /**
- * @member {Boolean} isTaskRunEnabled
- */
-MiscControllerConfiguration.prototype['isTaskRunEnabled'] = undefined;
-
-/**
  * @member {Boolean} isAnonymousUsageEnabled
  */
 MiscControllerConfiguration.prototype['isAnonymousUsageEnabled'] = undefined;
@@ -243,11 +221,6 @@ MiscControllerConfiguration.prototype['systemNamespace'] = undefined;
  * @member {Array.<String>} hiddenLabelsPrefixes
  */
 MiscControllerConfiguration.prototype['hiddenLabelsPrefixes'] = undefined;
-
-/**
- * @member {Array.<module:model/QueryFilterResourceField>} resourceToFilters
- */
-MiscControllerConfiguration.prototype['resourceToFilters'] = undefined;
 
 /**
  * @member {Boolean} isAiEnabled

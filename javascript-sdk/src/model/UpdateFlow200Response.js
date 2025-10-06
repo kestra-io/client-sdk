@@ -15,9 +15,9 @@ import ApiClient from '../ApiClient';
 import AbstractTrigger from './AbstractTrigger';
 import Concurrency from './Concurrency';
 import Flow from './Flow';
-import FlowAllOfLabels from './FlowAllOfLabels';
 import FlowWithSource from './FlowWithSource';
 import InputObject from './InputObject';
+import Label from './Label';
 import Listener from './Listener';
 import Output from './Output';
 import PluginDefault from './PluginDefault';
@@ -168,7 +168,8 @@ UpdateFlow200Response.prototype['outputs'] = undefined;
 UpdateFlow200Response.prototype['disabled'] = undefined;
 
 /**
- * @member {module:model/FlowAllOfLabels} labels
+ * Labels as a list of Label (key/value pairs) or as a map of string to string.
+ * @member {Array.<module:model/Label>} labels
  */
 UpdateFlow200Response.prototype['labels'] = undefined;
 

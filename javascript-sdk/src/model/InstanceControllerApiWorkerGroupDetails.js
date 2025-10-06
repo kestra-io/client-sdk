@@ -24,15 +24,10 @@ class InstanceControllerApiWorkerGroupDetails {
      * Constructs a new <code>InstanceControllerApiWorkerGroupDetails</code>.
      * ApiWorkerGroupDetails.
      * @alias module:model/InstanceControllerApiWorkerGroupDetails
-     * @param id {String} The ID of worker group.
-     * @param key {String} The key of the worker group.
-     * @param description {String} The description of the worker group.
-     * @param allowedTenants {Array.<String>} 
-     * @param workers {Array.<module:model/ServiceInstance>} The list of workers for the group.
      */
-    constructor(id, key, description, allowedTenants, workers) { 
+    constructor() { 
         
-        InstanceControllerApiWorkerGroupDetails.initialize(this, id, key, description, allowedTenants, workers);
+        InstanceControllerApiWorkerGroupDetails.initialize(this);
     }
 
     /**
@@ -40,12 +35,7 @@ class InstanceControllerApiWorkerGroupDetails {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, key, description, allowedTenants, workers) { 
-        obj['id'] = id;
-        obj['key'] = key;
-        obj['description'] = description;
-        obj['allowedTenants'] = allowedTenants;
-        obj['workers'] = workers;
+    static initialize(obj) { 
     }
 
     /**
@@ -84,12 +74,6 @@ class InstanceControllerApiWorkerGroupDetails {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiWorkerGroupDetails</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiWorkerGroupDetails.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -123,7 +107,7 @@ class InstanceControllerApiWorkerGroupDetails {
 
 }
 
-InstanceControllerApiWorkerGroupDetails.RequiredProperties = ["id", "key", "description", "allowedTenants", "workers"];
+
 
 /**
  * The ID of worker group.

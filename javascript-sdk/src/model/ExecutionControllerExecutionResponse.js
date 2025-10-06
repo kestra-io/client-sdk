@@ -32,27 +32,16 @@ class ExecutionControllerExecutionResponse {
      * Constructs a new <code>ExecutionControllerExecutionResponse</code>.
      * @alias module:model/ExecutionControllerExecutionResponse
      * @implements module:model/Execution
-     * @param labels {Array.<module:model/Label>} 
      * @param id {String} 
      * @param namespace {String} 
      * @param flowId {String} 
      * @param flowRevision {Number} 
-     * @param taskRunList {Array.<module:model/TaskRun>} 
-     * @param inputs {Object.<String, Object>} 
-     * @param outputs {Object.<String, Object>} 
-     * @param variables {Object.<String, Object>} 
      * @param state {module:model/State} 
-     * @param parentId {String} 
-     * @param originalId {String} 
-     * @param trigger {module:model/ExecutionTrigger} 
      * @param deleted {Boolean} 
-     * @param metadata {module:model/ExecutionMetadata} 
-     * @param traceParent {String} 
-     * @param url {String} 
      */
-    constructor(labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent, url) { 
-        Execution.initialize(this, labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent);
-        ExecutionControllerExecutionResponse.initialize(this, labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent, url);
+    constructor(id, namespace, flowId, flowRevision, state, deleted) { 
+        Execution.initialize(this, id, namespace, flowId, flowRevision, state, deleted);
+        ExecutionControllerExecutionResponse.initialize(this, id, namespace, flowId, flowRevision, state, deleted);
     }
 
     /**
@@ -60,24 +49,13 @@ class ExecutionControllerExecutionResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent, url) { 
-        obj['labels'] = labels;
+    static initialize(obj, id, namespace, flowId, flowRevision, state, deleted) { 
         obj['id'] = id;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['flowRevision'] = flowRevision;
-        obj['taskRunList'] = taskRunList;
-        obj['inputs'] = inputs;
-        obj['outputs'] = outputs;
-        obj['variables'] = variables;
         obj['state'] = state;
-        obj['parentId'] = parentId;
-        obj['originalId'] = originalId;
-        obj['trigger'] = trigger;
         obj['deleted'] = deleted;
-        obj['metadata'] = metadata;
-        obj['traceParent'] = traceParent;
-        obj['url'] = url;
     }
 
     /**
@@ -258,7 +236,7 @@ class ExecutionControllerExecutionResponse {
 
 }
 
-ExecutionControllerExecutionResponse.RequiredProperties = ["labels", "id", "namespace", "flowId", "flowRevision", "taskRunList", "inputs", "outputs", "variables", "state", "parentId", "originalId", "trigger", "deleted", "metadata", "traceParent", "url"];
+ExecutionControllerExecutionResponse.RequiredProperties = ["id", "namespace", "flowId", "flowRevision", "state", "deleted"];
 
 /**
  * @member {Array.<module:model/Label>} labels

@@ -22,18 +22,11 @@ class ValidateConstraintViolation {
     /**
      * Constructs a new <code>ValidateConstraintViolation</code>.
      * @alias module:model/ValidateConstraintViolation
-     * @param flow {String} 
-     * @param namespace {String} 
      * @param index {Number} 
-     * @param constraints {String} 
-     * @param outdated {Boolean} 
-     * @param deprecationPaths {Array.<String>} 
-     * @param warnings {Array.<String>} 
-     * @param infos {Array.<String>} 
      */
-    constructor(flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos) { 
+    constructor(index) { 
         
-        ValidateConstraintViolation.initialize(this, flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos);
+        ValidateConstraintViolation.initialize(this, index);
     }
 
     /**
@@ -41,15 +34,8 @@ class ValidateConstraintViolation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, flow, namespace, index, constraints, outdated, deprecationPaths, warnings, infos) { 
-        obj['flow'] = flow;
-        obj['namespace'] = namespace;
+    static initialize(obj, index) { 
         obj['index'] = index;
-        obj['constraints'] = constraints;
-        obj['outdated'] = outdated;
-        obj['deprecationPaths'] = deprecationPaths;
-        obj['warnings'] = warnings;
-        obj['infos'] = infos;
     }
 
     /**
@@ -134,7 +120,7 @@ class ValidateConstraintViolation {
 
 }
 
-ValidateConstraintViolation.RequiredProperties = ["flow", "namespace", "index", "constraints", "outdated", "deprecationPaths", "warnings", "infos"];
+ValidateConstraintViolation.RequiredProperties = ["index"];
 
 /**
  * @member {String} flow

@@ -25,11 +25,10 @@ class ServerConfig {
      * Constructs a new <code>ServerConfig</code>.
      * @alias module:model/ServerConfig
      * @param terminationGracePeriod {String} 
-     * @param liveness {module:model/ServerConfigLiveness} 
      */
-    constructor(terminationGracePeriod, liveness) { 
+    constructor(terminationGracePeriod) { 
         
-        ServerConfig.initialize(this, terminationGracePeriod, liveness);
+        ServerConfig.initialize(this, terminationGracePeriod);
     }
 
     /**
@@ -37,9 +36,8 @@ class ServerConfig {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, terminationGracePeriod, liveness) { 
+    static initialize(obj, terminationGracePeriod) { 
         obj['terminationGracePeriod'] = terminationGracePeriod || '5m';
-        obj['liveness'] = liveness;
     }
 
     /**
@@ -93,7 +91,7 @@ class ServerConfig {
 
 }
 
-ServerConfig.RequiredProperties = ["terminationGracePeriod", "liveness"];
+ServerConfig.RequiredProperties = ["terminationGracePeriod"];
 
 /**
  * @member {module:model/WorkerTaskRestartStrategy} workerTaskRestartStrategy

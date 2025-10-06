@@ -22,15 +22,10 @@ class PluginArtifactMetadata {
     /**
      * Constructs a new <code>PluginArtifactMetadata</code>.
      * @alias module:model/PluginArtifactMetadata
-     * @param uri {String} 
-     * @param name {String} 
-     * @param size {Number} 
-     * @param lastModifiedTime {Number} 
-     * @param creationTime {Number} 
      */
-    constructor(uri, name, size, lastModifiedTime, creationTime) { 
+    constructor() { 
         
-        PluginArtifactMetadata.initialize(this, uri, name, size, lastModifiedTime, creationTime);
+        PluginArtifactMetadata.initialize(this);
     }
 
     /**
@@ -38,12 +33,7 @@ class PluginArtifactMetadata {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uri, name, size, lastModifiedTime, creationTime) { 
-        obj['uri'] = uri;
-        obj['name'] = name;
-        obj['size'] = size;
-        obj['lastModifiedTime'] = lastModifiedTime;
-        obj['creationTime'] = creationTime;
+    static initialize(obj) { 
     }
 
     /**
@@ -82,12 +72,6 @@ class PluginArtifactMetadata {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PluginArtifactMetadata</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PluginArtifactMetadata.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['uri'] && !(typeof data['uri'] === 'string' || data['uri'] instanceof String)) {
             throw new Error("Expected the field `uri` to be a primitive type in the JSON string but got " + data['uri']);
@@ -103,7 +87,7 @@ class PluginArtifactMetadata {
 
 }
 
-PluginArtifactMetadata.RequiredProperties = ["uri", "name", "size", "lastModifiedTime", "creationTime"];
+
 
 /**
  * @member {String} uri

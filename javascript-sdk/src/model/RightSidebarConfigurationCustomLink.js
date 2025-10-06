@@ -22,12 +22,10 @@ class RightSidebarConfigurationCustomLink {
     /**
      * Constructs a new <code>RightSidebarConfigurationCustomLink</code>.
      * @alias module:model/RightSidebarConfigurationCustomLink
-     * @param title {String} 
-     * @param url {String} 
      */
-    constructor(title, url) { 
+    constructor() { 
         
-        RightSidebarConfigurationCustomLink.initialize(this, title, url);
+        RightSidebarConfigurationCustomLink.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class RightSidebarConfigurationCustomLink {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, title, url) { 
-        obj['title'] = title;
-        obj['url'] = url;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class RightSidebarConfigurationCustomLink {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>RightSidebarConfigurationCustomLink</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of RightSidebarConfigurationCustomLink.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['title'] && !(typeof data['title'] === 'string' || data['title'] instanceof String)) {
             throw new Error("Expected the field `title` to be a primitive type in the JSON string but got " + data['title']);
@@ -88,7 +78,7 @@ class RightSidebarConfigurationCustomLink {
 
 }
 
-RightSidebarConfigurationCustomLink.RequiredProperties = ["title", "url"];
+
 
 /**
  * @member {String} title

@@ -46,11 +46,6 @@ class Namespace {
     static initialize(obj, id, deleted) { 
         obj['id'] = id;
         obj['deleted'] = deleted;
-        obj['description'] = description;
-        obj['variables'] = variables;
-        obj['pluginDefaults'] = pluginDefaults;
-        obj['allowedNamespaces'] = allowedNamespaces;
-        obj['workerGroup'] = workerGroup;
     }
 
     /**
@@ -194,7 +189,7 @@ class Namespace {
 
 }
 
-Namespace.RequiredProperties = ["id", "deleted", "description", "variables", "pluginDefaults", "allowedNamespaces", "workerGroup"];
+Namespace.RequiredProperties = ["id", "deleted"];
 
 /**
  * @member {String} id

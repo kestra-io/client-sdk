@@ -22,12 +22,10 @@ class MeControllerApiUpdatePasswordRequest {
     /**
      * Constructs a new <code>MeControllerApiUpdatePasswordRequest</code>.
      * @alias module:model/MeControllerApiUpdatePasswordRequest
-     * @param oldPassword {String} 
-     * @param newPassword {String} 
      */
-    constructor(oldPassword, newPassword) { 
+    constructor() { 
         
-        MeControllerApiUpdatePasswordRequest.initialize(this, oldPassword, newPassword);
+        MeControllerApiUpdatePasswordRequest.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class MeControllerApiUpdatePasswordRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, oldPassword, newPassword) { 
-        obj['oldPassword'] = oldPassword;
-        obj['newPassword'] = newPassword;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class MeControllerApiUpdatePasswordRequest {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MeControllerApiUpdatePasswordRequest</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MeControllerApiUpdatePasswordRequest.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['oldPassword'] && !(typeof data['oldPassword'] === 'string' || data['oldPassword'] instanceof String)) {
             throw new Error("Expected the field `oldPassword` to be a primitive type in the JSON string but got " + data['oldPassword']);
@@ -88,7 +78,7 @@ class MeControllerApiUpdatePasswordRequest {
 
 }
 
-MeControllerApiUpdatePasswordRequest.RequiredProperties = ["oldPassword", "newPassword"];
+
 
 /**
  * @member {String} oldPassword

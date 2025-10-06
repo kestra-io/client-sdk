@@ -30,26 +30,16 @@ class Execution {
     /**
      * Constructs a new <code>Execution</code>.
      * @alias module:model/Execution
-     * @param labels {Array.<module:model/Label>} 
      * @param id {String} 
      * @param namespace {String} 
      * @param flowId {String} 
      * @param flowRevision {Number} 
-     * @param taskRunList {Array.<module:model/TaskRun>} 
-     * @param inputs {Object.<String, Object>} 
-     * @param outputs {Object.<String, Object>} 
-     * @param variables {Object.<String, Object>} 
      * @param state {module:model/State} 
-     * @param parentId {String} 
-     * @param originalId {String} 
-     * @param trigger {module:model/ExecutionTrigger} 
      * @param deleted {Boolean} 
-     * @param metadata {module:model/ExecutionMetadata} 
-     * @param traceParent {String} 
      */
-    constructor(labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent) { 
+    constructor(id, namespace, flowId, flowRevision, state, deleted) { 
         
-        Execution.initialize(this, labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent);
+        Execution.initialize(this, id, namespace, flowId, flowRevision, state, deleted);
     }
 
     /**
@@ -57,23 +47,13 @@ class Execution {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, labels, id, namespace, flowId, flowRevision, taskRunList, inputs, outputs, variables, state, parentId, originalId, trigger, deleted, metadata, traceParent) { 
-        obj['labels'] = labels;
+    static initialize(obj, id, namespace, flowId, flowRevision, state, deleted) { 
         obj['id'] = id;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['flowRevision'] = flowRevision;
-        obj['taskRunList'] = taskRunList;
-        obj['inputs'] = inputs;
-        obj['outputs'] = outputs;
-        obj['variables'] = variables;
         obj['state'] = state;
-        obj['parentId'] = parentId;
-        obj['originalId'] = originalId;
-        obj['trigger'] = trigger;
         obj['deleted'] = deleted;
-        obj['metadata'] = metadata;
-        obj['traceParent'] = traceParent;
     }
 
     /**
@@ -246,7 +226,7 @@ class Execution {
 
 }
 
-Execution.RequiredProperties = ["labels", "id", "namespace", "flowId", "flowRevision", "taskRunList", "inputs", "outputs", "variables", "state", "parentId", "originalId", "trigger", "deleted", "metadata", "traceParent"];
+Execution.RequiredProperties = ["id", "namespace", "flowId", "flowRevision", "state", "deleted"];
 
 /**
  * @member {Array.<module:model/Label>} labels

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**superAdmin** | **Boolean** |  | 
-**restricted** | **Boolean** |  | 
-**profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  | 
-**auths** | [**[IAMTenantAccessControllerApiAuthentication]**](IAMTenantAccessControllerApiAuthentication.md) |  | 
-**tenants** | [**[MeControllerApiTenant]**](MeControllerApiTenant.md) |  | 
+**id** | **String** |  | [optional] 
+**superAdmin** | **Boolean** |  | [optional] 
+**restricted** | **Boolean** |  | [optional] 
+**profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  | [optional] 
+**auths** | [**[IAMTenantAccessControllerApiAuthentication]**](IAMTenantAccessControllerApiAuthentication.md) |  | [optional] 
+**tenants** | [**[MeControllerApiTenant]**](MeControllerApiTenant.md) |  | [optional] 
 
 

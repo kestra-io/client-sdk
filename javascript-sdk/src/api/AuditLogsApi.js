@@ -401,7 +401,7 @@ export default class AuditLogsApi {
      * @param {String} [executionId] An execution filter
      * @param {String} [userId] A user id filter
      * @param {String} [id] A id filter
-     * @param {module:model/ResourceType1} [resource] A resource filter
+     * @param {Array.<module:model/ResourceType1>} [resources] A resource filter
      * @param {Date} [startDate] The start datetime
      * @param {Date} [endDate] The end datetime
      * @param {Object.<String, {String: String}>} [details] A list of auditLog details
@@ -433,7 +433,7 @@ export default class AuditLogsApi {
         'executionId': opts['executionId'],
         'userId': opts['userId'],
         'id': opts['id'],
-        'resource': opts['resource'],
+        'resources': this.apiClient.buildCollectionParam(opts['resources'], 'csv'),
         'startDate': opts['startDate'],
         'endDate': opts['endDate'],
         'details': opts['details'],

@@ -23,14 +23,10 @@ class GroupIdentifier {
     /**
      * Constructs a new <code>GroupIdentifier</code>.
      * @alias module:model/GroupIdentifier
-     * @param tenantId {String} 
-     * @param groupId {String} 
-     * @param membership {module:model/GroupIdentifierMembership} 
-     * @param managedExternally {Boolean} 
      */
-    constructor(tenantId, groupId, membership, managedExternally) { 
+    constructor() { 
         
-        GroupIdentifier.initialize(this, tenantId, groupId, membership, managedExternally);
+        GroupIdentifier.initialize(this);
     }
 
     /**
@@ -38,11 +34,7 @@ class GroupIdentifier {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tenantId, groupId, membership, managedExternally) { 
-        obj['tenantId'] = tenantId;
-        obj['groupId'] = groupId;
-        obj['membership'] = membership;
-        obj['managedExternally'] = managedExternally;
+    static initialize(obj) { 
     }
 
     /**
@@ -78,12 +70,6 @@ class GroupIdentifier {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>GroupIdentifier</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of GroupIdentifier.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['tenantId'] && !(typeof data['tenantId'] === 'string' || data['tenantId'] instanceof String)) {
             throw new Error("Expected the field `tenantId` to be a primitive type in the JSON string but got " + data['tenantId']);
@@ -99,7 +85,7 @@ class GroupIdentifier {
 
 }
 
-GroupIdentifier.RequiredProperties = ["tenantId", "groupId", "membership", "managedExternally"];
+
 
 /**
  * @member {String} tenantId

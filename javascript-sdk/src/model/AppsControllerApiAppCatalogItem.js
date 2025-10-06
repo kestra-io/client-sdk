@@ -22,15 +22,10 @@ class AppsControllerApiAppCatalogItem {
     /**
      * Constructs a new <code>AppsControllerApiAppCatalogItem</code>.
      * @alias module:model/AppsControllerApiAppCatalogItem
-     * @param uid {String} 
-     * @param name {String} 
-     * @param description {String} 
-     * @param type {String} 
-     * @param tags {Array.<String>} 
      */
-    constructor(uid, name, description, type, tags) { 
+    constructor() { 
         
-        AppsControllerApiAppCatalogItem.initialize(this, uid, name, description, type, tags);
+        AppsControllerApiAppCatalogItem.initialize(this);
     }
 
     /**
@@ -38,12 +33,7 @@ class AppsControllerApiAppCatalogItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, uid, name, description, type, tags) { 
-        obj['uid'] = uid;
-        obj['name'] = name;
-        obj['description'] = description;
-        obj['type'] = type;
-        obj['tags'] = tags;
+    static initialize(obj) { 
     }
 
     /**
@@ -82,12 +72,6 @@ class AppsControllerApiAppCatalogItem {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiAppCatalogItem</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppsControllerApiAppCatalogItem.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['uid'] && !(typeof data['uid'] === 'string' || data['uid'] instanceof String)) {
             throw new Error("Expected the field `uid` to be a primitive type in the JSON string but got " + data['uid']);
@@ -115,7 +99,7 @@ class AppsControllerApiAppCatalogItem {
 
 }
 
-AppsControllerApiAppCatalogItem.RequiredProperties = ["uid", "name", "description", "type", "tags"];
+
 
 /**
  * @member {String} uid
