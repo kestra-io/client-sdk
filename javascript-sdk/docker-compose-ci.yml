@@ -1,0 +1,35 @@
+services:
+  kestra:
+    container_name: javascript-sdk-test-kestra
+    image: "kestra/kestra:${KESTRA_VERSION}-no-plugins"
+    pull_policy: always
+    user: "root"
+    command: server standalone
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsv http://localhost:8081/health" ]
+      interval: 2s
+      timeout: 30s
+      retries: 30
+      start_period: 5s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      KESTRA_CONFIGURATION: |
+        kestra:
+          server:
+            basicAuth:
+              username: admin@kestra.io
+              password: Admin1234
+          repository:
+            type: h2
+          storage:
+            type: local
+            local:
+              basePath: "/app/storage"
+          queue:
+            type: h2
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+    ports:
+      - "9903:8080"

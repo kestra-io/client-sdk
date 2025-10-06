@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,8 @@
   "dependencies": {
     "@kestra-io/kestra-api": "file:..",
     "kestra_api": "file:.."
+  },
+  "devDependencies": {
+    "vitest": "^0.34.0"
   }
 }
