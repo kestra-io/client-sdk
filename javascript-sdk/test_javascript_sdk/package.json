@@ -14,6 +14,6 @@
     "kestra_api": "file:.."
   },
   "devDependencies": {
-    "vitest": "^0.34.0"
+    "vitest": "^3.2.4"
   }
 }
