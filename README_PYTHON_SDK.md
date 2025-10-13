@@ -26,7 +26,9 @@
               if not re.match(r"\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*", value):
             raise ValueError(r"must validate the regular expression /\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*(\.\p{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}*)*/")
       ```
-
+ - In the `executions_api.py` inject the SSE method, done through the inject_sse_method.sh script
+ 
+ - In the core, "public HttpResponse<Flow> updateFlowFromJson" had to be commented to avoid a conflict on the path, see the issue: https://github.com/kestra-io/kestra/issues/11928
 ## Step to use
 
 The openapi generator will generate 1 Api per controller, so we create a custom Kestra Client that need to be instantiated once for every API.

@@ -5,6 +5,8 @@
 
 * `CREATED` (value: `'CREATED'`)
 
+* `SUBMITTED` (value: `'SUBMITTED'`)
+
 * `RUNNING` (value: `'RUNNING'`)
 
 * `PAUSED` (value: `'PAUSED'`)

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "v1.0.2"
+__version__ = "v1.0.3"
 
 # Define package exports
 __all__ = [
@@ -165,7 +165,6 @@ __all__ = [
     "ExecutionControllerLastExecutionResponse",
     "ExecutionControllerSetLabelsByIdsRequest",
     "ExecutionControllerStateRequest",
-    "ExecutionControllerWebhookResponse",
     "ExecutionKind",
     "ExecutionMetadata",
     "ExecutionRepositoryInterfaceChildFilter",
@@ -324,7 +323,6 @@ __all__ = [
     "PagedResultsMetricEntry",
     "PagedResultsNamespace",
     "PagedResultsSearchResultFlow",
-    "PagedResultsTaskRun",
     "PagedResultsTenant",
     "PagedResultsTestSuite",
     "PagedResultsTestSuiteRunResult",
@@ -340,7 +338,6 @@ __all__ = [
     "PluginArtifactMetadata",
     "PluginControllerApiPluginVersions",
     "PluginDefault",
-    "PluginDefaultValues",
     "PluginIcon",
     "PluginPluginElementMetadata",
     "PluginSchema",
@@ -354,10 +351,7 @@ __all__ = [
     "PropertyString",
     "QueryFilter",
     "QueryFilterField",
-    "QueryFilterFieldOp",
     "QueryFilterOp",
-    "QueryFilterOperation",
-    "QueryFilterResourceField",
     "RBACServiceRoleAssignmentRoleOrigin",
     "Relation",
     "RelationType",
@@ -434,8 +428,6 @@ __all__ = [
     "Type",
     "UnitTest",
     "UnitTestResult",
-    "UpdateFlow200Response",
-    "UpdateFlowsInNamespaceFromJson200Response",
     "UsageEE",
     "UserGroup",
     "UserGroupType",
@@ -601,7 +593,6 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse as ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest as ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest as ExecutionControllerStateRequest
-from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse as ExecutionControllerWebhookResponse
 from kestrapy.models.execution_kind import ExecutionKind as ExecutionKind
 from kestrapy.models.execution_metadata import ExecutionMetadata as ExecutionMetadata
 from kestrapy.models.execution_repository_interface_child_filter import ExecutionRepositoryInterfaceChildFilter as ExecutionRepositoryInterfaceChildFilter
@@ -760,7 +751,6 @@ from kestrapy.models.paged_results_map_string_object import PagedResultsMapStrin
 from kestrapy.models.paged_results_metric_entry import PagedResultsMetricEntry as PagedResultsMetricEntry
 from kestrapy.models.paged_results_namespace import PagedResultsNamespace as PagedResultsNamespace
 from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow as PagedResultsSearchResultFlow
-from kestrapy.models.paged_results_task_run import PagedResultsTaskRun as PagedResultsTaskRun
 from kestrapy.models.paged_results_tenant import PagedResultsTenant as PagedResultsTenant
 from kestrapy.models.paged_results_test_suite import PagedResultsTestSuite as PagedResultsTestSuite
 from kestrapy.models.paged_results_test_suite_run_result import PagedResultsTestSuiteRunResult as PagedResultsTestSuiteRunResult
@@ -776,7 +766,6 @@ from kestrapy.models.plugin_artifact import PluginArtifact as PluginArtifact
 from kestrapy.models.plugin_artifact_metadata import PluginArtifactMetadata as PluginArtifactMetadata
 from kestrapy.models.plugin_controller_api_plugin_versions import PluginControllerApiPluginVersions as PluginControllerApiPluginVersions
 from kestrapy.models.plugin_default import PluginDefault as PluginDefault
-from kestrapy.models.plugin_default_values import PluginDefaultValues as PluginDefaultValues
 from kestrapy.models.plugin_icon import PluginIcon as PluginIcon
 from kestrapy.models.plugin_plugin_element_metadata import PluginPluginElementMetadata as PluginPluginElementMetadata
 from kestrapy.models.plugin_schema import PluginSchema as PluginSchema
@@ -790,10 +779,7 @@ from kestrapy.models.property_object import PropertyObject as PropertyObject
 from kestrapy.models.property_string import PropertyString as PropertyString
 from kestrapy.models.query_filter import QueryFilter as QueryFilter
 from kestrapy.models.query_filter_field import QueryFilterField as QueryFilterField
-from kestrapy.models.query_filter_field_op import QueryFilterFieldOp as QueryFilterFieldOp
 from kestrapy.models.query_filter_op import QueryFilterOp as QueryFilterOp
-from kestrapy.models.query_filter_operation import QueryFilterOperation as QueryFilterOperation
-from kestrapy.models.query_filter_resource_field import QueryFilterResourceField as QueryFilterResourceField
 from kestrapy.models.rbac_service_role_assignment_role_origin import RBACServiceRoleAssignmentRoleOrigin as RBACServiceRoleAssignmentRoleOrigin
 from kestrapy.models.relation import Relation as Relation
 from kestrapy.models.relation_type import RelationType as RelationType
@@ -870,8 +856,6 @@ from kestrapy.models.trigger_fixture import TriggerFixture as TriggerFixture
 from kestrapy.models.type import Type as Type
 from kestrapy.models.unit_test import UnitTest as UnitTest
 from kestrapy.models.unit_test_result import UnitTestResult as UnitTestResult
-from kestrapy.models.update_flow200_response import UpdateFlow200Response as UpdateFlow200Response
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response as UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.usage_ee import UsageEE as UsageEE
 from kestrapy.models.user_group import UserGroup as UserGroup
 from kestrapy.models.user_group_type import UserGroupType as UserGroupType
@@ -883,4 +867,5 @@ from kestrapy.models.value_path_expression import ValuePathExpression as ValuePa
 from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
+
 from kestrapy.kestra_client import KestraClient as KestraClient

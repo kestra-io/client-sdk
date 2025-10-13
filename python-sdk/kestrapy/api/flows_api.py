@@ -34,8 +34,6 @@ from kestrapy.models.paged_results_flow import PagedResultsFlow
 from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.task import Task
-from kestrapy.models.update_flow200_response import UpdateFlow200Response
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
 from kestrapy.api_client import ApiClient, RequestSerialized
@@ -7603,8 +7601,8 @@ class FlowsApi:
     @validate_call
     def update_flow(
         self,
-        id: Annotated[StrictStr, Field(description="The flow id")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
         _request_timeout: Union[
@@ -7619,14 +7617,14 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateFlow200Response:
-        """(Deprecated) Update a flow
+    ) -> FlowWithSource:
+        """Update a flow
 
 
-        :param id: The flow id (required)
-        :type id: str
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param id: The flow id (required)
+        :type id: str
         :param tenant: (required)
         :type tenant: str
         :param body: The flow source code (required)
@@ -7652,11 +7650,10 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
-            id=id,
             namespace=namespace,
+            id=id,
             tenant=tenant,
             body=body,
             _request_auth=_request_auth,
@@ -7666,7 +7663,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlow200Response",
+            '200': "FlowWithSource",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7682,8 +7679,8 @@ class FlowsApi:
     @validate_call
     def update_flow_with_http_info(
         self,
-        id: Annotated[StrictStr, Field(description="The flow id")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
         _request_timeout: Union[
@@ -7698,14 +7695,14 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateFlow200Response]:
-        """(Deprecated) Update a flow
+    ) -> ApiResponse[FlowWithSource]:
+        """Update a flow
 
 
-        :param id: The flow id (required)
-        :type id: str
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param id: The flow id (required)
+        :type id: str
         :param tenant: (required)
         :type tenant: str
         :param body: The flow source code (required)
@@ -7731,11 +7728,10 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
-            id=id,
             namespace=namespace,
+            id=id,
             tenant=tenant,
             body=body,
             _request_auth=_request_auth,
@@ -7745,7 +7741,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlow200Response",
+            '200': "FlowWithSource",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7761,8 +7757,8 @@ class FlowsApi:
     @validate_call
     def update_flow_without_preload_content(
         self,
-        id: Annotated[StrictStr, Field(description="The flow id")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        id: Annotated[StrictStr, Field(description="The flow id")],
         tenant: StrictStr,
         body: Annotated[StrictStr, Field(description="The flow source code")],
         _request_timeout: Union[
@@ -7778,13 +7774,13 @@ class FlowsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """(Deprecated) Update a flow
+        """Update a flow
 
 
-        :param id: The flow id (required)
-        :type id: str
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param id: The flow id (required)
+        :type id: str
         :param tenant: (required)
         :type tenant: str
         :param body: The flow source code (required)
@@ -7810,11 +7806,10 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("PUT /api/v1/{tenant}/flows/{namespace}/{id} is deprecated.", DeprecationWarning)
 
         _param = self._update_flow_serialize(
-            id=id,
             namespace=namespace,
+            id=id,
             tenant=tenant,
             body=body,
             _request_auth=_request_auth,
@@ -7824,7 +7819,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlow200Response",
+            '200': "FlowWithSource",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7835,8 +7830,8 @@ class FlowsApi:
 
     def _update_flow_serialize(
         self,
-        id,
         namespace,
+        id,
         tenant,
         body,
         _request_auth,
@@ -7860,10 +7855,10 @@ class FlowsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if id is not None:
-            _path_params['id'] = id
         if namespace is not None:
             _path_params['namespace'] = namespace
+        if id is not None:
+            _path_params['id'] = id
         if tenant is not None:
             _path_params['tenant'] = tenant
         # process the query parameters
@@ -7921,12 +7916,12 @@ class FlowsApi:
 
 
     @validate_call
-    def update_flows_in_namespace_from_json(
+    def update_flows_in_namespace(
         self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
+        body: Annotated[StrictStr, Field(description="A list of flows source code")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -7939,19 +7934,19 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateFlowsInNamespaceFromJson200Response:
-        """(Deprecated) Update a complete namespace from json object
+    ) -> List[FlowInterface]:
+        """Update a complete namespace from yaml source
 
         All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param delete: If missing flow should be deleted (required)
+        :type delete: bool
         :param tenant: (required)
         :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
+        :param body: A list of flows source code (required)
+        :type body: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -7973,13 +7968,12 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
 
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
+        _param = self._update_flows_in_namespace_serialize(
             namespace=namespace,
+            delete=delete,
             tenant=tenant,
-            flow=flow,
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -7987,7 +7981,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
+            '200': "List[FlowInterface]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8001,12 +7995,12 @@ class FlowsApi:
 
 
     @validate_call
-    def update_flows_in_namespace_from_json_with_http_info(
+    def update_flows_in_namespace_with_http_info(
         self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
+        body: Annotated[StrictStr, Field(description="A list of flows source code")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8019,19 +8013,19 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateFlowsInNamespaceFromJson200Response]:
-        """(Deprecated) Update a complete namespace from json object
+    ) -> ApiResponse[List[FlowInterface]]:
+        """Update a complete namespace from yaml source
 
         All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param delete: If missing flow should be deleted (required)
+        :type delete: bool
         :param tenant: (required)
         :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
+        :param body: A list of flows source code (required)
+        :type body: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8053,13 +8047,12 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
 
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
+        _param = self._update_flows_in_namespace_serialize(
             namespace=namespace,
+            delete=delete,
             tenant=tenant,
-            flow=flow,
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8067,7 +8060,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
+            '200': "List[FlowInterface]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8081,12 +8074,12 @@ class FlowsApi:
 
 
     @validate_call
-    def update_flows_in_namespace_from_json_without_preload_content(
+    def update_flows_in_namespace_without_preload_content(
         self,
-        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         namespace: Annotated[StrictStr, Field(description="The flow namespace")],
+        delete: Annotated[StrictBool, Field(description="If missing flow should be deleted")],
         tenant: StrictStr,
-        flow: Annotated[List[Flow], Field(description="A list of flows")],
+        body: Annotated[StrictStr, Field(description="A list of flows source code")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8100,18 +8093,18 @@ class FlowsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """(Deprecated) Update a complete namespace from json object
+        """Update a complete namespace from yaml source
 
         All flow will be created / updated for this namespace. Flow that already created but not in `flows` will be deleted if the query delete is `true`
 
-        :param delete: If missing flow should be deleted (required)
-        :type delete: bool
         :param namespace: The flow namespace (required)
         :type namespace: str
+        :param delete: If missing flow should be deleted (required)
+        :type delete: bool
         :param tenant: (required)
         :type tenant: str
-        :param flow: A list of flows (required)
-        :type flow: List[Flow]
+        :param body: A list of flows source code (required)
+        :type body: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8133,13 +8126,12 @@ class FlowsApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
-        warnings.warn("POST /api/v1/{tenant}/flows/{namespace} is deprecated.", DeprecationWarning)
 
-        _param = self._update_flows_in_namespace_from_json_serialize(
-            delete=delete,
+        _param = self._update_flows_in_namespace_serialize(
             namespace=namespace,
+            delete=delete,
             tenant=tenant,
-            flow=flow,
+            body=body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8147,7 +8139,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateFlowsInNamespaceFromJson200Response",
+            '200': "List[FlowInterface]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -8156,12 +8148,12 @@ class FlowsApi:
         return response_data.response
 
 
-    def _update_flows_in_namespace_from_json_serialize(
+    def _update_flows_in_namespace_serialize(
         self,
-        delete,
         namespace,
+        delete,
         tenant,
-        flow,
+        body,
         _request_auth,
         _content_type,
         _headers,
@@ -8171,7 +8163,6 @@ class FlowsApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'Flow': '',
         }
 
         _path_params: Dict[str, str] = {}
@@ -8196,8 +8187,8 @@ class FlowsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if flow is not None:
-            _body_params = flow
+        if body is not None:
+            _body_params = body
 
 
         # set the HTTP header `Accept`
@@ -8215,7 +8206,6 @@ class FlowsApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/json', 
                         'application/x-yaml'
                     ]
                 )

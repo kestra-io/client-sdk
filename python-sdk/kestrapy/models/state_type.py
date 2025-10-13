@@ -27,6 +27,7 @@ class StateType(str, Enum):
     allowed enum values
     """
     CREATED = 'CREATED'
+    SUBMITTED = 'SUBMITTED'
     RUNNING = 'RUNNING'
     PAUSED = 'PAUSED'
     RESTARTED = 'RESTARTED'

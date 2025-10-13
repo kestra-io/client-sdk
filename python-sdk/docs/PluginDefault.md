@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | 
 **forced** | **bool** |  | [optional] 
-**values** | [**PluginDefaultValues**](PluginDefaultValues.md) |  | [optional] 
+**values** | **object** |  | [optional] 
 
 ## Example
 

@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created** | **int** |  | [optional] 
+**submitted** | **int** |  | [optional] 
 **running** | **int** |  | [optional] 
 **paused** | **int** |  | [optional] 
 **restarted** | **int** |  | [optional] 

@@ -28,9 +28,8 @@ class ExecutionUsage(BaseModel):
     ExecutionUsage
     """ # noqa: E501
     daily_executions_count: Optional[List[DailyExecutionStatistics]] = Field(default=None, alias="dailyExecutionsCount")
-    daily_task_runs_count: Optional[List[DailyExecutionStatistics]] = Field(default=None, alias="dailyTaskRunsCount")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["dailyExecutionsCount", "dailyTaskRunsCount"]
+    __properties: ClassVar[List[str]] = ["dailyExecutionsCount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,13 +79,6 @@ class ExecutionUsage(BaseModel):
                 if _item_daily_executions_count:
                     _items.append(_item_daily_executions_count.to_dict())
             _dict['dailyExecutionsCount'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in daily_task_runs_count (list)
-        _items = []
-        if self.daily_task_runs_count:
-            for _item_daily_task_runs_count in self.daily_task_runs_count:
-                if _item_daily_task_runs_count:
-                    _items.append(_item_daily_task_runs_count.to_dict())
-            _dict['dailyTaskRunsCount'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -104,8 +96,7 @@ class ExecutionUsage(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "dailyExecutionsCount": [DailyExecutionStatistics.from_dict(_item) for _item in obj["dailyExecutionsCount"]] if obj.get("dailyExecutionsCount") is not None else None,
-            "dailyTaskRunsCount": [DailyExecutionStatistics.from_dict(_item) for _item in obj["dailyTaskRunsCount"]] if obj.get("dailyTaskRunsCount") is not None else None
+            "dailyExecutionsCount": [DailyExecutionStatistics.from_dict(_item) for _item in obj["dailyExecutionsCount"]] if obj.get("dailyExecutionsCount") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

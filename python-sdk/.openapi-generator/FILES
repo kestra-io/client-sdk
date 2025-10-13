@@ -116,7 +116,6 @@ docs/ExecutionControllerExecutionResponse.md
 docs/ExecutionControllerLastExecutionResponse.md
 docs/ExecutionControllerSetLabelsByIdsRequest.md
 docs/ExecutionControllerStateRequest.md
-docs/ExecutionControllerWebhookResponse.md
 docs/ExecutionKind.md
 docs/ExecutionMetadata.md
 docs/ExecutionRepositoryInterfaceChildFilter.md
@@ -286,7 +285,6 @@ docs/PagedResultsMapStringObject.md
 docs/PagedResultsMetricEntry.md
 docs/PagedResultsNamespace.md
 docs/PagedResultsSearchResultFlow.md
-docs/PagedResultsTaskRun.md
 docs/PagedResultsTenant.md
 docs/PagedResultsTestSuite.md
 docs/PagedResultsTestSuiteRunResult.md
@@ -302,7 +300,6 @@ docs/PluginArtifact.md
 docs/PluginArtifactMetadata.md
 docs/PluginControllerApiPluginVersions.md
 docs/PluginDefault.md
-docs/PluginDefaultValues.md
 docs/PluginIcon.md
 docs/PluginPluginElementMetadata.md
 docs/PluginSchema.md
@@ -317,10 +314,7 @@ docs/PropertyObject.md
 docs/PropertyString.md
 docs/QueryFilter.md
 docs/QueryFilterField.md
-docs/QueryFilterFieldOp.md
 docs/QueryFilterOp.md
-docs/QueryFilterOperation.md
-docs/QueryFilterResourceField.md
 docs/RBACServiceRoleAssignmentRoleOrigin.md
 docs/Relation.md
 docs/RelationType.md
@@ -408,8 +402,6 @@ docs/TriggersApi.md
 docs/Type.md
 docs/UnitTest.md
 docs/UnitTestResult.md
-docs/UpdateFlow200Response.md
-docs/UpdateFlowsInNamespaceFromJson200Response.md
 docs/UsageEE.md
 docs/UserGroup.md
 docs/UserGroupType.md
@@ -569,7 +561,6 @@ kestrapy/models/execution_controller_execution_response.py
 kestrapy/models/execution_controller_last_execution_response.py
 kestrapy/models/execution_controller_set_labels_by_ids_request.py
 kestrapy/models/execution_controller_state_request.py
-kestrapy/models/execution_controller_webhook_response.py
 kestrapy/models/execution_kind.py
 kestrapy/models/execution_metadata.py
 kestrapy/models/execution_repository_interface_child_filter.py
@@ -728,7 +719,6 @@ kestrapy/models/paged_results_map_string_object.py
 kestrapy/models/paged_results_metric_entry.py
 kestrapy/models/paged_results_namespace.py
 kestrapy/models/paged_results_search_result_flow.py
-kestrapy/models/paged_results_task_run.py
 kestrapy/models/paged_results_tenant.py
 kestrapy/models/paged_results_test_suite.py
 kestrapy/models/paged_results_test_suite_run_result.py
@@ -744,7 +734,6 @@ kestrapy/models/plugin_artifact.py
 kestrapy/models/plugin_artifact_metadata.py
 kestrapy/models/plugin_controller_api_plugin_versions.py
 kestrapy/models/plugin_default.py
-kestrapy/models/plugin_default_values.py
 kestrapy/models/plugin_icon.py
 kestrapy/models/plugin_plugin_element_metadata.py
 kestrapy/models/plugin_schema.py
@@ -758,10 +747,7 @@ kestrapy/models/property_object.py
 kestrapy/models/property_string.py
 kestrapy/models/query_filter.py
 kestrapy/models/query_filter_field.py
-kestrapy/models/query_filter_field_op.py
 kestrapy/models/query_filter_op.py
-kestrapy/models/query_filter_operation.py
-kestrapy/models/query_filter_resource_field.py
 kestrapy/models/rbac_service_role_assignment_role_origin.py
 kestrapy/models/relation.py
 kestrapy/models/relation_type.py
@@ -838,8 +824,6 @@ kestrapy/models/trigger_fixture.py
 kestrapy/models/type.py
 kestrapy/models/unit_test.py
 kestrapy/models/unit_test_result.py
-kestrapy/models/update_flow200_response.py
-kestrapy/models/update_flows_in_namespace_from_json200_response.py
 kestrapy/models/usage_ee.py
 kestrapy/models/user_group.py
 kestrapy/models/user_group_type.py

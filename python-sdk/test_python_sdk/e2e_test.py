@@ -16,8 +16,8 @@ def tenant_id():
 def kestra_client():
     configuration = Configuration()
     configuration.host = "http://localhost:9902"
-    configuration.username = "admin@kestra.io"
-    configuration.password = "Admin1234"
+    configuration.username = "root@root.com"
+    configuration.password = "Root!1234"
 
     return KestraClient(configuration)
 

@@ -1,20 +1,21 @@
 [project]
 name = "kestrapy"
-version = "v1.0.2"
+version = "v1.0.3"
 description = "Kestra EE"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
 ]
-license = "Apache-2.0"
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Kestra EE"]
 requires-python = ">=3.9"
 
 dependencies = [
+  "requests (>= 2.32.5)",
+  "sseclient-py (>= 1.8.0)",
   "urllib3 (>=2.1.0,<3.0.0)",
   "python-dateutil (>=2.8.2)",
   "pydantic (>=2)",
-  "typing-extensions (>=4.7.1)"
+  "typing-extensions (>=4.7.1)",
 ]
 
 [project.urls]

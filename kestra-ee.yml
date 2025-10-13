@@ -950,6 +950,22 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
+  /api/v1/main-tenant-flows:
+    get:
+      tags:
+        - Misc
+      summary: Check if flows are present on the main tenant.
+      operationId: mainTenantFlows
+      responses:
+        "200":
+          description: mainTenantFlows 200 response
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/me:
     get:
       tags:
@@ -6725,7 +6741,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6764,7 +6780,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -6803,7 +6819,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ExecutionController.WebhookResponse"
+                type: object
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -7792,13 +7808,11 @@ paths:
         "409":
           description: if the flow is disabled
         "200":
-          description: createExecution 200 response
+          description: On execution created
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
+                $ref: "#/components/schemas/ExecutionController.ExecutionResponse"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -8759,12 +8773,18 @@ paths:
     post:
       tags:
         - Flows
-      summary: Update a complete namespace from json object
+      summary: Update a complete namespace from yaml source
       description: |-
         All flow will be created / updated for this namespace.
         Flow that already created but not in `flows` will be deleted if the query delete is `true`
-      operationId: updateFlowsInNamespaceFromJson
+      operationId: updateFlowsInNamespace
       parameters:
+        - name: namespace
+          in: path
+          description: The flow namespace
+          required: true
+          schema:
+            type: string
         - name: delete
           in: query
           description: If missing flow should be deleted
@@ -8773,45 +8793,27 @@ paths:
           schema:
             type: boolean
             default: true
-        - name: namespace
-          in: path
-          description: The flow namespace
-          required: true
-          schema:
-            type: string
         - name: tenant
           in: path
           required: true
           schema:
             type: string
       requestBody:
-        description: A list of flows
+        description: A list of flows source code
         content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/Flow"
           application/x-yaml:
             schema:
               type: string
-            example: null
         required: true
       responses:
         "200":
-          description: updateFlowsInNamespaceFromJson 200 response
+          description: updateFlowsInNamespace 200 response
           content:
             application/json:
               schema:
-                oneOf:
-                  - type: array
-                    items:
-                      $ref: "#/components/schemas/Flow"
-                  - type: array
-                    items:
-                      $ref: "#/components/schemas/FlowInterface"
-              example: null
-      deprecated: true
+                type: array
+                items:
+                  $ref: "#/components/schemas/FlowInterface"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -8879,15 +8881,15 @@ paths:
       summary: Update a flow
       operationId: updateFlow
       parameters:
-        - name: id
-          in: path
-          description: The flow id
-          required: true
-          schema:
-            type: string
         - name: namespace
           in: path
           description: The flow namespace
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: The flow id
           required: true
           schema:
             type: string
@@ -8902,23 +8904,14 @@ paths:
           application/x-yaml:
             schema:
               type: string
-            example: null
-          '*/*':
-            schema:
-              $ref: "#/components/schemas/Flow"
-            example: null
         required: true
       responses:
         "200":
-          description: updateFlow 200 response
+          description: On success
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: "#/components/schemas/FlowWithSource"
-                  - $ref: "#/components/schemas/Flow"
-              example: null
-      deprecated: true
+                $ref: "#/components/schemas/FlowWithSource"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12996,155 +12989,6 @@ paths:
       security:
         - bearerAuth: []
         - basicAuth: []
-  /api/v1/{tenant}/taskruns/search:
-    get:
-      tags:
-        - Executions
-      summary: "Search for taskruns, only available with the Elasticsearch repository"
-      operationId: searchTaskRun
-      parameters:
-        - name: page
-          in: query
-          description: The current page
-          required: true
-          explode: false
-          schema:
-            minimum: 1
-            type: integer
-            format: int32
-            default: 1
-        - name: size
-          in: query
-          description: The current page size
-          required: true
-          explode: false
-          schema:
-            minimum: 1
-            type: integer
-            format: int32
-            default: 10
-        - name: sort
-          in: query
-          description: The sort of current page
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: filters
-          in: query
-          description: Filters
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/QueryFilter"
-        - name: q
-          in: query
-          description: A string filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: namespace
-          in: query
-          description: A namespace filter prefix
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: flowId
-          in: query
-          description: A flow id filter
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: startDate
-          in: query
-          description: The start datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: endDate
-          in: query
-          description: The end datetime
-          deprecated: true
-          schema:
-            type: string
-            format: date-time
-            nullable: true
-        - name: timeRange
-          in: query
-          description: A time range filter relative to the current time
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-          examples:
-            Filter last 5 minutes:
-              value: PT5M
-            Filter last 24 hours:
-              value: P1D
-        - name: state
-          in: query
-          description: A state filter
-          deprecated: true
-          explode: false
-          schema:
-            type: array
-            nullable: true
-            items:
-              $ref: "#/components/schemas/State.Type"
-        - name: labels
-          in: query
-          description: A labels filter as a list of 'key:value'
-          deprecated: true
-          schema:
-            type: array
-            nullable: true
-            items:
-              type: string
-        - name: triggerExecutionId
-          in: query
-          description: The trigger execution id
-          deprecated: true
-          explode: false
-          schema:
-            type: string
-            nullable: true
-        - name: childFilter
-          in: query
-          description: A execution child filter
-          deprecated: true
-          explode: false
-          schema:
-            nullable: true
-            allOf:
-              - $ref: "#/components/schemas/ExecutionRepositoryInterface.ChildFilter"
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: searchTaskRun 200 response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PagedResults_TaskRun_"
-      security:
-        - bearerAuth: []
-        - basicAuth: []
   /api/v1/{tenant}/tenant-access:
     get:
       tags:
@@ -14816,9 +14660,16 @@ components:
           pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
         conditions:
@@ -14865,9 +14716,16 @@ components:
           pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
     AbstractUser:
       required:
         - email
@@ -15099,6 +14957,8 @@ components:
         type:
           type: string
         namespace:
+          type: string
+        flowId:
           type: string
         tags:
           type: array
@@ -15791,6 +15651,9 @@ components:
             CREATED:
               type: integer
               format: int64
+            SUBMITTED:
+              type: integer
+              format: int64
             RUNNING:
               type: integer
               format: int64
@@ -16142,35 +16005,6 @@ components:
           type: string
         state:
           $ref: "#/components/schemas/State.Type"
-    ExecutionController.WebhookResponse:
-      type: object
-      properties:
-        tenantId:
-          type: string
-        id:
-          type: string
-        namespace:
-          type: string
-        flowId:
-          type: string
-        flowRevision:
-          type: integer
-          format: int32
-        trigger:
-          $ref: "#/components/schemas/ExecutionTrigger"
-        outputs:
-          type: object
-          additionalProperties:
-            type: object
-        labels:
-          type: array
-          items:
-            $ref: "#/components/schemas/Label"
-        state:
-          $ref: "#/components/schemas/State"
-        url:
-          type: string
-          format: uri
     ExecutionKind:
       type: string
       enum:
@@ -16235,10 +16069,6 @@ components:
       type: object
       properties:
         dailyExecutionsCount:
-          type: array
-          items:
-            $ref: "#/components/schemas/DailyExecutionStatistics"
-        dailyTaskRunsCount:
           type: array
           items:
             $ref: "#/components/schemas/DailyExecutionStatistics"
@@ -18040,8 +17870,6 @@ components:
           format: date-time
         isCustomDashboardsEnabled:
           type: boolean
-        isTaskRunEnabled:
-          type: boolean
         isAnonymousUsageEnabled:
           type: boolean
         isUiAnonymousUsageEnabled:
@@ -18060,10 +17888,6 @@ components:
           type: array
           items:
             type: string
-        resourceToFilters:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.ResourceField"
         isAiEnabled:
           type: boolean
         isBasicAuthInitialized:
@@ -18581,19 +18405,6 @@ components:
         total:
           type: integer
           format: int64
-    PagedResults_TaskRun_:
-      required:
-        - results
-        - total
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/TaskRun"
-        total:
-          type: integer
-          format: int64
     PagedResults_Tenant_:
       required:
         - results
@@ -18868,9 +18679,6 @@ components:
         values:
           type: object
           additionalProperties: false
-          oneOf:
-            - $ref: "#/components/schemas/Map_Object.Object_"
-            - type: string
     PluginIcon:
       type: object
       properties:
@@ -18990,6 +18798,7 @@ components:
         - QUERY
         - SCOPE
         - NAMESPACE
+        - KIND
         - LABELS
         - FLOW_ID
         - START_DATE
@@ -19004,17 +18813,6 @@ components:
         - EXISTING_ONLY
         - MIN_LEVEL
       x-type: String
-    QueryFilter.FieldOp:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        operations:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.Operation"
     QueryFilter.Op:
       type: string
       enum:
@@ -19031,22 +18829,6 @@ components:
         - CONTAINS
         - REGEX
         - PREFIX
-    QueryFilter.Operation:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    QueryFilter.ResourceField:
-      type: object
-      properties:
-        name:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: "#/components/schemas/QueryFilter.FieldOp"
     RBACService.RoleAssignment.RoleOrigin:
       type: string
       enum:
@@ -19506,6 +19288,13 @@ components:
           type: string
           default: 3s
     ServerInstance:
+      required:
+        - hostname
+        - id
+        - metrics
+        - props
+        - type
+        - version
       type: object
       properties:
         id:
@@ -19748,6 +19537,7 @@ components:
       type: string
       enum:
         - CREATED
+        - SUBMITTED
         - RUNNING
         - PAUSED
         - RESTARTED
@@ -19780,9 +19570,16 @@ components:
           pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         description:
           type: string
         retry:
@@ -19838,9 +19635,16 @@ components:
           pattern: "^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"
           type: string
         version:
-          title: The version of the plugin to use.
-          pattern: "\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"
+          title: Plugin Version
           type: string
+          description: |
+            Defines the version of the plugin to use.
+
+            The version must follow the Semantic Versioning (SemVer) specification:
+              - A single-digit MAJOR version (e.g., `1`).
+              - A MAJOR.MINOR version (e.g., `1.1`).
+              - A MAJOR.MINOR.PATCH version, optionally with any qualifier
+                (e.g., `1.1.2`, `1.1.0-SNAPSHOT`).
         tasks:
           type: array
           items:
@@ -19857,6 +19661,7 @@ components:
         - flowId
         - id
         - namespace
+        - outputs
         - state
         - taskId
       type: object
@@ -19886,6 +19691,7 @@ components:
           type: object
           additionalProperties:
             type: object
+          nullable: true
         state:
           $ref: "#/components/schemas/State"
         iteration:
@@ -19895,7 +19701,6 @@ components:
           type: boolean
         forceExecution:
           type: boolean
-          nullable: true
     TaskRunAttempt:
       required:
         - state

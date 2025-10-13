@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **daily_executions_count** | [**List[DailyExecutionStatistics]**](DailyExecutionStatistics.md) |  | [optional] 
-**daily_task_runs_count** | [**List[DailyExecutionStatistics]**](DailyExecutionStatistics.md) |  | [optional] 
 
 ## Example
 

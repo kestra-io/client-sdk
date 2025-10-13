@@ -27,6 +27,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
     DailyExecutionStatisticsExecutionCounts
     """ # noqa: E501
     created: Optional[StrictInt] = Field(default=None, alias="CREATED")
+    submitted: Optional[StrictInt] = Field(default=None, alias="SUBMITTED")
     running: Optional[StrictInt] = Field(default=None, alias="RUNNING")
     paused: Optional[StrictInt] = Field(default=None, alias="PAUSED")
     restarted: Optional[StrictInt] = Field(default=None, alias="RESTARTED")
@@ -42,7 +43,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
     skipped: Optional[StrictInt] = Field(default=None, alias="SKIPPED")
     breakpoint: Optional[StrictInt] = Field(default=None, alias="BREAKPOINT")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["CREATED", "RUNNING", "PAUSED", "RESTARTED", "KILLING", "SUCCESS", "WARNING", "FAILED", "KILLED", "CANCELLED", "QUEUED", "RETRYING", "RETRIED", "SKIPPED", "BREAKPOINT"]
+    __properties: ClassVar[List[str]] = ["CREATED", "SUBMITTED", "RUNNING", "PAUSED", "RESTARTED", "KILLING", "SUCCESS", "WARNING", "FAILED", "KILLED", "CANCELLED", "QUEUED", "RETRYING", "RETRIED", "SKIPPED", "BREAKPOINT"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +104,7 @@ class DailyExecutionStatisticsExecutionCounts(BaseModel):
 
         _obj = cls.model_validate({
             "CREATED": obj.get("CREATED"),
+            "SUBMITTED": obj.get("SUBMITTED"),
             "RUNNING": obj.get("RUNNING"),
             "PAUSED": obj.get("PAUSED"),
             "RESTARTED": obj.get("RESTARTED"),

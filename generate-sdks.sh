@@ -25,7 +25,8 @@ fi
 BASE_PKG=io.kestra.sdk
 
 if [ -n "$TEMPLATE_FLAG" ]; then
-  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli author template -g "$LANGUAGES" -o /local/templates/java
+  echo "Generating templates"
+  docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release author template -g "$LANGUAGES" -o /local/templates/python
   exit 0
 fi
 
@@ -36,7 +37,7 @@ rm -rf ./java-sdk/src/main/java/io/kestra/sdk/api
 rm -rf ./java-sdk/src/main/java/io/kestra/sdk/internal
 rm -rf ./java-sdk/src/main/java/io/kestra/sdk/model
 
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
      -c /local/configurations/java-config.yml --artifact-version $VERSION \
       --skip-validate-spec
 
@@ -46,7 +47,7 @@ fi
 
 # Generate Python SDK
 if [[ ",$LANGUAGES," == *",python,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/configurations/python-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
@@ -57,11 +58,12 @@ sed $SED_INPLACE -E 's/^requires-python = .*/requires-python = ">=3.9"/' python-
 sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
 grep -vF '{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}' python-sdk/kestrapy/models/task.py > temp_file && mv temp_file python-sdk/kestrapy/models/task.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
+sh generation-helpers/python/inject_sse_method.sh # Inject SSE method in the client for follow execution endpoint
 fi
 
 # Generate Javascript SDK
 if [[ ",$LANGUAGES," == *",javascript,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
     -c /local/configurations/javascript-config.yml \
     --skip-validate-spec \
     --additional-properties=projectVersion=$VERSION
@@ -69,7 +71,7 @@ fi
 
 # Generate GoLang SDK
 if [[ ",$LANGUAGES," == *",go,"* ]]; then
-docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli generate \
+docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/openapi-generator-cli:latest-release generate \
       -c /local/configurations/go-config.yml \
       --skip-validate-spec \
       --additional-properties=packageVersion=$VERSION

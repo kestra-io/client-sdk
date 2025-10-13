@@ -2,6 +2,7 @@
 
 {{>partial_header}}
 
+
 from setuptools import setup, find_packages  # noqa: H301
 
 # To install the library, run the following
@@ -20,6 +21,9 @@ REQUIRES = [
     "aiohttp >= 3.8.4",
     "aiohttp-retry >= 2.8.3",
 {{/asyncio}}
+{{#httpx}}
+    "httpx >= 0.28.1",
+{{/httpx}}
 {{#tornado}}
     "tornado>=4.2, < 5",
 {{/tornado}}
@@ -29,14 +33,17 @@ REQUIRES = [
 {{/hasHttpSignatureMethods}}
     "pydantic >= 2",
     "typing-extensions >= 4.7.1",
+{{#lazyImports}}
+    "lazy-imports >= 1, < 2",
+{{/lazyImports}}
 ]
 
 setup(
     name=NAME,
     version=VERSION,
-    description="{{customDescription}}",
-    author="{{customAuthor}}",
-    author_email="{{customEmail}}",
+    description="{{appName}}",
+    author="{{infoName}}{{^infoName}}OpenAPI Generator community{{/infoName}}",
+    author_email="{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}",
     url="{{packageUrl}}",
     keywords=["OpenAPI", "OpenAPI-Generator", "{{{appName}}}"],
     install_requires=REQUIRES,

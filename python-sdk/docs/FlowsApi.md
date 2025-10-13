@@ -29,7 +29,7 @@ Method | HTTP request | Description
 [**search_flows**](FlowsApi.md#search_flows) | **GET** /api/v1/{tenant}/flows/search | Search for flows
 [**search_flows_by_source_code**](FlowsApi.md#search_flows_by_source_code) | **GET** /api/v1/{tenant}/flows/source | Search for flows source code
 [**update_flow**](FlowsApi.md#update_flow) | **PUT** /api/v1/{tenant}/flows/{namespace}/{id} | Update a flow
-[**update_flows_in_namespace_from_json**](FlowsApi.md#update_flows_in_namespace_from_json) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from json object
+[**update_flows_in_namespace**](FlowsApi.md#update_flows_in_namespace) | **POST** /api/v1/{tenant}/flows/{namespace} | Update a complete namespace from yaml source
 [**update_task**](FlowsApi.md#update_task) | **PATCH** /api/v1/{tenant}/flows/{namespace}/{id}/{taskId} | Update a single task on a flow
 [**validate_flows**](FlowsApi.md#validate_flows) | **POST** /api/v1/{tenant}/flows/validate | Validate a list of flows
 [**validate_task**](FlowsApi.md#validate_task) | **POST** /api/v1/{tenant}/flows/validate/task | Validate a task
@@ -2181,7 +2181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_flow**
-> UpdateFlow200Response update_flow(id, namespace, tenant, body)
+> FlowWithSource update_flow(namespace, id, tenant, body)
 
 Update a flow
 
@@ -2192,7 +2192,7 @@ Update a flow
 
 ```python
 import kestrapy
-from kestrapy.models.update_flow200_response import UpdateFlow200Response
+from kestrapy.models.flow_with_source import FlowWithSource
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -2222,14 +2222,14 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
-    id = 'id_example' # str | The flow id
     namespace = 'namespace_example' # str | The flow namespace
+    id = 'id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
     body = 'body_example' # str | The flow source code
 
     try:
         # Update a flow
-        api_response = api_instance.update_flow(id, namespace, tenant, body)
+        api_response = api_instance.update_flow(namespace, id, tenant, body)
         print("The response of FlowsApi->update_flow:\n")
         pprint(api_response)
     except Exception as e:
@@ -2243,14 +2243,14 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The flow id | 
  **namespace** | **str**| The flow namespace | 
+ **id** | **str**| The flow id | 
  **tenant** | **str**|  | 
  **body** | **str**| The flow source code | 
 
 ### Return type
 
-[**UpdateFlow200Response**](UpdateFlow200Response.md)
+[**FlowWithSource**](FlowWithSource.md)
 
 ### Authorization
 
@@ -2265,14 +2265,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | updateFlow 200 response |  -  |
+**200** | On success |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_flows_in_namespace_from_json**
-> UpdateFlowsInNamespaceFromJson200Response update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
+# **update_flows_in_namespace**
+> List[FlowInterface] update_flows_in_namespace(namespace, delete, tenant, body)
 
-Update a complete namespace from json object
+Update a complete namespace from yaml source
 
 All flow will be created / updated for this namespace.
 Flow that already created but not in `flows` will be deleted if the query delete is `true`
@@ -2284,8 +2284,7 @@ Flow that already created but not in `flows` will be deleted if the query delete
 
 ```python
 import kestrapy
-from kestrapy.models.flow import Flow
-from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
+from kestrapy.models.flow_interface import FlowInterface
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -2315,18 +2314,18 @@ configuration = kestrapy.Configuration(
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = kestrapy.FlowsApi(api_client)
-    delete = True # bool | If missing flow should be deleted (default to True)
     namespace = 'namespace_example' # str | The flow namespace
+    delete = True # bool | If missing flow should be deleted (default to True)
     tenant = 'tenant_example' # str | 
-    flow = [kestrapy.Flow()] # List[Flow] | A list of flows
+    body = 'body_example' # str | A list of flows source code
 
     try:
-        # Update a complete namespace from json object
-        api_response = api_instance.update_flows_in_namespace_from_json(delete, namespace, tenant, flow)
-        print("The response of FlowsApi->update_flows_in_namespace_from_json:\n")
+        # Update a complete namespace from yaml source
+        api_response = api_instance.update_flows_in_namespace(namespace, delete, tenant, body)
+        print("The response of FlowsApi->update_flows_in_namespace:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling FlowsApi->update_flows_in_namespace_from_json: %s\n" % e)
+        print("Exception when calling FlowsApi->update_flows_in_namespace: %s\n" % e)
 ```
 
 
@@ -2336,14 +2335,14 @@ with kestrapy.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **delete** | **bool**| If missing flow should be deleted | [default to True]
  **namespace** | **str**| The flow namespace | 
+ **delete** | **bool**| If missing flow should be deleted | [default to True]
  **tenant** | **str**|  | 
- **flow** | [**List[Flow]**](Flow.md)| A list of flows | 
+ **body** | **str**| A list of flows source code | 
 
 ### Return type
 
-[**UpdateFlowsInNamespaceFromJson200Response**](UpdateFlowsInNamespaceFromJson200Response.md)
+[**List[FlowInterface]**](FlowInterface.md)
 
 ### Authorization
 
@@ -2351,14 +2350,14 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/x-yaml
+ - **Content-Type**: application/x-yaml
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | updateFlowsInNamespaceFromJson 200 response |  -  |
+**200** | updateFlowsInNamespace 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

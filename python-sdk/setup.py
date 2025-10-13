@@ -21,7 +21,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "@kestra-io/kestrapy"
-VERSION = "v1.0.2"
+VERSION = "v1.0.3"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
     "urllib3 >= 2.1.0, < 3.0.0",
@@ -33,9 +33,9 @@ REQUIRES = [
 setup(
     name=NAME,
     version=VERSION,
-    description="Kestra Python SDK",
-    author="Kestra.io",
-    author_email="contact@kestra.io",
+    description="Kestra EE",
+    author="OpenAPI Generator community",
+    author_email="team@openapitools.org",
     url="",
     keywords=["OpenAPI", "OpenAPI-Generator", "Kestra EE"],
     install_requires=REQUIRES,

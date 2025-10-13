@@ -33,7 +33,7 @@ class Task(BaseModel):
     """ # noqa: E501
     id: Annotated[str, Field(min_length=1, strict=True, max_length=256)]
     type: Annotated[str, Field(min_length=1, strict=True)]
-    version: Optional[Annotated[str, Field(strict=True)]] = None
+    version: Optional[StrictStr] = Field(default=None, description="Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., `1`).   - A MAJOR.MINOR version (e.g., `1.1`).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., `1.1.2`, `1.1.0-SNAPSHOT`). ")
     description: Optional[StrictStr] = None
     retry: Optional[Dict[str, Any]] = None
     timeout: Optional[PropertyDuration] = None
@@ -60,16 +60,6 @@ class Task(BaseModel):
         """Validates the regular expression"""
         if not re.match(r"^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z_$][A-Za-z0-9_$]*(\.[A-Za-z_$][A-Za-z0-9_$]*)*$/")
-        return value
-
-    @field_validator('version')
-    def version_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"\d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)", value):
-            raise ValueError(r"must validate the regular expression /\d+\.\d+\.\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)/")
         return value
 
     model_config = ConfigDict(

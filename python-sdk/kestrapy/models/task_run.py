@@ -37,7 +37,7 @@ class TaskRun(BaseModel):
     parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
     value: Optional[StrictStr] = None
     attempts: Optional[List[TaskRunAttempt]] = None
-    outputs: Optional[Dict[str, Dict[str, Any]]] = None
+    outputs: Optional[Dict[str, Dict[str, Any]]]
     state: State
     iteration: Optional[StrictInt] = None
     dynamic: Optional[StrictBool] = None
@@ -101,10 +101,10 @@ class TaskRun(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
-        # set to None if force_execution (nullable) is None
+        # set to None if outputs (nullable) is None
         # and model_fields_set contains the field
-        if self.force_execution is None and "force_execution" in self.model_fields_set:
-            _dict['forceExecution'] = None
+        if self.outputs is None and "outputs" in self.model_fields_set:
+            _dict['outputs'] = None
 
         return _dict
 

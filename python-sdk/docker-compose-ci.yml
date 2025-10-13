@@ -18,8 +18,8 @@ services:
         kestra:
           server:
             basicAuth:
-              username: admin@kestra.io
-              password: Admin1234
+              username: root@root.com
+              password: Root!1234
           repository:
             type: h2
           storage:
