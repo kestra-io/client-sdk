@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.metric import Metric
 from kestrapy.models.server_instance_type import ServerInstanceType
 from typing import Optional, Set
@@ -28,12 +28,12 @@ class ServerInstance(BaseModel):
     """
     ServerInstance
     """ # noqa: E501
-    id: StrictStr
-    type: ServerInstanceType
-    version: StrictStr
-    hostname: StrictStr
-    props: Dict[str, Dict[str, Any]]
-    metrics: List[Metric]
+    id: Optional[StrictStr] = None
+    type: Optional[ServerInstanceType] = None
+    version: Optional[StrictStr] = None
+    hostname: Optional[StrictStr] = None
+    props: Optional[Dict[str, Dict[str, Any]]] = None
+    metrics: Optional[List[Metric]] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "type", "version", "hostname", "props", "metrics"]
 

@@ -1,100 +1,100 @@
 {{#poetry1}}
-[tool.poetry]
+    [tool.poetry]
 {{/poetry1}}
 {{^poetry1}}
-[project]
+    [project]
 {{/poetry1}}
 name = "{{{packageName}}}"
 version = "{{{packageVersion}}}"
 description = "{{{appName}}}"
 {{#poetry1}}
-authors = ["{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}} <{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}>"]
+    authors = ["{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}} <{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}>"]
 {{/poetry1}}
 {{^poetry1}}
-authors = [
-  {name = "{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}}",email = "{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}"},
-]
+    authors = [
+    {name = "{{infoName}}{{^infoName}}OpenAPI Generator Community{{/infoName}}",email = "{{infoEmail}}{{^infoEmail}}team@openapitools.org{{/infoEmail}}"},
+    ]
 {{/poetry1}}
 {{#licenseInfo}}
-{{#poetry1}}
-license = "{{{licenseInfo}}}"
-{{/poetry1}}
-{{^poetry1}}
-license = { text = "{{{licenseInfo}}}" }
-{{/poetry1}}
+    {{#poetry1}}
+        license = "{{{licenseInfo}}}"
+    {{/poetry1}}
+    {{^poetry1}}
+        license = { text = "{{{licenseInfo}}}" }
+    {{/poetry1}}
 {{/licenseInfo}}
 readme = "README.md"
 {{#poetry1}}
-repository = "https://{{{gitHost}}}/{{{gitUserId}}}/{{{gitRepoId}}}"
+    repository = "https://{{{gitHost}}}/{{{gitUserId}}}/{{{gitRepoId}}}"
 {{/poetry1}}
 keywords = ["OpenAPI", "OpenAPI-Generator", "{{{appName}}}"]
 {{#poetry1}}
-include = ["{{packageName}}/py.typed"]
+    include = ["{{packageName}}/py.typed"]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-urllib3 = ">= 2.1.0, < 3.0.0"
-python-dateutil = ">= 2.8.2"
-{{#asyncio}}
-aiohttp = ">= 3.8.4"
-aiohttp-retry = ">= 2.8.3"
-{{/asyncio}}
-{{#httpx}}
-httpx = ">= 0.28.1"
-{{/httpx}}
-{{#tornado}}
-tornado = ">=4.2, <5"
-{{/tornado}}
-{{#hasHttpSignatureMethods}}
-pem = ">= 19.3.0"
-pycryptodome = ">= 3.9.0"
-{{/hasHttpSignatureMethods}}
-pydantic = ">= 2"
-typing-extensions = ">= 4.7.1"
-{{#lazyImports}}
-lazy-imports = ">= 1, < 2"
-{{/lazyImports}}
+    [tool.poetry.dependencies]
+    python = "^3.9"
+    urllib3 = ">= 2.1.0, < 3.0.0"
+    python-dateutil = ">= 2.8.2"
+    {{#asyncio}}
+        aiohttp = ">= 3.8.4"
+        aiohttp-retry = ">= 2.8.3"
+    {{/asyncio}}
+    {{#httpx}}
+        httpx = ">= 0.28.1"
+    {{/httpx}}
+    {{#tornado}}
+        tornado = ">=4.2, <5"
+    {{/tornado}}
+    {{#hasHttpSignatureMethods}}
+        pem = ">= 19.3.0"
+        pycryptodome = ">= 3.9.0"
+    {{/hasHttpSignatureMethods}}
+    pydantic = ">= 2"
+    typing-extensions = ">= 4.7.1"
+    {{#lazyImports}}
+        lazy-imports = ">= 1, < 2"
+    {{/lazyImports}}
 {{/poetry1}}
 {{^poetry1}}
-requires-python = ">=3.9"
+    requires-python = ">=3.9"
 
-dependencies = [
-  "requests (>= 2.32.5)",
-  "sseclient-py (>= 1.8.0)",
-  "urllib3 (>=2.1.0,<3.0.0)",
-  "python-dateutil (>=2.8.2)",
-{{#async}}
-  "aiohttp (>=3.8.4)",
-  "aiohttp-retry (>=2.8.3)",
-{{/async}}
-{{#tornado}}
-  "tornado (>=4.2,<5)",
-{{/tornado}}
-{{#hasHttpSignatureMethods}}
-  "pem (>=19.3.0)",
-  "pycryptodome (>=3.9.0)",
-{{/hasHttpSignatureMethods}}
-  "pydantic (>=2)",
-  "typing-extensions (>=4.7.1)",
-{{#lazyImports}}
-  "lazy-imports (>=1,<2)"
-{{/lazyImports}}
-]
+    dependencies = [
+    "requests (>= 2.32.5)",
+    "sseclient-py (>= 1.8.0)",
+    "urllib3 (>=2.1.0,<3.0.0)",
+    "python-dateutil (>=2.8.2)",
+    {{#async}}
+        "aiohttp (>=3.8.4)",
+        "aiohttp-retry (>=2.8.3)",
+    {{/async}}
+    {{#tornado}}
+        "tornado (>=4.2,<5)",
+    {{/tornado}}
+    {{#hasHttpSignatureMethods}}
+        "pem (>=19.3.0)",
+        "pycryptodome (>=3.9.0)",
+    {{/hasHttpSignatureMethods}}
+    "pydantic (>=2)",
+    "typing-extensions (>=4.7.1)",
+    {{#lazyImports}}
+        "lazy-imports (>=1,<2)"
+    {{/lazyImports}}
+    ]
 
-[project.urls]
-Repository = "https://{{{gitHost}}}/{{{gitUserId}}}/{{{gitRepoId}}}"
+    [project.urls]
+    Repository = "https://{{{gitHost}}}/{{{gitUserId}}}/{{{gitRepoId}}}"
 
 {{/poetry1}}
 {{^poetry1}}
-[tool.poetry]
-requires-poetry = ">=2.0"
+    [tool.poetry]
+    requires-poetry = ">=2.0"
 {{/poetry1}}
 
 {{#poetry1}}
-[tool.poetry.dev-dependencies]
+    [tool.poetry.dev-dependencies]
 {{/poetry1}}
 {{^poetry1}}
-[tool.poetry.group.dev.dependencies]
+    [tool.poetry.group.dev.dependencies]
 {{/poetry1}}
 pytest = ">= 7.2.1"
 pytest-cov = ">= 2.8.1"
@@ -113,9 +113,9 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-  "{{{packageName}}}",
-  #"test",  # auto-generated tests
-  "tests", # hand-written tests
+"{{{packageName}}}",
+#"test",  # auto-generated tests
+"tests", # hand-written tests
 ]
 # TODO: enable "strict" once all these individual checks are passing
 # strict = true
@@ -151,7 +151,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-  "{{{packageName}}}.configuration",
+"{{{packageName}}}.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true

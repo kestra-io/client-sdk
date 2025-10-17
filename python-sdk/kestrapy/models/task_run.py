@@ -37,7 +37,7 @@ class TaskRun(BaseModel):
     parent_task_run_id: Optional[StrictStr] = Field(default=None, alias="parentTaskRunId")
     value: Optional[StrictStr] = None
     attempts: Optional[List[TaskRunAttempt]] = None
-    outputs: Optional[Dict[str, Dict[str, Any]]]
+    outputs: Optional[Dict[str, Dict[str, Any]]] = None
     state: State
     iteration: Optional[StrictInt] = None
     dynamic: Optional[StrictBool] = None

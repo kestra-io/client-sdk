@@ -257,3 +257,12 @@ def test_crud_complete_flow():
 
     print("deleted")
 
+    trigger = {
+        "id": "schedule",
+        "type": "io.kestra.plugin.core.trigger.Schedule",
+        "cron": "*/15 * * * *"
+    }
+
+    api_client.flows.validate_trigger(tenant, trigger)
+
+    print("validated trigger")

@@ -1,30 +1,30 @@
-[project]
+    [project]
 name = "kestrapy"
-version = "v1.0.3"
+version = "v1.0.4"
 description = "Kestra EE"
-authors = [
-  {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
-]
+    authors = [
+    {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
+    ]
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Kestra EE"]
-requires-python = ">=3.9"
+    requires-python = ">=3.9"
 
-dependencies = [
-  "requests (>= 2.32.5)",
-  "sseclient-py (>= 1.8.0)",
-  "urllib3 (>=2.1.0,<3.0.0)",
-  "python-dateutil (>=2.8.2)",
-  "pydantic (>=2)",
-  "typing-extensions (>=4.7.1)",
-]
+    dependencies = [
+    "requests (>= 2.32.5)",
+    "sseclient-py (>= 1.8.0)",
+    "urllib3 (>=2.1.0,<3.0.0)",
+    "python-dateutil (>=2.8.2)",
+    "pydantic (>=2)",
+    "typing-extensions (>=4.7.1)",
+    ]
 
-[project.urls]
-Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+    [project.urls]
+    Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
 
-[tool.poetry]
-requires-poetry = ">=2.0"
+    [tool.poetry]
+    requires-poetry = ">=2.0"
 
-[tool.poetry.group.dev.dependencies]
+    [tool.poetry.group.dev.dependencies]
 pytest = ">= 7.2.1"
 pytest-cov = ">= 2.8.1"
 tox = ">= 3.9.0"
@@ -42,9 +42,9 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-  "kestrapy",
-  #"test",  # auto-generated tests
-  "tests", # hand-written tests
+"kestrapy",
+#"test",  # auto-generated tests
+"tests", # hand-written tests
 ]
 # TODO: enable "strict" once all these individual checks are passing
 # strict = true
@@ -80,7 +80,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-  "kestrapy.configuration",
+"kestrapy.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true

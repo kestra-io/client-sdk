@@ -21,29 +21,31 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "@kestra-io/kestrapy"
-VERSION = "v1.0.3"
+VERSION = "v1.0.4"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
-    "urllib3 >= 2.1.0, < 3.0.0",
-    "python-dateutil >= 2.8.2",
-    "pydantic >= 2",
-    "typing-extensions >= 4.7.1",
+"requests (>= 2.32.5)",
+"sseclient-py (>= 1.8.0)",
+"urllib3 >= 2.1.0, < 3.0.0",
+"python-dateutil >= 2.8.2",
+"pydantic >= 2",
+"typing-extensions >= 4.7.1",
 ]
 
 setup(
-    name=NAME,
-    version=VERSION,
-    description="Kestra EE",
-    author="OpenAPI Generator community",
-    author_email="team@openapitools.org",
-    url="",
-    keywords=["OpenAPI", "OpenAPI-Generator", "Kestra EE"],
-    install_requires=REQUIRES,
-    packages=find_packages(exclude=["test", "tests"]),
-    include_package_data=True,
-    long_description_content_type='text/markdown',
-    long_description="""\
-    All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.&lt;br/&gt; Endpoints designated as Superadmin-only are not tenant-scoped.
-    """,  # noqa: E501
-    package_data={"kestrapy": ["py.typed"]},
+name=NAME,
+version=VERSION,
+description="Kestra EE",
+author="OpenAPI Generator community",
+author_email="team@openapitools.org",
+url="",
+keywords=["OpenAPI", "OpenAPI-Generator", "Kestra EE"],
+install_requires=REQUIRES,
+packages=find_packages(exclude=["test", "tests"]),
+include_package_data=True,
+long_description_content_type='text/markdown',
+long_description="""\
+All API operations, except for Superadmin-only endpoints, require a tenant identifier in the HTTP path.&lt;br/&gt; Endpoints designated as Superadmin-only are not tenant-scoped.
+""",  # noqa: E501
+package_data={"kestrapy": ["py.typed"]},
 )

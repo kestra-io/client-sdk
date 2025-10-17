@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from kestrapy.models.edition_provider_edition import EditionProviderEdition
 from kestrapy.models.misc_controller_environment import MiscControllerEnvironment
 from kestrapy.models.misc_controller_preview import MiscControllerPreview
+from kestrapy.models.query_filter_resource_field import QueryFilterResourceField
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -36,6 +37,7 @@ class MiscControllerConfiguration(BaseModel):
     commit_id: Optional[StrictStr] = Field(default=None, alias="commitId")
     commit_date: Optional[datetime] = Field(default=None, alias="commitDate")
     is_custom_dashboards_enabled: Optional[StrictBool] = Field(default=None, alias="isCustomDashboardsEnabled")
+    is_task_run_enabled: Optional[StrictBool] = Field(default=None, alias="isTaskRunEnabled")
     is_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isAnonymousUsageEnabled")
     is_ui_anonymous_usage_enabled: Optional[StrictBool] = Field(default=None, alias="isUiAnonymousUsageEnabled")
     is_template_enabled: Optional[StrictBool] = Field(default=None, alias="isTemplateEnabled")
@@ -44,11 +46,12 @@ class MiscControllerConfiguration(BaseModel):
     preview: Optional[MiscControllerPreview] = None
     system_namespace: Optional[StrictStr] = Field(default=None, alias="systemNamespace")
     hidden_labels_prefixes: Optional[List[StrictStr]] = Field(default=None, alias="hiddenLabelsPrefixes")
+    resource_to_filters: Optional[List[QueryFilterResourceField]] = Field(default=None, alias="resourceToFilters")
     is_ai_enabled: Optional[StrictBool] = Field(default=None, alias="isAiEnabled")
     is_basic_auth_initialized: Optional[StrictBool] = Field(default=None, alias="isBasicAuthInitialized")
     plugins_hash: Optional[StrictInt] = Field(default=None, alias="pluginsHash")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash"]
+    __properties: ClassVar[List[str]] = ["uuid", "version", "edition", "commitId", "commitDate", "isCustomDashboardsEnabled", "isTaskRunEnabled", "isAnonymousUsageEnabled", "isUiAnonymousUsageEnabled", "isTemplateEnabled", "environment", "url", "preview", "systemNamespace", "hiddenLabelsPrefixes", "resourceToFilters", "isAiEnabled", "isBasicAuthInitialized", "pluginsHash"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,6 +100,13 @@ class MiscControllerConfiguration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of preview
         if self.preview:
             _dict['preview'] = self.preview.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in resource_to_filters (list)
+        _items = []
+        if self.resource_to_filters:
+            for _item_resource_to_filters in self.resource_to_filters:
+                if _item_resource_to_filters:
+                    _items.append(_item_resource_to_filters.to_dict())
+            _dict['resourceToFilters'] = _items
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -120,6 +130,7 @@ class MiscControllerConfiguration(BaseModel):
             "commitId": obj.get("commitId"),
             "commitDate": obj.get("commitDate"),
             "isCustomDashboardsEnabled": obj.get("isCustomDashboardsEnabled"),
+            "isTaskRunEnabled": obj.get("isTaskRunEnabled"),
             "isAnonymousUsageEnabled": obj.get("isAnonymousUsageEnabled"),
             "isUiAnonymousUsageEnabled": obj.get("isUiAnonymousUsageEnabled"),
             "isTemplateEnabled": obj.get("isTemplateEnabled"),
@@ -128,6 +139,7 @@ class MiscControllerConfiguration(BaseModel):
             "preview": MiscControllerPreview.from_dict(obj["preview"]) if obj.get("preview") is not None else None,
             "systemNamespace": obj.get("systemNamespace"),
             "hiddenLabelsPrefixes": obj.get("hiddenLabelsPrefixes"),
+            "resourceToFilters": [QueryFilterResourceField.from_dict(_item) for _item in obj["resourceToFilters"]] if obj.get("resourceToFilters") is not None else None,
             "isAiEnabled": obj.get("isAiEnabled"),
             "isBasicAuthInitialized": obj.get("isBasicAuthInitialized"),
             "pluginsHash": obj.get("pluginsHash")

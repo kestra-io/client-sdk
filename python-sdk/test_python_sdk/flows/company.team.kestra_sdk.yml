@@ -1,0 +1,14 @@
+id: kestra_sdk
+namespace: company.team
+
+tasks:
+  - id: flow-list
+    type: io.kestra.plugin.kestra.flows.List
+    kestraUrl: http://localhost:8080
+    namespace: company.team
+  - id: flow-export
+    type: io.kestra.plugin.kestra.flows.Export
+    idsWithNamespace:
+      - id: kestra_sdk
+        namespace: company.team
+    

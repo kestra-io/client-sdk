@@ -35,6 +35,7 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.models.execution_controller_last_execution_response import ExecutionControllerLastExecutionResponse
 from kestrapy.models.execution_controller_set_labels_by_ids_request import ExecutionControllerSetLabelsByIdsRequest
 from kestrapy.models.execution_controller_state_request import ExecutionControllerStateRequest
+from kestrapy.models.execution_controller_webhook_response import ExecutionControllerWebhookResponse
 from kestrapy.models.execution_repository_interface_flow_filter import ExecutionRepositoryInterfaceFlowFilter
 from kestrapy.models.file_metas import FileMetas
 from kestrapy.models.flow_for_execution import FlowForExecution
@@ -42,6 +43,7 @@ from kestrapy.models.flow_graph import FlowGraph
 from kestrapy.models.flow_scope import FlowScope
 from kestrapy.models.label import Label
 from kestrapy.models.paged_results_execution import PagedResultsExecution
+from kestrapy.models.paged_results_task_run import PagedResultsTaskRun
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.state_type import StateType
 
@@ -13495,6 +13497,525 @@ class ExecutionsApi:
 
 
     @validate_call
+    def search_task_run(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
+        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
+        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
+        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> PagedResultsTaskRun:
+        """Search for taskruns, only available with the Elasticsearch repository
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter prefix
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param time_range: A time range filter relative to the current time
+        :type time_range: str
+        :param state: A state filter
+        :type state: List[StateType]
+        :param labels: A labels filter as a list of 'key:value'
+        :type labels: List[str]
+        :param trigger_execution_id: The trigger execution id
+        :type trigger_execution_id: str
+        :param child_filter: A execution child filter
+        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_task_run_serialize(
+            page=page,
+            size=size,
+            tenant=tenant,
+            sort=sort,
+            filters=filters,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            start_date=start_date,
+            end_date=end_date,
+            time_range=time_range,
+            state=state,
+            labels=labels,
+            trigger_execution_id=trigger_execution_id,
+            child_filter=child_filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTaskRun",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_task_run_with_http_info(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
+        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
+        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
+        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[PagedResultsTaskRun]:
+        """Search for taskruns, only available with the Elasticsearch repository
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter prefix
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param time_range: A time range filter relative to the current time
+        :type time_range: str
+        :param state: A state filter
+        :type state: List[StateType]
+        :param labels: A labels filter as a list of 'key:value'
+        :type labels: List[str]
+        :param trigger_execution_id: The trigger execution id
+        :type trigger_execution_id: str
+        :param child_filter: A execution child filter
+        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_task_run_serialize(
+            page=page,
+            size=size,
+            tenant=tenant,
+            sort=sort,
+            filters=filters,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            start_date=start_date,
+            end_date=end_date,
+            time_range=time_range,
+            state=state,
+            labels=labels,
+            trigger_execution_id=trigger_execution_id,
+            child_filter=child_filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTaskRun",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def search_task_run_without_preload_content(
+        self,
+        page: Annotated[int, Field(strict=True, ge=1, description="The current page")],
+        size: Annotated[int, Field(strict=True, ge=1, description="The current page size")],
+        tenant: StrictStr,
+        sort: Annotated[Optional[List[StrictStr]], Field(description="The sort of current page")] = None,
+        filters: Annotated[Optional[List[QueryFilter]], Field(description="Filters")] = None,
+        q: Annotated[Optional[StrictStr], Field(description="A string filter")] = None,
+        namespace: Annotated[Optional[StrictStr], Field(description="A namespace filter prefix")] = None,
+        flow_id: Annotated[Optional[StrictStr], Field(description="A flow id filter")] = None,
+        start_date: Annotated[Optional[datetime], Field(description="The start datetime")] = None,
+        end_date: Annotated[Optional[datetime], Field(description="The end datetime")] = None,
+        time_range: Annotated[Optional[StrictStr], Field(description="A time range filter relative to the current time")] = None,
+        state: Annotated[Optional[List[StateType]], Field(description="A state filter")] = None,
+        labels: Annotated[Optional[List[StrictStr]], Field(description="A labels filter as a list of 'key:value'")] = None,
+        trigger_execution_id: Annotated[Optional[StrictStr], Field(description="The trigger execution id")] = None,
+        child_filter: Annotated[Optional[Any], Field(description="A execution child filter")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Search for taskruns, only available with the Elasticsearch repository
+
+
+        :param page: The current page (required)
+        :type page: int
+        :param size: The current page size (required)
+        :type size: int
+        :param tenant: (required)
+        :type tenant: str
+        :param sort: The sort of current page
+        :type sort: List[str]
+        :param filters: Filters
+        :type filters: List[QueryFilter]
+        :param q: A string filter
+        :type q: str
+        :param namespace: A namespace filter prefix
+        :type namespace: str
+        :param flow_id: A flow id filter
+        :type flow_id: str
+        :param start_date: The start datetime
+        :type start_date: datetime
+        :param end_date: The end datetime
+        :type end_date: datetime
+        :param time_range: A time range filter relative to the current time
+        :type time_range: str
+        :param state: A state filter
+        :type state: List[StateType]
+        :param labels: A labels filter as a list of 'key:value'
+        :type labels: List[str]
+        :param trigger_execution_id: The trigger execution id
+        :type trigger_execution_id: str
+        :param child_filter: A execution child filter
+        :type child_filter: ExecutionRepositoryInterfaceChildFilter
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_task_run_serialize(
+            page=page,
+            size=size,
+            tenant=tenant,
+            sort=sort,
+            filters=filters,
+            q=q,
+            namespace=namespace,
+            flow_id=flow_id,
+            start_date=start_date,
+            end_date=end_date,
+            time_range=time_range,
+            state=state,
+            labels=labels,
+            trigger_execution_id=trigger_execution_id,
+            child_filter=child_filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "PagedResultsTaskRun",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _search_task_run_serialize(
+        self,
+        page,
+        size,
+        tenant,
+        sort,
+        filters,
+        q,
+        namespace,
+        flow_id,
+        start_date,
+        end_date,
+        time_range,
+        state,
+        labels,
+        trigger_execution_id,
+        child_filter,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'sort': 'csv',
+            'filters': 'csv',
+            'state': 'csv',
+            'labels': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tenant is not None:
+            _path_params['tenant'] = tenant
+        # process the query parameters
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if size is not None:
+            
+            _query_params.append(('size', size))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if filters is not None:
+            
+            _query_params.append(('filters', filters))
+            
+        if q is not None:
+            
+            _query_params.append(('q', q))
+            
+        if namespace is not None:
+            
+            _query_params.append(('namespace', namespace))
+            
+        if flow_id is not None:
+            
+            _query_params.append(('flowId', flow_id))
+            
+        if start_date is not None:
+            if isinstance(start_date, datetime):
+                _query_params.append(
+                    (
+                        'startDate',
+                        start_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('startDate', start_date))
+            
+        if end_date is not None:
+            if isinstance(end_date, datetime):
+                _query_params.append(
+                    (
+                        'endDate',
+                        end_date.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('endDate', end_date))
+            
+        if time_range is not None:
+            
+            _query_params.append(('timeRange', time_range))
+            
+        if state is not None:
+            
+            _query_params.append(('state', state))
+            
+        if labels is not None:
+            
+            _query_params.append(('labels', labels))
+            
+        if trigger_execution_id is not None:
+            
+            _query_params.append(('triggerExecutionId', trigger_execution_id))
+            
+        if child_filter is not None:
+            
+            _query_params.append(('childFilter', child_filter.value))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v1/{tenant}/taskruns/search',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def set_labels_on_terminated_execution(
         self,
         execution_id: Annotated[StrictStr, Field(description="The execution id")],
@@ -14964,7 +15485,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> ExecutionControllerWebhookResponse:
         """Trigger a new execution by GET webhook trigger
 
 
@@ -15010,7 +15531,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15042,7 +15563,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
         """Trigger a new execution by GET webhook trigger
 
 
@@ -15088,7 +15609,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15166,7 +15687,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15268,7 +15789,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> ExecutionControllerWebhookResponse:
         """Trigger a new execution by POST webhook trigger
 
 
@@ -15314,7 +15835,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15346,7 +15867,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
         """Trigger a new execution by POST webhook trigger
 
 
@@ -15392,7 +15913,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15470,7 +15991,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15572,7 +16093,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> ExecutionControllerWebhookResponse:
         """Trigger a new execution by PUT webhook trigger
 
 
@@ -15618,7 +16139,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15650,7 +16171,7 @@ class ExecutionsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[ExecutionControllerWebhookResponse]:
         """Trigger a new execution by PUT webhook trigger
 
 
@@ -15696,7 +16217,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -15774,7 +16295,7 @@ class ExecutionsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "ExecutionControllerWebhookResponse",
         }
         response_data = self.api_client.call_api(
             *_param,

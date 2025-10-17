@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | 
-**version** | **str** |  | 
-**hostname** | **str** |  | 
-**props** | **Dict[str, object]** |  | 
-**metrics** | [**List[Metric]**](Metric.md) |  | 
+**id** | **str** |  | [optional] 
+**type** | [**ServerInstanceType**](ServerInstanceType.md) |  | [optional] 
+**version** | **str** |  | [optional] 
+**hostname** | **str** |  | [optional] 
+**props** | **Dict[str, object]** |  | [optional] 
+**metrics** | [**List[Metric]**](Metric.md) |  | [optional] 
 
 ## Example
 

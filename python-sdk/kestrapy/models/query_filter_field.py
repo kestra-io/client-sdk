@@ -29,7 +29,6 @@ class QueryFilterField(str, Enum):
     QUERY = 'QUERY'
     SCOPE = 'SCOPE'
     NAMESPACE = 'NAMESPACE'
-    KIND = 'KIND'
     LABELS = 'LABELS'
     FLOW_ID = 'FLOW_ID'
     START_DATE = 'START_DATE'

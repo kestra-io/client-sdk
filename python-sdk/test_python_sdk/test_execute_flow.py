@@ -35,24 +35,6 @@ def test_execute_flow():
       - id: hello3
         type: io.kestra.plugin.core.log.Log
         message: Bye from the SDK! 👋
-      - id: hello4452
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
-      - id: hello5455
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
-      - id: hello4458
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
-      - id: hello5457
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
-      - id: hello4454
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
-      - id: hello5451
-        type: io.kestra.plugin.core.log.Log
-        message: Hello from the SDK! 👋
     """
 
     try:

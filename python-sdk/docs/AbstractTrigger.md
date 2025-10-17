@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **min_log_level** | [**Level**](Level.md) |  | [optional] 
 **id** | **str** |  | 
 **type** | **str** |  | 
-**version** | **str** | Defines the version of the plugin to use.  The version must follow the Semantic Versioning (SemVer) specification:   - A single-digit MAJOR version (e.g., &#x60;1&#x60;).   - A MAJOR.MINOR version (e.g., &#x60;1.1&#x60;).   - A MAJOR.MINOR.PATCH version, optionally with any qualifier     (e.g., &#x60;1.1.2&#x60;, &#x60;1.1.0-SNAPSHOT&#x60;).  | [optional] 
+**version** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **conditions** | [**List[Condition]**](Condition.md) |  | [optional] 
-**disabled** | **bool** |  | [default to False]
+**disabled** | **bool** |  | [optional] [default to False]
 **worker_group** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **log_level** | [**Level**](Level.md) |  | [optional] 
 **labels** | [**TheLabelsToPassToTheExecutionCreated**](TheLabelsToPassToTheExecutionCreated.md) |  | [optional] 
