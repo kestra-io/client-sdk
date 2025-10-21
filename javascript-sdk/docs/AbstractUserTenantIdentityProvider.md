@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attributes** | **{String: Object}** |  | 
-**externalId** | **String** |  | 
-**securityIntegrationId** | **String** |  | 
-**securityIntegrationName** | **String** |  | 
+**attributes** | **{String: Object}** |  | [optional] 
+**externalId** | **String** |  | [optional] 
+**securityIntegrationId** | **String** |  | [optional] 
+**securityIntegrationName** | **String** |  | [optional] 
 **tenantId** | **String** |  | [optional] 
 
 

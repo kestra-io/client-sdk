@@ -23,11 +23,11 @@ type AbstractTrigger struct {
 	// Deprecated
 	MinLogLevel          *Level                                `json:"minLogLevel,omitempty"`
 	Id                   string                                `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type                 string                                `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Type                 string                                `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
 	Version              *string                               `json:"version,omitempty" validate:"regexp=\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[a-zA-Z0-9-]+)?|([a-zA-Z0-9]+)"`
 	Description          *string                               `json:"description,omitempty"`
 	Conditions           []Condition                           `json:"conditions,omitempty"`
-	Disabled             bool                                  `json:"disabled"`
+	Disabled             *bool                                 `json:"disabled,omitempty"`
 	WorkerGroup          *WorkerGroup                          `json:"workerGroup,omitempty"`
 	LogLevel             *Level                                `json:"logLevel,omitempty"`
 	Labels               *TheLabelsToPassToTheExecutionCreated `json:"labels,omitempty"`
@@ -43,11 +43,12 @@ type _AbstractTrigger AbstractTrigger
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAbstractTrigger(id string, type_ string, disabled bool) *AbstractTrigger {
+func NewAbstractTrigger(id string, type_ string) *AbstractTrigger {
 	this := AbstractTrigger{}
 	this.Id = id
 	this.Type = type_
-	this.Disabled = disabled
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
@@ -56,6 +57,8 @@ func NewAbstractTrigger(id string, type_ string, disabled bool) *AbstractTrigger
 // but it doesn't guarantee that properties required by API are set
 func NewAbstractTriggerWithDefaults() *AbstractTrigger {
 	this := AbstractTrigger{}
+	var disabled bool = false
+	this.Disabled = &disabled
 	return &this
 }
 
@@ -238,28 +241,36 @@ func (o *AbstractTrigger) SetConditions(v []Condition) {
 	o.Conditions = v
 }
 
-// GetDisabled returns the Disabled field value
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
 func (o *AbstractTrigger) GetDisabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Disabled) {
 		var ret bool
 		return ret
 	}
-
-	return o.Disabled
+	return *o.Disabled
 }
 
-// GetDisabledOk returns a tuple with the Disabled field value
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AbstractTrigger) GetDisabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Disabled) {
 		return nil, false
 	}
-	return &o.Disabled, true
+	return o.Disabled, true
 }
 
-// SetDisabled sets field value
+// HasDisabled returns a boolean if a field has been set.
+func (o *AbstractTrigger) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
 func (o *AbstractTrigger) SetDisabled(v bool) {
-	o.Disabled = v
+	o.Disabled = &v
 }
 
 // GetWorkerGroup returns the WorkerGroup field value if set, zero value otherwise.
@@ -478,7 +489,9 @@ func (o AbstractTrigger) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Conditions) {
 		toSerialize["conditions"] = o.Conditions
 	}
-	toSerialize["disabled"] = o.Disabled
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
 	if !IsNil(o.WorkerGroup) {
 		toSerialize["workerGroup"] = o.WorkerGroup
 	}
@@ -512,7 +525,6 @@ func (o *AbstractTrigger) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"type",
-		"disabled",
 	}
 
 	allProperties := make(map[string]interface{})

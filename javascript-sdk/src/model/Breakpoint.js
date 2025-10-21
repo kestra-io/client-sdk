@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The Breakpoint model module.
  * @module model/Breakpoint
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Breakpoint {
     /**

@@ -65,7 +65,7 @@ Method | HTTP request | Description
 
 ## createExecution
 
-> [ExecutionControllerExecutionResponse] createExecution(namespace, id, wait, tenant, opts)
+> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, opts)
 
 Create a new execution for a flow
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ExecutionControllerExecutionResponse]**](ExecutionControllerExecutionResponse.md)
+[**ExecutionControllerExecutionResponse**](ExecutionControllerExecutionResponse.md)
 
 ### Authorization
 
@@ -988,7 +988,7 @@ let bearerAuth = defaultClient.authentications['bearerAuth'];
 bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ExecutionsApi();
-let executionId = "executionId_example"; // String | The execution that you want flow information's
+let executionId = "executionId_example"; // String | The execution that you want flow informations
 let tenant = "tenant_example"; // String | 
 apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response) => {
   if (error) {
@@ -1004,7 +1004,7 @@ apiInstance.getFlowFromExecutionById(executionId, tenant, (error, data, response
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **executionId** | **String**| The execution that you want flow information&#39;s | 
+ **executionId** | **String**| The execution that you want flow informations | 
  **tenant** | **String**|  | 
 
 ### Return type

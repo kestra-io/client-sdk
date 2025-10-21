@@ -17,19 +17,16 @@ import QueryFilterOperation from './QueryFilterOperation';
 /**
  * The QueryFilterFieldOp model module.
  * @module model/QueryFilterFieldOp
- * @version 1.0.0
+ * @version v1.0.4
  */
 class QueryFilterFieldOp {
     /**
      * Constructs a new <code>QueryFilterFieldOp</code>.
      * @alias module:model/QueryFilterFieldOp
-     * @param name {String} 
-     * @param value {String} 
-     * @param operations {Array.<module:model/QueryFilterOperation>} 
      */
-    constructor(name, value, operations) { 
+    constructor() { 
         
-        QueryFilterFieldOp.initialize(this, name, value, operations);
+        QueryFilterFieldOp.initialize(this);
     }
 
     /**
@@ -37,10 +34,7 @@ class QueryFilterFieldOp {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, value, operations) { 
-        obj['name'] = name;
-        obj['value'] = value;
-        obj['operations'] = operations;
+    static initialize(obj) { 
     }
 
     /**
@@ -73,12 +67,6 @@ class QueryFilterFieldOp {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>QueryFilterFieldOp</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of QueryFilterFieldOp.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -104,7 +92,7 @@ class QueryFilterFieldOp {
 
 }
 
-QueryFilterFieldOp.RequiredProperties = ["name", "value", "operations"];
+
 
 /**
  * @member {String} name

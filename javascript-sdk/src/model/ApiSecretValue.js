@@ -17,20 +17,18 @@ import ApiSecretTag from './ApiSecretTag';
 /**
  * The ApiSecretValue model module.
  * @module model/ApiSecretValue
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ApiSecretValue {
     /**
      * Constructs a new <code>ApiSecretValue</code>.
      * @alias module:model/ApiSecretValue
-     * @param tags {Array.<module:model/ApiSecretTag>} 
      * @param key {String} 
      * @param value {String} 
-     * @param description {String} 
      */
-    constructor(tags, key, value, description) { 
+    constructor(key, value) { 
         
-        ApiSecretValue.initialize(this, tags, key, value, description);
+        ApiSecretValue.initialize(this, key, value);
     }
 
     /**
@@ -38,11 +36,9 @@ class ApiSecretValue {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tags, key, value, description) { 
-        obj['tags'] = tags;
+    static initialize(obj, key, value) { 
         obj['key'] = key;
         obj['value'] = value;
-        obj['description'] = description;
     }
 
     /**
@@ -113,7 +109,7 @@ class ApiSecretValue {
 
 }
 
-ApiSecretValue.RequiredProperties = ["tags", "key", "value", "description"];
+ApiSecretValue.RequiredProperties = ["key", "value"];
 
 /**
  * @member {Array.<module:model/ApiSecretTag>} tags

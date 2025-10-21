@@ -16,17 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The Filter model module.
  * @module model/Filter
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Filter {
     /**
      * Constructs a new <code>Filter</code>.
      * @alias module:model/Filter
-     * @param filter {String} 
      */
-    constructor(filter) { 
+    constructor() { 
         
-        Filter.initialize(this, filter);
+        Filter.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class Filter {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, filter) { 
-        obj['filter'] = filter;
+    static initialize(obj) { 
     }
 
     /**
@@ -65,12 +63,6 @@ class Filter {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Filter</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of Filter.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['filter'] && !(typeof data['filter'] === 'string' || data['filter'] instanceof String)) {
             throw new Error("Expected the field `filter` to be a primitive type in the JSON string but got " + data['filter']);
@@ -82,7 +74,7 @@ class Filter {
 
 }
 
-Filter.RequiredProperties = ["filter"];
+
 
 /**
  * @member {String} filter

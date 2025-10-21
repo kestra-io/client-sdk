@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the AuditLogControllerApiAuditLogItem type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &AuditLogControllerApiAuditLogItem{}
 
 // AuditLogControllerApiAuditLogItem struct for AuditLogControllerApiAuditLogItem
 type AuditLogControllerApiAuditLogItem struct {
-	AuditLog             AuditLog `json:"auditLog"`
-	User                 ApiUser  `json:"user"`
+	AuditLog             *AuditLog `json:"auditLog,omitempty"`
+	User                 *ApiUser  `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _AuditLogControllerApiAuditLogItem AuditLogControllerApiAuditLogItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogControllerApiAuditLogItem(auditLog AuditLog, user ApiUser) *AuditLogControllerApiAuditLogItem {
+func NewAuditLogControllerApiAuditLogItem() *AuditLogControllerApiAuditLogItem {
 	this := AuditLogControllerApiAuditLogItem{}
-	this.AuditLog = auditLog
-	this.User = user
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewAuditLogControllerApiAuditLogItemWithDefaults() *AuditLogControllerApiAu
 	return &this
 }
 
-// GetAuditLog returns the AuditLog field value
+// GetAuditLog returns the AuditLog field value if set, zero value otherwise.
 func (o *AuditLogControllerApiAuditLogItem) GetAuditLog() AuditLog {
-	if o == nil {
+	if o == nil || IsNil(o.AuditLog) {
 		var ret AuditLog
 		return ret
 	}
-
-	return o.AuditLog
+	return *o.AuditLog
 }
 
-// GetAuditLogOk returns a tuple with the AuditLog field value
+// GetAuditLogOk returns a tuple with the AuditLog field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerApiAuditLogItem) GetAuditLogOk() (*AuditLog, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AuditLog) {
 		return nil, false
 	}
-	return &o.AuditLog, true
+	return o.AuditLog, true
 }
 
-// SetAuditLog sets field value
+// HasAuditLog returns a boolean if a field has been set.
+func (o *AuditLogControllerApiAuditLogItem) HasAuditLog() bool {
+	if o != nil && !IsNil(o.AuditLog) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditLog gets a reference to the given AuditLog and assigns it to the AuditLog field.
 func (o *AuditLogControllerApiAuditLogItem) SetAuditLog(v AuditLog) {
-	o.AuditLog = v
+	o.AuditLog = &v
 }
 
-// GetUser returns the User field value
+// GetUser returns the User field value if set, zero value otherwise.
 func (o *AuditLogControllerApiAuditLogItem) GetUser() ApiUser {
-	if o == nil {
+	if o == nil || IsNil(o.User) {
 		var ret ApiUser
 		return ret
 	}
-
-	return o.User
+	return *o.User
 }
 
-// GetUserOk returns a tuple with the User field value
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuditLogControllerApiAuditLogItem) GetUserOk() (*ApiUser, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.User) {
 		return nil, false
 	}
-	return &o.User, true
+	return o.User, true
 }
 
-// SetUser sets field value
+// HasUser returns a boolean if a field has been set.
+func (o *AuditLogControllerApiAuditLogItem) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given ApiUser and assigns it to the User field.
 func (o *AuditLogControllerApiAuditLogItem) SetUser(v ApiUser) {
-	o.User = v
+	o.User = &v
 }
 
 func (o AuditLogControllerApiAuditLogItem) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o AuditLogControllerApiAuditLogItem) MarshalJSON() ([]byte, error) {
 
 func (o AuditLogControllerApiAuditLogItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["auditLog"] = o.AuditLog
-	toSerialize["user"] = o.User
+	if !IsNil(o.AuditLog) {
+		toSerialize["auditLog"] = o.AuditLog
+	}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o AuditLogControllerApiAuditLogItem) ToMap() (map[string]interface{}, erro
 }
 
 func (o *AuditLogControllerApiAuditLogItem) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"auditLog",
-		"user",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAuditLogControllerApiAuditLogItem := _AuditLogControllerApiAuditLogItem{}
 
 	err = json.Unmarshal(data, &varAuditLogControllerApiAuditLogItem)

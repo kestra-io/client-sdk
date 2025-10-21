@@ -21,10 +21,10 @@ var _ MappedNullable = &DailyExecutionStatistics{}
 
 // DailyExecutionStatistics struct for DailyExecutionStatistics
 type DailyExecutionStatistics struct {
-	StartDate            time.Time                               `json:"startDate"`
-	Duration             DailyExecutionStatisticsDuration        `json:"duration"`
-	ExecutionCounts      DailyExecutionStatisticsExecutionCounts `json:"executionCounts"`
-	GroupBy              string                                  `json:"groupBy"`
+	StartDate            time.Time                                `json:"startDate"`
+	Duration             DailyExecutionStatisticsDuration         `json:"duration"`
+	ExecutionCounts      *DailyExecutionStatisticsExecutionCounts `json:"executionCounts,omitempty"`
+	GroupBy              *string                                  `json:"groupBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,12 +34,10 @@ type _DailyExecutionStatistics DailyExecutionStatistics
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDailyExecutionStatistics(startDate time.Time, duration DailyExecutionStatisticsDuration, executionCounts DailyExecutionStatisticsExecutionCounts, groupBy string) *DailyExecutionStatistics {
+func NewDailyExecutionStatistics(startDate time.Time, duration DailyExecutionStatisticsDuration) *DailyExecutionStatistics {
 	this := DailyExecutionStatistics{}
 	this.StartDate = startDate
 	this.Duration = duration
-	this.ExecutionCounts = executionCounts
-	this.GroupBy = groupBy
 	return &this
 }
 
@@ -99,52 +97,68 @@ func (o *DailyExecutionStatistics) SetDuration(v DailyExecutionStatisticsDuratio
 	o.Duration = v
 }
 
-// GetExecutionCounts returns the ExecutionCounts field value
+// GetExecutionCounts returns the ExecutionCounts field value if set, zero value otherwise.
 func (o *DailyExecutionStatistics) GetExecutionCounts() DailyExecutionStatisticsExecutionCounts {
-	if o == nil {
+	if o == nil || IsNil(o.ExecutionCounts) {
 		var ret DailyExecutionStatisticsExecutionCounts
 		return ret
 	}
-
-	return o.ExecutionCounts
+	return *o.ExecutionCounts
 }
 
-// GetExecutionCountsOk returns a tuple with the ExecutionCounts field value
+// GetExecutionCountsOk returns a tuple with the ExecutionCounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DailyExecutionStatistics) GetExecutionCountsOk() (*DailyExecutionStatisticsExecutionCounts, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ExecutionCounts) {
 		return nil, false
 	}
-	return &o.ExecutionCounts, true
+	return o.ExecutionCounts, true
 }
 
-// SetExecutionCounts sets field value
+// HasExecutionCounts returns a boolean if a field has been set.
+func (o *DailyExecutionStatistics) HasExecutionCounts() bool {
+	if o != nil && !IsNil(o.ExecutionCounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionCounts gets a reference to the given DailyExecutionStatisticsExecutionCounts and assigns it to the ExecutionCounts field.
 func (o *DailyExecutionStatistics) SetExecutionCounts(v DailyExecutionStatisticsExecutionCounts) {
-	o.ExecutionCounts = v
+	o.ExecutionCounts = &v
 }
 
-// GetGroupBy returns the GroupBy field value
+// GetGroupBy returns the GroupBy field value if set, zero value otherwise.
 func (o *DailyExecutionStatistics) GetGroupBy() string {
-	if o == nil {
+	if o == nil || IsNil(o.GroupBy) {
 		var ret string
 		return ret
 	}
-
-	return o.GroupBy
+	return *o.GroupBy
 }
 
-// GetGroupByOk returns a tuple with the GroupBy field value
+// GetGroupByOk returns a tuple with the GroupBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DailyExecutionStatistics) GetGroupByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GroupBy) {
 		return nil, false
 	}
-	return &o.GroupBy, true
+	return o.GroupBy, true
 }
 
-// SetGroupBy sets field value
+// HasGroupBy returns a boolean if a field has been set.
+func (o *DailyExecutionStatistics) HasGroupBy() bool {
+	if o != nil && !IsNil(o.GroupBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupBy gets a reference to the given string and assigns it to the GroupBy field.
 func (o *DailyExecutionStatistics) SetGroupBy(v string) {
-	o.GroupBy = v
+	o.GroupBy = &v
 }
 
 func (o DailyExecutionStatistics) MarshalJSON() ([]byte, error) {
@@ -159,8 +173,12 @@ func (o DailyExecutionStatistics) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["startDate"] = o.StartDate
 	toSerialize["duration"] = o.Duration
-	toSerialize["executionCounts"] = o.ExecutionCounts
-	toSerialize["groupBy"] = o.GroupBy
+	if !IsNil(o.ExecutionCounts) {
+		toSerialize["executionCounts"] = o.ExecutionCounts
+	}
+	if !IsNil(o.GroupBy) {
+		toSerialize["groupBy"] = o.GroupBy
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -176,8 +194,6 @@ func (o *DailyExecutionStatistics) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"startDate",
 		"duration",
-		"executionCounts",
-		"groupBy",
 	}
 
 	allProperties := make(map[string]interface{})

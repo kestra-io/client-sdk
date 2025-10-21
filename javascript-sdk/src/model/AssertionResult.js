@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AssertionResult model module.
  * @module model/AssertionResult
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AssertionResult {
     /**
@@ -26,13 +26,10 @@ class AssertionResult {
      * @param expected {Object} 
      * @param actual {Object} 
      * @param isSuccess {Boolean} 
-     * @param taskId {String} 
-     * @param description {String} 
-     * @param errorMessage {String} 
      */
-    constructor(operator, expected, actual, isSuccess, taskId, description, errorMessage) { 
+    constructor(operator, expected, actual, isSuccess) { 
         
-        AssertionResult.initialize(this, operator, expected, actual, isSuccess, taskId, description, errorMessage);
+        AssertionResult.initialize(this, operator, expected, actual, isSuccess);
     }
 
     /**
@@ -40,14 +37,11 @@ class AssertionResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, operator, expected, actual, isSuccess, taskId, description, errorMessage) { 
+    static initialize(obj, operator, expected, actual, isSuccess) { 
         obj['operator'] = operator;
         obj['expected'] = expected;
         obj['actual'] = actual;
         obj['isSuccess'] = isSuccess;
-        obj['taskId'] = taskId;
-        obj['description'] = description;
-        obj['errorMessage'] = errorMessage;
     }
 
     /**
@@ -121,7 +115,7 @@ class AssertionResult {
 
 }
 
-AssertionResult.RequiredProperties = ["operator", "expected", "actual", "isSuccess", "taskId", "description", "errorMessage"];
+AssertionResult.RequiredProperties = ["operator", "expected", "actual", "isSuccess"];
 
 /**
  * @member {String} operator

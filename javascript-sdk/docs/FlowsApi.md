@@ -1737,7 +1737,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
-let body = "body_example"; // String | The trigger
+let body = {key: null}; // Object | The trigger
 apiInstance.validateTrigger(tenant, body, (error, data, response) => {
   if (error) {
     console.error(error);
@@ -1753,7 +1753,7 @@ apiInstance.validateTrigger(tenant, body, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant** | **String**|  | 
- **body** | **String**| The trigger | 
+ **body** | **Object**| The trigger | 
 
 ### Return type
 

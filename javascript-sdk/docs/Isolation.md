@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**deniedServices** | [**[ServiceType]**](ServiceType.md) |  | 
-**enabled** | **Boolean** |  | 
+**deniedServices** | [**[ServiceType]**](ServiceType.md) |  | [optional] 
+**enabled** | **Boolean** |  | [optional] 
 
 

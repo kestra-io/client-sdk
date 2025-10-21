@@ -22,27 +22,16 @@ import ServiceType from './ServiceType';
 /**
  * The ServiceInstance model module.
  * @module model/ServiceInstance
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ServiceInstance {
     /**
      * Constructs a new <code>ServiceInstance</code>.
      * @alias module:model/ServiceInstance
-     * @param server {module:model/ServerInstance} 
-     * @param metrics {Array.<module:model/Metric>} 
-     * @param state {module:model/ServiceServiceState} 
-     * @param id {String} 
-     * @param type {module:model/ServiceType} 
-     * @param createdAt {Date} 
-     * @param updatedAt {Date} 
-     * @param events {Array.<module:model/ServiceInstanceTimestampedEvent>} 
-     * @param config {module:model/ServerConfig} 
-     * @param props {Object.<String, Object>} 
-     * @param seqId {Number} 
      */
-    constructor(server, metrics, state, id, type, createdAt, updatedAt, events, config, props, seqId) { 
+    constructor() { 
         
-        ServiceInstance.initialize(this, server, metrics, state, id, type, createdAt, updatedAt, events, config, props, seqId);
+        ServiceInstance.initialize(this);
     }
 
     /**
@@ -50,18 +39,7 @@ class ServiceInstance {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, server, metrics, state, id, type, createdAt, updatedAt, events, config, props, seqId) { 
-        obj['server'] = server;
-        obj['metrics'] = metrics;
-        obj['state'] = state;
-        obj['id'] = id;
-        obj['type'] = type;
-        obj['createdAt'] = createdAt;
-        obj['updatedAt'] = updatedAt;
-        obj['events'] = events;
-        obj['config'] = config;
-        obj['props'] = props;
-        obj['seqId'] = seqId;
+    static initialize(obj) { 
     }
 
     /**
@@ -118,12 +96,6 @@ class ServiceInstance {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ServiceInstance</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ServiceInstance.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `server`
         if (data['server']) { // data not null
           ServerInstance.validateJSON(data['server']);
@@ -163,7 +135,7 @@ class ServiceInstance {
 
 }
 
-ServiceInstance.RequiredProperties = ["server", "metrics", "state", "id", "type", "createdAt", "updatedAt", "events", "config", "props", "seqId"];
+
 
 /**
  * @member {module:model/ServerInstance} server

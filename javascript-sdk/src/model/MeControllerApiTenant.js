@@ -16,19 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The MeControllerApiTenant model module.
  * @module model/MeControllerApiTenant
- * @version 1.0.0
+ * @version v1.0.4
  */
 class MeControllerApiTenant {
     /**
      * Constructs a new <code>MeControllerApiTenant</code>.
      * @alias module:model/MeControllerApiTenant
-     * @param id {String} 
-     * @param name {String} 
-     * @param logo {String} 
      */
-    constructor(id, name, logo) { 
+    constructor() { 
         
-        MeControllerApiTenant.initialize(this, id, name, logo);
+        MeControllerApiTenant.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class MeControllerApiTenant {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, logo) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['logo'] = logo;
+    static initialize(obj) { 
     }
 
     /**
@@ -72,12 +66,6 @@ class MeControllerApiTenant {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MeControllerApiTenant</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MeControllerApiTenant.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -97,7 +85,7 @@ class MeControllerApiTenant {
 
 }
 
-MeControllerApiTenant.RequiredProperties = ["id", "name", "logo"];
+
 
 /**
  * @member {String} id

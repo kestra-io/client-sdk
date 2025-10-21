@@ -19,30 +19,18 @@ import UserType from './UserType';
 /**
  * The Invitation model module.
  * @module model/Invitation
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Invitation {
     /**
      * Constructs a new <code>Invitation</code>.
      * @alias module:model/Invitation
-     * @param isExpired {Boolean} 
      * @param email {String} 
-     * @param id {String} 
-     * @param bindings {Array.<module:model/Binding>} 
-     * @param groupIds {Array.<String>} 
-     * @param tenantId {String} 
-     * @param status {module:model/InvitationInvitationStatus} 
-     * @param sentAt {Date} 
-     * @param expiredAt {Date} 
-     * @param acceptedAt {Date} 
      * @param deleted {Boolean} 
-     * @param userType {module:model/UserType} 
-     * @param superAdmin {Boolean} 
-     * @param link {String} 
      */
-    constructor(isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, superAdmin, link) { 
+    constructor(email, deleted) { 
         
-        Invitation.initialize(this, isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, superAdmin, link);
+        Invitation.initialize(this, email, deleted);
     }
 
     /**
@@ -50,21 +38,9 @@ class Invitation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, isExpired, email, id, bindings, groupIds, tenantId, status, sentAt, expiredAt, acceptedAt, deleted, userType, superAdmin, link) { 
-        obj['isExpired'] = isExpired;
+    static initialize(obj, email, deleted) { 
         obj['email'] = email;
-        obj['id'] = id;
-        obj['bindings'] = bindings;
-        obj['groupIds'] = groupIds;
-        obj['tenantId'] = tenantId;
-        obj['status'] = status;
-        obj['sentAt'] = sentAt;
-        obj['expiredAt'] = expiredAt;
-        obj['acceptedAt'] = acceptedAt;
         obj['deleted'] = deleted;
-        obj['userType'] = userType;
-        obj['superAdmin'] = superAdmin;
-        obj['link'] = link;
     }
 
     /**
@@ -173,7 +149,7 @@ class Invitation {
 
 }
 
-Invitation.RequiredProperties = ["isExpired", "email", "id", "bindings", "groupIds", "tenantId", "status", "sentAt", "expiredAt", "acceptedAt", "deleted", "userType", "superAdmin", "link"];
+Invitation.RequiredProperties = ["email", "deleted"];
 
 /**
  * @member {Boolean} isExpired

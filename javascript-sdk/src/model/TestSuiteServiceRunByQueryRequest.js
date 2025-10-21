@@ -16,19 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The TestSuiteServiceRunByQueryRequest model module.
  * @module model/TestSuiteServiceRunByQueryRequest
- * @version 1.0.0
+ * @version v1.0.4
  */
 class TestSuiteServiceRunByQueryRequest {
     /**
      * Constructs a new <code>TestSuiteServiceRunByQueryRequest</code>.
      * @alias module:model/TestSuiteServiceRunByQueryRequest
-     * @param namespace {String} 
-     * @param flowId {String} 
      * @param includeChildNamespaces {Boolean} Should child namespaces be included or not
      */
-    constructor(namespace, flowId, includeChildNamespaces) { 
+    constructor(includeChildNamespaces) { 
         
-        TestSuiteServiceRunByQueryRequest.initialize(this, namespace, flowId, includeChildNamespaces);
+        TestSuiteServiceRunByQueryRequest.initialize(this, includeChildNamespaces);
     }
 
     /**
@@ -36,9 +34,7 @@ class TestSuiteServiceRunByQueryRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId, includeChildNamespaces) { 
-        obj['namespace'] = namespace;
-        obj['flowId'] = flowId;
+    static initialize(obj, includeChildNamespaces) { 
         obj['includeChildNamespaces'] = includeChildNamespaces || true;
     }
 
@@ -93,7 +89,7 @@ class TestSuiteServiceRunByQueryRequest {
 
 }
 
-TestSuiteServiceRunByQueryRequest.RequiredProperties = ["namespace", "flowId", "includeChildNamespaces"];
+TestSuiteServiceRunByQueryRequest.RequiredProperties = ["includeChildNamespaces"];
 
 /**
  * @member {String} namespace

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutableTaskSubflowId model module.
  * @module model/ExecutableTaskSubflowId
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ExecutableTaskSubflowId {
     /**
      * Constructs a new <code>ExecutableTaskSubflowId</code>.
      * @alias module:model/ExecutableTaskSubflowId
-     * @param namespace {String} 
-     * @param flowId {String} 
      */
-    constructor(namespace, flowId) { 
+    constructor() { 
         
-        ExecutableTaskSubflowId.initialize(this, namespace, flowId);
+        ExecutableTaskSubflowId.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class ExecutableTaskSubflowId {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, namespace, flowId) { 
-        obj['namespace'] = namespace;
-        obj['flowId'] = flowId;
+    static initialize(obj) { 
     }
 
     /**
@@ -70,12 +66,6 @@ class ExecutableTaskSubflowId {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutableTaskSubflowId</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ExecutableTaskSubflowId.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['namespace'] && !(typeof data['namespace'] === 'string' || data['namespace'] instanceof String)) {
             throw new Error("Expected the field `namespace` to be a primitive type in the JSON string but got " + data['namespace']);
@@ -91,7 +81,7 @@ class ExecutableTaskSubflowId {
 
 }
 
-ExecutableTaskSubflowId.RequiredProperties = ["namespace", "flowId"];
+
 
 /**
  * @member {String} namespace

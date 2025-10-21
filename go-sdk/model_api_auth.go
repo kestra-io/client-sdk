@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ApiAuth type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &ApiAuth{}
 
 // ApiAuth struct for ApiAuth
 type ApiAuth struct {
-	Uid                  string `json:"uid"`
-	Type                 string `json:"type"`
-	Name                 string `json:"name"`
+	Uid                  *string `json:"uid,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _ApiAuth ApiAuth
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiAuth(uid string, type_ string, name string) *ApiAuth {
+func NewApiAuth() *ApiAuth {
 	this := ApiAuth{}
-	this.Uid = uid
-	this.Type = type_
-	this.Name = name
 	return &this
 }
 
@@ -48,76 +44,100 @@ func NewApiAuthWithDefaults() *ApiAuth {
 	return &this
 }
 
-// GetUid returns the Uid field value
+// GetUid returns the Uid field value if set, zero value otherwise.
 func (o *ApiAuth) GetUid() string {
-	if o == nil {
+	if o == nil || IsNil(o.Uid) {
 		var ret string
 		return ret
 	}
-
-	return o.Uid
+	return *o.Uid
 }
 
-// GetUidOk returns a tuple with the Uid field value
+// GetUidOk returns a tuple with the Uid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetUidOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Uid) {
 		return nil, false
 	}
-	return &o.Uid, true
+	return o.Uid, true
 }
 
-// SetUid sets field value
+// HasUid returns a boolean if a field has been set.
+func (o *ApiAuth) HasUid() bool {
+	if o != nil && !IsNil(o.Uid) {
+		return true
+	}
+
+	return false
+}
+
+// SetUid gets a reference to the given string and assigns it to the Uid field.
 func (o *ApiAuth) SetUid(v string) {
-	o.Uid = v
+	o.Uid = &v
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *ApiAuth) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *ApiAuth) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *ApiAuth) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *ApiAuth) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiAuth) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *ApiAuth) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *ApiAuth) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 func (o ApiAuth) MarshalJSON() ([]byte, error) {
@@ -130,9 +150,15 @@ func (o ApiAuth) MarshalJSON() ([]byte, error) {
 
 func (o ApiAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["uid"] = o.Uid
-	toSerialize["type"] = o.Type
-	toSerialize["name"] = o.Name
+	if !IsNil(o.Uid) {
+		toSerialize["uid"] = o.Uid
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o ApiAuth) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiAuth) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"uid",
-		"type",
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varApiAuth := _ApiAuth{}
 
 	err = json.Unmarshal(data, &varApiAuth)

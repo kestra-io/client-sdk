@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IdWithNamespace model module.
  * @module model/IdWithNamespace
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IdWithNamespace {
     /**

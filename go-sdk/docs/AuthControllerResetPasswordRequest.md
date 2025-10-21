@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Token** | **string** |  | 
-**Password** | **string** |  | 
+**Token** | Pointer to **string** |  | [optional] 
+**Password** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAuthControllerResetPasswordRequest
 
-`func NewAuthControllerResetPasswordRequest(token string, password string, ) *AuthControllerResetPasswordRequest`
+`func NewAuthControllerResetPasswordRequest() *AuthControllerResetPasswordRequest`
 
 NewAuthControllerResetPasswordRequest instantiates a new AuthControllerResetPasswordRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetToken sets Token field to given value.
 
+### HasToken
+
+`func (o *AuthControllerResetPasswordRequest) HasToken() bool`
+
+HasToken returns a boolean if a field has been set.
 
 ### GetPassword
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
+### HasPassword
+
+`func (o *AuthControllerResetPasswordRequest) HasPassword() bool`
+
+HasPassword returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

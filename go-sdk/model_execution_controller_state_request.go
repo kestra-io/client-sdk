@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ExecutionControllerStateRequest type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &ExecutionControllerStateRequest{}
 
 // ExecutionControllerStateRequest struct for ExecutionControllerStateRequest
 type ExecutionControllerStateRequest struct {
-	TaskRunId            string    `json:"taskRunId"`
-	State                StateType `json:"state"`
+	TaskRunId            *string    `json:"taskRunId,omitempty"`
+	State                *StateType `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _ExecutionControllerStateRequest ExecutionControllerStateRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerStateRequest(taskRunId string, state StateType) *ExecutionControllerStateRequest {
+func NewExecutionControllerStateRequest() *ExecutionControllerStateRequest {
 	this := ExecutionControllerStateRequest{}
-	this.TaskRunId = taskRunId
-	this.State = state
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewExecutionControllerStateRequestWithDefaults() *ExecutionControllerStateR
 	return &this
 }
 
-// GetTaskRunId returns the TaskRunId field value
+// GetTaskRunId returns the TaskRunId field value if set, zero value otherwise.
 func (o *ExecutionControllerStateRequest) GetTaskRunId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TaskRunId) {
 		var ret string
 		return ret
 	}
-
-	return o.TaskRunId
+	return *o.TaskRunId
 }
 
-// GetTaskRunIdOk returns a tuple with the TaskRunId field value
+// GetTaskRunIdOk returns a tuple with the TaskRunId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerStateRequest) GetTaskRunIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TaskRunId) {
 		return nil, false
 	}
-	return &o.TaskRunId, true
+	return o.TaskRunId, true
 }
 
-// SetTaskRunId sets field value
+// HasTaskRunId returns a boolean if a field has been set.
+func (o *ExecutionControllerStateRequest) HasTaskRunId() bool {
+	if o != nil && !IsNil(o.TaskRunId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaskRunId gets a reference to the given string and assigns it to the TaskRunId field.
 func (o *ExecutionControllerStateRequest) SetTaskRunId(v string) {
-	o.TaskRunId = v
+	o.TaskRunId = &v
 }
 
-// GetState returns the State field value
+// GetState returns the State field value if set, zero value otherwise.
 func (o *ExecutionControllerStateRequest) GetState() StateType {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		var ret StateType
 		return ret
 	}
-
-	return o.State
+	return *o.State
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerStateRequest) GetStateOk() (*StateType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
-	return &o.State, true
+	return o.State, true
 }
 
-// SetState sets field value
+// HasState returns a boolean if a field has been set.
+func (o *ExecutionControllerStateRequest) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given StateType and assigns it to the State field.
 func (o *ExecutionControllerStateRequest) SetState(v StateType) {
-	o.State = v
+	o.State = &v
 }
 
 func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o ExecutionControllerStateRequest) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionControllerStateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["taskRunId"] = o.TaskRunId
-	toSerialize["state"] = o.State
+	if !IsNil(o.TaskRunId) {
+		toSerialize["taskRunId"] = o.TaskRunId
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o ExecutionControllerStateRequest) ToMap() (map[string]interface{}, error)
 }
 
 func (o *ExecutionControllerStateRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"taskRunId",
-		"state",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varExecutionControllerStateRequest := _ExecutionControllerStateRequest{}
 
 	err = json.Unmarshal(data, &varExecutionControllerStateRequest)

@@ -30,7 +30,7 @@ import PagedResultsIAMUserControllerApiUserSummary from '../model/PagedResultsIA
 /**
 * Users service.
 * @module api/UsersApi
-* @version 1.0.0
+* @version v1.0.4
 */
 export default class UsersApi {
 

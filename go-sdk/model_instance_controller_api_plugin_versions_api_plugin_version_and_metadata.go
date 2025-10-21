@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionsApiPluginVersionAndMe
 
 // InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata struct for InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata
 type InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata struct {
-	Version              string                 `json:"version"`
-	Metadata             PluginArtifactMetadata `json:"metadata"`
+	Version              *string                 `json:"version,omitempty"`
+	Metadata             *PluginArtifactMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata InstanceCon
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata(version string, metadata PluginArtifactMetadata) *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
+func NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata() *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata {
 	this := InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata{}
-	this.Version = version
-	this.Metadata = metadata
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewInstanceControllerApiPluginVersionsApiPluginVersionAndMetadataWithDefaul
 	return &this
 }
 
-// GetVersion returns the Version field value
+// GetVersion returns the Version field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) GetVersion() string {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
-
-	return o.Version
+	return *o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-	return &o.Version, true
+	return o.Version, true
 }
 
-// SetVersion sets field value
+// HasVersion returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) SetVersion(v string) {
-	o.Version = v
+	o.Version = &v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) GetMetadata() PluginArtifactMetadata {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret PluginArtifactMetadata
 		return ret
 	}
-
-	return o.Metadata
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) GetMetadataOk() (*PluginArtifactMetadata, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given PluginArtifactMetadata and assigns it to the Metadata field.
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) SetMetadata(v PluginArtifactMetadata) {
-	o.Metadata = v
+	o.Metadata = &v
 }
 
 func (o InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) MarshalJ
 
 func (o InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["version"] = o.Version
-	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) ToMap() 
 }
 
 func (o *InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"version",
-		"metadata",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata := _InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginVersionsApiPluginVersionAndMetadata)

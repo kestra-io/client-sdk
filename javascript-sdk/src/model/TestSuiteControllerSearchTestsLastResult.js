@@ -17,17 +17,16 @@ import TestSuiteControllerTestSuiteApiId from './TestSuiteControllerTestSuiteApi
 /**
  * The TestSuiteControllerSearchTestsLastResult model module.
  * @module model/TestSuiteControllerSearchTestsLastResult
- * @version 1.0.0
+ * @version v1.0.4
  */
 class TestSuiteControllerSearchTestsLastResult {
     /**
      * Constructs a new <code>TestSuiteControllerSearchTestsLastResult</code>.
      * @alias module:model/TestSuiteControllerSearchTestsLastResult
-     * @param testSuiteIds {Array.<module:model/TestSuiteControllerTestSuiteApiId>} 
      */
-    constructor(testSuiteIds) { 
+    constructor() { 
         
-        TestSuiteControllerSearchTestsLastResult.initialize(this, testSuiteIds);
+        TestSuiteControllerSearchTestsLastResult.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class TestSuiteControllerSearchTestsLastResult {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, testSuiteIds) { 
-        obj['testSuiteIds'] = testSuiteIds;
+    static initialize(obj) { 
     }
 
     /**
@@ -63,12 +61,6 @@ class TestSuiteControllerSearchTestsLastResult {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TestSuiteControllerSearchTestsLastResult</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of TestSuiteControllerSearchTestsLastResult.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         if (data['testSuiteIds']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['testSuiteIds'])) {
@@ -86,7 +78,7 @@ class TestSuiteControllerSearchTestsLastResult {
 
 }
 
-TestSuiteControllerSearchTestsLastResult.RequiredProperties = ["testSuiteIds"];
+
 
 /**
  * @member {Array.<module:model/TestSuiteControllerTestSuiteApiId>} testSuiteIds

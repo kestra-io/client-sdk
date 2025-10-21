@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**input** | [**InputObject**](InputObject.md) |  | 
-**value** | **Object** |  | 
-**enabled** | **Boolean** |  | 
-**isDefault** | **Boolean** |  | 
-**errors** | [**[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | 
+**input** | [**InputObject**](InputObject.md) |  | [optional] 
+**value** | **Object** |  | [optional] 
+**enabled** | **Boolean** |  | [optional] 
+**isDefault** | **Boolean** |  | [optional] 
+**errors** | [**[ExecutionControllerApiValidateExecutionInputsResponseApiInputError]**](ExecutionControllerApiValidateExecutionInputsResponseApiInputError.md) |  | [optional] 
 
 

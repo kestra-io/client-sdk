@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowId model module.
  * @module model/FlowId
- * @version 1.0.0
+ * @version v1.0.4
  */
 class FlowId {
     /**

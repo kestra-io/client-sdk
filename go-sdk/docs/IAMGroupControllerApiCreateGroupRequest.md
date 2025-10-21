@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Description** | **string** |  | 
-**MembersId** | **[]string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**MembersId** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewIAMGroupControllerApiCreateGroupRequest
 
-`func NewIAMGroupControllerApiCreateGroupRequest(name string, description string, membersId []string, ) *IAMGroupControllerApiCreateGroupRequest`
+`func NewIAMGroupControllerApiCreateGroupRequest(name string, ) *IAMGroupControllerApiCreateGroupRequest`
 
 NewIAMGroupControllerApiCreateGroupRequest instantiates a new IAMGroupControllerApiCreateGroupRequest object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMGroupControllerApiCreateGroupRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetMembersId
 
@@ -86,6 +91,11 @@ and a boolean to check if the value has been set.
 
 SetMembersId sets MembersId field to given value.
 
+### HasMembersId
+
+`func (o *IAMGroupControllerApiCreateGroupRequest) HasMembersId() bool`
+
+HasMembersId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TestSuiteControllerRunRequest type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &TestSuiteControllerRunRequest{}
 
 // TestSuiteControllerRunRequest struct for TestSuiteControllerRunRequest
 type TestSuiteControllerRunRequest struct {
-	TestCases            []string `json:"testCases"`
+	TestCases            []string `json:"testCases,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _TestSuiteControllerRunRequest TestSuiteControllerRunRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestSuiteControllerRunRequest(testCases []string) *TestSuiteControllerRunRequest {
+func NewTestSuiteControllerRunRequest() *TestSuiteControllerRunRequest {
 	this := TestSuiteControllerRunRequest{}
-	this.TestCases = testCases
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewTestSuiteControllerRunRequestWithDefaults() *TestSuiteControllerRunReque
 	return &this
 }
 
-// GetTestCases returns the TestCases field value
+// GetTestCases returns the TestCases field value if set, zero value otherwise.
 func (o *TestSuiteControllerRunRequest) GetTestCases() []string {
-	if o == nil {
+	if o == nil || IsNil(o.TestCases) {
 		var ret []string
 		return ret
 	}
-
 	return o.TestCases
 }
 
-// GetTestCasesOk returns a tuple with the TestCases field value
+// GetTestCasesOk returns a tuple with the TestCases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestSuiteControllerRunRequest) GetTestCasesOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TestCases) {
 		return nil, false
 	}
 	return o.TestCases, true
 }
 
-// SetTestCases sets field value
+// HasTestCases returns a boolean if a field has been set.
+func (o *TestSuiteControllerRunRequest) HasTestCases() bool {
+	if o != nil && !IsNil(o.TestCases) {
+		return true
+	}
+
+	return false
+}
+
+// SetTestCases gets a reference to the given []string and assigns it to the TestCases field.
 func (o *TestSuiteControllerRunRequest) SetTestCases(v []string) {
 	o.TestCases = v
 }
@@ -78,7 +84,9 @@ func (o TestSuiteControllerRunRequest) MarshalJSON() ([]byte, error) {
 
 func (o TestSuiteControllerRunRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["testCases"] = o.TestCases
+	if !IsNil(o.TestCases) {
+		toSerialize["testCases"] = o.TestCases
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o TestSuiteControllerRunRequest) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *TestSuiteControllerRunRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"testCases",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTestSuiteControllerRunRequest := _TestSuiteControllerRunRequest{}
 
 	err = json.Unmarshal(data, &varTestSuiteControllerRunRequest)

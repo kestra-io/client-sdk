@@ -42,7 +42,7 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version 1.0.0
+* @version v1.0.4
 */
 export default class ExecutionsApi {
 
@@ -62,7 +62,7 @@ export default class ExecutionsApi {
      * Callback function to receive the result of the createExecution operation.
      * @callback module:api/ExecutionsApi~createExecutionCallback
      * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ExecutionControllerExecutionResponse>} data The data returned by the service call.
+     * @param {module:model/ExecutionControllerExecutionResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -79,7 +79,7 @@ export default class ExecutionsApi {
      * @param {String} [breakpoints] Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
      * @param {module:model/ExecutionKind} [kind] Specific execution kind
      * @param {module:api/ExecutionsApi~createExecutionCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ExecutionControllerExecutionResponse>}
+     * data is of type: {@link module:model/ExecutionControllerExecutionResponse}
      */
     createExecution(namespace, id, wait, tenant, opts, callback) {
       opts = opts || {};
@@ -122,7 +122,7 @@ export default class ExecutionsApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['multipart/form-data'];
       let accepts = ['application/json'];
-      let returnType = [ExecutionControllerExecutionResponse];
+      let returnType = ExecutionControllerExecutionResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/executions/{namespace}/{id}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -964,7 +964,7 @@ export default class ExecutionsApi {
 
     /**
      * Get flow information's for an execution
-     * @param {String} executionId The execution that you want flow information's
+     * @param {String} executionId The execution that you want flow informations
      * @param {String} tenant 
      * @param {module:api/ExecutionsApi~getFlowFromExecutionByIdCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/FlowForExecution}

@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the Isolation type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &Isolation{}
 
 // Isolation struct for Isolation
 type Isolation struct {
-	DeniedServices       []ServiceType `json:"deniedServices"`
-	Enabled              bool          `json:"enabled"`
+	DeniedServices       []ServiceType `json:"deniedServices,omitempty"`
+	Enabled              *bool         `json:"enabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _Isolation Isolation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIsolation(deniedServices []ServiceType, enabled bool) *Isolation {
+func NewIsolation() *Isolation {
 	this := Isolation{}
-	this.DeniedServices = deniedServices
-	this.Enabled = enabled
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewIsolationWithDefaults() *Isolation {
 	return &this
 }
 
-// GetDeniedServices returns the DeniedServices field value
+// GetDeniedServices returns the DeniedServices field value if set, zero value otherwise.
 func (o *Isolation) GetDeniedServices() []ServiceType {
-	if o == nil {
+	if o == nil || IsNil(o.DeniedServices) {
 		var ret []ServiceType
 		return ret
 	}
-
 	return o.DeniedServices
 }
 
-// GetDeniedServicesOk returns a tuple with the DeniedServices field value
+// GetDeniedServicesOk returns a tuple with the DeniedServices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Isolation) GetDeniedServicesOk() ([]ServiceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DeniedServices) {
 		return nil, false
 	}
 	return o.DeniedServices, true
 }
 
-// SetDeniedServices sets field value
+// HasDeniedServices returns a boolean if a field has been set.
+func (o *Isolation) HasDeniedServices() bool {
+	if o != nil && !IsNil(o.DeniedServices) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeniedServices gets a reference to the given []ServiceType and assigns it to the DeniedServices field.
 func (o *Isolation) SetDeniedServices(v []ServiceType) {
 	o.DeniedServices = v
 }
 
-// GetEnabled returns the Enabled field value
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *Isolation) GetEnabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
-
-	return o.Enabled
+	return *o.Enabled
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Isolation) GetEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
-	return &o.Enabled, true
+	return o.Enabled, true
 }
 
-// SetEnabled sets field value
+// HasEnabled returns a boolean if a field has been set.
+func (o *Isolation) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *Isolation) SetEnabled(v bool) {
-	o.Enabled = v
+	o.Enabled = &v
 }
 
 func (o Isolation) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o Isolation) MarshalJSON() ([]byte, error) {
 
 func (o Isolation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["deniedServices"] = o.DeniedServices
-	toSerialize["enabled"] = o.Enabled
+	if !IsNil(o.DeniedServices) {
+		toSerialize["deniedServices"] = o.DeniedServices
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o Isolation) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Isolation) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"deniedServices",
-		"enabled",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIsolation := _Isolation{}
 
 	err = json.Unmarshal(data, &varIsolation)

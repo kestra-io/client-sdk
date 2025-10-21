@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AuthControllerInvitationUserRequest model module.
  * @module model/AuthControllerInvitationUserRequest
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AuthControllerInvitationUserRequest {
     /**

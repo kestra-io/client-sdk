@@ -18,7 +18,7 @@ import ApiSecretTag from './ApiSecretTag';
 /**
  * The ApiSecretMetaEE model module.
  * @module model/ApiSecretMetaEE
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ApiSecretMetaEE {
     /**

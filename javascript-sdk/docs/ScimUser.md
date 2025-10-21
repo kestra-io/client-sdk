@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | 
 **id** | **String** |  | [optional] 
 **externalId** | **String** |  | [optional] 
-**resourceType** | **String** |  | 
+**resourceType** | **String** |  | [optional] 
 **primaryEmailAddress** | [**Email**](Email.md) |  | [optional] 
 **active** | **Boolean** |  | [optional] 
 **emails** | [**[Email]**](Email.md) |  | [optional] 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | 
 **id** | **String** |  | [optional] 
 **externalId** | **String** |  | [optional] 
-**resourceType** | **String** |  | 
+**resourceType** | **String** |  | [optional] 
 **documentationUrl** | **String** |  | [optional] 
 **patch** | [**ServiceProviderConfigurationSupportedConfiguration**](ServiceProviderConfigurationSupportedConfiguration.md) |  | [optional] 
 **bulk** | [**ServiceProviderConfigurationBulkConfiguration**](ServiceProviderConfigurationBulkConfiguration.md) |  | [optional] 

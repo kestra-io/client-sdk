@@ -16,24 +16,17 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiCreateOrUpdateUserRequest model module.
  * @module model/IAMUserControllerApiCreateOrUpdateUserRequest
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMUserControllerApiCreateOrUpdateUserRequest {
     /**
      * Constructs a new <code>IAMUserControllerApiCreateOrUpdateUserRequest</code>.
      * @alias module:model/IAMUserControllerApiCreateOrUpdateUserRequest
-     * @param tenants {Array.<String>} 
-     * @param groups {Array.<String>} 
-     * @param firstName {String} 
-     * @param lastName {String} 
      * @param email {String} 
-     * @param password {String} 
-     * @param superAdmin {Boolean} 
-     * @param restricted {Boolean} 
      */
-    constructor(tenants, groups, firstName, lastName, email, password, superAdmin, restricted) { 
+    constructor(email) { 
         
-        IAMUserControllerApiCreateOrUpdateUserRequest.initialize(this, tenants, groups, firstName, lastName, email, password, superAdmin, restricted);
+        IAMUserControllerApiCreateOrUpdateUserRequest.initialize(this, email);
     }
 
     /**
@@ -41,15 +34,8 @@ class IAMUserControllerApiCreateOrUpdateUserRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tenants, groups, firstName, lastName, email, password, superAdmin, restricted) { 
-        obj['tenants'] = tenants;
-        obj['groups'] = groups;
-        obj['firstName'] = firstName;
-        obj['lastName'] = lastName;
+    static initialize(obj, email) { 
         obj['email'] = email;
-        obj['password'] = password;
-        obj['superAdmin'] = superAdmin;
-        obj['restricted'] = restricted;
     }
 
     /**
@@ -134,7 +120,7 @@ class IAMUserControllerApiCreateOrUpdateUserRequest {
 
 }
 
-IAMUserControllerApiCreateOrUpdateUserRequest.RequiredProperties = ["tenants", "groups", "firstName", "lastName", "email", "password", "superAdmin", "restricted"];
+IAMUserControllerApiCreateOrUpdateUserRequest.RequiredProperties = ["email"];
 
 /**
  * @member {Array.<String>} tenants

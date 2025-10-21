@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMTenantAccessControllerApiRoleAssignment type satisfies the MappedNullable interface at compile time
@@ -20,12 +19,12 @@ var _ MappedNullable = &IAMTenantAccessControllerApiRoleAssignment{}
 
 // IAMTenantAccessControllerApiRoleAssignment struct for IAMTenantAccessControllerApiRoleAssignment
 type IAMTenantAccessControllerApiRoleAssignment struct {
-	Id                   string                                       `json:"id"`
-	Name                 string                                       `json:"name"`
-	Namespace            string                                       `json:"namespace"`
-	Origin               RBACServiceRoleAssignmentRoleOrigin          `json:"origin"`
-	SourceId             string                                       `json:"sourceId"`
-	Permissions          []IAMTenantAccessControllerApiUserPermission `json:"permissions"`
+	Id                   *string                                      `json:"id,omitempty"`
+	Name                 *string                                      `json:"name,omitempty"`
+	Namespace            *string                                      `json:"namespace,omitempty"`
+	Origin               *RBACServiceRoleAssignmentRoleOrigin         `json:"origin,omitempty"`
+	SourceId             *string                                      `json:"sourceId,omitempty"`
+	Permissions          []IAMTenantAccessControllerApiUserPermission `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,14 +34,8 @@ type _IAMTenantAccessControllerApiRoleAssignment IAMTenantAccessControllerApiRol
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMTenantAccessControllerApiRoleAssignment(id string, name string, namespace string, origin RBACServiceRoleAssignmentRoleOrigin, sourceId string, permissions []IAMTenantAccessControllerApiUserPermission) *IAMTenantAccessControllerApiRoleAssignment {
+func NewIAMTenantAccessControllerApiRoleAssignment() *IAMTenantAccessControllerApiRoleAssignment {
 	this := IAMTenantAccessControllerApiRoleAssignment{}
-	this.Id = id
-	this.Name = name
-	this.Namespace = namespace
-	this.Origin = origin
-	this.SourceId = sourceId
-	this.Permissions = permissions
 	return &this
 }
 
@@ -54,146 +47,194 @@ func NewIAMTenantAccessControllerApiRoleAssignmentWithDefaults() *IAMTenantAcces
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetNamespace returns the Namespace field value
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetNamespace() string {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
-
-	return o.Namespace
+	return *o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetNamespaceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
-	return &o.Namespace, true
+	return o.Namespace, true
 }
 
-// SetNamespace sets field value
+// HasNamespace returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetNamespace(v string) {
-	o.Namespace = v
+	o.Namespace = &v
 }
 
-// GetOrigin returns the Origin field value
+// GetOrigin returns the Origin field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetOrigin() RBACServiceRoleAssignmentRoleOrigin {
-	if o == nil {
+	if o == nil || IsNil(o.Origin) {
 		var ret RBACServiceRoleAssignmentRoleOrigin
 		return ret
 	}
-
-	return o.Origin
+	return *o.Origin
 }
 
-// GetOriginOk returns a tuple with the Origin field value
+// GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetOriginOk() (*RBACServiceRoleAssignmentRoleOrigin, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
-	return &o.Origin, true
+	return o.Origin, true
 }
 
-// SetOrigin sets field value
+// HasOrigin returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasOrigin() bool {
+	if o != nil && !IsNil(o.Origin) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrigin gets a reference to the given RBACServiceRoleAssignmentRoleOrigin and assigns it to the Origin field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetOrigin(v RBACServiceRoleAssignmentRoleOrigin) {
-	o.Origin = v
+	o.Origin = &v
 }
 
-// GetSourceId returns the SourceId field value
+// GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetSourceId() string {
-	if o == nil {
+	if o == nil || IsNil(o.SourceId) {
 		var ret string
 		return ret
 	}
-
-	return o.SourceId
+	return *o.SourceId
 }
 
-// GetSourceIdOk returns a tuple with the SourceId field value
+// GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetSourceIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SourceId) {
 		return nil, false
 	}
-	return &o.SourceId, true
+	return o.SourceId, true
 }
 
-// SetSourceId sets field value
+// HasSourceId returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasSourceId() bool {
+	if o != nil && !IsNil(o.SourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceId gets a reference to the given string and assigns it to the SourceId field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetSourceId(v string) {
-	o.SourceId = v
+	o.SourceId = &v
 }
 
-// GetPermissions returns the Permissions field value
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetPermissions() []IAMTenantAccessControllerApiUserPermission {
-	if o == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []IAMTenantAccessControllerApiUserPermission
 		return ret
 	}
-
 	return o.Permissions
 }
 
-// GetPermissionsOk returns a tuple with the Permissions field value
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMTenantAccessControllerApiRoleAssignment) GetPermissionsOk() ([]IAMTenantAccessControllerApiUserPermission, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
 }
 
-// SetPermissions sets field value
+// HasPermissions returns a boolean if a field has been set.
+func (o *IAMTenantAccessControllerApiRoleAssignment) HasPermissions() bool {
+	if o != nil && !IsNil(o.Permissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given []IAMTenantAccessControllerApiUserPermission and assigns it to the Permissions field.
 func (o *IAMTenantAccessControllerApiRoleAssignment) SetPermissions(v []IAMTenantAccessControllerApiUserPermission) {
 	o.Permissions = v
 }
@@ -208,12 +249,24 @@ func (o IAMTenantAccessControllerApiRoleAssignment) MarshalJSON() ([]byte, error
 
 func (o IAMTenantAccessControllerApiRoleAssignment) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["namespace"] = o.Namespace
-	toSerialize["origin"] = o.Origin
-	toSerialize["sourceId"] = o.SourceId
-	toSerialize["permissions"] = o.Permissions
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.Origin) {
+		toSerialize["origin"] = o.Origin
+	}
+	if !IsNil(o.SourceId) {
+		toSerialize["sourceId"] = o.SourceId
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -223,32 +276,6 @@ func (o IAMTenantAccessControllerApiRoleAssignment) ToMap() (map[string]interfac
 }
 
 func (o *IAMTenantAccessControllerApiRoleAssignment) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"namespace",
-		"origin",
-		"sourceId",
-		"permissions",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMTenantAccessControllerApiRoleAssignment := _IAMTenantAccessControllerApiRoleAssignment{}
 
 	err = json.Unmarshal(data, &varIAMTenantAccessControllerApiRoleAssignment)

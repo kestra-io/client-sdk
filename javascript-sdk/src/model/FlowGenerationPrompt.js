@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The FlowGenerationPrompt model module.
  * @module model/FlowGenerationPrompt
- * @version 1.0.0
+ * @version v1.0.4
  */
 class FlowGenerationPrompt {
     /**
@@ -24,11 +24,10 @@ class FlowGenerationPrompt {
      * @alias module:model/FlowGenerationPrompt
      * @param conversationId {String} 
      * @param userPrompt {String} 
-     * @param flowYaml {String} 
      */
-    constructor(conversationId, userPrompt, flowYaml) { 
+    constructor(conversationId, userPrompt) { 
         
-        FlowGenerationPrompt.initialize(this, conversationId, userPrompt, flowYaml);
+        FlowGenerationPrompt.initialize(this, conversationId, userPrompt);
     }
 
     /**
@@ -36,10 +35,9 @@ class FlowGenerationPrompt {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, conversationId, userPrompt, flowYaml) { 
+    static initialize(obj, conversationId, userPrompt) { 
         obj['conversationId'] = conversationId;
         obj['userPrompt'] = userPrompt;
-        obj['flowYaml'] = flowYaml;
     }
 
     /**
@@ -97,7 +95,7 @@ class FlowGenerationPrompt {
 
 }
 
-FlowGenerationPrompt.RequiredProperties = ["conversationId", "userPrompt", "flowYaml"];
+FlowGenerationPrompt.RequiredProperties = ["conversationId", "userPrompt"];
 
 /**
  * @member {String} conversationId

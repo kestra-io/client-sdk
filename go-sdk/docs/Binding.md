@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
 **Type** | [**BindingType**](BindingType.md) |  | 
 **ExternalId** | **string** |  | 
 **RoleId** | **string** |  | 
-**NamespaceId** | **string** |  | 
+**NamespaceId** | Pointer to **string** |  | [optional] 
 **Deleted** | **bool** |  | 
 
 ## Methods
 
 ### NewBinding
 
-`func NewBinding(id string, type_ BindingType, externalId string, roleId string, namespaceId string, deleted bool, ) *Binding`
+`func NewBinding(type_ BindingType, externalId string, roleId string, deleted bool, ) *Binding`
 
 NewBinding instantiates a new Binding object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *Binding) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetType
 
@@ -129,6 +134,11 @@ and a boolean to check if the value has been set.
 
 SetNamespaceId sets NamespaceId field to given value.
 
+### HasNamespaceId
+
+`func (o *Binding) HasNamespaceId() bool`
+
+HasNamespaceId returns a boolean if a field has been set.
 
 ### GetDeleted
 

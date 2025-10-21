@@ -17,21 +17,17 @@ import IdentityProvider from './IdentityProvider';
 /**
  * The AbstractUserTenantIdentityProvider model module.
  * @module model/AbstractUserTenantIdentityProvider
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AbstractUserTenantIdentityProvider {
     /**
      * Constructs a new <code>AbstractUserTenantIdentityProvider</code>.
      * @alias module:model/AbstractUserTenantIdentityProvider
      * @implements module:model/IdentityProvider
-     * @param attributes {Object.<String, Object>} 
-     * @param externalId {String} 
-     * @param securityIntegrationId {String} 
-     * @param securityIntegrationName {String} 
      */
-    constructor(attributes, externalId, securityIntegrationId, securityIntegrationName) { 
-        IdentityProvider.initialize(this, attributes, externalId, securityIntegrationId, securityIntegrationName);
-        AbstractUserTenantIdentityProvider.initialize(this, attributes, externalId, securityIntegrationId, securityIntegrationName);
+    constructor() { 
+        IdentityProvider.initialize(this);
+        AbstractUserTenantIdentityProvider.initialize(this);
     }
 
     /**
@@ -39,11 +35,7 @@ class AbstractUserTenantIdentityProvider {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attributes, externalId, securityIntegrationId, securityIntegrationName) { 
-        obj['attributes'] = attributes;
-        obj['externalId'] = externalId;
-        obj['securityIntegrationId'] = securityIntegrationId;
-        obj['securityIntegrationName'] = securityIntegrationName;
+    static initialize(obj) { 
     }
 
     /**
@@ -83,12 +75,6 @@ class AbstractUserTenantIdentityProvider {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AbstractUserTenantIdentityProvider</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AbstractUserTenantIdentityProvider.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['externalId'] && !(typeof data['externalId'] === 'string' || data['externalId'] instanceof String)) {
             throw new Error("Expected the field `externalId` to be a primitive type in the JSON string but got " + data['externalId']);
@@ -112,7 +98,7 @@ class AbstractUserTenantIdentityProvider {
 
 }
 
-AbstractUserTenantIdentityProvider.RequiredProperties = ["attributes", "externalId", "securityIntegrationId", "securityIntegrationName"];
+
 
 /**
  * @member {Object.<String, Object>} attributes

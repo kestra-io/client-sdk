@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | [**KVType**](KVType.md) |  | 
-**Value** | **map[string]interface{}** |  | 
+**Type** | Pointer to [**KVType**](KVType.md) |  | [optional] 
+**Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewKVControllerTypedValue
 
-`func NewKVControllerTypedValue(type_ KVType, value map[string]interface{}, ) *KVControllerTypedValue`
+`func NewKVControllerTypedValue() *KVControllerTypedValue`
 
 NewKVControllerTypedValue instantiates a new KVControllerTypedValue object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *KVControllerTypedValue) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *KVControllerTypedValue) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -21,14 +21,14 @@ var _ MappedNullable = &BlueprintWithFlow{}
 
 // BlueprintWithFlow struct for BlueprintWithFlow
 type BlueprintWithFlow struct {
-	Id                   string    `json:"id"`
-	Title                string    `json:"title"`
-	Description          string    `json:"description"`
-	Tags                 []string  `json:"tags"`
-	IncludedTasks        []string  `json:"includedTasks"`
-	PublishedAt          time.Time `json:"publishedAt"`
-	Deleted              bool      `json:"deleted"`
-	Flow                 string    `json:"flow"`
+	Id                   *string    `json:"id,omitempty"`
+	Title                string     `json:"title"`
+	Description          *string    `json:"description,omitempty"`
+	Tags                 []string   `json:"tags,omitempty"`
+	IncludedTasks        []string   `json:"includedTasks,omitempty"`
+	PublishedAt          *time.Time `json:"publishedAt,omitempty"`
+	Deleted              bool       `json:"deleted"`
+	Flow                 string     `json:"flow"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,14 +38,9 @@ type _BlueprintWithFlow BlueprintWithFlow
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlueprintWithFlow(id string, title string, description string, tags []string, includedTasks []string, publishedAt time.Time, deleted bool, flow string) *BlueprintWithFlow {
+func NewBlueprintWithFlow(title string, deleted bool, flow string) *BlueprintWithFlow {
 	this := BlueprintWithFlow{}
-	this.Id = id
 	this.Title = title
-	this.Description = description
-	this.Tags = tags
-	this.IncludedTasks = includedTasks
-	this.PublishedAt = publishedAt
 	this.Deleted = deleted
 	this.Flow = flow
 	return &this
@@ -59,28 +54,36 @@ func NewBlueprintWithFlowWithDefaults() *BlueprintWithFlow {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *BlueprintWithFlow) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintWithFlow) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *BlueprintWithFlow) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *BlueprintWithFlow) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetTitle returns the Title field value
@@ -107,100 +110,132 @@ func (o *BlueprintWithFlow) SetTitle(v string) {
 	o.Title = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *BlueprintWithFlow) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintWithFlow) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *BlueprintWithFlow) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *BlueprintWithFlow) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetTags returns the Tags field value
+// GetTags returns the Tags field value if set, zero value otherwise.
 func (o *BlueprintWithFlow) GetTags() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
-
 	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintWithFlow) GetTagsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
 }
 
-// SetTags sets field value
+// HasTags returns a boolean if a field has been set.
+func (o *BlueprintWithFlow) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *BlueprintWithFlow) SetTags(v []string) {
 	o.Tags = v
 }
 
-// GetIncludedTasks returns the IncludedTasks field value
+// GetIncludedTasks returns the IncludedTasks field value if set, zero value otherwise.
 func (o *BlueprintWithFlow) GetIncludedTasks() []string {
-	if o == nil {
+	if o == nil || IsNil(o.IncludedTasks) {
 		var ret []string
 		return ret
 	}
-
 	return o.IncludedTasks
 }
 
-// GetIncludedTasksOk returns a tuple with the IncludedTasks field value
+// GetIncludedTasksOk returns a tuple with the IncludedTasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintWithFlow) GetIncludedTasksOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IncludedTasks) {
 		return nil, false
 	}
 	return o.IncludedTasks, true
 }
 
-// SetIncludedTasks sets field value
+// HasIncludedTasks returns a boolean if a field has been set.
+func (o *BlueprintWithFlow) HasIncludedTasks() bool {
+	if o != nil && !IsNil(o.IncludedTasks) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludedTasks gets a reference to the given []string and assigns it to the IncludedTasks field.
 func (o *BlueprintWithFlow) SetIncludedTasks(v []string) {
 	o.IncludedTasks = v
 }
 
-// GetPublishedAt returns the PublishedAt field value
+// GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
 func (o *BlueprintWithFlow) GetPublishedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.PublishedAt
+	return *o.PublishedAt
 }
 
-// GetPublishedAtOk returns a tuple with the PublishedAt field value
+// GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlueprintWithFlow) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		return nil, false
 	}
-	return &o.PublishedAt, true
+	return o.PublishedAt, true
 }
 
-// SetPublishedAt sets field value
+// HasPublishedAt returns a boolean if a field has been set.
+func (o *BlueprintWithFlow) HasPublishedAt() bool {
+	if o != nil && !IsNil(o.PublishedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPublishedAt gets a reference to the given time.Time and assigns it to the PublishedAt field.
 func (o *BlueprintWithFlow) SetPublishedAt(v time.Time) {
-	o.PublishedAt = v
+	o.PublishedAt = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -261,12 +296,22 @@ func (o BlueprintWithFlow) MarshalJSON() ([]byte, error) {
 
 func (o BlueprintWithFlow) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["title"] = o.Title
-	toSerialize["description"] = o.Description
-	toSerialize["tags"] = o.Tags
-	toSerialize["includedTasks"] = o.IncludedTasks
-	toSerialize["publishedAt"] = o.PublishedAt
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.IncludedTasks) {
+		toSerialize["includedTasks"] = o.IncludedTasks
+	}
+	if !IsNil(o.PublishedAt) {
+		toSerialize["publishedAt"] = o.PublishedAt
+	}
 	toSerialize["deleted"] = o.Deleted
 	toSerialize["flow"] = o.Flow
 
@@ -282,12 +327,7 @@ func (o *BlueprintWithFlow) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"title",
-		"description",
-		"tags",
-		"includedTasks",
-		"publishedAt",
 		"deleted",
 		"flow",
 	}

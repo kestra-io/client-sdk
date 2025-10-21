@@ -16,19 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMTenantAccessControllerApiGroup model module.
  * @module model/IAMTenantAccessControllerApiGroup
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMTenantAccessControllerApiGroup {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiGroup</code>.
      * @alias module:model/IAMTenantAccessControllerApiGroup
-     * @param id {String} 
-     * @param name {String} 
-     * @param external {Boolean} 
      */
-    constructor(id, name, external) { 
+    constructor() { 
         
-        IAMTenantAccessControllerApiGroup.initialize(this, id, name, external);
+        IAMTenantAccessControllerApiGroup.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class IAMTenantAccessControllerApiGroup {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, external) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['external'] = external;
+    static initialize(obj) { 
     }
 
     /**
@@ -72,12 +66,6 @@ class IAMTenantAccessControllerApiGroup {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMTenantAccessControllerApiGroup</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMTenantAccessControllerApiGroup.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -93,7 +81,7 @@ class IAMTenantAccessControllerApiGroup {
 
 }
 
-IAMTenantAccessControllerApiGroup.RequiredProperties = ["id", "name", "external"];
+
 
 /**
  * @member {String} id

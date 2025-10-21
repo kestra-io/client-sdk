@@ -16,20 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiRoleSummary model module.
  * @module model/ApiRoleSummary
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ApiRoleSummary {
     /**
      * Constructs a new <code>ApiRoleSummary</code>.
      * @alias module:model/ApiRoleSummary
-     * @param id {String} 
-     * @param name {String} 
-     * @param isDefault {Boolean} 
-     * @param isManaged {Boolean} 
      */
-    constructor(id, name, isDefault, isManaged) { 
+    constructor() { 
         
-        ApiRoleSummary.initialize(this, id, name, isDefault, isManaged);
+        ApiRoleSummary.initialize(this);
     }
 
     /**
@@ -37,11 +33,7 @@ class ApiRoleSummary {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, isDefault, isManaged) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['isDefault'] = isDefault;
-        obj['isManaged'] = isManaged;
+    static initialize(obj) { 
     }
 
     /**
@@ -77,12 +69,6 @@ class ApiRoleSummary {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ApiRoleSummary</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ApiRoleSummary.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -98,7 +84,7 @@ class ApiRoleSummary {
 
 }
 
-ApiRoleSummary.RequiredProperties = ["id", "name", "isDefault", "isManaged"];
+
 
 /**
  * @member {String} id

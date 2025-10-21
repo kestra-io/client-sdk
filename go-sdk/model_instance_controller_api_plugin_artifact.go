@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginArtifact type satisfies the MappedNullable interface at compile time
@@ -20,11 +19,11 @@ var _ MappedNullable = &InstanceControllerApiPluginArtifact{}
 
 // InstanceControllerApiPluginArtifact struct for InstanceControllerApiPluginArtifact
 type InstanceControllerApiPluginArtifact struct {
-	Title                string   `json:"title"`
-	Icon                 string   `json:"icon"`
-	GroupId              string   `json:"groupId"`
-	ArtifactId           string   `json:"artifactId"`
-	Versions             []string `json:"versions"`
+	Title                *string  `json:"title,omitempty"`
+	Icon                 *string  `json:"icon,omitempty"`
+	GroupId              *string  `json:"groupId,omitempty"`
+	ArtifactId           *string  `json:"artifactId,omitempty"`
+	Versions             []string `json:"versions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,13 +33,8 @@ type _InstanceControllerApiPluginArtifact InstanceControllerApiPluginArtifact
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginArtifact(title string, icon string, groupId string, artifactId string, versions []string) *InstanceControllerApiPluginArtifact {
+func NewInstanceControllerApiPluginArtifact() *InstanceControllerApiPluginArtifact {
 	this := InstanceControllerApiPluginArtifact{}
-	this.Title = title
-	this.Icon = icon
-	this.GroupId = groupId
-	this.ArtifactId = artifactId
-	this.Versions = versions
 	return &this
 }
 
@@ -52,122 +46,162 @@ func NewInstanceControllerApiPluginArtifactWithDefaults() *InstanceControllerApi
 	return &this
 }
 
-// GetTitle returns the Title field value
+// GetTitle returns the Title field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginArtifact) GetTitle() string {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
-
-	return o.Title
+	return *o.Title
 }
 
-// GetTitleOk returns a tuple with the Title field value
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifact) GetTitleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
-	return &o.Title, true
+	return o.Title, true
 }
 
-// SetTitle sets field value
+// HasTitle returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginArtifact) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *InstanceControllerApiPluginArtifact) SetTitle(v string) {
-	o.Title = v
+	o.Title = &v
 }
 
-// GetIcon returns the Icon field value
+// GetIcon returns the Icon field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginArtifact) GetIcon() string {
-	if o == nil {
+	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
 	}
-
-	return o.Icon
+	return *o.Icon
 }
 
-// GetIconOk returns a tuple with the Icon field value
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifact) GetIconOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
-	return &o.Icon, true
+	return o.Icon, true
 }
 
-// SetIcon sets field value
+// HasIcon returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginArtifact) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
 func (o *InstanceControllerApiPluginArtifact) SetIcon(v string) {
-	o.Icon = v
+	o.Icon = &v
 }
 
-// GetGroupId returns the GroupId field value
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginArtifact) GetGroupId() string {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		var ret string
 		return ret
 	}
-
-	return o.GroupId
+	return *o.GroupId
 }
 
-// GetGroupIdOk returns a tuple with the GroupId field value
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifact) GetGroupIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		return nil, false
 	}
-	return &o.GroupId, true
+	return o.GroupId, true
 }
 
-// SetGroupId sets field value
+// HasGroupId returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginArtifact) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
 func (o *InstanceControllerApiPluginArtifact) SetGroupId(v string) {
-	o.GroupId = v
+	o.GroupId = &v
 }
 
-// GetArtifactId returns the ArtifactId field value
+// GetArtifactId returns the ArtifactId field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginArtifact) GetArtifactId() string {
-	if o == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		var ret string
 		return ret
 	}
-
-	return o.ArtifactId
+	return *o.ArtifactId
 }
 
-// GetArtifactIdOk returns a tuple with the ArtifactId field value
+// GetArtifactIdOk returns a tuple with the ArtifactId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifact) GetArtifactIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		return nil, false
 	}
-	return &o.ArtifactId, true
+	return o.ArtifactId, true
 }
 
-// SetArtifactId sets field value
+// HasArtifactId returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginArtifact) HasArtifactId() bool {
+	if o != nil && !IsNil(o.ArtifactId) {
+		return true
+	}
+
+	return false
+}
+
+// SetArtifactId gets a reference to the given string and assigns it to the ArtifactId field.
 func (o *InstanceControllerApiPluginArtifact) SetArtifactId(v string) {
-	o.ArtifactId = v
+	o.ArtifactId = &v
 }
 
-// GetVersions returns the Versions field value
+// GetVersions returns the Versions field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginArtifact) GetVersions() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Versions) {
 		var ret []string
 		return ret
 	}
-
 	return o.Versions
 }
 
-// GetVersionsOk returns a tuple with the Versions field value
+// GetVersionsOk returns a tuple with the Versions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginArtifact) GetVersionsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Versions) {
 		return nil, false
 	}
 	return o.Versions, true
 }
 
-// SetVersions sets field value
+// HasVersions returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginArtifact) HasVersions() bool {
+	if o != nil && !IsNil(o.Versions) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersions gets a reference to the given []string and assigns it to the Versions field.
 func (o *InstanceControllerApiPluginArtifact) SetVersions(v []string) {
 	o.Versions = v
 }
@@ -182,11 +216,21 @@ func (o InstanceControllerApiPluginArtifact) MarshalJSON() ([]byte, error) {
 
 func (o InstanceControllerApiPluginArtifact) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["title"] = o.Title
-	toSerialize["icon"] = o.Icon
-	toSerialize["groupId"] = o.GroupId
-	toSerialize["artifactId"] = o.ArtifactId
-	toSerialize["versions"] = o.Versions
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.Icon) {
+		toSerialize["icon"] = o.Icon
+	}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
+	}
+	if !IsNil(o.ArtifactId) {
+		toSerialize["artifactId"] = o.ArtifactId
+	}
+	if !IsNil(o.Versions) {
+		toSerialize["versions"] = o.Versions
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -196,31 +240,6 @@ func (o InstanceControllerApiPluginArtifact) ToMap() (map[string]interface{}, er
 }
 
 func (o *InstanceControllerApiPluginArtifact) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"title",
-		"icon",
-		"groupId",
-		"artifactId",
-		"versions",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varInstanceControllerApiPluginArtifact := _InstanceControllerApiPluginArtifact{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginArtifact)

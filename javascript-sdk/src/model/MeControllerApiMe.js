@@ -19,22 +19,16 @@ import MeControllerApiTenant from './MeControllerApiTenant';
 /**
  * The MeControllerApiMe model module.
  * @module model/MeControllerApiMe
- * @version 1.0.0
+ * @version v1.0.4
  */
 class MeControllerApiMe {
     /**
      * Constructs a new <code>MeControllerApiMe</code>.
      * @alias module:model/MeControllerApiMe
-     * @param id {String} 
-     * @param superAdmin {Boolean} 
-     * @param restricted {Boolean} 
-     * @param profile {module:model/MeControllerApiProfile} 
-     * @param auths {Array.<module:model/IAMTenantAccessControllerApiAuthentication>} 
-     * @param tenants {Array.<module:model/MeControllerApiTenant>} 
      */
-    constructor(id, superAdmin, restricted, profile, auths, tenants) { 
+    constructor() { 
         
-        MeControllerApiMe.initialize(this, id, superAdmin, restricted, profile, auths, tenants);
+        MeControllerApiMe.initialize(this);
     }
 
     /**
@@ -42,13 +36,7 @@ class MeControllerApiMe {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, superAdmin, restricted, profile, auths, tenants) { 
-        obj['id'] = id;
-        obj['superAdmin'] = superAdmin;
-        obj['restricted'] = restricted;
-        obj['profile'] = profile;
-        obj['auths'] = auths;
-        obj['tenants'] = tenants;
+    static initialize(obj) { 
     }
 
     /**
@@ -90,12 +78,6 @@ class MeControllerApiMe {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MeControllerApiMe</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MeControllerApiMe.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -131,7 +113,7 @@ class MeControllerApiMe {
 
 }
 
-MeControllerApiMe.RequiredProperties = ["id", "superAdmin", "restricted", "profile", "auths", "tenants"];
+
 
 /**
  * @member {String} id

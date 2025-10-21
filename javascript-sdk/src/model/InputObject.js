@@ -19,7 +19,7 @@ import Type from './Type';
 /**
  * The InputObject model module.
  * @module model/InputObject
- * @version 1.0.0
+ * @version v1.0.4
  */
 class InputObject {
     /**

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uid** | **string** |  | 
-**Username** | **string** |  | 
-**Password** | **string** |  | 
+**Uid** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
+**Password** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewMiscControllerBasicAuthCredentials
 
-`func NewMiscControllerBasicAuthCredentials(uid string, username string, password string, ) *MiscControllerBasicAuthCredentials`
+`func NewMiscControllerBasicAuthCredentials() *MiscControllerBasicAuthCredentials`
 
 NewMiscControllerBasicAuthCredentials instantiates a new MiscControllerBasicAuthCredentials object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetUid sets Uid field to given value.
 
+### HasUid
+
+`func (o *MiscControllerBasicAuthCredentials) HasUid() bool`
+
+HasUid returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *MiscControllerBasicAuthCredentials) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 ### GetPassword
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
+### HasPassword
+
+`func (o *MiscControllerBasicAuthCredentials) HasPassword() bool`
+
+HasPassword returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

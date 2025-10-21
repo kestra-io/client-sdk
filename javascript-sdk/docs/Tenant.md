@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storageIsolation** | [**Isolation**](Isolation.md) |  | 
-**secretIsolation** | [**Isolation**](Isolation.md) |  | 
+**storageIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
+**secretIsolation** | [**Isolation**](Isolation.md) |  | [optional] 
 **id** | **String** |  | 
 **name** | **String** |  | 
 **deleted** | **Boolean** |  | 
-**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | 
-**storageType** | **String** |  | 
-**storageConfiguration** | **{String: Object}** |  | 
-**secretType** | **String** |  | 
-**secretReadOnly** | **Boolean** |  | 
-**secretConfiguration** | **{String: Object}** |  | 
-**requireExistingNamespace** | **Boolean** |  | 
-**outputsInInternalStorage** | **Boolean** |  | 
+**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
+**storageType** | **String** |  | [optional] 
+**storageConfiguration** | **{String: Object}** |  | [optional] 
+**secretType** | **String** |  | [optional] 
+**secretReadOnly** | **Boolean** |  | [optional] 
+**secretConfiguration** | **{String: Object}** |  | [optional] 
+**requireExistingNamespace** | **Boolean** |  | [optional] 
+**outputsInInternalStorage** | **Boolean** |  | [optional] 
 
 

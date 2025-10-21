@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | **string** |  | 
-**Permissions** | [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | 
-**IsDefault** | **bool** |  | 
-**IsManaged** | **bool** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Permissions** | Pointer to [**IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions**](IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.md) |  | [optional] 
+**IsDefault** | Pointer to **bool** |  | [optional] 
+**IsManaged** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIAMRoleControllerApiRoleDetail
 
-`func NewIAMRoleControllerApiRoleDetail(id string, name string, description string, permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, isDefault bool, isManaged bool, ) *IAMRoleControllerApiRoleDetail`
+`func NewIAMRoleControllerApiRoleDetail() *IAMRoleControllerApiRoleDetail`
 
 NewIAMRoleControllerApiRoleDetail instantiates a new IAMRoleControllerApiRoleDetail object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMRoleControllerApiRoleDetail) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *IAMRoleControllerApiRoleDetail) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMRoleControllerApiRoleDetail) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetPermissions
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetPermissions sets Permissions field to given value.
 
+### HasPermissions
+
+`func (o *IAMRoleControllerApiRoleDetail) HasPermissions() bool`
+
+HasPermissions returns a boolean if a field has been set.
 
 ### GetIsDefault
 
@@ -129,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetIsDefault sets IsDefault field to given value.
 
+### HasIsDefault
+
+`func (o *IAMRoleControllerApiRoleDetail) HasIsDefault() bool`
+
+HasIsDefault returns a boolean if a field has been set.
 
 ### GetIsManaged
 
@@ -149,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetIsManaged sets IsManaged field to given value.
 
+### HasIsManaged
+
+`func (o *IAMRoleControllerApiRoleDetail) HasIsManaged() bool`
+
+HasIsManaged returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

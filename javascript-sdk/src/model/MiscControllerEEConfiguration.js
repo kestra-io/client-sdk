@@ -26,7 +26,7 @@ import RightSidebarConfiguration from './RightSidebarConfiguration';
 /**
  * The MiscControllerEEConfiguration model module.
  * @module model/MiscControllerEEConfiguration
- * @version 1.0.0
+ * @version v1.0.4
  */
 class MiscControllerEEConfiguration {
     /**
@@ -154,6 +154,9 @@ class MiscControllerEEConfiguration {
             }
             if (data.hasOwnProperty('passwordRegexp')) {
                 obj['passwordRegexp'] = ApiClient.convertToType(data['passwordRegexp'], 'String');
+            }
+            if (data.hasOwnProperty('passwordlessEnabled')) {
+                obj['passwordlessEnabled'] = ApiClient.convertToType(data['passwordlessEnabled'], 'Boolean');
             }
         }
         return obj;
@@ -415,6 +418,11 @@ MiscControllerEEConfiguration.prototype['inMaintenance'] = undefined;
  * @member {String} passwordRegexp
  */
 MiscControllerEEConfiguration.prototype['passwordRegexp'] = undefined;
+
+/**
+ * @member {Boolean} passwordlessEnabled
+ */
+MiscControllerEEConfiguration.prototype['passwordlessEnabled'] = undefined;
 
 
 // Implement MiscControllerConfiguration interface:

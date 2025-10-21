@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tags** | [**[]ApiSecretTag**](ApiSecretTag.md) |  | 
+**Tags** | Pointer to [**[]ApiSecretTag**](ApiSecretTag.md) |  | [optional] 
 **Key** | **string** |  | 
 **Value** | **string** |  | 
-**Description** | **string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewApiSecretValue
 
-`func NewApiSecretValue(tags []ApiSecretTag, key string, value string, description string, ) *ApiSecretValue`
+`func NewApiSecretValue(key string, value string, ) *ApiSecretValue`
 
 NewApiSecretValue instantiates a new ApiSecretValue object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
+### HasTags
+
+`func (o *ApiSecretValue) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -107,6 +112,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *ApiSecretValue) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

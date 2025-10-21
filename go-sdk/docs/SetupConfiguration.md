@@ -4,18 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Done** | **bool** |  | 
+**Done** | Pointer to **bool** |  | [optional] 
 **RepositoryType** | Pointer to **string** |  | [optional] 
 **QueueType** | Pointer to **string** |  | [optional] 
 **StorageType** | Pointer to **string** |  | [optional] 
 **SecretType** | Pointer to **string** |  | [optional] 
-**PasswordRegexp** | **string** |  | 
+**PasswordRegexp** | Pointer to **string** |  | [optional] 
+**HaveAuthNotBasic** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewSetupConfiguration
 
-`func NewSetupConfiguration(done bool, passwordRegexp string, ) *SetupConfiguration`
+`func NewSetupConfiguration() *SetupConfiguration`
 
 NewSetupConfiguration instantiates a new SetupConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetDone sets Done field to given value.
 
+### HasDone
+
+`func (o *SetupConfiguration) HasDone() bool`
+
+HasDone returns a boolean if a field has been set.
 
 ### GetRepositoryType
 
@@ -169,6 +175,36 @@ and a boolean to check if the value has been set.
 
 SetPasswordRegexp sets PasswordRegexp field to given value.
 
+### HasPasswordRegexp
+
+`func (o *SetupConfiguration) HasPasswordRegexp() bool`
+
+HasPasswordRegexp returns a boolean if a field has been set.
+
+### GetHaveAuthNotBasic
+
+`func (o *SetupConfiguration) GetHaveAuthNotBasic() bool`
+
+GetHaveAuthNotBasic returns the HaveAuthNotBasic field if non-nil, zero value otherwise.
+
+### GetHaveAuthNotBasicOk
+
+`func (o *SetupConfiguration) GetHaveAuthNotBasicOk() (*bool, bool)`
+
+GetHaveAuthNotBasicOk returns a tuple with the HaveAuthNotBasic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHaveAuthNotBasic
+
+`func (o *SetupConfiguration) SetHaveAuthNotBasic(v bool)`
+
+SetHaveAuthNotBasic sets HaveAuthNotBasic field to given value.
+
+### HasHaveAuthNotBasic
+
+`func (o *SetupConfiguration) HasHaveAuthNotBasic() bool`
+
+HasHaveAuthNotBasic returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

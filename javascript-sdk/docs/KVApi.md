@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**deleteKeyValues**](KVApi.md#deleteKeyValues) | **DELETE** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 [**getKeyValue**](KVApi.md#getKeyValue) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 [**listKeys**](KVApi.md#listKeys) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
-[**listKeysWithInheritence**](KVApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for a namespace and parent namespaces
+[**listKeysWithInheritence**](KVApi.md#listKeysWithInheritence) | **GET** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 [**setKeyValue**](KVApi.md#setKeyValue) | **PUT** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 
 
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 
 > [KVEntry] listKeysWithInheritence(namespace, tenant)
 
-List all keys for a namespace and parent namespaces
+List all keys for inherited namespaces
 
 ### Example
 

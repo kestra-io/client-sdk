@@ -18,18 +18,16 @@ import Permission from './Permission';
 /**
  * The IAMTenantAccessControllerApiUserPermission model module.
  * @module model/IAMTenantAccessControllerApiUserPermission
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMTenantAccessControllerApiUserPermission {
     /**
      * Constructs a new <code>IAMTenantAccessControllerApiUserPermission</code>.
      * @alias module:model/IAMTenantAccessControllerApiUserPermission
-     * @param permission {module:model/Permission} 
-     * @param actions {Array.<module:model/Action>} 
      */
-    constructor(permission, actions) { 
+    constructor() { 
         
-        IAMTenantAccessControllerApiUserPermission.initialize(this, permission, actions);
+        IAMTenantAccessControllerApiUserPermission.initialize(this);
     }
 
     /**
@@ -37,9 +35,7 @@ class IAMTenantAccessControllerApiUserPermission {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, permission, actions) { 
-        obj['permission'] = permission;
-        obj['actions'] = actions;
+    static initialize(obj) { 
     }
 
     /**
@@ -69,12 +65,6 @@ class IAMTenantAccessControllerApiUserPermission {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMTenantAccessControllerApiUserPermission</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMTenantAccessControllerApiUserPermission.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['actions'])) {
             throw new Error("Expected the field `actions` to be an array in the JSON data but got " + data['actions']);
@@ -86,7 +76,7 @@ class IAMTenantAccessControllerApiUserPermission {
 
 }
 
-IAMTenantAccessControllerApiUserPermission.RequiredProperties = ["permission", "actions"];
+
 
 /**
  * @member {module:model/Permission} permission

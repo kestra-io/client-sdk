@@ -16,19 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The CreateApiTokenResponse model module.
  * @module model/CreateApiTokenResponse
- * @version 1.0.0
+ * @version v1.0.4
  */
 class CreateApiTokenResponse {
     /**
      * Constructs a new <code>CreateApiTokenResponse</code>.
      * @alias module:model/CreateApiTokenResponse
-     * @param id {String} 
-     * @param name {String} 
-     * @param fullToken {String} 
      */
-    constructor(id, name, fullToken) { 
+    constructor() { 
         
-        CreateApiTokenResponse.initialize(this, id, name, fullToken);
+        CreateApiTokenResponse.initialize(this);
     }
 
     /**
@@ -36,10 +33,7 @@ class CreateApiTokenResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, fullToken) { 
-        obj['id'] = id;
-        obj['name'] = name;
-        obj['fullToken'] = fullToken;
+    static initialize(obj) { 
     }
 
     /**
@@ -72,12 +66,6 @@ class CreateApiTokenResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>CreateApiTokenResponse</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of CreateApiTokenResponse.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -97,7 +85,7 @@ class CreateApiTokenResponse {
 
 }
 
-CreateApiTokenResponse.RequiredProperties = ["id", "name", "fullToken"];
+
 
 /**
  * @member {String} id

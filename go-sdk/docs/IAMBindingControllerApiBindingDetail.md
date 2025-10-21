@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Type** | [**BindingType**](BindingType.md) |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to [**BindingType**](BindingType.md) |  | [optional] 
 **Namespace** | Pointer to **NullableString** |  | [optional] 
-**Role** | [**IAMBindingControllerApiRole**](IAMBindingControllerApiRole.md) |  | 
+**Role** | Pointer to [**IAMBindingControllerApiRole**](IAMBindingControllerApiRole.md) |  | [optional] 
 **Group** | Pointer to [**NullableIAMBindingControllerApiBindingGroup**](IAMBindingControllerApiBindingGroup.md) |  | [optional] 
 **User** | Pointer to [**NullableIAMBindingControllerApiBindingUser**](IAMBindingControllerApiBindingUser.md) |  | [optional] 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewIAMBindingControllerApiBindingDetail
 
-`func NewIAMBindingControllerApiBindingDetail(id string, type_ BindingType, role IAMBindingControllerApiRole, ) *IAMBindingControllerApiBindingDetail`
+`func NewIAMBindingControllerApiBindingDetail() *IAMBindingControllerApiBindingDetail`
 
 NewIAMBindingControllerApiBindingDetail instantiates a new IAMBindingControllerApiBindingDetail object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMBindingControllerApiBindingDetail) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetType
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *IAMBindingControllerApiBindingDetail) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetNamespace
 
@@ -124,6 +134,11 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
+### HasRole
+
+`func (o *IAMBindingControllerApiBindingDetail) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
 
 ### GetGroup
 

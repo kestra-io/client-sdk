@@ -17,7 +17,7 @@ import InstanceControllerApiServiceInstance from './InstanceControllerApiService
 /**
  * The PagedResultsInstanceControllerApiServiceInstance model module.
  * @module model/PagedResultsInstanceControllerApiServiceInstance
- * @version 1.0.0
+ * @version v1.0.4
  */
 class PagedResultsInstanceControllerApiServiceInstance {
     /**

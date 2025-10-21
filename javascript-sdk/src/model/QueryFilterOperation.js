@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The QueryFilterOperation model module.
  * @module model/QueryFilterOperation
- * @version 1.0.0
+ * @version v1.0.4
  */
 class QueryFilterOperation {
     /**
      * Constructs a new <code>QueryFilterOperation</code>.
      * @alias module:model/QueryFilterOperation
-     * @param name {String} 
-     * @param value {String} 
      */
-    constructor(name, value) { 
+    constructor() { 
         
-        QueryFilterOperation.initialize(this, name, value);
+        QueryFilterOperation.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class QueryFilterOperation {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, value) { 
-        obj['name'] = name;
-        obj['value'] = value;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class QueryFilterOperation {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>QueryFilterOperation</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of QueryFilterOperation.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -88,7 +78,7 @@ class QueryFilterOperation {
 
 }
 
-QueryFilterOperation.RequiredProperties = ["name", "value"];
+
 
 /**
  * @member {String} name

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Username** | **string** |  | 
-**DisplayName** | **string** |  | 
-**Groups** | [**[]IAMGroupControllerApiGroupMembership**](IAMGroupControllerApiGroupMembership.md) |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
+**DisplayName** | Pointer to **string** |  | [optional] 
+**Groups** | Pointer to [**[]IAMGroupControllerApiGroupMembership**](IAMGroupControllerApiGroupMembership.md) |  | [optional] 
 
 ## Methods
 
 ### NewIAMGroupControllerApiGroupMember
 
-`func NewIAMGroupControllerApiGroupMember(id string, username string, displayName string, groups []IAMGroupControllerApiGroupMembership, ) *IAMGroupControllerApiGroupMember`
+`func NewIAMGroupControllerApiGroupMember() *IAMGroupControllerApiGroupMember`
 
 NewIAMGroupControllerApiGroupMember instantiates a new IAMGroupControllerApiGroupMember object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMGroupControllerApiGroupMember) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *IAMGroupControllerApiGroupMember) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
+### HasDisplayName
+
+`func (o *IAMGroupControllerApiGroupMember) HasDisplayName() bool`
+
+HasDisplayName returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
+### HasGroups
+
+`func (o *IAMGroupControllerApiGroupMember) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

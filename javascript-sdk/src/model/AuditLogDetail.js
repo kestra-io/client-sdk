@@ -18,7 +18,7 @@ import ResourceType1 from './ResourceType1';
 /**
  * The AuditLogDetail model module.
  * @module model/AuditLogDetail
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AuditLogDetail {
     /**

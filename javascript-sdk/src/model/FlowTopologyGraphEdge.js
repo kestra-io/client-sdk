@@ -17,19 +17,16 @@ import FlowRelation from './FlowRelation';
 /**
  * The FlowTopologyGraphEdge model module.
  * @module model/FlowTopologyGraphEdge
- * @version 1.0.0
+ * @version v1.0.4
  */
 class FlowTopologyGraphEdge {
     /**
      * Constructs a new <code>FlowTopologyGraphEdge</code>.
      * @alias module:model/FlowTopologyGraphEdge
-     * @param source {String} 
-     * @param target {String} 
-     * @param relation {module:model/FlowRelation} 
      */
-    constructor(source, target, relation) { 
+    constructor() { 
         
-        FlowTopologyGraphEdge.initialize(this, source, target, relation);
+        FlowTopologyGraphEdge.initialize(this);
     }
 
     /**
@@ -37,10 +34,7 @@ class FlowTopologyGraphEdge {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, source, target, relation) { 
-        obj['source'] = source;
-        obj['target'] = target;
-        obj['relation'] = relation;
+    static initialize(obj) { 
     }
 
     /**
@@ -73,12 +67,6 @@ class FlowTopologyGraphEdge {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>FlowTopologyGraphEdge</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of FlowTopologyGraphEdge.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['source'] && !(typeof data['source'] === 'string' || data['source'] instanceof String)) {
             throw new Error("Expected the field `source` to be a primitive type in the JSON string but got " + data['source']);
@@ -94,7 +82,7 @@ class FlowTopologyGraphEdge {
 
 }
 
-FlowTopologyGraphEdge.RequiredProperties = ["source", "target", "relation"];
+
 
 /**
  * @member {String} source
