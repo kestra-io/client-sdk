@@ -1,8 +1,8 @@
 import KestraClient from "../src/KestraClient";
 
 const host = "http://localhost:9903"
-const username = "admin@kestra.io"
-const password = "Admin1234"
+const username = "root@root.com"
+const password = "Root!1234"
 const tenantId = "main";
 
 export async function searchAndCreateFlowsExample() {
