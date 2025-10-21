@@ -1,8 +1,4 @@
 kestra:
-  server:
-    basicAuth:
-      username: admin@kestra.io
-      password: Admin1234
   repository:
     type: h2
   storage:
@@ -15,10 +11,10 @@ kestra:
     tmpDir:
       path: /tmp/kestra-wd/tmp
   security:
-     super-admin:
-       username: root@root.com
-       password: Root!1234
-       tenantAdminAccess: main
+    super-admin:
+      username: root@root.com
+      password: Root!1234
+      tenantAdminAccess: main
   secret:
     type: jdbc
     jdbc:
