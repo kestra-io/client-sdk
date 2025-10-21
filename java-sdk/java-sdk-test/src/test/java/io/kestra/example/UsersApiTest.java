@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class UsersApiTest {
     /**
@@ -48,7 +47,7 @@ public class UsersApiTest {
      */
     @Test
     public void createApiTokensForUser1Test() throws ApiException {
-        String id = null;
+        String id = randomId();
         CreateApiTokenRequest createApiTokenRequest = null;
         CreateApiTokenResponse response =kestraClient().users().createApiTokensForUser1(id, createApiTokenRequest);
 
@@ -62,7 +61,7 @@ public class UsersApiTest {
      */
     @Test
     public void createApiTokensForUserWithTenantTest() throws ApiException {
-        String id = null;
+        String id = randomId();
 
         CreateApiTokenRequest createApiTokenRequest = null;
         Object response =kestraClient().users().createApiTokensForUserWithTenant(id, MAIN_TENANT, createApiTokenRequest);
@@ -92,7 +91,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteApiTokenTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         String tokenId = null;
         Object response =kestraClient().users().deleteApiToken(id, tokenId);
 
@@ -108,7 +107,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteApiToken1Test() throws ApiException {
-        String id = null;
+        String id = randomId();
         String tokenId = null;
         kestraClient().users().deleteApiToken1(id, tokenId);
 
@@ -122,7 +121,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteApiTokenWithTenantTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         String tokenId = null;
 
         Object response =kestraClient().users().deleteApiTokenWithTenant(id, tokenId, MAIN_TENANT);
@@ -137,7 +136,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteRefreshTokenTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         kestraClient().users().deleteRefreshToken(id);
 
         // TODO: test validations
@@ -152,7 +151,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteUserTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         kestraClient().users().deleteUser(id);
 
         // TODO: test validations
@@ -167,7 +166,7 @@ public class UsersApiTest {
      */
     @Test
     public void deleteUserAuthMethodTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         String auth = null;
         IAMUserControllerApiUser response =kestraClient().users().deleteUserAuthMethod(id, auth);
 
@@ -183,7 +182,7 @@ public class UsersApiTest {
      */
     @Test
     public void getUserTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMUserControllerApiUser response =kestraClient().users().getUser(id);
 
         // TODO: test validations
@@ -198,7 +197,7 @@ public class UsersApiTest {
      */
     @Test
     public void impersonateTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         Object response =kestraClient().users().impersonate(id);
 
         // TODO: test validations
@@ -211,7 +210,7 @@ public class UsersApiTest {
      */
     @Test
     public void listApiTokensTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         Object response =kestraClient().users().listApiTokens(id);
 
         // TODO: test validations
@@ -226,7 +225,7 @@ public class UsersApiTest {
      */
     @Test
     public void listApiTokens1Test() throws ApiException {
-        String id = null;
+        String id = randomId();
         Object response =kestraClient().users().listApiTokens1(id);
 
         // TODO: test validations
@@ -239,7 +238,7 @@ public class UsersApiTest {
      */
     @Test
     public void listApiTokensWithTenantTest() throws ApiException {
-        String id = null;
+        String id = randomId();
 
         Object response =kestraClient().users().listApiTokensWithTenant(id, MAIN_TENANT);
 
@@ -271,7 +270,7 @@ public class UsersApiTest {
      */
     @Test
     public void patchUserTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest = null;
         IAMUserControllerApiUser response =kestraClient().users().patchUser(id, meControllerApiUserDetailsRequest);
 
@@ -287,7 +286,7 @@ public class UsersApiTest {
      */
     @Test
     public void patchUserDemoTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest = null;
         kestraClient().users().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
 
@@ -303,7 +302,7 @@ public class UsersApiTest {
      */
     @Test
     public void patchUserPasswordTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = null;
         Object response =kestraClient().users().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
 
@@ -319,7 +318,7 @@ public class UsersApiTest {
      */
     @Test
     public void patchUserSuperAdminTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = null;
         kestraClient().users().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
 
@@ -350,7 +349,7 @@ public class UsersApiTest {
      */
     @Test
     public void updateUserTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = null;
         IAMUserControllerApiUser response =kestraClient().users().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
 
@@ -364,7 +363,7 @@ public class UsersApiTest {
      */
     @Test
     public void updateUserGroupsTest() throws ApiException {
-        String id = null;
+        String id = randomId();
 
         IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest = null;
         kestraClient().users().updateUserGroups(id, MAIN_TENANT, iaMUserGroupControllerApiUpdateUserGroupsRequest);

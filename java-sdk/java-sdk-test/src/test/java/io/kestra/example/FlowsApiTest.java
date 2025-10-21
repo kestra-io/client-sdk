@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class FlowsApiTest {
 
@@ -36,9 +36,9 @@ public class FlowsApiTest {
      */
     @Test
     public void bulkImportAppsTest() throws ApiException {
-        String tenant = null;
+
         File fileUpload = null;
-        AppsControllerApiBulkImportResponse response = kestraClient().flows().bulkImportApps(tenant, fileUpload);
+        AppsControllerApiBulkImportResponse response = kestraClient().flows().bulkImportApps(MAIN_TENANT, fileUpload);
 
         // TODO: test validations
     }
@@ -54,10 +54,10 @@ public class FlowsApiTest {
     public void bulkUpdateFlowsTest() throws ApiException {
         Boolean delete = null;
         Boolean allowNamespaceChild = null;
-        String tenant = null;
-        String namespace = null;
+
+        String namespace = randomId();
         String body = null;
-        List<FlowInterface> response = kestraClient().flows().bulkUpdateFlows(delete, allowNamespaceChild, tenant, namespace, body);
+        List<FlowInterface> response = kestraClient().flows().bulkUpdateFlows(delete, allowNamespaceChild, MAIN_TENANT, namespace, body);
 
         // TODO: test validations
     }
@@ -69,9 +69,9 @@ public class FlowsApiTest {
      */
     @Test
     public void createFlowTest() throws ApiException {
-        String tenant = null;
+
         String body = null;
-        FlowWithSource response = kestraClient().flows().createFlow(tenant, body);
+        FlowWithSource response = kestraClient().flows().createFlow(MAIN_TENANT, body);
 
         // TODO: test validations
     }
@@ -83,10 +83,10 @@ public class FlowsApiTest {
      */
     @Test
     public void deleteFlowTest() throws ApiException {
-        String namespace = null;
-        String id = null;
-        String tenant = null;
-        kestraClient().flows().deleteFlow(namespace, id, tenant);
+        String namespace = randomId();
+        String id = randomId();
+
+        kestraClient().flows().deleteFlow(namespace, id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -98,9 +98,9 @@ public class FlowsApiTest {
      */
     @Test
     public void deleteFlowsByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<IdWithNamespace> idWithNamespace = null;
-        BulkResponse response = kestraClient().flows().deleteFlowsByIds(tenant, idWithNamespace);
+        BulkResponse response = kestraClient().flows().deleteFlowsByIds(MAIN_TENANT, idWithNamespace);
 
         // TODO: test validations
     }
@@ -112,13 +112,13 @@ public class FlowsApiTest {
      */
     @Test
     public void deleteFlowsByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
         List<FlowScope> scope = null;
-        String namespace = null;
+        String namespace = randomId();
         List<String> labels = null;
-        BulkResponse response = kestraClient().flows().deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+        BulkResponse response = kestraClient().flows().deleteFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
 
         // TODO: test validations
     }
@@ -130,9 +130,9 @@ public class FlowsApiTest {
      */
     @Test
     public void disableFlowsByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<IdWithNamespace> idWithNamespace = null;
-        BulkResponse response = kestraClient().flows().disableFlowsByIds(tenant, idWithNamespace);
+        BulkResponse response = kestraClient().flows().disableFlowsByIds(MAIN_TENANT, idWithNamespace);
 
         // TODO: test validations
     }
@@ -144,13 +144,13 @@ public class FlowsApiTest {
      */
     @Test
     public void disableFlowsByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
         List<FlowScope> scope = null;
-        String namespace = null;
+        String namespace = randomId();
         List<String> labels = null;
-        BulkResponse response = kestraClient().flows().disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+        BulkResponse response = kestraClient().flows().disableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
 
         // TODO: test validations
     }
@@ -162,9 +162,9 @@ public class FlowsApiTest {
      */
     @Test
     public void enableFlowsByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<IdWithNamespace> idWithNamespace = null;
-        BulkResponse response = kestraClient().flows().enableFlowsByIds(tenant, idWithNamespace);
+        BulkResponse response = kestraClient().flows().enableFlowsByIds(MAIN_TENANT, idWithNamespace);
 
         // TODO: test validations
     }
@@ -176,13 +176,13 @@ public class FlowsApiTest {
      */
     @Test
     public void enableFlowsByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
         List<FlowScope> scope = null;
-        String namespace = null;
+        String namespace = randomId();
         List<String> labels = null;
-        BulkResponse response = kestraClient().flows().enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
+        BulkResponse response = kestraClient().flows().enableFlowsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, labels);
 
         // TODO: test validations
     }
@@ -194,9 +194,9 @@ public class FlowsApiTest {
      */
     @Test
     public void exportFlowsByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<IdWithNamespace> idWithNamespace = null;
-        byte[] response = kestraClient().flows().exportFlowsByIds(tenant, idWithNamespace);
+        byte[] response = kestraClient().flows().exportFlowsByIds(MAIN_TENANT, idWithNamespace);
 
         // TODO: test validations
     }
@@ -208,13 +208,13 @@ public class FlowsApiTest {
      */
     @Test
     public void exportFlowsByQueryTest() throws ApiException {
-        String tenant = null;
+
         List<QueryFilter> filters = null;
         String q = null;
         List<FlowScope> scope = null;
-        String namespace = null;
+        String namespace = randomId();
         List<String> labels = null;
-        byte[] response = kestraClient().flows().exportFlowsByQuery(tenant, filters, q, scope, namespace, labels);
+        byte[] response = kestraClient().flows().exportFlowsByQuery(MAIN_TENANT, filters, q, scope, namespace, labels);
 
         // TODO: test validations
     }
@@ -226,12 +226,12 @@ public class FlowsApiTest {
      */
     @Test
     public void generateFlowGraphTest() throws ApiException {
-        String namespace = null;
-        String id = null;
-        String tenant = null;
+        String namespace = randomId();
+        String id = randomId();
+
         Integer revision = null;
         List<String> subflows = null;
-        FlowGraph response = kestraClient().flows().generateFlowGraph(namespace, id, tenant, revision, subflows);
+        FlowGraph response = kestraClient().flows().generateFlowGraph(namespace, id, MAIN_TENANT, revision, subflows);
 
         // TODO: test validations
     }
@@ -243,10 +243,10 @@ public class FlowsApiTest {
      */
     @Test
     public void generateFlowGraphFromSourceTest() throws ApiException {
-        String tenant = null;
+
         String body = null;
         List<String> subflows = null;
-        FlowGraph response = kestraClient().flows().generateFlowGraphFromSource(tenant, body, subflows);
+        FlowGraph response = kestraClient().flows().generateFlowGraphFromSource(MAIN_TENANT, body, subflows);
 
         // TODO: test validations
     }
@@ -258,13 +258,13 @@ public class FlowsApiTest {
      */
     @Test
     public void getFlowTest() throws ApiException {
-        String namespace = null;
-        String id = null;
+        String namespace = randomId();
+        String id = randomId();
         Boolean source = null;
         Boolean allowDeleted = null;
-        String tenant = null;
+
         Integer revision = null;
-        Object response = kestraClient().flows().getFlow(namespace, id, source, allowDeleted, tenant, revision);
+        Object response = kestraClient().flows().getFlow(namespace, id, source, allowDeleted, MAIN_TENANT, revision);
 
         // TODO: test validations
     }
@@ -276,12 +276,12 @@ public class FlowsApiTest {
      */
     @Test
     public void getFlowDependenciesTest() throws ApiException {
-        String namespace = null;
-        String id = null;
+        String namespace = randomId();
+        String id = randomId();
         Boolean destinationOnly = null;
         Boolean expandAll = null;
-        String tenant = null;
-        FlowTopologyGraph response = kestraClient().flows().getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant);
+
+        FlowTopologyGraph response = kestraClient().flows().getFlowDependencies(namespace, id, destinationOnly, expandAll, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -293,10 +293,10 @@ public class FlowsApiTest {
      */
     @Test
     public void getFlowDependenciesFromNamespaceTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         Boolean destinationOnly = null;
-        String tenant = null;
-        FlowTopologyGraph response = kestraClient().flows().getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant);
+
+        FlowTopologyGraph response = kestraClient().flows().getFlowDependenciesFromNamespace(namespace, destinationOnly, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -308,12 +308,12 @@ public class FlowsApiTest {
      */
     @Test
     public void getTaskFromFlowTest() throws ApiException {
-        String namespace = null;
-        String id = null;
+        String namespace = randomId();
+        String id = randomId();
         String taskId = null;
-        String tenant = null;
+
         Integer revision = null;
-        Task response = kestraClient().flows().getTaskFromFlow(namespace, id, taskId, tenant, revision);
+        Task response = kestraClient().flows().getTaskFromFlow(namespace, id, taskId, MAIN_TENANT, revision);
 
         // TODO: test validations
     }
@@ -325,9 +325,9 @@ public class FlowsApiTest {
      */
     @Test
     public void importFlowsTest() throws ApiException {
-        String tenant = null;
+
         File fileUpload = null;
-        List<String> response = kestraClient().flows().importFlows(tenant, fileUpload);
+        List<String> response = kestraClient().flows().importFlows(MAIN_TENANT, fileUpload);
 
         // TODO: test validations
     }
@@ -339,9 +339,9 @@ public class FlowsApiTest {
      */
     @Test
     public void listDistinctNamespacesTest() throws ApiException {
-        String tenant = null;
+
         String q = null;
-        List<String> response = kestraClient().flows().listDistinctNamespaces(tenant, q);
+        List<String> response = kestraClient().flows().listDistinctNamespaces(MAIN_TENANT, q);
 
         // TODO: test validations
     }
@@ -353,10 +353,10 @@ public class FlowsApiTest {
      */
     @Test
     public void listFlowRevisionsTest() throws ApiException {
-        String namespace = null;
-        String id = null;
-        String tenant = null;
-        List<FlowWithSource> response = kestraClient().flows().listFlowRevisions(namespace, id, tenant);
+        String namespace = randomId();
+        String id = randomId();
+
+        List<FlowWithSource> response = kestraClient().flows().listFlowRevisions(namespace, id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -368,9 +368,9 @@ public class FlowsApiTest {
      */
     @Test
     public void listFlowsByNamespaceTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
-        List<Flow> response = kestraClient().flows().listFlowsByNamespace(namespace, tenant);
+        String namespace = randomId();
+
+        List<Flow> response = kestraClient().flows().listFlowsByNamespace(namespace, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -384,14 +384,14 @@ public class FlowsApiTest {
     public void searchFlowsTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-        String tenant = null;
+
         List<String> sort = null;
         List<QueryFilter> filters = null;
         String q = null;
         List<FlowScope> scope = null;
-        String namespace = null;
+        String namespace = randomId();
         List<String> labels = null;
-        PagedResultsFlow response = kestraClient().flows().searchFlows(page, size, tenant, sort, filters, q, scope, namespace, labels);
+        PagedResultsFlow response = kestraClient().flows().searchFlows(page, size, MAIN_TENANT, sort, filters, q, scope, namespace, labels);
 
         // TODO: test validations
     }
@@ -405,11 +405,11 @@ public class FlowsApiTest {
     public void searchFlowsBySourceCodeTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-        String tenant = null;
+
         List<String> sort = null;
         String q = null;
-        String namespace = null;
-        PagedResultsSearchResultFlow response = kestraClient().flows().searchFlowsBySourceCode(page, size, tenant, sort, q, namespace);
+        String namespace = randomId();
+        PagedResultsSearchResultFlow response = kestraClient().flows().searchFlowsBySourceCode(page, size, MAIN_TENANT, sort, q, namespace);
 
         // TODO: test validations
     }
@@ -421,11 +421,11 @@ public class FlowsApiTest {
      */
     @Test
     public void updateFlowTest() throws ApiException {
-        String id = null;
-        String namespace = null;
-        String tenant = null;
+        String id = randomId();
+        String namespace = randomId();
+
         String body = null;
-        UpdateFlow200Response response = kestraClient().flows().updateFlow(id, namespace, tenant, body);
+        UpdateFlow200Response response = kestraClient().flows().updateFlow(id, namespace, MAIN_TENANT, body);
 
         // TODO: test validations
     }
@@ -440,10 +440,10 @@ public class FlowsApiTest {
     @Test
     public void updateFlowsInNamespaceFromJsonTest() throws ApiException {
         Boolean delete = null;
-        String namespace = null;
-        String tenant = null;
+        String namespace = randomId();
+
         List<Flow> flow = null;
-        UpdateFlowsInNamespaceFromJson200Response response = kestraClient().flows().updateFlowsInNamespaceFromJson(delete, namespace, tenant, flow);
+        UpdateFlowsInNamespaceFromJson200Response response = kestraClient().flows().updateFlowsInNamespaceFromJson(delete, namespace, MAIN_TENANT, flow);
 
         // TODO: test validations
     }
@@ -455,12 +455,12 @@ public class FlowsApiTest {
      */
     @Test
     public void updateTaskTest() throws ApiException {
-        String namespace = null;
-        String id = null;
+        String namespace = randomId();
+        String id = randomId();
         String taskId = null;
-        String tenant = null;
+
         Task task = null;
-        Flow response = kestraClient().flows().updateTask(namespace, id, taskId, tenant, task);
+        Flow response = kestraClient().flows().updateTask(namespace, id, taskId, MAIN_TENANT, task);
 
         // TODO: test validations
     }
@@ -472,9 +472,9 @@ public class FlowsApiTest {
      */
     @Test
     public void validateFlowsTest() throws ApiException {
-        String tenant = null;
+
         String body = null;
-        List<ValidateConstraintViolation> response = kestraClient().flows().validateFlows(tenant, body);
+        List<ValidateConstraintViolation> response = kestraClient().flows().validateFlows(MAIN_TENANT, body);
 
         // TODO: test validations
     }
@@ -487,9 +487,9 @@ public class FlowsApiTest {
     @Test
     public void validateTaskTest() throws ApiException {
         FlowControllerTaskValidationType section = null;
-        String tenant = null;
+
         String body = null;
-        ValidateConstraintViolation response = kestraClient().flows().validateTask(section, tenant, body);
+        ValidateConstraintViolation response = kestraClient().flows().validateTask(section, MAIN_TENANT, body);
 
         // TODO: test validations
     }
@@ -501,9 +501,9 @@ public class FlowsApiTest {
      */
     @Test
     public void validateTriggerTest() throws ApiException {
-        String tenant = null;
+
         Object body = null;
-        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(tenant, body);
+        ValidateConstraintViolation response = kestraClient().flows().validateTrigger(MAIN_TENANT, body);
 
         // TODO: test validations
     }

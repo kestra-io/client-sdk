@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class ServiceAccountApiTest {
 
@@ -35,9 +35,9 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void createServiceAccountForTenantTest() throws ApiException {
-        String tenant = null;
+
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().createServiceAccountForTenant(tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().createServiceAccountForTenant(MAIN_TENANT, iaMServiceAccountControllerApiServiceAccountRequest);
 
         // TODO: test validations
     }
@@ -51,7 +51,7 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void deleteServiceAccountTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         kestraClient().serviceAccount().deleteServiceAccount(id);
 
         // TODO: test validations
@@ -64,9 +64,9 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void deleteServiceAccountForTenantTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        kestraClient().serviceAccount().deleteServiceAccountForTenant(id, tenant);
+        String id = randomId();
+
+        kestraClient().serviceAccount().deleteServiceAccountForTenant(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -80,7 +80,7 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void getServiceAccountTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().getServiceAccount(id);
 
         // TODO: test validations
@@ -93,9 +93,9 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void getServiceAccountForTenantTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().getServiceAccountForTenant(id, tenant);
+        String id = randomId();
+
+        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().getServiceAccountForTenant(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -125,7 +125,7 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void patchServiceAccountDetailsTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest = null;
         IAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
 
@@ -141,7 +141,7 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void patchServiceAccountSuperAdminTest() throws ApiException {
-        String id = null;
+        String id = randomId();
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = null;
         kestraClient().serviceAccount().patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
 
@@ -155,10 +155,10 @@ public class ServiceAccountApiTest {
      */
     @Test
     public void updateServiceAccountTest() throws ApiException {
-        String id = null;
-        String tenant = null;
+        String id = randomId();
+
         IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().updateServiceAccount(id, tenant, iaMServiceAccountControllerApiServiceAccountRequest);
+        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().updateServiceAccount(id, MAIN_TENANT, iaMServiceAccountControllerApiServiceAccountRequest);
 
         // TODO: test validations
     }

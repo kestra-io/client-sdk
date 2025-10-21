@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class KvApiTest {
 
@@ -21,10 +21,10 @@ public class KvApiTest {
      */
     @Test
     public void deleteKeyValueTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String key = null;
-        String tenant = null;
-        Boolean response = kestraClient().kv().deleteKeyValue(namespace, key, tenant);
+
+        Boolean response = kestraClient().kv().deleteKeyValue(namespace, key, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -36,10 +36,10 @@ public class KvApiTest {
      */
     @Test
     public void deleteKeyValuesTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
+        String namespace = randomId();
+
         KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest = null;
-        KVControllerApiDeleteBulkResponse response = kestraClient().kv().deleteKeyValues(namespace, tenant, kvControllerApiDeleteBulkRequest);
+        KVControllerApiDeleteBulkResponse response = kestraClient().kv().deleteKeyValues(namespace, MAIN_TENANT, kvControllerApiDeleteBulkRequest);
 
         // TODO: test validations
     }
@@ -51,10 +51,10 @@ public class KvApiTest {
      */
     @Test
     public void getKeyValueTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String key = null;
-        String tenant = null;
-        KVControllerTypedValue response = kestraClient().kv().getKeyValue(namespace, key, tenant);
+
+        KVControllerTypedValue response = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -66,9 +66,9 @@ public class KvApiTest {
      */
     @Test
     public void listKeysTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
-        List<KVEntry> response = kestraClient().kv().listKeys(namespace, tenant);
+        String namespace = randomId();
+
+        List<KVEntry> response = kestraClient().kv().listKeys(namespace, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -80,9 +80,9 @@ public class KvApiTest {
      */
     @Test
     public void listKeysWithInheritenceTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
-        List<KVEntry> response = kestraClient().kv().listKeysWithInheritence(namespace, tenant);
+        String namespace = randomId();
+
+        List<KVEntry> response = kestraClient().kv().listKeysWithInheritence(namespace, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -94,11 +94,11 @@ public class KvApiTest {
      */
     @Test
     public void setKeyValueTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String key = null;
-        String tenant = null;
+
         String body = null;
-        kestraClient().kv().setKeyValue(namespace, key, tenant, body);
+        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, body);
 
         // TODO: test validations
     }
