@@ -13,11 +13,11 @@ A namespace is a logical grouping of flows and tasks. It is used to organize and
 |**allowedTriggers** | [**List&lt;NamespaceAllowedTrigger&gt;**](NamespaceAllowedTrigger.md) |  |  [optional] |
 |**storageIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
 |**secretIsolation** | [**Isolation**](Isolation.md) |  |  [optional] |
-|**description** | **String** |  |  |
-|**variables** | **Map&lt;String, Object&gt;** |  |  |
-|**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  |
-|**allowedNamespaces** | [**List&lt;NamespaceAllowedNamespace&gt;**](NamespaceAllowedNamespace.md) |  |  |
-|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  |
+|**description** | **String** |  |  [optional] |
+|**variables** | **Map&lt;String, Object&gt;** |  |  [optional] |
+|**pluginDefaults** | [**List&lt;PluginDefault&gt;**](PluginDefault.md) |  |  [optional] |
+|**allowedNamespaces** | [**List&lt;NamespaceAllowedNamespace&gt;**](NamespaceAllowedNamespace.md) |  |  [optional] |
+|**workerGroup** | [**WorkerGroup**](WorkerGroup.md) |  |  [optional] |
 |**storageType** | **String** |  |  [optional] |
 |**storageConfiguration** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**secretType** | **String** |  |  [optional] |

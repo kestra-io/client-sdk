@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -23,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.AbstractTrigger;
 import io.kestra.sdk.model.Concurrency;
 import io.kestra.sdk.model.Flow;
-import io.kestra.sdk.model.FlowAllOfLabels;
 import io.kestra.sdk.model.FlowWithSource;
 import io.kestra.sdk.model.InputObject;
+import io.kestra.sdk.model.Label;
 import io.kestra.sdk.model.Listener;
 import io.kestra.sdk.model.Output;
 import io.kestra.sdk.model.PluginDefault;
@@ -34,7 +35,6 @@ import io.kestra.sdk.model.Task;
 import io.kestra.sdk.model.WorkerGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -68,7 +68,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UpdateFlow200Response.JSON_PROPERTY_SLA
 })
 @JsonTypeName("updateFlow_200_response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UpdateFlow200Response {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -100,11 +100,11 @@ public class UpdateFlow200Response {
 
   public static final String JSON_PROPERTY_LABELS = "labels";
   @javax.annotation.Nullable
-  private FlowAllOfLabels labels;
+  private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
   @javax.annotation.Nullable
-  private Map<String, Object> variables = new HashMap<>();
+  private Object variables;
 
   public static final String JSON_PROPERTY_WORKER_GROUP = "workerGroup";
   @javax.annotation.Nullable
@@ -172,7 +172,7 @@ public class UpdateFlow200Response {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -180,7 +180,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -197,7 +197,7 @@ public class UpdateFlow200Response {
    * @return namespace
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -205,7 +205,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -223,7 +223,7 @@ public class UpdateFlow200Response {
    * @return revision
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getRevision() {
@@ -231,7 +231,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRevision(@javax.annotation.Nullable Integer revision) {
     this.revision = revision;
@@ -248,7 +248,7 @@ public class UpdateFlow200Response {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -256,7 +256,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -281,7 +281,7 @@ public class UpdateFlow200Response {
    * @return inputs
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InputObject> getInputs() {
@@ -289,7 +289,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable List<InputObject> inputs) {
     this.inputs = inputs;
@@ -314,7 +314,7 @@ public class UpdateFlow200Response {
    * @return outputs
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Output> getOutputs() {
@@ -322,7 +322,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
+  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOutputs(@javax.annotation.Nullable List<Output> outputs) {
     this.outputs = outputs;
@@ -339,7 +339,7 @@ public class UpdateFlow200Response {
    * @return disabled
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDisabled() {
@@ -347,48 +347,48 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDisabled(@javax.annotation.Nonnull Boolean disabled) {
     this.disabled = disabled;
   }
 
-  public UpdateFlow200Response labels(@javax.annotation.Nullable FlowAllOfLabels labels) {
+  public UpdateFlow200Response labels(@javax.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
+    return this;
+  }
+
+  public UpdateFlow200Response addLabelsItem(Label labelsItem) {
+    if (this.labels == null) {
+      this.labels = new ArrayList<>();
+    }
+    this.labels.add(labelsItem);
     return this;
   }
 
   /**
-   * Get labels
+   * Labels as a list of Label (key/value pairs) or as a map of string to string.
    * @return labels
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public FlowAllOfLabels getLabels() {
+  public List<Label> getLabels() {
     return labels;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLabels(@javax.annotation.Nullable FlowAllOfLabels labels) {
+  public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
-  public UpdateFlow200Response variables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public UpdateFlow200Response variables(@javax.annotation.Nullable Object variables) {
     
     this.variables = variables;
-    return this;
-  }
-
-  public UpdateFlow200Response putVariablesItem(String key, Object variablesItem) {
-    if (this.variables == null) {
-      this.variables = new HashMap<>();
-    }
-    this.variables.put(key, variablesItem);
     return this;
   }
 
@@ -397,17 +397,17 @@ public class UpdateFlow200Response {
    * @return variables
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getVariables() {
+  public Object getVariables() {
     return variables;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
+  public void setVariables(@javax.annotation.Nullable Object variables) {
     this.variables = variables;
   }
 
@@ -422,7 +422,7 @@ public class UpdateFlow200Response {
    * @return workerGroup
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroup getWorkerGroup() {
@@ -430,7 +430,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWorkerGroup(@javax.annotation.Nullable WorkerGroup workerGroup) {
     this.workerGroup = workerGroup;
@@ -447,7 +447,7 @@ public class UpdateFlow200Response {
    * @return deleted
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -455,7 +455,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
@@ -480,7 +480,7 @@ public class UpdateFlow200Response {
    * @return _finally
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FINALLY)
+  @JsonProperty(value = JSON_PROPERTY_FINALLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Task> getFinally() {
@@ -488,7 +488,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FINALLY)
+  @JsonProperty(value = JSON_PROPERTY_FINALLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFinally(@javax.annotation.Nullable List<Task> _finally) {
     this._finally = _finally;
@@ -515,7 +515,7 @@ public class UpdateFlow200Response {
    */
   @Deprecated
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASK_DEFAULTS)
+  @JsonProperty(value = JSON_PROPERTY_TASK_DEFAULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginDefault> getTaskDefaults() {
@@ -523,7 +523,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASK_DEFAULTS)
+  @JsonProperty(value = JSON_PROPERTY_TASK_DEFAULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskDefaults(@javax.annotation.Nullable List<PluginDefault> taskDefaults) {
     this.taskDefaults = taskDefaults;
@@ -548,7 +548,7 @@ public class UpdateFlow200Response {
    * @return tasks
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Task> getTasks() {
@@ -556,7 +556,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTasks(@javax.annotation.Nonnull List<Task> tasks) {
     this.tasks = tasks;
@@ -581,7 +581,7 @@ public class UpdateFlow200Response {
    * @return errors
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Task> getErrors() {
@@ -589,7 +589,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setErrors(@javax.annotation.Nullable List<Task> errors) {
     this.errors = errors;
@@ -616,7 +616,7 @@ public class UpdateFlow200Response {
    */
   @Deprecated
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LISTENERS)
+  @JsonProperty(value = JSON_PROPERTY_LISTENERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Listener> getListeners() {
@@ -624,7 +624,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LISTENERS)
+  @JsonProperty(value = JSON_PROPERTY_LISTENERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setListeners(@javax.annotation.Nullable List<Listener> listeners) {
     this.listeners = listeners;
@@ -649,7 +649,7 @@ public class UpdateFlow200Response {
    * @return afterExecution
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
+  @JsonProperty(value = JSON_PROPERTY_AFTER_EXECUTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Task> getAfterExecution() {
@@ -657,7 +657,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AFTER_EXECUTION)
+  @JsonProperty(value = JSON_PROPERTY_AFTER_EXECUTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAfterExecution(@javax.annotation.Nullable List<Task> afterExecution) {
     this.afterExecution = afterExecution;
@@ -682,7 +682,7 @@ public class UpdateFlow200Response {
    * @return triggers
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractTrigger> getTriggers() {
@@ -690,7 +690,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTriggers(@javax.annotation.Nullable List<AbstractTrigger> triggers) {
     this.triggers = triggers;
@@ -715,7 +715,7 @@ public class UpdateFlow200Response {
    * @return pluginDefaults
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
+  @JsonProperty(value = JSON_PROPERTY_PLUGIN_DEFAULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginDefault> getPluginDefaults() {
@@ -723,7 +723,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PLUGIN_DEFAULTS)
+  @JsonProperty(value = JSON_PROPERTY_PLUGIN_DEFAULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPluginDefaults(@javax.annotation.Nullable List<PluginDefault> pluginDefaults) {
     this.pluginDefaults = pluginDefaults;
@@ -740,7 +740,7 @@ public class UpdateFlow200Response {
    * @return concurrency
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonProperty(value = JSON_PROPERTY_CONCURRENCY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Concurrency getConcurrency() {
@@ -748,7 +748,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONCURRENCY)
+  @JsonProperty(value = JSON_PROPERTY_CONCURRENCY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConcurrency(@javax.annotation.Nullable Concurrency concurrency) {
     this.concurrency = concurrency;
@@ -765,7 +765,7 @@ public class UpdateFlow200Response {
    * @return retry
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RETRY)
+  @JsonProperty(value = JSON_PROPERTY_RETRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getRetry() {
@@ -773,7 +773,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RETRY)
+  @JsonProperty(value = JSON_PROPERTY_RETRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRetry(@javax.annotation.Nullable Object retry) {
     this.retry = retry;
@@ -798,7 +798,7 @@ public class UpdateFlow200Response {
    * @return sla
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SLA)
+  @JsonProperty(value = JSON_PROPERTY_SLA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SLA> getSla() {
@@ -806,7 +806,7 @@ public class UpdateFlow200Response {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SLA)
+  @JsonProperty(value = JSON_PROPERTY_SLA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSla(@javax.annotation.Nullable List<SLA> sla) {
     this.sla = sla;

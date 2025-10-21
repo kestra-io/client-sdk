@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteRunResult.JSON_PROPERTY_END_DATE,
   TestSuiteRunResult.JSON_PROPERTY_RESULTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteRunResult {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -73,7 +74,7 @@ public class TestSuiteRunResult {
   private OffsetDateTime endDate;
 
   public static final String JSON_PROPERTY_RESULTS = "results";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<UnitTestResult> results = new ArrayList<>();
 
   public TestSuiteRunResult() {
@@ -90,7 +91,7 @@ public class TestSuiteRunResult {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -98,7 +99,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -115,7 +116,7 @@ public class TestSuiteRunResult {
    * @return testSuiteId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
+  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTestSuiteId() {
@@ -123,7 +124,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEST_SUITE_ID)
+  @JsonProperty(value = JSON_PROPERTY_TEST_SUITE_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTestSuiteId(@javax.annotation.Nonnull String testSuiteId) {
     this.testSuiteId = testSuiteId;
@@ -140,7 +141,7 @@ public class TestSuiteRunResult {
    * @return namespace
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -148,7 +149,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -165,7 +166,7 @@ public class TestSuiteRunResult {
    * @return flowId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -173,7 +174,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -190,7 +191,7 @@ public class TestSuiteRunResult {
    * @return state
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TestState getState() {
@@ -198,7 +199,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setState(@javax.annotation.Nonnull TestState state) {
     this.state = state;
@@ -215,7 +216,7 @@ public class TestSuiteRunResult {
    * @return startDate
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
@@ -223,7 +224,7 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
@@ -240,7 +241,7 @@ public class TestSuiteRunResult {
    * @return endDate
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getEndDate() {
@@ -248,13 +249,13 @@ public class TestSuiteRunResult {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEndDate(@javax.annotation.Nonnull OffsetDateTime endDate) {
     this.endDate = endDate;
   }
 
-  public TestSuiteRunResult results(@javax.annotation.Nonnull List<UnitTestResult> results) {
+  public TestSuiteRunResult results(@javax.annotation.Nullable List<UnitTestResult> results) {
     
     this.results = results;
     return this;
@@ -272,18 +273,18 @@ public class TestSuiteRunResult {
    * Get results
    * @return results
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<UnitTestResult> getResults() {
     return results;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESULTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResults(@javax.annotation.Nonnull List<UnitTestResult> results) {
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResults(@javax.annotation.Nullable List<UnitTestResult> results) {
     this.results = results;
   }
 

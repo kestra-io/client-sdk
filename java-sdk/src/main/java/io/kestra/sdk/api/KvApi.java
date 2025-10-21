@@ -30,10 +30,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KvApi extends BaseApi {
 
   public KvApi() {
@@ -400,7 +401,7 @@ public class KvApi extends BaseApi {
   }
 
   /**
-   * List all keys for a namespace and parent namespaces
+   * List all keys for inherited namespaces
    * 
    * @param namespace The namespace id (required)
    * @param tenant  (required)
@@ -413,7 +414,7 @@ public class KvApi extends BaseApi {
 
 
   /**
-   * List all keys for a namespace and parent namespaces
+   * List all keys for inherited namespaces
    * 
    * @param namespace The namespace id (required)
    * @param tenant  (required)

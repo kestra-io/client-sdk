@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,24 +33,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MeControllerApiUserDetailsRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("MeController.ApiUserDetailsRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MeControllerApiUserDetailsRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String firstName;
 
   public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String lastName;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String email;
 
   public MeControllerApiUserDetailsRequest() {
   }
 
-  public MeControllerApiUserDetailsRequest firstName(@javax.annotation.Nonnull String firstName) {
+  public MeControllerApiUserDetailsRequest firstName(@javax.annotation.Nullable String firstName) {
     
     this.firstName = firstName;
     return this;
@@ -59,22 +60,22 @@ public class MeControllerApiUserDetailsRequest {
    * Get firstName
    * @return firstName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
     return firstName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFirstName(@javax.annotation.Nonnull String firstName) {
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFirstName(@javax.annotation.Nullable String firstName) {
     this.firstName = firstName;
   }
 
-  public MeControllerApiUserDetailsRequest lastName(@javax.annotation.Nonnull String lastName) {
+  public MeControllerApiUserDetailsRequest lastName(@javax.annotation.Nullable String lastName) {
     
     this.lastName = lastName;
     return this;
@@ -84,22 +85,22 @@ public class MeControllerApiUserDetailsRequest {
    * Get lastName
    * @return lastName
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
     return lastName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLastName(@javax.annotation.Nonnull String lastName) {
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLastName(@javax.annotation.Nullable String lastName) {
     this.lastName = lastName;
   }
 
-  public MeControllerApiUserDetailsRequest email(@javax.annotation.Nonnull String email) {
+  public MeControllerApiUserDetailsRequest email(@javax.annotation.Nullable String email) {
     
     this.email = email;
     return this;
@@ -109,18 +110,18 @@ public class MeControllerApiUserDetailsRequest {
    * Get email
    * @return email
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEmail() {
     return email;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEmail(@javax.annotation.Nonnull String email) {
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEmail(@javax.annotation.Nullable String email) {
     this.email = email;
   }
 

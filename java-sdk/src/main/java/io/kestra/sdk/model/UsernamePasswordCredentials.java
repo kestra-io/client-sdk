@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UsernamePasswordCredentials.JSON_PROPERTY_IDENTITY,
   UsernamePasswordCredentials.JSON_PROPERTY_SECRET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UsernamePasswordCredentials {
   public static final String JSON_PROPERTY_USERNAME = "username";
   @javax.annotation.Nonnull
@@ -68,7 +69,7 @@ public class UsernamePasswordCredentials {
    * @return username
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
@@ -76,7 +77,7 @@ public class UsernamePasswordCredentials {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
@@ -93,7 +94,7 @@ public class UsernamePasswordCredentials {
    * @return password
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -101,7 +102,7 @@ public class UsernamePasswordCredentials {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;
@@ -124,14 +125,14 @@ public class UsernamePasswordCredentials {
         return identity.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getIdentity_JsonNullable() {
     return identity;
   }
   
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   public void setIdentity_JsonNullable(JsonNullable<String> identity) {
     this.identity = identity;
   }
@@ -157,14 +158,14 @@ public class UsernamePasswordCredentials {
         return secret.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_SECRET)
+  @JsonProperty(value = JSON_PROPERTY_SECRET, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getSecret_JsonNullable() {
     return secret;
   }
   
-  @JsonProperty(JSON_PROPERTY_SECRET)
+  @JsonProperty(value = JSON_PROPERTY_SECRET, required = false)
   public void setSecret_JsonNullable(JsonNullable<String> secret) {
     this.secret = secret;
   }

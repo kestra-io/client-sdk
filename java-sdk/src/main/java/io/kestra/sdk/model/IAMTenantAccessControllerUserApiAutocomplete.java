@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerUserApiAutocomplete.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("IAMTenantAccessController.UserApiAutocomplete")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerUserApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
   @javax.annotation.Nullable
@@ -78,14 +79,14 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
         return q.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_Q)
+  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getQ_JsonNullable() {
     return q;
   }
   
-  @JsonProperty(JSON_PROPERTY_Q)
+  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
   public void setQ_JsonNullable(JsonNullable<String> q) {
     this.q = q;
   }
@@ -123,14 +124,14 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
         return ids.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<String>> getIds_JsonNullable() {
     return ids;
   }
   
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
   public void setIds_JsonNullable(JsonNullable<List<String>> ids) {
     this.ids = ids;
   }
@@ -150,7 +151,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
    * @return existingOnly
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExistingOnly() {
@@ -158,7 +159,7 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
     this.existingOnly = existingOnly;
@@ -181,14 +182,14 @@ public class IAMTenantAccessControllerUserApiAutocomplete {
         return username.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getUsername_JsonNullable() {
     return username;
   }
   
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
   public void setUsername_JsonNullable(JsonNullable<String> username) {
     this.username = username;
   }

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PatchRequest.JSON_PROPERTY_SCHEMAS,
   PatchRequest.JSON_PROPERTY_PATCH_OPERATION_LIST
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchRequest {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable
@@ -66,7 +67,7 @@ public class PatchRequest {
    * @return schemas
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -74,7 +75,7 @@ public class PatchRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
@@ -99,7 +100,7 @@ public class PatchRequest {
    * @return patchOperationList
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @JsonProperty(value = JSON_PROPERTY_PATCH_OPERATION_LIST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PatchOperation> getPatchOperationList() {
@@ -107,7 +108,7 @@ public class PatchRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PATCH_OPERATION_LIST)
+  @JsonProperty(value = JSON_PROPERTY_PATCH_OPERATION_LIST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPatchOperationList(@javax.annotation.Nullable List<PatchOperation> patchOperationList) {
     this.patchOperationList = patchOperationList;

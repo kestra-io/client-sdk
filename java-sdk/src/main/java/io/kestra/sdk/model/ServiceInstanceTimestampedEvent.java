@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,28 +36,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceInstanceTimestampedEvent.JSON_PROPERTY_STATE
 })
 @JsonTypeName("ServiceInstance.TimestampedEvent")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceInstanceTimestampedEvent {
   public static final String JSON_PROPERTY_TS = "ts";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime ts;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String value;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String type;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServiceServiceState state;
 
   public ServiceInstanceTimestampedEvent() {
   }
 
-  public ServiceInstanceTimestampedEvent ts(@javax.annotation.Nonnull OffsetDateTime ts) {
+  public ServiceInstanceTimestampedEvent ts(@javax.annotation.Nullable OffsetDateTime ts) {
     
     this.ts = ts;
     return this;
@@ -66,22 +67,22 @@ public class ServiceInstanceTimestampedEvent {
    * Get ts
    * @return ts
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getTs() {
     return ts;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTs(@javax.annotation.Nonnull OffsetDateTime ts) {
+  @JsonProperty(value = JSON_PROPERTY_TS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTs(@javax.annotation.Nullable OffsetDateTime ts) {
     this.ts = ts;
   }
 
-  public ServiceInstanceTimestampedEvent value(@javax.annotation.Nonnull String value) {
+  public ServiceInstanceTimestampedEvent value(@javax.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -91,22 +92,22 @@ public class ServiceInstanceTimestampedEvent {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull String value) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public ServiceInstanceTimestampedEvent type(@javax.annotation.Nonnull String type) {
+  public ServiceInstanceTimestampedEvent type(@javax.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -116,22 +117,22 @@ public class ServiceInstanceTimestampedEvent {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public ServiceInstanceTimestampedEvent state(@javax.annotation.Nonnull ServiceServiceState state) {
+  public ServiceInstanceTimestampedEvent state(@javax.annotation.Nullable ServiceServiceState state) {
     
     this.state = state;
     return this;
@@ -141,18 +142,18 @@ public class ServiceInstanceTimestampedEvent {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceServiceState getState() {
     return state;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull ServiceServiceState state) {
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@javax.annotation.Nullable ServiceServiceState state) {
     this.state = state;
   }
 

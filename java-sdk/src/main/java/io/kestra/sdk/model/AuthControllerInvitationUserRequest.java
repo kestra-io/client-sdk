@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuthControllerInvitationUserRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("AuthController.InvitationUserRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuthControllerInvitationUserRequest {
   public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
   @javax.annotation.Nonnull
@@ -60,7 +61,7 @@ public class AuthControllerInvitationUserRequest {
    * @return firstName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFirstName() {
@@ -68,7 +69,7 @@ public class AuthControllerInvitationUserRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFirstName(@javax.annotation.Nonnull String firstName) {
     this.firstName = firstName;
@@ -85,7 +86,7 @@ public class AuthControllerInvitationUserRequest {
    * @return lastName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLastName() {
@@ -93,7 +94,7 @@ public class AuthControllerInvitationUserRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLastName(@javax.annotation.Nonnull String lastName) {
     this.lastName = lastName;
@@ -110,7 +111,7 @@ public class AuthControllerInvitationUserRequest {
    * @return password
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -118,7 +119,7 @@ public class AuthControllerInvitationUserRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;

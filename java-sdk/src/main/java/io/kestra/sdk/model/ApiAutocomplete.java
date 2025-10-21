@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiAutocomplete.JSON_PROPERTY_IDS,
   ApiAutocomplete.JSON_PROPERTY_EXISTING_ONLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiAutocomplete {
   public static final String JSON_PROPERTY_Q = "q";
   @javax.annotation.Nullable
@@ -72,14 +73,14 @@ public class ApiAutocomplete {
         return q.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_Q)
+  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getQ_JsonNullable() {
     return q;
   }
   
-  @JsonProperty(JSON_PROPERTY_Q)
+  @JsonProperty(value = JSON_PROPERTY_Q, required = false)
   public void setQ_JsonNullable(JsonNullable<String> q) {
     this.q = q;
   }
@@ -117,14 +118,14 @@ public class ApiAutocomplete {
         return ids.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<String>> getIds_JsonNullable() {
     return ids;
   }
   
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = false)
   public void setIds_JsonNullable(JsonNullable<List<String>> ids) {
     this.ids = ids;
   }
@@ -144,7 +145,7 @@ public class ApiAutocomplete {
    * @return existingOnly
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getExistingOnly() {
@@ -152,7 +153,7 @@ public class ApiAutocomplete {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXISTING_ONLY)
+  @JsonProperty(value = JSON_PROPERTY_EXISTING_ONLY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExistingOnly(@javax.annotation.Nullable Boolean existingOnly) {
     this.existingOnly = existingOnly;

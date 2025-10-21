@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,32 +38,32 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppCatalogItem.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("AppsController.ApiAppCatalogItem")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiAppCatalogItem {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String uid;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String type;
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> tags = new ArrayList<>();
 
   public AppsControllerApiAppCatalogItem() {
   }
 
-  public AppsControllerApiAppCatalogItem uid(@javax.annotation.Nonnull String uid) {
+  public AppsControllerApiAppCatalogItem uid(@javax.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -72,22 +73,22 @@ public class AppsControllerApiAppCatalogItem {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_UID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
     return uid;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUid(@javax.annotation.Nonnull String uid) {
+  @JsonProperty(value = JSON_PROPERTY_UID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@javax.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public AppsControllerApiAppCatalogItem name(@javax.annotation.Nonnull String name) {
+  public AppsControllerApiAppCatalogItem name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -97,22 +98,22 @@ public class AppsControllerApiAppCatalogItem {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public AppsControllerApiAppCatalogItem description(@javax.annotation.Nonnull String description) {
+  public AppsControllerApiAppCatalogItem description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -122,22 +123,22 @@ public class AppsControllerApiAppCatalogItem {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public AppsControllerApiAppCatalogItem type(@javax.annotation.Nonnull String type) {
+  public AppsControllerApiAppCatalogItem type(@javax.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -147,22 +148,22 @@ public class AppsControllerApiAppCatalogItem {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public AppsControllerApiAppCatalogItem tags(@javax.annotation.Nonnull List<String> tags) {
+  public AppsControllerApiAppCatalogItem tags(@javax.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -180,18 +181,18 @@ public class AppsControllerApiAppCatalogItem {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
     return tags;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<String> tags) {
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 

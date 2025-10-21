@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginVersionDetailsApiPluginClass.JSON_PROPERTY_ICON
 })
 @JsonTypeName("InstanceController.ApiPluginVersionDetails.ApiPluginClass")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_ICON = "icon";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String icon;
 
   public InstanceControllerApiPluginVersionDetailsApiPluginClass() {
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@javax.annotation.Nonnull String name) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -54,22 +55,22 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@javax.annotation.Nonnull String icon) {
+  public InstanceControllerApiPluginVersionDetailsApiPluginClass icon(@javax.annotation.Nullable String icon) {
     
     this.icon = icon;
     return this;
@@ -79,18 +80,18 @@ public class InstanceControllerApiPluginVersionDetailsApiPluginClass {
    * Get icon
    * @return icon
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ICON)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ICON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIcon() {
     return icon;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ICON)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIcon(@javax.annotation.Nonnull String icon) {
+  @JsonProperty(value = JSON_PROPERTY_ICON, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIcon(@javax.annotation.Nullable String icon) {
     this.icon = icon;
   }
 

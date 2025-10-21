@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseResourceScimResource.JSON_PROPERTY_SCHEMAS
 })
 @JsonTypeName("BaseResource_ScimResource_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BaseResourceScimResource {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable
@@ -61,7 +62,7 @@ public class BaseResourceScimResource {
    * @return schemas
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -69,7 +70,7 @@ public class BaseResourceScimResource {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;

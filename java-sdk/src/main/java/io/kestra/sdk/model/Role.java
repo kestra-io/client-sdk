@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,18 +37,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Role.JSON_PROPERTY_IS_DEFAULT,
   Role.JSON_PROPERTY_DELETED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Role {
   public static final String JSON_PROPERTY_IS_MANAGED = "isManaged";
   @javax.annotation.Nonnull
   private Boolean isManaged;
 
   public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
@@ -55,11 +56,11 @@ public class Role {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean isDefault;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -80,7 +81,7 @@ public class Role {
    * @return isManaged
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonProperty(value = JSON_PROPERTY_IS_MANAGED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getIsManaged() {
@@ -88,13 +89,13 @@ public class Role {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IS_MANAGED)
+  @JsonProperty(value = JSON_PROPERTY_IS_MANAGED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIsManaged(@javax.annotation.Nonnull Boolean isManaged) {
     this.isManaged = isManaged;
   }
 
-  public Role permissions(@javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+  public Role permissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
     
     this.permissions = permissions;
     return this;
@@ -104,22 +105,22 @@ public class Role {
    * Get permissions
    * @return permissions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PERMISSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions getPermissions() {
     return permissions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermissions(@javax.annotation.Nonnull IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
+  @JsonProperty(value = JSON_PROPERTY_PERMISSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@javax.annotation.Nullable IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions permissions) {
     this.permissions = permissions;
   }
 
-  public Role id(@javax.annotation.Nonnull String id) {
+  public Role id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -129,18 +130,18 @@ public class Role {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
@@ -155,7 +156,7 @@ public class Role {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -163,13 +164,13 @@ public class Role {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public Role description(@javax.annotation.Nonnull String description) {
+  public Role description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -179,22 +180,22 @@ public class Role {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Role isDefault(@javax.annotation.Nonnull Boolean isDefault) {
+  public Role isDefault(@javax.annotation.Nullable Boolean isDefault) {
     
     this.isDefault = isDefault;
     return this;
@@ -204,18 +205,18 @@ public class Role {
    * Get isDefault
    * @return isDefault
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_IS_DEFAULT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsDefault() {
     return isDefault;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIsDefault(@javax.annotation.Nonnull Boolean isDefault) {
+  @JsonProperty(value = JSON_PROPERTY_IS_DEFAULT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsDefault(@javax.annotation.Nullable Boolean isDefault) {
     this.isDefault = isDefault;
   }
 
@@ -230,7 +231,7 @@ public class Role {
    * @return deleted
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -238,7 +239,7 @@ public class Role {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;

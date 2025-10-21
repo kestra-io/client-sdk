@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -55,7 +56,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ScimUser.JSON_PROPERTY_NAME,
   ScimUser.JSON_PROPERTY_GROUPS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ScimUser {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable
@@ -82,7 +83,7 @@ public class ScimUser {
   private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String resourceType;
 
   public static final String JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS = "primaryEmailAddress";
@@ -131,7 +132,7 @@ public class ScimUser {
    * @return schemas
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -139,7 +140,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
@@ -156,7 +157,7 @@ public class ScimUser {
    * @return baseUrn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonProperty(value = JSON_PROPERTY_BASE_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUrn() {
@@ -164,7 +165,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonProperty(value = JSON_PROPERTY_BASE_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBaseUrn(@javax.annotation.Nullable String baseUrn) {
     this.baseUrn = baseUrn;
@@ -189,7 +190,7 @@ public class ScimUser {
    * @return extensions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonProperty(value = JSON_PROPERTY_EXTENSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, ScimExtension> getExtensions() {
@@ -197,7 +198,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonProperty(value = JSON_PROPERTY_EXTENSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExtensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
     this.extensions = extensions;
@@ -214,7 +215,7 @@ public class ScimUser {
    * @return meta
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_META)
+  @JsonProperty(value = JSON_PROPERTY_META, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Meta getMeta() {
@@ -222,7 +223,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_META)
+  @JsonProperty(value = JSON_PROPERTY_META, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMeta(@javax.annotation.Nonnull Meta meta) {
     this.meta = meta;
@@ -239,7 +240,7 @@ public class ScimUser {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -247,7 +248,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -264,7 +265,7 @@ public class ScimUser {
    * @return externalId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -272,13 +273,13 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalId(@javax.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public ScimUser resourceType(@javax.annotation.Nonnull String resourceType) {
+  public ScimUser resourceType(@javax.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -288,18 +289,18 @@ public class ScimUser {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
     return resourceType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@javax.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 
@@ -320,14 +321,14 @@ public class ScimUser {
         return primaryEmailAddress.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<Email> getPrimaryEmailAddress_JsonNullable() {
     return primaryEmailAddress;
   }
   
-  @JsonProperty(JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS)
+  @JsonProperty(value = JSON_PROPERTY_PRIMARY_EMAIL_ADDRESS, required = false)
   public void setPrimaryEmailAddress_JsonNullable(JsonNullable<Email> primaryEmailAddress) {
     this.primaryEmailAddress = primaryEmailAddress;
   }
@@ -347,7 +348,7 @@ public class ScimUser {
    * @return active
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonProperty(value = JSON_PROPERTY_ACTIVE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getActive() {
@@ -355,7 +356,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACTIVE)
+  @JsonProperty(value = JSON_PROPERTY_ACTIVE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setActive(@javax.annotation.Nullable Boolean active) {
     this.active = active;
@@ -380,7 +381,7 @@ public class ScimUser {
    * @return emails
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMAILS)
+  @JsonProperty(value = JSON_PROPERTY_EMAILS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Email> getEmails() {
@@ -388,7 +389,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAILS)
+  @JsonProperty(value = JSON_PROPERTY_EMAILS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmails(@javax.annotation.Nullable List<Email> emails) {
     this.emails = emails;
@@ -405,7 +406,7 @@ public class ScimUser {
    * @return userName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonProperty(value = JSON_PROPERTY_USER_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUserName() {
@@ -413,7 +414,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_NAME)
+  @JsonProperty(value = JSON_PROPERTY_USER_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUserName(@javax.annotation.Nullable String userName) {
     this.userName = userName;
@@ -430,7 +431,7 @@ public class ScimUser {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Name getName() {
@@ -438,7 +439,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable Name name) {
     this.name = name;
@@ -463,7 +464,7 @@ public class ScimUser {
    * @return groups
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<UserGroup> getGroups() {
@@ -471,7 +472,7 @@ public class ScimUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroups(@javax.annotation.Nullable List<UserGroup> groups) {
     this.groups = groups;

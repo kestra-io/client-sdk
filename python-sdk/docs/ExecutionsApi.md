@@ -69,8 +69,6 @@ Create a new execution for a flow
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -78,32 +76,9 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     wait = False # bool | If the server will wait the end of the execution (default to False)
@@ -116,7 +91,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a new execution for a flow
-        api_response = api_instance.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
+        api_response = api_client.create_execution(namespace, id, wait, tenant, labels=labels, revision=revision, schedule_date=schedule_date, breakpoints=breakpoints, kind=kind)
         print("The response of ExecutionsApi->create_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -169,40 +144,15 @@ Delete an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
@@ -211,7 +161,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete an execution
-        api_instance.delete_execution(execution_id, delete_logs, delete_metrics, delete_storage, tenant)
+        api_client.delete_execution(execution_id, delete_logs, delete_metrics, delete_storage, tenant)
     except Exception as e:
         print("Exception when calling ExecutionsApi->delete_execution: %s\n" % e)
 ```
@@ -258,8 +208,6 @@ Delete a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -267,32 +215,9 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
@@ -302,7 +227,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a list of executions
-        api_response = api_instance.delete_executions_by_ids(delete_logs, delete_metrics, delete_storage, tenant, request_body, include_non_terminated=include_non_terminated)
+        api_response = api_client.delete_executions_by_ids(delete_logs, delete_metrics, delete_storage, tenant, request_body, include_non_terminated=include_non_terminated)
         print("The response of ExecutionsApi->delete_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -352,8 +277,6 @@ Delete executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -363,32 +286,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     delete_logs = True # bool | Whether to delete execution logs (default to True)
     delete_metrics = True # bool | Whether to delete execution metrics (default to True)
     delete_storage = True # bool | Whether to delete execution files in the internal storage (default to True)
@@ -409,7 +309,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete executions filter by query parameters
-        api_response = api_instance.delete_executions_by_query(delete_logs, delete_metrics, delete_storage, tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, include_non_terminated=include_non_terminated)
+        api_response = api_client.delete_executions_by_query(delete_logs, delete_metrics, delete_storage, tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, include_non_terminated=include_non_terminated)
         print("The response of ExecutionsApi->delete_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -469,47 +369,22 @@ Download file for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
 
     try:
         # Download file for an execution
-        api_response = api_instance.download_file_from_execution(execution_id, path, tenant)
+        api_response = api_client.download_file_from_execution(execution_id, path, tenant)
         print("The response of ExecutionsApi->download_file_from_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -555,8 +430,6 @@ Evaluate a variable expression for this taskrun
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -564,32 +437,9 @@ from kestrapy.models.execution_controller_eval_result import ExecutionController
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     task_run_id = 'task_run_id_example' # str | The taskrun id
     tenant = 'tenant_example' # str | 
@@ -597,7 +447,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Evaluate a variable expression for this taskrun
-        api_response = api_instance.eval_task_run_expression(execution_id, task_run_id, tenant, body)
+        api_response = api_client.eval_task_run_expression(execution_id, task_run_id, tenant, body)
         print("The response of ExecutionsApi->eval_task_run_expression:\n")
         pprint(api_response)
     except Exception as e:
@@ -644,8 +494,6 @@ Follow all execution dependencies executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -653,32 +501,9 @@ from kestrapy.models.event_execution_status_event import EventExecutionStatusEve
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     destination_only = False # bool | If true, list only destination dependencies, otherwise list also source dependencies (default to False)
     expand_all = False # bool | If true, expand all dependencies recursively (default to False)
@@ -686,7 +511,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Follow all execution dependencies executions
-        api_response = api_instance.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
+        api_response = api_client.follow_dependencies_executions(execution_id, destination_only, expand_all, tenant)
         print("The response of ExecutionsApi->follow_dependencies_executions:\n")
         pprint(api_response)
     except Exception as e:
@@ -733,8 +558,6 @@ Follow an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -742,38 +565,15 @@ from kestrapy.models.event_execution import EventExecution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Follow an execution
-        api_response = api_instance.follow_execution(execution_id, tenant)
+        api_response = api_client.follow_execution(execution_id, tenant)
         print("The response of ExecutionsApi->follow_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -818,8 +618,6 @@ Force run a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -827,38 +625,15 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Force run a list of executions
-        api_response = api_instance.force_run_by_ids(tenant, request_body)
+        api_response = api_client.force_run_by_ids(tenant, request_body)
         print("The response of ExecutionsApi->force_run_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -904,8 +679,6 @@ Force run an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -913,38 +686,15 @@ from kestrapy.models.execution import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Force run an execution
-        api_response = api_instance.force_run_execution(execution_id, tenant)
+        api_response = api_client.force_run_execution(execution_id, tenant)
         print("The response of ExecutionsApi->force_run_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -989,8 +739,6 @@ Force run executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1000,32 +748,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -1042,7 +767,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Force run executions filter by query parameters
-        api_response = api_instance.force_run_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.force_run_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->force_run_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -1098,8 +823,6 @@ Get an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1107,38 +830,15 @@ from kestrapy.models.execution import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Get an execution
-        api_response = api_instance.get_execution(execution_id, tenant)
+        api_response = api_client.get_execution(execution_id, tenant)
         print("The response of ExecutionsApi->get_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1183,8 +883,6 @@ Generate a graph for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1192,39 +890,16 @@ from kestrapy.models.flow_graph import FlowGraph
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     subflows = ['subflows_example'] # List[str] | The subflow tasks to display (optional)
 
     try:
         # Generate a graph for an execution
-        api_response = api_instance.get_execution_flow_graph(execution_id, tenant, subflows=subflows)
+        api_response = api_client.get_execution_flow_graph(execution_id, tenant, subflows=subflows)
         print("The response of ExecutionsApi->get_execution_flow_graph:\n")
         pprint(api_response)
     except Exception as e:
@@ -1270,8 +945,6 @@ Get file meta information for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1279,39 +952,16 @@ from kestrapy.models.file_metas import FileMetas
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     tenant = 'tenant_example' # str | 
 
     try:
         # Get file meta information for an execution
-        api_response = api_instance.get_file_metadatas_from_execution(execution_id, path, tenant)
+        api_response = api_client.get_file_metadatas_from_execution(execution_id, path, tenant)
         print("The response of ExecutionsApi->get_file_metadatas_from_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1357,8 +1007,6 @@ Get flow information's for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1366,32 +1014,9 @@ from kestrapy.models.flow_for_execution import FlowForExecution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The namespace of the flow
     flow_id = 'flow_id_example' # str | The flow id
     tenant = 'tenant_example' # str | 
@@ -1399,7 +1024,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get flow information's for an execution
-        api_response = api_instance.get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
+        api_response = api_client.get_flow_from_execution(namespace, flow_id, tenant, revision=revision)
         print("The response of ExecutionsApi->get_flow_from_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1446,8 +1071,6 @@ Get flow information's for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1455,38 +1078,15 @@ from kestrapy.models.flow_for_execution import FlowForExecution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution that you want flow informations
     tenant = 'tenant_example' # str | 
 
     try:
         # Get flow information's for an execution
-        api_response = api_instance.get_flow_from_execution_by_id(execution_id, tenant)
+        api_response = api_client.get_flow_from_execution_by_id(execution_id, tenant)
         print("The response of ExecutionsApi->get_flow_from_execution_by_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -1531,8 +1131,6 @@ Get the latest execution for given flows
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1541,38 +1139,15 @@ from kestrapy.models.execution_repository_interface_flow_filter import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     execution_repository_interface_flow_filter = [kestrapy.ExecutionRepositoryInterfaceFlowFilter()] # List[ExecutionRepositoryInterfaceFlowFilter] | 
 
     try:
         # Get the latest execution for given flows
-        api_response = api_instance.get_latest_executions(tenant, execution_repository_interface_flow_filter)
+        api_response = api_client.get_latest_executions(tenant, execution_repository_interface_flow_filter)
         print("The response of ExecutionsApi->get_latest_executions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1617,47 +1192,22 @@ Kill an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     is_on_kill_cascade = True # bool | Specifies whether killing the execution also kill all subflow executions. (default to True)
     tenant = 'tenant_example' # str | 
 
     try:
         # Kill an execution
-        api_response = api_instance.kill_execution(execution_id, is_on_kill_cascade, tenant)
+        api_response = api_client.kill_execution(execution_id, is_on_kill_cascade, tenant)
         print("The response of ExecutionsApi->kill_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -1706,8 +1256,6 @@ Kill a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1715,38 +1263,15 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Kill a list of executions
-        api_response = api_instance.kill_executions_by_ids(tenant, request_body)
+        api_response = api_client.kill_executions_by_ids(tenant, request_body)
         print("The response of ExecutionsApi->kill_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -1792,8 +1317,6 @@ Kill executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1803,32 +1326,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -1845,7 +1345,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Kill executions filter by query parameters
-        api_response = api_instance.kill_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.kill_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->kill_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -1901,45 +1401,20 @@ Get all namespaces that have executable flows
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
 
     try:
         # Get all namespaces that have executable flows
-        api_response = api_instance.list_executable_distinct_namespaces(tenant)
+        api_response = api_client.list_executable_distinct_namespaces(tenant)
         print("The response of ExecutionsApi->list_executable_distinct_namespaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -1983,8 +1458,6 @@ Get all flow ids for a namespace. Data returned are FlowForExecution containing 
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -1992,38 +1465,15 @@ from kestrapy.models.flow_for_execution import FlowForExecution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The namespace
     tenant = 'tenant_example' # str | 
 
     try:
         # Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-        api_response = api_instance.list_flow_executions_by_namespace(namespace, tenant)
+        api_response = api_client.list_flow_executions_by_namespace(namespace, tenant)
         print("The response of ExecutionsApi->list_flow_executions_by_namespace:\n")
         pprint(api_response)
     except Exception as e:
@@ -2068,46 +1518,21 @@ Pause a running execution.
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Pause a running execution.
-        api_instance.pause_execution(execution_id, tenant)
+        api_client.pause_execution(execution_id, tenant)
     except Exception as e:
         print("Exception when calling ExecutionsApi->pause_execution: %s\n" % e)
 ```
@@ -2152,8 +1577,6 @@ Pause a list of running executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2161,38 +1584,15 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Pause a list of running executions
-        api_response = api_instance.pause_executions_by_ids(tenant, request_body)
+        api_response = api_client.pause_executions_by_ids(tenant, request_body)
         print("The response of ExecutionsApi->pause_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -2238,8 +1638,6 @@ Pause executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2249,32 +1647,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -2291,7 +1666,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Pause executions filter by query parameters
-        api_response = api_instance.pause_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.pause_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->pause_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -2347,40 +1722,15 @@ Get file preview for an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     path = 'path_example' # str | The internal storage uri
     max_rows = 56 # int | The max row returns
@@ -2389,7 +1739,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Get file preview for an execution
-        api_response = api_instance.preview_file_from_execution(execution_id, path, max_rows, encoding, tenant)
+        api_response = api_client.preview_file_from_execution(execution_id, path, max_rows, encoding, tenant)
         print("The response of ExecutionsApi->preview_file_from_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -2437,8 +1787,6 @@ Create a new execution from an old one and start it from a specified task run id
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2446,32 +1794,9 @@ from kestrapy.models.execution import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | the original execution id to clone
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
@@ -2480,7 +1805,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = api_instance.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        api_response = api_client.replay_execution(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
         print("The response of ExecutionsApi->replay_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -2528,8 +1853,6 @@ Create a new execution from an old one and start it from a specified task run id
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2537,32 +1860,9 @@ from kestrapy.models.execution import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | the original execution id to clone
     tenant = 'tenant_example' # str | 
     task_run_id = 'task_run_id_example' # str | The taskrun id (optional)
@@ -2571,7 +1871,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create a new execution from an old one and start it from a specified task run id
-        api_response = api_instance.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
+        api_response = api_client.replay_execution_withinputs(execution_id, tenant, task_run_id=task_run_id, revision=revision, breakpoints=breakpoints)
         print("The response of ExecutionsApi->replay_execution_withinputs:\n")
         pprint(api_response)
     except Exception as e:
@@ -2619,8 +1919,6 @@ Create new executions from old ones. Keep the flow revision
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2628,39 +1926,16 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
     latest_revision = False # bool | If latest revision should be used (optional) (default to False)
 
     try:
         # Create new executions from old ones. Keep the flow revision
-        api_response = api_instance.replay_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
+        api_response = api_client.replay_executions_by_ids(tenant, request_body, latest_revision=latest_revision)
         print("The response of ExecutionsApi->replay_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -2707,8 +1982,6 @@ Create new executions from old ones filter by query parameters. Keep the flow re
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2718,32 +1991,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -2761,7 +2011,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create new executions from old ones filter by query parameters. Keep the flow revision
-        api_response = api_instance.replay_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, latest_revision=latest_revision)
+        api_response = api_client.replay_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, latest_revision=latest_revision)
         print("The response of ExecutionsApi->replay_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -2818,8 +2068,6 @@ Restart a new execution from an old one
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2827,39 +2075,16 @@ from kestrapy.models.execution import Execution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     revision = 56 # int | The flow revision to use for new execution (optional)
 
     try:
         # Restart a new execution from an old one
-        api_response = api_instance.restart_execution(execution_id, tenant, revision=revision)
+        api_response = api_client.restart_execution(execution_id, tenant, revision=revision)
         print("The response of ExecutionsApi->restart_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -2905,8 +2130,6 @@ Restart a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -2914,38 +2137,15 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Restart a list of executions
-        api_response = api_instance.restart_executions_by_ids(tenant, request_body)
+        api_response = api_client.restart_executions_by_ids(tenant, request_body)
         print("The response of ExecutionsApi->restart_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -2991,8 +2191,6 @@ Restart executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3002,32 +2200,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -3044,7 +2219,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Restart executions filter by query parameters
-        api_response = api_instance.restart_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.restart_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->restart_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -3100,46 +2275,21 @@ Resume a paused execution.
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Resume a paused execution.
-        api_response = api_instance.resume_execution(execution_id, tenant)
+        api_response = api_client.resume_execution(execution_id, tenant)
         print("The response of ExecutionsApi->resume_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -3186,47 +2336,22 @@ Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     breakpoints = 'breakpoints_example' # str | \"Set a list of breakpoints at specific tasks 'id.value', separated by a coma. (optional)
 
     try:
         # Resume an execution from a breakpoint (in the 'BREAKPOINT' state).
-        api_instance.resume_execution_from_breakpoint(execution_id, tenant, breakpoints=breakpoints)
+        api_client.resume_execution_from_breakpoint(execution_id, tenant, breakpoints=breakpoints)
     except Exception as e:
         print("Exception when calling ExecutionsApi->resume_execution_from_breakpoint: %s\n" % e)
 ```
@@ -3272,8 +2397,6 @@ Resume a list of paused executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3281,38 +2404,15 @@ from kestrapy.models.bulk_response import BulkResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Resume a list of paused executions
-        api_response = api_instance.resume_executions_by_ids(tenant, request_body)
+        api_response = api_client.resume_executions_by_ids(tenant, request_body)
         print("The response of ExecutionsApi->resume_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -3358,8 +2458,6 @@ Resume executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3369,32 +2467,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -3411,7 +2486,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Resume executions filter by query parameters
-        api_response = api_instance.resume_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.resume_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->resume_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -3467,8 +2542,6 @@ Search for executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3479,32 +2552,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -3524,7 +2574,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for executions
-        api_response = api_instance.search_executions(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.search_executions(page, size, tenant, sort=sort, filters=filters, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->search_executions:\n")
         pprint(api_response)
     except Exception as e:
@@ -3583,8 +2633,6 @@ Search for executions for a flow
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3592,32 +2640,9 @@ from kestrapy.models.paged_results_execution import PagedResultsExecution
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     flow_id = 'flow_id_example' # str | The flow id
     page = 1 # int | The current page (default to 1)
@@ -3626,7 +2651,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for executions for a flow
-        api_response = api_instance.search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
+        api_response = api_client.search_executions_by_flow_id(namespace, flow_id, page, size, tenant)
         print("The response of ExecutionsApi->search_executions_by_flow_id:\n")
         pprint(api_response)
     except Exception as e:
@@ -3674,8 +2699,6 @@ Search for taskruns, only available with the Elasticsearch repository
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3685,32 +2708,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -3729,7 +2729,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for taskruns, only available with the Elasticsearch repository
-        api_response = api_instance.search_task_run(page, size, tenant, sort=sort, filters=filters, q=q, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.search_task_run(page, size, tenant, sort=sort, filters=filters, q=q, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->search_task_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -3787,8 +2787,6 @@ Add or update labels of a terminated execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3796,39 +2794,16 @@ from kestrapy.models.label import Label
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     label = [kestrapy.Label()] # List[Label] | The labels to add to the execution
 
     try:
         # Add or update labels of a terminated execution
-        api_response = api_instance.set_labels_on_terminated_execution(execution_id, tenant, label)
+        api_response = api_client.set_labels_on_terminated_execution(execution_id, tenant, label)
         print("The response of ExecutionsApi->set_labels_on_terminated_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -3876,8 +2851,6 @@ Set labels on a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3886,38 +2859,15 @@ from kestrapy.models.execution_controller_set_labels_by_ids_request import Execu
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     execution_controller_set_labels_by_ids_request = kestrapy.ExecutionControllerSetLabelsByIdsRequest() # ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 
     try:
         # Set labels on a list of executions
-        api_response = api_instance.set_labels_on_terminated_executions_by_ids(tenant, execution_controller_set_labels_by_ids_request)
+        api_response = api_client.set_labels_on_terminated_executions_by_ids(tenant, execution_controller_set_labels_by_ids_request)
         print("The response of ExecutionsApi->set_labels_on_terminated_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -3963,8 +2913,6 @@ Set label on executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -3974,32 +2922,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     label = kestrapy.Label() # List[Label] | The labels to add to the execution
     q = 'q_example' # str | A string filter (optional)
@@ -4016,7 +2941,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Set label on executions filter by query parameters
-        api_response = api_instance.set_labels_on_terminated_executions_by_query(tenant, label, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.set_labels_on_terminated_executions_by_query(tenant, label, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->set_labels_on_terminated_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -4072,8 +2997,6 @@ Trigger a new execution for a flow
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4081,32 +3004,9 @@ from kestrapy.models.execution_controller_execution_response import ExecutionCon
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     wait = False # bool | If the server will wait the end of the execution (default to False)
@@ -4116,7 +3016,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Trigger a new execution for a flow
-        api_response = api_instance.trigger_execution(namespace, id, wait, tenant, labels=labels, revision=revision)
+        api_response = api_client.trigger_execution(namespace, id, wait, tenant, labels=labels, revision=revision)
         print("The response of ExecutionsApi->trigger_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -4166,8 +3066,6 @@ Trigger a new execution by GET webhook trigger
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4175,32 +3073,9 @@ from kestrapy.models.execution_controller_webhook_response import ExecutionContr
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -4208,7 +3083,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Trigger a new execution by GET webhook trigger
-        api_response = api_instance.trigger_execution_by_get_webhook(namespace, id, key, tenant)
+        api_response = api_client.trigger_execution_by_get_webhook(namespace, id, key, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_get_webhook:\n")
         pprint(api_response)
     except Exception as e:
@@ -4255,8 +3130,6 @@ Trigger a new execution by POST webhook trigger
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4264,32 +3137,9 @@ from kestrapy.models.execution_controller_webhook_response import ExecutionContr
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -4297,7 +3147,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Trigger a new execution by POST webhook trigger
-        api_response = api_instance.trigger_execution_by_post_webhook(namespace, id, key, tenant)
+        api_response = api_client.trigger_execution_by_post_webhook(namespace, id, key, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_post_webhook:\n")
         pprint(api_response)
     except Exception as e:
@@ -4344,8 +3194,6 @@ Trigger a new execution by PUT webhook trigger
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4353,32 +3201,9 @@ from kestrapy.models.execution_controller_webhook_response import ExecutionContr
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     key = 'key_example' # str | The webhook trigger uid
@@ -4386,7 +3211,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Trigger a new execution by PUT webhook trigger
-        api_response = api_instance.trigger_execution_by_put_webhook(namespace, id, key, tenant)
+        api_response = api_client.trigger_execution_by_put_webhook(namespace, id, key, tenant)
         print("The response of ExecutionsApi->trigger_execution_by_put_webhook:\n")
         pprint(api_response)
     except Exception as e:
@@ -4433,8 +3258,6 @@ Unqueue an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4443,39 +3266,16 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     state = kestrapy.StateType() # StateType | The new state of the execution
     tenant = 'tenant_example' # str | 
 
     try:
         # Unqueue an execution
-        api_response = api_instance.unqueue_execution(execution_id, state, tenant)
+        api_response = api_client.unqueue_execution(execution_id, state, tenant)
         print("The response of ExecutionsApi->unqueue_execution:\n")
         pprint(api_response)
     except Exception as e:
@@ -4521,8 +3321,6 @@ Unqueue a list of executions
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4531,39 +3329,16 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     state = kestrapy.StateType() # StateType | The new state of the unqueued executions
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Unqueue a list of executions
-        api_response = api_instance.unqueue_executions_by_ids(state, tenant, request_body)
+        api_response = api_client.unqueue_executions_by_ids(state, tenant, request_body)
         print("The response of ExecutionsApi->unqueue_executions_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -4610,8 +3385,6 @@ Unqueue executions filter by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4621,32 +3394,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
     q = 'q_example' # str | A string filter (optional)
@@ -4664,7 +3414,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Unqueue executions filter by query parameters
-        api_response = api_instance.unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, new_state=new_state)
+        api_response = api_client.unqueue_executions_by_query(tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter, new_state=new_state)
         print("The response of ExecutionsApi->unqueue_executions_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -4721,8 +3471,6 @@ Change the state of an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4731,39 +3479,16 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     status = kestrapy.StateType() # StateType | The new state of the execution
     tenant = 'tenant_example' # str | 
 
     try:
         # Change the state of an execution
-        api_response = api_instance.update_execution_status(execution_id, status, tenant)
+        api_response = api_client.update_execution_status(execution_id, status, tenant)
         print("The response of ExecutionsApi->update_execution_status:\n")
         pprint(api_response)
     except Exception as e:
@@ -4809,8 +3534,6 @@ Change executions state by id
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4819,39 +3542,16 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     new_status = kestrapy.StateType() # StateType | The new state of the executions
     tenant = 'tenant_example' # str | 
     request_body = ['request_body_example'] # List[str] | The list of executions id
 
     try:
         # Change executions state by id
-        api_response = api_instance.update_executions_status_by_ids(new_status, tenant, request_body)
+        api_response = api_client.update_executions_status_by_ids(new_status, tenant, request_body)
         print("The response of ExecutionsApi->update_executions_status_by_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -4898,8 +3598,6 @@ Change executions state by query parameters
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -4910,32 +3608,9 @@ from kestrapy.models.state_type import StateType
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     new_status = kestrapy.StateType() # StateType | The new state of the executions
     tenant = 'tenant_example' # str | 
     delete_executions_by_query_request = kestrapy.DeleteExecutionsByQueryRequest() # DeleteExecutionsByQueryRequest | 
@@ -4953,7 +3628,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Change executions state by query parameters
-        api_response = api_instance.update_executions_status_by_query(new_status, tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
+        api_response = api_client.update_executions_status_by_query(new_status, tenant, delete_executions_by_query_request, q=q, scope=scope, namespace=namespace, flow_id=flow_id, start_date=start_date, end_date=end_date, time_range=time_range, state=state, labels=labels, trigger_execution_id=trigger_execution_id, child_filter=child_filter)
         print("The response of ExecutionsApi->update_executions_status_by_query:\n")
         pprint(api_response)
     except Exception as e:
@@ -5011,8 +3686,6 @@ Change state for a taskrun in an execution
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -5021,39 +3694,16 @@ from kestrapy.models.execution_controller_state_request import ExecutionControll
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
     execution_controller_state_request = kestrapy.ExecutionControllerStateRequest() # ExecutionControllerStateRequest | the taskRun id and state to apply
 
     try:
         # Change state for a taskrun in an execution
-        api_response = api_instance.update_task_run_state(execution_id, tenant, execution_controller_state_request)
+        api_response = api_client.update_task_run_state(execution_id, tenant, execution_controller_state_request)
         print("The response of ExecutionsApi->update_task_run_state:\n")
         pprint(api_response)
     except Exception as e:
@@ -5099,8 +3749,6 @@ Validate the creation of a new execution for a flow
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -5108,32 +3756,9 @@ from kestrapy.models.execution_controller_api_validate_execution_inputs_response
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     namespace = 'namespace_example' # str | The flow namespace
     id = 'id_example' # str | The flow id
     labels = ['labels_example'] # List[str] | The labels as a list of 'key:value'
@@ -5142,7 +3767,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Validate the creation of a new execution for a flow
-        api_response = api_instance.validate_new_execution_inputs(namespace, id, labels, tenant, revision=revision)
+        api_response = api_client.validate_new_execution_inputs(namespace, id, labels, tenant, revision=revision)
         print("The response of ExecutionsApi->validate_new_execution_inputs:\n")
         pprint(api_response)
     except Exception as e:
@@ -5191,8 +3816,6 @@ Validate inputs to resume a paused execution.
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -5200,38 +3823,15 @@ from kestrapy.models.execution_controller_api_validate_execution_inputs_response
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.ExecutionsApi(api_client)
     execution_id = 'execution_id_example' # str | The execution id
     tenant = 'tenant_example' # str | 
 
     try:
         # Validate inputs to resume a paused execution.
-        api_response = api_instance.validate_resume_execution_inputs(execution_id, tenant)
+        api_response = api_client.validate_resume_execution_inputs(execution_id, tenant)
         print("The response of ExecutionsApi->validate_resume_execution_inputs:\n")
         pprint(api_response)
     except Exception as e:

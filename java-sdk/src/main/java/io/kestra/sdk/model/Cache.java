@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Cache.JSON_PROPERTY_ENABLED,
   Cache.JSON_PROPERTY_TTL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Cache {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   @javax.annotation.Nonnull
@@ -54,7 +55,7 @@ public class Cache {
    * @return enabled
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -62,7 +63,7 @@ public class Cache {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
     this.enabled = enabled;
@@ -79,7 +80,7 @@ public class Cache {
    * @return ttl
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TTL)
+  @JsonProperty(value = JSON_PROPERTY_TTL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTtl() {
@@ -87,7 +88,7 @@ public class Cache {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TTL)
+  @JsonProperty(value = JSON_PROPERTY_TTL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTtl(@javax.annotation.Nullable String ttl) {
     this.ttl = ttl;

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMBindingControllerApiCreateBindingRequest.JSON_PROPERTY_NAMESPACE_ID
 })
 @JsonTypeName("IAMBindingController.ApiCreateBindingRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMBindingControllerApiCreateBindingRequest {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
@@ -70,7 +71,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public BindingType getType() {
@@ -78,7 +79,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull BindingType type) {
     this.type = type;
@@ -95,7 +96,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * @return externalId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getExternalId() {
@@ -103,7 +104,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setExternalId(@javax.annotation.Nonnull String externalId) {
     this.externalId = externalId;
@@ -120,7 +121,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
    * @return roleId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonProperty(value = JSON_PROPERTY_ROLE_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getRoleId() {
@@ -128,7 +129,7 @@ public class IAMBindingControllerApiCreateBindingRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ROLE_ID)
+  @JsonProperty(value = JSON_PROPERTY_ROLE_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRoleId(@javax.annotation.Nonnull String roleId) {
     this.roleId = roleId;
@@ -151,14 +152,14 @@ public class IAMBindingControllerApiCreateBindingRequest {
         return namespaceId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getNamespaceId_JsonNullable() {
     return namespaceId;
   }
   
-  @JsonProperty(JSON_PROPERTY_NAMESPACE_ID)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE_ID, required = false)
   public void setNamespaceId_JsonNullable(JsonNullable<String> namespaceId) {
     this.namespaceId = namespaceId;
   }

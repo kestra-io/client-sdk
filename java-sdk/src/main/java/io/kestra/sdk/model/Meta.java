@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Meta.JSON_PROPERTY_LOCATION,
   Meta.JSON_PROPERTY_VERSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Meta {
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
   @javax.annotation.Nullable
@@ -70,7 +71,7 @@ public class Meta {
    * @return resourceType
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
@@ -78,7 +79,7 @@ public class Meta {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResourceType(@javax.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
@@ -95,7 +96,7 @@ public class Meta {
    * @return created
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonProperty(value = JSON_PROPERTY_CREATED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreated() {
@@ -103,7 +104,7 @@ public class Meta {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED)
+  @JsonProperty(value = JSON_PROPERTY_CREATED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreated(@javax.annotation.Nullable OffsetDateTime created) {
     this.created = created;
@@ -120,7 +121,7 @@ public class Meta {
    * @return lastModified
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @JsonProperty(value = JSON_PROPERTY_LAST_MODIFIED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getLastModified() {
@@ -128,7 +129,7 @@ public class Meta {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_MODIFIED)
+  @JsonProperty(value = JSON_PROPERTY_LAST_MODIFIED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLastModified(@javax.annotation.Nullable OffsetDateTime lastModified) {
     this.lastModified = lastModified;
@@ -145,7 +146,7 @@ public class Meta {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLocation() {
@@ -153,7 +154,7 @@ public class Meta {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -170,7 +171,7 @@ public class Meta {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -178,7 +179,7 @@ public class Meta {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;

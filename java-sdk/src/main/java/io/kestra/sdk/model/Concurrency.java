@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Concurrency.JSON_PROPERTY_LIMIT,
   Concurrency.JSON_PROPERTY_BEHAVIOR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Concurrency {
   public static final String JSON_PROPERTY_LIMIT = "limit";
   @javax.annotation.Nonnull
@@ -56,7 +57,7 @@ public class Concurrency {
    * @return limit
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getLimit() {
@@ -64,7 +65,7 @@ public class Concurrency {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LIMIT)
+  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLimit(@javax.annotation.Nonnull Integer limit) {
     this.limit = limit;
@@ -81,7 +82,7 @@ public class Concurrency {
    * @return behavior
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConcurrencyBehavior getBehavior() {
@@ -89,7 +90,7 @@ public class Concurrency {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
+  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setBehavior(@javax.annotation.Nonnull ConcurrencyBehavior behavior) {
     this.behavior = behavior;

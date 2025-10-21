@@ -13,13 +13,13 @@
 |**namespace** | **String** |  |  |
 |**flowId** | **String** |  |  |
 |**taskId** | **String** |  |  |
-|**parentTaskRunId** | **String** |  |  |
-|**value** | **String** |  |  |
-|**attempts** | [**List&lt;TaskRunAttempt&gt;**](TaskRunAttempt.md) |  |  |
-|**outputs** | **Map&lt;String, Object&gt;** |  |  |
+|**parentTaskRunId** | **String** |  |  [optional] |
+|**value** | **String** |  |  [optional] |
+|**attempts** | [**List&lt;TaskRunAttempt&gt;**](TaskRunAttempt.md) |  |  [optional] |
+|**outputs** | **Map&lt;String, Object&gt;** |  |  [optional] |
 |**state** | [**State**](State.md) |  |  |
-|**iteration** | **Integer** |  |  |
-|**dynamic** | **Boolean** |  |  |
+|**iteration** | **Integer** |  |  [optional] |
+|**dynamic** | **Boolean** |  |  [optional] |
 |**forceExecution** | **Boolean** |  |  [optional] |
 
 

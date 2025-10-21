@@ -34,6 +34,7 @@ from kestrapy.models.paged_results_flow import PagedResultsFlow
 from kestrapy.models.paged_results_search_result_flow import PagedResultsSearchResultFlow
 from kestrapy.models.query_filter import QueryFilter
 from kestrapy.models.task import Task
+from kestrapy.models.update_flow200_response import UpdateFlow200Response
 from kestrapy.models.update_flows_in_namespace_from_json200_response import UpdateFlowsInNamespaceFromJson200Response
 from kestrapy.models.validate_constraint_violation import ValidateConstraintViolation
 
@@ -7618,7 +7619,7 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> FlowWithSource:
+    ) -> UpdateFlow200Response:
         """(Deprecated) Update a flow
 
 
@@ -7665,7 +7666,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowWithSource",
+            '200': "UpdateFlow200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7697,7 +7698,7 @@ class FlowsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[FlowWithSource]:
+    ) -> ApiResponse[UpdateFlow200Response]:
         """(Deprecated) Update a flow
 
 
@@ -7744,7 +7745,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowWithSource",
+            '200': "UpdateFlow200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -7823,7 +7824,7 @@ class FlowsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "FlowWithSource",
+            '200': "UpdateFlow200Response",
         }
         response_data = self.api_client.call_api(
             *_param,

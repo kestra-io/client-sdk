@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserGroupControllerApiUpdateUserGroupsRequest.JSON_PROPERTY_GROUP_IDS
 })
 @JsonTypeName("IAMUserGroupController.ApiUpdateUserGroupsRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
   public static final String JSON_PROPERTY_GROUP_IDS = "groupIds";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> groupIds = new ArrayList<>();
 
   public IAMUserGroupControllerApiUpdateUserGroupsRequest() {
   }
 
-  public IAMUserGroupControllerApiUpdateUserGroupsRequest groupIds(@javax.annotation.Nonnull List<String> groupIds) {
+  public IAMUserGroupControllerApiUpdateUserGroupsRequest groupIds(@javax.annotation.Nullable List<String> groupIds) {
     
     this.groupIds = groupIds;
     return this;
@@ -60,18 +61,18 @@ public class IAMUserGroupControllerApiUpdateUserGroupsRequest {
    * Get groupIds
    * @return groupIds
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_GROUP_IDS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGroupIds() {
     return groupIds;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroupIds(@javax.annotation.Nonnull List<String> groupIds) {
+  @JsonProperty(value = JSON_PROPERTY_GROUP_IDS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupIds(@javax.annotation.Nullable List<String> groupIds) {
     this.groupIds = groupIds;
   }
 

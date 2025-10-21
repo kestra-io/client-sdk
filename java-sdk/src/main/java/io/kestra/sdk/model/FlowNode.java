@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,18 +32,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowNode.JSON_PROPERTY_NAMESPACE,
   FlowNode.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowNode {
   public static final String JSON_PROPERTY_UID = "uid";
   @javax.annotation.Nonnull
   private String uid;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String namespace;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public FlowNode() {
@@ -59,7 +60,7 @@ public class FlowNode {
    * @return uid
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonProperty(value = JSON_PROPERTY_UID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUid() {
@@ -67,13 +68,13 @@ public class FlowNode {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UID)
+  @JsonProperty(value = JSON_PROPERTY_UID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUid(@javax.annotation.Nonnull String uid) {
     this.uid = uid;
   }
 
-  public FlowNode namespace(@javax.annotation.Nonnull String namespace) {
+  public FlowNode namespace(@javax.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -83,22 +84,22 @@ public class FlowNode {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public FlowNode id(@javax.annotation.Nonnull String id) {
+  public FlowNode id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -108,18 +109,18 @@ public class FlowNode {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 

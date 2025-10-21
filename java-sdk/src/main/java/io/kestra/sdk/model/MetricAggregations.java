@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregations.JSON_PROPERTY_GROUP_BY,
   MetricAggregations.JSON_PROPERTY_AGGREGATIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricAggregations {
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
   @javax.annotation.Nonnull
@@ -58,7 +59,7 @@ public class MetricAggregations {
    * @return groupBy
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @JsonProperty(value = JSON_PROPERTY_GROUP_BY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getGroupBy() {
@@ -66,7 +67,7 @@ public class MetricAggregations {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
+  @JsonProperty(value = JSON_PROPERTY_GROUP_BY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setGroupBy(@javax.annotation.Nonnull String groupBy) {
     this.groupBy = groupBy;
@@ -91,7 +92,7 @@ public class MetricAggregations {
    * @return aggregations
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @JsonProperty(value = JSON_PROPERTY_AGGREGATIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<MetricAggregation> getAggregations() {
@@ -99,7 +100,7 @@ public class MetricAggregations {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AGGREGATIONS)
+  @JsonProperty(value = JSON_PROPERTY_AGGREGATIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAggregations(@javax.annotation.Nonnull List<MetricAggregation> aggregations) {
     this.aggregations = aggregations;

@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**relationType** | **RelationType** |  |  |
-|**value** | **String** |  |  |
+|**relationType** | **RelationType** |  |  [optional] |
+|**value** | **String** |  |  [optional] |
 
 
 

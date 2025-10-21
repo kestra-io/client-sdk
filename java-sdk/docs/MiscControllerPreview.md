@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**initial** | **Integer** |  |  |
-|**max** | **Integer** |  |  |
+|**initial** | **Integer** |  |  [optional] |
+|**max** | **Integer** |  |  [optional] |
 
 
 

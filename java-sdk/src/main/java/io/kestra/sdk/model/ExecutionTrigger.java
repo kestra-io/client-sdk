@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionTrigger.JSON_PROPERTY_VARIABLES,
   ExecutionTrigger.JSON_PROPERTY_LOG_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionTrigger {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -46,11 +47,11 @@ public class ExecutionTrigger {
   private String type;
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_LOG_FILE = "logFile";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private URI logFile;
 
   public ExecutionTrigger() {
@@ -67,7 +68,7 @@ public class ExecutionTrigger {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -75,7 +76,7 @@ public class ExecutionTrigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -92,7 +93,7 @@ public class ExecutionTrigger {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -100,19 +101,22 @@ public class ExecutionTrigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public ExecutionTrigger variables(@javax.annotation.Nonnull Map<String, Object> variables) {
+  public ExecutionTrigger variables(@javax.annotation.Nullable Map<String, Object> variables) {
     
     this.variables = variables;
     return this;
   }
 
   public ExecutionTrigger putVariablesItem(String key, Object variablesItem) {
+    if (this.variables == null) {
+      this.variables = new HashMap<>();
+    }
     this.variables.put(key, variablesItem);
     return this;
   }
@@ -121,22 +125,22 @@ public class ExecutionTrigger {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {
     return variables;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVariables(@javax.annotation.Nonnull Map<String, Object> variables) {
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
   }
 
-  public ExecutionTrigger logFile(@javax.annotation.Nonnull URI logFile) {
+  public ExecutionTrigger logFile(@javax.annotation.Nullable URI logFile) {
     
     this.logFile = logFile;
     return this;
@@ -146,18 +150,18 @@ public class ExecutionTrigger {
    * Get logFile
    * @return logFile
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOG_FILE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_LOG_FILE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getLogFile() {
     return logFile;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOG_FILE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLogFile(@javax.annotation.Nonnull URI logFile) {
+  @JsonProperty(value = JSON_PROPERTY_LOG_FILE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLogFile(@javax.annotation.Nullable URI logFile) {
     this.logFile = logFile;
   }
 

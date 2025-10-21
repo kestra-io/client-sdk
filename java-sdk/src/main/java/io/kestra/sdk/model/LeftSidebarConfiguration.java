@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   LeftSidebarConfiguration.JSON_PROPERTY_DISABLED_MENUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class LeftSidebarConfiguration {
   public static final String JSON_PROPERTY_DISABLED_MENUS = "disabledMenus";
   @javax.annotation.Nullable
@@ -60,7 +61,7 @@ public class LeftSidebarConfiguration {
    * @return disabledMenus
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISABLED_MENUS)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED_MENUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getDisabledMenus() {
@@ -68,7 +69,7 @@ public class LeftSidebarConfiguration {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISABLED_MENUS)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED_MENUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisabledMenus(@javax.annotation.Nullable List<String> disabledMenus) {
     this.disabledMenus = disabledMenus;

@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** |  |  |
-|**username** | **String** |  |  |
-|**displayName** | **String** |  |  |
-|**type** | **UserType** |  |  |
+|**id** | **String** |  |  [optional] |
+|**username** | **String** |  |  [optional] |
+|**displayName** | **String** |  |  [optional] |
+|**type** | **UserType** |  |  [optional] |
 
 
 

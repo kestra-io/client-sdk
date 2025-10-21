@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerTestSuiteBulkRequest.JSON_PROPERTY_IDS
 })
 @JsonTypeName("TestSuiteController.TestSuiteBulkRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerTestSuiteBulkRequest {
   public static final String JSON_PROPERTY_IDS = "ids";
   @javax.annotation.Nonnull
@@ -62,7 +63,7 @@ public class TestSuiteControllerTestSuiteBulkRequest {
    * @return ids
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TestSuiteControllerTestSuiteApiId> getIds() {
@@ -70,7 +71,7 @@ public class TestSuiteControllerTestSuiteBulkRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_IDS)
+  @JsonProperty(value = JSON_PROPERTY_IDS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIds(@javax.annotation.Nonnull List<TestSuiteControllerTestSuiteApiId> ids) {
     this.ids = ids;

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,20 +36,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SearchResultFlow.JSON_PROPERTY_FRAGMENTS
 })
 @JsonTypeName("SearchResult_Flow_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SearchResultFlow {
   public static final String JSON_PROPERTY_MODEL = "model";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Flow model;
 
   public static final String JSON_PROPERTY_FRAGMENTS = "fragments";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> fragments = new ArrayList<>();
 
   public SearchResultFlow() {
   }
 
-  public SearchResultFlow model(@javax.annotation.Nonnull Flow model) {
+  public SearchResultFlow model(@javax.annotation.Nullable Flow model) {
     
     this.model = model;
     return this;
@@ -58,22 +59,22 @@ public class SearchResultFlow {
    * Get model
    * @return model
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MODEL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Flow getModel() {
     return model;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setModel(@javax.annotation.Nonnull Flow model) {
+  @JsonProperty(value = JSON_PROPERTY_MODEL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setModel(@javax.annotation.Nullable Flow model) {
     this.model = model;
   }
 
-  public SearchResultFlow fragments(@javax.annotation.Nonnull List<String> fragments) {
+  public SearchResultFlow fragments(@javax.annotation.Nullable List<String> fragments) {
     
     this.fragments = fragments;
     return this;
@@ -91,18 +92,18 @@ public class SearchResultFlow {
    * Get fragments
    * @return fragments
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FRAGMENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FRAGMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getFragments() {
     return fragments;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FRAGMENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFragments(@javax.annotation.Nonnull List<String> fragments) {
+  @JsonProperty(value = JSON_PROPERTY_FRAGMENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFragments(@javax.annotation.Nullable List<String> fragments) {
     this.fragments = fragments;
   }
 

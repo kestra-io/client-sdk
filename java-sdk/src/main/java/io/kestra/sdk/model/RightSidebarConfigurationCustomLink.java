@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   RightSidebarConfigurationCustomLink.JSON_PROPERTY_URL
 })
 @JsonTypeName("RightSidebarConfiguration.CustomLink")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class RightSidebarConfigurationCustomLink {
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String title;
 
   public static final String JSON_PROPERTY_URL = "url";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String url;
 
   public RightSidebarConfigurationCustomLink() {
   }
 
-  public RightSidebarConfigurationCustomLink title(@javax.annotation.Nonnull String title) {
+  public RightSidebarConfigurationCustomLink title(@javax.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -54,22 +55,22 @@ public class RightSidebarConfigurationCustomLink {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(@javax.annotation.Nonnull String title) {
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public RightSidebarConfigurationCustomLink url(@javax.annotation.Nonnull String url) {
+  public RightSidebarConfigurationCustomLink url(@javax.annotation.Nullable String url) {
     
     this.url = url;
     return this;
@@ -79,18 +80,18 @@ public class RightSidebarConfigurationCustomLink {
    * Get url
    * @return url
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrl() {
     return url;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUrl(@javax.annotation.Nonnull String url) {
+  @JsonProperty(value = JSON_PROPERTY_URL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUrl(@javax.annotation.Nullable String url) {
     this.url = url;
   }
 

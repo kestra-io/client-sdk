@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerAuditLogDiff.JSON_PROPERTY_AFTER
 })
 @JsonTypeName("AuditLogController.AuditLogDiff")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogDiff {
   public static final String JSON_PROPERTY_BEFORE = "before";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String before;
 
   public static final String JSON_PROPERTY_AFTER = "after";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String after;
 
   public AuditLogControllerAuditLogDiff() {
   }
 
-  public AuditLogControllerAuditLogDiff before(@javax.annotation.Nonnull String before) {
+  public AuditLogControllerAuditLogDiff before(@javax.annotation.Nullable String before) {
     
     this.before = before;
     return this;
@@ -54,22 +55,22 @@ public class AuditLogControllerAuditLogDiff {
    * Get before
    * @return before
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BEFORE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_BEFORE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBefore() {
     return before;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BEFORE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBefore(@javax.annotation.Nonnull String before) {
+  @JsonProperty(value = JSON_PROPERTY_BEFORE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBefore(@javax.annotation.Nullable String before) {
     this.before = before;
   }
 
-  public AuditLogControllerAuditLogDiff after(@javax.annotation.Nonnull String after) {
+  public AuditLogControllerAuditLogDiff after(@javax.annotation.Nullable String after) {
     
     this.after = after;
     return this;
@@ -79,18 +80,18 @@ public class AuditLogControllerAuditLogDiff {
    * Get after
    * @return after
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AFTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_AFTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAfter() {
     return after;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AFTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAfter(@javax.annotation.Nonnull String after) {
+  @JsonProperty(value = JSON_PROPERTY_AFTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAfter(@javax.annotation.Nullable String after) {
     this.after = after;
   }
 
