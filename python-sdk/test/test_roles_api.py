@@ -13,15 +13,19 @@
 
 
 import unittest
-
-from kestrapy.api.roles_api import RolesApi
+from kestrapy import Configuration, KestraClient
 
 
 class TestRolesApi(unittest.TestCase):
     """RolesApi unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = RolesApi()
+        configuration = Configuration()
+        configuration.host = "http://localhost:9902"
+        configuration.username = "root@root.com"
+        configuration.password = "Root!1234"
+
+        self.kestra_client = KestraClient(configuration)
 
     def tearDown(self) -> None:
         pass
