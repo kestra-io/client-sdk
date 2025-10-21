@@ -68,9 +68,18 @@ public class FlowsApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createFlowTest() throws ApiException {
+    public void createFlowTest_simple() throws ApiException {
 
-        String body = null;
+        String body = getSimpleFlow();
+        FlowWithSource response = kestraClient().flows().createFlow(MAIN_TENANT, body);
+
+        // TODO: test validations
+    }
+
+    @Test
+    public void createFlowTest_full() throws ApiException {
+
+        String body = getCompleteFlow();
         FlowWithSource response = kestraClient().flows().createFlow(MAIN_TENANT, body);
 
         // TODO: test validations

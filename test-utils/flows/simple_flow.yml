@@ -1,0 +1,10 @@
+id: simple_flow
+namespace: tests
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.log.Log
+    description: this is a *task* documentation
+    message: |
+      The variables we used are {{ vars.first }} and {{ render(vars.second) }}.
+      The input is {{ inputs.user }} and the task was started at {{ taskrun.startDate }} from flow {{ flow.id }}.
