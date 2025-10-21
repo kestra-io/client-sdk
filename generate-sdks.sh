@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 VERSION=$1
 LANGUAGES=$2
@@ -23,6 +24,11 @@ if [ -z "$LANGUAGES" ]; then
 fi
 
 BASE_PKG=io.kestra.sdk
+
+OPENAPI_GITHUB_LOCATION="/repos/kestra-io/kestra-ee/contents/kestra-ee.yml"
+OPENAPI_LOCATION_BRANCH="v1.0.7-openapi-spec"
+echo "download openapi spec from github at '$OPENAPI_GITHUB_LOCATION' in branch '$OPENAPI_LOCATION_BRANCH'"
+gh api -H "Accept: application/vnd.github.raw" "$OPENAPI_GITHUB_LOCATION?ref=$OPENAPI_LOCATION_BRANCH" > kestra-ee.yml
 
 if [ -n "$TEMPLATE_FLAG" ]; then
   echo "Generating templates"
