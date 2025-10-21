@@ -1,35 +1,30 @@
 kestra:
+  server:
+    basicAuth:
+      username: admin@kestra.io
+      password: Admin1234
+  repository:
+    type: h2
+  storage:
+    type: local
+    local:
+      basePath: "/app/storage"
+  queue:
+    type: h2
+  tasks:
+    tmpDir:
+      path: /tmp/kestra-wd/tmp
   security:
      super-admin:
        username: root@root.com
        password: Root!1234
        tenantAdminAccess: main
+  secret:
+    type: jdbc
+    jdbc:
+      secret: "f_7wWwcHt2iYzr2EEpUn"
   encryption:
     secret-key: LWBErwwlb/BQcxWujsm+/scPeO01cTKzvW44GbAWvII=
-  kafka: 
-    client:
-      properties:
-        bootstrap.servers: kafka:9092
-  elasticsearch:
-    client:
-      http-hosts: http://elasticsearch:9200
-  repository:
-    type: elasticsearch
-  storage:
-    type: local
-    local:
-      base-path: "/app/storage"
-  queue:
-    type: kafka
-  secret:
-    type: vault
-    vault:
-      address: "http://vault:8200"
-      password:
-        user: john
-        password: foo
-  templates:
-    enabled: true
   ee:
     tenants:
       enabled: true
