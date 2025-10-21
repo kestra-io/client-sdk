@@ -54,10 +54,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionsApi extends BaseApi {
 
   public ExecutionsApi() {
@@ -80,10 +81,10 @@ public class ExecutionsApi extends BaseApi {
    * @param scheduleDate Schedule the flow on a specific date (optional)
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
+   * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind) throws ApiException {
     return this.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind, Collections.emptyMap());
   }
 
@@ -101,10 +102,10 @@ public class ExecutionsApi extends BaseApi {
    * @param breakpoints Set a list of breakpoints at specific tasks &#39;id.value&#39;, separated by a coma. (optional)
    * @param kind Specific execution kind (optional)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;ExecutionControllerExecutionResponse&gt;
+   * @return ExecutionControllerExecutionResponse
    * @throws ApiException if fails to make API call
    */
-  public List<ExecutionControllerExecutionResponse> createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
+  public ExecutionControllerExecutionResponse createExecution(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String id, @javax.annotation.Nonnull Boolean wait, @javax.annotation.Nonnull String tenant, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable Integer revision, @javax.annotation.Nullable OffsetDateTime scheduleDate, @javax.annotation.Nullable String breakpoints, @javax.annotation.Nullable ExecutionKind kind, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -164,7 +165,7 @@ public class ExecutionsApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<ExecutionControllerExecutionResponse>> localVarReturnType = new TypeReference<List<ExecutionControllerExecutionResponse>>() {};
+    TypeReference<ExecutionControllerExecutionResponse> localVarReturnType = new TypeReference<ExecutionControllerExecutionResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -1545,7 +1546,7 @@ public class ExecutionsApi extends BaseApi {
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow information&#39;s (required)
+   * @param executionId The execution that you want flow informations (required)
    * @param tenant  (required)
    * @return FlowForExecution
    * @throws ApiException if fails to make API call
@@ -1558,7 +1559,7 @@ public class ExecutionsApi extends BaseApi {
   /**
    * Get flow information&#39;s for an execution
    * 
-   * @param executionId The execution that you want flow information&#39;s (required)
+   * @param executionId The execution that you want flow informations (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return FlowForExecution

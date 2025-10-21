@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Relation.JSON_PROPERTY_RELATION_TYPE,
   Relation.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Relation {
   public static final String JSON_PROPERTY_RELATION_TYPE = "relationType";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private RelationType relationType;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String value;
 
   public Relation() {
   }
 
-  public Relation relationType(@javax.annotation.Nonnull RelationType relationType) {
+  public Relation relationType(@javax.annotation.Nullable RelationType relationType) {
     
     this.relationType = relationType;
     return this;
@@ -54,22 +55,22 @@ public class Relation {
    * Get relationType
    * @return relationType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RELATION_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RelationType getRelationType() {
     return relationType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RELATION_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRelationType(@javax.annotation.Nonnull RelationType relationType) {
+  @JsonProperty(value = JSON_PROPERTY_RELATION_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRelationType(@javax.annotation.Nullable RelationType relationType) {
     this.relationType = relationType;
   }
 
-  public Relation value(@javax.annotation.Nonnull String value) {
+  public Relation value(@javax.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -79,18 +80,18 @@ public class Relation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull String value) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
   }
 

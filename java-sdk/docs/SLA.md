@@ -10,7 +10,7 @@
 |**id** | **String** |  |  |
 |**type** | **SLAType** |  |  |
 |**behavior** | **SLABehavior** |  |  |
-|**labels** | [**FlowWithSourceAllOfLabels**](FlowWithSourceAllOfLabels.md) |  |  [optional] |
+|**labels** | [**SLALabels**](SLALabels.md) |  |  [optional] |
 
 
 

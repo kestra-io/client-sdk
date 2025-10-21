@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiCreateTenantAccessRequest.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("IAMTenantAccessController.ApiCreateTenantAccessRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
   public static final String JSON_PROPERTY_EMAIL = "email";
   @javax.annotation.Nonnull
@@ -50,7 +51,7 @@ public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
    * @return email
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
@@ -58,7 +59,7 @@ public class IAMTenantAccessControllerApiCreateTenantAccessRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmail(@javax.annotation.Nonnull String email) {
     this.email = email;

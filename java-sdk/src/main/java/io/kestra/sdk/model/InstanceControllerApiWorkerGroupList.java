@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,16 +35,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiWorkerGroupList.JSON_PROPERTY_WORKER_GROUPS
 })
 @JsonTypeName("InstanceController.ApiWorkerGroupList")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiWorkerGroupList {
   public static final String JSON_PROPERTY_WORKER_GROUPS = "workerGroups";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<InstanceControllerApiWorkerGroupItem> workerGroups = new ArrayList<>();
 
   public InstanceControllerApiWorkerGroupList() {
   }
 
-  public InstanceControllerApiWorkerGroupList workerGroups(@javax.annotation.Nonnull List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  public InstanceControllerApiWorkerGroupList workerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     
     this.workerGroups = workerGroups;
     return this;
@@ -61,18 +62,18 @@ public class InstanceControllerApiWorkerGroupList {
    * The list of worker groups.
    * @return workerGroups
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<InstanceControllerApiWorkerGroupItem> getWorkerGroups() {
     return workerGroups;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WORKER_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setWorkerGroups(@javax.annotation.Nonnull List<InstanceControllerApiWorkerGroupItem> workerGroups) {
+  @JsonProperty(value = JSON_PROPERTY_WORKER_GROUPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWorkerGroups(@javax.annotation.Nullable List<InstanceControllerApiWorkerGroupItem> workerGroups) {
     this.workerGroups = workerGroups;
   }
 

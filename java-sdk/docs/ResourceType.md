@@ -13,7 +13,7 @@
 |**meta** | [**Meta**](Meta.md) |  |  |
 |**id** | **String** |  |  [optional] |
 |**externalId** | **String** |  |  [optional] |
-|**resourceType** | **String** |  |  |
+|**resourceType** | **String** |  |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**description** | **String** |  |  [optional] |
 |**endpoint** | **String** |  |  [optional] |

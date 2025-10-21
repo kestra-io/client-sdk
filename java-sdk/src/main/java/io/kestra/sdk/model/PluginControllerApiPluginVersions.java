@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,20 +35,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginControllerApiPluginVersions.JSON_PROPERTY_VERSIONS
 })
 @JsonTypeName("PluginController.ApiPluginVersions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginControllerApiPluginVersions {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String type;
 
   public static final String JSON_PROPERTY_VERSIONS = "versions";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> versions = new ArrayList<>();
 
   public PluginControllerApiPluginVersions() {
   }
 
-  public PluginControllerApiPluginVersions type(@javax.annotation.Nonnull String type) {
+  public PluginControllerApiPluginVersions type(@javax.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -57,22 +58,22 @@ public class PluginControllerApiPluginVersions {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public PluginControllerApiPluginVersions versions(@javax.annotation.Nonnull List<String> versions) {
+  public PluginControllerApiPluginVersions versions(@javax.annotation.Nullable List<String> versions) {
     
     this.versions = versions;
     return this;
@@ -90,18 +91,18 @@ public class PluginControllerApiPluginVersions {
    * Get versions
    * @return versions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getVersions() {
     return versions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVersions(@javax.annotation.Nonnull List<String> versions) {
+  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersions(@javax.annotation.Nullable List<String> versions) {
     this.versions = versions;
   }
 

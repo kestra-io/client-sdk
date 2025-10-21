@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BulkErrorResponse.JSON_PROPERTY_MESSAGE,
   BulkErrorResponse.JSON_PROPERTY_INVALIDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BulkErrorResponse {
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @javax.annotation.Nullable
@@ -54,7 +55,7 @@ public class BulkErrorResponse {
    * @return message
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
@@ -62,7 +63,7 @@ public class BulkErrorResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;
@@ -79,7 +80,7 @@ public class BulkErrorResponse {
    * @return invalids
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INVALIDS)
+  @JsonProperty(value = JSON_PROPERTY_INVALIDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getInvalids() {
@@ -87,7 +88,7 @@ public class BulkErrorResponse {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INVALIDS)
+  @JsonProperty(value = JSON_PROPERTY_INVALIDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInvalids(@javax.annotation.Nullable Object invalids) {
     this.invalids = invalids;

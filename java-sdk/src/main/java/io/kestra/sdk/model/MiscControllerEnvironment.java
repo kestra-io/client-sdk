@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerEnvironment.JSON_PROPERTY_COLOR
 })
 @JsonTypeName("MiscController.Environment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerEnvironment {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_COLOR = "color";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String color;
 
   public MiscControllerEnvironment() {
   }
 
-  public MiscControllerEnvironment name(@javax.annotation.Nonnull String name) {
+  public MiscControllerEnvironment name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -54,22 +55,22 @@ public class MiscControllerEnvironment {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public MiscControllerEnvironment color(@javax.annotation.Nonnull String color) {
+  public MiscControllerEnvironment color(@javax.annotation.Nullable String color) {
     
     this.color = color;
     return this;
@@ -79,18 +80,18 @@ public class MiscControllerEnvironment {
    * Get color
    * @return color
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_COLOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_COLOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getColor() {
     return color;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COLOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setColor(@javax.annotation.Nonnull String color) {
+  @JsonProperty(value = JSON_PROPERTY_COLOR, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setColor(@javax.annotation.Nullable String color) {
     this.color = color;
   }
 

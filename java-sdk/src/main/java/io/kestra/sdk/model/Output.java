@@ -15,11 +15,13 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.kestra.sdk.model.OutputValue;
 import io.kestra.sdk.model.Type;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -35,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Output.JSON_PROPERTY_DISPLAY_NAME,
   Output.JSON_PROPERTY_REQUIRED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Output {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -47,7 +49,7 @@ public class Output {
 
   public static final String JSON_PROPERTY_VALUE = "value";
   @javax.annotation.Nonnull
-  private Object value;
+  private OutputValue value;
 
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
@@ -75,7 +77,7 @@ public class Output {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -83,7 +85,7 @@ public class Output {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -100,7 +102,7 @@ public class Output {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -108,13 +110,13 @@ public class Output {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Output value(@javax.annotation.Nonnull Object value) {
+  public Output value(@javax.annotation.Nonnull OutputValue value) {
     
     this.value = value;
     return this;
@@ -125,17 +127,17 @@ public class Output {
    * @return value
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public Object getValue() {
+  public OutputValue getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Object value) {
+  public void setValue(@javax.annotation.Nonnull OutputValue value) {
     this.value = value;
   }
 
@@ -150,7 +152,7 @@ public class Output {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Type getType() {
@@ -158,7 +160,7 @@ public class Output {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull Type type) {
     this.type = type;
@@ -175,7 +177,7 @@ public class Output {
    * @return displayName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDisplayName() {
@@ -183,7 +185,7 @@ public class Output {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisplayName(@javax.annotation.Nullable String displayName) {
     this.displayName = displayName;
@@ -200,7 +202,7 @@ public class Output {
    * @return required
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -208,7 +210,7 @@ public class Output {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequired(@javax.annotation.Nullable Boolean required) {
     this.required = required;

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,16 +31,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   PatchOperationPath.JSON_PROPERTY_VALUE_PATH_EXPRESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PatchOperationPath {
   public static final String JSON_PROPERTY_VALUE_PATH_EXPRESSION = "valuePathExpression";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ValuePathExpression valuePathExpression;
 
   public PatchOperationPath() {
   }
 
-  public PatchOperationPath valuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
+  public PatchOperationPath valuePathExpression(@javax.annotation.Nullable ValuePathExpression valuePathExpression) {
     
     this.valuePathExpression = valuePathExpression;
     return this;
@@ -49,18 +50,18 @@ public class PatchOperationPath {
    * Get valuePathExpression
    * @return valuePathExpression
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE_PATH_EXPRESSION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ValuePathExpression getValuePathExpression() {
     return valuePathExpression;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE_PATH_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValuePathExpression(@javax.annotation.Nonnull ValuePathExpression valuePathExpression) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE_PATH_EXPRESSION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValuePathExpression(@javax.annotation.Nullable ValuePathExpression valuePathExpression) {
     this.valuePathExpression = valuePathExpression;
   }
 

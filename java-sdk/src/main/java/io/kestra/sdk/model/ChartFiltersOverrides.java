@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChartFiltersOverrides.JSON_PROPERTY_LABELS,
   ChartFiltersOverrides.JSON_PROPERTY_FILTERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ChartFiltersOverrides {
   public static final String JSON_PROPERTY_START_DATE = "startDate";
   @javax.annotation.Nullable
@@ -86,7 +87,7 @@ public class ChartFiltersOverrides {
    * @return startDate
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -94,7 +95,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartDate(@javax.annotation.Nullable OffsetDateTime startDate) {
     this.startDate = startDate;
@@ -111,7 +112,7 @@ public class ChartFiltersOverrides {
    * @return endDate
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getEndDate() {
@@ -119,7 +120,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEndDate(@javax.annotation.Nullable OffsetDateTime endDate) {
     this.endDate = endDate;
@@ -136,7 +137,7 @@ public class ChartFiltersOverrides {
    * @return pageSize
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_SIZE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPageSize() {
@@ -144,7 +145,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAGE_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_SIZE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageSize(@javax.annotation.Nullable Integer pageSize) {
     this.pageSize = pageSize;
@@ -161,7 +162,7 @@ public class ChartFiltersOverrides {
    * @return pageNumber
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPageNumber() {
@@ -169,7 +170,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PAGE_NUMBER)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_NUMBER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageNumber(@javax.annotation.Nullable Integer pageNumber) {
     this.pageNumber = pageNumber;
@@ -186,7 +187,7 @@ public class ChartFiltersOverrides {
    * @return namespace
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
@@ -194,7 +195,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
@@ -219,7 +220,7 @@ public class ChartFiltersOverrides {
    * @return labels
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getLabels() {
@@ -227,7 +228,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LABELS)
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLabels(@javax.annotation.Nullable Map<String, String> labels) {
     this.labels = labels;
@@ -252,7 +253,7 @@ public class ChartFiltersOverrides {
    * @return filters
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_FILTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<QueryFilter> getFilters() {
@@ -260,7 +261,7 @@ public class ChartFiltersOverrides {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_FILTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFilters(@javax.annotation.Nullable List<QueryFilter> filters) {
     this.filters = filters;

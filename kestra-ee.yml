@@ -35,6 +35,109 @@ tags:
   - name: Misc
     description: Misc api
 paths:
+  /api/v1/auditlogs/export:
+    get:
+      tags:
+        - Audit Logs
+      summary: Export all audit logs as a streamed CSV file
+      operationId: exportAuditLogsForAllTenants
+      parameters:
+        - name: q
+          in: query
+          description: A string filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: namespace
+          in: query
+          description: A namespace filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: flowId
+          in: query
+          description: A flow id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: executionId
+          in: query
+          description: An execution filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: userId
+          in: query
+          description: A user id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: id
+          in: query
+          description: A id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: resources
+          in: query
+          description: A resource filter
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              $ref: "#/components/schemas/ResourceType_1"
+        - name: startDate
+          in: query
+          description: The start datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: endDate
+          in: query
+          description: The end datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: details
+          in: query
+          description: A list of auditLog details
+          explode: false
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+            nullable: true
+        - name: type
+          in: query
+          description: The event that create the audit log
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/CrudEventType"
+      responses:
+        "200":
+          description: exportAuditLogsForAllTenants 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/auditlogs/search:
     get:
       tags:
@@ -340,6 +443,8 @@ paths:
         - basicAuth: []
   /api/v1/forgotten-password:
     get:
+      tags:
+        - Auths
       summary: Sends an email to reset a password.
       description: "Sends an email to reset a password. Note that whatever the username\
         \ is found or not, the response will always be 200 to avoid leaking information."
@@ -896,6 +1001,8 @@ paths:
         - basicAuth: []
   /api/v1/invitation/accept/{invitationId}:
     post:
+      tags:
+        - Auths
       operationId: acceptInvitation
       parameters:
         - name: invitationId
@@ -912,6 +1019,8 @@ paths:
                 type: object
   /api/v1/invitation/create/{invitationId}:
     post:
+      tags:
+        - Auths
       operationId: createFromInvitation
       parameters:
         - name: invitationId
@@ -1363,7 +1472,7 @@ paths:
   /api/v1/request-code/{email}:
     get:
       tags:
-        - Authentication Code
+        - Auths
       summary: Request an authentication code for login verification
       operationId: requestCode
       parameters:
@@ -1381,6 +1490,8 @@ paths:
                 type: object
   /api/v1/reset-password:
     post:
+      tags:
+        - Auths
       summary: Change a password for given token.
       description: "Change a password for given token. If password does not match\
         \ password policy, use can still retry."
@@ -8914,6 +9025,7 @@ paths:
               schema:
                 oneOf:
                   - $ref: "#/components/schemas/FlowWithSource"
+                  - $ref: "#/components/schemas/Flow"
               example: null
       deprecated: true
       security:
@@ -12968,6 +13080,8 @@ paths:
         - basicAuth: []
   /api/v1/{tenant}/stats/generate-reports:
     get:
+      tags:
+        - Misc
       operationId: generate
       parameters:
         - name: from
@@ -14686,6 +14800,8 @@ paths:
         - basicAuth: []
   /login:
     post:
+      tags:
+        - login
       operationId: login
       requestBody:
         content:

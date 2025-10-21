@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiPatchRestrictedRequest.JSON_PROPERTY_RESTRICTED
 })
 @JsonTypeName("IAMUserController.ApiPatchRestrictedRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiPatchRestrictedRequest {
   public static final String JSON_PROPERTY_RESTRICTED = "restricted";
   @javax.annotation.Nonnull
@@ -50,7 +51,7 @@ public class IAMUserControllerApiPatchRestrictedRequest {
    * @return restricted
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonProperty(value = JSON_PROPERTY_RESTRICTED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getRestricted() {
@@ -58,7 +59,7 @@ public class IAMUserControllerApiPatchRestrictedRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESTRICTED)
+  @JsonProperty(value = JSON_PROPERTY_RESTRICTED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRestricted(@javax.annotation.Nonnull Boolean restricted) {
     this.restricted = restricted;

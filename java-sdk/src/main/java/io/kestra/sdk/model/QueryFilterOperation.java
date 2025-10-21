@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilterOperation.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("QueryFilter.Operation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilterOperation {
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String value;
 
   public QueryFilterOperation() {
   }
 
-  public QueryFilterOperation name(@javax.annotation.Nonnull String name) {
+  public QueryFilterOperation name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -54,22 +55,22 @@ public class QueryFilterOperation {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public QueryFilterOperation value(@javax.annotation.Nonnull String value) {
+  public QueryFilterOperation value(@javax.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -79,18 +80,18 @@ public class QueryFilterOperation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull String value) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
   }
 

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -66,10 +67,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Execution.JSON_PROPERTY_KIND,
   Execution.JSON_PROPERTY_BREAKPOINTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Execution {
   public static final String JSON_PROPERTY_LABELS = "labels";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<Label> labels = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ID = "id";
@@ -89,19 +90,19 @@ public class Execution {
   private Integer flowRevision;
 
   public static final String JSON_PROPERTY_TASK_RUN_LIST = "taskRunList";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<TaskRun> taskRunList = new ArrayList<>();
 
   public static final String JSON_PROPERTY_INPUTS = "inputs";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> inputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> outputs = new HashMap<>();
 
   public static final String JSON_PROPERTY_VARIABLES = "variables";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> variables = new HashMap<>();
 
   public static final String JSON_PROPERTY_STATE = "state";
@@ -109,15 +110,15 @@ public class Execution {
   private State state;
 
   public static final String JSON_PROPERTY_PARENT_ID = "parentId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String parentId;
 
   public static final String JSON_PROPERTY_ORIGINAL_ID = "originalId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String originalId;
 
   public static final String JSON_PROPERTY_TRIGGER = "trigger";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ExecutionTrigger trigger;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
@@ -125,7 +126,7 @@ public class Execution {
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ExecutionMetadata metadata;
 
   public static final String JSON_PROPERTY_SCHEDULE_DATE = "scheduleDate";
@@ -133,7 +134,7 @@ public class Execution {
   private JsonNullable<OffsetDateTime> scheduleDate = JsonNullable.<OffsetDateTime>undefined();
 
   public static final String JSON_PROPERTY_TRACE_PARENT = "traceParent";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String traceParent;
 
   public static final String JSON_PROPERTY_FIXTURES = "fixtures";
@@ -151,7 +152,7 @@ public class Execution {
   public Execution() {
   }
 
-  public Execution labels(@javax.annotation.Nonnull List<Label> labels) {
+  public Execution labels(@javax.annotation.Nullable List<Label> labels) {
     
     this.labels = labels;
     return this;
@@ -169,18 +170,18 @@ public class Execution {
    * Get labels
    * @return labels
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Label> getLabels() {
     return labels;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LABELS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLabels(@javax.annotation.Nonnull List<Label> labels) {
+  @JsonProperty(value = JSON_PROPERTY_LABELS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLabels(@javax.annotation.Nullable List<Label> labels) {
     this.labels = labels;
   }
 
@@ -195,7 +196,7 @@ public class Execution {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -203,7 +204,7 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -220,7 +221,7 @@ public class Execution {
    * @return namespace
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -228,7 +229,7 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -245,7 +246,7 @@ public class Execution {
    * @return flowId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -253,7 +254,7 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -270,7 +271,7 @@ public class Execution {
    * @return flowRevision
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_REVISION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getFlowRevision() {
@@ -278,13 +279,13 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_REVISION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowRevision(@javax.annotation.Nonnull Integer flowRevision) {
     this.flowRevision = flowRevision;
   }
 
-  public Execution taskRunList(@javax.annotation.Nonnull List<TaskRun> taskRunList) {
+  public Execution taskRunList(@javax.annotation.Nullable List<TaskRun> taskRunList) {
     
     this.taskRunList = taskRunList;
     return this;
@@ -302,28 +303,31 @@ public class Execution {
    * Get taskRunList
    * @return taskRunList
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_LIST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskRun> getTaskRunList() {
     return taskRunList;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_LIST)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskRunList(@javax.annotation.Nonnull List<TaskRun> taskRunList) {
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_LIST, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskRunList(@javax.annotation.Nullable List<TaskRun> taskRunList) {
     this.taskRunList = taskRunList;
   }
 
-  public Execution inputs(@javax.annotation.Nonnull Map<String, Object> inputs) {
+  public Execution inputs(@javax.annotation.Nullable Map<String, Object> inputs) {
     
     this.inputs = inputs;
     return this;
   }
 
   public Execution putInputsItem(String key, Object inputsItem) {
+    if (this.inputs == null) {
+      this.inputs = new HashMap<>();
+    }
     this.inputs.put(key, inputsItem);
     return this;
   }
@@ -332,28 +336,31 @@ public class Execution {
    * Get inputs
    * @return inputs
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getInputs() {
     return inputs;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setInputs(@javax.annotation.Nonnull Map<String, Object> inputs) {
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
     this.inputs = inputs;
   }
 
-  public Execution outputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
+  public Execution outputs(@javax.annotation.Nullable Map<String, Object> outputs) {
     
     this.outputs = outputs;
     return this;
   }
 
   public Execution putOutputsItem(String key, Object outputsItem) {
+    if (this.outputs == null) {
+      this.outputs = new HashMap<>();
+    }
     this.outputs.put(key, outputsItem);
     return this;
   }
@@ -362,28 +369,31 @@ public class Execution {
    * Get outputs
    * @return outputs
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getOutputs() {
     return outputs;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OUTPUTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOutputs(@javax.annotation.Nonnull Map<String, Object> outputs) {
+  @JsonProperty(value = JSON_PROPERTY_OUTPUTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputs(@javax.annotation.Nullable Map<String, Object> outputs) {
     this.outputs = outputs;
   }
 
-  public Execution variables(@javax.annotation.Nonnull Map<String, Object> variables) {
+  public Execution variables(@javax.annotation.Nullable Map<String, Object> variables) {
     
     this.variables = variables;
     return this;
   }
 
   public Execution putVariablesItem(String key, Object variablesItem) {
+    if (this.variables == null) {
+      this.variables = new HashMap<>();
+    }
     this.variables.put(key, variablesItem);
     return this;
   }
@@ -392,18 +402,18 @@ public class Execution {
    * Get variables
    * @return variables
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getVariables() {
     return variables;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VARIABLES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVariables(@javax.annotation.Nonnull Map<String, Object> variables) {
+  @JsonProperty(value = JSON_PROPERTY_VARIABLES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVariables(@javax.annotation.Nullable Map<String, Object> variables) {
     this.variables = variables;
   }
 
@@ -418,7 +428,7 @@ public class Execution {
    * @return state
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
@@ -426,13 +436,13 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setState(@javax.annotation.Nonnull State state) {
     this.state = state;
   }
 
-  public Execution parentId(@javax.annotation.Nonnull String parentId) {
+  public Execution parentId(@javax.annotation.Nullable String parentId) {
     
     this.parentId = parentId;
     return this;
@@ -442,22 +452,22 @@ public class Execution {
    * Get parentId
    * @return parentId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PARENT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PARENT_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getParentId() {
     return parentId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARENT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setParentId(@javax.annotation.Nonnull String parentId) {
+  @JsonProperty(value = JSON_PROPERTY_PARENT_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParentId(@javax.annotation.Nullable String parentId) {
     this.parentId = parentId;
   }
 
-  public Execution originalId(@javax.annotation.Nonnull String originalId) {
+  public Execution originalId(@javax.annotation.Nullable String originalId) {
     
     this.originalId = originalId;
     return this;
@@ -467,22 +477,22 @@ public class Execution {
    * Get originalId
    * @return originalId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ORIGINAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getOriginalId() {
     return originalId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORIGINAL_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOriginalId(@javax.annotation.Nonnull String originalId) {
+  @JsonProperty(value = JSON_PROPERTY_ORIGINAL_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOriginalId(@javax.annotation.Nullable String originalId) {
     this.originalId = originalId;
   }
 
-  public Execution trigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
+  public Execution trigger(@javax.annotation.Nullable ExecutionTrigger trigger) {
     
     this.trigger = trigger;
     return this;
@@ -492,18 +502,18 @@ public class Execution {
    * Get trigger
    * @return trigger
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionTrigger getTrigger() {
     return trigger;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTrigger(@javax.annotation.Nonnull ExecutionTrigger trigger) {
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTrigger(@javax.annotation.Nullable ExecutionTrigger trigger) {
     this.trigger = trigger;
   }
 
@@ -518,7 +528,7 @@ public class Execution {
    * @return deleted
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -526,13 +536,13 @@ public class Execution {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
   }
 
-  public Execution metadata(@javax.annotation.Nonnull ExecutionMetadata metadata) {
+  public Execution metadata(@javax.annotation.Nullable ExecutionMetadata metadata) {
     
     this.metadata = metadata;
     return this;
@@ -542,18 +552,18 @@ public class Execution {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ExecutionMetadata getMetadata() {
     return metadata;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetadata(@javax.annotation.Nonnull ExecutionMetadata metadata) {
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetadata(@javax.annotation.Nullable ExecutionMetadata metadata) {
     this.metadata = metadata;
   }
 
@@ -574,14 +584,14 @@ public class Execution {
         return scheduleDate.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_SCHEDULE_DATE)
+  @JsonProperty(value = JSON_PROPERTY_SCHEDULE_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<OffsetDateTime> getScheduleDate_JsonNullable() {
     return scheduleDate;
   }
   
-  @JsonProperty(JSON_PROPERTY_SCHEDULE_DATE)
+  @JsonProperty(value = JSON_PROPERTY_SCHEDULE_DATE, required = false)
   public void setScheduleDate_JsonNullable(JsonNullable<OffsetDateTime> scheduleDate) {
     this.scheduleDate = scheduleDate;
   }
@@ -590,7 +600,7 @@ public class Execution {
     this.scheduleDate = JsonNullable.<OffsetDateTime>of(scheduleDate);
   }
 
-  public Execution traceParent(@javax.annotation.Nonnull String traceParent) {
+  public Execution traceParent(@javax.annotation.Nullable String traceParent) {
     
     this.traceParent = traceParent;
     return this;
@@ -600,18 +610,18 @@ public class Execution {
    * Get traceParent
    * @return traceParent
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TRACE_PARENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTraceParent() {
     return traceParent;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRACE_PARENT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTraceParent(@javax.annotation.Nonnull String traceParent) {
+  @JsonProperty(value = JSON_PROPERTY_TRACE_PARENT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTraceParent(@javax.annotation.Nullable String traceParent) {
     this.traceParent = traceParent;
   }
 
@@ -644,14 +654,14 @@ public class Execution {
         return fixtures.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<TaskFixture>> getFixtures_JsonNullable() {
     return fixtures;
   }
   
-  @JsonProperty(JSON_PROPERTY_FIXTURES)
+  @JsonProperty(value = JSON_PROPERTY_FIXTURES, required = false)
   public void setFixtures_JsonNullable(JsonNullable<List<TaskFixture>> fixtures) {
     this.fixtures = fixtures;
   }
@@ -677,14 +687,14 @@ public class Execution {
         return kind.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_KIND)
+  @JsonProperty(value = JSON_PROPERTY_KIND, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<ExecutionKind> getKind_JsonNullable() {
     return kind;
   }
   
-  @JsonProperty(JSON_PROPERTY_KIND)
+  @JsonProperty(value = JSON_PROPERTY_KIND, required = false)
   public void setKind_JsonNullable(JsonNullable<ExecutionKind> kind) {
     this.kind = kind;
   }
@@ -722,14 +732,14 @@ public class Execution {
         return breakpoints.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_BREAKPOINTS)
+  @JsonProperty(value = JSON_PROPERTY_BREAKPOINTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<Breakpoint>> getBreakpoints_JsonNullable() {
     return breakpoints;
   }
   
-  @JsonProperty(JSON_PROPERTY_BREAKPOINTS)
+  @JsonProperty(value = JSON_PROPERTY_BREAKPOINTS, required = false)
   public void setBreakpoints_JsonNullable(JsonNullable<List<Breakpoint>> breakpoints) {
     this.breakpoints = breakpoints;
   }

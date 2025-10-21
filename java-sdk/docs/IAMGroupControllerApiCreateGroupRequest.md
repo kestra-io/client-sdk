@@ -8,8 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
-|**description** | **String** |  |  |
-|**membersId** | **List&lt;String&gt;** |  |  |
+|**description** | **String** |  |  [optional] |
+|**membersId** | **List&lt;String&gt;** |  |  [optional] |
 
 
 

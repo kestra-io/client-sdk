@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerAuditLogOption.JSON_PROPERTY_USERNAME
 })
 @JsonTypeName("AuditLogController.AuditLogOption")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerAuditLogOption {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_DATE = "date";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime date;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String username;
 
   public AuditLogControllerAuditLogOption() {
   }
 
-  public AuditLogControllerAuditLogOption id(@javax.annotation.Nonnull String id) {
+  public AuditLogControllerAuditLogOption id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -60,22 +61,22 @@ public class AuditLogControllerAuditLogOption {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public AuditLogControllerAuditLogOption date(@javax.annotation.Nonnull OffsetDateTime date) {
+  public AuditLogControllerAuditLogOption date(@javax.annotation.Nullable OffsetDateTime date) {
     
     this.date = date;
     return this;
@@ -85,22 +86,22 @@ public class AuditLogControllerAuditLogOption {
    * Get date
    * @return date
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getDate() {
     return date;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDate(@javax.annotation.Nullable OffsetDateTime date) {
     this.date = date;
   }
 
-  public AuditLogControllerAuditLogOption username(@javax.annotation.Nonnull String username) {
+  public AuditLogControllerAuditLogOption username(@javax.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -110,18 +111,18 @@ public class AuditLogControllerAuditLogOption {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;
   }
 

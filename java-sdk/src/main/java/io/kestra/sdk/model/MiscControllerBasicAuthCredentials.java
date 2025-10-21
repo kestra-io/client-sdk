@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,24 +33,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MiscControllerBasicAuthCredentials.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("MiscController.BasicAuthCredentials")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MiscControllerBasicAuthCredentials {
   public static final String JSON_PROPERTY_UID = "uid";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String uid;
 
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String password;
 
   public MiscControllerBasicAuthCredentials() {
   }
 
-  public MiscControllerBasicAuthCredentials uid(@javax.annotation.Nonnull String uid) {
+  public MiscControllerBasicAuthCredentials uid(@javax.annotation.Nullable String uid) {
     
     this.uid = uid;
     return this;
@@ -59,22 +60,22 @@ public class MiscControllerBasicAuthCredentials {
    * Get uid
    * @return uid
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_UID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUid() {
     return uid;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUid(@javax.annotation.Nonnull String uid) {
+  @JsonProperty(value = JSON_PROPERTY_UID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUid(@javax.annotation.Nullable String uid) {
     this.uid = uid;
   }
 
-  public MiscControllerBasicAuthCredentials username(@javax.annotation.Nonnull String username) {
+  public MiscControllerBasicAuthCredentials username(@javax.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -84,22 +85,22 @@ public class MiscControllerBasicAuthCredentials {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public MiscControllerBasicAuthCredentials password(@javax.annotation.Nonnull String password) {
+  public MiscControllerBasicAuthCredentials password(@javax.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -109,18 +110,18 @@ public class MiscControllerBasicAuthCredentials {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
     return password;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(@javax.annotation.Nullable String password) {
     this.password = password;
   }
 

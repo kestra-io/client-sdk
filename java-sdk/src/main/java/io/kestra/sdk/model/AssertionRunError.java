@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,14 +31,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AssertionRunError.JSON_PROPERTY_MESSAGE,
   AssertionRunError.JSON_PROPERTY_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AssertionRunError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
   @javax.annotation.Nonnull
   private String message;
 
   public static final String JSON_PROPERTY_DETAILS = "details";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String details;
 
   public AssertionRunError() {
@@ -54,7 +55,7 @@ public class AssertionRunError {
    * @return message
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMessage() {
@@ -62,13 +63,13 @@ public class AssertionRunError {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMessage(@javax.annotation.Nonnull String message) {
     this.message = message;
   }
 
-  public AssertionRunError details(@javax.annotation.Nonnull String details) {
+  public AssertionRunError details(@javax.annotation.Nullable String details) {
     
     this.details = details;
     return this;
@@ -78,18 +79,18 @@ public class AssertionRunError {
    * Get details
    * @return details
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DETAILS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDetails() {
     return details;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DETAILS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDetails(@javax.annotation.Nonnull String details) {
+  @JsonProperty(value = JSON_PROPERTY_DETAILS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetails(@javax.annotation.Nullable String details) {
     this.details = details;
   }
 

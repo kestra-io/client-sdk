@@ -11,9 +11,9 @@
 |**expected** | **Object** |  |  |
 |**actual** | **Object** |  |  |
 |**isSuccess** | **Boolean** |  |  |
-|**taskId** | **String** |  |  |
-|**description** | **String** |  |  |
-|**errorMessage** | **String** |  |  |
+|**taskId** | **String** |  |  [optional] |
+|**description** | **String** |  |  [optional] |
+|**errorMessage** | **String** |  |  [optional] |
 
 
 

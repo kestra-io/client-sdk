@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AttributeReference.JSON_PROPERTY_ATTRIBUTE_NAME,
   AttributeReference.JSON_PROPERTY_SUB_ATTRIBUTE_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AttributeReference {
   public static final String JSON_PROPERTY_FULL_ATTRIBUTE_NAME = "fullAttributeName";
   @javax.annotation.Nullable
@@ -74,7 +75,7 @@ public class AttributeReference {
    * @return fullAttributeName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FULL_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FULL_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFullAttributeName() {
@@ -82,7 +83,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FULL_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FULL_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFullAttributeName(@javax.annotation.Nullable String fullAttributeName) {
     this.fullAttributeName = fullAttributeName;
@@ -99,7 +100,7 @@ public class AttributeReference {
    * @return fullyQualifiedAttributeName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFullyQualifiedAttributeName() {
@@ -107,7 +108,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FULLY_QUALIFIED_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFullyQualifiedAttributeName(@javax.annotation.Nullable String fullyQualifiedAttributeName) {
     this.fullyQualifiedAttributeName = fullyQualifiedAttributeName;
@@ -124,7 +125,7 @@ public class AttributeReference {
    * @return attributeBase
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_BASE)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_BASE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAttributeBase() {
@@ -132,7 +133,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_BASE)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_BASE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttributeBase(@javax.annotation.Nullable String attributeBase) {
     this.attributeBase = attributeBase;
@@ -149,7 +150,7 @@ public class AttributeReference {
    * @return urn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonProperty(value = JSON_PROPERTY_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrn() {
@@ -157,7 +158,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonProperty(value = JSON_PROPERTY_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrn(@javax.annotation.Nullable String urn) {
     this.urn = urn;
@@ -174,7 +175,7 @@ public class AttributeReference {
    * @return attributeName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAttributeName() {
@@ -182,7 +183,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttributeName(@javax.annotation.Nullable String attributeName) {
     this.attributeName = attributeName;
@@ -199,7 +200,7 @@ public class AttributeReference {
    * @return subAttributeName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_SUB_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSubAttributeName() {
@@ -207,7 +208,7 @@ public class AttributeReference {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_SUB_ATTRIBUTE_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubAttributeName(@javax.annotation.Nullable String subAttributeName) {
     this.subAttributeName = subAttributeName;

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TheLabelsToPassToTheExecutionCreated.JSON_PROPERTY_EMPTY
 })
 @JsonTypeName("The_labels_to_pass_to_the_execution_created_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TheLabelsToPassToTheExecutionCreated {
   public static final String JSON_PROPERTY_EMPTY = "empty";
   @javax.annotation.Nullable
@@ -52,7 +53,7 @@ public class TheLabelsToPassToTheExecutionCreated {
    * @return empty
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -60,7 +61,7 @@ public class TheLabelsToPassToTheExecutionCreated {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmpty(@javax.annotation.Nullable Boolean empty) {
     this.empty = empty;

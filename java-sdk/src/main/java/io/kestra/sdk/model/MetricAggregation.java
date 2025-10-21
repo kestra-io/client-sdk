@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,14 +33,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricAggregation.JSON_PROPERTY_VALUE,
   MetricAggregation.JSON_PROPERTY_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricAggregation {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Double value;
 
   public static final String JSON_PROPERTY_DATE = "date";
@@ -60,7 +61,7 @@ public class MetricAggregation {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -68,13 +69,13 @@ public class MetricAggregation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public MetricAggregation value(@javax.annotation.Nonnull Double value) {
+  public MetricAggregation value(@javax.annotation.Nullable Double value) {
     
     this.value = value;
     return this;
@@ -84,18 +85,18 @@ public class MetricAggregation {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Double getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Double value) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@javax.annotation.Nullable Double value) {
     this.value = value;
   }
 
@@ -110,7 +111,7 @@ public class MetricAggregation {
    * @return date
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -118,7 +119,7 @@ public class MetricAggregation {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
     this.date = date;

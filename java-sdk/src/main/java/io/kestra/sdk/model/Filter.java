@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Filter.JSON_PROPERTY_FILTER,
   Filter.JSON_PROPERTY_EXPRESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Filter {
   public static final String JSON_PROPERTY_FILTER = "filter";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String filter;
 
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
@@ -43,7 +44,7 @@ public class Filter {
   public Filter() {
   }
 
-  public Filter filter(@javax.annotation.Nonnull String filter) {
+  public Filter filter(@javax.annotation.Nullable String filter) {
     
     this.filter = filter;
     return this;
@@ -53,18 +54,18 @@ public class Filter {
    * Get filter
    * @return filter
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FILTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFilter() {
     return filter;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FILTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFilter(@javax.annotation.Nonnull String filter) {
+  @JsonProperty(value = JSON_PROPERTY_FILTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFilter(@javax.annotation.Nullable String filter) {
     this.filter = filter;
   }
 
@@ -79,7 +80,7 @@ public class Filter {
    * @return expression
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getExpression() {
@@ -87,7 +88,7 @@ public class Filter {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpression(@javax.annotation.Nullable Object expression) {
     this.expression = expression;
