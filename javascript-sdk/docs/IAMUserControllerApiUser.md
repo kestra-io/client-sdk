@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**username** | **String** |  | 
-**displayName** | **String** |  | 
-**firstName** | **String** |  | 
-**lastName** | **String** |  | 
-**email** | **String** |  | 
-**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
-**auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
-**groups** | [**[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | 
-**superAdmin** | **Boolean** |  | 
-**restricted** | **Boolean** |  | 
+**id** | **String** |  | [optional] 
+**username** | **String** |  | [optional] 
+**displayName** | **String** |  | [optional] 
+**firstName** | **String** |  | [optional] 
+**lastName** | **String** |  | [optional] 
+**email** | **String** |  | [optional] 
+**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
+**auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
+**groups** | [**[IAMUserControllerApiGroup]**](IAMUserControllerApiGroup.md) |  | [optional] 
+**superAdmin** | **Boolean** |  | [optional] 
+**restricted** | **Boolean** |  | [optional] 
 
 

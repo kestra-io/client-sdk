@@ -35,7 +35,7 @@ import ValidateConstraintViolation from '../model/ValidateConstraintViolation';
 /**
 * Flows service.
 * @module api/FlowsApi
-* @version 1.0.0
+* @version v1.0.4
 */
 export default class FlowsApi {
 
@@ -1654,7 +1654,7 @@ export default class FlowsApi {
     /**
      * Validate trigger
      * @param {String} tenant 
-     * @param {String} body The trigger
+     * @param {Object.<String, Object>} body The trigger
      * @param {module:api/FlowsApi~validateTriggerCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ValidateConstraintViolation}
      */

@@ -19,27 +19,16 @@ import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 /**
  * The IAMUserControllerApiUser model module.
  * @module model/IAMUserControllerApiUser
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMUserControllerApiUser {
     /**
      * Constructs a new <code>IAMUserControllerApiUser</code>.
      * @alias module:model/IAMUserControllerApiUser
-     * @param id {String} 
-     * @param username {String} 
-     * @param displayName {String} 
-     * @param firstName {String} 
-     * @param lastName {String} 
-     * @param email {String} 
-     * @param tenants {Array.<module:model/ApiTenantSummary>} 
-     * @param auths {Array.<module:model/IAMUserControllerApiUserAuth>} 
-     * @param groups {Array.<module:model/IAMUserControllerApiGroup>} 
-     * @param superAdmin {Boolean} 
-     * @param restricted {Boolean} 
      */
-    constructor(id, username, displayName, firstName, lastName, email, tenants, auths, groups, superAdmin, restricted) { 
+    constructor() { 
         
-        IAMUserControllerApiUser.initialize(this, id, username, displayName, firstName, lastName, email, tenants, auths, groups, superAdmin, restricted);
+        IAMUserControllerApiUser.initialize(this);
     }
 
     /**
@@ -47,18 +36,7 @@ class IAMUserControllerApiUser {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, username, displayName, firstName, lastName, email, tenants, auths, groups, superAdmin, restricted) { 
-        obj['id'] = id;
-        obj['username'] = username;
-        obj['displayName'] = displayName;
-        obj['firstName'] = firstName;
-        obj['lastName'] = lastName;
-        obj['email'] = email;
-        obj['tenants'] = tenants;
-        obj['auths'] = auths;
-        obj['groups'] = groups;
-        obj['superAdmin'] = superAdmin;
-        obj['restricted'] = restricted;
+    static initialize(obj) { 
     }
 
     /**
@@ -115,12 +93,6 @@ class IAMUserControllerApiUser {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMUserControllerApiUser</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMUserControllerApiUser.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -182,7 +154,7 @@ class IAMUserControllerApiUser {
 
 }
 
-IAMUserControllerApiUser.RequiredProperties = ["id", "username", "displayName", "firstName", "lastName", "email", "tenants", "auths", "groups", "superAdmin", "restricted"];
+
 
 /**
  * @member {String} id

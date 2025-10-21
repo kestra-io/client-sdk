@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AbstractMetricEntryObject model module.
  * @module model/AbstractMetricEntryObject
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AbstractMetricEntryObject {
     /**

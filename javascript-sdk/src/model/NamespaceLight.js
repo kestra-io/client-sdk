@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The NamespaceLight model module.
  * @module model/NamespaceLight
- * @version 1.0.0
+ * @version v1.0.4
  */
 class NamespaceLight {
     /**

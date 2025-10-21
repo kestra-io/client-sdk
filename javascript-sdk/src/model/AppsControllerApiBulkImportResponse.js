@@ -17,18 +17,16 @@ import AppsControllerApiBulkImportResponseError from './AppsControllerApiBulkImp
 /**
  * The AppsControllerApiBulkImportResponse model module.
  * @module model/AppsControllerApiBulkImportResponse
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AppsControllerApiBulkImportResponse {
     /**
      * Constructs a new <code>AppsControllerApiBulkImportResponse</code>.
      * @alias module:model/AppsControllerApiBulkImportResponse
-     * @param success {Array.<String>} 
-     * @param errors {Array.<module:model/AppsControllerApiBulkImportResponseError>} 
      */
-    constructor(success, errors) { 
+    constructor() { 
         
-        AppsControllerApiBulkImportResponse.initialize(this, success, errors);
+        AppsControllerApiBulkImportResponse.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class AppsControllerApiBulkImportResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, success, errors) { 
-        obj['success'] = success;
-        obj['errors'] = errors;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class AppsControllerApiBulkImportResponse {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiBulkImportResponse</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppsControllerApiBulkImportResponse.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['success'])) {
             throw new Error("Expected the field `success` to be an array in the JSON data but got " + data['success']);
@@ -95,7 +85,7 @@ class AppsControllerApiBulkImportResponse {
 
 }
 
-AppsControllerApiBulkImportResponse.RequiredProperties = ["success", "errors"];
+
 
 /**
  * @member {Array.<String>} success

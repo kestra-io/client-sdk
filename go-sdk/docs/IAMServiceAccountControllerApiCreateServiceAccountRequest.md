@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Description** | **string** |  | 
-**SuperAdmin** | **bool** |  | 
-**Tenants** | **[]string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**Tenants** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewIAMServiceAccountControllerApiCreateServiceAccountRequest
 
-`func NewIAMServiceAccountControllerApiCreateServiceAccountRequest(name string, description string, superAdmin bool, tenants []string, ) *IAMServiceAccountControllerApiCreateServiceAccountRequest`
+`func NewIAMServiceAccountControllerApiCreateServiceAccountRequest(name string, ) *IAMServiceAccountControllerApiCreateServiceAccountRequest`
 
 NewIAMServiceAccountControllerApiCreateServiceAccountRequest instantiates a new IAMServiceAccountControllerApiCreateServiceAccountRequest object
 This constructor will assign default values to properties that have it defined,
@@ -67,6 +67,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -87,6 +92,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -107,6 +117,11 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
+### HasTenants
+
+`func (o *IAMServiceAccountControllerApiCreateServiceAccountRequest) HasTenants() bool`
+
+HasTenants returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

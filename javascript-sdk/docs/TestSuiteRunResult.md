@@ -11,6 +11,6 @@ Name | Type | Description | Notes
 **state** | [**TestState**](TestState.md) |  | 
 **startDate** | **Date** |  | 
 **endDate** | **Date** |  | 
-**results** | [**[UnitTestResult]**](UnitTestResult.md) |  | 
+**results** | [**[UnitTestResult]**](UnitTestResult.md) |  | [optional] 
 
 

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The InputType model module.
  * @module model/InputType
- * @version 1.0.0
+ * @version v1.0.4
  */
 class InputType {
     /**
      * Constructs a new <code>InputType</code>.
      * @alias module:model/InputType
-     * @param type {String} 
-     * @param cls {String} 
      */
-    constructor(type, cls) { 
+    constructor() { 
         
-        InputType.initialize(this, type, cls);
+        InputType.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InputType {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, type, cls) { 
-        obj['type'] = type;
-        obj['cls'] = cls;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class InputType {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InputType</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InputType.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['type'] && !(typeof data['type'] === 'string' || data['type'] instanceof String)) {
             throw new Error("Expected the field `type` to be a primitive type in the JSON string but got " + data['type']);
@@ -88,7 +78,7 @@ class InputType {
 
 }
 
-InputType.RequiredProperties = ["type", "cls"];
+
 
 /**
  * @member {String} type

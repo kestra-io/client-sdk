@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the InstanceControllerApiPluginVersionDetails type satisfies the MappedNullable interface at compile time
@@ -20,13 +19,13 @@ var _ MappedNullable = &InstanceControllerApiPluginVersionDetails{}
 
 // InstanceControllerApiPluginVersionDetails struct for InstanceControllerApiPluginVersionDetails
 type InstanceControllerApiPluginVersionDetails struct {
-	ArtifactId           string                                                      `json:"artifactId"`
-	GroupId              string                                                      `json:"groupId"`
-	Version              string                                                      `json:"version"`
-	Title                string                                                      `json:"title"`
-	Description          string                                                      `json:"description"`
-	Icon                 string                                                      `json:"icon"`
-	Classes              []InstanceControllerApiPluginVersionDetailsApiPluginClasses `json:"classes"`
+	ArtifactId           *string                                                     `json:"artifactId,omitempty"`
+	GroupId              *string                                                     `json:"groupId,omitempty"`
+	Version              *string                                                     `json:"version,omitempty"`
+	Title                *string                                                     `json:"title,omitempty"`
+	Description          *string                                                     `json:"description,omitempty"`
+	Icon                 *string                                                     `json:"icon,omitempty"`
+	Classes              []InstanceControllerApiPluginVersionDetailsApiPluginClasses `json:"classes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -36,15 +35,8 @@ type _InstanceControllerApiPluginVersionDetails InstanceControllerApiPluginVersi
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstanceControllerApiPluginVersionDetails(artifactId string, groupId string, version string, title string, description string, icon string, classes []InstanceControllerApiPluginVersionDetailsApiPluginClasses) *InstanceControllerApiPluginVersionDetails {
+func NewInstanceControllerApiPluginVersionDetails() *InstanceControllerApiPluginVersionDetails {
 	this := InstanceControllerApiPluginVersionDetails{}
-	this.ArtifactId = artifactId
-	this.GroupId = groupId
-	this.Version = version
-	this.Title = title
-	this.Description = description
-	this.Icon = icon
-	this.Classes = classes
 	return &this
 }
 
@@ -56,170 +48,226 @@ func NewInstanceControllerApiPluginVersionDetailsWithDefaults() *InstanceControl
 	return &this
 }
 
-// GetArtifactId returns the ArtifactId field value
+// GetArtifactId returns the ArtifactId field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetArtifactId() string {
-	if o == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		var ret string
 		return ret
 	}
-
-	return o.ArtifactId
+	return *o.ArtifactId
 }
 
-// GetArtifactIdOk returns a tuple with the ArtifactId field value
+// GetArtifactIdOk returns a tuple with the ArtifactId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetArtifactIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		return nil, false
 	}
-	return &o.ArtifactId, true
+	return o.ArtifactId, true
 }
 
-// SetArtifactId sets field value
+// HasArtifactId returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasArtifactId() bool {
+	if o != nil && !IsNil(o.ArtifactId) {
+		return true
+	}
+
+	return false
+}
+
+// SetArtifactId gets a reference to the given string and assigns it to the ArtifactId field.
 func (o *InstanceControllerApiPluginVersionDetails) SetArtifactId(v string) {
-	o.ArtifactId = v
+	o.ArtifactId = &v
 }
 
-// GetGroupId returns the GroupId field value
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetGroupId() string {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		var ret string
 		return ret
 	}
-
-	return o.GroupId
+	return *o.GroupId
 }
 
-// GetGroupIdOk returns a tuple with the GroupId field value
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetGroupIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		return nil, false
 	}
-	return &o.GroupId, true
+	return o.GroupId, true
 }
 
-// SetGroupId sets field value
+// HasGroupId returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
 func (o *InstanceControllerApiPluginVersionDetails) SetGroupId(v string) {
-	o.GroupId = v
+	o.GroupId = &v
 }
 
-// GetVersion returns the Version field value
+// GetVersion returns the Version field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetVersion() string {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
-
-	return o.Version
+	return *o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetVersionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
-	return &o.Version, true
+	return o.Version, true
 }
 
-// SetVersion sets field value
+// HasVersion returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
 func (o *InstanceControllerApiPluginVersionDetails) SetVersion(v string) {
-	o.Version = v
+	o.Version = &v
 }
 
-// GetTitle returns the Title field value
+// GetTitle returns the Title field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetTitle() string {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
-
-	return o.Title
+	return *o.Title
 }
 
-// GetTitleOk returns a tuple with the Title field value
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetTitleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
-	return &o.Title, true
+	return o.Title, true
 }
 
-// SetTitle sets field value
+// HasTitle returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasTitle() bool {
+	if o != nil && !IsNil(o.Title) {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *InstanceControllerApiPluginVersionDetails) SetTitle(v string) {
-	o.Title = v
+	o.Title = &v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *InstanceControllerApiPluginVersionDetails) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetIcon returns the Icon field value
+// GetIcon returns the Icon field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetIcon() string {
-	if o == nil {
+	if o == nil || IsNil(o.Icon) {
 		var ret string
 		return ret
 	}
-
-	return o.Icon
+	return *o.Icon
 }
 
-// GetIconOk returns a tuple with the Icon field value
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetIconOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Icon) {
 		return nil, false
 	}
-	return &o.Icon, true
+	return o.Icon, true
 }
 
-// SetIcon sets field value
+// HasIcon returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
 func (o *InstanceControllerApiPluginVersionDetails) SetIcon(v string) {
-	o.Icon = v
+	o.Icon = &v
 }
 
-// GetClasses returns the Classes field value
+// GetClasses returns the Classes field value if set, zero value otherwise.
 func (o *InstanceControllerApiPluginVersionDetails) GetClasses() []InstanceControllerApiPluginVersionDetailsApiPluginClasses {
-	if o == nil {
+	if o == nil || IsNil(o.Classes) {
 		var ret []InstanceControllerApiPluginVersionDetailsApiPluginClasses
 		return ret
 	}
-
 	return o.Classes
 }
 
-// GetClassesOk returns a tuple with the Classes field value
+// GetClassesOk returns a tuple with the Classes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstanceControllerApiPluginVersionDetails) GetClassesOk() ([]InstanceControllerApiPluginVersionDetailsApiPluginClasses, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Classes) {
 		return nil, false
 	}
 	return o.Classes, true
 }
 
-// SetClasses sets field value
+// HasClasses returns a boolean if a field has been set.
+func (o *InstanceControllerApiPluginVersionDetails) HasClasses() bool {
+	if o != nil && !IsNil(o.Classes) {
+		return true
+	}
+
+	return false
+}
+
+// SetClasses gets a reference to the given []InstanceControllerApiPluginVersionDetailsApiPluginClasses and assigns it to the Classes field.
 func (o *InstanceControllerApiPluginVersionDetails) SetClasses(v []InstanceControllerApiPluginVersionDetailsApiPluginClasses) {
 	o.Classes = v
 }
@@ -234,13 +282,27 @@ func (o InstanceControllerApiPluginVersionDetails) MarshalJSON() ([]byte, error)
 
 func (o InstanceControllerApiPluginVersionDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["artifactId"] = o.ArtifactId
-	toSerialize["groupId"] = o.GroupId
-	toSerialize["version"] = o.Version
-	toSerialize["title"] = o.Title
-	toSerialize["description"] = o.Description
-	toSerialize["icon"] = o.Icon
-	toSerialize["classes"] = o.Classes
+	if !IsNil(o.ArtifactId) {
+		toSerialize["artifactId"] = o.ArtifactId
+	}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Title) {
+		toSerialize["title"] = o.Title
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Icon) {
+		toSerialize["icon"] = o.Icon
+	}
+	if !IsNil(o.Classes) {
+		toSerialize["classes"] = o.Classes
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -250,33 +312,6 @@ func (o InstanceControllerApiPluginVersionDetails) ToMap() (map[string]interface
 }
 
 func (o *InstanceControllerApiPluginVersionDetails) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"artifactId",
-		"groupId",
-		"version",
-		"title",
-		"description",
-		"icon",
-		"classes",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varInstanceControllerApiPluginVersionDetails := _InstanceControllerApiPluginVersionDetails{}
 
 	err = json.Unmarshal(data, &varInstanceControllerApiPluginVersionDetails)

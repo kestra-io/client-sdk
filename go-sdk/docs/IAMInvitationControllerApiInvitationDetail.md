@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Roles** | [**[]ApiRoleSummary**](ApiRoleSummary.md) |  | 
-**Groups** | [**[]ApiGroupSummary**](ApiGroupSummary.md) |  | 
-**TenantId** | **string** |  | 
-**Email** | **string** |  | 
-**Status** | [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | 
-**SentAt** | **time.Time** |  | 
-**ExpiredAt** | **time.Time** |  | 
-**AcceptedAt** | **time.Time** |  | 
-**SuperAdmin** | **bool** |  | 
-**Link** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Roles** | Pointer to [**[]ApiRoleSummary**](ApiRoleSummary.md) |  | [optional] 
+**Groups** | Pointer to [**[]ApiGroupSummary**](ApiGroupSummary.md) |  | [optional] 
+**TenantId** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to [**InvitationInvitationStatus**](InvitationInvitationStatus.md) |  | [optional] 
+**SentAt** | Pointer to **time.Time** |  | [optional] 
+**ExpiredAt** | Pointer to **time.Time** |  | [optional] 
+**AcceptedAt** | Pointer to **time.Time** |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**Link** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewIAMInvitationControllerApiInvitationDetail
 
-`func NewIAMInvitationControllerApiInvitationDetail(id string, roles []ApiRoleSummary, groups []ApiGroupSummary, tenantId string, email string, status InvitationInvitationStatus, sentAt time.Time, expiredAt time.Time, acceptedAt time.Time, superAdmin bool, link string, ) *IAMInvitationControllerApiInvitationDetail`
+`func NewIAMInvitationControllerApiInvitationDetail() *IAMInvitationControllerApiInvitationDetail`
 
 NewIAMInvitationControllerApiInvitationDetail instantiates a new IAMInvitationControllerApiInvitationDetail object
 This constructor will assign default values to properties that have it defined,
@@ -54,6 +54,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetRoles
 
@@ -74,6 +79,11 @@ and a boolean to check if the value has been set.
 
 SetRoles sets Roles field to given value.
 
+### HasRoles
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasRoles() bool`
+
+HasRoles returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -94,6 +104,11 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
+### HasGroups
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 ### GetTenantId
 
@@ -114,6 +129,11 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
+### HasTenantId
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasTenantId() bool`
+
+HasTenantId returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -134,6 +154,11 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
+### HasEmail
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -154,6 +179,11 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
+### HasStatus
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
 
 ### GetSentAt
 
@@ -174,6 +204,11 @@ and a boolean to check if the value has been set.
 
 SetSentAt sets SentAt field to given value.
 
+### HasSentAt
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasSentAt() bool`
+
+HasSentAt returns a boolean if a field has been set.
 
 ### GetExpiredAt
 
@@ -194,6 +229,11 @@ and a boolean to check if the value has been set.
 
 SetExpiredAt sets ExpiredAt field to given value.
 
+### HasExpiredAt
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasExpiredAt() bool`
+
+HasExpiredAt returns a boolean if a field has been set.
 
 ### GetAcceptedAt
 
@@ -214,6 +254,11 @@ and a boolean to check if the value has been set.
 
 SetAcceptedAt sets AcceptedAt field to given value.
 
+### HasAcceptedAt
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasAcceptedAt() bool`
+
+HasAcceptedAt returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -234,6 +279,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetLink
 
@@ -254,6 +304,11 @@ and a boolean to check if the value has been set.
 
 SetLink sets Link field to given value.
 
+### HasLink
+
+`func (o *IAMInvitationControllerApiInvitationDetail) HasLink() bool`
+
+HasLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

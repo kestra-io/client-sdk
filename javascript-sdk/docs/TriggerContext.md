@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**disabled** | **Boolean** |  | [optional] 
+**disabled** | **Boolean** |  | [optional] [default to false]
 **tenantId** | **String** |  | [optional] 
 **namespace** | **String** |  | 
 **flowId** | **String** |  | 

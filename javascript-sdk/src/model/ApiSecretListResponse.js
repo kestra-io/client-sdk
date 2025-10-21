@@ -17,7 +17,7 @@ import ApiSecretMeta from './ApiSecretMeta';
 /**
  * The ApiSecretListResponse model module.
  * @module model/ApiSecretListResponse
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ApiSecretListResponse {
     /**
@@ -25,11 +25,10 @@ class ApiSecretListResponse {
      * @alias module:model/ApiSecretListResponse
      * @param readOnly {Boolean} 
      * @param results {Array.<module:model/ApiSecretMeta>} 
-     * @param total {Number} 
      */
-    constructor(readOnly, results, total) { 
+    constructor(readOnly, results) { 
         
-        ApiSecretListResponse.initialize(this, readOnly, results, total);
+        ApiSecretListResponse.initialize(this, readOnly, results);
     }
 
     /**
@@ -37,10 +36,9 @@ class ApiSecretListResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, readOnly, results, total) { 
+    static initialize(obj, readOnly, results) { 
         obj['readOnly'] = readOnly;
         obj['results'] = results;
-        obj['total'] = total;
     }
 
     /**
@@ -96,7 +94,7 @@ class ApiSecretListResponse {
 
 }
 
-ApiSecretListResponse.RequiredProperties = ["readOnly", "results", "total"];
+ApiSecretListResponse.RequiredProperties = ["readOnly", "results"];
 
 /**
  * @member {Boolean} readOnly

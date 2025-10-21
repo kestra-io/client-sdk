@@ -19,7 +19,7 @@ import TriggerContext from './TriggerContext';
 /**
  * The Trigger model module.
  * @module model/Trigger
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Trigger {
     /**
@@ -42,6 +42,7 @@ class Trigger {
      * Only for internal use.
      */
     static initialize(obj, namespace, flowId, triggerId, date) { 
+        obj['disabled'] = false;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['triggerId'] = triggerId;
@@ -158,8 +159,9 @@ Trigger.RequiredProperties = ["namespace", "flowId", "triggerId", "date"];
 
 /**
  * @member {Boolean} disabled
+ * @default false
  */
-Trigger.prototype['disabled'] = undefined;
+Trigger.prototype['disabled'] = false;
 
 /**
  * @member {String} tenantId
@@ -225,8 +227,9 @@ Trigger.prototype['workerId'] = undefined;
 // Implement TriggerContext interface:
 /**
  * @member {Boolean} disabled
+ * @default false
  */
-TriggerContext.prototype['disabled'] = undefined;
+TriggerContext.prototype['disabled'] = false;
 /**
  * @member {String} tenantId
  */

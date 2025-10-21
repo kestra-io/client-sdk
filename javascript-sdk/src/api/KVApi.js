@@ -21,7 +21,7 @@ import KVEntry from '../model/KVEntry';
 /**
 * KV service.
 * @module api/KVApi
-* @version 1.0.0
+* @version v1.0.4
 */
 export default class KVApi {
 
@@ -255,7 +255,7 @@ export default class KVApi {
      */
 
     /**
-     * List all keys for a namespace and parent namespaces
+     * List all keys for inherited namespaces
      * @param {String} namespace The namespace id
      * @param {String} tenant 
      * @param {module:api/KVApi~listKeysWithInheritenceCallback} callback The callback function, accepting three arguments: error, data, response

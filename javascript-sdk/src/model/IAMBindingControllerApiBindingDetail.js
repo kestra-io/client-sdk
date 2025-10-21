@@ -20,19 +20,16 @@ import IAMBindingControllerApiRole from './IAMBindingControllerApiRole';
 /**
  * The IAMBindingControllerApiBindingDetail model module.
  * @module model/IAMBindingControllerApiBindingDetail
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMBindingControllerApiBindingDetail {
     /**
      * Constructs a new <code>IAMBindingControllerApiBindingDetail</code>.
      * @alias module:model/IAMBindingControllerApiBindingDetail
-     * @param id {String} 
-     * @param type {module:model/BindingType} 
-     * @param role {module:model/IAMBindingControllerApiRole} 
      */
-    constructor(id, type, role) { 
+    constructor() { 
         
-        IAMBindingControllerApiBindingDetail.initialize(this, id, type, role);
+        IAMBindingControllerApiBindingDetail.initialize(this);
     }
 
     /**
@@ -40,10 +37,7 @@ class IAMBindingControllerApiBindingDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, type, role) { 
-        obj['id'] = id;
-        obj['type'] = type;
-        obj['role'] = role;
+    static initialize(obj) { 
     }
 
     /**
@@ -85,12 +79,6 @@ class IAMBindingControllerApiBindingDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMBindingControllerApiBindingDetail</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMBindingControllerApiBindingDetail.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -118,7 +106,7 @@ class IAMBindingControllerApiBindingDetail {
 
 }
 
-IAMBindingControllerApiBindingDetail.RequiredProperties = ["id", "type", "role"];
+
 
 /**
  * @member {String} id

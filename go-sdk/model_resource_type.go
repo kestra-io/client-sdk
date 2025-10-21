@@ -26,7 +26,7 @@ type ResourceType struct {
 	Meta                 Meta                                       `json:"meta"`
 	Id                   *string                                    `json:"id,omitempty"`
 	ExternalId           *string                                    `json:"externalId,omitempty"`
-	ResourceType         string                                     `json:"resourceType"`
+	ResourceType         *string                                    `json:"resourceType,omitempty"`
 	Name                 *string                                    `json:"name,omitempty"`
 	Description          *string                                    `json:"description,omitempty"`
 	Endpoint             *string                                    `json:"endpoint,omitempty"`
@@ -41,10 +41,9 @@ type _ResourceType ResourceType
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceType(meta Meta, resourceType string) *ResourceType {
+func NewResourceType(meta Meta) *ResourceType {
 	this := ResourceType{}
 	this.Meta = meta
-	this.ResourceType = resourceType
 	return &this
 }
 
@@ -240,28 +239,36 @@ func (o *ResourceType) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetResourceType returns the ResourceType field value
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *ResourceType) GetResourceType() string {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
-
-	return o.ResourceType
+	return *o.ResourceType
 }
 
-// GetResourceTypeOk returns a tuple with the ResourceType field value
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceType) GetResourceTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
-	return &o.ResourceType, true
+	return o.ResourceType, true
 }
 
-// SetResourceType sets field value
+// HasResourceType returns a boolean if a field has been set.
+func (o *ResourceType) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
 func (o *ResourceType) SetResourceType(v string) {
-	o.ResourceType = v
+	o.ResourceType = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -450,7 +457,9 @@ func (o ResourceType) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	toSerialize["resourceType"] = o.ResourceType
+	if !IsNil(o.ResourceType) {
+		toSerialize["resourceType"] = o.ResourceType
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
@@ -480,7 +489,6 @@ func (o *ResourceType) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"meta",
-		"resourceType",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -112,7 +112,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -611,7 +611,7 @@ func main() {
 	namespace := "namespace_example" // string | The namespace id
 	page := int32(56) // int32 | The current page (default to 1)
 	size := int32(56) // int32 | The current page size (default to 10)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
 
@@ -765,7 +765,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	apiSecretValue := *openapiclient.NewApiSecretValue([]openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example", "Value_example", "Description_example") // ApiSecretValue | 
+	apiSecretValue := *openapiclient.NewApiSecretValue("Key_example", "Value_example") // ApiSecretValue | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -916,7 +916,7 @@ import (
 func main() {
 	id := "id_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	namespace := *openapiclient.NewNamespace("Id_example", false, "Description_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []openapiclient.PluginDefault{*openapiclient.NewPluginDefault("Type_example", false, map[string]map[string]interface{}{"key": map[string]interface{}(123)})}, []openapiclient.NamespaceAllowedNamespace{*openapiclient.NewNamespaceAllowedNamespace("Namespace_example")}, *openapiclient.NewWorkerGroup()) // Namespace | The namespace
+	namespace := *openapiclient.NewNamespace("Id_example", false) // Namespace | The namespace
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

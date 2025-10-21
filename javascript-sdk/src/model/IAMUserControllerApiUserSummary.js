@@ -18,22 +18,16 @@ import IAMUserControllerApiUserAuth from './IAMUserControllerApiUserAuth';
 /**
  * The IAMUserControllerApiUserSummary model module.
  * @module model/IAMUserControllerApiUserSummary
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMUserControllerApiUserSummary {
     /**
      * Constructs a new <code>IAMUserControllerApiUserSummary</code>.
      * @alias module:model/IAMUserControllerApiUserSummary
-     * @param id {String} 
-     * @param username {String} 
-     * @param displayName {String} 
-     * @param tenants {Array.<module:model/ApiTenantSummary>} 
-     * @param auths {Array.<module:model/IAMUserControllerApiUserAuth>} 
-     * @param superAdmin {Boolean} 
      */
-    constructor(id, username, displayName, tenants, auths, superAdmin) { 
+    constructor() { 
         
-        IAMUserControllerApiUserSummary.initialize(this, id, username, displayName, tenants, auths, superAdmin);
+        IAMUserControllerApiUserSummary.initialize(this);
     }
 
     /**
@@ -41,13 +35,7 @@ class IAMUserControllerApiUserSummary {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, username, displayName, tenants, auths, superAdmin) { 
-        obj['id'] = id;
-        obj['username'] = username;
-        obj['displayName'] = displayName;
-        obj['tenants'] = tenants;
-        obj['auths'] = auths;
-        obj['superAdmin'] = superAdmin;
+    static initialize(obj) { 
     }
 
     /**
@@ -89,12 +77,6 @@ class IAMUserControllerApiUserSummary {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>IAMUserControllerApiUserSummary</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of IAMUserControllerApiUserSummary.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -134,7 +116,7 @@ class IAMUserControllerApiUserSummary {
 
 }
 
-IAMUserControllerApiUserSummary.RequiredProperties = ["id", "username", "displayName", "tenants", "auths", "superAdmin"];
+
 
 /**
  * @member {String} id

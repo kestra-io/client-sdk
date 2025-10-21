@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMServiceAccountControllerApiPatchServiceAccountRequest model module.
  * @module model/IAMServiceAccountControllerApiPatchServiceAccountRequest
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMServiceAccountControllerApiPatchServiceAccountRequest {
     /**
@@ -24,11 +24,10 @@ class IAMServiceAccountControllerApiPatchServiceAccountRequest {
      * Request payload for updating service account details
      * @alias module:model/IAMServiceAccountControllerApiPatchServiceAccountRequest
      * @param name {String} 
-     * @param description {String} 
      */
-    constructor(name, description) { 
+    constructor(name) { 
         
-        IAMServiceAccountControllerApiPatchServiceAccountRequest.initialize(this, name, description);
+        IAMServiceAccountControllerApiPatchServiceAccountRequest.initialize(this, name);
     }
 
     /**
@@ -36,9 +35,8 @@ class IAMServiceAccountControllerApiPatchServiceAccountRequest {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description) { 
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
     }
 
     /**
@@ -89,7 +87,7 @@ class IAMServiceAccountControllerApiPatchServiceAccountRequest {
 
 }
 
-IAMServiceAccountControllerApiPatchServiceAccountRequest.RequiredProperties = ["name", "description"];
+IAMServiceAccountControllerApiPatchServiceAccountRequest.RequiredProperties = ["name"];
 
 /**
  * @member {String} name

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginVersionDetailsApiPluginClass model module.
  * @module model/InstanceControllerApiPluginVersionDetailsApiPluginClass
- * @version 1.0.0
+ * @version v1.0.4
  */
 class InstanceControllerApiPluginVersionDetailsApiPluginClass {
     /**
      * Constructs a new <code>InstanceControllerApiPluginVersionDetailsApiPluginClass</code>.
      * @alias module:model/InstanceControllerApiPluginVersionDetailsApiPluginClass
-     * @param name {String} 
-     * @param icon {String} 
      */
-    constructor(name, icon) { 
+    constructor() { 
         
-        InstanceControllerApiPluginVersionDetailsApiPluginClass.initialize(this, name, icon);
+        InstanceControllerApiPluginVersionDetailsApiPluginClass.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClass {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, icon) { 
-        obj['name'] = name;
-        obj['icon'] = icon;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClass {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiPluginVersionDetailsApiPluginClass</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiPluginVersionDetailsApiPluginClass.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -88,7 +78,7 @@ class InstanceControllerApiPluginVersionDetailsApiPluginClass {
 
 }
 
-InstanceControllerApiPluginVersionDetailsApiPluginClass.RequiredProperties = ["name", "icon"];
+
 
 /**
  * @member {String} name

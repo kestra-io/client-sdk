@@ -16,17 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The AppResponseUILayout model module.
  * @module model/AppResponseUILayout
- * @version 1.0.0
+ * @version v1.0.4
  */
 class AppResponseUILayout {
     /**
      * Constructs a new <code>AppResponseUILayout</code>.
      * @alias module:model/AppResponseUILayout
-     * @param blocks {Array.<Object>} 
      */
-    constructor(blocks) { 
+    constructor() { 
         
-        AppResponseUILayout.initialize(this, blocks);
+        AppResponseUILayout.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class AppResponseUILayout {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, blocks) { 
-        obj['blocks'] = blocks;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class AppResponseUILayout {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppResponseUILayout</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppResponseUILayout.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['blocks'])) {
             throw new Error("Expected the field `blocks` to be an array in the JSON data but got " + data['blocks']);
@@ -79,7 +71,7 @@ class AppResponseUILayout {
 
 }
 
-AppResponseUILayout.RequiredProperties = ["blocks"];
+
 
 /**
  * @member {Array.<Object>} blocks

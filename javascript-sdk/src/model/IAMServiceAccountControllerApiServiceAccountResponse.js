@@ -17,22 +17,18 @@ import IAMServiceAccountControllerApiGroup from './IAMServiceAccountControllerAp
 /**
  * The IAMServiceAccountControllerApiServiceAccountResponse model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountResponse
- * @version 1.0.0
+ * @version v1.0.4
  */
 class IAMServiceAccountControllerApiServiceAccountResponse {
     /**
      * Constructs a new <code>IAMServiceAccountControllerApiServiceAccountResponse</code>.
      * A User Service Account.
      * @alias module:model/IAMServiceAccountControllerApiServiceAccountResponse
-     * @param id {String} the identifier of this service account.
      * @param name {String} the name of this service account.
-     * @param description {String} the description of this service account.
-     * @param groups {Array.<module:model/IAMServiceAccountControllerApiGroup>} 
-     * @param superAdmin {Boolean} 
      */
-    constructor(id, name, description, groups, superAdmin) { 
+    constructor(name) { 
         
-        IAMServiceAccountControllerApiServiceAccountResponse.initialize(this, id, name, description, groups, superAdmin);
+        IAMServiceAccountControllerApiServiceAccountResponse.initialize(this, name);
     }
 
     /**
@@ -40,12 +36,8 @@ class IAMServiceAccountControllerApiServiceAccountResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, description, groups, superAdmin) { 
-        obj['id'] = id;
+    static initialize(obj, name) { 
         obj['name'] = name;
-        obj['description'] = description;
-        obj['groups'] = groups;
-        obj['superAdmin'] = superAdmin;
     }
 
     /**
@@ -119,7 +111,7 @@ class IAMServiceAccountControllerApiServiceAccountResponse {
 
 }
 
-IAMServiceAccountControllerApiServiceAccountResponse.RequiredProperties = ["id", "name", "description", "groups", "superAdmin"];
+IAMServiceAccountControllerApiServiceAccountResponse.RequiredProperties = ["name"];
 
 /**
  * the identifier of this service account.

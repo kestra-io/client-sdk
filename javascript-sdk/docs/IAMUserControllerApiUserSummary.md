@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**username** | **String** |  | 
-**displayName** | **String** |  | 
-**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | 
-**auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | 
-**superAdmin** | **Boolean** |  | 
+**id** | **String** |  | [optional] 
+**username** | **String** |  | [optional] 
+**displayName** | **String** |  | [optional] 
+**tenants** | [**[ApiTenantSummary]**](ApiTenantSummary.md) |  | [optional] 
+**auths** | [**[IAMUserControllerApiUserAuth]**](IAMUserControllerApiUserAuth.md) |  | [optional] 
+**superAdmin** | **Boolean** |  | [optional] 
 
 

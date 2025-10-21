@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**taskRunId** | **String** |  | 
-**state** | [**StateType**](StateType.md) |  | 
+**taskRunId** | **String** |  | [optional] 
+**state** | [**StateType**](StateType.md) |  | [optional] 
 
 

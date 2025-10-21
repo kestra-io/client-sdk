@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the GroupIdentifier type satisfies the MappedNullable interface at compile time
@@ -20,10 +19,10 @@ var _ MappedNullable = &GroupIdentifier{}
 
 // GroupIdentifier struct for GroupIdentifier
 type GroupIdentifier struct {
-	TenantId             NullableString            `json:"tenantId"`
-	GroupId              string                    `json:"groupId"`
-	Membership           GroupIdentifierMembership `json:"membership"`
-	ManagedExternally    bool                      `json:"managedExternally"`
+	TenantId             NullableString             `json:"tenantId,omitempty"`
+	GroupId              *string                    `json:"groupId,omitempty"`
+	Membership           *GroupIdentifierMembership `json:"membership,omitempty"`
+	ManagedExternally    *bool                      `json:"managedExternally,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +32,8 @@ type _GroupIdentifier GroupIdentifier
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupIdentifier(tenantId NullableString, groupId string, membership GroupIdentifierMembership, managedExternally bool) *GroupIdentifier {
+func NewGroupIdentifier() *GroupIdentifier {
 	this := GroupIdentifier{}
-	this.TenantId = tenantId
-	this.GroupId = groupId
-	this.Membership = membership
-	this.ManagedExternally = managedExternally
 	return &this
 }
 
@@ -50,18 +45,16 @@ func NewGroupIdentifierWithDefaults() *GroupIdentifier {
 	return &this
 }
 
-// GetTenantId returns the TenantId field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetTenantId returns the TenantId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *GroupIdentifier) GetTenantId() string {
-	if o == nil || o.TenantId.Get() == nil {
+	if o == nil || IsNil(o.TenantId.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.TenantId.Get()
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GroupIdentifier) GetTenantIdOk() (*string, bool) {
@@ -71,81 +64,124 @@ func (o *GroupIdentifier) GetTenantIdOk() (*string, bool) {
 	return o.TenantId.Get(), o.TenantId.IsSet()
 }
 
-// SetTenantId sets field value
+// HasTenantId returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasTenantId() bool {
+	if o != nil && o.TenantId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given NullableString and assigns it to the TenantId field.
 func (o *GroupIdentifier) SetTenantId(v string) {
 	o.TenantId.Set(&v)
 }
 
-// GetGroupId returns the GroupId field value
+// SetTenantIdNil sets the value for TenantId to be an explicit nil
+func (o *GroupIdentifier) SetTenantIdNil() {
+	o.TenantId.Set(nil)
+}
+
+// UnsetTenantId ensures that no value is present for TenantId, not even an explicit nil
+func (o *GroupIdentifier) UnsetTenantId() {
+	o.TenantId.Unset()
+}
+
+// GetGroupId returns the GroupId field value if set, zero value otherwise.
 func (o *GroupIdentifier) GetGroupId() string {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		var ret string
 		return ret
 	}
-
-	return o.GroupId
+	return *o.GroupId
 }
 
-// GetGroupIdOk returns a tuple with the GroupId field value
+// GetGroupIdOk returns a tuple with the GroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupIdentifier) GetGroupIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.GroupId) {
 		return nil, false
 	}
-	return &o.GroupId, true
+	return o.GroupId, true
 }
 
-// SetGroupId sets field value
+// HasGroupId returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasGroupId() bool {
+	if o != nil && !IsNil(o.GroupId) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupId gets a reference to the given string and assigns it to the GroupId field.
 func (o *GroupIdentifier) SetGroupId(v string) {
-	o.GroupId = v
+	o.GroupId = &v
 }
 
-// GetMembership returns the Membership field value
+// GetMembership returns the Membership field value if set, zero value otherwise.
 func (o *GroupIdentifier) GetMembership() GroupIdentifierMembership {
-	if o == nil {
+	if o == nil || IsNil(o.Membership) {
 		var ret GroupIdentifierMembership
 		return ret
 	}
-
-	return o.Membership
+	return *o.Membership
 }
 
-// GetMembershipOk returns a tuple with the Membership field value
+// GetMembershipOk returns a tuple with the Membership field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupIdentifier) GetMembershipOk() (*GroupIdentifierMembership, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Membership) {
 		return nil, false
 	}
-	return &o.Membership, true
+	return o.Membership, true
 }
 
-// SetMembership sets field value
+// HasMembership returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasMembership() bool {
+	if o != nil && !IsNil(o.Membership) {
+		return true
+	}
+
+	return false
+}
+
+// SetMembership gets a reference to the given GroupIdentifierMembership and assigns it to the Membership field.
 func (o *GroupIdentifier) SetMembership(v GroupIdentifierMembership) {
-	o.Membership = v
+	o.Membership = &v
 }
 
-// GetManagedExternally returns the ManagedExternally field value
+// GetManagedExternally returns the ManagedExternally field value if set, zero value otherwise.
 func (o *GroupIdentifier) GetManagedExternally() bool {
-	if o == nil {
+	if o == nil || IsNil(o.ManagedExternally) {
 		var ret bool
 		return ret
 	}
-
-	return o.ManagedExternally
+	return *o.ManagedExternally
 }
 
-// GetManagedExternallyOk returns a tuple with the ManagedExternally field value
+// GetManagedExternallyOk returns a tuple with the ManagedExternally field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupIdentifier) GetManagedExternallyOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ManagedExternally) {
 		return nil, false
 	}
-	return &o.ManagedExternally, true
+	return o.ManagedExternally, true
 }
 
-// SetManagedExternally sets field value
+// HasManagedExternally returns a boolean if a field has been set.
+func (o *GroupIdentifier) HasManagedExternally() bool {
+	if o != nil && !IsNil(o.ManagedExternally) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedExternally gets a reference to the given bool and assigns it to the ManagedExternally field.
 func (o *GroupIdentifier) SetManagedExternally(v bool) {
-	o.ManagedExternally = v
+	o.ManagedExternally = &v
 }
 
 func (o GroupIdentifier) MarshalJSON() ([]byte, error) {
@@ -158,10 +194,18 @@ func (o GroupIdentifier) MarshalJSON() ([]byte, error) {
 
 func (o GroupIdentifier) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["tenantId"] = o.TenantId.Get()
-	toSerialize["groupId"] = o.GroupId
-	toSerialize["membership"] = o.Membership
-	toSerialize["managedExternally"] = o.ManagedExternally
+	if o.TenantId.IsSet() {
+		toSerialize["tenantId"] = o.TenantId.Get()
+	}
+	if !IsNil(o.GroupId) {
+		toSerialize["groupId"] = o.GroupId
+	}
+	if !IsNil(o.Membership) {
+		toSerialize["membership"] = o.Membership
+	}
+	if !IsNil(o.ManagedExternally) {
+		toSerialize["managedExternally"] = o.ManagedExternally
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -171,30 +215,6 @@ func (o GroupIdentifier) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *GroupIdentifier) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"tenantId",
-		"groupId",
-		"membership",
-		"managedExternally",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varGroupIdentifier := _GroupIdentifier{}
 
 	err = json.Unmarshal(data, &varGroupIdentifier)

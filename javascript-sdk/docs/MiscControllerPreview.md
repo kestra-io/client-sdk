@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**initial** | **Number** |  | 
-**max** | **Number** |  | 
+**initial** | **Number** |  | [optional] 
+**max** | **Number** |  | [optional] 
 
 

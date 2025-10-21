@@ -17,25 +17,20 @@ import Blueprint from './Blueprint';
 /**
  * The BlueprintWithFlow model module.
  * @module model/BlueprintWithFlow
- * @version 1.0.0
+ * @version v1.0.4
  */
 class BlueprintWithFlow {
     /**
      * Constructs a new <code>BlueprintWithFlow</code>.
      * @alias module:model/BlueprintWithFlow
      * @implements module:model/Blueprint
-     * @param id {String} 
      * @param title {String} 
-     * @param description {String} 
-     * @param tags {Array.<String>} 
-     * @param includedTasks {Array.<String>} 
-     * @param publishedAt {Date} 
      * @param deleted {Boolean} 
      * @param flow {String} 
      */
-    constructor(id, title, description, tags, includedTasks, publishedAt, deleted, flow) { 
-        Blueprint.initialize(this, id, title, description, tags, includedTasks, publishedAt, deleted);
-        BlueprintWithFlow.initialize(this, id, title, description, tags, includedTasks, publishedAt, deleted, flow);
+    constructor(title, deleted, flow) { 
+        Blueprint.initialize(this, title, deleted);
+        BlueprintWithFlow.initialize(this, title, deleted, flow);
     }
 
     /**
@@ -43,13 +38,8 @@ class BlueprintWithFlow {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, title, description, tags, includedTasks, publishedAt, deleted, flow) { 
-        obj['id'] = id;
+    static initialize(obj, title, deleted, flow) { 
         obj['title'] = title;
-        obj['description'] = description;
-        obj['tags'] = tags;
-        obj['includedTasks'] = includedTasks;
-        obj['publishedAt'] = publishedAt;
         obj['deleted'] = deleted;
         obj['flow'] = flow;
     }
@@ -137,7 +127,7 @@ class BlueprintWithFlow {
 
 }
 
-BlueprintWithFlow.RequiredProperties = ["id", "title", "description", "tags", "includedTasks", "publishedAt", "deleted", "flow"];
+BlueprintWithFlow.RequiredProperties = ["title", "deleted", "flow"];
 
 /**
  * @member {String} id

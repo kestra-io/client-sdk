@@ -22,7 +22,7 @@ import SortRequest from './SortRequest';
 /**
  * The SearchRequest model module.
  * @module model/SearchRequest
- * @version 1.0.0
+ * @version v1.0.4
  */
 class SearchRequest {
     /**

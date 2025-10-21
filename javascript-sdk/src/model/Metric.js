@@ -17,22 +17,16 @@ import MetricTag from './MetricTag';
 /**
  * The Metric model module.
  * @module model/Metric
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Metric {
     /**
      * Constructs a new <code>Metric</code>.
      * @alias module:model/Metric
-     * @param name {String} 
-     * @param type {String} 
-     * @param description {String} 
-     * @param baseUnit {String} 
-     * @param tags {Array.<module:model/MetricTag>} 
-     * @param value {Object} 
      */
-    constructor(name, type, description, baseUnit, tags, value) { 
+    constructor() { 
         
-        Metric.initialize(this, name, type, description, baseUnit, tags, value);
+        Metric.initialize(this);
     }
 
     /**
@@ -40,13 +34,7 @@ class Metric {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, type, description, baseUnit, tags, value) { 
-        obj['name'] = name;
-        obj['type'] = type;
-        obj['description'] = description;
-        obj['baseUnit'] = baseUnit;
-        obj['tags'] = tags;
-        obj['value'] = value;
+    static initialize(obj) { 
     }
 
     /**
@@ -88,12 +76,6 @@ class Metric {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Metric</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of Metric.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -127,7 +109,7 @@ class Metric {
 
 }
 
-Metric.RequiredProperties = ["name", "type", "description", "baseUnit", "tags", "value"];
+
 
 /**
  * @member {String} name

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RequestMade** | [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | 
-**TenantId** | **string** |  | 
-**NumberOfTestSuitesToBeRun** | **int32** |  | 
-**NumberOfTestCasesToBeRun** | **int32** |  | 
-**Results** | [**[]TestSuiteRunResult**](TestSuiteRunResult.md) |  | 
+**RequestMade** | Pointer to [**TestSuiteServiceRunByQueryRequest**](TestSuiteServiceRunByQueryRequest.md) |  | [optional] 
+**TenantId** | Pointer to **string** |  | [optional] 
+**NumberOfTestSuitesToBeRun** | Pointer to **int32** |  | [optional] 
+**NumberOfTestCasesToBeRun** | Pointer to **int32** |  | [optional] 
+**Results** | Pointer to [**[]TestSuiteRunResult**](TestSuiteRunResult.md) |  | [optional] 
 
 ## Methods
 
 ### NewTestSuiteServiceTestRunByQueryResult
 
-`func NewTestSuiteServiceTestRunByQueryResult(requestMade TestSuiteServiceRunByQueryRequest, tenantId string, numberOfTestSuitesToBeRun int32, numberOfTestCasesToBeRun int32, results []TestSuiteRunResult, ) *TestSuiteServiceTestRunByQueryResult`
+`func NewTestSuiteServiceTestRunByQueryResult() *TestSuiteServiceTestRunByQueryResult`
 
 NewTestSuiteServiceTestRunByQueryResult instantiates a new TestSuiteServiceTestRunByQueryResult object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetRequestMade sets RequestMade field to given value.
 
+### HasRequestMade
+
+`func (o *TestSuiteServiceTestRunByQueryResult) HasRequestMade() bool`
+
+HasRequestMade returns a boolean if a field has been set.
 
 ### GetTenantId
 
@@ -68,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetTenantId sets TenantId field to given value.
 
+### HasTenantId
+
+`func (o *TestSuiteServiceTestRunByQueryResult) HasTenantId() bool`
+
+HasTenantId returns a boolean if a field has been set.
 
 ### GetNumberOfTestSuitesToBeRun
 
@@ -88,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetNumberOfTestSuitesToBeRun sets NumberOfTestSuitesToBeRun field to given value.
 
+### HasNumberOfTestSuitesToBeRun
+
+`func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestSuitesToBeRun() bool`
+
+HasNumberOfTestSuitesToBeRun returns a boolean if a field has been set.
 
 ### GetNumberOfTestCasesToBeRun
 
@@ -108,6 +123,11 @@ and a boolean to check if the value has been set.
 
 SetNumberOfTestCasesToBeRun sets NumberOfTestCasesToBeRun field to given value.
 
+### HasNumberOfTestCasesToBeRun
+
+`func (o *TestSuiteServiceTestRunByQueryResult) HasNumberOfTestCasesToBeRun() bool`
+
+HasNumberOfTestCasesToBeRun returns a boolean if a field has been set.
 
 ### GetResults
 
@@ -128,6 +148,11 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
+### HasResults
+
+`func (o *TestSuiteServiceTestRunByQueryResult) HasResults() bool`
+
+HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

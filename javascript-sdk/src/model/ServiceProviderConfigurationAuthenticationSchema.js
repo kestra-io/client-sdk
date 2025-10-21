@@ -17,7 +17,7 @@ import ServiceProviderConfigurationAuthenticationSchemaType from './ServiceProvi
 /**
  * The ServiceProviderConfigurationAuthenticationSchema model module.
  * @module model/ServiceProviderConfigurationAuthenticationSchema
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ServiceProviderConfigurationAuthenticationSchema {
     /**

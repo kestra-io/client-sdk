@@ -24,7 +24,7 @@ import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from '../m
 /**
 * ServiceAccount service.
 * @module api/ServiceAccountApi
-* @version 1.0.0
+* @version v1.0.4
 */
 export default class ServiceAccountApi {
 

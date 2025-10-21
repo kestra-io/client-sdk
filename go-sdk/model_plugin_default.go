@@ -20,9 +20,9 @@ var _ MappedNullable = &PluginDefault{}
 
 // PluginDefault struct for PluginDefault
 type PluginDefault struct {
-	Type                 string                            `json:"type"`
-	Forced               bool                              `json:"forced"`
-	Values               map[string]map[string]interface{} `json:"values"`
+	Type                 string                 `json:"type"`
+	Forced               *bool                  `json:"forced,omitempty"`
+	Values               map[string]interface{} `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +32,9 @@ type _PluginDefault PluginDefault
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPluginDefault(type_ string, forced bool, values map[string]map[string]interface{}) *PluginDefault {
+func NewPluginDefault(type_ string) *PluginDefault {
 	this := PluginDefault{}
 	this.Type = type_
-	this.Forced = forced
-	this.Values = values
 	return &this
 }
 
@@ -72,51 +70,67 @@ func (o *PluginDefault) SetType(v string) {
 	o.Type = v
 }
 
-// GetForced returns the Forced field value
+// GetForced returns the Forced field value if set, zero value otherwise.
 func (o *PluginDefault) GetForced() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Forced) {
 		var ret bool
 		return ret
 	}
-
-	return o.Forced
+	return *o.Forced
 }
 
-// GetForcedOk returns a tuple with the Forced field value
+// GetForcedOk returns a tuple with the Forced field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PluginDefault) GetForcedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Forced) {
 		return nil, false
 	}
-	return &o.Forced, true
+	return o.Forced, true
 }
 
-// SetForced sets field value
-func (o *PluginDefault) SetForced(v bool) {
-	o.Forced = v
-}
-
-// GetValues returns the Values field value
-func (o *PluginDefault) GetValues() map[string]map[string]interface{} {
-	if o == nil {
-		var ret map[string]map[string]interface{}
-		return ret
+// HasForced returns a boolean if a field has been set.
+func (o *PluginDefault) HasForced() bool {
+	if o != nil && !IsNil(o.Forced) {
+		return true
 	}
 
+	return false
+}
+
+// SetForced gets a reference to the given bool and assigns it to the Forced field.
+func (o *PluginDefault) SetForced(v bool) {
+	o.Forced = &v
+}
+
+// GetValues returns the Values field value if set, zero value otherwise.
+func (o *PluginDefault) GetValues() map[string]interface{} {
+	if o == nil || IsNil(o.Values) {
+		var ret map[string]interface{}
+		return ret
+	}
 	return o.Values
 }
 
-// GetValuesOk returns a tuple with the Values field value
+// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PluginDefault) GetValuesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]map[string]interface{}{}, false
+func (o *PluginDefault) GetValuesOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Values) {
+		return map[string]interface{}{}, false
 	}
 	return o.Values, true
 }
 
-// SetValues sets field value
-func (o *PluginDefault) SetValues(v map[string]map[string]interface{}) {
+// HasValues returns a boolean if a field has been set.
+func (o *PluginDefault) HasValues() bool {
+	if o != nil && !IsNil(o.Values) {
+		return true
+	}
+
+	return false
+}
+
+// SetValues gets a reference to the given map[string]interface{} and assigns it to the Values field.
+func (o *PluginDefault) SetValues(v map[string]interface{}) {
 	o.Values = v
 }
 
@@ -131,8 +145,12 @@ func (o PluginDefault) MarshalJSON() ([]byte, error) {
 func (o PluginDefault) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	toSerialize["forced"] = o.Forced
-	toSerialize["values"] = o.Values
+	if !IsNil(o.Forced) {
+		toSerialize["forced"] = o.Forced
+	}
+	if !IsNil(o.Values) {
+		toSerialize["values"] = o.Values
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -147,8 +165,6 @@ func (o *PluginDefault) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"forced",
-		"values",
 	}
 
 	allProperties := make(map[string]interface{})

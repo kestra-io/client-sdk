@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Value** | **float64** |  | 
+**Value** | Pointer to **float64** |  | [optional] 
 **Date** | **time.Time** |  | 
 
 ## Methods
 
 ### NewMetricAggregation
 
-`func NewMetricAggregation(name string, value float64, date time.Time, ) *MetricAggregation`
+`func NewMetricAggregation(name string, date time.Time, ) *MetricAggregation`
 
 NewMetricAggregation instantiates a new MetricAggregation object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *MetricAggregation) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 ### GetDate
 

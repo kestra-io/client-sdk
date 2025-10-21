@@ -17,7 +17,7 @@ import BannerType from './BannerType';
 /**
  * The Banner model module.
  * @module model/Banner
- * @version 1.0.0
+ * @version v1.0.4
  */
 class Banner {
     /**

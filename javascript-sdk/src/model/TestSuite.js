@@ -17,7 +17,7 @@ import UnitTest from './UnitTest';
 /**
  * The TestSuite model module.
  * @module model/TestSuite
- * @version 1.0.0
+ * @version v1.0.4
  */
 class TestSuite {
     /**

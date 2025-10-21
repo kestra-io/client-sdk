@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Groups** | [**[]IAMServiceAccountControllerApiGroup**](IAMServiceAccountControllerApiGroup.md) |  | 
+**Groups** | Pointer to [**[]IAMServiceAccountControllerApiGroup**](IAMServiceAccountControllerApiGroup.md) |  | [optional] 
 **Name** | **string** |  | 
-**Description** | **string** |  | 
-**SuperAdmin** | **bool** |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIAMServiceAccountControllerApiServiceAccountRequest
 
-`func NewIAMServiceAccountControllerApiServiceAccountRequest(groups []IAMServiceAccountControllerApiGroup, name string, description string, superAdmin bool, ) *IAMServiceAccountControllerApiServiceAccountRequest`
+`func NewIAMServiceAccountControllerApiServiceAccountRequest(name string, ) *IAMServiceAccountControllerApiServiceAccountRequest`
 
 NewIAMServiceAccountControllerApiServiceAccountRequest instantiates a new IAMServiceAccountControllerApiServiceAccountRequest object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
+### HasGroups
+
+`func (o *IAMServiceAccountControllerApiServiceAccountRequest) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 ### GetName
 
@@ -87,6 +92,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *IAMServiceAccountControllerApiServiceAccountRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -107,6 +117,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMServiceAccountControllerApiServiceAccountRequest) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

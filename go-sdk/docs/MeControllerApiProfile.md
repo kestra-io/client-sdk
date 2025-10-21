@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | **string** |  | 
-**FirstName** | **string** |  | 
-**LastName** | **string** |  | 
-**Username** | **string** |  | 
+**Email** | Pointer to **string** |  | [optional] 
+**FirstName** | Pointer to **string** |  | [optional] 
+**LastName** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewMeControllerApiProfile
 
-`func NewMeControllerApiProfile(email string, firstName string, lastName string, username string, ) *MeControllerApiProfile`
+`func NewMeControllerApiProfile() *MeControllerApiProfile`
 
 NewMeControllerApiProfile instantiates a new MeControllerApiProfile object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
+### HasEmail
+
+`func (o *MeControllerApiProfile) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetFirstName sets FirstName field to given value.
 
+### HasFirstName
+
+`func (o *MeControllerApiProfile) HasFirstName() bool`
+
+HasFirstName returns a boolean if a field has been set.
 
 ### GetLastName
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetLastName sets LastName field to given value.
 
+### HasLastName
+
+`func (o *MeControllerApiProfile) HasLastName() bool`
+
+HasLastName returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *MeControllerApiProfile) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

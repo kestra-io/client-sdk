@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -21,11 +20,11 @@ var _ MappedNullable = &ExecutionControllerLastExecutionResponse{}
 
 // ExecutionControllerLastExecutionResponse struct for ExecutionControllerLastExecutionResponse
 type ExecutionControllerLastExecutionResponse struct {
-	Id                   string    `json:"id"`
-	FlowId               string    `json:"flowId"`
-	Namespace            string    `json:"namespace"`
-	StartDate            time.Time `json:"startDate"`
-	Status               StateType `json:"status"`
+	Id                   *string    `json:"id,omitempty"`
+	FlowId               *string    `json:"flowId,omitempty"`
+	Namespace            *string    `json:"namespace,omitempty"`
+	StartDate            *time.Time `json:"startDate,omitempty"`
+	Status               *StateType `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,13 +34,8 @@ type _ExecutionControllerLastExecutionResponse ExecutionControllerLastExecutionR
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerLastExecutionResponse(id string, flowId string, namespace string, startDate time.Time, status StateType) *ExecutionControllerLastExecutionResponse {
+func NewExecutionControllerLastExecutionResponse() *ExecutionControllerLastExecutionResponse {
 	this := ExecutionControllerLastExecutionResponse{}
-	this.Id = id
-	this.FlowId = flowId
-	this.Namespace = namespace
-	this.StartDate = startDate
-	this.Status = status
 	return &this
 }
 
@@ -53,124 +47,164 @@ func NewExecutionControllerLastExecutionResponseWithDefaults() *ExecutionControl
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *ExecutionControllerLastExecutionResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerLastExecutionResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *ExecutionControllerLastExecutionResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *ExecutionControllerLastExecutionResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetFlowId returns the FlowId field value
+// GetFlowId returns the FlowId field value if set, zero value otherwise.
 func (o *ExecutionControllerLastExecutionResponse) GetFlowId() string {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		var ret string
 		return ret
 	}
-
-	return o.FlowId
+	return *o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerLastExecutionResponse) GetFlowIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		return nil, false
 	}
-	return &o.FlowId, true
+	return o.FlowId, true
 }
 
-// SetFlowId sets field value
+// HasFlowId returns a boolean if a field has been set.
+func (o *ExecutionControllerLastExecutionResponse) HasFlowId() bool {
+	if o != nil && !IsNil(o.FlowId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
 func (o *ExecutionControllerLastExecutionResponse) SetFlowId(v string) {
-	o.FlowId = v
+	o.FlowId = &v
 }
 
-// GetNamespace returns the Namespace field value
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *ExecutionControllerLastExecutionResponse) GetNamespace() string {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
-
-	return o.Namespace
+	return *o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerLastExecutionResponse) GetNamespaceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
-	return &o.Namespace, true
+	return o.Namespace, true
 }
 
-// SetNamespace sets field value
+// HasNamespace returns a boolean if a field has been set.
+func (o *ExecutionControllerLastExecutionResponse) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
 func (o *ExecutionControllerLastExecutionResponse) SetNamespace(v string) {
-	o.Namespace = v
+	o.Namespace = &v
 }
 
-// GetStartDate returns the StartDate field value
+// GetStartDate returns the StartDate field value if set, zero value otherwise.
 func (o *ExecutionControllerLastExecutionResponse) GetStartDate() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.StartDate) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.StartDate
+	return *o.StartDate
 }
 
-// GetStartDateOk returns a tuple with the StartDate field value
+// GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerLastExecutionResponse) GetStartDateOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
-	return &o.StartDate, true
+	return o.StartDate, true
 }
 
-// SetStartDate sets field value
+// HasStartDate returns a boolean if a field has been set.
+func (o *ExecutionControllerLastExecutionResponse) HasStartDate() bool {
+	if o != nil && !IsNil(o.StartDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDate gets a reference to the given time.Time and assigns it to the StartDate field.
 func (o *ExecutionControllerLastExecutionResponse) SetStartDate(v time.Time) {
-	o.StartDate = v
+	o.StartDate = &v
 }
 
-// GetStatus returns the Status field value
+// GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ExecutionControllerLastExecutionResponse) GetStatus() StateType {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StateType
 		return ret
 	}
-
-	return o.Status
+	return *o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerLastExecutionResponse) GetStatusOk() (*StateType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Status, true
 }
 
-// SetStatus sets field value
+// HasStatus returns a boolean if a field has been set.
+func (o *ExecutionControllerLastExecutionResponse) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given StateType and assigns it to the Status field.
 func (o *ExecutionControllerLastExecutionResponse) SetStatus(v StateType) {
-	o.Status = v
+	o.Status = &v
 }
 
 func (o ExecutionControllerLastExecutionResponse) MarshalJSON() ([]byte, error) {
@@ -183,11 +217,21 @@ func (o ExecutionControllerLastExecutionResponse) MarshalJSON() ([]byte, error) 
 
 func (o ExecutionControllerLastExecutionResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["flowId"] = o.FlowId
-	toSerialize["namespace"] = o.Namespace
-	toSerialize["startDate"] = o.StartDate
-	toSerialize["status"] = o.Status
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.FlowId) {
+		toSerialize["flowId"] = o.FlowId
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.StartDate) {
+		toSerialize["startDate"] = o.StartDate
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -197,31 +241,6 @@ func (o ExecutionControllerLastExecutionResponse) ToMap() (map[string]interface{
 }
 
 func (o *ExecutionControllerLastExecutionResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"flowId",
-		"namespace",
-		"startDate",
-		"status",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varExecutionControllerLastExecutionResponse := _ExecutionControllerLastExecutionResponse{}
 
 	err = json.Unmarshal(data, &varExecutionControllerLastExecutionResponse)

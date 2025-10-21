@@ -18,25 +18,21 @@ import CrudEventType from './CrudEventType';
 /**
  * The BaseAuditLog model module.
  * @module model/BaseAuditLog
- * @version 1.0.0
+ * @version v1.0.4
  */
 class BaseAuditLog {
     /**
      * Constructs a new <code>BaseAuditLog</code>.
      * @alias module:model/BaseAuditLog
-     * @param tenantId {String} 
      * @param id {String} 
      * @param type {module:model/CrudEventType} 
      * @param detail {module:model/AuditLogDetail} 
      * @param date {Date} 
      * @param userId {String} 
-     * @param ipAddress {String} 
-     * @param impersonatedBy {String} 
-     * @param deleted {Boolean} 
      */
-    constructor(tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted) { 
+    constructor(id, type, detail, date, userId) { 
         
-        BaseAuditLog.initialize(this, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted);
+        BaseAuditLog.initialize(this, id, type, detail, date, userId);
     }
 
     /**
@@ -44,16 +40,12 @@ class BaseAuditLog {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tenantId, id, type, detail, date, userId, ipAddress, impersonatedBy, deleted) { 
-        obj['tenantId'] = tenantId;
+    static initialize(obj, id, type, detail, date, userId) { 
         obj['id'] = id;
         obj['type'] = type;
         obj['detail'] = detail;
         obj['date'] = date;
         obj['userId'] = userId;
-        obj['ipAddress'] = ipAddress;
-        obj['impersonatedBy'] = impersonatedBy;
-        obj['deleted'] = deleted;
     }
 
     /**
@@ -141,7 +133,7 @@ class BaseAuditLog {
 
 }
 
-BaseAuditLog.RequiredProperties = ["tenantId", "id", "type", "detail", "date", "userId", "ipAddress", "impersonatedBy", "deleted"];
+BaseAuditLog.RequiredProperties = ["id", "type", "detail", "date", "userId"];
 
 /**
  * @member {String} tenantId

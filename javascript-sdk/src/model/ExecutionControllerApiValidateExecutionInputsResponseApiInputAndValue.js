@@ -18,21 +18,16 @@ import InputObject from './InputObject';
 /**
  * The ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
     /**
      * Constructs a new <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue</code>.
      * @alias module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue
-     * @param input {module:model/InputObject} 
-     * @param value {Object} 
-     * @param enabled {Boolean} 
-     * @param isDefault {Boolean} 
-     * @param errors {Array.<module:model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError>} 
      */
-    constructor(input, value, enabled, isDefault, errors) { 
+    constructor() { 
         
-        ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.initialize(this, input, value, enabled, isDefault, errors);
+        ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.initialize(this);
     }
 
     /**
@@ -40,12 +35,7 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, input, value, enabled, isDefault, errors) { 
-        obj['input'] = input;
-        obj['value'] = value;
-        obj['enabled'] = enabled;
-        obj['isDefault'] = isDefault;
-        obj['errors'] = errors;
+    static initialize(obj) { 
     }
 
     /**
@@ -84,12 +74,6 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `input`
         if (data['input']) { // data not null
           InputObject.validateJSON(data['input']);
@@ -111,7 +95,7 @@ class ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue {
 
 }
 
-ExecutionControllerApiValidateExecutionInputsResponseApiInputAndValue.RequiredProperties = ["input", "value", "enabled", "isDefault", "errors"];
+
 
 /**
  * @member {module:model/InputObject} input

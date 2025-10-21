@@ -38,7 +38,7 @@ import (
 )
 
 func main() {
-	iAMServiceAccountControllerApiCreateServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiCreateServiceAccountRequest("Name_example", "Description_example", false, []string{"Tenants_example"}) // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
+	iAMServiceAccountControllerApiCreateServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiCreateServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -103,7 +103,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest([]openapiclient.IAMServiceAccountControllerApiGroup{*openapiclient.NewIAMServiceAccountControllerApiGroup("Id_example")}, "Name_example", "Description_example", false) // IAMServiceAccountControllerApiServiceAccountRequest | The service account
+	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiServiceAccountRequest | The service account
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -523,7 +523,7 @@ import (
 
 func main() {
 	id := "id_example" // string | The service account id
-	iAMServiceAccountControllerApiPatchServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiPatchServiceAccountRequest("Name_example", "Description_example") // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
+	iAMServiceAccountControllerApiPatchServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiPatchServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -664,7 +664,7 @@ import (
 func main() {
 	id := "id_example" // string | The user id
 	tenant := "tenant_example" // string | 
-	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest([]openapiclient.IAMServiceAccountControllerApiGroup{*openapiclient.NewIAMServiceAccountControllerApiGroup("Id_example")}, "Name_example", "Description_example", false) // IAMServiceAccountControllerApiServiceAccountRequest | The user
+	iAMServiceAccountControllerApiServiceAccountRequest := *openapiclient.NewIAMServiceAccountControllerApiServiceAccountRequest("Name_example") // IAMServiceAccountControllerApiServiceAccountRequest | The user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

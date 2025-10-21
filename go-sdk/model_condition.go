@@ -20,7 +20,7 @@ var _ MappedNullable = &Condition{}
 
 // Condition struct for Condition
 type Condition struct {
-	Type                 string `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Type                 string `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
 	AdditionalProperties map[string]interface{}
 }
 

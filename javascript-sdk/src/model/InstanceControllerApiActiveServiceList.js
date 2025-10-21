@@ -17,18 +17,16 @@ import InstanceControllerApiActiveService from './InstanceControllerApiActiveSer
 /**
  * The InstanceControllerApiActiveServiceList model module.
  * @module model/InstanceControllerApiActiveServiceList
- * @version 1.0.0
+ * @version v1.0.4
  */
 class InstanceControllerApiActiveServiceList {
     /**
      * Constructs a new <code>InstanceControllerApiActiveServiceList</code>.
      * @alias module:model/InstanceControllerApiActiveServiceList
-     * @param total {Number} 
-     * @param services {Array.<module:model/InstanceControllerApiActiveService>} 
      */
-    constructor(total, services) { 
+    constructor() { 
         
-        InstanceControllerApiActiveServiceList.initialize(this, total, services);
+        InstanceControllerApiActiveServiceList.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class InstanceControllerApiActiveServiceList {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, total, services) { 
-        obj['total'] = total;
-        obj['services'] = services;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class InstanceControllerApiActiveServiceList {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>InstanceControllerApiActiveServiceList</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of InstanceControllerApiActiveServiceList.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         if (data['services']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['services'])) {
@@ -91,7 +81,7 @@ class InstanceControllerApiActiveServiceList {
 
 }
 
-InstanceControllerApiActiveServiceList.RequiredProperties = ["total", "services"];
+
 
 /**
  * @member {Number} total

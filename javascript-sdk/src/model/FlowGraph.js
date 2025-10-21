@@ -19,20 +19,16 @@ import FlowGraphEdge from './FlowGraphEdge';
 /**
  * The FlowGraph model module.
  * @module model/FlowGraph
- * @version 1.0.0
+ * @version v1.0.4
  */
 class FlowGraph {
     /**
      * Constructs a new <code>FlowGraph</code>.
      * @alias module:model/FlowGraph
-     * @param nodes {Array.<module:model/AbstractGraph>} 
-     * @param edges {Array.<module:model/FlowGraphEdge>} 
-     * @param clusters {Array.<module:model/FlowGraphCluster>} 
-     * @param flowables {Array.<String>} 
      */
-    constructor(nodes, edges, clusters, flowables) { 
+    constructor() { 
         
-        FlowGraph.initialize(this, nodes, edges, clusters, flowables);
+        FlowGraph.initialize(this);
     }
 
     /**
@@ -40,11 +36,7 @@ class FlowGraph {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, nodes, edges, clusters, flowables) { 
-        obj['nodes'] = nodes;
-        obj['edges'] = edges;
-        obj['clusters'] = clusters;
-        obj['flowables'] = flowables;
+    static initialize(obj) { 
     }
 
     /**
@@ -80,12 +72,6 @@ class FlowGraph {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>FlowGraph</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of FlowGraph.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         if (data['nodes']) { // data not null
             // ensure the json data is an array
             if (!Array.isArray(data['nodes'])) {
@@ -127,7 +113,7 @@ class FlowGraph {
 
 }
 
-FlowGraph.RequiredProperties = ["nodes", "edges", "clusters", "flowables"];
+
 
 /**
  * @member {Array.<module:model/AbstractGraph>} nodes

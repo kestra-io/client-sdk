@@ -17,17 +17,16 @@ import ValuePathExpression from './ValuePathExpression';
 /**
  * The PatchOperationPath model module.
  * @module model/PatchOperationPath
- * @version 1.0.0
+ * @version v1.0.4
  */
 class PatchOperationPath {
     /**
      * Constructs a new <code>PatchOperationPath</code>.
      * @alias module:model/PatchOperationPath
-     * @param valuePathExpression {module:model/ValuePathExpression} 
      */
-    constructor(valuePathExpression) { 
+    constructor() { 
         
-        PatchOperationPath.initialize(this, valuePathExpression);
+        PatchOperationPath.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class PatchOperationPath {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, valuePathExpression) { 
-        obj['valuePathExpression'] = valuePathExpression;
+    static initialize(obj) { 
     }
 
     /**
@@ -63,12 +61,6 @@ class PatchOperationPath {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>PatchOperationPath</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of PatchOperationPath.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `valuePathExpression`
         if (data['valuePathExpression']) { // data not null
           ValuePathExpression.validateJSON(data['valuePathExpression']);
@@ -80,7 +72,7 @@ class PatchOperationPath {
 
 }
 
-PatchOperationPath.RequiredProperties = ["valuePathExpression"];
+
 
 /**
  * @member {module:model/ValuePathExpression} valuePathExpression

@@ -16,18 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerEnvironment model module.
  * @module model/MiscControllerEnvironment
- * @version 1.0.0
+ * @version v1.0.4
  */
 class MiscControllerEnvironment {
     /**
      * Constructs a new <code>MiscControllerEnvironment</code>.
      * @alias module:model/MiscControllerEnvironment
-     * @param name {String} 
-     * @param color {String} 
      */
-    constructor(name, color) { 
+    constructor() { 
         
-        MiscControllerEnvironment.initialize(this, name, color);
+        MiscControllerEnvironment.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class MiscControllerEnvironment {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, color) { 
-        obj['name'] = name;
-        obj['color'] = color;
+    static initialize(obj) { 
     }
 
     /**
@@ -67,12 +63,6 @@ class MiscControllerEnvironment {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>MiscControllerEnvironment</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of MiscControllerEnvironment.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -88,7 +78,7 @@ class MiscControllerEnvironment {
 
 }
 
-MiscControllerEnvironment.RequiredProperties = ["name", "color"];
+
 
 /**
  * @member {String} name

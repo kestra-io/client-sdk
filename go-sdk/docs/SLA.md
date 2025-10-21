@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Type** | [**SLAType**](SLAType.md) |  | 
 **Behavior** | [**SLABehavior**](SLABehavior.md) |  | 
-**Labels** | Pointer to [**FlowWithSourceAllOfLabels**](FlowWithSourceAllOfLabels.md) |  | [optional] 
+**Labels** | Pointer to [**SLALabels**](SLALabels.md) |  | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ SetBehavior sets Behavior field to given value.
 
 ### GetLabels
 
-`func (o *SLA) GetLabels() FlowWithSourceAllOfLabels`
+`func (o *SLA) GetLabels() SLALabels`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *SLA) GetLabelsOk() (*FlowWithSourceAllOfLabels, bool)`
+`func (o *SLA) GetLabelsOk() (*SLALabels, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *SLA) SetLabels(v FlowWithSourceAllOfLabels)`
+`func (o *SLA) SetLabels(v SLALabels)`
 
 SetLabels sets Labels field to given value.
 

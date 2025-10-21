@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConversationId** | **string** |  | 
 **UserPrompt** | **string** |  | 
-**FlowYaml** | **string** |  | 
+**FlowYaml** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewFlowGenerationPrompt
 
-`func NewFlowGenerationPrompt(conversationId string, userPrompt string, flowYaml string, ) *FlowGenerationPrompt`
+`func NewFlowGenerationPrompt(conversationId string, userPrompt string, ) *FlowGenerationPrompt`
 
 NewFlowGenerationPrompt instantiates a new FlowGenerationPrompt object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +86,11 @@ and a boolean to check if the value has been set.
 
 SetFlowYaml sets FlowYaml field to given value.
 
+### HasFlowYaml
+
+`func (o *FlowGenerationPrompt) HasFlowYaml() bool`
+
+HasFlowYaml returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

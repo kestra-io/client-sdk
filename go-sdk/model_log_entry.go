@@ -28,10 +28,10 @@ type LogEntry struct {
 	TaskRunId            NullableString        `json:"taskRunId,omitempty"`
 	AttemptNumber        NullableInt32         `json:"attemptNumber,omitempty"`
 	TriggerId            NullableString        `json:"triggerId,omitempty"`
-	Timestamp            time.Time             `json:"timestamp"`
-	Level                Level                 `json:"level"`
-	Thread               string                `json:"thread"`
-	Message              string                `json:"message"`
+	Timestamp            *time.Time            `json:"timestamp,omitempty"`
+	Level                *Level                `json:"level,omitempty"`
+	Thread               *string               `json:"thread,omitempty"`
+	Message              *string               `json:"message,omitempty"`
 	Deleted              bool                  `json:"deleted"`
 	ExecutionKind        NullableExecutionKind `json:"executionKind,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -43,14 +43,10 @@ type _LogEntry LogEntry
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLogEntry(namespace string, flowId string, timestamp time.Time, level Level, thread string, message string, deleted bool) *LogEntry {
+func NewLogEntry(namespace string, flowId string, deleted bool) *LogEntry {
 	this := LogEntry{}
 	this.Namespace = namespace
 	this.FlowId = flowId
-	this.Timestamp = timestamp
-	this.Level = level
-	this.Thread = thread
-	this.Message = message
 	this.Deleted = deleted
 	return &this
 }
@@ -326,100 +322,132 @@ func (o *LogEntry) UnsetTriggerId() {
 	o.TriggerId.Unset()
 }
 
-// GetTimestamp returns the Timestamp field value
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
 func (o *LogEntry) GetTimestamp() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.Timestamp
+	return *o.Timestamp
 }
 
-// GetTimestampOk returns a tuple with the Timestamp field value
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEntry) GetTimestampOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
-	return &o.Timestamp, true
+	return o.Timestamp, true
 }
 
-// SetTimestamp sets field value
+// HasTimestamp returns a boolean if a field has been set.
+func (o *LogEntry) HasTimestamp() bool {
+	if o != nil && !IsNil(o.Timestamp) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimestamp gets a reference to the given time.Time and assigns it to the Timestamp field.
 func (o *LogEntry) SetTimestamp(v time.Time) {
-	o.Timestamp = v
+	o.Timestamp = &v
 }
 
-// GetLevel returns the Level field value
+// GetLevel returns the Level field value if set, zero value otherwise.
 func (o *LogEntry) GetLevel() Level {
-	if o == nil {
+	if o == nil || IsNil(o.Level) {
 		var ret Level
 		return ret
 	}
-
-	return o.Level
+	return *o.Level
 }
 
-// GetLevelOk returns a tuple with the Level field value
+// GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEntry) GetLevelOk() (*Level, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
-	return &o.Level, true
+	return o.Level, true
 }
 
-// SetLevel sets field value
+// HasLevel returns a boolean if a field has been set.
+func (o *LogEntry) HasLevel() bool {
+	if o != nil && !IsNil(o.Level) {
+		return true
+	}
+
+	return false
+}
+
+// SetLevel gets a reference to the given Level and assigns it to the Level field.
 func (o *LogEntry) SetLevel(v Level) {
-	o.Level = v
+	o.Level = &v
 }
 
-// GetThread returns the Thread field value
+// GetThread returns the Thread field value if set, zero value otherwise.
 func (o *LogEntry) GetThread() string {
-	if o == nil {
+	if o == nil || IsNil(o.Thread) {
 		var ret string
 		return ret
 	}
-
-	return o.Thread
+	return *o.Thread
 }
 
-// GetThreadOk returns a tuple with the Thread field value
+// GetThreadOk returns a tuple with the Thread field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEntry) GetThreadOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Thread) {
 		return nil, false
 	}
-	return &o.Thread, true
+	return o.Thread, true
 }
 
-// SetThread sets field value
+// HasThread returns a boolean if a field has been set.
+func (o *LogEntry) HasThread() bool {
+	if o != nil && !IsNil(o.Thread) {
+		return true
+	}
+
+	return false
+}
+
+// SetThread gets a reference to the given string and assigns it to the Thread field.
 func (o *LogEntry) SetThread(v string) {
-	o.Thread = v
+	o.Thread = &v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *LogEntry) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogEntry) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *LogEntry) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *LogEntry) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
 }
 
 // GetDeleted returns the Deleted field value
@@ -516,10 +544,18 @@ func (o LogEntry) ToMap() (map[string]interface{}, error) {
 	if o.TriggerId.IsSet() {
 		toSerialize["triggerId"] = o.TriggerId.Get()
 	}
-	toSerialize["timestamp"] = o.Timestamp
-	toSerialize["level"] = o.Level
-	toSerialize["thread"] = o.Thread
-	toSerialize["message"] = o.Message
+	if !IsNil(o.Timestamp) {
+		toSerialize["timestamp"] = o.Timestamp
+	}
+	if !IsNil(o.Level) {
+		toSerialize["level"] = o.Level
+	}
+	if !IsNil(o.Thread) {
+		toSerialize["thread"] = o.Thread
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
 	toSerialize["deleted"] = o.Deleted
 	if o.ExecutionKind.IsSet() {
 		toSerialize["executionKind"] = o.ExecutionKind.Get()
@@ -539,10 +575,6 @@ func (o *LogEntry) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"namespace",
 		"flowId",
-		"timestamp",
-		"level",
-		"thread",
-		"message",
 		"deleted",
 	}
 

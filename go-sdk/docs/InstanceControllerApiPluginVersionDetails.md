@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ArtifactId** | **string** |  | 
-**GroupId** | **string** |  | 
-**Version** | **string** |  | 
-**Title** | **string** |  | 
-**Description** | **string** |  | 
-**Icon** | **string** |  | 
-**Classes** | [**[]InstanceControllerApiPluginVersionDetailsApiPluginClasses**](InstanceControllerApiPluginVersionDetailsApiPluginClasses.md) |  | 
+**ArtifactId** | Pointer to **string** |  | [optional] 
+**GroupId** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** |  | [optional] 
+**Title** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**Icon** | Pointer to **string** |  | [optional] 
+**Classes** | Pointer to [**[]InstanceControllerApiPluginVersionDetailsApiPluginClasses**](InstanceControllerApiPluginVersionDetailsApiPluginClasses.md) |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginVersionDetails
 
-`func NewInstanceControllerApiPluginVersionDetails(artifactId string, groupId string, version string, title string, description string, icon string, classes []InstanceControllerApiPluginVersionDetailsApiPluginClasses, ) *InstanceControllerApiPluginVersionDetails`
+`func NewInstanceControllerApiPluginVersionDetails() *InstanceControllerApiPluginVersionDetails`
 
 NewInstanceControllerApiPluginVersionDetails instantiates a new InstanceControllerApiPluginVersionDetails object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetArtifactId sets ArtifactId field to given value.
 
+### HasArtifactId
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasArtifactId() bool`
+
+HasArtifactId returns a boolean if a field has been set.
 
 ### GetGroupId
 
@@ -70,6 +75,11 @@ and a boolean to check if the value has been set.
 
 SetGroupId sets GroupId field to given value.
 
+### HasGroupId
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasGroupId() bool`
+
+HasGroupId returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -90,6 +100,11 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+### HasVersion
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetTitle
 
@@ -110,6 +125,11 @@ and a boolean to check if the value has been set.
 
 SetTitle sets Title field to given value.
 
+### HasTitle
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasTitle() bool`
+
+HasTitle returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -130,6 +150,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetIcon
 
@@ -150,6 +175,11 @@ and a boolean to check if the value has been set.
 
 SetIcon sets Icon field to given value.
 
+### HasIcon
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasIcon() bool`
+
+HasIcon returns a boolean if a field has been set.
 
 ### GetClasses
 
@@ -170,6 +200,11 @@ and a boolean to check if the value has been set.
 
 SetClasses sets Classes field to given value.
 
+### HasClasses
+
+`func (o *InstanceControllerApiPluginVersionDetails) HasClasses() bool`
+
+HasClasses returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

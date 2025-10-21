@@ -17,7 +17,7 @@ import TaskRun from './TaskRun';
 /**
  * The PagedResultsTaskRun model module.
  * @module model/PagedResultsTaskRun
- * @version 1.0.0
+ * @version v1.0.4
  */
 class PagedResultsTaskRun {
     /**

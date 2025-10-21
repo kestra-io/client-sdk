@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ScimExtension model module.
  * @module model/ScimExtension
- * @version 1.0.0
+ * @version v1.0.4
  */
 class ScimExtension {
     /**
