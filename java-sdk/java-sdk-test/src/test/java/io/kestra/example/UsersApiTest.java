@@ -1,19 +1,15 @@
 package io.kestra.example;
 
-import io.kestra.sdk.KestraClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class UsersApiTest {
-    public static String MAIN_TENANT = "main";
-    private static final KestraClient kestraClient = KestraClient.builder()
-        .basicAuth("root@root.com", "Root!1234")
-        .url("http://localhost:9901")
-        .build();
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
 
+public class UsersApiTest {
     /**
      * List users for autocomplete
      *
@@ -24,7 +20,7 @@ public class UsersApiTest {
     public void autocompleteUsersTest() throws ApiException {
 
         IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete = null;
-        List<IAMTenantAccessControllerApiUserTenantAccess> response = kestraClient.users().autocompleteUsers(MAIN_TENANT, new IAMTenantAccessControllerUserApiAutocomplete());
+        List<IAMTenantAccessControllerApiUserTenantAccess> response = kestraClient().users().autocompleteUsers(MAIN_TENANT, new IAMTenantAccessControllerUserApiAutocomplete());
 
         // TODO: test validations
     }
@@ -38,7 +34,7 @@ public class UsersApiTest {
     public void createApiTokensForUserTest() throws ApiException {
         var tokenId = "test-token";
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest().name(tokenId);
-        Object response = kestraClient.users().createApiTokensForUser(tokenId, createApiTokenRequest);
+        Object response = kestraClient().users().createApiTokensForUser(tokenId, createApiTokenRequest);
 
         // TODO: test validations
     }
@@ -54,7 +50,7 @@ public class UsersApiTest {
     public void createApiTokensForUser1Test() throws ApiException {
         String id = null;
         CreateApiTokenRequest createApiTokenRequest = null;
-        CreateApiTokenResponse response =kestraClient.users().createApiTokensForUser1(id, createApiTokenRequest);
+        CreateApiTokenResponse response =kestraClient().users().createApiTokensForUser1(id, createApiTokenRequest);
 
         // TODO: test validations
     }
@@ -69,7 +65,7 @@ public class UsersApiTest {
         String id = null;
 
         CreateApiTokenRequest createApiTokenRequest = null;
-        Object response =kestraClient.users().createApiTokensForUserWithTenant(id, MAIN_TENANT, createApiTokenRequest);
+        Object response =kestraClient().users().createApiTokensForUserWithTenant(id, MAIN_TENANT, createApiTokenRequest);
 
         // TODO: test validations
     }
@@ -84,7 +80,7 @@ public class UsersApiTest {
     @Test
     public void createUserTest() throws ApiException {
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = null;
-        kestraClient.users().createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
+        kestraClient().users().createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
 
         // TODO: test validations
     }
@@ -98,7 +94,7 @@ public class UsersApiTest {
     public void deleteApiTokenTest() throws ApiException {
         String id = null;
         String tokenId = null;
-        Object response =kestraClient.users().deleteApiToken(id, tokenId);
+        Object response =kestraClient().users().deleteApiToken(id, tokenId);
 
         // TODO: test validations
     }
@@ -114,7 +110,7 @@ public class UsersApiTest {
     public void deleteApiToken1Test() throws ApiException {
         String id = null;
         String tokenId = null;
-        kestraClient.users().deleteApiToken1(id, tokenId);
+        kestraClient().users().deleteApiToken1(id, tokenId);
 
         // TODO: test validations
     }
@@ -129,7 +125,7 @@ public class UsersApiTest {
         String id = null;
         String tokenId = null;
 
-        Object response =kestraClient.users().deleteApiTokenWithTenant(id, tokenId, MAIN_TENANT);
+        Object response =kestraClient().users().deleteApiTokenWithTenant(id, tokenId, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -142,7 +138,7 @@ public class UsersApiTest {
     @Test
     public void deleteRefreshTokenTest() throws ApiException {
         String id = null;
-        kestraClient.users().deleteRefreshToken(id);
+        kestraClient().users().deleteRefreshToken(id);
 
         // TODO: test validations
     }
@@ -157,7 +153,7 @@ public class UsersApiTest {
     @Test
     public void deleteUserTest() throws ApiException {
         String id = null;
-        kestraClient.users().deleteUser(id);
+        kestraClient().users().deleteUser(id);
 
         // TODO: test validations
     }
@@ -173,7 +169,7 @@ public class UsersApiTest {
     public void deleteUserAuthMethodTest() throws ApiException {
         String id = null;
         String auth = null;
-        IAMUserControllerApiUser response =kestraClient.users().deleteUserAuthMethod(id, auth);
+        IAMUserControllerApiUser response =kestraClient().users().deleteUserAuthMethod(id, auth);
 
         // TODO: test validations
     }
@@ -188,7 +184,7 @@ public class UsersApiTest {
     @Test
     public void getUserTest() throws ApiException {
         String id = null;
-        IAMUserControllerApiUser response =kestraClient.users().getUser(id);
+        IAMUserControllerApiUser response =kestraClient().users().getUser(id);
 
         // TODO: test validations
     }
@@ -203,7 +199,7 @@ public class UsersApiTest {
     @Test
     public void impersonateTest() throws ApiException {
         String id = null;
-        Object response =kestraClient.users().impersonate(id);
+        Object response =kestraClient().users().impersonate(id);
 
         // TODO: test validations
     }
@@ -216,7 +212,7 @@ public class UsersApiTest {
     @Test
     public void listApiTokensTest() throws ApiException {
         String id = null;
-        Object response =kestraClient.users().listApiTokens(id);
+        Object response =kestraClient().users().listApiTokens(id);
 
         // TODO: test validations
     }
@@ -231,7 +227,7 @@ public class UsersApiTest {
     @Test
     public void listApiTokens1Test() throws ApiException {
         String id = null;
-        Object response =kestraClient.users().listApiTokens1(id);
+        Object response =kestraClient().users().listApiTokens1(id);
 
         // TODO: test validations
     }
@@ -245,7 +241,7 @@ public class UsersApiTest {
     public void listApiTokensWithTenantTest() throws ApiException {
         String id = null;
 
-        Object response =kestraClient.users().listApiTokensWithTenant(id, MAIN_TENANT);
+        Object response =kestraClient().users().listApiTokensWithTenant(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -261,7 +257,7 @@ public class UsersApiTest {
         Integer size = 50;
         String q = null;
         List<String> sort = null;
-        PagedResultsIAMUserControllerApiUserSummary response =kestraClient.users().listUsers(page, size, q, sort);
+        PagedResultsIAMUserControllerApiUserSummary response =kestraClient().users().listUsers(page, size, q, sort);
 
         // TODO: test validations
     }
@@ -277,7 +273,7 @@ public class UsersApiTest {
     public void patchUserTest() throws ApiException {
         String id = null;
         MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest = null;
-        IAMUserControllerApiUser response =kestraClient.users().patchUser(id, meControllerApiUserDetailsRequest);
+        IAMUserControllerApiUser response =kestraClient().users().patchUser(id, meControllerApiUserDetailsRequest);
 
         // TODO: test validations
     }
@@ -293,7 +289,7 @@ public class UsersApiTest {
     public void patchUserDemoTest() throws ApiException {
         String id = null;
         IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest = null;
-        kestraClient.users().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
+        kestraClient().users().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
 
         // TODO: test validations
     }
@@ -309,7 +305,7 @@ public class UsersApiTest {
     public void patchUserPasswordTest() throws ApiException {
         String id = null;
         IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = null;
-        Object response =kestraClient.users().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
+        Object response =kestraClient().users().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
 
         // TODO: test validations
     }
@@ -325,7 +321,7 @@ public class UsersApiTest {
     public void patchUserSuperAdminTest() throws ApiException {
         String id = null;
         ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = null;
-        kestraClient.users().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
+        kestraClient().users().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
 
         // TODO: test validations
     }
@@ -340,7 +336,7 @@ public class UsersApiTest {
     @Test
     public void updateCurrentUserPasswordTest() throws ApiException {
         MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest = null;
-        Object response =kestraClient.users().updateCurrentUserPassword(meControllerApiUpdatePasswordRequest);
+        Object response =kestraClient().users().updateCurrentUserPassword(meControllerApiUpdatePasswordRequest);
 
         // TODO: test validations
     }
@@ -356,7 +352,7 @@ public class UsersApiTest {
     public void updateUserTest() throws ApiException {
         String id = null;
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = null;
-        IAMUserControllerApiUser response =kestraClient.users().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
+        IAMUserControllerApiUser response =kestraClient().users().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
 
         // TODO: test validations
     }
@@ -371,7 +367,7 @@ public class UsersApiTest {
         String id = null;
 
         IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest = null;
-        kestraClient.users().updateUserGroups(id, MAIN_TENANT, iaMUserGroupControllerApiUpdateUserGroupsRequest);
+        kestraClient().users().updateUserGroups(id, MAIN_TENANT, iaMUserGroupControllerApiUpdateUserGroupsRequest);
 
         // TODO: test validations
     }
