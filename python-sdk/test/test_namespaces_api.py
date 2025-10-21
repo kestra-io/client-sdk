@@ -13,15 +13,19 @@
 
 
 import unittest
-
-from kestrapy.api.namespaces_api import NamespacesApi
+from kestrapy import Configuration, KestraClient
 
 
 class TestNamespacesApi(unittest.TestCase):
     """NamespacesApi unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = NamespacesApi()
+        configuration = Configuration()
+        configuration.host = "http://localhost:9902"
+        configuration.username = "root@root.com"
+        configuration.password = "Root!1234"
+
+        self.kestra_client = KestraClient(configuration)
 
     def tearDown(self) -> None:
         pass

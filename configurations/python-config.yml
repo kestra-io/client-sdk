@@ -3,7 +3,7 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/python-sdk
 
 globalProperties:
-  apiTests: true
+  apiTests: false
   modelTests: false
   apiDocs: true
   modelDocs: true

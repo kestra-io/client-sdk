@@ -35,7 +35,7 @@ echo "install SDK locally so it can be imported and used in e2e tests"
 log_and_run pip install -e .
 
 echo "start tests"
-log_and_run python -m pytest ./test_python_sdk
+log_and_run python -m pytest ./test
 
 echo "stop Kestra container"
 log_and_run docker compose -f docker-compose-ci.yml down

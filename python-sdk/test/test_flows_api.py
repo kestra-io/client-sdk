@@ -13,15 +13,20 @@
 
 
 import unittest
-
-from kestrapy.api.flows_api import FlowsApi
-
+import yaml
+from pathlib import Path
+from kestrapy import Configuration, KestraClient
 
 class TestFlowsApi(unittest.TestCase):
     """FlowsApi unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = FlowsApi()
+        configuration = Configuration()
+        configuration.host = "http://localhost:9902"
+        configuration.username = "root@root.com"
+        configuration.password = "Root!1234"
+
+        self.kestra_client = KestraClient(configuration)
 
     def tearDown(self) -> None:
         pass
