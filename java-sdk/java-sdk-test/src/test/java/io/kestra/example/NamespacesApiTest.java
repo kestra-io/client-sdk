@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class NamespacesApiTest {
 
@@ -30,9 +30,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void autocompleteNamespacesTest() throws ApiException {
-        String tenant = null;
+
         ApiAutocomplete apiAutocomplete = null;
-        List<String> response = kestraClient().namespaces().autocompleteNamespaces(tenant, apiAutocomplete);
+        List<String> response = kestraClient().namespaces().autocompleteNamespaces(MAIN_TENANT, apiAutocomplete);
 
         // TODO: test validations
     }
@@ -44,9 +44,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void createNamespaceTest() throws ApiException {
-        String tenant = null;
+
         Namespace namespace = null;
-        Namespace response = kestraClient().namespaces().createNamespace(tenant, namespace);
+        Namespace response = kestraClient().namespaces().createNamespace(MAIN_TENANT, namespace);
 
         // TODO: test validations
     }
@@ -58,9 +58,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void deleteNamespaceTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        kestraClient().namespaces().deleteNamespace(id, tenant);
+        String id = randomId();
+
+        kestraClient().namespaces().deleteNamespace(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -72,10 +72,10 @@ public class NamespacesApiTest {
      */
     @Test
     public void deleteSecretTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String key = null;
-        String tenant = null;
-        List<String> response = kestraClient().namespaces().deleteSecret(namespace, key, tenant);
+
+        List<String> response = kestraClient().namespaces().deleteSecret(namespace, key, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -87,9 +87,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void getInheritedSecretsTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
-        Map<String, List<String>> response = kestraClient().namespaces().getInheritedSecrets(namespace, tenant);
+        String namespace = randomId();
+
+        Map<String, List<String>> response = kestraClient().namespaces().getInheritedSecrets(namespace, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -101,9 +101,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void getNamespaceTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        Namespace response = kestraClient().namespaces().getNamespace(id, tenant);
+        String id = randomId();
+
+        Namespace response = kestraClient().namespaces().getNamespace(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -115,9 +115,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void inheritedPluginDefaultsTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        List<PluginDefault> response = kestraClient().namespaces().inheritedPluginDefaults(id, tenant);
+        String id = randomId();
+
+        List<PluginDefault> response = kestraClient().namespaces().inheritedPluginDefaults(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -129,9 +129,9 @@ public class NamespacesApiTest {
      */
     @Test
     public void inheritedVariablesTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        Map<String, Object> response = kestraClient().namespaces().inheritedVariables(id, tenant);
+        String id = randomId();
+
+        Map<String, Object> response = kestraClient().namespaces().inheritedVariables(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -143,13 +143,13 @@ public class NamespacesApiTest {
      */
     @Test
     public void listNamespaceSecretsTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         Integer page = null;
         Integer size = null;
         List<QueryFilter> filters = null;
-        String tenant = null;
+
         List<String> sort = null;
-        ApiSecretListResponse response = kestraClient().namespaces().listNamespaceSecrets(namespace, page, size, filters, tenant, sort);
+        ApiSecretListResponse response = kestraClient().namespaces().listNamespaceSecrets(namespace, page, size, filters, MAIN_TENANT, sort);
 
         // TODO: test validations
     }
@@ -161,11 +161,11 @@ public class NamespacesApiTest {
      */
     @Test
     public void patchSecretTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
+        String namespace = randomId();
+
         String key = null;
         ApiSecretMetaEE apiSecretMetaEE = null;
-        List<ApiSecretMeta> response = kestraClient().namespaces().patchSecret(namespace, tenant, key, apiSecretMetaEE);
+        List<ApiSecretMeta> response = kestraClient().namespaces().patchSecret(namespace, MAIN_TENANT, key, apiSecretMetaEE);
 
         // TODO: test validations
     }
@@ -177,10 +177,10 @@ public class NamespacesApiTest {
      */
     @Test
     public void putSecretsTest() throws ApiException {
-        String namespace = null;
-        String tenant = null;
+        String namespace = randomId();
+
         ApiSecretValue apiSecretValue = null;
-        List<ApiSecretMeta> response = kestraClient().namespaces().putSecrets(namespace, tenant, apiSecretValue);
+        List<ApiSecretMeta> response = kestraClient().namespaces().putSecrets(namespace, MAIN_TENANT, apiSecretValue);
 
         // TODO: test validations
     }
@@ -195,10 +195,10 @@ public class NamespacesApiTest {
         Integer page = null;
         Integer size = null;
         Boolean existing = null;
-        String tenant = null;
+
         String q = null;
         List<String> sort = null;
-        PagedResultsNamespace response = kestraClient().namespaces().searchNamespaces(page, size, existing, tenant, q, sort);
+        PagedResultsNamespace response = kestraClient().namespaces().searchNamespaces(page, size, existing, MAIN_TENANT, q, sort);
 
         // TODO: test validations
     }
@@ -210,10 +210,10 @@ public class NamespacesApiTest {
      */
     @Test
     public void updateNamespaceTest() throws ApiException {
-        String id = null;
-        String tenant = null;
+        String id = randomId();
+
         Namespace namespace = null;
-        Namespace response = kestraClient().namespaces().updateNamespace(id, tenant, namespace);
+        Namespace response = kestraClient().namespaces().updateNamespace(id, MAIN_TENANT, namespace);
 
         // TODO: test validations
     }

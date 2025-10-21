@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class TriggersApiTest {
 
@@ -24,9 +24,9 @@ public class TriggersApiTest {
      */
     @Test
     public void deleteBackfillTest() throws ApiException {
-        String tenant = null;
+
         Trigger trigger = null;
-        Trigger response = kestraClient().triggers().deleteBackfill(tenant, trigger);
+        Trigger response = kestraClient().triggers().deleteBackfill(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -38,9 +38,9 @@ public class TriggersApiTest {
      */
     @Test
     public void deleteBackfillByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().deleteBackfillByIds(tenant, trigger);
+        Object response = kestraClient().triggers().deleteBackfillByIds(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -52,11 +52,11 @@ public class TriggersApiTest {
      */
     @Test
     public void deleteBackfillByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
-        String namespace = null;
-        Object response = kestraClient().triggers().deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+        String namespace = randomId();
+        Object response = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
 
         // TODO: test validations
     }
@@ -68,9 +68,9 @@ public class TriggersApiTest {
      */
     @Test
     public void disabledTriggersByIdsTest() throws ApiException {
-        String tenant = null;
+
         TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest = null;
-        Object response = kestraClient().triggers().disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest);
+        Object response = kestraClient().triggers().disabledTriggersByIds(MAIN_TENANT, triggerControllerSetDisabledRequest);
 
         // TODO: test validations
     }
@@ -83,11 +83,11 @@ public class TriggersApiTest {
     @Test
     public void disabledTriggersByQueryTest() throws ApiException {
         Boolean disabled = null;
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
-        String namespace = null;
-        Object response = kestraClient().triggers().disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, q, namespace);
+        String namespace = randomId();
+        Object response = kestraClient().triggers().disabledTriggersByQuery(disabled, MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
 
         // TODO: test validations
     }
@@ -99,9 +99,9 @@ public class TriggersApiTest {
      */
     @Test
     public void pauseBackfillTest() throws ApiException {
-        String tenant = null;
+
         Trigger trigger = null;
-        Trigger response = kestraClient().triggers().pauseBackfill(tenant, trigger);
+        Trigger response = kestraClient().triggers().pauseBackfill(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -113,9 +113,9 @@ public class TriggersApiTest {
      */
     @Test
     public void pauseBackfillByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().pauseBackfillByIds(tenant, trigger);
+        Object response = kestraClient().triggers().pauseBackfillByIds(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -127,11 +127,11 @@ public class TriggersApiTest {
      */
     @Test
     public void pauseBackfillByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
-        String namespace = null;
-        Object response = kestraClient().triggers().pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+        String namespace = randomId();
+        Object response = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
 
         // TODO: test validations
     }
@@ -143,11 +143,11 @@ public class TriggersApiTest {
      */
     @Test
     public void restartTriggerTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String flowId = null;
         String triggerId = null;
-        String tenant = null;
-        Object response = kestraClient().triggers().restartTrigger(namespace, flowId, triggerId, tenant);
+
+        Object response = kestraClient().triggers().restartTrigger(namespace, flowId, triggerId, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -161,14 +161,14 @@ public class TriggersApiTest {
     public void searchTriggersTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-        String tenant = null;
+
         List<String> sort = null;
         List<QueryFilter> filters = null;
         String q = null;
-        String namespace = null;
+        String namespace = randomId();
         String workerId = null;
         String flowId = null;
-        PagedResultsTriggerControllerTriggers response = kestraClient().triggers().searchTriggers(page, size, tenant, sort, filters, q, namespace, workerId, flowId);
+        PagedResultsTriggerControllerTriggers response = kestraClient().triggers().searchTriggers(page, size, MAIN_TENANT, sort, filters, q, namespace, workerId, flowId);
 
         // TODO: test validations
     }
@@ -182,12 +182,12 @@ public class TriggersApiTest {
     public void searchTriggersForFlowTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-        String namespace = null;
+        String namespace = randomId();
         String flowId = null;
-        String tenant = null;
+
         List<String> sort = null;
         String q = null;
-        PagedResultsTrigger response = kestraClient().triggers().searchTriggersForFlow(page, size, namespace, flowId, tenant, sort, q);
+        PagedResultsTrigger response = kestraClient().triggers().searchTriggersForFlow(page, size, namespace, flowId, MAIN_TENANT, sort, q);
 
         // TODO: test validations
     }
@@ -199,11 +199,11 @@ public class TriggersApiTest {
      */
     @Test
     public void unlockTriggerTest() throws ApiException {
-        String namespace = null;
+        String namespace = randomId();
         String flowId = null;
         String triggerId = null;
-        String tenant = null;
-        Trigger response = kestraClient().triggers().unlockTrigger(namespace, flowId, triggerId, tenant);
+
+        Trigger response = kestraClient().triggers().unlockTrigger(namespace, flowId, triggerId, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -215,9 +215,9 @@ public class TriggersApiTest {
      */
     @Test
     public void unlockTriggersByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().unlockTriggersByIds(tenant, trigger);
+        Object response = kestraClient().triggers().unlockTriggersByIds(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -229,11 +229,11 @@ public class TriggersApiTest {
      */
     @Test
     public void unlockTriggersByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
-        String namespace = null;
-        Object response = kestraClient().triggers().unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+        String namespace = randomId();
+        Object response = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
 
         // TODO: test validations
     }
@@ -245,9 +245,9 @@ public class TriggersApiTest {
      */
     @Test
     public void unpauseBackfillTest() throws ApiException {
-        String tenant = null;
+
         Trigger trigger = null;
-        Trigger response = kestraClient().triggers().unpauseBackfill(tenant, trigger);
+        Trigger response = kestraClient().triggers().unpauseBackfill(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -259,9 +259,9 @@ public class TriggersApiTest {
      */
     @Test
     public void unpauseBackfillByIdsTest() throws ApiException {
-        String tenant = null;
+
         List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().unpauseBackfillByIds(tenant, trigger);
+        Object response = kestraClient().triggers().unpauseBackfillByIds(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }
@@ -273,11 +273,11 @@ public class TriggersApiTest {
      */
     @Test
     public void unpauseBackfillByQueryTest() throws ApiException {
-        String tenant = null;
+
         DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
         String q = null;
-        String namespace = null;
-        Object response = kestraClient().triggers().unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, q, namespace);
+        String namespace = randomId();
+        Object response = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
 
         // TODO: test validations
     }
@@ -289,9 +289,9 @@ public class TriggersApiTest {
      */
     @Test
     public void updateTriggerTest() throws ApiException {
-        String tenant = null;
+
         Trigger trigger = null;
-        Trigger response = kestraClient().triggers().updateTrigger(tenant, trigger);
+        Trigger response = kestraClient().triggers().updateTrigger(MAIN_TENANT, trigger);
 
         // TODO: test validations
     }

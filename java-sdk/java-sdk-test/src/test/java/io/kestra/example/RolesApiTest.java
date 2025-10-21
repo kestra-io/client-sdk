@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.*;
 
 public class RolesApiTest {
 
@@ -25,9 +25,9 @@ public class RolesApiTest {
      */
     @Test
     public void autocompleteRolesTest() throws ApiException {
-        String tenant = null;
+
         ApiAutocomplete apiAutocomplete = null;
-        List<ApiRoleSummary> response = kestraClient().roles().autocompleteRoles(tenant, apiAutocomplete);
+        List<ApiRoleSummary> response = kestraClient().roles().autocompleteRoles(MAIN_TENANT, apiAutocomplete);
 
         // TODO: test validations
     }
@@ -39,9 +39,9 @@ public class RolesApiTest {
      */
     @Test
     public void createRoleTest() throws ApiException {
-        String tenant = null;
+
         IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest = null;
-        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().createRole(tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
+        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().createRole(MAIN_TENANT, iaMRoleControllerApiRoleCreateOrUpdateRequest);
 
         // TODO: test validations
     }
@@ -53,9 +53,9 @@ public class RolesApiTest {
      */
     @Test
     public void deleteRoleTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-         kestraClient().roles().deleteRole(id, tenant);
+        String id = randomId();
+
+         kestraClient().roles().deleteRole(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -67,9 +67,9 @@ public class RolesApiTest {
      */
     @Test
     public void getRoleTest() throws ApiException {
-        String id = null;
-        String tenant = null;
-        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().getRole(id, tenant);
+        String id = randomId();
+
+        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().getRole(id, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -81,9 +81,9 @@ public class RolesApiTest {
      */
     @Test
     public void listRolesFromGivenIdsTest() throws ApiException {
-        String tenant = null;
+
         ApiIds apiIds = null;
-        List<Role> response =  kestraClient().roles().listRolesFromGivenIds(tenant, apiIds);
+        List<Role> response =  kestraClient().roles().listRolesFromGivenIds(MAIN_TENANT, apiIds);
 
         // TODO: test validations
     }
@@ -97,10 +97,10 @@ public class RolesApiTest {
     public void searchRolesTest() throws ApiException {
         Integer page = null;
         Integer size = null;
-        String tenant = null;
+
         String q = null;
         List<String> sort = null;
-        PagedResultsApiRoleSummary response =  kestraClient().roles().searchRoles(page, size, tenant, q, sort);
+        PagedResultsApiRoleSummary response =  kestraClient().roles().searchRoles(page, size, MAIN_TENANT, q, sort);
 
         // TODO: test validations
     }
@@ -112,10 +112,10 @@ public class RolesApiTest {
      */
     @Test
     public void updateRoleTest() throws ApiException {
-        String id = null;
-        String tenant = null;
+        String id = randomId();
+
         IAMRoleControllerApiRoleCreateOrUpdateRequest iaMRoleControllerApiRoleCreateOrUpdateRequest = null;
-        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().updateRole(id, tenant, iaMRoleControllerApiRoleCreateOrUpdateRequest);
+        IAMRoleControllerApiRoleDetail response =  kestraClient().roles().updateRole(id, MAIN_TENANT, iaMRoleControllerApiRoleCreateOrUpdateRequest);
 
         // TODO: test validations
     }

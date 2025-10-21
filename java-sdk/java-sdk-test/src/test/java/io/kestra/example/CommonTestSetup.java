@@ -2,6 +2,8 @@ package io.kestra.example;
 
 import io.kestra.sdk.KestraClient;
 
+import java.util.UUID;
+
 public class CommonTestSetup {
     public static String MAIN_TENANT = "main";
 
@@ -10,5 +12,9 @@ public class CommonTestSetup {
             .basicAuth("root@root.com", "Root!1234")
             .url("http://localhost:9901")
             .build();
+    }
+
+    public static String randomId(){
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 }
