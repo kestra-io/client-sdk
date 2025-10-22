@@ -1079,10 +1079,10 @@ public class UsersApi extends BaseApi {
    * Superadmin-only. Updates whether a user is a superadmin.
    * @param id The user id (required)
    * @param iaMUserControllerApiPatchUserPasswordRequest  (required)
-   * @return Object
+   * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public Object patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest) throws ApiException {
+  public IAMUserControllerApiUser patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest) throws ApiException {
     return this.patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest, Collections.emptyMap());
   }
 
@@ -1093,10 +1093,10 @@ public class UsersApi extends BaseApi {
    * @param id The user id (required)
    * @param iaMUserControllerApiPatchUserPasswordRequest  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public Object patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser patchUserPassword(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiPatchUserPasswordRequest;
     
     // verify the required parameter 'id' is set
@@ -1138,7 +1138,7 @@ public class UsersApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<IAMUserControllerApiUser> localVarReturnType = new TypeReference<IAMUserControllerApiUser>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "PATCH",

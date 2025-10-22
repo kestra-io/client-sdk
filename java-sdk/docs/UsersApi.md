@@ -1033,7 +1033,7 @@ null (empty response body)
 
 ## patchUserPassword
 
-> Object patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest)
+> IAMUserControllerApiUser patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest)
 
 Update user password
 
@@ -1068,7 +1068,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = new IAMUserControllerApiPatchUserPasswordRequest(); // IAMUserControllerApiPatchUserPasswordRequest | 
         try {
-            Object result = apiInstance.patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
+            IAMUserControllerApiUser result = apiInstance.patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#patchUserPassword");
@@ -1091,7 +1091,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 

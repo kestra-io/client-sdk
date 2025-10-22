@@ -818,7 +818,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_user_password**
-> object patch_user_password(id, iam_user_controller_api_patch_user_password_request)
+> IAMUserControllerApiUser patch_user_password(id, iam_user_controller_api_patch_user_password_request)
 
 Update user password
 
@@ -830,6 +830,7 @@ Superadmin-only. Updates whether a user is a superadmin.
 ```python
 import kestrapy
 from kestrapy.models.iam_user_controller_api_patch_user_password_request import IAMUserControllerApiPatchUserPasswordRequest
+from kestrapy.models.iam_user_controller_api_user import IAMUserControllerApiUser
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -860,7 +861,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
