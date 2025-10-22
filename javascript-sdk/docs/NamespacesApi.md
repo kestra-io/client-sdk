@@ -44,13 +44,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let tenant = "tenant_example"; // String | 
 let apiAutocomplete = new KestraIoKestraSdk.ApiAutocomplete(); // ApiAutocomplete | 
-apiInstance.autocompleteNamespaces(tenant, apiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteNamespaces(tenant, apiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -97,13 +96,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let tenant = "tenant_example"; // String | 
 let namespace = new KestraIoKestraSdk.Namespace(); // Namespace | The namespace
-apiInstance.createNamespace(tenant, namespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createNamespace(tenant, namespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -150,13 +148,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteNamespace(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteNamespace(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -204,13 +201,12 @@ let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The secret key
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteSecret(namespace, key, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteSecret(namespace, key, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -258,13 +254,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.getInheritedSecrets(namespace, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getInheritedSecrets(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -311,13 +306,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.getNamespace(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getNamespace(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -364,13 +358,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.inheritedPluginDefaults(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.inheritedPluginDefaults(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -417,13 +410,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
-apiInstance.inheritedVariables(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.inheritedVariables(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -476,13 +468,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.listNamespaceSecrets(namespace, page, size, filters, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listNamespaceSecrets(namespace, page, size, filters, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -535,13 +526,12 @@ let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let key = "key_example"; // String | 
 let apiSecretMetaEE = new KestraIoKestraSdk.ApiSecretMetaEE(); // ApiSecretMetaEE | 
-apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -591,13 +581,12 @@ let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let apiSecretValue = new KestraIoKestraSdk.ApiSecretValue(); // ApiSecretValue | 
-apiInstance.putSecrets(namespace, tenant, apiSecretValue, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.putSecrets(namespace, tenant, apiSecretValue).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -651,13 +640,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchNamespaces(page, size, existing, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchNamespaces(page, size, existing, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -709,13 +697,12 @@ let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let id = "id_example"; // String | The namespace id
 let tenant = "tenant_example"; // String | 
 let namespace = new KestraIoKestraSdk.Namespace(); // Namespace | The namespace
-apiInstance.updateNamespace(id, tenant, namespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateNamespace(id, tenant, namespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

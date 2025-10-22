@@ -47,13 +47,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let tenant = "tenant_example"; // String | 
 let iAMTenantAccessControllerUserApiAutocomplete = new KestraIoKestraSdk.IAMTenantAccessControllerUserApiAutocomplete(); // IAMTenantAccessControllerUserApiAutocomplete | Autocomplete request
-apiInstance.autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -102,13 +101,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let createApiTokenRequest = new KestraIoKestraSdk.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForUser(id, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForUser(id, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -156,13 +154,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let iAMUserControllerApiCreateOrUpdateUserRequest = new KestraIoKestraSdk.IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
-apiInstance.createUser(iAMUserControllerApiCreateOrUpdateUserRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createUser(iAMUserControllerApiCreateOrUpdateUserRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -210,13 +207,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiTokenForUser(id, tokenId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteApiTokenForUser(id, tokenId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -262,13 +258,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.deleteRefreshToken(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteRefreshToken(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -315,13 +310,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.deleteUser(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteUser(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -369,13 +363,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let auth = "auth_example"; // String | The user auth method id
-apiInstance.deleteUserAuthMethod(id, auth, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUserAuthMethod(id, auth).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -423,13 +416,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.getUser(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUser(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -476,13 +468,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.impersonate(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.impersonate(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -529,13 +520,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
-apiInstance.listApiTokensForUser(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensForUser(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -585,13 +575,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.listUsers(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listUsers(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -642,13 +631,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let meControllerApiUserDetailsRequest = new KestraIoKestraSdk.MeControllerApiUserDetailsRequest(); // MeControllerApiUserDetailsRequest | The user details
-apiInstance.patchUser(id, meControllerApiUserDetailsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchUser(id, meControllerApiUserDetailsRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -697,13 +685,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let iAMUserControllerApiPatchRestrictedRequest = new KestraIoKestraSdk.IAMUserControllerApiPatchRestrictedRequest(); // IAMUserControllerApiPatchRestrictedRequest | 
-apiInstance.patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -752,13 +739,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let iAMUserControllerApiPatchUserPasswordRequest = new KestraIoKestraSdk.IAMUserControllerApiPatchUserPasswordRequest(); // IAMUserControllerApiPatchUserPasswordRequest | 
-apiInstance.patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -807,13 +793,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let apiPatchSuperAdminRequest = new KestraIoKestraSdk.ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
-apiInstance.patchUserSuperAdmin(id, apiPatchSuperAdminRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.patchUserSuperAdmin(id, apiPatchSuperAdminRequest).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -861,13 +846,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let meControllerApiUpdatePasswordRequest = new KestraIoKestraSdk.MeControllerApiUpdatePasswordRequest(); // MeControllerApiUpdatePasswordRequest | 
-apiInstance.updateCurrentUserPassword(meControllerApiUpdatePasswordRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateCurrentUserPassword(meControllerApiUpdatePasswordRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -915,13 +899,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user id
 let iAMUserControllerApiCreateOrUpdateUserRequest = new KestraIoKestraSdk.IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
-apiInstance.updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -969,13 +952,12 @@ let apiInstance = new KestraIoKestraSdk.UsersApi();
 let id = "id_example"; // String | The user ID
 let tenant = "tenant_example"; // String | 
 let iAMUserGroupControllerApiUpdateUserGroupsRequest = new KestraIoKestraSdk.IAMUserGroupControllerApiUpdateUserGroupsRequest(); // IAMUserGroupControllerApiUpdateUserGroupsRequest | 
-apiInstance.updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

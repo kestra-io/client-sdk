@@ -45,13 +45,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let createApiTokenRequest = new KestraIoKestraSdk.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForServiceAccount(id, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForServiceAccount(id, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -99,13 +98,12 @@ let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let createApiTokenRequest = new KestraIoKestraSdk.CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-apiInstance.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -154,13 +152,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let iAMServiceAccountControllerApiCreateServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiCreateServiceAccountRequest(); // IAMServiceAccountControllerApiCreateServiceAccountRequest | The service account
-apiInstance.createServiceAccount(iAMServiceAccountControllerApiCreateServiceAccountRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createServiceAccount(iAMServiceAccountControllerApiCreateServiceAccountRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -206,13 +203,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let tenant = "tenant_example"; // String | 
 let iAMServiceAccountControllerApiServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The service account
-apiInstance.createServiceAccountForTenant(tenant, iAMServiceAccountControllerApiServiceAccountRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createServiceAccountForTenant(tenant, iAMServiceAccountControllerApiServiceAccountRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -259,13 +255,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
-apiInstance.deleteApiTokenForServiceAccount(id, tokenId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenForServiceAccount(id, tokenId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -313,13 +308,12 @@ let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tokenId = "tokenId_example"; // String | The token id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -368,13 +362,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The service account id
-apiInstance.deleteServiceAccount(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteServiceAccount(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -420,13 +413,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The service account id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteServiceAccountForTenant(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteServiceAccountForTenant(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -474,13 +466,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The service account id
-apiInstance.getServiceAccount(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getServiceAccount(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -526,13 +517,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.getServiceAccountForTenant(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getServiceAccountForTenant(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -578,13 +568,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
-apiInstance.listApiTokensForServiceAccount(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensForServiceAccount(id).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -630,13 +619,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
-apiInstance.listApiTokensForServiceAccountWithTenant(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listApiTokensForServiceAccountWithTenant(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -687,13 +675,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.listServiceAccounts(page, size, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listServiceAccounts(page, size, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -744,13 +731,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The service account id
 let iAMServiceAccountControllerApiPatchServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiPatchServiceAccountRequest(); // IAMServiceAccountControllerApiPatchServiceAccountRequest | The service account details
-apiInstance.patchServiceAccountDetails(id, iAMServiceAccountControllerApiPatchServiceAccountRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchServiceAccountDetails(id, iAMServiceAccountControllerApiPatchServiceAccountRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -799,13 +785,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let apiPatchSuperAdminRequest = new KestraIoKestraSdk.ApiPatchSuperAdminRequest(); // ApiPatchSuperAdminRequest | 
-apiInstance.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -853,13 +838,12 @@ let apiInstance = new KestraIoKestraSdk.ServiceAccountApi();
 let id = "id_example"; // String | The user id
 let tenant = "tenant_example"; // String | 
 let iAMServiceAccountControllerApiServiceAccountRequest = new KestraIoKestraSdk.IAMServiceAccountControllerApiServiceAccountRequest(); // IAMServiceAccountControllerApiServiceAccountRequest | The user
-apiInstance.updateServiceAccount(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateServiceAccount(id, tenant, iAMServiceAccountControllerApiServiceAccountRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

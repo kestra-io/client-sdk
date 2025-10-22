@@ -61,13 +61,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
 };
-apiInstance.bulkImportApps(tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkImportApps(tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -121,13 +120,12 @@ let opts = {
   'namespace': "namespace_example", // String | The namespace where to update flows
   'body': "body_example" // String | A list of flows source code splitted with \"---\"
 };
-apiInstance.bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpdateFlows(_delete, allowNamespaceChild, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -177,13 +175,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The flow source code
-apiInstance.createFlow(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createFlow(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -231,13 +228,12 @@ let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteFlow(namespace, id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteFlow(namespace, id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -285,13 +281,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let idWithNamespace = [new KestraIoKestraSdk.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
-apiInstance.deleteFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteFlowsByIds(tenant, idWithNamespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -344,13 +339,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
-apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -401,13 +395,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let idWithNamespace = [new KestraIoKestraSdk.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
-apiInstance.disableFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disableFlowsByIds(tenant, idWithNamespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -460,13 +453,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
-apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -517,13 +509,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let idWithNamespace = [new KestraIoKestraSdk.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
-apiInstance.enableFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.enableFlowsByIds(tenant, idWithNamespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -576,13 +567,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
-apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.enableFlowsByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -633,13 +623,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let idWithNamespace = [new KestraIoKestraSdk.IdWithNamespace()]; // [IdWithNamespace] | A list of tuple flow ID and namespace as flow identifiers
-apiInstance.exportFlowsByIds(tenant, idWithNamespace, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.exportFlowsByIds(tenant, idWithNamespace).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -692,13 +681,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
-apiInstance.exportFlowsByQuery(tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.exportFlowsByQuery(tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -754,13 +742,12 @@ let opts = {
   'revision': 56, // Number | The flow revision
   'subflows': ["null"] // [String] | The subflow tasks to display
 };
-apiInstance.generateFlowGraph(namespace, id, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.generateFlowGraph(namespace, id, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -813,13 +800,12 @@ let body = "body_example"; // String | The flow source code
 let opts = {
   'subflows': ["null"] // [String] | The subflow tasks to display
 };
-apiInstance.generateFlowGraphFromSource(tenant, body, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.generateFlowGraphFromSource(tenant, body, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -873,13 +859,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'revision': 56 // Number | Get latest revision by default
 };
-apiInstance.getFlow(namespace, id, source, allowDeleted, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFlow(namespace, id, source, allowDeleted, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -933,13 +918,12 @@ let id = "id_example"; // String | The flow id
 let destinationOnly = false; // Boolean | If true, list only destination dependencies, otherwise list also source dependencies
 let expandAll = false; // Boolean | If true, expand all dependencies recursively
 let tenant = "tenant_example"; // String | 
-apiInstance.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFlowDependencies(namespace, id, destinationOnly, expandAll, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -990,13 +974,12 @@ let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let destinationOnly = false; // Boolean | if true, list only destination dependencies, otherwise list also source dependencies
 let tenant = "tenant_example"; // String | 
-apiInstance.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getFlowDependenciesFromNamespace(namespace, destinationOnly, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1049,13 +1032,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'revision': 56 // Number | The flow revision
 };
-apiInstance.getTaskFromFlow(namespace, id, taskId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getTaskFromFlow(namespace, id, taskId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1107,13 +1089,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'fileUpload': "/path/to/file" // File | The file to import, can be a ZIP archive or a multi-objects YAML file
 };
-apiInstance.importFlows(tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.importFlows(tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1162,13 +1143,12 @@ let tenant = "tenant_example"; // String |
 let opts = {
   'q': "q_example" // String | A string filter
 };
-apiInstance.listDistinctNamespaces(tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listDistinctNamespaces(tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1216,13 +1196,12 @@ let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let namespace = "namespace_example"; // String | The flow namespace
 let id = "id_example"; // String | The flow id
 let tenant = "tenant_example"; // String | 
-apiInstance.listFlowRevisions(namespace, id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listFlowRevisions(namespace, id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1270,13 +1249,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let namespace = "namespace_example"; // String | Namespace to filter flows
 let tenant = "tenant_example"; // String | 
-apiInstance.listFlowsByNamespace(namespace, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listFlowsByNamespace(namespace, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1332,13 +1310,12 @@ let opts = {
   'namespace': "namespace_example", // String | A namespace filter prefix
   'labels': ["null"] // [String] | A labels filter as a list of 'key:value'
 };
-apiInstance.searchFlows(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchFlows(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1398,13 +1375,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.searchFlowsBySourceCode(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchFlowsBySourceCode(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1457,13 +1433,12 @@ let id = "id_example"; // String | The flow id
 let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | The flow source code
-apiInstance.updateFlow(id, namespace, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateFlow(id, namespace, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1516,13 +1491,12 @@ let _delete = true; // Boolean | If missing flow should be deleted
 let namespace = "namespace_example"; // String | The flow namespace
 let tenant = "tenant_example"; // String | 
 let flow = [new KestraIoKestraSdk.Flow()]; // [Flow] | A list of flows
-apiInstance.updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateFlowsInNamespaceFromJson(_delete, namespace, tenant, flow).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1574,13 +1548,12 @@ let id = "id_example"; // String | The flow id
 let taskId = "taskId_example"; // String | The task id
 let tenant = "tenant_example"; // String | 
 let task = new KestraIoKestraSdk.Task(); // Task | The task
-apiInstance.updateTask(namespace, id, taskId, tenant, task, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateTask(namespace, id, taskId, tenant, task).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1630,13 +1603,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | A list of flows source code in a single string
-apiInstance.validateFlows(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateFlows(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1684,13 +1656,12 @@ let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let section = new KestraIoKestraSdk.FlowControllerTaskValidationType(); // FlowControllerTaskValidationType | The type of task
 let tenant = "tenant_example"; // String | 
 let body = "body_example"; // String | A task definition that can be from tasks or triggers
-apiInstance.validateTask(section, tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateTask(section, tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1738,13 +1709,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.FlowsApi();
 let tenant = "tenant_example"; // String | 
 let body = {key: null}; // Object | The trigger
-apiInstance.validateTrigger(tenant, body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.validateTrigger(tenant, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

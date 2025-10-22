@@ -123,14 +123,12 @@ var opts = {
   'breakpoints': "breakpoints_example", // {String} Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
   'kind': new KestraIoKestraSdk.ExecutionKind() // {ExecutionKind} Specific execution kind
 };
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.createExecution(namespace, id, wait, tenant, opts, callback);
+api.createExecution(namespace, id, wait, tenant, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
 
 ```
 

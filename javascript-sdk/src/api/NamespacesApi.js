@@ -42,23 +42,15 @@ export default class NamespacesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the autocompleteNamespaces operation.
-     * @callback module:api/NamespacesApi~autocompleteNamespacesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List namespaces for autocomplete
      * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete 
-     * @param {module:api/NamespacesApi~autocompleteNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    autocompleteNamespaces(tenant, apiAutocomplete, callback) {
+    autocompleteNamespacesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -86,26 +78,32 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createNamespace operation.
-     * @callback module:api/NamespacesApi~createNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Namespace} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List namespaces for autocomplete
+     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
+     * @param {String} tenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    autocompleteNamespaces(tenant, apiAutocomplete) {
+      return this.autocompleteNamespacesWithHttpInfo(tenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a namespace
      * @param {String} tenant 
      * @param {module:model/Namespace} namespace The namespace
-     * @param {module:api/NamespacesApi~createNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Namespace}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
      */
-    createNamespace(tenant, namespace, callback) {
+    createNamespaceWithHttpInfo(tenant, namespace) {
       let postBody = namespace;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -133,25 +131,31 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteNamespace operation.
-     * @callback module:api/NamespacesApi~deleteNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a namespace
+     * @param {String} tenant 
+     * @param {module:model/Namespace} namespace The namespace
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
      */
+    createNamespace(tenant, namespace) {
+      return this.createNamespaceWithHttpInfo(tenant, namespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a namespace
      * @param {String} id The namespace id
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~deleteNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteNamespace(id, tenant, callback) {
+    deleteNamespaceWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -180,27 +184,32 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteSecret operation.
-     * @callback module:api/NamespacesApi~deleteSecretCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<String>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a namespace
+     * @param {String} id The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteNamespace(id, tenant) {
+      return this.deleteNamespaceWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a secret for a namespace
      * @param {String} namespace The namespace id
      * @param {String} key The secret key
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~deleteSecretCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
      */
-    deleteSecret(namespace, key, tenant, callback) {
+    deleteSecretWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -234,26 +243,32 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getInheritedSecrets operation.
-     * @callback module:api/NamespacesApi~getInheritedSecretsCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, {String: [String]}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a secret for a namespace
+     * @param {String} namespace The namespace id
+     * @param {String} key The secret key
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
      */
+    deleteSecret(namespace, key, tenant) {
+      return this.deleteSecretWithHttpInfo(namespace, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List inherited secrets
      * @param {String} namespace The namespace id
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~getInheritedSecretsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, {String: [String]}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: [String]}>} and HTTP response
      */
-    getInheritedSecrets(namespace, tenant, callback) {
+    getInheritedSecretsWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -282,26 +297,31 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/inherited-secrets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getNamespace operation.
-     * @callback module:api/NamespacesApi~getNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Namespace} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List inherited secrets
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: [String]}>}
      */
+    getInheritedSecrets(namespace, tenant) {
+      return this.getInheritedSecretsWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a namespace
      * @param {String} id The namespace id
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~getNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Namespace}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
      */
-    getNamespace(id, tenant, callback) {
+    getNamespaceWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -330,26 +350,31 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the inheritedPluginDefaults operation.
-     * @callback module:api/NamespacesApi~inheritedPluginDefaultsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/PluginDefault>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a namespace
+     * @param {String} id The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
      */
+    getNamespace(id, tenant) {
+      return this.getNamespaceWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List inherited plugin defaults
      * @param {String} id The namespace id
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~inheritedPluginDefaultsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/PluginDefault>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PluginDefault>} and HTTP response
      */
-    inheritedPluginDefaults(id, tenant, callback) {
+    inheritedPluginDefaultsWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -378,26 +403,31 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}/inherited-plugindefaults', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the inheritedVariables operation.
-     * @callback module:api/NamespacesApi~inheritedVariablesCallback
-     * @param {String} error Error message, if any.
-     * @param {Object.<String, {String: Object}>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List inherited plugin defaults
+     * @param {String} id The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PluginDefault>}
      */
+    inheritedPluginDefaults(id, tenant) {
+      return this.inheritedPluginDefaultsWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List inherited variables
      * @param {String} id The namespace id
      * @param {String} tenant 
-     * @param {module:api/NamespacesApi~inheritedVariablesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object.<String, {String: Object}>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
      */
-    inheritedVariables(id, tenant, callback) {
+    inheritedVariablesWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -426,17 +456,23 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}/inherited-variables', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listNamespaceSecrets operation.
-     * @callback module:api/NamespacesApi~listNamespaceSecretsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ApiSecretListResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List inherited variables
+     * @param {String} id The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
      */
+    inheritedVariables(id, tenant) {
+      return this.inheritedVariablesWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get secrets for a namespace
@@ -447,10 +483,9 @@ export default class NamespacesApi {
      * @param {String} tenant 
      * @param {Object} opts Optional parameters
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/NamespacesApi~listNamespaceSecretsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ApiSecretListResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiSecretListResponse} and HTTP response
      */
-    listNamespaceSecrets(namespace, page, size, filters, tenant, opts, callback) {
+    listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'namespace' is set
@@ -496,17 +531,28 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/secrets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchSecret operation.
-     * @callback module:api/NamespacesApi~patchSecretCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiSecretMeta>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get secrets for a namespace
+     * @param {String} namespace The namespace id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Array.<module:model/QueryFilter>} filters Filters
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiSecretListResponse}
      */
+    listNamespaceSecrets(namespace, page, size, filters, tenant, opts) {
+      return this.listNamespaceSecretsWithHttpInfo(namespace, page, size, filters, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Patch a secret metadata for a namespace
@@ -514,10 +560,9 @@ export default class NamespacesApi {
      * @param {String} tenant 
      * @param {String} key 
      * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
-     * @param {module:api/NamespacesApi~patchSecretCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiSecretMeta>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiSecretMeta>} and HTTP response
      */
-    patchSecret(namespace, tenant, key, apiSecretMetaEE, callback) {
+    patchSecretWithHttpInfo(namespace, tenant, key, apiSecretMetaEE) {
       let postBody = apiSecretMetaEE;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -555,27 +600,34 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the putSecrets operation.
-     * @callback module:api/NamespacesApi~putSecretsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiSecretMeta>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Patch a secret metadata for a namespace
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {String} key 
+     * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiSecretMeta>}
      */
+    patchSecret(namespace, tenant, key, apiSecretMetaEE) {
+      return this.patchSecretWithHttpInfo(namespace, tenant, key, apiSecretMetaEE)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update secrets for a namespace
      * @param {String} namespace The namespace id
      * @param {String} tenant 
      * @param {module:model/ApiSecretValue} apiSecretValue 
-     * @param {module:api/NamespacesApi~putSecretsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiSecretMeta>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiSecretMeta>} and HTTP response
      */
-    putSecrets(namespace, tenant, apiSecretValue, callback) {
+    putSecretsWithHttpInfo(namespace, tenant, apiSecretValue) {
       let postBody = apiSecretValue;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -608,17 +660,24 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/secrets', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchNamespaces operation.
-     * @callback module:api/NamespacesApi~searchNamespacesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsNamespace} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update secrets for a namespace
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {module:model/ApiSecretValue} apiSecretValue 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiSecretMeta>}
      */
+    putSecrets(namespace, tenant, apiSecretValue) {
+      return this.putSecretsWithHttpInfo(namespace, tenant, apiSecretValue)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for namespaces
@@ -629,10 +688,9 @@ export default class NamespacesApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/NamespacesApi~searchNamespacesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsNamespace}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsNamespace} and HTTP response
      */
-    searchNamespaces(page, size, existing, tenant, opts, callback) {
+    searchNamespacesWithHttpInfo(page, size, existing, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -674,27 +732,37 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateNamespace operation.
-     * @callback module:api/NamespacesApi~updateNamespaceCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Namespace} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for namespaces
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Boolean} existing Return only existing namespace
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsNamespace}
      */
+    searchNamespaces(page, size, existing, tenant, opts) {
+      return this.searchNamespacesWithHttpInfo(page, size, existing, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a namespace
      * @param {String} id The namespace id
      * @param {String} tenant 
      * @param {module:model/Namespace} namespace The namespace
-     * @param {module:api/NamespacesApi~updateNamespaceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Namespace}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Namespace} and HTTP response
      */
-    updateNamespace(id, tenant, namespace, callback) {
+    updateNamespaceWithHttpInfo(id, tenant, namespace) {
       let postBody = namespace;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -727,8 +795,22 @@ export default class NamespacesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a namespace
+     * @param {String} id The namespace id
+     * @param {String} tenant 
+     * @param {module:model/Namespace} namespace The namespace
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Namespace}
+     */
+    updateNamespace(id, tenant, namespace) {
+      return this.updateNamespaceWithHttpInfo(id, tenant, namespace)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

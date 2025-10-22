@@ -8,6 +8,8 @@ globalProperties:
   apiDocs: true
   modelDocs: true
 
+usePromises: true
+
 hideGenerationTimestamp: true
 
 additionalProperties:

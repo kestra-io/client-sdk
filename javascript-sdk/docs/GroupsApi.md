@@ -43,13 +43,12 @@ let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user to add to the group
 let tenant = "tenant_example"; // String | 
-apiInstance.addUserToGroup(id, userId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addUserToGroup(id, userId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -97,13 +96,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
 let apiAutocomplete = new KestraIoKestraSdk.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
-apiInstance.autocompleteGroups(tenant, apiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteGroups(tenant, apiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -150,13 +148,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
 let iAMGroupControllerApiCreateGroupRequest = new KestraIoKestraSdk.IAMGroupControllerApiCreateGroupRequest(); // IAMGroupControllerApiCreateGroupRequest | The group
-apiInstance.createGroup(tenant, iAMGroupControllerApiCreateGroupRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createGroup(tenant, iAMGroupControllerApiCreateGroupRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -203,13 +200,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteGroup(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteGroup(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -259,13 +255,12 @@ let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user to remove from the group
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteUserFromGroup(id, userId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUserFromGroup(id, userId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -315,13 +310,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
-apiInstance.getGroup(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getGroup(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -368,13 +362,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let tenant = "tenant_example"; // String | 
 let apiIds = new KestraIoKestraSdk.ApiIds(); // ApiIds | The ids that must be present on results
-apiInstance.listGroupIds(tenant, apiIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listGroupIds(tenant, apiIds).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -427,13 +420,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchGroupMembers(id, page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchGroupMembers(id, page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -489,13 +481,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchGroups(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchGroups(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -549,13 +540,12 @@ let id = "id_example"; // String | The ID of the group
 let userId = "userId_example"; // String | The ID of the user whose membership is being updated
 let membership = new KestraIoKestraSdk.GroupIdentifierMembership(); // GroupIdentifierMembership | The new membership type to assign to the user.
 let tenant = "tenant_example"; // String | 
-apiInstance.setUserMembershipForGroup(id, userId, membership, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.setUserMembershipForGroup(id, userId, membership, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -605,13 +595,12 @@ let apiInstance = new KestraIoKestraSdk.GroupsApi();
 let id = "id_example"; // String | The group id
 let tenant = "tenant_example"; // String | 
 let iAMGroupControllerApiUpdateGroupRequest = new KestraIoKestraSdk.IAMGroupControllerApiUpdateGroupRequest(); // IAMGroupControllerApiUpdateGroupRequest | The group
-apiInstance.updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
