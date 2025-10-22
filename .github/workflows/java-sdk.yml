@@ -69,7 +69,7 @@ jobs:
         env:
           APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
         run: |
-          echo $APPLICATION_SECRETS | base64 -d > .github/docker/application-secrets.yml
+          echo $APPLICATION_SECRETS | base64 -d > ../test-utils/docker-setup/application-secrets.yml
           ./run-tests.sh
 
       - name: Test - Publish Test Results
