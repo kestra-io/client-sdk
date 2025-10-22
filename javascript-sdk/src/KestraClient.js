@@ -9,6 +9,7 @@ import RolesApi from './api/RolesApi';
 import ServicesApi from './api/ServiceAccountApi';
 import TriggersApi from './api/TriggersApi';
 import UsersApi from './api/UsersApi';
+import {ServiceAccountApi} from "./index";
 
 
 class KestraClient {
