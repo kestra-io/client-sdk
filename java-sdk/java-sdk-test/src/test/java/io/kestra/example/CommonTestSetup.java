@@ -25,11 +25,11 @@ public class CommonTestSetup {
     public static final String TEST_DATA_PATH = "../../test-utils";
 
     public static String getCompleteFlow(){
-        return get(TEST_DATA_PATH + "/flows/flow_complete.yml").replace("flow_complete", randomId());
+        return get(TEST_DATA_PATH + "/flows/flow_complete.yml").replace("flow_complete", randomId()).replace("tests", randomId());
     }
 
     public static String getSimpleFlow(){
-        return get(TEST_DATA_PATH + "/flows/simple_flow.yml").replace("simple_flow", randomId());
+        return get(TEST_DATA_PATH + "/flows/simple_flow.yml").replace("simple_flow_id_to_replace_by_random_id", randomId().replace("simple_flow_namespace_to_replace_by_random_id", randomId()));
     }
 
     public static String get(String filePath) {
