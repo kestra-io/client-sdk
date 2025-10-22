@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_user**
-> CreateApiTokenResponse create_api_tokens_for_user(id, create_api_token_request)
+> create_api_tokens_for_user(id, create_api_token_request)
 
 Create new API Token for a specific user
 
@@ -98,7 +98,6 @@ Superadmin-only. Create a new API token for a user.
 ```python
 import kestrapy
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
-from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -110,9 +109,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create new API Token for a specific user
-        api_response = api_client.create_api_tokens_for_user(id, create_api_token_request)
-        print("The response of UsersApi->create_api_tokens_for_user:\n")
-        pprint(api_response)
+        api_client.create_api_tokens_for_user(id, create_api_token_request)
     except Exception as e:
         print("Exception when calling UsersApi->create_api_tokens_for_user: %s\n" % e)
 ```
@@ -129,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+void (empty response body)
 
 ### Authorization
 
@@ -138,13 +135,13 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | API token successfully created |  -  |
+**201** | API token successfully created |  -  |
 **404** | User not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

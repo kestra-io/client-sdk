@@ -15,7 +15,6 @@
 import ApiClient from "../ApiClient";
 import ApiPatchSuperAdminRequest from '../model/ApiPatchSuperAdminRequest';
 import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
-import CreateApiTokenResponse from '../model/CreateApiTokenResponse';
 import IAMTenantAccessControllerApiUserTenantAccess from '../model/IAMTenantAccessControllerApiUserTenantAccess';
 import IAMTenantAccessControllerUserApiAutocomplete from '../model/IAMTenantAccessControllerUserApiAutocomplete';
 import IAMUserControllerApiCreateOrUpdateUserRequest from '../model/IAMUserControllerApiCreateOrUpdateUserRequest';
@@ -97,7 +96,7 @@ export default class UsersApi {
      * Callback function to receive the result of the createApiTokensForUser operation.
      * @callback module:api/UsersApi~createApiTokensForUserCallback
      * @param {String} error Error message, if any.
-     * @param {module:model/CreateApiTokenResponse} data The data returned by the service call.
+     * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
      */
 
@@ -107,7 +106,6 @@ export default class UsersApi {
      * @param {String} id The user id
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
      * @param {module:api/UsersApi~createApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/CreateApiTokenResponse}
      */
     createApiTokensForUser(id, createApiTokenRequest, callback) {
       let postBody = createApiTokenRequest;
@@ -132,8 +130,8 @@ export default class UsersApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = CreateApiTokenResponse;
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

@@ -86,7 +86,6 @@ docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
-docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -480,7 +479,6 @@ model_conversion_service_provider.go
 model_convertible_multi_values_string_.go
 model_convertible_values_list_string__.go
 model_create_api_token_request.go
-model_create_api_token_response.go
 model_create_security_integration_request.go
 model_crud_event_type.go
 model_daily_execution_statistics.go

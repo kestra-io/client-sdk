@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## createApiTokensForUser
 
-> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+> createApiTokensForUser(id, createApiTokenRequest)
 
 Create new API Token for a specific user
 
@@ -106,7 +106,7 @@ apiInstance.createApiTokensForUser(id, createApiTokenRequest, (error, data, resp
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 });
 ```
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+null (empty response body)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ## createUser

@@ -2212,12 +2212,8 @@ paths:
               $ref: "#/components/schemas/CreateApiTokenRequest"
         required: true
       responses:
-        "200":
+        "201":
           description: API token successfully created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateApiTokenResponse"
         "404":
           description: User not found
       security:
@@ -15852,15 +15848,6 @@ components:
           type: string
         extended:
           type: boolean
-    CreateApiTokenResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        fullToken:
-          type: string
     CreateSecurityIntegrationRequest:
       required:
         - description
