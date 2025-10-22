@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 
 ## PatchUserPassword
 
-> map[string]interface{} PatchUserPassword(ctx, id).IAMUserControllerApiPatchUserPasswordRequest(iAMUserControllerApiPatchUserPasswordRequest).Execute()
+> IAMUserControllerApiUser PatchUserPassword(ctx, id).IAMUserControllerApiPatchUserPasswordRequest(iAMUserControllerApiPatchUserPasswordRequest).Execute()
 
 Update user password
 
@@ -964,7 +964,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.PatchUserPassword``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchUserPassword`: map[string]interface{}
+	// response from `PatchUserPassword`: IAMUserControllerApiUser
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.PatchUserPassword`: %v\n", resp)
 }
 ```
@@ -989,7 +989,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 

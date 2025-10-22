@@ -1432,7 +1432,7 @@ func (r ApiPatchUserPasswordRequest) IAMUserControllerApiPatchUserPasswordReques
 	return r
 }
 
-func (r ApiPatchUserPasswordRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiPatchUserPasswordRequest) Execute() (*IAMUserControllerApiUser, *http.Response, error) {
 	return r.ApiService.PatchUserPasswordExecute(r)
 }
 
@@ -1455,13 +1455,13 @@ func (a *UsersAPIService) PatchUserPassword(ctx context.Context, id string) ApiP
 
 // Execute executes the request
 //
-//	@return map[string]interface{}
-func (a *UsersAPIService) PatchUserPasswordExecute(r ApiPatchUserPasswordRequest) (map[string]interface{}, *http.Response, error) {
+//	@return IAMUserControllerApiUser
+func (a *UsersAPIService) PatchUserPasswordExecute(r ApiPatchUserPasswordRequest) (*IAMUserControllerApiUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue *IAMUserControllerApiUser
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.PatchUserPassword")

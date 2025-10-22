@@ -2772,7 +2772,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/IAMUserController.ApiUser"
           description: User successfully updated
         "404":
           description: User not found

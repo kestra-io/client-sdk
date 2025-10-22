@@ -730,7 +730,7 @@ null (empty response body)
 
 ## patchUserPassword
 
-> Object patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest)
+> IAMUserControllerApiUser patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest)
 
 Update user password
 
@@ -771,7 +771,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 

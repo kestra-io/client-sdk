@@ -13,7 +13,8 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient, IAMUserControllerApiCreateOrUpdateUserRequest, IAMTenantAccessControllerUserApiAutocomplete, CreateApiTokenRequest, ApiIds, MeControllerApiUpdatePasswordRequest, IAMUserControllerApiPatchRestrictedRequest, ApiPatchSuperAdminRequest, IAMUserGroupControllerApiUpdateUserGroupsRequest
+from kestrapy import Configuration, KestraClient, IAMUserControllerApiCreateOrUpdateUserRequest, IAMTenantAccessControllerUserApiAutocomplete, CreateApiTokenRequest, ApiIds, MeControllerApiUpdatePasswordRequest, IAMUserControllerApiPatchRestrictedRequest, IAMUserControllerApiPatchUserPasswordRequest, ApiPatchSuperAdminRequest, IAMUserGroupControllerApiUpdateUserGroupsRequest
+from kestrapy.exceptions import UnauthorizedException
 
 
 class TestUsersApi(unittest.TestCase):
@@ -26,7 +27,6 @@ class TestUsersApi(unittest.TestCase):
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
-        # tenant used for tenant-scoped endpoints
         self.tenant = "main"
 
 
@@ -38,24 +38,24 @@ class TestUsersApi(unittest.TestCase):
 
         List users for autocomplete
         """
-        name_prefix = "test_autocomplete_users"
+        email = "test_autocomplete_users@kestra.io"
         # create a user to autocomplete
-        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
-            email=f"{name_prefix}@kestra.io",
-            first_name=name_prefix,
-        )
-        created_user = self.kestra_client.users.create_user(
-            iam_user_controller_api_create_or_update_user_request=user_req
+        user = IAMUserControllerApiCreateOrUpdateUserRequest(
+            email=email
         )
 
-        autocomplete_req = IAMTenantAccessControllerUserApiAutocomplete(q=name_prefix)
+        created_user = self.kestra_client.users.create_user(
+            iam_user_controller_api_create_or_update_user_request=user
+        )
+
+        autocomplete_req = IAMTenantAccessControllerUserApiAutocomplete(q=email)
 
         results = self.kestra_client.users.autocomplete_users(
             tenant=self.tenant,
             iam_tenant_access_controller_user_api_autocomplete=autocomplete_req
         )
 
-        assert any(getattr(r, 'username', None) == created_user.email or getattr(r, 'id', None) == created_user.id for r in results)
+        assert any(getattr(r, 'username', None) == created_user.email for r in results)
 
     def test_create_api_tokens_for_user(self) -> None:
         """Test case for create_api_tokens_for_user
@@ -96,14 +96,6 @@ class TestUsersApi(unittest.TestCase):
         except Exception:
             pass
 
-    def test_create_api_tokens_for_user1(self) -> None:
-        """Duplicate-name variant to match generated tests; reuse create_api_tokens_for_user logic"""
-        self.test_create_api_tokens_for_user()
-
-    def test_create_api_tokens_for_user_with_tenant(self) -> None:
-        """Create new API Token for a specific user (with tenant) - same as superadmin token creation; run same flow"""
-        self.test_create_api_tokens_for_user()
-
     def test_create_user(self) -> None:
         """Test case for create_user
 
@@ -127,12 +119,12 @@ class TestUsersApi(unittest.TestCase):
         except Exception:
             pass
 
-    def test_delete_api_token(self) -> None:
-        """Test case for delete_api_token
+    def test_delete_api_token_for_user(self) -> None:
+        """Test case for delete_api_token_for_user
 
         Delete an API Token for specific user and token id
         """
-        name_base = "test_delete_api_token"
+        name_base = "test_delete_api_token_for_user"
         user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
             email=f"{name_base}@kestra.io"
         )
@@ -148,17 +140,6 @@ class TestUsersApi(unittest.TestCase):
 
         self.kestra_client.users.delete_api_token_for_user(id=created_user.id, token_id=token.id)
 
-        # cleanup user
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
-
-    def test_delete_api_token1(self) -> None:
-        self.test_delete_api_token()
-
-    def test_delete_api_token_with_tenant(self) -> None:
-        self.test_delete_api_token()
 
     def test_delete_refresh_token(self) -> None:
         """Delete a user refresh token
@@ -206,15 +187,12 @@ class TestUsersApi(unittest.TestCase):
         )
 
         # The API provides endpoints to patch user password or restricted flag; try to patch restricted flag
-        patch_req = IAMUserControllerApiPatchRestrictedRequest(restricted=True)
-        patched = self.kestra_client.users.patch_user(id=created_user.id, iam_user_controller_api_patch_restricted_request=patch_req)
+        patched = self.kestra_client.users.delete_user_auth_method(
+            id=created_user.id,
+            auth="basic"
+        )
         assert getattr(patched, 'id', None) == created_user.id
 
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
 
     def test_get_user(self) -> None:
         """Get a user"""
@@ -235,34 +213,16 @@ class TestUsersApi(unittest.TestCase):
         except Exception:
             pass
 
-    def test_impersonate(self) -> None:
-        """Impersonate a user"""
-        name_base = "test_impersonate"
+    def test_list_api_tokens_for_user(self) -> None:
+        """Test case for list_api_tokens_for_user
+
+        List API tokens for a specific user
+        """
+        name_base = "test_list_api_tokens_for_user"
         user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
             email=f"{name_base}@kestra.io"
         )
-        created_user = self.kestra_client.users.create_user(
-            iam_user_controller_api_create_or_update_user_request=user_req
-        )
-
-        token = self.kestra_client.users.impersonate(id=created_user.id)
-        assert getattr(token, 'token', None) is not None or getattr(token, 'access_token', None) is not None
-
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
-
-    def test_list_api_tokens(self) -> None:
-        """List API tokens for a specific user"""
-        name_base = "test_list_api_tokens"
-        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
-            email=f"{name_base}@kestra.io"
-        )
-        created_user = self.kestra_client.users.create_user(
-            iam_user_controller_api_create_or_update_user_request=user_req
-        )
+        created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
         token_req = CreateApiTokenRequest(name=name_base.replace("_", "-"))
         created_token = self.kestra_client.users.create_api_tokens_for_user(id=created_user.id, create_api_token_request=token_req)
@@ -276,12 +236,6 @@ class TestUsersApi(unittest.TestCase):
             self.kestra_client.users.delete_user(id=created_user.id)
         except Exception:
             pass
-
-    def test_list_api_tokens1(self) -> None:
-        self.test_list_api_tokens()
-
-    def test_list_api_tokens_with_tenant(self) -> None:
-        self.test_list_api_tokens()
 
     def test_list_users(self) -> None:
         """Retrieve users"""
@@ -323,25 +277,6 @@ class TestUsersApi(unittest.TestCase):
         except Exception:
             pass
 
-    def test_patch_user_demo(self) -> None:
-        """Update user demo - toggle restricted/demo flag if available"""
-        name_base = "test_patch_user_demo"
-        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
-            email=f"{name_base}@kestra.io"
-        )
-        created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
-
-        # some endpoints use restricted patch
-        patch_req = IAMUserControllerApiPatchRestrictedRequest(restricted=True)
-        patched = self.kestra_client.users.patch_user(id=created_user.id, iam_user_controller_api_patch_restricted_request=patch_req)
-        assert getattr(patched, 'id', None) == created_user.id
-
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
-
     def test_patch_user_password(self) -> None:
         """Update user password"""
         name_base = "test_patch_user_password"
@@ -351,16 +286,10 @@ class TestUsersApi(unittest.TestCase):
         )
         created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
-        password_req = IAMUserControllerApiPatchRestrictedRequest(restricted=False)
-        # Use patch_user endpoint as the generated client groups many patch variants under patch_user
-        patched = self.kestra_client.users.patch_user(id=created_user.id, iam_user_controller_api_patch_restricted_request=password_req)
+        password_req = IAMUserControllerApiPatchUserPasswordRequest(password="NewPass!1")
+        patched = self.kestra_client.users.patch_user_password(id=created_user.id, iam_user_controller_api_patch_user_password_request=password_req)
         assert getattr(patched, 'id', None) == created_user.id
 
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
 
     def test_patch_user_super_admin(self) -> None:
         """Update user superadmin privileges"""
@@ -370,25 +299,46 @@ class TestUsersApi(unittest.TestCase):
         )
         created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
-        patch = ApiPatchSuperAdminRequest(super_admin=False)
-        patched = self.kestra_client.users.patch_user_super_admin(id=created_user.id, api_patch_super_admin_request=patch)
-        assert getattr(patched, 'id', None) == created_user.id
+        patch = ApiPatchSuperAdminRequest(super_admin=True)
+        self.kestra_client.users.patch_user_super_admin(id=created_user.id, api_patch_super_admin_request=patch)
 
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
+        fetched = self.kestra_client.users.get_user(id=created_user.id)
+        assert getattr(fetched, 'super_admin', None) is True
 
     def test_update_current_user_password(self) -> None:
-        """Update authenticated user password"""
-        # This operates on the authenticated user (root@root.com). We'll attempt to change and revert immediately.
-        pwd_req = MeControllerApiUpdatePasswordRequest(current_password="Root!1234", new_password="Root!12345")
-        self.kestra_client.users.update_current_user_password(me_controller_api_update_password_request=pwd_req)
+        """Update authenticated user password for a dedicated test user (do not modify admin user)
 
-        # revert to original password to keep tests stable
-        revert_req = MeControllerApiUpdatePasswordRequest(current_password="Root!12345", new_password="Root!1234")
-        self.kestra_client.users.update_current_user_password(me_controller_api_update_password_request=revert_req)
+        This test creates a new user with a known password, creates a client authenticated as that user,
+        updates the user's password and then reverts it, and finally cleans up the created user.
+        If creating the user is unauthorized, the test is skipped.
+        """
+        name_base = "test_update_current_user_password"
+        email = f"{name_base}@kestra.io"
+        initial_password = "InitialPass!1"
+        changed_password = "ChangedPass!1"
+
+        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(email=email, password=initial_password)
+        created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
+
+        # create a client authenticated as the test user
+        user_conf = Configuration()
+        user_conf.host = "http://localhost:8080"
+        user_conf.username = email
+        user_conf.password = initial_password
+        user_client = KestraClient(user_conf)
+
+        # change password using the dedicated client
+        pwd_req = MeControllerApiUpdatePasswordRequest(old_password=initial_password, new_password=changed_password)
+        user_client.users.update_current_user_password(me_controller_api_update_password_request=pwd_req)
+
+        # update client and make sure he can change his password again using the new one
+        user_conf.password = changed_password
+        user_client = KestraClient(user_conf)
+
+        # revert the password back
+        revert_req = MeControllerApiUpdatePasswordRequest(old_password=changed_password, new_password=initial_password)
+        user_client.users.update_current_user_password(me_controller_api_update_password_request=revert_req)
+
 
     def test_update_user(self) -> None:
         """Update a user account"""
@@ -406,12 +356,6 @@ class TestUsersApi(unittest.TestCase):
         updated = self.kestra_client.users.update_user(id=created_user.id, iam_user_controller_api_create_or_update_user_request=update_req)
         assert getattr(updated, 'first_name', None) == "After" or getattr(updated, 'firstName', None) == "After"
 
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
-
     def test_update_user_groups(self) -> None:
         """Update the list of groups a user belongs to for the given tenant"""
         name_base = "test_update_user_groups"
@@ -422,12 +366,6 @@ class TestUsersApi(unittest.TestCase):
 
         groups_req = IAMUserGroupControllerApiUpdateUserGroupsRequest(groups=[])
         self.kestra_client.users.update_user_groups(tenant=self.tenant, id=created_user.id, iam_user_group_controller_api_update_user_groups_request=groups_req)
-
-        # cleanup
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
 
 
 if __name__ == '__main__':

@@ -3676,7 +3676,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> IAMUserControllerApiUser:
         """Update user password
 
         Superadmin-only. Updates whether a user is a superadmin.
@@ -3717,7 +3717,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "IAMUserControllerApiUser",
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -3748,7 +3748,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[IAMUserControllerApiUser]:
         """Update user password
 
         Superadmin-only. Updates whether a user is a superadmin.
@@ -3789,7 +3789,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "IAMUserControllerApiUser",
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -3861,7 +3861,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "IAMUserControllerApiUser",
             '404': None,
         }
         response_data = self.api_client.call_api(

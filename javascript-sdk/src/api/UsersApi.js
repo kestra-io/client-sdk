@@ -645,7 +645,7 @@ export default class UsersApi {
      * Callback function to receive the result of the patchUserPassword operation.
      * @callback module:api/UsersApi~patchUserPasswordCallback
      * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -655,7 +655,7 @@ export default class UsersApi {
      * @param {String} id The user id
      * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
      * @param {module:api/UsersApi~patchUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
     patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest, callback) {
       let postBody = iAMUserControllerApiPatchUserPasswordRequest;
@@ -681,7 +681,7 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/password', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
