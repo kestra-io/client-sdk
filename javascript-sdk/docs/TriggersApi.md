@@ -47,13 +47,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
-apiInstance.deleteBackfill(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteBackfill(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -100,13 +99,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
-apiInstance.deleteBackfillByIds(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteBackfillByIds(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -157,13 +155,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -212,13 +209,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let triggerControllerSetDisabledRequest = new KestraIoKestraSdk.TriggerControllerSetDisabledRequest(); // TriggerControllerSetDisabledRequest | 
-apiInstance.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disabledTriggersByIds(tenant, triggerControllerSetDisabledRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -270,13 +266,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.disabledTriggersByQuery(disabled, tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -326,13 +321,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
-apiInstance.pauseBackfill(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.pauseBackfill(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -379,13 +373,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
-apiInstance.pauseBackfillByIds(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.pauseBackfillByIds(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -436,13 +429,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.pauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -493,13 +485,12 @@ let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
 let tenant = "tenant_example"; // String | 
-apiInstance.restartTrigger(namespace, flowId, triggerId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.restartTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -557,13 +548,12 @@ let opts = {
   'workerId': "workerId_example", // String | The identifier of the worker currently evaluating the trigger
   'flowId': "flowId_example" // String | The flow identifier
 };
-apiInstance.searchTriggers(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchTriggers(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -624,13 +614,12 @@ let opts = {
   'sort': ["null"], // [String] | The sort of current page
   'q': "q_example" // String | A string filter
 };
-apiInstance.searchTriggersForFlow(page, size, namespace, flowId, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchTriggersForFlow(page, size, namespace, flowId, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -684,13 +673,12 @@ let namespace = "namespace_example"; // String | The namespace
 let flowId = "flowId_example"; // String | The flow id
 let triggerId = "triggerId_example"; // String | The trigger id
 let tenant = "tenant_example"; // String | 
-apiInstance.unlockTrigger(namespace, flowId, triggerId, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unlockTrigger(namespace, flowId, triggerId, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -739,13 +727,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
-apiInstance.unlockTriggersByIds(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unlockTriggersByIds(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -796,13 +783,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unlockTriggersByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -851,13 +837,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
-apiInstance.unpauseBackfill(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unpauseBackfill(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -904,13 +889,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = [new KestraIoKestraSdk.Trigger()]; // [Trigger] | 
-apiInstance.unpauseBackfillByIds(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unpauseBackfillByIds(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -961,13 +945,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'namespace': "namespace_example" // String | A namespace filter prefix
 };
-apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.unpauseBackfillByQuery(tenant, deleteExecutionsByQueryRequest, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1016,13 +999,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.TriggersApi();
 let tenant = "tenant_example"; // String | 
 let trigger = new KestraIoKestraSdk.Trigger(); // Trigger | 
-apiInstance.updateTrigger(tenant, trigger, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateTrigger(tenant, trigger).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

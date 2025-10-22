@@ -36,13 +36,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.RolesApi();
 let tenant = "tenant_example"; // String | 
 let apiAutocomplete = new KestraIoKestraSdk.ApiAutocomplete(); // ApiAutocomplete | Autocomplete request
-apiInstance.autocompleteRoles(tenant, apiAutocomplete, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.autocompleteRoles(tenant, apiAutocomplete).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -89,13 +88,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.RolesApi();
 let tenant = "tenant_example"; // String | 
 let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraIoKestraSdk.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
-apiInstance.createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -142,13 +140,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteRole(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteRole(id, tenant).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -195,13 +192,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
-apiInstance.getRole(id, tenant, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getRole(id, tenant).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -248,13 +244,12 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new KestraIoKestraSdk.RolesApi();
 let tenant = "tenant_example"; // String | 
 let apiIds = new KestraIoKestraSdk.ApiIds(); // ApiIds | The ids that must be present on results
-apiInstance.listRolesFromGivenIds(tenant, apiIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listRolesFromGivenIds(tenant, apiIds).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -306,13 +301,12 @@ let opts = {
   'q': "q_example", // String | A string filter
   'sort': ["null"] // [String] | The sort of current page
 };
-apiInstance.searchRoles(page, size, tenant, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.searchRoles(page, size, tenant, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -363,13 +357,12 @@ let apiInstance = new KestraIoKestraSdk.RolesApi();
 let id = "id_example"; // String | The role id
 let tenant = "tenant_example"; // String | 
 let iAMRoleControllerApiRoleCreateOrUpdateRequest = new KestraIoKestraSdk.IAMRoleControllerApiRoleCreateOrUpdateRequest(); // IAMRoleControllerApiRoleCreateOrUpdateRequest | 
-apiInstance.updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

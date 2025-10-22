@@ -40,22 +40,14 @@ export default class RolesApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the autocompleteRoles operation.
-     * @callback module:api/RolesApi~autocompleteRolesCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiRoleSummary>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List roles for autocomplete
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/RolesApi~autocompleteRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiRoleSummary>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiRoleSummary>} and HTTP response
      */
-    autocompleteRoles(tenant, apiAutocomplete, callback) {
+    autocompleteRolesWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -83,26 +75,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createRole operation.
-     * @callback module:api/RolesApi~createRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiRoleSummary>}
      */
+    autocompleteRoles(tenant, apiAutocomplete) {
+      return this.autocompleteRolesWithHttpInfo(tenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a role
      * @param {String} tenant 
      * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
-     * @param {module:api/RolesApi~createRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
      */
-    createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, callback) {
+    createRoleWithHttpInfo(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -130,25 +127,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRole operation.
-     * @callback module:api/RolesApi~deleteRoleCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a role
+     * @param {String} tenant 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
      */
+    createRole(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
+      return this.createRoleWithHttpInfo(tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a role
      * @param {String} id The role id
      * @param {String} tenant 
-     * @param {module:api/RolesApi~deleteRoleCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteRole(id, tenant, callback) {
+    deleteRoleWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -177,26 +180,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getRole operation.
-     * @callback module:api/RolesApi~getRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteRole(id, tenant) {
+      return this.deleteRoleWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Retrieve a role
      * @param {String} id The role id
      * @param {String} tenant 
-     * @param {module:api/RolesApi~getRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
      */
-    getRole(id, tenant, callback) {
+    getRoleWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -225,26 +233,31 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listRolesFromGivenIds operation.
-     * @callback module:api/RolesApi~listRolesFromGivenIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Role>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Retrieve a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
      */
+    getRole(id, tenant) {
+      return this.getRoleWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List roles by ids
      * @param {String} tenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/RolesApi~listRolesFromGivenIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Role>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Role>} and HTTP response
      */
-    listRolesFromGivenIds(tenant, apiIds, callback) {
+    listRolesFromGivenIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -272,17 +285,23 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchRoles operation.
-     * @callback module:api/RolesApi~searchRolesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiRoleSummary} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List roles by ids
+     * @param {String} tenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Role>}
      */
+    listRolesFromGivenIds(tenant, apiIds) {
+      return this.listRolesFromGivenIdsWithHttpInfo(tenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for roles
@@ -292,10 +311,9 @@ export default class RolesApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/RolesApi~searchRolesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiRoleSummary}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiRoleSummary} and HTTP response
      */
-    searchRoles(page, size, tenant, opts, callback) {
+    searchRolesWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -332,27 +350,36 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateRole operation.
-     * @callback module:api/RolesApi~updateRoleCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMRoleControllerApiRoleDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for roles
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiRoleSummary}
      */
+    searchRoles(page, size, tenant, opts) {
+      return this.searchRolesWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a role
      * @param {String} id The role id
      * @param {String} tenant 
      * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
-     * @param {module:api/RolesApi~updateRoleCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMRoleControllerApiRoleDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMRoleControllerApiRoleDetail} and HTTP response
      */
-    updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest, callback) {
+    updateRoleWithHttpInfo(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
       let postBody = iAMRoleControllerApiRoleCreateOrUpdateRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -385,8 +412,22 @@ export default class RolesApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/roles/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a role
+     * @param {String} id The role id
+     * @param {String} tenant 
+     * @param {module:model/IAMRoleControllerApiRoleCreateOrUpdateRequest} iAMRoleControllerApiRoleCreateOrUpdateRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMRoleControllerApiRoleDetail}
+     */
+    updateRole(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest) {
+      return this.updateRoleWithHttpInfo(id, tenant, iAMRoleControllerApiRoleCreateOrUpdateRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

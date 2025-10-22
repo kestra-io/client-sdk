@@ -37,23 +37,15 @@ export default class KVApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the deleteKeyValue operation.
-     * @callback module:api/KVApi~deleteKeyValueCallback
-     * @param {String} error Error message, if any.
-     * @param {Boolean} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Delete a key-value pair
      * @param {String} namespace The namespace id
      * @param {String} key The key
      * @param {String} tenant 
-     * @param {module:api/KVApi~deleteKeyValueCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Boolean}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Boolean} and HTTP response
      */
-    deleteKeyValue(namespace, key, tenant, callback) {
+    deleteKeyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -87,27 +79,33 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteKeyValues operation.
-     * @callback module:api/KVApi~deleteKeyValuesCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/KVControllerApiDeleteBulkResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a key-value pair
+     * @param {String} namespace The namespace id
+     * @param {String} key The key
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Boolean}
      */
+    deleteKeyValue(namespace, key, tenant) {
+      return this.deleteKeyValueWithHttpInfo(namespace, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Bulk-delete multiple key/value pairs from the given namespace.
      * @param {String} namespace The namespace id
      * @param {String} tenant 
      * @param {module:model/KVControllerApiDeleteBulkRequest} kVControllerApiDeleteBulkRequest The keys
-     * @param {module:api/KVApi~deleteKeyValuesCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/KVControllerApiDeleteBulkResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/KVControllerApiDeleteBulkResponse} and HTTP response
      */
-    deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest, callback) {
+    deleteKeyValuesWithHttpInfo(namespace, tenant, kVControllerApiDeleteBulkRequest) {
       let postBody = kVControllerApiDeleteBulkRequest;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -140,27 +138,33 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getKeyValue operation.
-     * @callback module:api/KVApi~getKeyValueCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/KVControllerTypedValue} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Bulk-delete multiple key/value pairs from the given namespace.
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @param {module:model/KVControllerApiDeleteBulkRequest} kVControllerApiDeleteBulkRequest The keys
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/KVControllerApiDeleteBulkResponse}
      */
+    deleteKeyValues(namespace, tenant, kVControllerApiDeleteBulkRequest) {
+      return this.deleteKeyValuesWithHttpInfo(namespace, tenant, kVControllerApiDeleteBulkRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get value for a key
      * @param {String} namespace The namespace id
      * @param {String} key The key
      * @param {String} tenant 
-     * @param {module:api/KVApi~getKeyValueCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/KVControllerTypedValue}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/KVControllerTypedValue} and HTTP response
      */
-    getKeyValue(namespace, key, tenant, callback) {
+    getKeyValueWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -194,26 +198,32 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listKeys operation.
-     * @callback module:api/KVApi~listKeysCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/KVEntry>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get value for a key
+     * @param {String} namespace The namespace id
+     * @param {String} key The key
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/KVControllerTypedValue}
      */
+    getKeyValue(namespace, key, tenant) {
+      return this.getKeyValueWithHttpInfo(namespace, key, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all keys for a namespace
      * @param {String} namespace The namespace id
      * @param {String} tenant 
-     * @param {module:api/KVApi~listKeysCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/KVEntry>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/KVEntry>} and HTTP response
      */
-    listKeys(namespace, tenant, callback) {
+    listKeysWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -242,26 +252,31 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listKeysWithInheritence operation.
-     * @callback module:api/KVApi~listKeysWithInheritenceCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/KVEntry>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List all keys for a namespace
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/KVEntry>}
      */
+    listKeys(namespace, tenant) {
+      return this.listKeysWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List all keys for inherited namespaces
      * @param {String} namespace The namespace id
      * @param {String} tenant 
-     * @param {module:api/KVApi~listKeysWithInheritenceCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/KVEntry>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/KVEntry>} and HTTP response
      */
-    listKeysWithInheritence(namespace, tenant, callback) {
+    listKeysWithInheritenceWithHttpInfo(namespace, tenant) {
       let postBody = null;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -290,17 +305,23 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv/inheritance', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setKeyValue operation.
-     * @callback module:api/KVApi~setKeyValueCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * List all keys for inherited namespaces
+     * @param {String} namespace The namespace id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/KVEntry>}
      */
+    listKeysWithInheritence(namespace, tenant) {
+      return this.listKeysWithInheritenceWithHttpInfo(namespace, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Puts a key-value pair in store
@@ -308,9 +329,9 @@ export default class KVApi {
      * @param {String} key The key
      * @param {String} tenant 
      * @param {String} body The value of the key
-     * @param {module:api/KVApi~setKeyValueCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    setKeyValue(namespace, key, tenant, body, callback) {
+    setKeyValueWithHttpInfo(namespace, key, tenant, body) {
       let postBody = body;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
@@ -348,8 +369,23 @@ export default class KVApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/kv/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Puts a key-value pair in store
+     * @param {String} namespace The namespace id
+     * @param {String} key The key
+     * @param {String} tenant 
+     * @param {String} body The value of the key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    setKeyValue(namespace, key, tenant, body) {
+      return this.setKeyValueWithHttpInfo(namespace, key, tenant, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

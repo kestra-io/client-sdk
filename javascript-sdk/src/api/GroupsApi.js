@@ -43,13 +43,6 @@ export default class GroupsApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addUserToGroup operation.
-     * @callback module:api/GroupsApi~addUserToGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Add a user to a group
@@ -57,10 +50,9 @@ export default class GroupsApi {
      * @param {String} id The ID of the group
      * @param {String} userId The ID of the user to add to the group
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~addUserToGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
      */
-    addUserToGroup(id, userId, tenant, callback) {
+    addUserToGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -94,26 +86,33 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the autocompleteGroups operation.
-     * @callback module:api/GroupsApi~autocompleteGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiGroupSummary>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Add a user to a group
+     * Adds the specified user to the given group. If the user does not already have access to the tenant, tenant access will be created automatically.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user to add to the group
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
      */
+    addUserToGroup(id, userId, tenant) {
+      return this.addUserToGroupWithHttpInfo(id, userId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups for autocomplete
      * @param {String} tenant 
      * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
-     * @param {module:api/GroupsApi~autocompleteGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiGroupSummary>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiGroupSummary>} and HTTP response
      */
-    autocompleteGroups(tenant, apiAutocomplete, callback) {
+    autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete) {
       let postBody = apiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -141,26 +140,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createGroup operation.
-     * @callback module:api/GroupsApi~createGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/ApiAutocomplete} apiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiGroupSummary>}
      */
+    autocompleteGroups(tenant, apiAutocomplete) {
+      return this.autocompleteGroupsWithHttpInfo(tenant, apiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a group
      * @param {String} tenant 
      * @param {module:model/IAMGroupControllerApiCreateGroupRequest} iAMGroupControllerApiCreateGroupRequest The group
-     * @param {module:api/GroupsApi~createGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
      */
-    createGroup(tenant, iAMGroupControllerApiCreateGroupRequest, callback) {
+    createGroupWithHttpInfo(tenant, iAMGroupControllerApiCreateGroupRequest) {
       let postBody = iAMGroupControllerApiCreateGroupRequest;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -188,25 +192,31 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteGroup operation.
-     * @callback module:api/GroupsApi~deleteGroupCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a group
+     * @param {String} tenant 
+     * @param {module:model/IAMGroupControllerApiCreateGroupRequest} iAMGroupControllerApiCreateGroupRequest The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
      */
+    createGroup(tenant, iAMGroupControllerApiCreateGroupRequest) {
+      return this.createGroupWithHttpInfo(tenant, iAMGroupControllerApiCreateGroupRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a group
      * @param {String} id The group id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~deleteGroupCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteGroup(id, tenant, callback) {
+    deleteGroupWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -235,17 +245,23 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserFromGroup operation.
-     * @callback module:api/GroupsApi~deleteUserFromGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a group
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteGroup(id, tenant) {
+      return this.deleteGroupWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Remove a user from a group
@@ -253,10 +269,9 @@ export default class GroupsApi {
      * @param {String} id The ID of the group
      * @param {String} userId The ID of the user to remove from the group
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~deleteUserFromGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
      */
-    deleteUserFromGroup(id, userId, tenant, callback) {
+    deleteUserFromGroupWithHttpInfo(id, userId, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -290,27 +305,34 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getGroup operation.
-     * @callback module:api/GroupsApi~getGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Remove a user from a group
+     * Removes the specified user from the given group. If the user has no other group bindings within the tenant, their access to the tenant will also be revoked.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user to remove from the group
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
      */
+    deleteUserFromGroup(id, userId, tenant) {
+      return this.deleteUserFromGroupWithHttpInfo(id, userId, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Retrieve a group
      * Retrieves details of a specific group by its ID within the current tenant.
      * @param {String} id The group id
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~getGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
      */
-    getGroup(id, tenant, callback) {
+    getGroupWithHttpInfo(id, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -339,26 +361,32 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listGroupIds operation.
-     * @callback module:api/GroupsApi~listGroupIdsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/ApiGroupSummary>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Retrieve a group
+     * Retrieves details of a specific group by its ID within the current tenant.
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
      */
+    getGroup(id, tenant) {
+      return this.getGroupWithHttpInfo(id, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List groups by ids
      * @param {String} tenant 
      * @param {module:model/ApiIds} apiIds The ids that must be present on results
-     * @param {module:api/GroupsApi~listGroupIdsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/ApiGroupSummary>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiGroupSummary>} and HTTP response
      */
-    listGroupIds(tenant, apiIds, callback) {
+    listGroupIdsWithHttpInfo(tenant, apiIds) {
       let postBody = apiIds;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -386,17 +414,23 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/ids', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroupMembers operation.
-     * @callback module:api/GroupsApi~searchGroupMembersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsIAMGroupControllerApiGroupMember} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List groups by ids
+     * @param {String} tenant 
+     * @param {module:model/ApiIds} apiIds The ids that must be present on results
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiGroupSummary>}
      */
+    listGroupIds(tenant, apiIds) {
+      return this.listGroupIdsWithHttpInfo(tenant, apiIds)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for users in a group
@@ -407,10 +441,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupMembersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsIAMGroupControllerApiGroupMember}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsIAMGroupControllerApiGroupMember} and HTTP response
      */
-    searchGroupMembers(id, page, size, tenant, opts, callback) {
+    searchGroupMembersWithHttpInfo(id, page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -452,17 +485,28 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the searchGroups operation.
-     * @callback module:api/GroupsApi~searchGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsApiGroupSummary} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for users in a group
+     * @param {String} id The group id
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsIAMGroupControllerApiGroupMember}
      */
+    searchGroupMembers(id, page, size, tenant, opts) {
+      return this.searchGroupMembersWithHttpInfo(id, page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Search for groups
@@ -472,10 +516,9 @@ export default class GroupsApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/GroupsApi~searchGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsApiGroupSummary}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsApiGroupSummary} and HTTP response
      */
-    searchGroups(page, size, tenant, opts, callback) {
+    searchGroupsWithHttpInfo(page, size, tenant, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -512,17 +555,27 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/search', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setUserMembershipForGroup operation.
-     * @callback module:api/GroupsApi~setUserMembershipForGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupMember} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Search for groups
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {String} tenant 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsApiGroupSummary}
      */
+    searchGroups(page, size, tenant, opts) {
+      return this.searchGroupsWithHttpInfo(page, size, tenant, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user's membership type in a group
@@ -531,10 +584,9 @@ export default class GroupsApi {
      * @param {String} userId The ID of the user whose membership is being updated
      * @param {module:model/GroupIdentifierMembership} membership The new membership type to assign to the user.
      * @param {String} tenant 
-     * @param {module:api/GroupsApi~setUserMembershipForGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupMember}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupMember} and HTTP response
      */
-    setUserMembershipForGroup(id, userId, membership, tenant, callback) {
+    setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -573,27 +625,35 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}/members/membership/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateGroup operation.
-     * @callback module:api/GroupsApi~updateGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMGroupControllerApiGroupDetail} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update a user's membership type in a group
+     * Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
+     * @param {String} id The ID of the group
+     * @param {String} userId The ID of the user whose membership is being updated
+     * @param {module:model/GroupIdentifierMembership} membership The new membership type to assign to the user.
+     * @param {String} tenant 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupMember}
      */
+    setUserMembershipForGroup(id, userId, membership, tenant) {
+      return this.setUserMembershipForGroupWithHttpInfo(id, userId, membership, tenant)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a group
      * @param {String} id The group id
      * @param {String} tenant 
      * @param {module:model/IAMGroupControllerApiUpdateGroupRequest} iAMGroupControllerApiUpdateGroupRequest The group
-     * @param {module:api/GroupsApi~updateGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMGroupControllerApiGroupDetail}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMGroupControllerApiGroupDetail} and HTTP response
      */
-    updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest, callback) {
+    updateGroupWithHttpInfo(id, tenant, iAMGroupControllerApiUpdateGroupRequest) {
       let postBody = iAMGroupControllerApiUpdateGroupRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -626,8 +686,22 @@ export default class GroupsApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/groups/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update a group
+     * @param {String} id The group id
+     * @param {String} tenant 
+     * @param {module:model/IAMGroupControllerApiUpdateGroupRequest} iAMGroupControllerApiUpdateGroupRequest The group
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMGroupControllerApiGroupDetail}
+     */
+    updateGroup(id, tenant, iAMGroupControllerApiUpdateGroupRequest) {
+      return this.updateGroupWithHttpInfo(id, tenant, iAMGroupControllerApiUpdateGroupRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

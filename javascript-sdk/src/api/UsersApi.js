@@ -46,22 +46,14 @@ export default class UsersApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the autocompleteUsers operation.
-     * @callback module:api/UsersApi~autocompleteUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * List users for autocomplete
      * @param {String} tenant 
      * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
-     * @param {module:api/UsersApi~autocompleteUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>} and HTTP response
      */
-    autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete, callback) {
+    autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
       let postBody = iAMTenantAccessControllerUserApiAutocomplete;
       // verify the required parameter 'tenant' is set
       if (tenant === undefined || tenant === null) {
@@ -89,27 +81,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/tenant-access/autocomplete', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createApiTokensForUser operation.
-     * @callback module:api/UsersApi~createApiTokensForUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/CreateApiTokenResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List users for autocomplete
+     * @param {String} tenant 
+     * @param {module:model/IAMTenantAccessControllerUserApiAutocomplete} iAMTenantAccessControllerUserApiAutocomplete Autocomplete request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/IAMTenantAccessControllerApiUserTenantAccess>}
      */
+    autocompleteUsers(tenant, iAMTenantAccessControllerUserApiAutocomplete) {
+      return this.autocompleteUsersWithHttpInfo(tenant, iAMTenantAccessControllerUserApiAutocomplete)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create new API Token for a specific user
      * Superadmin-only. Create a new API token for a user.
      * @param {String} id The user id
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/CreateApiTokenResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CreateApiTokenResponse} and HTTP response
      */
-    createApiTokensForUser(id, createApiTokenRequest, callback) {
+    createApiTokensForUserWithHttpInfo(id, createApiTokenRequest) {
       let postBody = createApiTokenRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -137,26 +134,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the createUser operation.
-     * @callback module:api/UsersApi~createUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Create new API Token for a specific user
+     * Superadmin-only. Create a new API token for a user.
+     * @param {String} id The user id
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreateApiTokenResponse}
      */
+    createApiTokensForUser(id, createApiTokenRequest) {
+      return this.createApiTokensForUserWithHttpInfo(id, createApiTokenRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Create a new user account
      * Superadmin-only. Create a new user account with an optional password based authentication method.
      * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
-     * @param {module:api/UsersApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    createUser(iAMUserControllerApiCreateOrUpdateUserRequest, callback) {
+    createUserWithHttpInfo(iAMUserControllerApiCreateOrUpdateUserRequest) {
       let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
       // verify the required parameter 'iAMUserControllerApiCreateOrUpdateUserRequest' is set
       if (iAMUserControllerApiCreateOrUpdateUserRequest === undefined || iAMUserControllerApiCreateOrUpdateUserRequest === null) {
@@ -179,26 +182,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteApiTokenForUser operation.
-     * @callback module:api/UsersApi~deleteApiTokenForUserCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Create a new user account
+     * Superadmin-only. Create a new user account with an optional password based authentication method.
+     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    createUser(iAMUserControllerApiCreateOrUpdateUserRequest) {
+      return this.createUserWithHttpInfo(iAMUserControllerApiCreateOrUpdateUserRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete an API Token for specific user and token id
      * Superadmin-only. Delete an API token for a user.
      * @param {String} id The user id
      * @param {String} tokenId The token id
-     * @param {module:api/UsersApi~deleteApiTokenForUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteApiTokenForUser(id, tokenId, callback) {
+    deleteApiTokenForUserWithHttpInfo(id, tokenId) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -227,24 +236,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteRefreshToken operation.
-     * @callback module:api/UsersApi~deleteRefreshTokenCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete an API Token for specific user and token id
+     * Superadmin-only. Delete an API token for a user.
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteApiTokenForUser(id, tokenId) {
+      return this.deleteApiTokenForUserWithHttpInfo(id, tokenId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user refresh token
      * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteRefreshTokenCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteRefreshToken(id, callback) {
+    deleteRefreshTokenWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -268,25 +284,30 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/refresh-token', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUser operation.
-     * @callback module:api/UsersApi~deleteUserCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Delete a user refresh token
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteRefreshToken(id) {
+      return this.deleteRefreshTokenWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Delete a user
      * Superadmin-only. Delete a user including all its access.
      * @param {String} id The user id
-     * @param {module:api/UsersApi~deleteUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteUser(id, callback) {
+    deleteUserWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -310,27 +331,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteUserAuthMethod operation.
-     * @callback module:api/UsersApi~deleteUserAuthMethodCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Delete a user
+     * Superadmin-only. Delete a user including all its access.
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteUser(id) {
+      return this.deleteUserWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update user password
      * Superadmin-only. Updates whether a user is a superadmin.
      * @param {String} id The user id
      * @param {String} auth The user auth method id
-     * @param {module:api/UsersApi~deleteUserAuthMethodCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    deleteUserAuthMethod(id, auth, callback) {
+    deleteUserAuthMethodWithHttpInfo(id, auth) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -359,26 +385,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/auths/{auth}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUser operation.
-     * @callback module:api/UsersApi~getUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update user password
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {String} auth The user auth method id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    deleteUserAuthMethod(id, auth) {
+      return this.deleteUserAuthMethodWithHttpInfo(id, auth)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Get a user
      * Superadmin-only. Get user account details.
      * @param {String} id The user id
-     * @param {module:api/UsersApi~getUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    getUser(id, callback) {
+    getUserWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -402,26 +434,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the impersonate operation.
-     * @callback module:api/UsersApi~impersonateCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Get a user
+     * Superadmin-only. Get user account details.
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    getUser(id) {
+      return this.getUserWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Impersonate a user
      * Superadmin-only. Allows an admin to impersonate another user.
      * @param {String} id The user id
-     * @param {module:api/UsersApi~impersonateCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    impersonate(id, callback) {
+    impersonateWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -445,26 +482,31 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/impersonate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listApiTokensForUser operation.
-     * @callback module:api/UsersApi~listApiTokensForUserCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Impersonate a user
+     * Superadmin-only. Allows an admin to impersonate another user.
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    impersonate(id) {
+      return this.impersonateWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * List API tokens for a specific user
      * Superadmin-only. Get all API token existing for a user.
      * @param {String} id The user id
-     * @param {module:api/UsersApi~listApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    listApiTokensForUser(id, callback) {
+    listApiTokensForUserWithHttpInfo(id) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -488,17 +530,23 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the listUsers operation.
-     * @callback module:api/UsersApi~listUsersCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/PagedResultsIAMUserControllerApiUserSummary} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * List API tokens for a specific user
+     * Superadmin-only. Get all API token existing for a user.
+     * @param {String} id The user id
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    listApiTokensForUser(id) {
+      return this.listApiTokensForUserWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Retrieve users
@@ -507,10 +555,9 @@ export default class UsersApi {
      * @param {Object} opts Optional parameters
      * @param {String} [q] A string filter
      * @param {Array.<String>} [sort] The sort of current page
-     * @param {module:api/UsersApi~listUsersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/PagedResultsIAMUserControllerApiUserSummary}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/PagedResultsIAMUserControllerApiUserSummary} and HTTP response
      */
-    listUsers(page, size, opts, callback) {
+    listUsersWithHttpInfo(page, size, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'page' is set
@@ -542,27 +589,35 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchUser operation.
-     * @callback module:api/UsersApi~patchUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Retrieve users
+     * @param {Number} page The current page
+     * @param {Number} size The current page size
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.q A string filter
+     * @param {Array.<String>} opts.sort The sort of current page
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PagedResultsIAMUserControllerApiUserSummary}
      */
+    listUsers(page, size, opts) {
+      return this.listUsersWithHttpInfo(page, size, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update user details
      * Superadmin-only. Updates the the details of a user.
      * @param {String} id The user id
      * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
-     * @param {module:api/UsersApi~patchUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    patchUser(id, meControllerApiUserDetailsRequest, callback) {
+    patchUserWithHttpInfo(id, meControllerApiUserDetailsRequest) {
       let postBody = meControllerApiUserDetailsRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -590,26 +645,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchUserDemo operation.
-     * @callback module:api/UsersApi~patchUserDemoCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Update user details
+     * Superadmin-only. Updates the the details of a user.
+     * @param {String} id The user id
+     * @param {module:model/MeControllerApiUserDetailsRequest} meControllerApiUserDetailsRequest The user details
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    patchUser(id, meControllerApiUserDetailsRequest) {
+      return this.patchUserWithHttpInfo(id, meControllerApiUserDetailsRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update user demo
      * Superadmin-only. Updates whether a user is for demo.
      * @param {String} id The user id
      * @param {module:model/IAMUserControllerApiPatchRestrictedRequest} iAMUserControllerApiPatchRestrictedRequest 
-     * @param {module:api/UsersApi~patchUserDemoCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest, callback) {
+    patchUserDemoWithHttpInfo(id, iAMUserControllerApiPatchRestrictedRequest) {
       let postBody = iAMUserControllerApiPatchRestrictedRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -637,27 +699,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/restricted', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchUserPassword operation.
-     * @callback module:api/UsersApi~patchUserPasswordCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update user demo
+     * Superadmin-only. Updates whether a user is for demo.
+     * @param {String} id The user id
+     * @param {module:model/IAMUserControllerApiPatchRestrictedRequest} iAMUserControllerApiPatchRestrictedRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    patchUserDemo(id, iAMUserControllerApiPatchRestrictedRequest) {
+      return this.patchUserDemoWithHttpInfo(id, iAMUserControllerApiPatchRestrictedRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update user password
      * Superadmin-only. Updates whether a user is a superadmin.
      * @param {String} id The user id
      * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
-     * @param {module:api/UsersApi~patchUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest, callback) {
+    patchUserPasswordWithHttpInfo(id, iAMUserControllerApiPatchUserPasswordRequest) {
       let postBody = iAMUserControllerApiPatchUserPasswordRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -685,26 +753,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/password', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the patchUserSuperAdmin operation.
-     * @callback module:api/UsersApi~patchUserSuperAdminCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Update user password
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {module:model/IAMUserControllerApiPatchUserPasswordRequest} iAMUserControllerApiPatchUserPasswordRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    patchUserPassword(id, iAMUserControllerApiPatchUserPasswordRequest) {
+      return this.patchUserPasswordWithHttpInfo(id, iAMUserControllerApiPatchUserPasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update user superadmin privileges
      * Superadmin-only. Updates whether a user is a superadmin.
      * @param {String} id The user id
      * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
-     * @param {module:api/UsersApi~patchUserSuperAdminCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    patchUserSuperAdmin(id, apiPatchSuperAdminRequest, callback) {
+    patchUserSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest) {
       let postBody = apiPatchSuperAdminRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -732,26 +807,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}/superadmin', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateCurrentUserPassword operation.
-     * @callback module:api/UsersApi~updateCurrentUserPasswordCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update user superadmin privileges
+     * Superadmin-only. Updates whether a user is a superadmin.
+     * @param {String} id The user id
+     * @param {module:model/ApiPatchSuperAdminRequest} apiPatchSuperAdminRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    patchUserSuperAdmin(id, apiPatchSuperAdminRequest) {
+      return this.patchUserSuperAdminWithHttpInfo(id, apiPatchSuperAdminRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update authenticated user password
      * Changes the login password for the authenticated user.
      * @param {module:model/MeControllerApiUpdatePasswordRequest} meControllerApiUpdatePasswordRequest 
-     * @param {module:api/UsersApi~updateCurrentUserPasswordCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    updateCurrentUserPassword(meControllerApiUpdatePasswordRequest, callback) {
+    updateCurrentUserPasswordWithHttpInfo(meControllerApiUpdatePasswordRequest) {
       let postBody = meControllerApiUpdatePasswordRequest;
       // verify the required parameter 'meControllerApiUpdatePasswordRequest' is set
       if (meControllerApiUpdatePasswordRequest === undefined || meControllerApiUpdatePasswordRequest === null) {
@@ -774,27 +855,32 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/me/password', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUser operation.
-     * @callback module:api/UsersApi~updateUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Update authenticated user password
+     * Changes the login password for the authenticated user.
+     * @param {module:model/MeControllerApiUpdatePasswordRequest} meControllerApiUpdatePasswordRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    updateCurrentUserPassword(meControllerApiUpdatePasswordRequest) {
+      return this.updateCurrentUserPasswordWithHttpInfo(meControllerApiUpdatePasswordRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update a user account
      * Superadmin-only. Update an existing user account with an optional password based authentication method.
      * @param {String} id The user id
      * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
-     * @param {module:api/UsersApi~updateUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/IAMUserControllerApiUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/IAMUserControllerApiUser} and HTTP response
      */
-    updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest, callback) {
+    updateUserWithHttpInfo(id, iAMUserControllerApiCreateOrUpdateUserRequest) {
       let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -822,26 +908,33 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/users/{id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUserGroups operation.
-     * @callback module:api/UsersApi~updateUserGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * Update a user account
+     * Superadmin-only. Update an existing user account with an optional password based authentication method.
+     * @param {String} id The user id
+     * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/IAMUserControllerApiUser}
      */
+    updateUser(id, iAMUserControllerApiCreateOrUpdateUserRequest) {
+      return this.updateUserWithHttpInfo(id, iAMUserControllerApiCreateOrUpdateUserRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Update the list of groups a user belongs to for the given tenant
      * @param {String} id The user ID
      * @param {String} tenant 
      * @param {module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest} iAMUserGroupControllerApiUpdateUserGroupsRequest 
-     * @param {module:api/UsersApi~updateUserGroupsCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest, callback) {
+    updateUserGroupsWithHttpInfo(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest) {
       let postBody = iAMUserGroupControllerApiUpdateUserGroupsRequest;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
@@ -874,8 +967,22 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/api/v1/{tenant}/users/{id}/groups', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Update the list of groups a user belongs to for the given tenant
+     * @param {String} id The user ID
+     * @param {String} tenant 
+     * @param {module:model/IAMUserGroupControllerApiUpdateUserGroupsRequest} iAMUserGroupControllerApiUpdateUserGroupsRequest 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    updateUserGroups(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest) {
+      return this.updateUserGroupsWithHttpInfo(id, tenant, iAMUserGroupControllerApiUpdateUserGroupsRequest)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 
