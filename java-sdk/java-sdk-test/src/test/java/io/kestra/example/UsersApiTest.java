@@ -38,37 +38,6 @@ public class UsersApiTest {
         // TODO: test validations
     }
     /**
-     * Create new API Token for a specific user
-     *
-     * Superadmin-only. Create a new API token for a user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void createApiTokensForUser1Test() throws ApiException {
-        String id = randomId();
-        CreateApiTokenRequest createApiTokenRequest = null;
-        CreateApiTokenResponse response =kestraClient().users().createApiTokensForUser1(id, createApiTokenRequest);
-
-        // TODO: test validations
-    }
-    /**
-     * Create new API Token for a specific user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void createApiTokensForUserWithTenantTest() throws ApiException {
-        String id = randomId();
-
-        CreateApiTokenRequest createApiTokenRequest = null;
-        Object response =kestraClient().users().createApiTokensForUserWithTenant(id, MAIN_TENANT, createApiTokenRequest);
-
-        // TODO: test validations
-    }
-    /**
      * Create a new user account
      *
      * Superadmin-only. Create a new user account with an optional password based authentication method.
@@ -93,41 +62,11 @@ public class UsersApiTest {
     public void deleteApiTokenTest() throws ApiException {
         String id = randomId();
         String tokenId = null;
-        Object response =kestraClient().users().deleteApiToken(id, tokenId);
+        kestraClient().users().deleteApiTokenForUser(id, tokenId);
 
         // TODO: test validations
     }
-    /**
-     * Delete an API Token for specific user and token id
-     *
-     * Superadmin-only. Delete an API token for a user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteApiToken1Test() throws ApiException {
-        String id = randomId();
-        String tokenId = null;
-        kestraClient().users().deleteApiToken1(id, tokenId);
 
-        // TODO: test validations
-    }
-    /**
-     * Delete an API Token for specific user and token id
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteApiTokenWithTenantTest() throws ApiException {
-        String id = randomId();
-        String tokenId = null;
-
-        Object response =kestraClient().users().deleteApiTokenWithTenant(id, tokenId, MAIN_TENANT);
-
-        // TODO: test validations
-    }
     /**
      * Delete a user refresh token
      *
@@ -211,39 +150,11 @@ public class UsersApiTest {
     @Test
     public void listApiTokensTest() throws ApiException {
         String id = randomId();
-        Object response =kestraClient().users().listApiTokens(id);
+        Object response =kestraClient().users().listApiTokensForUser(id);
 
         // TODO: test validations
     }
-    /**
-     * List API tokens for a specific user
-     *
-     * Superadmin-only. Get all API token existing for a user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listApiTokens1Test() throws ApiException {
-        String id = randomId();
-        Object response =kestraClient().users().listApiTokens1(id);
 
-        // TODO: test validations
-    }
-    /**
-     * List API tokens for a specific user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listApiTokensWithTenantTest() throws ApiException {
-        String id = randomId();
-
-        Object response =kestraClient().users().listApiTokensWithTenant(id, MAIN_TENANT);
-
-        // TODO: test validations
-    }
     /**
      * Retrieve users
      *
