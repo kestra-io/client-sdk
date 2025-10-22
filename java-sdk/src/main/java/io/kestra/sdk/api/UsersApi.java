@@ -22,7 +22,6 @@ import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
 import io.kestra.sdk.model.CreateApiTokenRequest;
-import io.kestra.sdk.model.CreateApiTokenResponse;
 import io.kestra.sdk.model.IAMTenantAccessControllerApiUserTenantAccess;
 import io.kestra.sdk.model.IAMTenantAccessControllerUserApiAutocomplete;
 import io.kestra.sdk.model.IAMUserControllerApiCreateOrUpdateUserRequest;
@@ -141,11 +140,10 @@ public class UsersApi extends BaseApi {
    * Superadmin-only. Create a new API token for a user.
    * @param id The user id (required)
    * @param createApiTokenRequest The create api-token request (required)
-   * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
-    return this.createApiTokensForUser(id, createApiTokenRequest, Collections.emptyMap());
+  public void createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
+    this.createApiTokensForUser(id, createApiTokenRequest, Collections.emptyMap());
   }
 
 
@@ -155,10 +153,9 @@ public class UsersApi extends BaseApi {
    * @param id The user id (required)
    * @param createApiTokenRequest The create api-token request (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public void createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = createApiTokenRequest;
     
     // verify the required parameter 'id' is set
@@ -189,7 +186,7 @@ public class UsersApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      "application/json"
+      
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -200,8 +197,7 @@ public class UsersApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<CreateApiTokenResponse> localVarReturnType = new TypeReference<CreateApiTokenResponse>() {};
-    return apiClient.invokeAPI(
+    apiClient.invokeAPI(
         localVarPath,
         "POST",
         localVarQueryParams,
@@ -214,7 +210,7 @@ public class UsersApi extends BaseApi {
         localVarAccept,
         localVarContentType,
         localVarAuthNames,
-        localVarReturnType
+        null
     );
   }
 

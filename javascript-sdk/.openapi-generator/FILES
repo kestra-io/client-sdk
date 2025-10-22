@@ -75,7 +75,6 @@ docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
-docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -480,7 +479,6 @@ src/model/ConversionServiceProvider.js
 src/model/ConvertibleMultiValuesString.js
 src/model/ConvertibleValuesListString.js
 src/model/CreateApiTokenRequest.js
-src/model/CreateApiTokenResponse.js
 src/model/CreateSecurityIntegrationRequest.js
 src/model/CrudEventType.js
 src/model/DailyExecutionStatistics.js

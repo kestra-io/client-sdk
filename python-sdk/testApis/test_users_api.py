@@ -13,9 +13,17 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient, IAMUserControllerApiCreateOrUpdateUserRequest, IAMTenantAccessControllerUserApiAutocomplete, CreateApiTokenRequest, ApiIds, MeControllerApiUpdatePasswordRequest, IAMUserControllerApiPatchRestrictedRequest, IAMUserControllerApiPatchUserPasswordRequest, ApiPatchSuperAdminRequest, IAMUserGroupControllerApiUpdateUserGroupsRequest
-from kestrapy.exceptions import UnauthorizedException
-
+from kestrapy import (Configuration,
+                      KestraClient,
+                      IAMUserControllerApiCreateOrUpdateUserRequest,
+                      IAMTenantAccessControllerUserApiAutocomplete,
+                      CreateApiTokenRequest,
+                      MeControllerApiUpdatePasswordRequest,
+                      IAMUserControllerApiPatchUserPasswordRequest,
+                      ApiPatchSuperAdminRequest,
+                      IAMUserGroupControllerApiUpdateUserGroupsRequest,
+                      IAMGroupControllerApiCreateGroupRequest
+                      )
 
 class TestUsersApi(unittest.TestCase):
     """UsersApi unit test stubs"""
@@ -76,25 +84,12 @@ class TestUsersApi(unittest.TestCase):
             name=name_base.replace("_", "-"),
             description="token for test_create_api_tokens_for_user",
         )
-
         token = self.kestra_client.users.create_api_tokens_for_user(
             id=created_user.id,
             create_api_token_request=token_req
         )
 
         assert getattr(token, 'id', None) is not None
-
-        # cleanup: delete token
-        try:
-            self.kestra_client.users.delete_api_token_for_user(id=created_user.id, token_id=token.id)
-        except Exception:
-            pass
-
-        # cleanup: delete user
-        try:
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
 
     def test_create_user(self) -> None:
         """Test case for create_user
@@ -358,14 +353,28 @@ class TestUsersApi(unittest.TestCase):
 
     def test_update_user_groups(self) -> None:
         """Update the list of groups a user belongs to for the given tenant"""
+
+        group = IAMGroupControllerApiCreateGroupRequest(
+            name="test_create_group",
+            description="An example group"
+        )
+
+        created_group = self.kestra_client.groups.create_group(
+            tenant=self.tenant,
+            iam_group_controller_api_create_group_request=group
+        )
+
         name_base = "test_update_user_groups"
+        # create the user and assign it to the tenant so update_user_groups can operate
         user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
-            email=f"{name_base}@kestra.io"
+            email=f"{name_base}@kestra.io",
+            tenants=[self.tenant]
         )
         created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
-        groups_req = IAMUserGroupControllerApiUpdateUserGroupsRequest(groups=[])
+        groups_req = IAMUserGroupControllerApiUpdateUserGroupsRequest(group_ids=[created_group.id])
         self.kestra_client.users.update_user_groups(tenant=self.tenant, id=created_user.id, iam_user_group_controller_api_update_user_groups_request=groups_req)
+
 
 
 if __name__ == '__main__':

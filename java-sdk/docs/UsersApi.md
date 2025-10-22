@@ -103,7 +103,7 @@ public class Example {
 
 ## createApiTokensForUser
 
-> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
+> createApiTokensForUser(id, createApiTokenRequest)
 
 Create new API Token for a specific user
 
@@ -138,8 +138,7 @@ public class Example {
         String id = "id_example"; // String | The user id
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            CreateApiTokenResponse result = apiInstance.createApiTokensForUser(id, createApiTokenRequest);
-            System.out.println(result);
+            apiInstance.createApiTokensForUser(id, createApiTokenRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#createApiTokensForUser");
             System.err.println("Status code: " + e.getCode());
@@ -161,7 +160,7 @@ public class Example {
 
 ### Return type
 
-[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
+null (empty response body)
 
 ### Authorization
 
@@ -170,13 +169,13 @@ public class Example {
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | API token successfully created |  -  |
+| **201** | API token successfully created |  -  |
 | **404** | User not found |  -  |
 
 

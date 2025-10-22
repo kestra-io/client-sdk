@@ -21,7 +21,6 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
-from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.models.iam_tenant_access_controller_api_user_tenant_access import IAMTenantAccessControllerApiUserTenantAccess
 from kestrapy.models.iam_tenant_access_controller_user_api_autocomplete import IAMTenantAccessControllerUserApiAutocomplete
 from kestrapy.models.iam_user_controller_api_create_or_update_user_request import IAMUserControllerApiCreateOrUpdateUserRequest
@@ -355,7 +354,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> CreateApiTokenResponse:
+    ) -> None:
         """Create new API Token for a specific user
 
         Superadmin-only. Create a new API token for a user.
@@ -396,7 +395,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreateApiTokenResponse",
+            '201': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -427,7 +426,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[CreateApiTokenResponse]:
+    ) -> ApiResponse[None]:
         """Create new API Token for a specific user
 
         Superadmin-only. Create a new API token for a user.
@@ -468,7 +467,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreateApiTokenResponse",
+            '201': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -540,7 +539,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreateApiTokenResponse",
+            '201': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -585,13 +584,6 @@ class UsersApi:
             _body_params = create_api_token_request
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

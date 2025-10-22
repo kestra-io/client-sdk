@@ -32,6 +32,6 @@ class KestraClient:
         self.kv = KVApi(self.api_client)
         self.namespaces = NamespacesApi(self.api_client)
         self.roles = RolesApi(self.api_client)
-        self.services = ServiceAccountApi(self.api_client)
+        self.service_account = ServiceAccountApi(self.api_client)
         self.triggers = TriggersApi(self.api_client)
         self.users = UsersApi(self.api_client)
