@@ -5,21 +5,15 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AutocompleteUsers**](UsersAPI.md#AutocompleteUsers) | **Post** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-[**CreateApiTokensForUser**](UsersAPI.md#CreateApiTokensForUser) | **Post** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user
-[**CreateApiTokensForUser1**](UsersAPI.md#CreateApiTokensForUser1) | **Post** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-[**CreateApiTokensForUserWithTenant**](UsersAPI.md#CreateApiTokensForUserWithTenant) | **Post** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+[**CreateApiTokensForUser**](UsersAPI.md#CreateApiTokensForUser) | **Post** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
 [**CreateUser**](UsersAPI.md#CreateUser) | **Post** /api/v1/users | Create a new user account
-[**DeleteApiToken**](UsersAPI.md#DeleteApiToken) | **Delete** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**DeleteApiToken1**](UsersAPI.md#DeleteApiToken1) | **Delete** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-[**DeleteApiTokenWithTenant**](UsersAPI.md#DeleteApiTokenWithTenant) | **Delete** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+[**DeleteApiTokenForUser**](UsersAPI.md#DeleteApiTokenForUser) | **Delete** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 [**DeleteRefreshToken**](UsersAPI.md#DeleteRefreshToken) | **Delete** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 [**DeleteUser**](UsersAPI.md#DeleteUser) | **Delete** /api/v1/users/{id} | Delete a user
 [**DeleteUserAuthMethod**](UsersAPI.md#DeleteUserAuthMethod) | **Delete** /api/v1/users/{id}/auths/{auth} | Update user password
 [**GetUser**](UsersAPI.md#GetUser) | **Get** /api/v1/users/{id} | Get a user
 [**Impersonate**](UsersAPI.md#Impersonate) | **Post** /api/v1/users/{id}/impersonate | Impersonate a user
-[**ListApiTokens**](UsersAPI.md#ListApiTokens) | **Get** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user
-[**ListApiTokens1**](UsersAPI.md#ListApiTokens1) | **Get** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-[**ListApiTokensWithTenant**](UsersAPI.md#ListApiTokensWithTenant) | **Get** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+[**ListApiTokensForUser**](UsersAPI.md#ListApiTokensForUser) | **Get** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 [**ListUsers**](UsersAPI.md#ListUsers) | **Get** /api/v1/users | Retrieve users
 [**PatchUser**](UsersAPI.md#PatchUser) | **Patch** /api/v1/users/{id} | Update user details
 [**PatchUserDemo**](UsersAPI.md#PatchUserDemo) | **Patch** /api/v1/users/{id}/restricted | Update user demo
@@ -103,9 +97,11 @@ Name | Type | Description  | Notes
 
 ## CreateApiTokensForUser
 
-> map[string]interface{} CreateApiTokensForUser(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
+> CreateApiTokenResponse CreateApiTokensForUser(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
 
 Create new API Token for a specific user
+
+
 
 ### Example
 
@@ -130,7 +126,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApiTokensForUser`: map[string]interface{}
+	// response from `CreateApiTokensForUser`: CreateApiTokenResponse
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUser`: %v\n", resp)
 }
 ```
@@ -146,78 +142,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiCreateApiTokensForUserRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## CreateApiTokensForUser1
-
-> CreateApiTokenResponse CreateApiTokensForUser1(ctx, id).CreateApiTokenRequest(createApiTokenRequest).Execute()
-
-Create new API Token for a specific user
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUser1(context.Background(), id).CreateApiTokenRequest(createApiTokenRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUser1``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApiTokensForUser1`: CreateApiTokenResponse
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUser1`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApiTokensForUser1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -243,82 +167,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## CreateApiTokensForUserWithTenant
-
-> map[string]interface{} CreateApiTokensForUserWithTenant(ctx, id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
-
-Create new API Token for a specific user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-	createApiTokenRequest := *openapiclient.NewCreateApiTokenRequest("Name_example") // CreateApiTokenRequest | The create api-token request
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.CreateApiTokensForUserWithTenant(context.Background(), id, tenant).CreateApiTokenRequest(createApiTokenRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateApiTokensForUserWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApiTokensForUserWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateApiTokensForUserWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApiTokensForUserWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md) | The create api-token request | 
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## CreateUser
 
-> CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
+> IAMUserControllerApiUser CreateUser(ctx).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 
 Create a new user account
 
@@ -341,11 +192,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UsersAPI.CreateUser(context.Background()).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
+	resp, r, err := apiClient.UsersAPI.CreateUser(context.Background()).IAMUserControllerApiCreateOrUpdateUserRequest(iAMUserControllerApiCreateOrUpdateUserRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.CreateUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CreateUser`: IAMUserControllerApiUser
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -364,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -373,77 +226,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteApiToken
-
-> map[string]interface{} DeleteApiToken(ctx, id, tokenId).Execute()
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tokenId := "tokenId_example" // string | The token id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteApiToken(context.Background(), id, tokenId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteApiToken`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiToken`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tokenId** | **string** | The token id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiTokenRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -451,9 +233,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## DeleteApiToken1
+## DeleteApiTokenForUser
 
-> DeleteApiToken1(ctx, id, tokenId).Execute()
+> DeleteApiTokenForUser(ctx, id, tokenId).Execute()
 
 Delete an API Token for specific user and token id
 
@@ -477,9 +259,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UsersAPI.DeleteApiToken1(context.Background(), id, tokenId).Execute()
+	r, err := apiClient.UsersAPI.DeleteApiTokenForUser(context.Background(), id, tokenId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiToken1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiTokenForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -496,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteApiToken1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteApiTokenForUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -516,80 +298,6 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteApiTokenWithTenant
-
-> map[string]interface{} DeleteApiTokenWithTenant(ctx, id, tokenId, tenant).Execute()
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tokenId := "tokenId_example" // string | The token id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.DeleteApiTokenWithTenant(context.Background(), id, tokenId, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteApiTokenWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeleteApiTokenWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteApiTokenWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tokenId** | **string** | The token id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiTokenWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -943,77 +651,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ListApiTokens
+## ListApiTokensForUser
 
-> map[string]interface{} ListApiTokens(ctx, id).Execute()
-
-List API tokens for a specific user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokens(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokens``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApiTokens`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokens`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListApiTokensRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListApiTokens1
-
-> map[string]interface{} ListApiTokens1(ctx, id).Execute()
+> map[string]interface{} ListApiTokensForUser(ctx, id).Execute()
 
 List API tokens for a specific user
 
@@ -1036,13 +676,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokens1(context.Background(), id).Execute()
+	resp, r, err := apiClient.UsersAPI.ListApiTokensForUser(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokens1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokensForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListApiTokens1`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokens1`: %v\n", resp)
+	// response from `ListApiTokensForUser`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokensForUser`: %v\n", resp)
 }
 ```
 
@@ -1056,82 +696,11 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListApiTokens1Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiListApiTokensForUserRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**map[string]interface{}**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListApiTokensWithTenant
-
-> map[string]interface{} ListApiTokensWithTenant(ctx, id, tenant).Execute()
-
-List API tokens for a specific user
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/kestra-io/client-sdk/go-sdk"
-)
-
-func main() {
-	id := "id_example" // string | The user id
-	tenant := "tenant_example" // string | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsersAPI.ListApiTokensWithTenant(context.Background(), id, tenant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokensWithTenant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApiTokensWithTenant`: map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokensWithTenant`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The user id | 
-**tenant** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListApiTokensWithTenantRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
 
 
 ### Return type

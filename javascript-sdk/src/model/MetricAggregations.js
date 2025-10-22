@@ -17,7 +17,7 @@ import MetricAggregation from './MetricAggregation';
 /**
  * The MetricAggregations model module.
  * @module model/MetricAggregations
- * @version v1.0.4
+ * @version v1.0.5
  */
 class MetricAggregations {
     /**

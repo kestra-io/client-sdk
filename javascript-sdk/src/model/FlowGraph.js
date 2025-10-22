@@ -19,7 +19,7 @@ import FlowGraphEdge from './FlowGraphEdge';
 /**
  * The FlowGraph model module.
  * @module model/FlowGraph
- * @version v1.0.4
+ * @version v1.0.5
  */
 class FlowGraph {
     /**

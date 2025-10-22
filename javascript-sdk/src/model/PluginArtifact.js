@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PluginArtifact model module.
  * @module model/PluginArtifact
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PluginArtifact {
     /**

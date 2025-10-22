@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ExecutionControllerApiValidateExecutionInputsResponseApiInputError model module.
  * @module model/ExecutionControllerApiValidateExecutionInputsResponseApiInputError
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
     /**

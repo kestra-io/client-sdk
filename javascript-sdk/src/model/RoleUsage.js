@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The RoleUsage model module.
  * @module model/RoleUsage
- * @version v1.0.4
+ * @version v1.0.5
  */
 class RoleUsage {
     /**

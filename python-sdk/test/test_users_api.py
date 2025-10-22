@@ -13,19 +13,15 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+
+from kestrapy.api.users_api import UsersApi
 
 
 class TestUsersApi(unittest.TestCase):
     """UsersApi unit test stubs"""
 
     def setUp(self) -> None:
-        configuration = Configuration()
-        configuration.host = "http://localhost:9902"
-        configuration.username = "root@root.com"
-        configuration.password = "Root!1234"
-
-        self.kestra_client = KestraClient(configuration)
+        self.api = UsersApi()
 
     def tearDown(self) -> None:
         pass

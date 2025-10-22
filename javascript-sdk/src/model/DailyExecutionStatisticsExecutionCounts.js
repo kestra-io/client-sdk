@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DailyExecutionStatisticsExecutionCounts model module.
  * @module model/DailyExecutionStatisticsExecutionCounts
- * @version v1.0.4
+ * @version v1.0.5
  */
 class DailyExecutionStatisticsExecutionCounts {
     /**

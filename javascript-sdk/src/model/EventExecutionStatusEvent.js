@@ -17,7 +17,7 @@ import ExecutionStatusEvent from './ExecutionStatusEvent';
 /**
  * The EventExecutionStatusEvent model module.
  * @module model/EventExecutionStatusEvent
- * @version v1.0.4
+ * @version v1.0.5
  */
 class EventExecutionStatusEvent {
     /**

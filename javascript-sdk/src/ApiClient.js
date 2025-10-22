@@ -16,7 +16,7 @@ import superagent from "superagent";
 
 /**
 * @module ApiClient
-* @version v1.0.4
+* @version v1.0.5
 */
 
 /**
@@ -55,7 +55,7 @@ class ApiClient {
          * @default {}
          */
         this.defaultHeaders = {
-            'User-Agent': 'OpenAPI-Generator/v1.0.4/Javascript'
+            'User-Agent': 'OpenAPI-Generator/v1.0.5/Javascript'
         };
 
         /**

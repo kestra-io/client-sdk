@@ -17,7 +17,7 @@ import ApiSecretTag from './ApiSecretTag';
 /**
  * The ApiSecretValue model module.
  * @module model/ApiSecretValue
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ApiSecretValue {
     /**

@@ -23,7 +23,7 @@ import UserGroup from './UserGroup';
 /**
  * The ScimUser model module.
  * @module model/ScimUser
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ScimUser {
     /**

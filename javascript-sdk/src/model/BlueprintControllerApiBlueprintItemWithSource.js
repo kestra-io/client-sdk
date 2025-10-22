@@ -18,7 +18,7 @@ import BlueprintControllerKind from './BlueprintControllerKind';
 /**
  * The BlueprintControllerApiBlueprintItemWithSource model module.
  * @module model/BlueprintControllerApiBlueprintItemWithSource
- * @version v1.0.4
+ * @version v1.0.5
  */
 class BlueprintControllerApiBlueprintItemWithSource {
     /**

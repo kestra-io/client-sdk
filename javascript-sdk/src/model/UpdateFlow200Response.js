@@ -28,7 +28,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The UpdateFlow200Response model module.
  * @module model/UpdateFlow200Response
- * @version v1.0.4
+ * @version v1.0.5
  */
 class UpdateFlow200Response {
     /**

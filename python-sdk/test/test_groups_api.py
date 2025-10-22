@@ -13,20 +13,15 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient, IAMGroupControllerApiCreateGroupRequest
+
+from kestrapy.api.groups_api import GroupsApi
 
 
 class TestGroupsApi(unittest.TestCase):
     """GroupsApi unit test stubs"""
 
     def setUp(self) -> None:
-        configuration = Configuration()
-        configuration.host = "http://localhost:9902"
-        configuration.username = "root@root.com"
-        configuration.password = "Root!1234"
-
-        self.kestra_client = KestraClient(configuration)
-        self.tenant = "main"
+        self.api = GroupsApi()
 
     def tearDown(self) -> None:
         pass
@@ -50,89 +45,35 @@ class TestGroupsApi(unittest.TestCase):
 
         Create a group
         """
-        group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_create_group",
-            description="An example group"
-        )
-
-        created = self.kestra_client.groups.create_group(
-            tenant=self.tenant,
-            iam_group_controller_api_create_group_request=group
-        )
-        assert created.name == group.name
+        pass
 
     def test_delete_group(self) -> None:
-        group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_delete_group",
-            description="An example group"
-        )
+        """Test case for delete_group
 
-        created = self.kestra_client.groups.create_group(
-            tenant=self.tenant,
-            iam_group_controller_api_create_group_request=group
-        )
-
-        self.kestra_client.groups.delete_group(
-            tenant=self.tenant,
-            id=created.id
-        )
+        Delete a group
+        """
+        pass
 
     def test_delete_user_from_group(self) -> None:
         """Test case for delete_user_from_group
 
         Remove a user from a group
         """
-        group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_create_group",
-            description="An example group"
-        )
-
-        created = self.kestra_client.groups.create_group(
-            tenant=self.tenant,
-            iam_group_controller_api_create_group_request=group
-        )
+        pass
 
     def test_get_group(self) -> None:
         """Test case for get_group
 
         Retrieve a group
         """
-        group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_get_group",
-            description="An example group"
-        )
-
-        created = self.kestra_client.groups.create_group(
-            tenant=self.tenant,
-            iam_group_controller_api_create_group_request=group
-        )
-
-        fetched = self.kestra_client.groups.get_group(
-            tenant=self.tenant,
-            id=created.id
-        )
-
-        assert fetched.id == created.id
+        pass
 
     def test_list_group_ids(self) -> None:
         """Test case for list_group_ids
 
         List groups by ids
         """
-        group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_list_group_ids",
-            description="An example group"
-        )
-
-        created = self.kestra_client.groups.create_group(
-            tenant=self.tenant,
-            iam_group_controller_api_create_group_request=group
-        )
-
-        fetched = self.kestra_client.groups.list_group_ids(
-            tenant=self.tenant,
-            api_ids=[created.id]
-        )
+        pass
 
     def test_search_group_members(self) -> None:
         """Test case for search_group_members

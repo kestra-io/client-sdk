@@ -25,7 +25,7 @@ import TaskRun from './TaskRun';
 /**
  * The ExecutionControllerExecutionResponse model module.
  * @module model/ExecutionControllerExecutionResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ExecutionControllerExecutionResponse {
     /**

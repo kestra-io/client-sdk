@@ -17,7 +17,7 @@ import AbstractGraphBranchType from './AbstractGraphBranchType';
 /**
  * The AbstractGraph model module.
  * @module model/AbstractGraph
- * @version v1.0.4
+ * @version v1.0.5
  */
 class AbstractGraph {
     /**

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The InstanceControllerApiPluginArtifactListPluginArtifact model module.
  * @module model/InstanceControllerApiPluginArtifactListPluginArtifact
- * @version v1.0.4
+ * @version v1.0.5
  */
 class InstanceControllerApiPluginArtifactListPluginArtifact {
     /**

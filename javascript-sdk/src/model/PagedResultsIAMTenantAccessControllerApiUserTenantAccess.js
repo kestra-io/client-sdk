@@ -17,7 +17,7 @@ import IAMTenantAccessControllerApiUserTenantAccess from './IAMTenantAccessContr
 /**
  * The PagedResultsIAMTenantAccessControllerApiUserTenantAccess model module.
  * @module model/PagedResultsIAMTenantAccessControllerApiUserTenantAccess
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsIAMTenantAccessControllerApiUserTenantAccess {
     /**

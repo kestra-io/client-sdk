@@ -17,7 +17,7 @@ import HttpParameters from './HttpParameters';
 /**
  * The PreviewAppRequest model module.
  * @module model/PreviewAppRequest
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PreviewAppRequest {
     /**

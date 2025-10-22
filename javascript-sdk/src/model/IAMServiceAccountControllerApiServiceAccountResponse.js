@@ -17,7 +17,7 @@ import IAMServiceAccountControllerApiGroup from './IAMServiceAccountControllerAp
 /**
  * The IAMServiceAccountControllerApiServiceAccountResponse model module.
  * @module model/IAMServiceAccountControllerApiServiceAccountResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class IAMServiceAccountControllerApiServiceAccountResponse {
     /**

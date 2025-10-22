@@ -21,7 +21,7 @@ import KVEntry from '../model/KVEntry';
 /**
 * KV service.
 * @module api/KVApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class KVApi {
 

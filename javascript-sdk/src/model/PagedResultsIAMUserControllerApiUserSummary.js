@@ -17,7 +17,7 @@ import IAMUserControllerApiUserSummary from './IAMUserControllerApiUserSummary';
 /**
  * The PagedResultsIAMUserControllerApiUserSummary model module.
  * @module model/PagedResultsIAMUserControllerApiUserSummary
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsIAMUserControllerApiUserSummary {
     /**

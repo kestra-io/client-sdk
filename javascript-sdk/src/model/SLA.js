@@ -19,7 +19,7 @@ import SLAType from './SLAType';
 /**
  * The SLA model module.
  * @module model/SLA
- * @version v1.0.4
+ * @version v1.0.5
  */
 class SLA {
     /**

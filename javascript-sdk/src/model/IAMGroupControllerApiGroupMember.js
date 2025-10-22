@@ -17,7 +17,7 @@ import IAMGroupControllerApiGroupMembership from './IAMGroupControllerApiGroupMe
 /**
  * The IAMGroupControllerApiGroupMember model module.
  * @module model/IAMGroupControllerApiGroupMember
- * @version v1.0.4
+ * @version v1.0.5
  */
 class IAMGroupControllerApiGroupMember {
     /**

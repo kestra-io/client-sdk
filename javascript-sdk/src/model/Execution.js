@@ -24,7 +24,7 @@ import TaskRun from './TaskRun';
 /**
  * The Execution model module.
  * @module model/Execution
- * @version v1.0.4
+ * @version v1.0.5
  */
 class Execution {
     /**

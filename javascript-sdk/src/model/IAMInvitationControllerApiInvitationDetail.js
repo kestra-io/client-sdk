@@ -19,7 +19,7 @@ import InvitationInvitationStatus from './InvitationInvitationStatus';
 /**
  * The IAMInvitationControllerApiInvitationDetail model module.
  * @module model/IAMInvitationControllerApiInvitationDetail
- * @version v1.0.4
+ * @version v1.0.5
  */
 class IAMInvitationControllerApiInvitationDetail {
     /**
