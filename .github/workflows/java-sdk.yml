@@ -66,7 +66,11 @@ jobs:
 
       - name: Build local SDK and test it in an example project
         if: ${{ github.event.inputs.skip-test == 'false' || github.event.inputs.skip-test == '' }}
-        run: ./run-tests.sh
+        env:
+          APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+        run: |
+          echo $APPLICATION_SECRETS | base64 -d > .github/docker/application-secrets.yml
+          ./run-tests.sh
 
       - name: Test - Publish Test Results
         uses: dorny/test-reporter@v2

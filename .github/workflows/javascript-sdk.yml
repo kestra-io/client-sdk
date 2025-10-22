@@ -52,7 +52,11 @@ jobs:
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: Test with vitest
-        run: ./run-tests.sh
+        env:
+          APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+        run: |
+          echo $APPLICATION_SECRETS | base64 -d > .github/docker/application-secrets.yml
+          ./run-tests.sh
 
       - name: Publish to npm
         run: npm publish --access public

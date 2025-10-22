@@ -50,7 +50,11 @@ jobs:
         run: gcloud auth configure-docker europe-west1-docker.pkg.dev
 
       - name: Test with pytest
-        run: ./run-tests.sh
+        env:
+          APPLICATION_SECRETS: ${{ secrets.APPLICATION_SECRETS }}
+        run: |
+          echo $APPLICATION_SECRETS | base64 -d > .github/docker/application-secrets.yml
+          ./run-tests.sh
 
       - name: Build a binary wheel and a source tarball
         env:
