@@ -86,6 +86,7 @@ import ConversionServiceProvider from './model/ConversionServiceProvider';
 import ConvertibleMultiValuesString from './model/ConvertibleMultiValuesString';
 import ConvertibleValuesListString from './model/ConvertibleValuesListString';
 import CreateApiTokenRequest from './model/CreateApiTokenRequest';
+import CreateApiTokenResponse from './model/CreateApiTokenResponse';
 import CreateSecurityIntegrationRequest from './model/CreateSecurityIntegrationRequest';
 import CrudEventType from './model/CrudEventType';
 import DailyExecutionStatistics from './model/DailyExecutionStatistics';
@@ -880,6 +881,12 @@ export {
      * @property {module:model/CreateApiTokenRequest}
      */
     CreateApiTokenRequest,
+
+    /**
+     * The CreateApiTokenResponse model constructor.
+     * @property {module:model/CreateApiTokenResponse}
+     */
+    CreateApiTokenResponse,
 
     /**
      * The CreateSecurityIntegrationRequest model constructor.

@@ -76,6 +76,7 @@ docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
+docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -483,6 +484,7 @@ kestrapy/models/conversion_service_provider.py
 kestrapy/models/convertible_multi_values_string.py
 kestrapy/models/convertible_values_list_string.py
 kestrapy/models/create_api_token_request.py
+kestrapy/models/create_api_token_response.py
 kestrapy/models/create_security_integration_request.py
 kestrapy/models/crud_event_type.py
 kestrapy/models/daily_execution_statistics.py
