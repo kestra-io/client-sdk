@@ -18,7 +18,7 @@ import AuditLog from './AuditLog';
 /**
  * The AuditLogControllerApiAuditLogItem model module.
  * @module model/AuditLogControllerApiAuditLogItem
- * @version v1.0.4
+ * @version v1.0.5
  */
 class AuditLogControllerApiAuditLogItem {
     /**

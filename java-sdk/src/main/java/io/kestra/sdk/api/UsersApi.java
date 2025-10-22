@@ -138,27 +138,27 @@ public class UsersApi extends BaseApi {
 
   /**
    * Create new API Token for a specific user
-   * 
+   * Superadmin-only. Create a new API token for a user.
    * @param id The user id (required)
    * @param createApiTokenRequest The create api-token request (required)
-   * @return Object
+   * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public Object createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
+  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
     return this.createApiTokensForUser(id, createApiTokenRequest, Collections.emptyMap());
   }
 
 
   /**
    * Create new API Token for a specific user
-   * 
+   * Superadmin-only. Create a new API token for a user.
    * @param id The user id (required)
    * @param createApiTokenRequest The create api-token request (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return CreateApiTokenResponse
    * @throws ApiException if fails to make API call
    */
-  public Object createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public CreateApiTokenResponse createApiTokensForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = createApiTokenRequest;
     
     // verify the required parameter 'id' is set
@@ -169,88 +169,6 @@ public class UsersApi extends BaseApi {
     // verify the required parameter 'createApiTokenRequest' is set
     if (createApiTokenRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUser");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/service-accounts/{id}/api-tokens"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * Create new API Token for a specific user
-   * Superadmin-only. Create a new API token for a user.
-   * @param id The user id (required)
-   * @param createApiTokenRequest The create api-token request (required)
-   * @return CreateApiTokenResponse
-   * @throws ApiException if fails to make API call
-   */
-  public CreateApiTokenResponse createApiTokensForUser1(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
-    return this.createApiTokensForUser1(id, createApiTokenRequest, Collections.emptyMap());
-  }
-
-
-  /**
-   * Create new API Token for a specific user
-   * Superadmin-only. Create a new API token for a user.
-   * @param id The user id (required)
-   * @param createApiTokenRequest The create api-token request (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return CreateApiTokenResponse
-   * @throws ApiException if fails to make API call
-   */
-  public CreateApiTokenResponse createApiTokensForUser1(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = createApiTokenRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createApiTokensForUser1");
-    }
-    
-    // verify the required parameter 'createApiTokenRequest' is set
-    if (createApiTokenRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUser1");
     }
     
     // create path and map variables
@@ -301,103 +219,14 @@ public class UsersApi extends BaseApi {
   }
 
   /**
-   * Create new API Token for a specific user
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
-   * @param createApiTokenRequest The create api-token request (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object createApiTokensForUserWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest) throws ApiException {
-    return this.createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest, Collections.emptyMap());
-  }
-
-
-  /**
-   * Create new API Token for a specific user
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
-   * @param createApiTokenRequest The create api-token request (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object createApiTokensForUserWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull CreateApiTokenRequest createApiTokenRequest, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = createApiTokenRequest;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling createApiTokensForUserWithTenant");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling createApiTokensForUserWithTenant");
-    }
-    
-    // verify the required parameter 'createApiTokenRequest' is set
-    if (createApiTokenRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUserWithTenant");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/service-accounts/{id}/api-tokens"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      "application/json"
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
    * Create a new user account
    * Superadmin-only. Create a new user account with an optional password based authentication method.
    * @param iaMUserControllerApiCreateOrUpdateUserRequest  (required)
+   * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public void createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
-    this.createUser(iaMUserControllerApiCreateOrUpdateUserRequest, Collections.emptyMap());
+  public IAMUserControllerApiUser createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest) throws ApiException {
+    return this.createUser(iaMUserControllerApiCreateOrUpdateUserRequest, Collections.emptyMap());
   }
 
 
@@ -406,9 +235,10 @@ public class UsersApi extends BaseApi {
    * Superadmin-only. Create a new user account with an optional password based authentication method.
    * @param iaMUserControllerApiCreateOrUpdateUserRequest  (required)
    * @param additionalHeaders additionalHeaders for this call
+   * @return IAMUserControllerApiUser
    * @throws ApiException if fails to make API call
    */
-  public void createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
+  public IAMUserControllerApiUser createUser(@javax.annotation.Nonnull IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = iaMUserControllerApiCreateOrUpdateUserRequest;
     
     // verify the required parameter 'iaMUserControllerApiCreateOrUpdateUserRequest' is set
@@ -433,7 +263,7 @@ public class UsersApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      
+      "application/json"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -444,92 +274,10 @@ public class UsersApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    apiClient.invokeAPI(
-        localVarPath,
-        "POST",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        null
-    );
-  }
-
-  /**
-   * Delete an API Token for specific user and token id
-   * 
-   * @param id The user id (required)
-   * @param tokenId The token id (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object deleteApiToken(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId) throws ApiException {
-    return this.deleteApiToken(id, tokenId, Collections.emptyMap());
-  }
-
-
-  /**
-   * Delete an API Token for specific user and token id
-   * 
-   * @param id The user id (required)
-   * @param tokenId The token id (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object deleteApiToken(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteApiToken");
-    }
-    
-    // verify the required parameter 'tokenId' is set
-    if (tokenId == null) {
-      throw new ApiException(400, "Missing the required parameter 'tokenId' when calling deleteApiToken");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/service-accounts/{id}/api-tokens/{tokenId}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tokenId" + "\\}", apiClient.escapeString(apiClient.parameterToString(tokenId)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<IAMUserControllerApiUser> localVarReturnType = new TypeReference<IAMUserControllerApiUser>() {};
     return apiClient.invokeAPI(
         localVarPath,
-        "DELETE",
+        "POST",
         localVarQueryParams,
         localVarCollectionQueryParams,
         localVarQueryStringJoiner.toString(),
@@ -551,8 +299,8 @@ public class UsersApi extends BaseApi {
    * @param tokenId The token id (required)
    * @throws ApiException if fails to make API call
    */
-  public void deleteApiToken1(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId) throws ApiException {
-    this.deleteApiToken1(id, tokenId, Collections.emptyMap());
+  public void deleteApiTokenForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId) throws ApiException {
+    this.deleteApiTokenForUser(id, tokenId, Collections.emptyMap());
   }
 
 
@@ -564,17 +312,17 @@ public class UsersApi extends BaseApi {
    * @param additionalHeaders additionalHeaders for this call
    * @throws ApiException if fails to make API call
    */
-  public void deleteApiToken1(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteApiTokenForUser(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteApiToken1");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteApiTokenForUser");
     }
     
     // verify the required parameter 'tokenId' is set
     if (tokenId == null) {
-      throw new ApiException(400, "Missing the required parameter 'tokenId' when calling deleteApiToken1");
+      throw new ApiException(400, "Missing the required parameter 'tokenId' when calling deleteApiTokenForUser");
     }
     
     // create path and map variables
@@ -621,97 +369,6 @@ public class UsersApi extends BaseApi {
         localVarContentType,
         localVarAuthNames,
         null
-    );
-  }
-
-  /**
-   * Delete an API Token for specific user and token id
-   * 
-   * @param id The user id (required)
-   * @param tokenId The token id (required)
-   * @param tenant  (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object deleteApiTokenWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteApiTokenWithTenant(id, tokenId, tenant, Collections.emptyMap());
-  }
-
-
-  /**
-   * Delete an API Token for specific user and token id
-   * 
-   * @param id The user id (required)
-   * @param tokenId The token id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object deleteApiTokenWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tokenId, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling deleteApiTokenWithTenant");
-    }
-    
-    // verify the required parameter 'tokenId' is set
-    if (tokenId == null) {
-      throw new ApiException(400, "Missing the required parameter 'tokenId' when calling deleteApiTokenWithTenant");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteApiTokenWithTenant");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tokenId" + "\\}", apiClient.escapeString(apiClient.parameterToString(tokenId)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "DELETE",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
     );
   }
 
@@ -1094,88 +751,13 @@ public class UsersApi extends BaseApi {
 
   /**
    * List API tokens for a specific user
-   * 
-   * @param id The user id (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object listApiTokens(@javax.annotation.Nonnull String id) throws ApiException {
-    return this.listApiTokens(id, Collections.emptyMap());
-  }
-
-
-  /**
-   * List API tokens for a specific user
-   * 
-   * @param id The user id (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object listApiTokens(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listApiTokens");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/service-accounts/{id}/api-tokens"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * List API tokens for a specific user
    * Superadmin-only. Get all API token existing for a user.
    * @param id The user id (required)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokens1(@javax.annotation.Nonnull String id) throws ApiException {
-    return this.listApiTokens1(id, Collections.emptyMap());
+  public Object listApiTokensForUser(@javax.annotation.Nonnull String id) throws ApiException {
+    return this.listApiTokensForUser(id, Collections.emptyMap());
   }
 
 
@@ -1187,100 +769,17 @@ public class UsersApi extends BaseApi {
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokens1(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public Object listApiTokensForUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
     if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listApiTokens1");
+      throw new ApiException(400, "Missing the required parameter 'id' when calling listApiTokensForUser");
     }
     
     // create path and map variables
     String localVarPath = "/api/v1/users/{id}/api-tokens"
       .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
-
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    List<Pair> localVarQueryParams = new ArrayList<Pair>();
-    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-    Map<String, String> localVarCookieParams = new HashMap<String, String>();
-    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-    
-    localVarHeaderParams.putAll(additionalHeaders);
-
-    
-    
-    final String[] localVarAccepts = {
-      "application/json"
-    };
-    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-
-    final String[] localVarContentTypes = {
-      
-    };
-    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-    String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
-
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
-    return apiClient.invokeAPI(
-        localVarPath,
-        "GET",
-        localVarQueryParams,
-        localVarCollectionQueryParams,
-        localVarQueryStringJoiner.toString(),
-        localVarPostBody,
-        localVarHeaderParams,
-        localVarCookieParams,
-        localVarFormParams,
-        localVarAccept,
-        localVarContentType,
-        localVarAuthNames,
-        localVarReturnType
-    );
-  }
-
-  /**
-   * List API tokens for a specific user
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object listApiTokensWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.listApiTokensWithTenant(id, tenant, Collections.emptyMap());
-  }
-
-
-  /**
-   * List API tokens for a specific user
-   * 
-   * @param id The user id (required)
-   * @param tenant  (required)
-   * @param additionalHeaders additionalHeaders for this call
-   * @return Object
-   * @throws ApiException if fails to make API call
-   */
-  public Object listApiTokensWithTenant(@javax.annotation.Nonnull String id, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = null;
-    
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling listApiTokensWithTenant");
-    }
-    
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling listApiTokensWithTenant");
-    }
-    
-    // create path and map variables
-    String localVarPath = "/api/v1/{tenant}/service-accounts/{id}/api-tokens"
-      .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;

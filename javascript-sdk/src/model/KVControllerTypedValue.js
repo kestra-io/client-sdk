@@ -17,7 +17,7 @@ import KVType from './KVType';
 /**
  * The KVControllerTypedValue model module.
  * @module model/KVControllerTypedValue
- * @version v1.0.4
+ * @version v1.0.5
  */
 class KVControllerTypedValue {
     /**

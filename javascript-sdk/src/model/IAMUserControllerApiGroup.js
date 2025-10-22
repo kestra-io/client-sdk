@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMUserControllerApiGroup model module.
  * @module model/IAMUserControllerApiGroup
- * @version v1.0.4
+ * @version v1.0.5
  */
 class IAMUserControllerApiGroup {
     /**

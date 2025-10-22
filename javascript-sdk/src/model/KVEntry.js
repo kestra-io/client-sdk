@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The KVEntry model module.
  * @module model/KVEntry
- * @version v1.0.4
+ * @version v1.0.5
  */
 class KVEntry {
     /**

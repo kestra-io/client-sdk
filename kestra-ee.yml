@@ -1667,9 +1667,9 @@ paths:
   /api/v1/service-accounts/{id}/api-tokens:
     get:
       tags:
-        - Users
-      summary: List API tokens for a specific user
-      operationId: listApiTokens
+        - ServiceAccount
+      summary: List API tokens for a specific service account
+      operationId: listApiTokensForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1679,7 +1679,7 @@ paths:
             type: string
       responses:
         "200":
-          description: listApiTokens 200 response
+          description: listApiTokensForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -1689,9 +1689,9 @@ paths:
         - basicAuth: []
     post:
       tags:
-        - Users
-      summary: Create new API Token for a specific user
-      operationId: createApiTokensForUser
+        - ServiceAccount
+      summary: Create new API Token for a specific service account
+      operationId: createApiTokensForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1708,7 +1708,7 @@ paths:
         required: true
       responses:
         "200":
-          description: createApiTokensForUser 200 response
+          description: createApiTokensForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -1719,9 +1719,9 @@ paths:
   /api/v1/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
-        - Users
-      summary: Delete an API Token for specific user and token id
-      operationId: deleteApiToken
+        - ServiceAccount
+      summary: Delete an API Token for specific service account and token id
+      operationId: deleteApiTokenForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1737,7 +1737,7 @@ paths:
             type: string
       responses:
         "200":
-          description: deleteApiToken 200 response
+          description: deleteApiTokenForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -2047,6 +2047,10 @@ paths:
       responses:
         "201":
           description: User was successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMUserController.ApiUser"
         "404":
           description: "Tenant, or group not found"
       security:
@@ -2167,7 +2171,7 @@ paths:
         - Users
       summary: List API tokens for a specific user
       description: Superadmin-only. Get all API token existing for a user.
-      operationId: listApiTokens_1
+      operationId: listApiTokensForUser
       parameters:
         - name: id
           in: path
@@ -2179,7 +2183,7 @@ paths:
         "404":
           description: User not found
         "200":
-          description: listApiTokens_1 200 response
+          description: listApiTokensForUser 200 response
           content:
             application/json:
               schema:
@@ -2192,7 +2196,7 @@ paths:
         - Users
       summary: Create new API Token for a specific user
       description: Superadmin-only. Create a new API token for a user.
-      operationId: createApiTokensForUser_1
+      operationId: createApiTokensForUser
       parameters:
         - name: id
           in: path
@@ -2225,7 +2229,7 @@ paths:
         - Users
       summary: Delete an API Token for specific user and token id
       description: Superadmin-only. Delete an API token for a user.
-      operationId: deleteApiToken_1
+      operationId: deleteApiTokenForUser
       parameters:
         - name: id
           in: path
@@ -12985,9 +12989,9 @@ paths:
   /api/v1/{tenant}/service-accounts/{id}/api-tokens:
     get:
       tags:
-        - Users
-      summary: List API tokens for a specific user
-      operationId: listApiTokensWithTenant
+        - ServiceAccount
+      summary: List API tokens for a specific service account
+      operationId: listApiTokensForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -13002,7 +13006,7 @@ paths:
             type: string
       responses:
         "200":
-          description: listApiTokensWithTenant 200 response
+          description: listApiTokensForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:
@@ -13012,9 +13016,9 @@ paths:
         - basicAuth: []
     post:
       tags:
-        - Users
-      summary: Create new API Token for a specific user
-      operationId: createApiTokensForUserWithTenant
+        - ServiceAccount
+      summary: Create new API Token for a specific service account
+      operationId: createApiTokensForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -13036,7 +13040,7 @@ paths:
         required: true
       responses:
         "200":
-          description: createApiTokensForUserWithTenant 200 response
+          description: createApiTokensForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:
@@ -13047,9 +13051,9 @@ paths:
   /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
-        - Users
-      summary: Delete an API Token for specific user and token id
-      operationId: deleteApiTokenWithTenant
+        - ServiceAccount
+      summary: Delete an API Token for specific service account and token id
+      operationId: deleteApiTokenForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -13070,7 +13074,7 @@ paths:
             type: string
       responses:
         "200":
-          description: deleteApiTokenWithTenant 200 response
+          description: deleteApiTokenForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:

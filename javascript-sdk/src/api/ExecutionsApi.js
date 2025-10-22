@@ -42,7 +42,7 @@ import StateType from '../model/StateType';
 /**
 * Executions service.
 * @module api/ExecutionsApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class ExecutionsApi {
 

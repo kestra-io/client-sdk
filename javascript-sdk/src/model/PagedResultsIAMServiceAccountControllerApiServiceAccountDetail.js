@@ -17,7 +17,7 @@ import IAMServiceAccountControllerApiServiceAccountDetail from './IAMServiceAcco
 /**
  * The PagedResultsIAMServiceAccountControllerApiServiceAccountDetail model module.
  * @module model/PagedResultsIAMServiceAccountControllerApiServiceAccountDetail
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsIAMServiceAccountControllerApiServiceAccountDetail {
     /**

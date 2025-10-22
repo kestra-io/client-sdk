@@ -17,7 +17,7 @@ import QueryFilter from './QueryFilter';
 /**
  * The DeleteExecutionsByQueryRequest model module.
  * @module model/DeleteExecutionsByQueryRequest
- * @version v1.0.4
+ * @version v1.0.5
  */
 class DeleteExecutionsByQueryRequest {
     /**

@@ -19,7 +19,7 @@ import UserType from './UserType';
 /**
  * The Invitation model module.
  * @module model/Invitation
- * @version v1.0.4
+ * @version v1.0.5
  */
 class Invitation {
     /**

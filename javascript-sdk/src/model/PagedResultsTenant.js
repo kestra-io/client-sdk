@@ -17,7 +17,7 @@ import Tenant from './Tenant';
 /**
  * The PagedResultsTenant model module.
  * @module model/PagedResultsTenant
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsTenant {
     /**

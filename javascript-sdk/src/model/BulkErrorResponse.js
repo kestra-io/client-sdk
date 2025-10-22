@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The BulkErrorResponse model module.
  * @module model/BulkErrorResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class BulkErrorResponse {
     /**

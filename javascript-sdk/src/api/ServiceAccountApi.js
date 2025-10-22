@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import ApiPatchSuperAdminRequest from '../model/ApiPatchSuperAdminRequest';
+import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
 import IAMServiceAccountControllerApiCreateServiceAccountRequest from '../model/IAMServiceAccountControllerApiCreateServiceAccountRequest';
 import IAMServiceAccountControllerApiPatchServiceAccountRequest from '../model/IAMServiceAccountControllerApiPatchServiceAccountRequest';
 import IAMServiceAccountControllerApiServiceAccountDetail from '../model/IAMServiceAccountControllerApiServiceAccountDetail';
@@ -24,7 +25,7 @@ import PagedResultsIAMServiceAccountControllerApiServiceAccountDetail from '../m
 /**
 * ServiceAccount service.
 * @module api/ServiceAccountApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class ServiceAccountApi {
 
@@ -39,6 +40,106 @@ export default class ServiceAccountApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+    /**
+     * Callback function to receive the result of the createApiTokensForServiceAccount operation.
+     * @callback module:api/ServiceAccountApi~createApiTokensForServiceAccountCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create new API Token for a specific service account
+     * @param {String} id The user id
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @param {module:api/ServiceAccountApi~createApiTokensForServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    createApiTokensForServiceAccount(id, createApiTokenRequest, callback) {
+      let postBody = createApiTokenRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling createApiTokensForServiceAccount");
+      }
+      // verify the required parameter 'createApiTokenRequest' is set
+      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
+        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForServiceAccount");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}/api-tokens', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the createApiTokensForServiceAccountWithTenant operation.
+     * @callback module:api/ServiceAccountApi~createApiTokensForServiceAccountWithTenantCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Create new API Token for a specific service account
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
+     * @param {module:api/ServiceAccountApi~createApiTokensForServiceAccountWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    createApiTokensForServiceAccountWithTenant(id, tenant, createApiTokenRequest, callback) {
+      let postBody = createApiTokenRequest;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling createApiTokensForServiceAccountWithTenant");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling createApiTokensForServiceAccountWithTenant");
+      }
+      // verify the required parameter 'createApiTokenRequest' is set
+      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
+        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForServiceAccountWithTenant");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
 
     /**
      * Callback function to receive the result of the createServiceAccount operation.
@@ -124,6 +225,108 @@ export default class ServiceAccountApi {
       let returnType = IAMServiceAccountControllerApiServiceAccountResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/service-accounts', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the deleteApiTokenForServiceAccount operation.
+     * @callback module:api/ServiceAccountApi~deleteApiTokenForServiceAccountCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Delete an API Token for specific service account and token id
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @param {module:api/ServiceAccountApi~deleteApiTokenForServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    deleteApiTokenForServiceAccount(id, tokenId, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenForServiceAccount");
+      }
+      // verify the required parameter 'tokenId' is set
+      if (tokenId === undefined || tokenId === null) {
+        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenForServiceAccount");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tokenId': tokenId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}/api-tokens/{tokenId}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the deleteApiTokenForServiceAccountWithTenant operation.
+     * @callback module:api/ServiceAccountApi~deleteApiTokenForServiceAccountWithTenantCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Delete an API Token for specific service account and token id
+     * @param {String} id The user id
+     * @param {String} tokenId The token id
+     * @param {String} tenant 
+     * @param {module:api/ServiceAccountApi~deleteApiTokenForServiceAccountWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    deleteApiTokenForServiceAccountWithTenant(id, tokenId, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenForServiceAccountWithTenant");
+      }
+      // verify the required parameter 'tokenId' is set
+      if (tokenId === undefined || tokenId === null) {
+        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenForServiceAccountWithTenant");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling deleteApiTokenForServiceAccountWithTenant");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tokenId': tokenId,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -304,6 +507,96 @@ export default class ServiceAccountApi {
       let returnType = IAMServiceAccountControllerApiServiceAccountResponse;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/service-accounts/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listApiTokensForServiceAccount operation.
+     * @callback module:api/ServiceAccountApi~listApiTokensForServiceAccountCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List API tokens for a specific service account
+     * @param {String} id The user id
+     * @param {module:api/ServiceAccountApi~listApiTokensForServiceAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    listApiTokensForServiceAccount(id, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling listApiTokensForServiceAccount");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/service-accounts/{id}/api-tokens', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the listApiTokensForServiceAccountWithTenant operation.
+     * @callback module:api/ServiceAccountApi~listApiTokensForServiceAccountWithTenantCallback
+     * @param {String} error Error message, if any.
+     * @param {Object} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * List API tokens for a specific service account
+     * @param {String} id The user id
+     * @param {String} tenant 
+     * @param {module:api/ServiceAccountApi~listApiTokensForServiceAccountWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Object}
+     */
+    listApiTokensForServiceAccountWithTenant(id, tenant, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling listApiTokensForServiceAccountWithTenant");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling listApiTokensForServiceAccountWithTenant");
+      }
+
+      let pathParams = {
+        'id': id,
+        'tenant': tenant
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['basicAuth', 'bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

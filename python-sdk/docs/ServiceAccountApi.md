@@ -4,17 +4,145 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**create_api_tokens_for_service_account**](ServiceAccountApi.md#create_api_tokens_for_service_account) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+[**create_api_tokens_for_service_account_with_tenant**](ServiceAccountApi.md#create_api_tokens_for_service_account_with_tenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
 [**create_service_account**](ServiceAccountApi.md#create_service_account) | **POST** /api/v1/service-accounts | Create a service account
 [**create_service_account_for_tenant**](ServiceAccountApi.md#create_service_account_for_tenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+[**delete_api_token_for_service_account**](ServiceAccountApi.md#delete_api_token_for_service_account) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+[**delete_api_token_for_service_account_with_tenant**](ServiceAccountApi.md#delete_api_token_for_service_account_with_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 [**delete_service_account**](ServiceAccountApi.md#delete_service_account) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
 [**delete_service_account_for_tenant**](ServiceAccountApi.md#delete_service_account_for_tenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 [**get_service_account**](ServiceAccountApi.md#get_service_account) | **GET** /api/v1/service-accounts/{id} | Get a service account
 [**get_service_account_for_tenant**](ServiceAccountApi.md#get_service_account_for_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+[**list_api_tokens_for_service_account**](ServiceAccountApi.md#list_api_tokens_for_service_account) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+[**list_api_tokens_for_service_account_with_tenant**](ServiceAccountApi.md#list_api_tokens_for_service_account_with_tenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 [**list_service_accounts**](ServiceAccountApi.md#list_service_accounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 [**patch_service_account_details**](ServiceAccountApi.md#patch_service_account_details) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 [**patch_service_account_super_admin**](ServiceAccountApi.md#patch_service_account_super_admin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
 [**update_service_account**](ServiceAccountApi.md#update_service_account) | **PUT** /api/v1/{tenant}/service-accounts/{id} | Update a user service account
 
+
+# **create_api_tokens_for_service_account**
+> object create_api_tokens_for_service_account(id, create_api_token_request)
+
+Create new API Token for a specific service account
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.models.create_api_token_request import CreateApiTokenRequest
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+    create_api_token_request = kestrapy.CreateApiTokenRequest() # CreateApiTokenRequest | The create api-token request
+
+    try:
+        # Create new API Token for a specific service account
+        api_response = api_client.create_api_tokens_for_service_account(id, create_api_token_request)
+        print("The response of ServiceAccountApi->create_api_tokens_for_service_account:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->create_api_tokens_for_service_account: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | createApiTokensForServiceAccount 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_api_tokens_for_service_account_with_tenant**
+> object create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+
+Create new API Token for a specific service account
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.models.create_api_token_request import CreateApiTokenRequest
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+    tenant = 'tenant_example' # str | 
+    create_api_token_request = kestrapy.CreateApiTokenRequest() # CreateApiTokenRequest | The create api-token request
+
+    try:
+        # Create new API Token for a specific service account
+        api_response = api_client.create_api_tokens_for_service_account_with_tenant(id, tenant, create_api_token_request)
+        print("The response of ServiceAccountApi->create_api_tokens_for_service_account_with_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->create_api_tokens_for_service_account_with_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **tenant** | **str**|  | 
+ **create_api_token_request** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | createApiTokensForServiceAccountWithTenant 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_service_account**
 > IAMServiceAccountControllerApiServiceAccountDetail create_service_account(iam_service_account_controller_api_create_service_account_request)
@@ -136,6 +264,126 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Service account successfully created |  -  |
 **404** | Group not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_api_token_for_service_account**
+> object delete_api_token_for_service_account(id, token_id)
+
+Delete an API Token for specific service account and token id
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+    token_id = 'token_id_example' # str | The token id
+
+    try:
+        # Delete an API Token for specific service account and token id
+        api_response = api_client.delete_api_token_for_service_account(id, token_id)
+        print("The response of ServiceAccountApi->delete_api_token_for_service_account:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->delete_api_token_for_service_account: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **token_id** | **str**| The token id | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteApiTokenForServiceAccount 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_api_token_for_service_account_with_tenant**
+> object delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
+
+Delete an API Token for specific service account and token id
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+    token_id = 'token_id_example' # str | The token id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # Delete an API Token for specific service account and token id
+        api_response = api_client.delete_api_token_for_service_account_with_tenant(id, token_id, tenant)
+        print("The response of ServiceAccountApi->delete_api_token_for_service_account_with_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->delete_api_token_for_service_account_with_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **token_id** | **str**| The token id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | deleteApiTokenForServiceAccountWithTenant 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -374,6 +622,122 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **404** | Service account not found |  -  |
 **200** | getServiceAccountForTenant 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_api_tokens_for_service_account**
+> object list_api_tokens_for_service_account(id)
+
+List API tokens for a specific service account
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+
+    try:
+        # List API tokens for a specific service account
+        api_response = api_client.list_api_tokens_for_service_account(id)
+        print("The response of ServiceAccountApi->list_api_tokens_for_service_account:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->list_api_tokens_for_service_account: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | listApiTokensForServiceAccount 200 response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_api_tokens_for_service_account_with_tenant**
+> object list_api_tokens_for_service_account_with_tenant(id, tenant)
+
+List API tokens for a specific service account
+
+### Example
+
+
+```python
+import kestrapy
+from kestrapy.rest import ApiException
+from pprint import pprint
+
+# Enter a context with an instance of the API client
+with kestrapy.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    id = 'id_example' # str | The user id
+    tenant = 'tenant_example' # str | 
+
+    try:
+        # List API tokens for a specific service account
+        api_response = api_client.list_api_tokens_for_service_account_with_tenant(id, tenant)
+        print("The response of ServiceAccountApi->list_api_tokens_for_service_account_with_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ServiceAccountApi->list_api_tokens_for_service_account_with_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The user id | 
+ **tenant** | **str**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | listApiTokensForServiceAccountWithTenant 200 response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

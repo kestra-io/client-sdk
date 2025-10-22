@@ -812,12 +812,3 @@ src/main/java/io/kestra/sdk/model/ValuePathExpression.java
 src/main/java/io/kestra/sdk/model/WorkerGroup.java
 src/main/java/io/kestra/sdk/model/WorkerGroupFallback.java
 src/main/java/io/kestra/sdk/model/WorkerTaskRestartStrategy.java
-src/test/java/io/kestra/sdk/api/ExecutionsApiTest.java
-src/test/java/io/kestra/sdk/api/FlowsApiTest.java
-src/test/java/io/kestra/sdk/api/GroupsApiTest.java
-src/test/java/io/kestra/sdk/api/KvApiTest.java
-src/test/java/io/kestra/sdk/api/NamespacesApiTest.java
-src/test/java/io/kestra/sdk/api/RolesApiTest.java
-src/test/java/io/kestra/sdk/api/ServiceAccountApiTest.java
-src/test/java/io/kestra/sdk/api/TriggersApiTest.java
-src/test/java/io/kestra/sdk/api/UsersApiTest.java

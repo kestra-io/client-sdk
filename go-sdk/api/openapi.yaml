@@ -1845,7 +1845,7 @@ paths:
       x-internal: false
   /api/v1/service-accounts/{id}/api-tokens:
     get:
-      operationId: listApiTokens
+      operationId: listApiTokensForServiceAccount
       parameters:
       - description: The user id
         explode: false
@@ -1861,16 +1861,16 @@ paths:
             application/json:
               schema:
                 type: object
-          description: listApiTokens 200 response
+          description: listApiTokensForServiceAccount 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: List API tokens for a specific user
+      summary: List API tokens for a specific service account
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
     post:
-      operationId: createApiTokensForUser
+      operationId: createApiTokensForServiceAccount
       parameters:
       - description: The user id
         explode: false
@@ -1893,17 +1893,17 @@ paths:
             application/json:
               schema:
                 type: object
-          description: createApiTokensForUser 200 response
+          description: createApiTokensForServiceAccount 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Create new API Token for a specific user
+      summary: Create new API Token for a specific service account
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
   /api/v1/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
-      operationId: deleteApiToken
+      operationId: deleteApiTokenForServiceAccount
       parameters:
       - description: The user id
         explode: false
@@ -1927,13 +1927,13 @@ paths:
             application/json:
               schema:
                 type: object
-          description: deleteApiToken 200 response
+          description: deleteApiTokenForServiceAccount 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Delete an API Token for specific user and token id
+      summary: Delete an API Token for specific service account and token id
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
   /api/v1/service-accounts/{id}/superadmin:
     patch:
@@ -2261,6 +2261,10 @@ paths:
         required: true
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMUserController.ApiUser"
           description: User was successfully created
         "404":
           description: "Tenant, or group not found"
@@ -2395,7 +2399,7 @@ paths:
   /api/v1/users/{id}/api-tokens:
     get:
       description: Superadmin-only. Get all API token existing for a user.
-      operationId: listApiTokens_1
+      operationId: listApiTokensForUser
       parameters:
       - description: The user id
         explode: false
@@ -2413,7 +2417,7 @@ paths:
             application/json:
               schema:
                 type: object
-          description: listApiTokens_1 200 response
+          description: listApiTokensForUser 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
@@ -2423,7 +2427,7 @@ paths:
       x-internal: false
     post:
       description: Superadmin-only. Create a new API token for a user.
-      operationId: createApiTokensForUser_1
+      operationId: createApiTokensForUser
       parameters:
       - description: The user id
         explode: false
@@ -2459,7 +2463,7 @@ paths:
   /api/v1/users/{id}/api-tokens/{tokenId}:
     delete:
       description: Superadmin-only. Delete an API token for a user.
-      operationId: deleteApiToken_1
+      operationId: deleteApiTokenForUser
       parameters:
       - description: The user id
         explode: false
@@ -14996,7 +15000,7 @@ paths:
       x-internal: false
   /api/v1/{tenant}/service-accounts/{id}/api-tokens:
     get:
-      operationId: listApiTokensWithTenant
+      operationId: listApiTokensForServiceAccountWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -15019,16 +15023,16 @@ paths:
             application/json:
               schema:
                 type: object
-          description: listApiTokensWithTenant 200 response
+          description: listApiTokensForServiceAccountWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: List API tokens for a specific user
+      summary: List API tokens for a specific service account
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
     post:
-      operationId: createApiTokensForUserWithTenant
+      operationId: createApiTokensForServiceAccountWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -15058,17 +15062,17 @@ paths:
             application/json:
               schema:
                 type: object
-          description: createApiTokensForUserWithTenant 200 response
+          description: createApiTokensForServiceAccountWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Create new API Token for a specific user
+      summary: Create new API Token for a specific service account
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
   /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
-      operationId: deleteApiTokenWithTenant
+      operationId: deleteApiTokenForServiceAccountWithTenant
       parameters:
       - description: The user id
         explode: false
@@ -15099,13 +15103,13 @@ paths:
             application/json:
               schema:
                 type: object
-          description: deleteApiTokenWithTenant 200 response
+          description: deleteApiTokenForServiceAccountWithTenant 200 response
       security:
       - bearerAuth: []
       - basicAuth: []
-      summary: Delete an API Token for specific user and token id
+      summary: Delete an API Token for specific service account and token id
       tags:
-      - Users
+      - ServiceAccount
       x-internal: false
   /api/v1/{tenant}/stats/generate-reports:
     get:

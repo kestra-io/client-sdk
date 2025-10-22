@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AppResponseUILayout model module.
  * @module model/AppResponseUILayout
- * @version v1.0.4
+ * @version v1.0.5
  */
 class AppResponseUILayout {
     /**

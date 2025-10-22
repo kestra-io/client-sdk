@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ApiAutocomplete model module.
  * @module model/ApiAutocomplete
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ApiAutocomplete {
     /**

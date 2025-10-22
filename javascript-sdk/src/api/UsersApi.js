@@ -30,7 +30,7 @@ import PagedResultsIAMUserControllerApiUserSummary from '../model/PagedResultsIA
 /**
 * Users service.
 * @module api/UsersApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class UsersApi {
 
@@ -97,16 +97,17 @@ export default class UsersApi {
      * Callback function to receive the result of the createApiTokensForUser operation.
      * @callback module:api/UsersApi~createApiTokensForUserCallback
      * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
+     * @param {module:model/CreateApiTokenResponse} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
     /**
      * Create new API Token for a specific user
+     * Superadmin-only. Create a new API token for a user.
      * @param {String} id The user id
      * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
      * @param {module:api/UsersApi~createApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * data is of type: {@link module:model/CreateApiTokenResponse}
      */
     createApiTokensForUser(id, createApiTokenRequest, callback) {
       let postBody = createApiTokenRequest;
@@ -132,54 +133,6 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/service-accounts/{id}/api-tokens', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the createApiTokensForUser1 operation.
-     * @callback module:api/UsersApi~createApiTokensForUser1Callback
-     * @param {String} error Error message, if any.
-     * @param {module:model/CreateApiTokenResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create new API Token for a specific user
-     * Superadmin-only. Create a new API token for a user.
-     * @param {String} id The user id
-     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUser1Callback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/CreateApiTokenResponse}
-     */
-    createApiTokensForUser1(id, createApiTokenRequest, callback) {
-      let postBody = createApiTokenRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createApiTokensForUser1");
-      }
-      // verify the required parameter 'createApiTokenRequest' is set
-      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
-        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUser1");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
       let returnType = CreateApiTokenResponse;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'POST',
@@ -189,63 +142,10 @@ export default class UsersApi {
     }
 
     /**
-     * Callback function to receive the result of the createApiTokensForUserWithTenant operation.
-     * @callback module:api/UsersApi~createApiTokensForUserWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Create new API Token for a specific user
-     * @param {String} id The user id
-     * @param {String} tenant 
-     * @param {module:model/CreateApiTokenRequest} createApiTokenRequest The create api-token request
-     * @param {module:api/UsersApi~createApiTokensForUserWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest, callback) {
-      let postBody = createApiTokenRequest;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling createApiTokensForUserWithTenant");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling createApiTokensForUserWithTenant");
-      }
-      // verify the required parameter 'createApiTokenRequest' is set
-      if (createApiTokenRequest === undefined || createApiTokenRequest === null) {
-        throw new Error("Missing the required parameter 'createApiTokenRequest' when calling createApiTokensForUserWithTenant");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
      * Callback function to receive the result of the createUser operation.
      * @callback module:api/UsersApi~createUserCallback
      * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
+     * @param {module:model/IAMUserControllerApiUser} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
      */
 
@@ -254,6 +154,7 @@ export default class UsersApi {
      * Superadmin-only. Create a new user account with an optional password based authentication method.
      * @param {module:model/IAMUserControllerApiCreateOrUpdateUserRequest} iAMUserControllerApiCreateOrUpdateUserRequest 
      * @param {module:api/UsersApi~createUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/IAMUserControllerApiUser}
      */
     createUser(iAMUserControllerApiCreateOrUpdateUserRequest, callback) {
       let postBody = iAMUserControllerApiCreateOrUpdateUserRequest;
@@ -273,8 +174,8 @@ export default class UsersApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = ['application/json'];
-      let accepts = [];
-      let returnType = null;
+      let accepts = ['application/json'];
+      let returnType = IAMUserControllerApiUser;
       return this.apiClient.callApi(
         '/api/v1/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -283,56 +184,8 @@ export default class UsersApi {
     }
 
     /**
-     * Callback function to receive the result of the deleteApiToken operation.
-     * @callback module:api/UsersApi~deleteApiTokenCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an API Token for specific user and token id
-     * @param {String} id The user id
-     * @param {String} tokenId The token id
-     * @param {module:api/UsersApi~deleteApiTokenCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    deleteApiToken(id, tokenId, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteApiToken");
-      }
-      // verify the required parameter 'tokenId' is set
-      if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiToken");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tokenId': tokenId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/service-accounts/{id}/api-tokens/{tokenId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteApiToken1 operation.
-     * @callback module:api/UsersApi~deleteApiToken1Callback
+     * Callback function to receive the result of the deleteApiTokenForUser operation.
+     * @callback module:api/UsersApi~deleteApiTokenForUserCallback
      * @param {String} error Error message, if any.
      * @param data This operation does not return a value.
      * @param {String} response The complete HTTP response.
@@ -343,17 +196,17 @@ export default class UsersApi {
      * Superadmin-only. Delete an API token for a user.
      * @param {String} id The user id
      * @param {String} tokenId The token id
-     * @param {module:api/UsersApi~deleteApiToken1Callback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/UsersApi~deleteApiTokenForUserCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteApiToken1(id, tokenId, callback) {
+    deleteApiTokenForUser(id, tokenId, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteApiToken1");
+        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenForUser");
       }
       // verify the required parameter 'tokenId' is set
       if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiToken1");
+        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenForUser");
       }
 
       let pathParams = {
@@ -373,60 +226,6 @@ export default class UsersApi {
       let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens/{tokenId}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the deleteApiTokenWithTenant operation.
-     * @callback module:api/UsersApi~deleteApiTokenWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Delete an API Token for specific user and token id
-     * @param {String} id The user id
-     * @param {String} tokenId The token id
-     * @param {String} tenant 
-     * @param {module:api/UsersApi~deleteApiTokenWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    deleteApiTokenWithTenant(id, tokenId, tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteApiTokenWithTenant");
-      }
-      // verify the required parameter 'tokenId' is set
-      if (tokenId === undefined || tokenId === null) {
-        throw new Error("Missing the required parameter 'tokenId' when calling deleteApiTokenWithTenant");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling deleteApiTokenWithTenant");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tokenId': tokenId,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -651,50 +450,8 @@ export default class UsersApi {
     }
 
     /**
-     * Callback function to receive the result of the listApiTokens operation.
-     * @callback module:api/UsersApi~listApiTokensCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List API tokens for a specific user
-     * @param {String} id The user id
-     * @param {module:api/UsersApi~listApiTokensCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    listApiTokens(id, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listApiTokens");
-      }
-
-      let pathParams = {
-        'id': id
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/service-accounts/{id}/api-tokens', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listApiTokens1 operation.
-     * @callback module:api/UsersApi~listApiTokens1Callback
+     * Callback function to receive the result of the listApiTokensForUser operation.
+     * @callback module:api/UsersApi~listApiTokensForUserCallback
      * @param {String} error Error message, if any.
      * @param {Object} data The data returned by the service call.
      * @param {String} response The complete HTTP response.
@@ -704,14 +461,14 @@ export default class UsersApi {
      * List API tokens for a specific user
      * Superadmin-only. Get all API token existing for a user.
      * @param {String} id The user id
-     * @param {module:api/UsersApi~listApiTokens1Callback} callback The callback function, accepting three arguments: error, data, response
+     * @param {module:api/UsersApi~listApiTokensForUserCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Object}
      */
-    listApiTokens1(id, callback) {
+    listApiTokensForUser(id, callback) {
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listApiTokens1");
+        throw new Error("Missing the required parameter 'id' when calling listApiTokensForUser");
       }
 
       let pathParams = {
@@ -730,54 +487,6 @@ export default class UsersApi {
       let returnType = Object;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
-      );
-    }
-
-    /**
-     * Callback function to receive the result of the listApiTokensWithTenant operation.
-     * @callback module:api/UsersApi~listApiTokensWithTenantCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * List API tokens for a specific user
-     * @param {String} id The user id
-     * @param {String} tenant 
-     * @param {module:api/UsersApi~listApiTokensWithTenantCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
-     */
-    listApiTokensWithTenant(id, tenant, callback) {
-      let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling listApiTokensWithTenant");
-      }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling listApiTokensWithTenant");
-      }
-
-      let pathParams = {
-        'id': id,
-        'tenant': tenant
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['basicAuth', 'bearerAuth'];
-      let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = Object;
-      return this.apiClient.callApi(
-        '/api/v1/{tenant}/service-accounts/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

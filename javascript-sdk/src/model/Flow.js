@@ -27,7 +27,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The Flow model module.
  * @module model/Flow
- * @version v1.0.4
+ * @version v1.0.5
  */
 class Flow {
     /**

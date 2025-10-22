@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The AttributeReference model module.
  * @module model/AttributeReference
- * @version v1.0.4
+ * @version v1.0.5
  */
 class AttributeReference {
     /**

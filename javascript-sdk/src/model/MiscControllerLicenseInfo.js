@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The MiscControllerLicenseInfo model module.
  * @module model/MiscControllerLicenseInfo
- * @version v1.0.4
+ * @version v1.0.5
  */
 class MiscControllerLicenseInfo {
     /**

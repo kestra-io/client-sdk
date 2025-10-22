@@ -17,7 +17,7 @@ import ApiSecretMeta from './ApiSecretMeta';
 /**
  * The ApiSecretListResponse model module.
  * @module model/ApiSecretListResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ApiSecretListResponse {
     /**

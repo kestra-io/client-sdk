@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "v1.0.4"
+__version__ = "v1.0.5"
 
 # Define package exports
 __all__ = [
@@ -28,8 +28,8 @@ __all__ = [
     "TriggersApi",
     "UsersApi",
     "ApiResponse",
-    "ApiClient",
     "Configuration",
+    "KestraClient",
     "OpenApiException",
     "ApiTypeError",
     "ApiValueError",
@@ -826,4 +826,5 @@ from kestrapy.models.worker_group import WorkerGroup as WorkerGroup
 from kestrapy.models.worker_group_fallback import WorkerGroupFallback as WorkerGroupFallback
 from kestrapy.models.worker_task_restart_strategy import WorkerTaskRestartStrategy as WorkerTaskRestartStrategy
 
+from kestrapy.kestra_client import KestraClient as KestraClient
 from kestrapy.kestra_client import KestraClient as KestraClient

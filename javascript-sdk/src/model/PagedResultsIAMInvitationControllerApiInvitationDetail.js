@@ -17,7 +17,7 @@ import IAMInvitationControllerApiInvitationDetail from './IAMInvitationControlle
 /**
  * The PagedResultsIAMInvitationControllerApiInvitationDetail model module.
  * @module model/PagedResultsIAMInvitationControllerApiInvitationDetail
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsIAMInvitationControllerApiInvitationDetail {
     /**

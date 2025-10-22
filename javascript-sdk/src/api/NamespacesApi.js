@@ -26,7 +26,7 @@ import QueryFilter from '../model/QueryFilter';
 /**
 * Namespaces service.
 * @module api/NamespacesApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class NamespacesApi {
 

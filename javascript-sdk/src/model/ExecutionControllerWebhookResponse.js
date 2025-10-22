@@ -19,7 +19,7 @@ import State from './State';
 /**
  * The ExecutionControllerWebhookResponse model module.
  * @module model/ExecutionControllerWebhookResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ExecutionControllerWebhookResponse {
     /**

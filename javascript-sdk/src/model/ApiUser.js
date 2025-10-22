@@ -21,7 +21,7 @@ import UserType from './UserType';
 /**
  * The ApiUser model module.
  * @module model/ApiUser
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ApiUser {
     /**

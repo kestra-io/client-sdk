@@ -17,7 +17,7 @@ import InstanceControllerApiPluginVersionsApiPluginVersionAndMetadata from './In
 /**
  * The InstanceControllerApiPluginVersions model module.
  * @module model/InstanceControllerApiPluginVersions
- * @version v1.0.4
+ * @version v1.0.5
  */
 class InstanceControllerApiPluginVersions {
     /**

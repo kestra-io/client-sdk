@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The ServerConfigLiveness model module.
  * @module model/ServerConfigLiveness
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ServerConfigLiveness {
     /**

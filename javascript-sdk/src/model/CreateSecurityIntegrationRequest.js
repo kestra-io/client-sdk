@@ -17,7 +17,7 @@ import SecurityIntegrationType from './SecurityIntegrationType';
 /**
  * The CreateSecurityIntegrationRequest model module.
  * @module model/CreateSecurityIntegrationRequest
- * @version v1.0.4
+ * @version v1.0.5
  */
 class CreateSecurityIntegrationRequest {
     /**

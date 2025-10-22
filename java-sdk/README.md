@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.kestra</groupId>
   <artifactId>kestra-api-client</artifactId>
-  <version>v1.0.4</version>
+  <version>v1.0.5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "io.kestra:kestra-api-client:v1.0.4"
+compile "io.kestra:kestra-api-client:v1.0.5"
 ```
 
 ### Others
@@ -66,7 +66,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/kestra-api-client-v1.0.4.jar`
+- `target/kestra-api-client-v1.0.5.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -249,12 +249,18 @@ Class | Method | HTTP request | Description
 *RolesApi* | [**listRolesFromGivenIds**](docs/RolesApi.md#listRolesFromGivenIds) | **POST** /api/v1/{tenant}/roles/ids | List roles by ids
 *RolesApi* | [**searchRoles**](docs/RolesApi.md#searchRoles) | **GET** /api/v1/{tenant}/roles/search | Search for roles
 *RolesApi* | [**updateRole**](docs/RolesApi.md#updateRole) | **PUT** /api/v1/{tenant}/roles/{id} | Update a role
+*ServiceAccountApi* | [**createApiTokensForServiceAccount**](docs/ServiceAccountApi.md#createApiTokensForServiceAccount) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
+*ServiceAccountApi* | [**createApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#createApiTokensForServiceAccountWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific service account
 *ServiceAccountApi* | [**createServiceAccount**](docs/ServiceAccountApi.md#createServiceAccount) | **POST** /api/v1/service-accounts | Create a service account
 *ServiceAccountApi* | [**createServiceAccountForTenant**](docs/ServiceAccountApi.md#createServiceAccountForTenant) | **POST** /api/v1/{tenant}/service-accounts | Create a service account for the given tenant
+*ServiceAccountApi* | [**deleteApiTokenForServiceAccount**](docs/ServiceAccountApi.md#deleteApiTokenForServiceAccount) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
+*ServiceAccountApi* | [**deleteApiTokenForServiceAccountWithTenant**](docs/ServiceAccountApi.md#deleteApiTokenForServiceAccountWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific service account and token id
 *ServiceAccountApi* | [**deleteServiceAccount**](docs/ServiceAccountApi.md#deleteServiceAccount) | **DELETE** /api/v1/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**deleteServiceAccountForTenant**](docs/ServiceAccountApi.md#deleteServiceAccountForTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id} | Delete a service account
 *ServiceAccountApi* | [**getServiceAccount**](docs/ServiceAccountApi.md#getServiceAccount) | **GET** /api/v1/service-accounts/{id} | Get a service account
 *ServiceAccountApi* | [**getServiceAccountForTenant**](docs/ServiceAccountApi.md#getServiceAccountForTenant) | **GET** /api/v1/{tenant}/service-accounts/{id} | Retrieve a service account
+*ServiceAccountApi* | [**listApiTokensForServiceAccount**](docs/ServiceAccountApi.md#listApiTokensForServiceAccount) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific service account
+*ServiceAccountApi* | [**listApiTokensForServiceAccountWithTenant**](docs/ServiceAccountApi.md#listApiTokensForServiceAccountWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific service account
 *ServiceAccountApi* | [**listServiceAccounts**](docs/ServiceAccountApi.md#listServiceAccounts) | **GET** /api/v1/service-accounts | List service accounts. Superadmin-only. 
 *ServiceAccountApi* | [**patchServiceAccountDetails**](docs/ServiceAccountApi.md#patchServiceAccountDetails) | **PATCH** /api/v1/service-accounts/{id} | Update service account details
 *ServiceAccountApi* | [**patchServiceAccountSuperAdmin**](docs/ServiceAccountApi.md#patchServiceAccountSuperAdmin) | **PATCH** /api/v1/service-accounts/{id}/superadmin | Update service account superadmin privileges
@@ -278,21 +284,15 @@ Class | Method | HTTP request | Description
 *TriggersApi* | [**unpauseBackfillByQuery**](docs/TriggersApi.md#unpauseBackfillByQuery) | **POST** /api/v1/{tenant}/triggers/backfill/unpause/by-query | Unpause backfill for given triggers
 *TriggersApi* | [**updateTrigger**](docs/TriggersApi.md#updateTrigger) | **PUT** /api/v1/{tenant}/triggers | Update a trigger
 *UsersApi* | [**autocompleteUsers**](docs/UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete
-*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user
-*UsersApi* | [**createApiTokensForUser1**](docs/UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
-*UsersApi* | [**createApiTokensForUserWithTenant**](docs/UsersApi.md#createApiTokensForUserWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user
+*UsersApi* | [**createApiTokensForUser**](docs/UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user
 *UsersApi* | [**createUser**](docs/UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account
-*UsersApi* | [**deleteApiToken**](docs/UsersApi.md#deleteApiToken) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-*UsersApi* | [**deleteApiToken1**](docs/UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
-*UsersApi* | [**deleteApiTokenWithTenant**](docs/UsersApi.md#deleteApiTokenWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
+*UsersApi* | [**deleteApiTokenForUser**](docs/UsersApi.md#deleteApiTokenForUser) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id
 *UsersApi* | [**deleteRefreshToken**](docs/UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token
 *UsersApi* | [**deleteUser**](docs/UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user
 *UsersApi* | [**deleteUserAuthMethod**](docs/UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password
 *UsersApi* | [**getUser**](docs/UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user
 *UsersApi* | [**impersonate**](docs/UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user
-*UsersApi* | [**listApiTokens**](docs/UsersApi.md#listApiTokens) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user
-*UsersApi* | [**listApiTokens1**](docs/UsersApi.md#listApiTokens1) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
-*UsersApi* | [**listApiTokensWithTenant**](docs/UsersApi.md#listApiTokensWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user
+*UsersApi* | [**listApiTokensForUser**](docs/UsersApi.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user
 *UsersApi* | [**listUsers**](docs/UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users
 *UsersApi* | [**patchUser**](docs/UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details
 *UsersApi* | [**patchUserDemo**](docs/UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo

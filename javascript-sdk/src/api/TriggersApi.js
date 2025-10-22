@@ -23,7 +23,7 @@ import TriggerControllerSetDisabledRequest from '../model/TriggerControllerSetDi
 /**
 * Triggers service.
 * @module api/TriggersApi
-* @version v1.0.4
+* @version v1.0.5
 */
 export default class TriggersApi {
 

@@ -17,7 +17,7 @@ import InstanceControllerApiPluginArtifact from './InstanceControllerApiPluginAr
 /**
  * The PagedResultsInstanceControllerApiPluginArtifact model module.
  * @module model/PagedResultsInstanceControllerApiPluginArtifact
- * @version v1.0.4
+ * @version v1.0.5
  */
 class PagedResultsInstanceControllerApiPluginArtifact {
     /**

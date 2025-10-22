@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The NamespaceAllowedNamespace model module.
  * @module model/NamespaceAllowedNamespace
- * @version v1.0.4
+ * @version v1.0.5
  */
 class NamespaceAllowedNamespace {
     /**

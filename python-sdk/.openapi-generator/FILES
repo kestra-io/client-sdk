@@ -801,12 +801,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_flows_api.py
-test/test_groups_api.py
-test/test_kv_api.py
-test/test_namespaces_api.py
-test/test_roles_api.py
-test/test_service_account_api.py
-test/test_triggers_api.py
-test/test_users_api.py
 tox.ini

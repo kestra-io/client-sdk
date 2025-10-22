@@ -22,7 +22,7 @@ import ServiceType from './ServiceType';
 /**
  * The ServiceInstance model module.
  * @module model/ServiceInstance
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ServiceInstance {
     /**

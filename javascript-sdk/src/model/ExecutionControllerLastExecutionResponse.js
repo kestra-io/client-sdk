@@ -17,7 +17,7 @@ import StateType from './StateType';
 /**
  * The ExecutionControllerLastExecutionResponse model module.
  * @module model/ExecutionControllerLastExecutionResponse
- * @version v1.0.4
+ * @version v1.0.5
  */
 class ExecutionControllerLastExecutionResponse {
     /**

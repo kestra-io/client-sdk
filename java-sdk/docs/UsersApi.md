@@ -5,21 +5,15 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**autocompleteUsers**](UsersApi.md#autocompleteUsers) | **POST** /api/v1/{tenant}/tenant-access/autocomplete | List users for autocomplete |
-| [**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/service-accounts/{id}/api-tokens | Create new API Token for a specific user |
-| [**createApiTokensForUser1**](UsersApi.md#createApiTokensForUser1) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user |
-| [**createApiTokensForUserWithTenant**](UsersApi.md#createApiTokensForUserWithTenant) | **POST** /api/v1/{tenant}/service-accounts/{id}/api-tokens | Create new API Token for a specific user |
+| [**createApiTokensForUser**](UsersApi.md#createApiTokensForUser) | **POST** /api/v1/users/{id}/api-tokens | Create new API Token for a specific user |
 | [**createUser**](UsersApi.md#createUser) | **POST** /api/v1/users | Create a new user account |
-| [**deleteApiToken**](UsersApi.md#deleteApiToken) | **DELETE** /api/v1/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id |
-| [**deleteApiToken1**](UsersApi.md#deleteApiToken1) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id |
-| [**deleteApiTokenWithTenant**](UsersApi.md#deleteApiTokenWithTenant) | **DELETE** /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id |
+| [**deleteApiTokenForUser**](UsersApi.md#deleteApiTokenForUser) | **DELETE** /api/v1/users/{id}/api-tokens/{tokenId} | Delete an API Token for specific user and token id |
 | [**deleteRefreshToken**](UsersApi.md#deleteRefreshToken) | **DELETE** /api/v1/users/{id}/refresh-token | Delete a user refresh token |
 | [**deleteUser**](UsersApi.md#deleteUser) | **DELETE** /api/v1/users/{id} | Delete a user |
 | [**deleteUserAuthMethod**](UsersApi.md#deleteUserAuthMethod) | **DELETE** /api/v1/users/{id}/auths/{auth} | Update user password |
 | [**getUser**](UsersApi.md#getUser) | **GET** /api/v1/users/{id} | Get a user |
 | [**impersonate**](UsersApi.md#impersonate) | **POST** /api/v1/users/{id}/impersonate | Impersonate a user |
-| [**listApiTokens**](UsersApi.md#listApiTokens) | **GET** /api/v1/service-accounts/{id}/api-tokens | List API tokens for a specific user |
-| [**listApiTokens1**](UsersApi.md#listApiTokens1) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user |
-| [**listApiTokensWithTenant**](UsersApi.md#listApiTokensWithTenant) | **GET** /api/v1/{tenant}/service-accounts/{id}/api-tokens | List API tokens for a specific user |
+| [**listApiTokensForUser**](UsersApi.md#listApiTokensForUser) | **GET** /api/v1/users/{id}/api-tokens | List API tokens for a specific user |
 | [**listUsers**](UsersApi.md#listUsers) | **GET** /api/v1/users | Retrieve users |
 | [**patchUser**](UsersApi.md#patchUser) | **PATCH** /api/v1/users/{id} | Update user details |
 | [**patchUserDemo**](UsersApi.md#patchUserDemo) | **PATCH** /api/v1/users/{id}/restricted | Update user demo |
@@ -109,83 +103,7 @@ public class Example {
 
 ## createApiTokensForUser
 
-> Object createApiTokensForUser(id, createApiTokenRequest)
-
-Create new API Token for a specific user
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-        try {
-            Object result = apiInstance.createApiTokensForUser(id, createApiTokenRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#createApiTokensForUser");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | createApiTokensForUser 200 response |  -  |
-
-
-## createApiTokensForUser1
-
-> CreateApiTokenResponse createApiTokensForUser1(id, createApiTokenRequest)
+> CreateApiTokenResponse createApiTokensForUser(id, createApiTokenRequest)
 
 Create new API Token for a specific user
 
@@ -220,10 +138,10 @@ public class Example {
         String id = "id_example"; // String | The user id
         CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
         try {
-            CreateApiTokenResponse result = apiInstance.createApiTokensForUser1(id, createApiTokenRequest);
+            CreateApiTokenResponse result = apiInstance.createApiTokensForUser(id, createApiTokenRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#createApiTokensForUser1");
+            System.err.println("Exception when calling UsersApi#createApiTokensForUser");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -262,87 +180,9 @@ public class Example {
 | **404** | User not found |  -  |
 
 
-## createApiTokensForUserWithTenant
-
-> Object createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest)
-
-Create new API Token for a specific user
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        String tenant = "tenant_example"; // String | 
-        CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest(); // CreateApiTokenRequest | The create api-token request
-        try {
-            Object result = apiInstance.createApiTokensForUserWithTenant(id, tenant, createApiTokenRequest);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#createApiTokensForUserWithTenant");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **tenant** | **String**|  | |
-| **createApiTokenRequest** | [**CreateApiTokenRequest**](CreateApiTokenRequest.md)| The create api-token request | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | createApiTokensForUserWithTenant 200 response |  -  |
-
-
 ## createUser
 
-> createUser(iaMUserControllerApiCreateOrUpdateUserRequest)
+> IAMUserControllerApiUser createUser(iaMUserControllerApiCreateOrUpdateUserRequest)
 
 Create a new user account
 
@@ -376,7 +216,8 @@ public class Example {
         UsersApi apiInstance = new UsersApi(defaultClient);
         IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = new IAMUserControllerApiCreateOrUpdateUserRequest(); // IAMUserControllerApiCreateOrUpdateUserRequest | 
         try {
-            apiInstance.createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
+            IAMUserControllerApiUser result = apiInstance.createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
+            System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#createUser");
             System.err.println("Status code: " + e.getCode());
@@ -397,7 +238,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**IAMUserControllerApiUser**](IAMUserControllerApiUser.md)
 
 ### Authorization
 
@@ -406,7 +247,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 
 ### HTTP response details
@@ -416,85 +257,9 @@ null (empty response body)
 | **404** | Tenant, or group not found |  -  |
 
 
-## deleteApiToken
+## deleteApiTokenForUser
 
-> Object deleteApiToken(id, tokenId)
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        String tokenId = "tokenId_example"; // String | The token id
-        try {
-            Object result = apiInstance.deleteApiToken(id, tokenId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#deleteApiToken");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **tokenId** | **String**| The token id | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | deleteApiToken 200 response |  -  |
-
-
-## deleteApiToken1
-
-> deleteApiToken1(id, tokenId)
+> deleteApiTokenForUser(id, tokenId)
 
 Delete an API Token for specific user and token id
 
@@ -529,9 +294,9 @@ public class Example {
         String id = "id_example"; // String | The user id
         String tokenId = "tokenId_example"; // String | The token id
         try {
-            apiInstance.deleteApiToken1(id, tokenId);
+            apiInstance.deleteApiTokenForUser(id, tokenId);
         } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#deleteApiToken1");
+            System.err.println("Exception when calling UsersApi#deleteApiTokenForUser");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -568,84 +333,6 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **204** | API token successfully deleted |  -  |
 | **404** | User, or API Token not found |  -  |
-
-
-## deleteApiTokenWithTenant
-
-> Object deleteApiTokenWithTenant(id, tokenId, tenant)
-
-Delete an API Token for specific user and token id
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        String tokenId = "tokenId_example"; // String | The token id
-        String tenant = "tenant_example"; // String | 
-        try {
-            Object result = apiInstance.deleteApiTokenWithTenant(id, tokenId, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#deleteApiTokenWithTenant");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **tokenId** | **String**| The token id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | deleteApiTokenWithTenant 200 response |  -  |
 
 
 ## deleteRefreshToken
@@ -1031,83 +718,9 @@ public class Example {
 | **200** | impersonate 200 response |  -  |
 
 
-## listApiTokens
+## listApiTokensForUser
 
-> Object listApiTokens(id)
-
-List API tokens for a specific user
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        try {
-            Object result = apiInstance.listApiTokens(id);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#listApiTokens");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listApiTokens 200 response |  -  |
-
-
-## listApiTokens1
-
-> Object listApiTokens1(id)
+> Object listApiTokensForUser(id)
 
 List API tokens for a specific user
 
@@ -1141,10 +754,10 @@ public class Example {
         UsersApi apiInstance = new UsersApi(defaultClient);
         String id = "id_example"; // String | The user id
         try {
-            Object result = apiInstance.listApiTokens1(id);
+            Object result = apiInstance.listApiTokensForUser(id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#listApiTokens1");
+            System.err.println("Exception when calling UsersApi#listApiTokensForUser");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1179,83 +792,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **404** | User not found |  -  |
-| **200** | listApiTokens_1 200 response |  -  |
-
-
-## listApiTokensWithTenant
-
-> Object listApiTokensWithTenant(id, tenant)
-
-List API tokens for a specific user
-
-### Example
-
-```java
-// Import classes:
-import io.kestra.sdk.internal.ApiClient;
-import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.internal.Configuration;
-import io.kestra.sdk.internal.auth.*;
-import io.kestra.sdk.internal.models.*;
-import io.kestra.sdk.api.UsersApi;
-
-public class Example {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("http://localhost");
-        
-        // Configure HTTP basic authorization: basicAuth
-        HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-        basicAuth.setUsername("YOUR USERNAME");
-        basicAuth.setPassword("YOUR PASSWORD");
-
-        // Configure HTTP bearer authorization: bearerAuth
-        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-        bearerAuth.setBearerToken("BEARER TOKEN");
-
-        UsersApi apiInstance = new UsersApi(defaultClient);
-        String id = "id_example"; // String | The user id
-        String tenant = "tenant_example"; // String | 
-        try {
-            Object result = apiInstance.listApiTokensWithTenant(id, tenant);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsersApi#listApiTokensWithTenant");
-            System.err.println("Status code: " + e.getCode());
-            System.err.println("Reason: " + e.getResponseBody());
-            System.err.println("Response headers: " + e.getResponseHeaders());
-            e.printStackTrace();
-        }
-    }
-}
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The user id | |
-| **tenant** | **String**|  | |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | listApiTokensWithTenant 200 response |  -  |
+| **200** | listApiTokensForUser 200 response |  -  |
 
 
 ## listUsers

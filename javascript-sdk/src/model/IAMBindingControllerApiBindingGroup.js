@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The IAMBindingControllerApiBindingGroup model module.
  * @module model/IAMBindingControllerApiBindingGroup
- * @version v1.0.4
+ * @version v1.0.5
  */
 class IAMBindingControllerApiBindingGroup {
     /**

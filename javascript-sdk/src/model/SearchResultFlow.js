@@ -17,7 +17,7 @@ import Flow from './Flow';
 /**
  * The SearchResultFlow model module.
  * @module model/SearchResultFlow
- * @version v1.0.4
+ * @version v1.0.5
  */
 class SearchResultFlow {
     /**

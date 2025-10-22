@@ -13,19 +13,15 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+
+from kestrapy.api.kv_api import KVApi
 
 
 class TestKVApi(unittest.TestCase):
     """KVApi unit test stubs"""
 
     def setUp(self) -> None:
-        configuration = Configuration()
-        configuration.host = "http://localhost:9902"
-        configuration.username = "root@root.com"
-        configuration.password = "Root!1234"
-
-        self.kestra_client = KestraClient(configuration)
+        self.api = KVApi()
 
     def tearDown(self) -> None:
         pass

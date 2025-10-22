@@ -21,7 +21,7 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The AbstractTrigger model module.
  * @module model/AbstractTrigger
- * @version v1.0.4
+ * @version v1.0.5
  */
 class AbstractTrigger {
     /**
