@@ -43,6 +43,14 @@ jobs:
       - name: build
         run: npm run build
 
+      - name: GCP - Auth with github service account
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: configure docker access to GCP registry for EE image
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev
+
       - name: Test with vitest
         run: ./run-tests.sh
 
