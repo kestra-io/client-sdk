@@ -361,6 +361,7 @@ Class | Method | HTTP request | Description
  - [ConvertibleMultiValuesString](docs/ConvertibleMultiValuesString.md)
  - [ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
+ - [CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [CrudEventType](docs/CrudEventType.md)
  - [DailyExecutionStatistics](docs/DailyExecutionStatistics.md)

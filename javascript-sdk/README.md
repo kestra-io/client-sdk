@@ -392,6 +392,7 @@ Class | Method | HTTP request | Description
  - [KestraIoKestraSdk.ConvertibleMultiValuesString](docs/ConvertibleMultiValuesString.md)
  - [KestraIoKestraSdk.ConvertibleValuesListString](docs/ConvertibleValuesListString.md)
  - [KestraIoKestraSdk.CreateApiTokenRequest](docs/CreateApiTokenRequest.md)
+ - [KestraIoKestraSdk.CreateApiTokenResponse](docs/CreateApiTokenResponse.md)
  - [KestraIoKestraSdk.CreateSecurityIntegrationRequest](docs/CreateSecurityIntegrationRequest.md)
  - [KestraIoKestraSdk.CrudEventType](docs/CrudEventType.md)
  - [KestraIoKestraSdk.DailyExecutionStatistics](docs/DailyExecutionStatistics.md)

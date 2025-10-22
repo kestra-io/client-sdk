@@ -78,6 +78,7 @@ docs/ConversionServiceProvider.md
 docs/ConvertibleMultiValuesString.md
 docs/ConvertibleValuesListString.md
 docs/CreateApiTokenRequest.md
+docs/CreateApiTokenResponse.md
 docs/CreateSecurityIntegrationRequest.md
 docs/CrudEventType.md
 docs/DailyExecutionStatistics.md
@@ -502,6 +503,7 @@ src/main/java/io/kestra/sdk/model/ConversionServiceProvider.java
 src/main/java/io/kestra/sdk/model/ConvertibleMultiValuesString.java
 src/main/java/io/kestra/sdk/model/ConvertibleValuesListString.java
 src/main/java/io/kestra/sdk/model/CreateApiTokenRequest.java
+src/main/java/io/kestra/sdk/model/CreateApiTokenResponse.java
 src/main/java/io/kestra/sdk/model/CreateSecurityIntegrationRequest.java
 src/main/java/io/kestra/sdk/model/CrudEventType.java
 src/main/java/io/kestra/sdk/model/DailyExecutionStatistics.java

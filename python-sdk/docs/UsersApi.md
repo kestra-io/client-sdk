@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_api_tokens_for_user**
-> create_api_tokens_for_user(id, create_api_token_request)
+> CreateApiTokenResponse create_api_tokens_for_user(id, create_api_token_request)
 
 Create new API Token for a specific user
 
@@ -98,6 +98,7 @@ Superadmin-only. Create a new API token for a user.
 ```python
 import kestrapy
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
+from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -109,7 +110,9 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Create new API Token for a specific user
-        api_client.create_api_tokens_for_user(id, create_api_token_request)
+        api_response = api_client.create_api_tokens_for_user(id, create_api_token_request)
+        print("The response of UsersApi->create_api_tokens_for_user:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling UsersApi->create_api_tokens_for_user: %s\n" % e)
 ```
@@ -126,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**CreateApiTokenResponse**](CreateApiTokenResponse.md)
 
 ### Authorization
 
@@ -135,7 +138,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 

@@ -149,7 +149,7 @@ func (r ApiCreateApiTokensForUserRequest) CreateApiTokenRequest(createApiTokenRe
 	return r
 }
 
-func (r ApiCreateApiTokensForUserRequest) Execute() (*http.Response, error) {
+func (r ApiCreateApiTokensForUserRequest) Execute() (*CreateApiTokenResponse, *http.Response, error) {
 	return r.ApiService.CreateApiTokensForUserExecute(r)
 }
 
@@ -171,16 +171,19 @@ func (a *UsersAPIService) CreateApiTokensForUser(ctx context.Context, id string)
 }
 
 // Execute executes the request
-func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForUserRequest) (*http.Response, error) {
+//
+//	@return CreateApiTokenResponse
+func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForUserRequest) (*CreateApiTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateApiTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.CreateApiTokensForUser")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/users/{id}/api-tokens"
@@ -190,7 +193,7 @@ func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForU
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if r.createApiTokenRequest == nil {
-		return nil, reportError("createApiTokenRequest is required and must be specified")
+		return localVarReturnValue, nil, reportError("createApiTokenRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -203,7 +206,7 @@ func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForU
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -214,19 +217,19 @@ func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForU
 	localVarPostBody = r.createApiTokenRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -234,10 +237,19 @@ func (a *UsersAPIService) CreateApiTokensForUserExecute(r ApiCreateApiTokensForU
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiCreateUserRequest struct {
