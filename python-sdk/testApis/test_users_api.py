@@ -55,6 +55,22 @@ class TestUsersApi(unittest.TestCase):
         created_user = self.kestra_client.users.create_user(
             iam_user_controller_api_create_or_update_user_request=user
         )
+        # Create a tenantAccess by adding user to a group
+        group = IAMGroupControllerApiCreateGroupRequest(
+            name="test_add_user_to_group",
+            description="An example group"
+        )
+
+        created_group = self.kestra_client.groups.create_group(
+            tenant=self.tenant,
+            iam_group_controller_api_create_group_request=group
+        )
+
+        self.kestra_client.groups.add_user_to_group(
+            tenant=self.tenant,
+            id=created_group.id,
+            user_id=created_user.id
+        )
 
         autocomplete_req = IAMTenantAccessControllerUserApiAutocomplete(q=email)
 
@@ -135,7 +151,6 @@ class TestUsersApi(unittest.TestCase):
 
         self.kestra_client.users.delete_api_token_for_user(id=created_user.id, token_id=token.id)
 
-
     def test_delete_refresh_token(self) -> None:
         """Delete a user refresh token
 
@@ -181,13 +196,11 @@ class TestUsersApi(unittest.TestCase):
             iam_user_controller_api_create_or_update_user_request=user_req
         )
 
-        # The API provides endpoints to patch user password or restricted flag; try to patch restricted flag
         patched = self.kestra_client.users.delete_user_auth_method(
             id=created_user.id,
-            auth="basic"
+            auth=created_user.auths[0].id
         )
         assert getattr(patched, 'id', None) == created_user.id
-
 
     def test_get_user(self) -> None:
         """Get a user"""
@@ -223,14 +236,7 @@ class TestUsersApi(unittest.TestCase):
         created_token = self.kestra_client.users.create_api_tokens_for_user(id=created_user.id, create_api_token_request=token_req)
 
         tokens = self.kestra_client.users.list_api_tokens_for_user(id=created_user.id)
-        assert any(getattr(t, 'id', None) == created_token.id for t in tokens)
-
-        # cleanup
-        try:
-            self.kestra_client.users.delete_api_token_for_user(id=created_user.id, token_id=created_token.id)
-            self.kestra_client.users.delete_user(id=created_user.id)
-        except Exception:
-            pass
+        assert tokens['results'][0]['id'] == created_token.id
 
     def test_list_users(self) -> None:
         """Retrieve users"""
@@ -285,7 +291,6 @@ class TestUsersApi(unittest.TestCase):
         patched = self.kestra_client.users.patch_user_password(id=created_user.id, iam_user_controller_api_patch_user_password_request=password_req)
         assert getattr(patched, 'id', None) == created_user.id
 
-
     def test_patch_user_super_admin(self) -> None:
         """Update user superadmin privileges"""
         name_base = "test_patch_user_super_admin"
@@ -334,7 +339,6 @@ class TestUsersApi(unittest.TestCase):
         revert_req = MeControllerApiUpdatePasswordRequest(old_password=changed_password, new_password=initial_password)
         user_client.users.update_current_user_password(me_controller_api_update_password_request=revert_req)
 
-
     def test_update_user(self) -> None:
         """Update a user account"""
         name_base = "test_update_user"
@@ -365,7 +369,6 @@ class TestUsersApi(unittest.TestCase):
         )
 
         name_base = "test_update_user_groups"
-        # create the user and assign it to the tenant so update_user_groups can operate
         user_req = IAMUserControllerApiCreateOrUpdateUserRequest(
             email=f"{name_base}@kestra.io",
             tenants=[self.tenant]

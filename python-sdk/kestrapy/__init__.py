@@ -236,6 +236,7 @@ __all__ = [
     "KVControllerApiDeleteBulkRequest",
     "KVControllerApiDeleteBulkResponse",
     "KVControllerTypedValue",
+    "KVControllerTypedValueValue",
     "KVEntry",
     "KVType",
     "Label",
@@ -643,6 +644,7 @@ from kestrapy.models.isolation import Isolation as Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest as KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse as KVControllerApiDeleteBulkResponse
 from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue as KVControllerTypedValue
+from kestrapy.models.kv_controller_typed_value_value import KVControllerTypedValueValue as KVControllerTypedValueValue
 from kestrapy.models.kv_entry import KVEntry as KVEntry
 from kestrapy.models.kv_type import KVType as KVType
 from kestrapy.models.label import Label as Label

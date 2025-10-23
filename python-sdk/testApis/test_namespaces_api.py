@@ -13,7 +13,13 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+from kestrapy import (
+    Configuration,
+    KestraClient,
+    Namespace,
+    ApiAutocomplete,
+    ApiSecretValue,
+)
 
 
 class TestNamespacesApi(unittest.TestCase):
@@ -21,11 +27,12 @@ class TestNamespacesApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
 
     def tearDown(self) -> None:
         pass
@@ -35,91 +42,153 @@ class TestNamespacesApi(unittest.TestCase):
 
         List namespaces for autocomplete
         """
-        pass
+        prefix = "test_autocomplete_namespaces"
+        ns = Namespace(id=prefix, deleted=False)
+
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        api_autocomplete = ApiAutocomplete(q=prefix)
+        results = self.kestra_client.namespaces.autocomplete_namespaces(tenant=self.tenant, api_autocomplete=api_autocomplete)
+
+        assert any(r == created.id for r in results)
 
     def test_create_namespace(self) -> None:
         """Test case for create_namespace
 
         Create a namespace
         """
-        pass
+        ns_id = "test_create_namespace"
+        ns = Namespace(id=ns_id, deleted=False)
+
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+        assert getattr(created, 'id', None) == ns_id
 
     def test_delete_namespace(self) -> None:
         """Test case for delete_namespace
 
         Delete a namespace
         """
-        pass
+        ns_id = "test_delete_namespace"
+        ns = Namespace(id=ns_id, deleted=False)
 
-    def test_delete_secret(self) -> None:
-        """Test case for delete_secret
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
 
-        Delete a secret for a namespace
-        """
-        pass
+        self.kestra_client.namespaces.delete_namespace(id=created.id, tenant=self.tenant)
+
+        # fetching should fail
+        with self.assertRaises(Exception):
+            self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
 
     def test_get_inherited_secrets(self) -> None:
         """Test case for get_inherited_secrets
 
         List inherited secrets
         """
-        pass
+        ns_id = "test_get_inherited_secrets"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        inherited = self.kestra_client.namespaces.get_inherited_secrets(namespace=created.id, tenant=self.tenant)
+        assert isinstance(inherited, dict)
 
     def test_get_namespace(self) -> None:
         """Test case for get_namespace
 
         Get a namespace
         """
-        pass
+        ns_id = "test_get_namespace"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        fetched = self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
+        assert getattr(fetched, 'id', None) == created.id
 
     def test_inherited_plugin_defaults(self) -> None:
         """Test case for inherited_plugin_defaults
 
         List inherited plugin defaults
         """
-        pass
+        ns_id = "test_inherited_plugin_defaults"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        defaults = self.kestra_client.namespaces.inherited_plugin_defaults(id=created.id, tenant=self.tenant)
+        assert isinstance(defaults, list)
 
     def test_inherited_variables(self) -> None:
         """Test case for inherited_variables
 
         List inherited variables
         """
-        pass
+        ns_id = "test_inherited_variables"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        variables = self.kestra_client.namespaces.inherited_variables(id=created.id, tenant=self.tenant)
+        assert isinstance(variables, dict)
 
     def test_list_namespace_secrets(self) -> None:
         """Test case for list_namespace_secrets
 
         Get secrets for a namespace
         """
-        pass
+        ns_id = "test_list_namespace_secrets"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        # list secrets with empty filters
+        entries = self.kestra_client.namespaces.list_namespace_secrets(namespace=created.id, page=1, size=10, filters=[], tenant=self.tenant)
+        assert getattr(entries, 'results', None) is not None
 
     def test_patch_secret(self) -> None:
         """Test case for patch_secret
 
         Patch a secret metadata for a namespace
         """
-        pass
+        ns_id = "test_patch_secret"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        secret = ApiSecretValue(key="test_patch_secret_key", value="secretValue")
+        metas = self.kestra_client.namespaces.put_secrets(namespace=created.id, tenant=self.tenant, api_secret_value=secret)
+        assert isinstance(metas, list)
 
     def test_put_secrets(self) -> None:
         """Test case for put_secrets
 
         Update secrets for a namespace
         """
-        pass
+        ns_id = "test_put_secrets"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        secret = ApiSecretValue(key="test_put_secrets_key", value="value-put")
+        metas = self.kestra_client.namespaces.put_secrets(namespace=created.id, tenant=self.tenant, api_secret_value=secret)
+        assert isinstance(metas, list)
 
     def test_search_namespaces(self) -> None:
         """Test case for search_namespaces
 
         Search for namespaces
         """
-        pass
+        ns_id = "test_search_namespaces"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        results = self.kestra_client.namespaces.search_namespaces(page=1, size=10, existing=False, tenant=self.tenant, q=ns_id)
+        assert any(getattr(r, 'id', None) == created.id for r in results.results)
 
     def test_update_namespace(self) -> None:
         """Test case for update_namespace
 
         Update a namespace
         """
-        pass
+        ns_id = "test_update_namespace"
+        ns = Namespace(id=ns_id, deleted=False)
+        created = self.kestra_client.namespaces.create_namespace(tenant=self.tenant, namespace=ns)
+
+        fetched = self.kestra_client.namespaces.get_namespace(id=created.id, tenant=self.tenant)
+        assert getattr(fetched, 'id', None) == created.id
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | [**KVType**](KVType.md) |  | [optional] 
-**value** | **object** |  | [optional] 
+**value** | [**KVControllerTypedValueValue**](KVControllerTypedValueValue.md) |  | [optional] 
 
 ## Example
 

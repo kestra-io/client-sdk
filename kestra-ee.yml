@@ -17837,7 +17837,9 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          type: object
+          anyOf:
+            - type: object
+            - type: string
     KVEntry:
       type: object
       properties:

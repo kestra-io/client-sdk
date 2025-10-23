@@ -488,6 +488,7 @@ Class | Method | HTTP request | Description
  - [KVControllerApiDeleteBulkRequest](docs/KVControllerApiDeleteBulkRequest.md)
  - [KVControllerApiDeleteBulkResponse](docs/KVControllerApiDeleteBulkResponse.md)
  - [KVControllerTypedValue](docs/KVControllerTypedValue.md)
+ - [KVControllerTypedValueValue](docs/KVControllerTypedValueValue.md)
  - [KVEntry](docs/KVEntry.md)
  - [KVType](docs/KVType.md)
  - [Label](docs/Label.md)
