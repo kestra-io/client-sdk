@@ -68,7 +68,6 @@ triggers:
 """
 
         self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
-        time.sleep(1)
 
         return flow_id, trigger_id
 
@@ -99,6 +98,7 @@ triggers:
         Delete a backfill
         """
         flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        time.sleep(1) # ensure trigger is created
         self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
         trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
 
@@ -215,7 +215,6 @@ triggers:
 
         Search for triggers
         """
-        # ensure at least one trigger exists
         self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
         resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant)
         assert resp is not None

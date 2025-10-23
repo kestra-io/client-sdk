@@ -236,7 +236,7 @@ class TestUsersApi(unittest.TestCase):
         created_token = self.kestra_client.users.create_api_tokens_for_user(id=created_user.id, create_api_token_request=token_req)
 
         tokens = self.kestra_client.users.list_api_tokens_for_user(id=created_user.id)
-        assert tokens['results'][0]['id'] == created_token.id
+        assert any(getattr(t, 'id', None) == created_token.id for t in tokens.results)
 
     def test_list_users(self) -> None:
         """Retrieve users"""
