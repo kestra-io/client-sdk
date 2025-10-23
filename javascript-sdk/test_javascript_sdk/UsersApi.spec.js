@@ -2,11 +2,12 @@ import {describe, expect, it} from "vitest";
 import KestraClient from "../src/KestraClient";
 import IAMUserControllerApiCreateOrUpdateUserRequest from "../src/model/IAMUserControllerApiCreateOrUpdateUserRequest";
 import CreateApiTokenRequest from "../src/model/CreateApiTokenRequest";
+import IAMUserControllerApiPatchUserPasswordRequest from "../src/model/IAMUserControllerApiPatchUserPasswordRequest";
+import ApiPatchSuperAdminRequest from "../src/model/ApiPatchSuperAdminRequest";
 
 const host = "http://localhost:9903"
 const username = "root@root.com"
 const password = "Root!1234"
-const tenantId = "main";
 
 function kestraClient() {
     return new KestraClient(host, null, username, password);
@@ -30,18 +31,18 @@ async function assertUserDoesNotExist(userId) {
 }
 async function createUser() {
     const user = await kestraClient().usersApi.createUser(new IAMUserControllerApiCreateOrUpdateUserRequest(randomEmail()));
-    assertUserExist(user.id);
+    await assertUserExist(user.id);
     return user;
 }
 
 describe("UsersApi tests", async () => {
     it('should call createUser successfully', async () => {
         const user = await kestraClient().usersApi.createUser(new IAMUserControllerApiCreateOrUpdateUserRequest(randomEmail()));
-        assertUserExist(user.id);
+        await assertUserExist(user.id);
     });
     it('should call getUser successfully', async () => {
         const user = await createUser();
-        assertUserExist(user.id);
+        await assertUserExist(user.id);
     });
     it('should call deleteUser successfully', async () => {
         const user = await createUser();
@@ -82,6 +83,19 @@ describe("UsersApi tests", async () => {
         expect(users.results).length(1);
     });
 
+    /*it('should call updateUserGroups successfully', async () => { TODO
+        const user = await createUser();
+        await kestraClient().groupsApi.createGroup(MAIN_TENANT, new IAMGroupControllerApiCreateGroupRequest(groudName));
+
+        const newFirstName = randomId();
+        await kestraClient().usersApi.updateUserGroups(user.id, IAMUserControllerApiCreateOrUpdateUserRequest.constructFromObject({
+            firstName: newFirstName
+        }, new IAMUserControllerApiCreateOrUpdateUserRequest(user.email)));
+
+        const updatedUser = await kestraClient().usersApi.getUser(user.id);
+        expect(updatedUser).toHaveProperty('firstName', newFirstName)
+    });*/
+
     it('should call autocompleteUsers successfully', async () => {
         await createUser();
         await kestraClient().usersApi.autocompleteUsers(MAIN_TENANT, {});
@@ -108,8 +122,6 @@ describe("UsersApi tests", async () => {
     });
     it('should call deleteRefreshToken successfully', async () => {
         const user = await createUser();
-        const tokenName = randomId();
-
         await kestraClient().usersApi.deleteRefreshToken(user.id);
     });
 
@@ -139,33 +151,26 @@ describe("UsersApi tests", async () => {
     //     //});
     //     done();
     // });
-    // it('should call patchUserPassword successfully', async () => {
-    //     //uncomment below and update the code to test patchUserPassword
-    //     //instance.patchUserPassword(function(error) {
-    //     //  if (error) throw error;
-    //     //expect().to.be();
-    //     //});
-    //     done();
-    // });
-    // it('should call patchUserSuperAdmin successfully', async () => {
-    //     //uncomment below and update the code to test patchUserSuperAdmin
-    //     //instance.patchUserSuperAdmin(function(error) {
-    //     //  if (error) throw error;
-    //     //expect().to.be();
-    //     //});
-    //     done();
-    // });
+    it('should call patchUserPassword successfully', async () => {
+        const user = await createUser();
+
+        const newPassword = randomId()+"12!KJZD";
+        await kestraClient().usersApi.patchUserPassword(user.id, new IAMUserControllerApiPatchUserPasswordRequest(newPassword));
+
+        const updatedUser = await kestraClient().usersApi.getUser(user.id);
+    });
+    it('should call patchUserSuperAdmin successfully', async () => {
+        const user = await createUser();
+
+        await kestraClient().usersApi.patchUserSuperAdmin(user.id, new ApiPatchSuperAdminRequest(true));
+
+        const updatedUser = await kestraClient().usersApi.getUser(user.id);
+        expect(updatedUser).toHaveProperty('superAdmin', true)
+    });
+    // TODO
     // it('should call updateCurrentUserPassword successfully', async () => {
     //     //uncomment below and update the code to test updateCurrentUserPassword
     //     //instance.updateCurrentUserPassword(function(error) {
-    //     //  if (error) throw error;
-    //     //expect().to.be();
-    //     //});
-    //     done();
-    // });
-    // it('should call updateUserGroups successfully', async () => {
-    //     //uncomment below and update the code to test updateUserGroups
-    //     //instance.updateUserGroups(function(error) {
     //     //  if (error) throw error;
     //     //expect().to.be();
     //     //});
