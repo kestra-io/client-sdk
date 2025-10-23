@@ -317,7 +317,7 @@ class TestUsersApi(unittest.TestCase):
         initial_password = "InitialPass!1"
         changed_password = "ChangedPass!1"
 
-        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(email=email, password=initial_password)
+        user_req = IAMUserControllerApiCreateOrUpdateUserRequest(email=email, password=initial_password, tenants=[self.tenant])
         created_user = self.kestra_client.users.create_user(iam_user_controller_api_create_or_update_user_request=user_req)
 
         # create a client authenticated as the test user
