@@ -300,11 +300,10 @@ public class NamespacesApi extends BaseApi {
    * @param namespace The namespace id (required)
    * @param key The secret key (required)
    * @param tenant  (required)
-   * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
-    return this.deleteSecret(namespace, key, tenant, Collections.emptyMap());
+  public void deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant) throws ApiException {
+    this.deleteSecret(namespace, key, tenant, Collections.emptyMap());
   }
 
 
@@ -315,10 +314,9 @@ public class NamespacesApi extends BaseApi {
    * @param key The secret key (required)
    * @param tenant  (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return List&lt;String&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<String> deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
+  public void deleteSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'namespace' is set
@@ -356,7 +354,7 @@ public class NamespacesApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      "application/json"
+      
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -367,8 +365,7 @@ public class NamespacesApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<List<String>> localVarReturnType = new TypeReference<List<String>>() {};
-    return apiClient.invokeAPI(
+    apiClient.invokeAPI(
         localVarPath,
         "DELETE",
         localVarQueryParams,
@@ -381,7 +378,7 @@ public class NamespacesApi extends BaseApi {
         localVarAccept,
         localVarContentType,
         localVarAuthNames,
-        localVarReturnType
+        null
     );
   }
 
@@ -831,14 +828,14 @@ public class NamespacesApi extends BaseApi {
    * Patch a secret metadata for a namespace
    * 
    * @param namespace The namespace id (required)
+   * @param key The secret key (required)
    * @param tenant  (required)
-   * @param key  (required)
    * @param apiSecretMetaEE  (required)
    * @return List&lt;ApiSecretMeta&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
-    return this.patchSecret(namespace, tenant, key, apiSecretMetaEE, Collections.emptyMap());
+  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE) throws ApiException {
+    return this.patchSecret(namespace, key, tenant, apiSecretMetaEE, Collections.emptyMap());
   }
 
 
@@ -846,14 +843,14 @@ public class NamespacesApi extends BaseApi {
    * Patch a secret metadata for a namespace
    * 
    * @param namespace The namespace id (required)
+   * @param key The secret key (required)
    * @param tenant  (required)
-   * @param key  (required)
    * @param apiSecretMetaEE  (required)
    * @param additionalHeaders additionalHeaders for this call
    * @return List&lt;ApiSecretMeta&gt;
    * @throws ApiException if fails to make API call
    */
-  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders) throws ApiException {
+  public List<ApiSecretMeta> patchSecret(@javax.annotation.Nonnull String namespace, @javax.annotation.Nonnull String key, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull ApiSecretMetaEE apiSecretMetaEE, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = apiSecretMetaEE;
     
     // verify the required parameter 'namespace' is set
@@ -861,14 +858,14 @@ public class NamespacesApi extends BaseApi {
       throw new ApiException(400, "Missing the required parameter 'namespace' when calling patchSecret");
     }
     
-    // verify the required parameter 'tenant' is set
-    if (tenant == null) {
-      throw new ApiException(400, "Missing the required parameter 'tenant' when calling patchSecret");
-    }
-    
     // verify the required parameter 'key' is set
     if (key == null) {
       throw new ApiException(400, "Missing the required parameter 'key' when calling patchSecret");
+    }
+    
+    // verify the required parameter 'tenant' is set
+    if (tenant == null) {
+      throw new ApiException(400, "Missing the required parameter 'tenant' when calling patchSecret");
     }
     
     // verify the required parameter 'apiSecretMetaEE' is set
@@ -879,8 +876,8 @@ public class NamespacesApi extends BaseApi {
     // create path and map variables
     String localVarPath = "/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}"
       .replaceAll("\\{" + "namespace" + "\\}", apiClient.escapeString(apiClient.parameterToString(namespace)))
-      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)))
-      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)));
+      .replaceAll("\\{" + "key" + "\\}", apiClient.escapeString(apiClient.parameterToString(key)))
+      .replaceAll("\\{" + "tenant" + "\\}", apiClient.escapeString(apiClient.parameterToString(tenant)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;

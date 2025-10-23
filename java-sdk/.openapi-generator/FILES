@@ -27,6 +27,8 @@ docs/ApiSecretTag.md
 docs/ApiSecretValue.md
 docs/ApiTenant.md
 docs/ApiTenantSummary.md
+docs/ApiToken.md
+docs/ApiTokenList.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
@@ -208,6 +210,7 @@ docs/Isolation.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
+docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/KvApi.md
@@ -452,6 +455,8 @@ src/main/java/io/kestra/sdk/model/ApiSecretTag.java
 src/main/java/io/kestra/sdk/model/ApiSecretValue.java
 src/main/java/io/kestra/sdk/model/ApiTenant.java
 src/main/java/io/kestra/sdk/model/ApiTenantSummary.java
+src/main/java/io/kestra/sdk/model/ApiToken.java
+src/main/java/io/kestra/sdk/model/ApiTokenList.java
 src/main/java/io/kestra/sdk/model/ApiUser.java
 src/main/java/io/kestra/sdk/model/AppResponse.java
 src/main/java/io/kestra/sdk/model/AppResponseUILayout.java
@@ -630,6 +635,7 @@ src/main/java/io/kestra/sdk/model/Isolation.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkRequest.java
 src/main/java/io/kestra/sdk/model/KVControllerApiDeleteBulkResponse.java
 src/main/java/io/kestra/sdk/model/KVControllerTypedValue.java
+src/main/java/io/kestra/sdk/model/KVControllerTypedValueValue.java
 src/main/java/io/kestra/sdk/model/KVEntry.java
 src/main/java/io/kestra/sdk/model/KVType.java
 src/main/java/io/kestra/sdk/model/Label.java

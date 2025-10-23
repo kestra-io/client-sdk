@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | **KVType** |  |  [optional] |
-|**value** | **Object** |  |  [optional] |
+|**value** | [**KVControllerTypedValueValue**](KVControllerTypedValueValue.md) |  |  [optional] |
 
 
 

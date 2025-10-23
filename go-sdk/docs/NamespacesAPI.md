@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## DeleteSecret
 
-> []string DeleteSecret(ctx, namespace, key, tenant).Execute()
+> DeleteSecret(ctx, namespace, key, tenant).Execute()
 
 Delete a secret for a namespace
 
@@ -256,13 +256,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.DeleteSecret(context.Background(), namespace, key, tenant).Execute()
+	r, err := apiClient.NamespacesAPI.DeleteSecret(context.Background(), namespace, key, tenant).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.DeleteSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteSecret`: []string
-	fmt.Fprintf(os.Stdout, "Response from `NamespacesAPI.DeleteSecret`: %v\n", resp)
 }
 ```
 
@@ -289,7 +287,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]string**
+ (empty response body)
 
 ### Authorization
 
@@ -298,7 +296,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -670,7 +668,7 @@ Name | Type | Description  | Notes
 
 ## PatchSecret
 
-> []ApiSecretMeta PatchSecret(ctx, namespace, tenant, key).ApiSecretMetaEE(apiSecretMetaEE).Execute()
+> []ApiSecretMeta PatchSecret(ctx, namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
 
 Patch a secret metadata for a namespace
 
@@ -688,13 +686,13 @@ import (
 
 func main() {
 	namespace := "namespace_example" // string | The namespace id
+	key := "key_example" // string | The secret key
 	tenant := "tenant_example" // string | 
-	key := "key_example" // string | 
 	apiSecretMetaEE := *openapiclient.NewApiSecretMetaEE("Description_example", []openapiclient.ApiSecretTag{*openapiclient.NewApiSecretTag("Key_example", "Value_example")}, "Key_example") // ApiSecretMetaEE | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NamespacesAPI.PatchSecret(context.Background(), namespace, tenant, key).ApiSecretMetaEE(apiSecretMetaEE).Execute()
+	resp, r, err := apiClient.NamespacesAPI.PatchSecret(context.Background(), namespace, key, tenant).ApiSecretMetaEE(apiSecretMetaEE).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NamespacesAPI.PatchSecret``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -711,8 +709,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **namespace** | **string** | The namespace id | 
+**key** | **string** | The secret key | 
 **tenant** | **string** |  | 
-**key** | **string** |  | 
 
 ### Other Parameters
 

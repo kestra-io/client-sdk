@@ -2594,7 +2594,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTokenList"
           description: listApiTokensForUser 200 response
       security:
       - bearerAuth: []
@@ -15058,12 +15058,6 @@ paths:
         style: simple
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
           description: deleteSecret 200 response
       security:
       - bearerAuth: []
@@ -15085,16 +15079,17 @@ paths:
         schema:
           type: string
         style: simple
-      - explode: false
+      - description: The secret key
+        explode: false
         in: path
-        name: tenant
+        name: key
         required: true
         schema:
           type: string
         style: simple
       - explode: false
         in: path
-        name: key
+        name: tenant
         required: true
         schema:
           type: string
@@ -18415,6 +18410,71 @@ components:
           type: string
         name:
           type: string
+      type: object
+    ApiToken:
+      example:
+        lastUsed: 2000-01-23T04:56:07.000+00:00
+        expired: true
+        prefix: prefix
+        name: name
+        description: description
+        id: id
+        exp: 2000-01-23T04:56:07.000+00:00
+        iat: 2000-01-23T04:56:07.000+00:00
+        extended: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        prefix:
+          type: string
+        iat:
+          format: date-time
+          type: string
+        exp:
+          format: date-time
+          type: string
+        lastUsed:
+          format: date-time
+          type: string
+        extended:
+          type: boolean
+        expired:
+          type: boolean
+      type: object
+    ApiTokenList:
+      example:
+        total: 0
+        results:
+        - lastUsed: 2000-01-23T04:56:07.000+00:00
+          expired: true
+          prefix: prefix
+          name: name
+          description: description
+          id: id
+          exp: 2000-01-23T04:56:07.000+00:00
+          iat: 2000-01-23T04:56:07.000+00:00
+          extended: true
+        - lastUsed: 2000-01-23T04:56:07.000+00:00
+          expired: true
+          prefix: prefix
+          name: name
+          description: description
+          id: id
+          exp: 2000-01-23T04:56:07.000+00:00
+          iat: 2000-01-23T04:56:07.000+00:00
+          extended: true
+      properties:
+        total:
+          format: int32
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/ApiToken"
+          type: array
       type: object
     ApiUser:
       allOf:
@@ -22905,7 +22965,7 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          type: object
+          $ref: "#/components/schemas/KVController_TypedValue_value"
       type: object
     KVEntry:
       example:
@@ -29097,6 +29157,10 @@ components:
             type: string
           type: array
       type: object
+    KVController_TypedValue_value:
+      anyOf:
+      - type: object
+      - type: string
     Output_value:
       oneOf:
       - type: object

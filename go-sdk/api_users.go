@@ -963,7 +963,7 @@ type ApiListApiTokensForUserRequest struct {
 	id         string
 }
 
-func (r ApiListApiTokensForUserRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiListApiTokensForUserRequest) Execute() (*ApiTokenList, *http.Response, error) {
 	return r.ApiService.ListApiTokensForUserExecute(r)
 }
 
@@ -986,13 +986,13 @@ func (a *UsersAPIService) ListApiTokensForUser(ctx context.Context, id string) A
 
 // Execute executes the request
 //
-//	@return map[string]interface{}
-func (a *UsersAPIService) ListApiTokensForUserExecute(r ApiListApiTokensForUserRequest) (map[string]interface{}, *http.Response, error) {
+//	@return ApiTokenList
+func (a *UsersAPIService) ListApiTokensForUserExecute(r ApiListApiTokensForUserRequest) (*ApiTokenList, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue *ApiTokenList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersAPIService.ListApiTokensForUser")

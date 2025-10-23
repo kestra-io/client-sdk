@@ -21,6 +21,7 @@ import io.kestra.sdk.internal.Configuration;
 import io.kestra.sdk.internal.Pair;
 
 import io.kestra.sdk.model.ApiPatchSuperAdminRequest;
+import io.kestra.sdk.model.ApiTokenList;
 import io.kestra.sdk.model.CreateApiTokenRequest;
 import io.kestra.sdk.model.CreateApiTokenResponse;
 import io.kestra.sdk.model.IAMTenantAccessControllerApiUserTenantAccess;
@@ -753,10 +754,10 @@ public class UsersApi extends BaseApi {
    * List API tokens for a specific user
    * Superadmin-only. Get all API token existing for a user.
    * @param id The user id (required)
-   * @return Object
+   * @return ApiTokenList
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokensForUser(@javax.annotation.Nonnull String id) throws ApiException {
+  public ApiTokenList listApiTokensForUser(@javax.annotation.Nonnull String id) throws ApiException {
     return this.listApiTokensForUser(id, Collections.emptyMap());
   }
 
@@ -766,10 +767,10 @@ public class UsersApi extends BaseApi {
    * Superadmin-only. Get all API token existing for a user.
    * @param id The user id (required)
    * @param additionalHeaders additionalHeaders for this call
-   * @return Object
+   * @return ApiTokenList
    * @throws ApiException if fails to make API call
    */
-  public Object listApiTokensForUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
+  public ApiTokenList listApiTokensForUser(@javax.annotation.Nonnull String id, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // verify the required parameter 'id' is set
@@ -806,7 +807,7 @@ public class UsersApi extends BaseApi {
 
     String[] localVarAuthNames = new String[] { "basicAuth", "bearerAuth" };
 
-    TypeReference<Object> localVarReturnType = new TypeReference<Object>() {};
+    TypeReference<ApiTokenList> localVarReturnType = new TypeReference<ApiTokenList>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "GET",

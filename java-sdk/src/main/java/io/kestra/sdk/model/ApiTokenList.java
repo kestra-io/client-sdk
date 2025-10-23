@@ -21,80 +21,89 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.kestra.sdk.model.KVControllerTypedValueValue;
-import io.kestra.sdk.model.KVType;
+import io.kestra.sdk.model.ApiToken;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * KVControllerTypedValue
+ * ApiTokenList
  */
 @JsonPropertyOrder({
-  KVControllerTypedValue.JSON_PROPERTY_TYPE,
-  KVControllerTypedValue.JSON_PROPERTY_VALUE
+  ApiTokenList.JSON_PROPERTY_TOTAL,
+  ApiTokenList.JSON_PROPERTY_RESULTS
 })
-@JsonTypeName("KVController.TypedValue")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class KVControllerTypedValue {
-  public static final String JSON_PROPERTY_TYPE = "type";
+public class ApiTokenList {
+  public static final String JSON_PROPERTY_TOTAL = "total";
   @javax.annotation.Nullable
-  private KVType type;
+  private Integer total;
 
-  public static final String JSON_PROPERTY_VALUE = "value";
+  public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nullable
-  private KVControllerTypedValueValue value;
+  private List<ApiToken> results = new ArrayList<>();
 
-  public KVControllerTypedValue() {
+  public ApiTokenList() {
   }
 
-  public KVControllerTypedValue type(@javax.annotation.Nullable KVType type) {
+  public ApiTokenList total(@javax.annotation.Nullable Integer total) {
     
-    this.type = type;
+    this.total = total;
     return this;
   }
 
   /**
-   * Get type
-   * @return type
+   * Get total
+   * @return total
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public KVType getType() {
-    return type;
+  public Integer getTotal() {
+    return total;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(@javax.annotation.Nullable KVType type) {
-    this.type = type;
+  public void setTotal(@javax.annotation.Nullable Integer total) {
+    this.total = total;
   }
 
-  public KVControllerTypedValue value(@javax.annotation.Nullable KVControllerTypedValueValue value) {
+  public ApiTokenList results(@javax.annotation.Nullable List<ApiToken> results) {
     
-    this.value = value;
+    this.results = results;
+    return this;
+  }
+
+  public ApiTokenList addResultsItem(ApiToken resultsItem) {
+    if (this.results == null) {
+      this.results = new ArrayList<>();
+    }
+    this.results.add(resultsItem);
     return this;
   }
 
   /**
-   * Get value
-   * @return value
+   * Get results
+   * @return results
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public KVControllerTypedValueValue getValue() {
-    return value;
+  public List<ApiToken> getResults() {
+    return results;
   }
 
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable KVControllerTypedValueValue value) {
-    this.value = value;
+  public void setResults(@javax.annotation.Nullable List<ApiToken> results) {
+    this.results = results;
   }
 
   @Override
@@ -105,22 +114,22 @@ public class KVControllerTypedValue {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    KVControllerTypedValue kvControllerTypedValue = (KVControllerTypedValue) o;
-    return Objects.equals(this.type, kvControllerTypedValue.type) &&
-        Objects.equals(this.value, kvControllerTypedValue.value);
+    ApiTokenList apiTokenList = (ApiTokenList) o;
+    return Objects.equals(this.total, apiTokenList.total) &&
+        Objects.equals(this.results, apiTokenList.results);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, value);
+    return Objects.hash(total, results);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class KVControllerTypedValue {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class ApiTokenList {\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    results: ").append(toIndentedString(results)).append("\n");
     sb.append("}");
     return sb.toString();
   }

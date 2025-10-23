@@ -25,6 +25,8 @@ docs/ApiSecretTag.md
 docs/ApiSecretValue.md
 docs/ApiTenant.md
 docs/ApiTenantSummary.md
+docs/ApiToken.md
+docs/ApiTokenList.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
@@ -434,6 +436,8 @@ kestrapy/models/api_secret_tag.py
 kestrapy/models/api_secret_value.py
 kestrapy/models/api_tenant.py
 kestrapy/models/api_tenant_summary.py
+kestrapy/models/api_token.py
+kestrapy/models/api_token_list.py
 kestrapy/models/api_user.py
 kestrapy/models/app_response.py
 kestrapy/models/app_response_ui_layout.py

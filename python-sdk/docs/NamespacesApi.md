@@ -199,7 +199,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_secret**
-> List[str] delete_secret(namespace, key, tenant)
+> delete_secret(namespace, key, tenant)
 
 Delete a secret for a namespace
 
@@ -220,9 +220,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Delete a secret for a namespace
-        api_response = api_client.delete_secret(namespace, key, tenant)
-        print("The response of NamespacesApi->delete_secret:\n")
-        pprint(api_response)
+        api_client.delete_secret(namespace, key, tenant)
     except Exception as e:
         print("Exception when calling NamespacesApi->delete_secret: %s\n" % e)
 ```
@@ -240,7 +238,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List[str]**
+void (empty response body)
 
 ### Authorization
 
@@ -249,7 +247,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -567,7 +565,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_secret**
-> List[ApiSecretMeta] patch_secret(namespace, tenant, key, api_secret_meta_ee)
+> List[ApiSecretMeta] patch_secret(namespace, key, tenant, api_secret_meta_ee)
 
 Patch a secret metadata for a namespace
 
@@ -585,13 +583,13 @@ from pprint import pprint
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     namespace = 'namespace_example' # str | The namespace id
+    key = 'key_example' # str | The secret key
     tenant = 'tenant_example' # str | 
-    key = 'key_example' # str | 
     api_secret_meta_ee = kestrapy.ApiSecretMetaEE() # ApiSecretMetaEE | 
 
     try:
         # Patch a secret metadata for a namespace
-        api_response = api_client.patch_secret(namespace, tenant, key, api_secret_meta_ee)
+        api_response = api_client.patch_secret(namespace, key, tenant, api_secret_meta_ee)
         print("The response of NamespacesApi->patch_secret:\n")
         pprint(api_response)
     except Exception as e:
@@ -606,8 +604,8 @@ with kestrapy.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **str**| The namespace id | 
+ **key** | **str**| The secret key | 
  **tenant** | **str**|  | 
- **key** | **str**|  | 
  **api_secret_meta_ee** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | 
 
 ### Return type

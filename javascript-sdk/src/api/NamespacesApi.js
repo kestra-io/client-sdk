@@ -207,7 +207,7 @@ export default class NamespacesApi {
      * @param {String} namespace The namespace id
      * @param {String} key The secret key
      * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<String>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
     deleteSecretWithHttpInfo(namespace, key, tenant) {
       let postBody = null;
@@ -238,8 +238,8 @@ export default class NamespacesApi {
 
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = ['String'];
+      let accepts = [];
+      let returnType = null;
       return this.apiClient.callApi(
         '/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -252,7 +252,7 @@ export default class NamespacesApi {
      * @param {String} namespace The namespace id
      * @param {String} key The secret key
      * @param {String} tenant 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<String>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
     deleteSecret(namespace, key, tenant) {
       return this.deleteSecretWithHttpInfo(namespace, key, tenant)
@@ -557,24 +557,24 @@ export default class NamespacesApi {
     /**
      * Patch a secret metadata for a namespace
      * @param {String} namespace The namespace id
+     * @param {String} key The secret key
      * @param {String} tenant 
-     * @param {String} key 
      * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiSecretMeta>} and HTTP response
      */
-    patchSecretWithHttpInfo(namespace, tenant, key, apiSecretMetaEE) {
+    patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE) {
       let postBody = apiSecretMetaEE;
       // verify the required parameter 'namespace' is set
       if (namespace === undefined || namespace === null) {
         throw new Error("Missing the required parameter 'namespace' when calling patchSecret");
       }
-      // verify the required parameter 'tenant' is set
-      if (tenant === undefined || tenant === null) {
-        throw new Error("Missing the required parameter 'tenant' when calling patchSecret");
-      }
       // verify the required parameter 'key' is set
       if (key === undefined || key === null) {
         throw new Error("Missing the required parameter 'key' when calling patchSecret");
+      }
+      // verify the required parameter 'tenant' is set
+      if (tenant === undefined || tenant === null) {
+        throw new Error("Missing the required parameter 'tenant' when calling patchSecret");
       }
       // verify the required parameter 'apiSecretMetaEE' is set
       if (apiSecretMetaEE === undefined || apiSecretMetaEE === null) {
@@ -583,8 +583,8 @@ export default class NamespacesApi {
 
       let pathParams = {
         'namespace': namespace,
-        'tenant': tenant,
-        'key': key
+        'key': key,
+        'tenant': tenant
       };
       let queryParams = {
       };
@@ -607,13 +607,13 @@ export default class NamespacesApi {
     /**
      * Patch a secret metadata for a namespace
      * @param {String} namespace The namespace id
+     * @param {String} key The secret key
      * @param {String} tenant 
-     * @param {String} key 
      * @param {module:model/ApiSecretMetaEE} apiSecretMetaEE 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiSecretMeta>}
      */
-    patchSecret(namespace, tenant, key, apiSecretMetaEE) {
-      return this.patchSecretWithHttpInfo(namespace, tenant, key, apiSecretMetaEE)
+    patchSecret(namespace, key, tenant, apiSecretMetaEE) {
+      return this.patchSecretWithHttpInfo(namespace, key, tenant, apiSecretMetaEE)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import ApiPatchSuperAdminRequest from '../model/ApiPatchSuperAdminRequest';
+import ApiTokenList from '../model/ApiTokenList';
 import CreateApiTokenRequest from '../model/CreateApiTokenRequest';
 import CreateApiTokenResponse from '../model/CreateApiTokenResponse';
 import IAMTenantAccessControllerApiUserTenantAccess from '../model/IAMTenantAccessControllerApiUserTenantAccess';
@@ -504,7 +505,7 @@ export default class UsersApi {
      * List API tokens for a specific user
      * Superadmin-only. Get all API token existing for a user.
      * @param {String} id The user id
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ApiTokenList} and HTTP response
      */
     listApiTokensForUserWithHttpInfo(id) {
       let postBody = null;
@@ -526,7 +527,7 @@ export default class UsersApi {
       let authNames = ['basicAuth', 'bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = ApiTokenList;
       return this.apiClient.callApi(
         '/api/v1/users/{id}/api-tokens', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -538,7 +539,7 @@ export default class UsersApi {
      * List API tokens for a specific user
      * Superadmin-only. Get all API token existing for a user.
      * @param {String} id The user id
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiTokenList}
      */
     listApiTokensForUser(id) {
       return this.listApiTokensForUserWithHttpInfo(id)

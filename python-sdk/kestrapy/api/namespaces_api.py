@@ -909,7 +909,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[str]:
+    ) -> None:
         """Delete a secret for a namespace
 
 
@@ -952,7 +952,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -983,7 +983,7 @@ class NamespacesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[str]]:
+    ) -> ApiResponse[None]:
         """Delete a secret for a namespace
 
 
@@ -1026,7 +1026,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1100,7 +1100,7 @@ class NamespacesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[str]",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1147,13 +1147,6 @@ class NamespacesApi:
         # process the body parameter
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
 
         # authentication setting
@@ -2624,8 +2617,8 @@ class NamespacesApi:
     def patch_secret(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
+        key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
-        key: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
         _request_timeout: Union[
             None,
@@ -2645,10 +2638,10 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
+        :param key: The secret key (required)
+        :type key: str
         :param tenant: (required)
         :type tenant: str
-        :param key: (required)
-        :type key: str
         :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
         :param _request_timeout: timeout setting for this request. If one
@@ -2675,8 +2668,8 @@ class NamespacesApi:
 
         _param = self._patch_secret_serialize(
             namespace=namespace,
-            tenant=tenant,
             key=key,
+            tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2702,8 +2695,8 @@ class NamespacesApi:
     def patch_secret_with_http_info(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
+        key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
-        key: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
         _request_timeout: Union[
             None,
@@ -2723,10 +2716,10 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
+        :param key: The secret key (required)
+        :type key: str
         :param tenant: (required)
         :type tenant: str
-        :param key: (required)
-        :type key: str
         :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
         :param _request_timeout: timeout setting for this request. If one
@@ -2753,8 +2746,8 @@ class NamespacesApi:
 
         _param = self._patch_secret_serialize(
             namespace=namespace,
-            tenant=tenant,
             key=key,
+            tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2780,8 +2773,8 @@ class NamespacesApi:
     def patch_secret_without_preload_content(
         self,
         namespace: Annotated[StrictStr, Field(description="The namespace id")],
+        key: Annotated[StrictStr, Field(description="The secret key")],
         tenant: StrictStr,
-        key: StrictStr,
         api_secret_meta_ee: ApiSecretMetaEE,
         _request_timeout: Union[
             None,
@@ -2801,10 +2794,10 @@ class NamespacesApi:
 
         :param namespace: The namespace id (required)
         :type namespace: str
+        :param key: The secret key (required)
+        :type key: str
         :param tenant: (required)
         :type tenant: str
-        :param key: (required)
-        :type key: str
         :param api_secret_meta_ee: (required)
         :type api_secret_meta_ee: ApiSecretMetaEE
         :param _request_timeout: timeout setting for this request. If one
@@ -2831,8 +2824,8 @@ class NamespacesApi:
 
         _param = self._patch_secret_serialize(
             namespace=namespace,
-            tenant=tenant,
             key=key,
+            tenant=tenant,
             api_secret_meta_ee=api_secret_meta_ee,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2853,8 +2846,8 @@ class NamespacesApi:
     def _patch_secret_serialize(
         self,
         namespace,
-        tenant,
         key,
+        tenant,
         api_secret_meta_ee,
         _request_auth,
         _content_type,
@@ -2879,10 +2872,10 @@ class NamespacesApi:
         # process the path parameters
         if namespace is not None:
             _path_params['namespace'] = namespace
-        if tenant is not None:
-            _path_params['tenant'] = tenant
         if key is not None:
             _path_params['key'] = key
+        if tenant is not None:
+            _path_params['tenant'] = tenant
         # process the query parameters
         # process the header parameters
         # process the form parameters

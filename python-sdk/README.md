@@ -310,6 +310,8 @@ Class | Method | HTTP request | Description
  - [ApiSecretValue](docs/ApiSecretValue.md)
  - [ApiTenant](docs/ApiTenant.md)
  - [ApiTenantSummary](docs/ApiTenantSummary.md)
+ - [ApiToken](docs/ApiToken.md)
+ - [ApiTokenList](docs/ApiTokenList.md)
  - [ApiUser](docs/ApiUser.md)
  - [AppResponse](docs/AppResponse.md)
  - [AppResponseUILayout](docs/AppResponseUILayout.md)
