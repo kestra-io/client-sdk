@@ -3,7 +3,7 @@ import IAMUserControllerApiCreateOrUpdateUserRequest from "../src/model/IAMUserC
 import CreateApiTokenRequest from "../src/model/CreateApiTokenRequest";
 import IAMUserControllerApiPatchUserPasswordRequest from "../src/model/IAMUserControllerApiPatchUserPasswordRequest";
 import ApiPatchSuperAdminRequest from "../src/model/ApiPatchSuperAdminRequest";
-import {kestraClient, randomEmail, randomId} from "./CommonTestSetup";
+import {kestraClient, MAIN_TENANT, randomEmail, randomId} from "./CommonTestSetup";
 
 
 async function assertUserExist(userId) {
