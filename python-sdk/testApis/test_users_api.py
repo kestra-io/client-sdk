@@ -57,7 +57,7 @@ class TestUsersApi(unittest.TestCase):
         )
         # Create a tenantAccess by adding user to a group
         group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_add_user_to_group",
+            name="test_autocomplete_users",
             description="An example group"
         )
 
@@ -359,7 +359,7 @@ class TestUsersApi(unittest.TestCase):
         """Update the list of groups a user belongs to for the given tenant"""
 
         group = IAMGroupControllerApiCreateGroupRequest(
-            name="test_create_group",
+            name="test_update_user_groups",
             description="An example group"
         )
 
