@@ -14,6 +14,10 @@
 
 import unittest
 from kestrapy import Configuration, KestraClient
+from kestrapy import (IAMServiceAccountControllerApiCreateServiceAccountRequest,
+                      IAMServiceAccountControllerApiServiceAccountRequest,
+                      IAMServiceAccountControllerApiPatchServiceAccountRequest,
+                      ApiPatchSuperAdminRequest)
 
 
 class TestServiceAccountApi(unittest.TestCase):
@@ -21,11 +25,12 @@ class TestServiceAccountApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
 
     def tearDown(self) -> None:
         pass
@@ -35,71 +40,141 @@ class TestServiceAccountApi(unittest.TestCase):
 
         Create a service account
         """
-        pass
+        name = "test-create-service-account"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(
+            name=f"{name}",
+            description="service account created by tests"
+        )
+
+        created = self.kestra_client.service_account.create_service_account(
+            iam_service_account_controller_api_create_service_account_request=req
+        )
+        assert getattr(created, 'id', None) is not None
 
     def test_create_service_account_for_tenant(self) -> None:
         """Test case for create_service_account_for_tenant
 
         Create a service account for the given tenant
         """
-        pass
+        name = "test-create-service-account-for-tenant"
+        req = IAMServiceAccountControllerApiServiceAccountRequest(
+            name=f"{name}",
+            description="service account for tenant"
+        )
+
+        created = self.kestra_client.service_account.create_service_account_for_tenant(
+            tenant=self.tenant,
+            iam_service_account_controller_api_service_account_request=req
+        )
+        assert getattr(created, 'id', None) is not None
 
     def test_delete_service_account(self) -> None:
         """Test case for delete_service_account
 
         Delete a service account
         """
-        pass
+        name = "test-delete-service-account"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
+
+        self.kestra_client.service_account.delete_service_account(id=created.id)
 
     def test_delete_service_account_for_tenant(self) -> None:
         """Test case for delete_service_account_for_tenant
 
         Delete a service account
         """
-        pass
+        name = "test-delete-service-account-for-tenant"
+        req = IAMServiceAccountControllerApiServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account_for_tenant(tenant=self.tenant, iam_service_account_controller_api_service_account_request=req)
+
+        self.kestra_client.service_account.delete_service_account_for_tenant(tenant=self.tenant, id=created.id)
 
     def test_get_service_account(self) -> None:
         """Test case for get_service_account
 
         Get a service account
         """
-        pass
+        name = "test-get-service-account"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
+
+        fetched = self.kestra_client.service_account.get_service_account(id=created.id)
+        assert getattr(fetched, 'id', None) == created.id
 
     def test_get_service_account_for_tenant(self) -> None:
         """Test case for get_service_account_for_tenant
 
         Retrieve a service account
         """
-        pass
+        name = "test-get-service-account-for-tenant"
+        req = IAMServiceAccountControllerApiServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account_for_tenant(tenant=self.tenant, iam_service_account_controller_api_service_account_request=req)
+
+        fetched = self.kestra_client.service_account.get_service_account_for_tenant(tenant=self.tenant, id=created.id)
+        assert getattr(fetched, 'id', None) == created.id
 
     def test_list_service_accounts(self) -> None:
         """Test case for list_service_accounts
 
         List service accounts. Superadmin-only. 
         """
-        pass
+        name = "test-list-service-accounts"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
+
+        results = self.kestra_client.service_account.list_service_accounts(page=1, size=50)
+        # results may be a dict or object - try both
+        ids = None
+        if isinstance(results, dict):
+            ids = [r.get('id') for r in results.get('results', [])]
+        else:
+            ids = [getattr(r, 'id', None) for r in getattr(results, 'results', [])]
+
+        assert created.id in ids
+
 
     def test_patch_service_account_details(self) -> None:
         """Test case for patch_service_account_details
 
         Update service account details
         """
-        pass
+        name = "test-patch-service-account-details"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}", description="old")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
+
+        patch_req = IAMServiceAccountControllerApiPatchServiceAccountRequest(name=f"{name}", description="new")
+        patched = self.kestra_client.service_account.patch_service_account_details(id=created.id, iam_service_account_controller_api_patch_service_account_request=patch_req)
+        assert getattr(patched, 'description', None) == "new" or getattr(patched, 'desc', None) == "new"
 
     def test_patch_service_account_super_admin(self) -> None:
         """Test case for patch_service_account_super_admin
 
         Update service account superadmin privileges
         """
-        pass
+        name = "test-patch-service-account-super-admin"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
+
+        patch = ApiPatchSuperAdminRequest.from_dict({"superAdmin": True})
+        self.kestra_client.service_account.patch_service_account_super_admin(id=created.id, api_patch_super_admin_request=patch)
+
+        fetched = self.kestra_client.service_account.get_service_account(id=created.id)
+        assert getattr(fetched, 'super_admin', None) is True
 
     def test_update_service_account(self) -> None:
         """Test case for update_service_account
 
         Update a user service account
         """
-        pass
+        name = "test-update-service-account"
+        req = IAMServiceAccountControllerApiCreateServiceAccountRequest(name=f"{name}", description="Before")
+        created = self.kestra_client.service_account.create_service_account(iam_service_account_controller_api_create_service_account_request=req)
 
+        update_req = IAMServiceAccountControllerApiServiceAccountRequest(name=created.name, description="After")
+        # update_service_account requires the tenant argument and the 'service_account_request' parameter name
+        updated = self.kestra_client.service_account.update_service_account(id=created.id, tenant=self.tenant, iam_service_account_controller_api_service_account_request=update_req)
+        assert getattr(updated, 'description', None) == "After" or getattr(updated, 'desc', None) == "After"
 
 if __name__ == '__main__':
     unittest.main()
