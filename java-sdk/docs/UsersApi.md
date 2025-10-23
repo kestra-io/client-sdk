@@ -720,7 +720,7 @@ public class Example {
 
 ## listApiTokensForUser
 
-> Object listApiTokensForUser(id)
+> ApiTokenList listApiTokensForUser(id)
 
 List API tokens for a specific user
 
@@ -754,7 +754,7 @@ public class Example {
         UsersApi apiInstance = new UsersApi(defaultClient);
         String id = "id_example"; // String | The user id
         try {
-            Object result = apiInstance.listApiTokensForUser(id);
+            ApiTokenList result = apiInstance.listApiTokensForUser(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#listApiTokensForUser");
@@ -776,7 +776,7 @@ public class Example {
 
 ### Return type
 
-**Object**
+[**ApiTokenList**](ApiTokenList.md)
 
 ### Authorization
 

@@ -353,7 +353,7 @@ type ApiDeleteSecretRequest struct {
 	tenant     string
 }
 
-func (r ApiDeleteSecretRequest) Execute() ([]string, *http.Response, error) {
+func (r ApiDeleteSecretRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSecretExecute(r)
 }
 
@@ -377,19 +377,16 @@ func (a *NamespacesAPIService) DeleteSecret(ctx context.Context, namespace strin
 }
 
 // Execute executes the request
-//
-//	@return []string
-func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) ([]string, *http.Response, error) {
+func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []string
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NamespacesAPIService.DeleteSecret")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}"
@@ -411,7 +408,7 @@ func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) ([]
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -420,19 +417,19 @@ func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) ([]
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -440,19 +437,10 @@ func (a *NamespacesAPIService) DeleteSecretExecute(r ApiDeleteSecretRequest) ([]
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiGetInheritedSecretsRequest struct {
@@ -1032,8 +1020,8 @@ type ApiPatchSecretRequest struct {
 	ctx             context.Context
 	ApiService      *NamespacesAPIService
 	namespace       string
-	tenant          string
 	key             string
+	tenant          string
 	apiSecretMetaEE *ApiSecretMetaEE
 }
 
@@ -1051,17 +1039,17 @@ PatchSecret Patch a secret metadata for a namespace
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The namespace id
+	@param key The secret key
 	@param tenant
-	@param key
 	@return ApiPatchSecretRequest
 */
-func (a *NamespacesAPIService) PatchSecret(ctx context.Context, namespace string, tenant string, key string) ApiPatchSecretRequest {
+func (a *NamespacesAPIService) PatchSecret(ctx context.Context, namespace string, key string, tenant string) ApiPatchSecretRequest {
 	return ApiPatchSecretRequest{
 		ApiService: a,
 		ctx:        ctx,
 		namespace:  namespace,
-		tenant:     tenant,
 		key:        key,
+		tenant:     tenant,
 	}
 }
 
@@ -1083,8 +1071,8 @@ func (a *NamespacesAPIService) PatchSecretExecute(r ApiPatchSecretRequest) ([]Ap
 
 	localVarPath := localBasePath + "/api/v1/{tenant}/namespaces/{namespace}/secrets/{key}"
 	localVarPath = strings.Replace(localVarPath, "{"+"namespace"+"}", url.PathEscape(parameterValueToString(r.namespace, "namespace")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", url.PathEscape(parameterValueToString(r.key, "key")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tenant"+"}", url.PathEscape(parameterValueToString(r.tenant, "tenant")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

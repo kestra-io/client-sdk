@@ -570,7 +570,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_api_tokens_for_user**
-> object list_api_tokens_for_user(id)
+> ApiTokenList list_api_tokens_for_user(id)
 
 List API tokens for a specific user
 
@@ -581,6 +581,7 @@ Superadmin-only. Get all API token existing for a user.
 
 ```python
 import kestrapy
+from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.rest import ApiException
 from pprint import pprint
 
@@ -609,7 +610,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ApiTokenList**](ApiTokenList.md)
 
 ### Authorization
 

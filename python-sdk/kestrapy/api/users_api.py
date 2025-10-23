@@ -20,6 +20,7 @@ from pydantic import Field, StrictInt, StrictStr
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from kestrapy.models.api_patch_super_admin_request import ApiPatchSuperAdminRequest
+from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.models.create_api_token_request import CreateApiTokenRequest
 from kestrapy.models.create_api_token_response import CreateApiTokenResponse
 from kestrapy.models.iam_tenant_access_controller_api_user_tenant_access import IAMTenantAccessControllerApiUserTenantAccess
@@ -2521,7 +2522,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> ApiTokenList:
         """List API tokens for a specific user
 
         Superadmin-only. Get all API token existing for a user.
@@ -2560,7 +2561,7 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '404': None,
-            '200': "object",
+            '200': "ApiTokenList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2589,7 +2590,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[ApiTokenList]:
         """List API tokens for a specific user
 
         Superadmin-only. Get all API token existing for a user.
@@ -2628,7 +2629,7 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '404': None,
-            '200': "object",
+            '200': "ApiTokenList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2696,7 +2697,7 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '404': None,
-            '200': "object",
+            '200': "ApiTokenList",
         }
         response_data = self.api_client.call_api(
             *_param,

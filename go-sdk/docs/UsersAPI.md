@@ -653,7 +653,7 @@ Name | Type | Description  | Notes
 
 ## ListApiTokensForUser
 
-> map[string]interface{} ListApiTokensForUser(ctx, id).Execute()
+> ApiTokenList ListApiTokensForUser(ctx, id).Execute()
 
 List API tokens for a specific user
 
@@ -681,7 +681,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.ListApiTokensForUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListApiTokensForUser`: map[string]interface{}
+	// response from `ListApiTokensForUser`: ApiTokenList
 	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.ListApiTokensForUser`: %v\n", resp)
 }
 ```
@@ -705,7 +705,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**map[string]interface{}**
+[**ApiTokenList**](ApiTokenList.md)
 
 ### Authorization
 

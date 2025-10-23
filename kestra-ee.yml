@@ -2187,7 +2187,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTokenList"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12410,12 +12410,6 @@ paths:
       responses:
         "200":
           description: deleteSecret 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12431,12 +12425,13 @@ paths:
           required: true
           schema:
             type: string
-        - name: tenant
+        - name: key
           in: path
+          description: The secret key
           required: true
           schema:
             type: string
-        - name: key
+        - name: tenant
           in: path
           required: true
           schema:
@@ -15175,6 +15170,40 @@ components:
           type: string
         name:
           type: string
+    ApiToken:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        prefix:
+          type: string
+        iat:
+          type: string
+          format: date-time
+        exp:
+          type: string
+          format: date-time
+        lastUsed:
+          type: string
+          format: date-time
+        extended:
+          type: boolean
+        expired:
+          type: boolean
+    ApiTokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiToken"
     ApiUser:
       type: object
       allOf:

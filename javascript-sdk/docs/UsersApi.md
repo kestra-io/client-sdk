@@ -499,7 +499,7 @@ Name | Type | Description  | Notes
 
 ## listApiTokensForUser
 
-> Object listApiTokensForUser(id)
+> ApiTokenList listApiTokensForUser(id)
 
 List API tokens for a specific user
 
@@ -537,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ApiTokenList**](ApiTokenList.md)
 
 ### Authorization
 

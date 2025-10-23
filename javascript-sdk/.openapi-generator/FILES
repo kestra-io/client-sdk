@@ -24,6 +24,8 @@ docs/ApiSecretTag.md
 docs/ApiSecretValue.md
 docs/ApiTenant.md
 docs/ApiTenantSummary.md
+docs/ApiToken.md
+docs/ApiTokenList.md
 docs/ApiUser.md
 docs/AppResponse.md
 docs/AppResponseUILayout.md
@@ -206,6 +208,7 @@ docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
+docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -429,6 +432,8 @@ src/model/ApiSecretTag.js
 src/model/ApiSecretValue.js
 src/model/ApiTenant.js
 src/model/ApiTenantSummary.js
+src/model/ApiToken.js
+src/model/ApiTokenList.js
 src/model/ApiUser.js
 src/model/AppResponse.js
 src/model/AppResponseUILayout.js
@@ -607,6 +612,7 @@ src/model/Isolation.js
 src/model/KVControllerApiDeleteBulkRequest.js
 src/model/KVControllerApiDeleteBulkResponse.js
 src/model/KVControllerTypedValue.js
+src/model/KVControllerTypedValueValue.js
 src/model/KVEntry.js
 src/model/KVType.js
 src/model/Label.js
@@ -789,3 +795,5 @@ src/model/ValuePathExpression.js
 src/model/WorkerGroup.js
 src/model/WorkerGroupFallback.js
 src/model/WorkerTaskRestartStrategy.js
+test/api/RolesApi.spec.js
+test/api/UsersApi.spec.js

@@ -35,6 +35,8 @@ from kestrapy.models.api_secret_tag import ApiSecretTag
 from kestrapy.models.api_secret_value import ApiSecretValue
 from kestrapy.models.api_tenant import ApiTenant
 from kestrapy.models.api_tenant_summary import ApiTenantSummary
+from kestrapy.models.api_token import ApiToken
+from kestrapy.models.api_token_list import ApiTokenList
 from kestrapy.models.api_user import ApiUser
 from kestrapy.models.app_response import AppResponse
 from kestrapy.models.app_response_ui_layout import AppResponseUILayout

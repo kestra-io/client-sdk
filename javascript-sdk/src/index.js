@@ -35,6 +35,8 @@ import ApiSecretTag from './model/ApiSecretTag';
 import ApiSecretValue from './model/ApiSecretValue';
 import ApiTenant from './model/ApiTenant';
 import ApiTenantSummary from './model/ApiTenantSummary';
+import ApiToken from './model/ApiToken';
+import ApiTokenList from './model/ApiTokenList';
 import ApiUser from './model/ApiUser';
 import AppResponse from './model/AppResponse';
 import AppResponseUILayout from './model/AppResponseUILayout';
@@ -213,6 +215,7 @@ import Isolation from './model/Isolation';
 import KVControllerApiDeleteBulkRequest from './model/KVControllerApiDeleteBulkRequest';
 import KVControllerApiDeleteBulkResponse from './model/KVControllerApiDeleteBulkResponse';
 import KVControllerTypedValue from './model/KVControllerTypedValue';
+import KVControllerTypedValueValue from './model/KVControllerTypedValueValue';
 import KVEntry from './model/KVEntry';
 import KVType from './model/KVType';
 import Label from './model/Label';
@@ -575,6 +578,18 @@ export {
      * @property {module:model/ApiTenantSummary}
      */
     ApiTenantSummary,
+
+    /**
+     * The ApiToken model constructor.
+     * @property {module:model/ApiToken}
+     */
+    ApiToken,
+
+    /**
+     * The ApiTokenList model constructor.
+     * @property {module:model/ApiTokenList}
+     */
+    ApiTokenList,
 
     /**
      * The ApiUser model constructor.
@@ -1643,6 +1658,12 @@ export {
      * @property {module:model/KVControllerTypedValue}
      */
     KVControllerTypedValue,
+
+    /**
+     * The KVControllerTypedValueValue model constructor.
+     * @property {module:model/KVControllerTypedValueValue}
+     */
+    KVControllerTypedValueValue,
 
     /**
      * The KVEntry model constructor.

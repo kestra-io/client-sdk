@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | Pointer to [**KVType**](KVType.md) |  | [optional] 
-**Value** | Pointer to **map[string]interface{}** |  | [optional] 
+**Value** | Pointer to [**KVControllerTypedValueValue**](KVControllerTypedValueValue.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *KVControllerTypedValue) GetValue() map[string]interface{}`
+`func (o *KVControllerTypedValue) GetValue() KVControllerTypedValueValue`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *KVControllerTypedValue) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *KVControllerTypedValue) GetValueOk() (*KVControllerTypedValueValue, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *KVControllerTypedValue) SetValue(v map[string]interface{})`
+`func (o *KVControllerTypedValue) SetValue(v KVControllerTypedValueValue)`
 
 SetValue sets Value field to given value.
 

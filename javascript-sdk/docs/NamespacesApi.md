@@ -180,7 +180,7 @@ null (empty response body)
 
 ## deleteSecret
 
-> [String] deleteSecret(namespace, key, tenant)
+> deleteSecret(namespace, key, tenant)
 
 Delete a secret for a namespace
 
@@ -201,8 +201,8 @@ let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
 let key = "key_example"; // String | The secret key
 let tenant = "tenant_example"; // String | 
-apiInstance.deleteSecret(namespace, key, tenant).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
+apiInstance.deleteSecret(namespace, key, tenant).then(() => {
+  console.log('API called successfully.');
 }, (error) => {
   console.error(error);
 });
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[String]**
+null (empty response body)
 
 ### Authorization
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 
 ## getInheritedSecrets
@@ -504,7 +504,7 @@ Name | Type | Description  | Notes
 
 ## patchSecret
 
-> [ApiSecretMeta] patchSecret(namespace, tenant, key, apiSecretMetaEE)
+> [ApiSecretMeta] patchSecret(namespace, key, tenant, apiSecretMetaEE)
 
 Patch a secret metadata for a namespace
 
@@ -523,10 +523,10 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new KestraIoKestraSdk.NamespacesApi();
 let namespace = "namespace_example"; // String | The namespace id
+let key = "key_example"; // String | The secret key
 let tenant = "tenant_example"; // String | 
-let key = "key_example"; // String | 
 let apiSecretMetaEE = new KestraIoKestraSdk.ApiSecretMetaEE(); // ApiSecretMetaEE | 
-apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE).then((data) => {
+apiInstance.patchSecret(namespace, key, tenant, apiSecretMetaEE).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -540,8 +540,8 @@ apiInstance.patchSecret(namespace, tenant, key, apiSecretMetaEE).then((data) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namespace** | **String**| The namespace id | 
+ **key** | **String**| The secret key | 
  **tenant** | **String**|  | 
- **key** | **String**|  | 
  **apiSecretMetaEE** | [**ApiSecretMetaEE**](ApiSecretMetaEE.md)|  | 
 
 ### Return type

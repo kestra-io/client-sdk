@@ -19,8 +19,8 @@ var _ MappedNullable = &KVControllerTypedValue{}
 
 // KVControllerTypedValue struct for KVControllerTypedValue
 type KVControllerTypedValue struct {
-	Type                 *KVType                `json:"type,omitempty"`
-	Value                map[string]interface{} `json:"value,omitempty"`
+	Type                 *KVType                      `json:"type,omitempty"`
+	Value                *KVControllerTypedValueValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,19 +76,19 @@ func (o *KVControllerTypedValue) SetType(v KVType) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *KVControllerTypedValue) GetValue() map[string]interface{} {
+func (o *KVControllerTypedValue) GetValue() KVControllerTypedValueValue {
 	if o == nil || IsNil(o.Value) {
-		var ret map[string]interface{}
+		var ret KVControllerTypedValueValue
 		return ret
 	}
-	return o.Value
+	return *o.Value
 }
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KVControllerTypedValue) GetValueOk() (map[string]interface{}, bool) {
+func (o *KVControllerTypedValue) GetValueOk() (*KVControllerTypedValueValue, bool) {
 	if o == nil || IsNil(o.Value) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Value, true
 }
@@ -102,9 +102,9 @@ func (o *KVControllerTypedValue) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
-func (o *KVControllerTypedValue) SetValue(v map[string]interface{}) {
-	o.Value = v
+// SetValue gets a reference to the given KVControllerTypedValueValue and assigns it to the Value field.
+func (o *KVControllerTypedValue) SetValue(v KVControllerTypedValueValue) {
+	o.Value = &v
 }
 
 func (o KVControllerTypedValue) MarshalJSON() ([]byte, error) {
