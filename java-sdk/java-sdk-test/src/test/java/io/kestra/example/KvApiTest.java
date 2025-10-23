@@ -11,7 +11,6 @@ import java.util.List;
 
 import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
 import static io.kestra.example.CommonTestSetup.kestraClient;
-import static io.kestra.example.CommonTestSetup.kestraLocalClient;
 import static io.kestra.example.CommonTestSetup.randomId;
 import static org.junit.jupiter.api.Assertions.*;
 
