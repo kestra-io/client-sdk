@@ -1,196 +1,232 @@
 package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.ApiAutocomplete;
-import io.kestra.sdk.model.ApiGroupSummary;
-import io.kestra.sdk.model.ApiIds;
-import io.kestra.sdk.model.GroupIdentifierMembership;
-import io.kestra.sdk.model.IAMGroupControllerApiCreateGroupRequest;
-import io.kestra.sdk.model.IAMGroupControllerApiGroupDetail;
-import io.kestra.sdk.model.IAMGroupControllerApiGroupMember;
-import io.kestra.sdk.model.IAMGroupControllerApiUpdateGroupRequest;
-import io.kestra.sdk.model.PagedResultsApiGroupSummary;
-import io.kestra.sdk.model.PagedResultsIAMGroupControllerApiGroupMember;
+import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GroupsApiTest {
 
-    /**
-     * Add a user to a group
-     *
-     * Adds the specified user to the given group. If the user does not already have access to the MAIN_TENANT, tenant access will be created automatically.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void addUserToGroupTest() throws ApiException {
-        String id = randomId();
-        String userId = null;
+        // create group
+        IAMGroupControllerApiCreateGroupRequest groupReq = new IAMGroupControllerApiCreateGroupRequest()
+            .name("test_add_user_to_group_" + randomId())
+            .description("An example group");
+        IAMGroupControllerApiGroupDetail createdGroup =
+            kestraClient().groups().createGroup(MAIN_TENANT, groupReq);
 
-        IAMGroupControllerApiGroupMember response = kestraClient().groups().addUserToGroup(id, userId, MAIN_TENANT);
+        // create user
+        IAMUserControllerApiCreateOrUpdateUserRequest userReq =
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email("test_add_user_to_group_" + randomId() + "@kestra.io");
+        IAMUserControllerApiUser createdUser =
+            kestraClient().users().createUser(userReq);
 
-        // TODO: test validations
+        // add user to group
+        IAMGroupControllerApiGroupMember member =
+            kestraClient().groups().addUserToGroup(createdGroup.getId(), createdUser.getId(), MAIN_TENANT);
+
+        assertTrue(
+            member.getGroups().stream().anyMatch(g ->
+                createdGroup.getId().equals(g.getId())),
+            "Member should contain newly-added group"
+        );
     }
-    /**
-     * List groups for autocomplete
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void autocompleteGroupsTest() throws ApiException {
+        String prefix = "test_auto_" + randomId();
+        IAMGroupControllerApiCreateGroupRequest groupReq = new IAMGroupControllerApiCreateGroupRequest()
+            .name(prefix + "_complete_groups")
+            .description("An example group");
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT, groupReq);
 
-        ApiAutocomplete apiAutocomplete = null;
-        List<ApiGroupSummary> response = kestraClient().groups().autocompleteGroups(MAIN_TENANT, apiAutocomplete);
+        ApiAutocomplete ac = new ApiAutocomplete().q(prefix);
+        List<ApiGroupSummary> results =
+            kestraClient().groups().autocompleteGroups(MAIN_TENANT, ac);
 
-        // TODO: test validations
+        assertTrue(results.stream().anyMatch(r ->
+                created.getId().equals(r.getId()) || created.getName().equals(r.getName())),
+            "Autocomplete should include the created group");
     }
-    /**
-     * Create a group
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void createGroupTest() throws ApiException {
+        String name = "test_create_group_" + randomId();
+        IAMGroupControllerApiCreateGroupRequest groupReq = new IAMGroupControllerApiCreateGroupRequest()
+            .name(name)
+            .description("An example group");
 
-        IAMGroupControllerApiCreateGroupRequest iaMGroupControllerApiCreateGroupRequest = null;
-        IAMGroupControllerApiGroupDetail response = kestraClient().groups().createGroup(MAIN_TENANT, iaMGroupControllerApiCreateGroupRequest);
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT, groupReq);
 
-        // TODO: test validations
+        assertEquals(name, created.getName());
+        assertNotNull(created.getId());
     }
-    /**
-     * Delete a group
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteGroupTest() throws ApiException {
-        String id = randomId();
+        IAMGroupControllerApiCreateGroupRequest groupReq = new IAMGroupControllerApiCreateGroupRequest()
+            .name("test_delete_group_" + randomId())
+            .description("An example group");
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT, groupReq);
 
-        kestraClient().groups().deleteGroup(id, MAIN_TENANT);
+        kestraClient().groups().deleteGroup(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        // Optional: verify deletion by expecting a 404/ApiException on fetch
+        assertThrows(ApiException.class, () ->
+            kestraClient().groups().getGroup(created.getId(), MAIN_TENANT));
     }
-    /**
-     * Remove a user from a group
-     *
-     * Removes the specified user from the given group. If the user has no other group bindings within the MAIN_TENANT, their access to the tenant will also be revoked.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteUserFromGroupTest() throws ApiException {
-        String id = randomId();
-        String userId = null;
+        // group
+        IAMGroupControllerApiGroupDetail group =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_delete_user_from_group_" + randomId())
+                    .description("An example group"));
 
-        IAMGroupControllerApiGroupMember response = kestraClient().groups().deleteUserFromGroup(id, userId, MAIN_TENANT);
+        // user
+        IAMUserControllerApiUser user =
+            kestraClient().users().createUser(
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                    .email("test_delete_user_from_group_" + randomId() + "@kestra.io"));
 
-        // TODO: test validations
+        // add then delete
+        kestraClient().groups().addUserToGroup(group.getId(), user.getId(), MAIN_TENANT);
+
+        IAMGroupControllerApiGroupMember member =
+            kestraClient().groups().deleteUserFromGroup(group.getId(), user.getId(), MAIN_TENANT);
+
+        assertTrue(
+            member.getGroups().stream().noneMatch(g -> group.getId().equals(g.getId())),
+            "Member groups should no longer include the removed group"
+        );
     }
-    /**
-     * Retrieve a group
-     *
-     * Retrieves details of a specific group by its ID within the current tenant.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void getGroupTest() throws ApiException {
-        String id = randomId();
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_get_group_" + randomId())
+                    .description("An example group"));
 
-        IAMGroupControllerApiGroupDetail response = kestraClient().groups().getGroup(id, MAIN_TENANT);
+        IAMGroupControllerApiGroupDetail fetched =
+            kestraClient().groups().getGroup(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        assertEquals(created.getId(), fetched.getId());
+        assertEquals(created.getName(), fetched.getName());
     }
-    /**
-     * List groups by ids
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void listGroupIdsTest() throws ApiException {
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_list_group_ids_" + randomId())
+                    .description("An example group"));
 
-        ApiIds apiIds = null;
-        List<ApiGroupSummary> response = kestraClient().groups().listGroupIds(MAIN_TENANT, apiIds);
+        ApiIds ids = new ApiIds().ids(List.of(created.getId()));
+        List<ApiGroupSummary> fetched =
+            kestraClient().groups().listGroupIds(MAIN_TENANT, ids);
 
-        // TODO: test validations
+        assertFalse(fetched.isEmpty());
+        assertTrue(fetched.stream().anyMatch(g -> created.getId().equals(g.getId())));
     }
-    /**
-     * Search for users in a group
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void searchGroupMembersTest() throws ApiException {
-        String id = randomId();
-        Integer page = null;
-        Integer size = null;
+        // group + user
+        IAMGroupControllerApiGroupDetail group =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_search_group_members_" + randomId())
+                    .description("An example group"));
+        IAMUserControllerApiUser user =
+            kestraClient().users().createUser(
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                    .email("test_search_group_members_" + randomId() + "@kestra.io"));
 
-        String q = null;
-        List<String> sort = null;
-        PagedResultsIAMGroupControllerApiGroupMember response = kestraClient().groups().searchGroupMembers(id, page, size, MAIN_TENANT, q, sort);
+        kestraClient().groups().addUserToGroup(group.getId(), user.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        PagedResultsIAMGroupControllerApiGroupMember page =
+            kestraClient().groups().searchGroupMembers(
+                group.getId(), 1, 10, MAIN_TENANT, user.getEmail(), null);
+
+        assertNotNull(page);
+        assertNotNull(page.getResults());
+        assertTrue(page.getResults().stream().anyMatch(m -> user.getId().equals(m.getId())),
+            "Search should return the added user");
     }
-    /**
-     * Search for groups
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void searchGroupsTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
+        String name = "test_search_groups_" + randomId();
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name(name)
+                    .description("An example group"));
 
-        String q = null;
-        List<String> sort = null;
-        PagedResultsApiGroupSummary response = kestraClient().groups().searchGroups(page, size, MAIN_TENANT, q, sort);
+        PagedResultsApiGroupSummary results =
+            kestraClient().groups().searchGroups(1, 10, MAIN_TENANT, name, null);
 
-        // TODO: test validations
+        assertNotNull(results);
+        assertNotNull(results.getResults());
+        assertTrue(results.getResults().stream().anyMatch(r -> created.getId().equals(r.getId())));
     }
-    /**
-     * Update a user&#39;s membership type in a group
-     *
-     * Allows a group owner or an authorized user to change the role of a user within a group to OWNER or MEMBER.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void setUserMembershipForGroupTest() throws ApiException {
-        String id = randomId();
-        String userId = null;
-        GroupIdentifierMembership membership = null;
+        IAMGroupControllerApiGroupDetail group =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_set_user_membership_for_group_" + randomId())
+                    .description("An example group"));
 
-        IAMGroupControllerApiGroupMember response = kestraClient().groups().setUserMembershipForGroup(id, userId, membership, MAIN_TENANT);
+        IAMUserControllerApiUser user =
+            kestraClient().users().createUser(
+                new IAMUserControllerApiCreateOrUpdateUserRequest()
+                    .email("test_set_user_membership_for_group_" + randomId() + "@kestra.io"));
 
-        // TODO: test validations
+        kestraClient().groups().addUserToGroup(group.getId(), user.getId(), MAIN_TENANT);
+
+        IAMGroupControllerApiGroupMember member =
+            kestraClient().groups().setUserMembershipForGroup(
+                group.getId(), user.getId(), GroupIdentifierMembership.OWNER, MAIN_TENANT);
+
+        assertTrue(member.getGroups().stream().anyMatch(g -> group.getId().equals(g.getId())));
+        // (Optional) If the model exposes membership per group, assert it's OWNER.
     }
-    /**
-     * Update a group
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateGroupTest() throws ApiException {
-        String id = randomId();
+        IAMGroupControllerApiGroupDetail created =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_update_group_" + randomId())
+                    .description("Before"));
 
-        IAMGroupControllerApiUpdateGroupRequest iaMGroupControllerApiUpdateGroupRequest = null;
-        IAMGroupControllerApiGroupDetail response = kestraClient().groups().updateGroup(id, MAIN_TENANT, iaMGroupControllerApiUpdateGroupRequest);
+        String updatedDesc = "Updated description";
+        IAMGroupControllerApiUpdateGroupRequest updateReq =
+            new IAMGroupControllerApiUpdateGroupRequest()
+                .name(created.getName())
+                .description(updatedDesc);
 
-        // TODO: test validations
+        IAMGroupControllerApiGroupDetail updated =
+            kestraClient().groups().updateGroup(created.getId(), MAIN_TENANT, updateReq);
+
+        assertEquals(updatedDesc, updated.getDescription());
     }
 }
