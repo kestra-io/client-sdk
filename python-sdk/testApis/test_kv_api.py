@@ -13,7 +13,7 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+from kestrapy import Configuration, KestraClient, KVControllerApiDeleteBulkRequest
 
 
 class TestKVApi(unittest.TestCase):
@@ -21,48 +21,15 @@ class TestKVApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
+        self.namespace = "test.namespace"
 
     def tearDown(self) -> None:
-        pass
-
-    def test_delete_key_value(self) -> None:
-        """Test case for delete_key_value
-
-        Delete a key-value pair
-        """
-        pass
-
-    def test_delete_key_values(self) -> None:
-        """Test case for delete_key_values
-
-        Bulk-delete multiple key/value pairs from the given namespace.
-        """
-        pass
-
-    def test_get_key_value(self) -> None:
-        """Test case for get_key_value
-
-        Get value for a key
-        """
-        pass
-
-    def test_list_keys(self) -> None:
-        """Test case for list_keys
-
-        List all keys for a namespace
-        """
-        pass
-
-    def test_list_keys_with_inheritence(self) -> None:
-        """Test case for list_keys_with_inheritence
-
-        List all keys for inherited namespaces
-        """
         pass
 
     def test_set_key_value(self) -> None:
@@ -70,7 +37,94 @@ class TestKVApi(unittest.TestCase):
 
         Puts a key-value pair in store
         """
-        pass
+        key = "test_set_key_value"
+        value = "hello-kestra"
+
+        # set value
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
+
+        fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        assert getattr(fetched, 'value', None) is not None or fetched is not None
+
+        # cleanup
+        try:
+            self.kestra_client.kv.delete_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        except Exception:
+            pass
+
+    def test_get_key_value(self) -> None:
+        """Test case for get_key_value
+
+        Get value for a key
+        """
+        key = "test_get_key_value"
+        value = "value-get"
+
+        # set then get
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
+        fetched = self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        assert fetched is not None
+
+    def test_list_keys(self) -> None:
+        """Test case for list_keys
+
+        List all keys for a namespace
+        """
+        key = "test_list_keys"
+        value = "value-list"
+
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
+
+        entries = self.kestra_client.kv.list_keys(namespace=self.namespace, tenant=self.tenant)
+        assert any(getattr(e, 'key', None) == key for e in entries)
+
+    def test_list_keys_with_inheritence(self) -> None:
+        """Test case for list_keys_with_inheritence
+
+        List all keys for inherited namespaces
+        """
+        key = "test_list_keys_with_inheritence"
+        value = "value-inherited"
+
+        self.kestra_client.kv.set_key_value(namespace="test", key=key, tenant=self.tenant, body=value)
+
+        entries = self.kestra_client.kv.list_keys_with_inheritence(namespace=self.namespace, tenant=self.tenant)
+        assert any(getattr(e, 'key', None) == key  for e in entries)
+
+    def test_delete_key_value(self) -> None:
+        """Test case for delete_key_value
+
+        Delete a key-value pair
+        """
+        key = "test_delete_key_value"
+        value = "to-delete"
+
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key, tenant=self.tenant, body=value)
+
+        deleted = self.kestra_client.kv.delete_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+        assert deleted is True or deleted is None
+
+        with self.assertRaises(Exception):
+            self.kestra_client.kv.get_key_value(namespace=self.namespace, key=key, tenant=self.tenant)
+
+    def test_delete_key_values(self) -> None:
+        """Test case for delete_key_values
+
+        Bulk-delete multiple key/value pairs from the given namespace.
+        """
+        key1 = "test_delete_key_values_1"
+        key2 = "test_delete_key_values_2"
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key1, tenant=self.tenant, body="v1")
+        self.kestra_client.kv.set_key_value(namespace=self.namespace, key=key2, tenant=self.tenant, body="v2")
+
+        req = KVControllerApiDeleteBulkRequest(keys=[key1, key2])
+        resp = self.kestra_client.kv.delete_key_values(namespace=self.namespace, tenant=self.tenant, kv_controller_api_delete_bulk_request=req)
+
+        assert resp is not None
+
+        for k in (key1, key2):
+            with self.assertRaises(Exception):
+                self.kestra_client.kv.get_key_value(namespace=self.namespace, key=k, tenant=self.tenant)
 
 
 if __name__ == '__main__':

@@ -213,6 +213,7 @@ from kestrapy.models.isolation import Isolation
 from kestrapy.models.kv_controller_api_delete_bulk_request import KVControllerApiDeleteBulkRequest
 from kestrapy.models.kv_controller_api_delete_bulk_response import KVControllerApiDeleteBulkResponse
 from kestrapy.models.kv_controller_typed_value import KVControllerTypedValue
+from kestrapy.models.kv_controller_typed_value_value import KVControllerTypedValueValue
 from kestrapy.models.kv_entry import KVEntry
 from kestrapy.models.kv_type import KVType
 from kestrapy.models.label import Label

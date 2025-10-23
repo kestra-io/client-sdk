@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from kestrapy.models.kv_controller_typed_value_value import KVControllerTypedValueValue
 from kestrapy.models.kv_type import KVType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +29,7 @@ class KVControllerTypedValue(BaseModel):
     KVControllerTypedValue
     """ # noqa: E501
     type: Optional[KVType] = None
-    value: Optional[Dict[str, Any]] = None
+    value: Optional[KVControllerTypedValueValue] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["type", "value"]
 
@@ -73,6 +74,9 @@ class KVControllerTypedValue(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of value
+        if self.value:
+            _dict['value'] = self.value.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -91,7 +95,7 @@ class KVControllerTypedValue(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
-            "value": obj.get("value")
+            "value": KVControllerTypedValueValue.from_dict(obj["value"]) if obj.get("value") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

@@ -207,6 +207,7 @@ docs/KVApi.md
 docs/KVControllerApiDeleteBulkRequest.md
 docs/KVControllerApiDeleteBulkResponse.md
 docs/KVControllerTypedValue.md
+docs/KVControllerTypedValueValue.md
 docs/KVEntry.md
 docs/KVType.md
 docs/Label.md
@@ -611,6 +612,7 @@ kestrapy/models/isolation.py
 kestrapy/models/kv_controller_api_delete_bulk_request.py
 kestrapy/models/kv_controller_api_delete_bulk_response.py
 kestrapy/models/kv_controller_typed_value.py
+kestrapy/models/kv_controller_typed_value_value.py
 kestrapy/models/kv_entry.py
 kestrapy/models/kv_type.py
 kestrapy/models/label.py
