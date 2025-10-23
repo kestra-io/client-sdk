@@ -1,27 +1,10 @@
 import {describe, expect, it} from "vitest";
-import KestraClient from "../src/KestraClient";
 import IAMUserControllerApiCreateOrUpdateUserRequest from "../src/model/IAMUserControllerApiCreateOrUpdateUserRequest";
 import CreateApiTokenRequest from "../src/model/CreateApiTokenRequest";
 import IAMUserControllerApiPatchUserPasswordRequest from "../src/model/IAMUserControllerApiPatchUserPasswordRequest";
 import ApiPatchSuperAdminRequest from "../src/model/ApiPatchSuperAdminRequest";
+import {kestraClient, randomEmail, randomId} from "./CommonTestSetup";
 
-const host = "http://localhost:9903"
-const username = "root@root.com"
-const password = "Root!1234"
-
-function kestraClient() {
-    return new KestraClient(host, null, username, password);
-}
-
-function randomId() {
-    return Math.random().toString(36).substring(2, 10);
-}
-
-function randomEmail() {
-    return randomId() + '@example.com';
-}
-
-const MAIN_TENANT = "main";
 
 async function assertUserExist(userId) {
     await expect(await kestraClient().usersApi.getUser(userId)).toHaveProperty('id', userId);
