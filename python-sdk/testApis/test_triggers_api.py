@@ -216,6 +216,7 @@ triggers:
         Search for triggers
         """
         self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        time.sleep(1)
         resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant)
         assert resp is not None
 
