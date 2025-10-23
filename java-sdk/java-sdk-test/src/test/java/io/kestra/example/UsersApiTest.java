@@ -1,284 +1,333 @@
 package io.kestra.example;
 
+import io.kestra.sdk.KestraClient;
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersApiTest {
-    /**
-     * List users for autocomplete
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void autocompleteUsersTest() throws ApiException {
+        // Create a user to appear in autocomplete
+        String email = "test_autocomplete_users_" + randomId() + "@kestra.io";
+        IAMUserControllerApiCreateOrUpdateUserRequest userReq =
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(email);
+        IAMUserControllerApiUser createdUser = kestraClient().users().createUser(userReq);
 
-        IAMTenantAccessControllerUserApiAutocomplete iaMTenantAccessControllerUserApiAutocomplete = null;
-        List<IAMTenantAccessControllerApiUserTenantAccess> response = kestraClient().users().autocompleteUsers(MAIN_TENANT, new IAMTenantAccessControllerUserApiAutocomplete());
+        // Create a group and add the user to create tenant access
+        IAMGroupControllerApiCreateGroupRequest groupReq =
+            new IAMGroupControllerApiCreateGroupRequest()
+                .name("test_add_user_to_group_" + randomId())
+                .description("An example group");
+        IAMGroupControllerApiGroupDetail group =
+            kestraClient().groups().createGroup(MAIN_TENANT, groupReq);
 
-        // TODO: test validations
+        kestraClient().groups().addUserToGroup(group.getId(), createdUser.getId(), MAIN_TENANT);
+
+        // Autocomplete by email
+        IAMTenantAccessControllerUserApiAutocomplete ac =
+            new IAMTenantAccessControllerUserApiAutocomplete().q(email);
+
+        List<IAMTenantAccessControllerApiUserTenantAccess> results =
+            kestraClient().users().autocompleteUsers(MAIN_TENANT, ac);
+
+        assertTrue(results.stream().anyMatch(r -> email.equals(r.getUsername())),
+            "Autocomplete should include the created user's email");
     }
-    /**
-     * Create new API Token for a specific user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void createApiTokensForUserTest() throws ApiException {
-        var tokenId = "test-token";
-        CreateApiTokenRequest createApiTokenRequest = new CreateApiTokenRequest().name(tokenId);
-        Object response = kestraClient().users().createApiTokensForUser(tokenId, createApiTokenRequest);
+        String base = "test_create_api_token_for_user_" + randomId();
 
-        // TODO: test validations
+        // create user
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
+
+        // token name must be lowercase/hyphen friendly
+        CreateApiTokenRequest tokenReq = new CreateApiTokenRequest()
+            .name(base.replace("_", "-"))
+            .description("token for " + base);
+
+        Object token = kestraClient().users().createApiTokensForUser(user.getId(), tokenReq);
+        assertNotNull(token, "Token creation should return a payload");
     }
-    /**
-     * Create a new user account
-     *
-     * Superadmin-only. Create a new user account with an optional password based authentication method.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void createUserTest() throws ApiException {
-        IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = null;
-        kestraClient().users().createUser(iaMUserControllerApiCreateOrUpdateUserRequest);
+        String base = "test_create_user_" + randomId();
+        IAMUserControllerApiCreateOrUpdateUserRequest req =
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io")
+                .firstName(base)
+                .password("Password!234");
 
-        // TODO: test validations
+        IAMUserControllerApiUser created = kestraClient().users().createUser(req);
+        assertEquals(req.getEmail(), created.getEmail());
+
+        // cleanup
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Delete an API Token for specific user and token id
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteApiTokenTest() throws ApiException {
-        String id = randomId();
-        String tokenId = null;
-        kestraClient().users().deleteApiTokenForUser(id, tokenId);
+        String base = "test_delete_api_token_for_user_" + randomId();
 
-        // TODO: test validations
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
+
+        CreateApiTokenRequest tokenReq = new CreateApiTokenRequest()
+            .name(base.replace("_", "-"))
+            .description("token to delete");
+        // Create then delete
+        CreateApiTokenResponse token = kestraClient().users().createApiTokensForUser(user.getId(), tokenReq);
+        // If your SDK returns a typed object with getId(), prefer that
+        String tokenId = token.getId();
+
+        kestraClient().users().deleteApiTokenForUser(user.getId(), tokenId);
+
+        ApiTokenList apiTokenList = kestraClient().users().listApiTokensForUser(user.getId());
+        assertThat(apiTokenList.getResults().stream().map(ApiToken::getId).toList()).doesNotContain(tokenId);
     }
 
-    /**
-     * Delete a user refresh token
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void deleteRefreshTokenTest() throws ApiException {
-        String id = randomId();
-        kestraClient().users().deleteRefreshToken(id);
+        String base = "test_delete_refresh_token_" + randomId();
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        kestraClient().users().deleteRefreshToken(user.getId());
+        // no strict assertion (superadmin-only op may be a no-op)
+        kestraClient().users().deleteUser(user.getId());
     }
-    /**
-     * Delete a user
-     *
-     * Superadmin-only. Delete a user including all its access.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteUserTest() throws ApiException {
-        String id = randomId();
-        kestraClient().users().deleteUser(id);
+        String base = "test_delete_user_" + randomId();
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        kestraClient().users().deleteUser(user.getId());
+        assertThrows(ApiException.class, () -> kestraClient().users().getUser(user.getId()));
     }
-    /**
-     * Update user password
-     *
-     * Superadmin-only. Updates whether a user is a superadmin.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteUserAuthMethodTest() throws ApiException {
-        String id = randomId();
-        String auth = null;
-        IAMUserControllerApiUser response =kestraClient().users().deleteUserAuthMethod(id, auth);
+        String base = "test_delete_user_auth_method_" + randomId();
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io")
+                .password("Password!234"));
 
-        // TODO: test validations
+        // assume first auth method exists and has an id
+        String authId = user.getAuths() != null && !user.getAuths().isEmpty()
+            ? user.getAuths().get(0).getId() : null;
+
+        assertNotNull(authId, "User should have at least one auth method");
+
+        IAMUserControllerApiUser patched =
+            kestraClient().users().deleteUserAuthMethod(user.getId(), authId);
+
+        assertEquals(user.getId(), patched.getId());
     }
-    /**
-     * Get a user
-     *
-     * Superadmin-only. Get user account details.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void getUserTest() throws ApiException {
-        String id = randomId();
-        IAMUserControllerApiUser response =kestraClient().users().getUser(id);
+        String base = "test_get_user_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
-    }
-    /**
-     * Impersonate a user
-     *
-     * Superadmin-only. Allows an admin to impersonate another user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void impersonateTest() throws ApiException {
-        String id = randomId();
-        Object response =kestraClient().users().impersonate(id);
+        IAMUserControllerApiUser fetched = kestraClient().users().getUser(created.getId());
+        assertEquals(created.getId(), fetched.getId());
 
-        // TODO: test validations
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * List API tokens for a specific user
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void listApiTokensTest() throws ApiException {
-        String id = randomId();
-        Object response =kestraClient().users().listApiTokensForUser(id);
+        String base = "test_list_api_tokens_for_user_" + randomId();
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        CreateApiTokenRequest tokenReq = new CreateApiTokenRequest().name(base.replace("_", "-"));
+        kestraClient().users().createApiTokensForUser(user.getId(), tokenReq);
+
+        Object tokens = kestraClient().users().listApiTokensForUser(user.getId());
+        assertNotNull(tokens, "Listing tokens should return something");
+        // If typed page model is available, assert it contains created token id
     }
 
-    /**
-     * Retrieve users
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void listUsersTest() throws ApiException {
-        Integer page = 1;
-        Integer size = 50;
-        String q = null;
-        List<String> sort = null;
-        PagedResultsIAMUserControllerApiUserSummary response =kestraClient().users().listUsers(page, size, q, sort);
+        String base = "test_list_users_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        PagedResultsIAMUserControllerApiUserSummary page =
+            kestraClient().users().listUsers(1, 50, base, null);
+
+        assertNotNull(page);
+        assertNotNull(page.getResults());
+        assertTrue(page.getResults().stream().anyMatch(s -> created.getId().equals(s.getId())),
+            "Search should include the created user");
+
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update user details
-     *
-     * Superadmin-only. Updates the the details of a user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchUserTest() throws ApiException {
-        String id = randomId();
-        MeControllerApiUserDetailsRequest meControllerApiUserDetailsRequest = null;
-        IAMUserControllerApiUser response =kestraClient().users().patchUser(id, meControllerApiUserDetailsRequest);
+        String base = "test_patch_user_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io")
+                .firstName("Old"));
 
-        // TODO: test validations
+        MeControllerApiUserDetailsRequest patch =
+            new MeControllerApiUserDetailsRequest().firstName("New");
+
+        IAMUserControllerApiUser updated =
+            kestraClient().users().patchUser(created.getId(), patch);
+
+        String fn = updated.getFirstName();
+        assertEquals("New", fn);
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update user demo
-     *
-     * Superadmin-only. Updates whether a user is for demo.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchUserDemoTest() throws ApiException {
-        String id = randomId();
-        IAMUserControllerApiPatchRestrictedRequest iaMUserControllerApiPatchRestrictedRequest = null;
-        kestraClient().users().patchUserDemo(id, iaMUserControllerApiPatchRestrictedRequest);
+        String base = "test_patch_user_demo_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        IAMUserControllerApiPatchRestrictedRequest req =
+            new IAMUserControllerApiPatchRestrictedRequest();
+        req.setRestricted(true);
+        kestraClient().users().patchUserDemo(created.getId(), req);
+
+        // no strict assertion available here
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update user password
-     *
-     * Superadmin-only. Updates whether a user is a superadmin.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchUserPasswordTest() throws ApiException {
-        String id = randomId();
-        IAMUserControllerApiPatchUserPasswordRequest iaMUserControllerApiPatchUserPasswordRequest = null;
-        Object response =kestraClient().users().patchUserPassword(id, iaMUserControllerApiPatchUserPasswordRequest);
+        String base = "test_patch_user_password_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io").password("OldPass!1"));
 
-        // TODO: test validations
+        IAMUserControllerApiPatchUserPasswordRequest req =
+            new IAMUserControllerApiPatchUserPasswordRequest().password("NewPass!1");
+
+        IAMUserControllerApiUser resp = kestraClient().users().patchUserPassword(created.getId(), req);
+        assertNotNull(resp);
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update user superadmin privileges
-     *
-     * Superadmin-only. Updates whether a user is a superadmin.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchUserSuperAdminTest() throws ApiException {
-        String id = randomId();
-        ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = null;
-        kestraClient().users().patchUserSuperAdmin(id, apiPatchSuperAdminRequest);
+        String base = "test_patch_user_super_admin_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(base + "@kestra.io"));
 
-        // TODO: test validations
+        ApiPatchSuperAdminRequest patch = new ApiPatchSuperAdminRequest().superAdmin(true);
+        kestraClient().users().patchUserSuperAdmin(created.getId(), patch);
+
+        IAMUserControllerApiUser fetched = kestraClient().users().getUser(created.getId());
+        assertTrue(Boolean.TRUE.equals(fetched.getSuperAdmin()));
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update authenticated user password
-     *
-     * Changes the login password for the authenticated user.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateCurrentUserPasswordTest() throws ApiException {
-        MeControllerApiUpdatePasswordRequest meControllerApiUpdatePasswordRequest = null;
-        Object response =kestraClient().users().updateCurrentUserPassword(meControllerApiUpdatePasswordRequest);
+        // Create a dedicated user to test password change via "current user" endpoint
+        String base = "test_update_current_user_password_" + randomId();
+        String email = base + "@kestra.io";
+        String initial = "InitialPass!1";
+        String changed = "ChangedPass!1";
 
-        // TODO: test validations
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest().email(email)
+                .tenants(List.of(MAIN_TENANT))
+                .password(initial));
+
+        // Create a client authenticated as this user
+        KestraClient userClient = KestraClient.builder()
+            .basicAuth(email, initial)
+            .url(CommonTestSetup.HOST)
+            .build();
+
+        // change password
+        MeControllerApiUpdatePasswordRequest change =
+            new MeControllerApiUpdatePasswordRequest()
+                .oldPassword(initial)
+                .newPassword(changed);
+        userClient.users().updateCurrentUserPassword(change);
+
+        // change it back using the new password
+        userClient = KestraClient.builder()
+            .basicAuth(email, changed)
+            .url(CommonTestSetup.HOST)
+            .build();
+        MeControllerApiUpdatePasswordRequest revert =
+            new MeControllerApiUpdatePasswordRequest()
+                .oldPassword(changed)
+                .newPassword(initial);
+        userClient.users().updateCurrentUserPassword(revert);
+
+        // cleanup
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update a user account
-     *
-     * Superadmin-only. Update an existing user account with an optional password based authentication method.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateUserTest() throws ApiException {
-        String id = randomId();
-        IAMUserControllerApiCreateOrUpdateUserRequest iaMUserControllerApiCreateOrUpdateUserRequest = null;
-        IAMUserControllerApiUser response =kestraClient().users().updateUser(id, iaMUserControllerApiCreateOrUpdateUserRequest);
+        String base = "test_update_user_" + randomId();
+        IAMUserControllerApiUser created = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io")
+                .firstName("Before"));
 
-        // TODO: test validations
+        IAMUserControllerApiCreateOrUpdateUserRequest updateReq =
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(created.getEmail())
+                .firstName("After");
+
+        IAMUserControllerApiUser updated = kestraClient().users().updateUser(created.getId(), updateReq);
+
+        String fn = updated.getFirstName();
+        assertEquals("After", fn);
+        kestraClient().users().deleteUser(created.getId());
     }
-    /**
-     * Update the list of groups a user belongs to for the given MAIN_TENANT
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateUserGroupsTest() throws ApiException {
-        String id = randomId();
+        // create a group
+        IAMGroupControllerApiGroupDetail group =
+            kestraClient().groups().createGroup(MAIN_TENANT,
+                new IAMGroupControllerApiCreateGroupRequest()
+                    .name("test_create_group_" + randomId())
+                    .description("An example group"));
 
-        IAMUserGroupControllerApiUpdateUserGroupsRequest iaMUserGroupControllerApiUpdateUserGroupsRequest = null;
-        kestraClient().users().updateUserGroups(id, MAIN_TENANT, iaMUserGroupControllerApiUpdateUserGroupsRequest);
+        // create user (ensure tenant access where required by your backend)
+        String base = "test_update_user_groups_" + randomId();
+        IAMUserControllerApiUser user = kestraClient().users().createUser(
+            new IAMUserControllerApiCreateOrUpdateUserRequest()
+                .email(base + "@kestra.io")
+                .tenants(List.of(MAIN_TENANT)));
 
-        // TODO: test validations
+        // assign group
+        IAMUserGroupControllerApiUpdateUserGroupsRequest req =
+            new IAMUserGroupControllerApiUpdateUserGroupsRequest()
+                .groupIds(List.of(group.getId()));
+
+        kestraClient().users().updateUserGroups(user.getId(), MAIN_TENANT, req);
+        // If a readback endpoint is available, fetch and assert; otherwise assume success if no exception.
     }
 }

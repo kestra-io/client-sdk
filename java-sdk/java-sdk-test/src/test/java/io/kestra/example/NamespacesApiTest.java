@@ -146,7 +146,7 @@ public class NamespacesApiTest {
         ApiSecretMetaEE meta = new ApiSecretMetaEE();
         meta.setKey(key);
         List<ApiSecretMeta> metas =
-            kestraClient().namespaces().patchSecret(created.getId(), MAIN_TENANT, key, meta);
+            kestraClient().namespaces().patchSecret(created.getId(), key, MAIN_TENANT, meta);
 
         assertNotNull(metas, "Patch response metas should not be null");
     }
