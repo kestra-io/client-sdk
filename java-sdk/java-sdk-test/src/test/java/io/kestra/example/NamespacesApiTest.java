@@ -1,220 +1,216 @@
 package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.ApiAutocomplete;
-import io.kestra.sdk.model.ApiSecretListResponse;
-import io.kestra.sdk.model.ApiSecretMeta;
-import io.kestra.sdk.model.ApiSecretMetaEE;
-import io.kestra.sdk.model.ApiSecretValue;
-import io.kestra.sdk.model.Namespace;
-import io.kestra.sdk.model.PagedResultsNamespace;
-import io.kestra.sdk.model.PluginDefault;
-import io.kestra.sdk.model.QueryFilter;
-import org.junit.jupiter.api.Disabled;
+import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NamespacesApiTest {
 
-    /**
-     * List namespaces for autocomplete
-     *
-     * Returns a list of namespaces for use in autocomplete fields, optionally allowing to filter by query and ids. Used especially for binding creation.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void autocompleteNamespacesTest() throws ApiException {
+        String prefix = "test_autocomplete_namespaces_" + randomId();
+        Namespace ns = new Namespace().id(prefix).deleted(false);
 
-        ApiAutocomplete apiAutocomplete = null;
-        List<String> response = kestraClient().namespaces().autocompleteNamespaces(MAIN_TENANT, apiAutocomplete);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        // TODO: test validations
+        ApiAutocomplete ac = new ApiAutocomplete().q(prefix);
+        List<String> results = kestraClient().namespaces().autocompleteNamespaces(MAIN_TENANT, ac);
+
+        assertTrue(results.stream().anyMatch(r -> r.equals(created.getId())),
+            "Autocomplete should include the created namespace id");
     }
-    /**
-     * Create a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void createNamespaceTest() throws ApiException {
+        String nsId = "test_create_namespace_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
 
-        Namespace namespace = null;
-        Namespace response = kestraClient().namespaces().createNamespace(MAIN_TENANT, namespace);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        // TODO: test validations
+        assertEquals(nsId, created.getId());
+        assertNotNull(created);
     }
-    /**
-     * Delete a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteNamespaceTest() throws ApiException {
-        String id = randomId();
+        String nsId = "test_delete_namespace_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
 
-        kestraClient().namespaces().deleteNamespace(id, MAIN_TENANT);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        // TODO: test validations
+        kestraClient().namespaces().deleteNamespace(created.getId(), MAIN_TENANT);
+
+        assertThrows(ApiException.class,
+            () -> kestraClient().namespaces().getNamespace(created.getId(), MAIN_TENANT),
+            "Fetching a deleted namespace should throw");
     }
-    /**
-     * Delete a secret for a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteSecretTest() throws ApiException {
-        String namespace = randomId();
-        String key = null;
 
-        List<String> response = kestraClient().namespaces().deleteSecret(namespace, key, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * List inherited secrets
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void getInheritedSecretsTest() throws ApiException {
-        String namespace = randomId();
+        String nsId = "test_get_inherited_secrets_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        Map<String, List<String>> response = kestraClient().namespaces().getInheritedSecrets(namespace, MAIN_TENANT);
+        Map<String, List<String>> inherited =
+            kestraClient().namespaces().getInheritedSecrets(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        assertNotNull(inherited);
+        // Python only asserted it's a dict; here we just ensure non-null map.
     }
-    /**
-     * Get a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void getNamespaceTest() throws ApiException {
-        String id = randomId();
+        String nsId = "test_get_namespace_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        Namespace response = kestraClient().namespaces().getNamespace(id, MAIN_TENANT);
+        Namespace fetched = kestraClient().namespaces().getNamespace(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        assertEquals(created.getId(), fetched.getId());
     }
-    /**
-     * List inherited plugin defaults
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void inheritedPluginDefaultsTest() throws ApiException {
-        String id = randomId();
+        String nsId = "test_inherited_plugin_defaults_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        List<PluginDefault> response = kestraClient().namespaces().inheritedPluginDefaults(id, MAIN_TENANT);
+        List<PluginDefault> defaults =
+            kestraClient().namespaces().inheritedPluginDefaults(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        assertNotNull(defaults);
+        // Python only checked it's a list.
     }
-    /**
-     * List inherited variables
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void inheritedVariablesTest() throws ApiException {
-        String id = randomId();
+        String nsId = "test_inherited_variables_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        Map<String, Object> response = kestraClient().namespaces().inheritedVariables(id, MAIN_TENANT);
+        Map<String, Object> variables =
+            kestraClient().namespaces().inheritedVariables(created.getId(), MAIN_TENANT);
 
-        // TODO: test validations
+        assertNotNull(variables);
+        // Python only checked it's a dict.
     }
-    /**
-     * Get secrets for a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void listNamespaceSecretsTest() throws ApiException {
-        String namespace = randomId();
-        Integer page = null;
-        Integer size = null;
-        List<QueryFilter> filters = null;
+        String nsId = "test_list_namespace_secrets_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
+        String key = "list_keys_key_" + randomId();
 
-        List<String> sort = null;
-        ApiSecretListResponse response = kestraClient().namespaces().listNamespaceSecrets(namespace, page, size, filters, MAIN_TENANT, sort);
+        // Create one secret so the list call has something to return
 
-        // TODO: test validations
+        kestraClient().namespaces().putSecrets(
+            created.getId(), MAIN_TENANT,
+            new ApiSecretValue().key(key).value("list-value"));
+
+        QueryFilter queryFilter = new QueryFilter();
+        queryFilter.setField(QueryFilterField.QUERY);
+        queryFilter.setOperation(QueryFilterOp.CONTAINS);
+        queryFilter.setValue("keys");
+
+        ApiSecretListResponse entries =
+            kestraClient().namespaces().listNamespaceSecrets(created.getId(), 1, 10, List.of(queryFilter), MAIN_TENANT, null);
+
+        assertNotNull(entries);
+        assertNotNull(entries.getResults(), "Results should not be null");
+        assertThat(entries.getResults().stream().map(s -> s.getKey())).contains(key);
     }
-    /**
-     * Patch a secret metadata for a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchSecretTest() throws ApiException {
-        String namespace = randomId();
+        String nsId = "test_patch_secret_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        String key = null;
-        ApiSecretMetaEE apiSecretMetaEE = null;
-        List<ApiSecretMeta> response = kestraClient().namespaces().patchSecret(namespace, MAIN_TENANT, key, apiSecretMetaEE);
+        // Create the secret first (Python used put_secrets in this test)
+        String key = "test_patch_secret_key_" + randomId();
+        kestraClient().namespaces().putSecrets(
+            created.getId(), MAIN_TENANT,
+            new ApiSecretValue().key(key).value("secretValue"));
 
-        // TODO: test validations
+        // Now patch its metadata (description, tags, etc. as supported by your SDK)
+        ApiSecretMetaEE meta = new ApiSecretMetaEE();
+        meta.setKey(key);
+        List<ApiSecretMeta> metas =
+            kestraClient().namespaces().patchSecret(created.getId(), MAIN_TENANT, key, meta);
+
+        assertNotNull(metas, "Patch response metas should not be null");
     }
-    /**
-     * Update secrets for a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void putSecretsTest() throws ApiException {
-        String namespace = randomId();
+        String nsId = "test_put_secrets_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        ApiSecretValue apiSecretValue = null;
-        List<ApiSecretMeta> response = kestraClient().namespaces().putSecrets(namespace, MAIN_TENANT, apiSecretValue);
+        List<ApiSecretMeta> metas = kestraClient().namespaces().putSecrets(
+            created.getId(), MAIN_TENANT,
+            new ApiSecretValue().key("test_put_secrets_key_" + randomId()).value("value-put"));
 
-        // TODO: test validations
+        assertNotNull(metas);
     }
-    /**
-     * Search for namespaces
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void searchNamespacesTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
-        Boolean existing = null;
+        String nsId = "test_search_namespaces_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        String q = null;
-        List<String> sort = null;
-        PagedResultsNamespace response = kestraClient().namespaces().searchNamespaces(page, size, existing, MAIN_TENANT, q, sort);
+        // page=1, size=10 like Python
+        PagedResultsNamespace results =
+            kestraClient().namespaces().searchNamespaces(1, 10, false, MAIN_TENANT, nsId, null);
 
-        // TODO: test validations
+        assertNotNull(results);
+        assertNotNull(results.getResults());
+        assertTrue(results.getResults().stream().anyMatch(r -> created.getId().equals(r.getId())),
+            "Search should return the created namespace");
     }
-    /**
-     * Update a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateNamespaceTest() throws ApiException {
-        String id = randomId();
+        String nsId = "test_update_namespace_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
 
-        Namespace namespace = null;
-        Namespace response = kestraClient().namespaces().updateNamespace(id, MAIN_TENANT, namespace);
+        // Python test only fetched; here we call update with the same payload (id/deleted) then verify id.
+        Namespace updateBody = new Namespace().id(created.getId()).deleted(false);
+        Namespace updated = kestraClient().namespaces().updateNamespace(created.getId(), MAIN_TENANT, updateBody);
 
-        // TODO: test validations
+        assertEquals(created.getId(), updated.getId());
+    }
+
+    /** Optional extra derived from Java skeleton (not present in Python): deleteSecret */
+    @Test
+    public void deleteSecretTest() throws ApiException {
+        String nsId = "test_delete_secret_" + randomId();
+        Namespace ns = new Namespace().id(nsId).deleted(false);
+        Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
+
+        String key = "to_delete_key_" + randomId();
+        kestraClient().namespaces().putSecrets(
+            created.getId(), MAIN_TENANT, new ApiSecretValue().key(key).value("to-delete"));
+
+        kestraClient().namespaces().deleteSecret(created.getId(), key, MAIN_TENANT);
+
+        ApiSecretListResponse list =
+            kestraClient().namespaces().listNamespaceSecrets(created.getId(), 1, 10, List.of(), MAIN_TENANT, null);
+
+        boolean stillPresent = list != null && list.getResults() != null
+            && list.getResults().stream().anyMatch(m -> key.equals(m.getKey()));
+        assertFalse(stillPresent, "Deleted secret should not be listed anymore");
     }
 }
