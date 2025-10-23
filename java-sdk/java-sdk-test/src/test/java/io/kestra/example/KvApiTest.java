@@ -9,97 +9,126 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.kestraLocalClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KvApiTest {
 
-    /**
-     * Delete a key-value pair
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteKeyValueTest() throws ApiException {
-        String namespace = randomId();
-        String key = null;
+    private static final String CHILD_NAMESPACE = "test.namespace";
+    private static final String PARENT_NAMESPACE = "test";
 
-        Boolean response = kestraClient().kv().deleteKeyValue(namespace, key, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * Bulk-delete multiple key/value pairs from the given namespace.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteKeyValuesTest() throws ApiException {
-        String namespace = randomId();
-
-        KVControllerApiDeleteBulkRequest kvControllerApiDeleteBulkRequest = null;
-        KVControllerApiDeleteBulkResponse response = kestraClient().kv().deleteKeyValues(namespace, MAIN_TENANT, kvControllerApiDeleteBulkRequest);
-
-        // TODO: test validations
-    }
-    /**
-     * Get value for a key
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void getKeyValueTest() throws ApiException {
-        String namespace = randomId();
-        String key = null;
-
-        KVControllerTypedValue response = kestraClient().kv().getKeyValue(namespace, key, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * List all keys for a namespace
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listKeysTest() throws ApiException {
-        String namespace = randomId();
-
-        List<KVEntry> response = kestraClient().kv().listKeys(namespace, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * List all keys for inherited namespaces
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listKeysWithInheritenceTest() throws ApiException {
-        String namespace = randomId();
-
-        List<KVEntry> response = kestraClient().kv().listKeysWithInheritence(namespace, MAIN_TENANT);
-
-        // TODO: test validations
-    }
     /**
      * Puts a key-value pair in store
-     *
-     * @throws ApiException
-     *          if the Api call fails
      */
     @Test
     public void setKeyValueTest() throws ApiException {
-        String namespace = randomId();
-        String key = null;
+        String key = "test_set_key_value_" + randomId();
+        String value = "hello-kestra";
 
-        String body = null;
-        kestraClient().kv().setKeyValue(namespace, key, MAIN_TENANT, body);
+        // set value
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
 
-        // TODO: test validations
+        // get & assert
+        KVControllerTypedValue fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        assertNotNull(fetched, "Fetched value should not be null");
+
+        // cleanup (best-effort)
+        try {
+            kestraClient().kv().deleteKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        } catch (Exception ignored) {}
+    }
+
+    /**
+     * Get value for a key
+     */
+    @Test
+    public void getKeyValueTest() throws ApiException {
+        String key = "test_get_key_value_" + randomId();
+        String value = "value-get";
+
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
+
+        KVControllerTypedValue fetched = kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        assertNotNull(fetched);
+    }
+
+    /**
+     * List all keys for a namespace
+     */
+    @Test
+    public void listKeysTest() throws ApiException {
+        String key = "test_list_keys_" + randomId();
+        String value = "value-list";
+
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
+
+        List<KVEntry> entries = kestraClient().kv().listKeys(CHILD_NAMESPACE, MAIN_TENANT);
+        assertTrue(entries.stream().anyMatch(e -> key.equals(e.getKey())),
+            "List should contain the inserted key");
+    }
+
+    /**
+     * List all keys for inherited namespaces
+     */
+    @Test
+    public void listKeysWithInheritenceTest() throws ApiException {
+        String key = "test_list_keys_with_inheritence_" + randomId();
+        String value = "value-inherited";
+
+        // Put in parent namespace
+        kestraClient().kv().setKeyValue(PARENT_NAMESPACE, key, MAIN_TENANT, value);
+
+        // List from child namespace (should inherit)
+        List<KVEntry> entries = kestraClient().kv().listKeysWithInheritence(CHILD_NAMESPACE, MAIN_TENANT);
+        assertTrue(entries.stream().anyMatch(e -> key.equals(e.getKey())),
+            "Inherited list should include key from parent namespace");
+    }
+
+    /**
+     * Delete a key-value pair
+     */
+    @Test
+    public void deleteKeyValueTest() throws ApiException {
+        String key = "test_delete_key_value_" + randomId();
+        String value = "to-delete";
+
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT, value);
+
+        Boolean deleted = kestraClient().kv().deleteKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT);
+        // API may return true or null on success depending on impl
+        assertTrue(deleted == null || deleted, "Delete should succeed");
+
+        assertThrows(ApiException.class,
+            () -> kestraClient().kv().getKeyValue(CHILD_NAMESPACE, key, MAIN_TENANT),
+            "Fetching a deleted key should throw");
+    }
+
+    /**
+     * Bulk-delete multiple key/value pairs from the given namespace.
+     */
+    @Test
+    public void deleteKeyValuesTest() throws ApiException {
+        String key1 = "test_delete_key_values_1_" + randomId();
+        String key2 = "test_delete_key_values_2_" + randomId();
+
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key1, MAIN_TENANT, "v1");
+        kestraClient().kv().setKeyValue(CHILD_NAMESPACE, key2, MAIN_TENANT, "v2");
+
+        KVControllerApiDeleteBulkRequest req = new KVControllerApiDeleteBulkRequest()
+            .keys(List.of(key1, key2));
+
+        KVControllerApiDeleteBulkResponse resp =
+            kestraClient().kv().deleteKeyValues(CHILD_NAMESPACE, MAIN_TENANT, req);
+
+        assertNotNull(resp, "Bulk delete response should not be null");
+
+        for (String k : List.of(key1, key2)) {
+            assertThrows(ApiException.class,
+                () -> kestraClient().kv().getKeyValue(CHILD_NAMESPACE, k, MAIN_TENANT),
+                "Fetching a bulk-deleted key should throw");
+        }
     }
 }
