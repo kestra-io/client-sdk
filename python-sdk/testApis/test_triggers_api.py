@@ -13,7 +13,17 @@
 
 
 import unittest
-from kestrapy import Configuration, KestraClient
+from kestrapy import Configuration, KestraClient, QueryFilter, QueryFilterOp, QueryFilterField
+from datetime import datetime, timezone, timedelta
+import time
+from typing import Optional, Tuple
+import uuid
+from kestrapy import (
+    Trigger,
+    DeleteExecutionsByQueryRequest,
+    TriggerControllerSetDisabledRequest,
+    Backfill,
+)
 
 
 class TestTriggersApi(unittest.TestCase):
@@ -21,140 +31,280 @@ class TestTriggersApi(unittest.TestCase):
 
     def setUp(self) -> None:
         configuration = Configuration()
-        configuration.host = "http://localhost:9902"
+        configuration.host = "http://localhost:8080"
         configuration.username = "root@root.com"
         configuration.password = "Root!1234"
 
         self.kestra_client = KestraClient(configuration)
+        self.tenant = "main"
 
     def tearDown(self) -> None:
         pass
+
+    def create_flow_with_trigger(self, flow_id: Optional[str] = None, trigger_id: Optional[str] = None, namespace: str = "test.triggers") -> Tuple[str, str]:
+        """Create a flow (yaml source) with a single scheduled trigger.
+
+        Returns (flow_id, trigger_id).
+        """
+        # generate unique ids if not provided
+        if flow_id is None:
+            flow_id = f"{uuid.uuid4().hex[:8]}"
+        if trigger_id is None:
+            trigger_id = f"trigger_{uuid.uuid4().hex[:8]}"
+
+        # yaml source for the flow
+        body = f"""id: {flow_id}
+namespace: {namespace}
+
+tasks:
+  - id: hello
+    type: io.kestra.plugin.core.flow.Sleep
+    duration: PT5S
+
+triggers:
+  - id: {trigger_id}
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "*/5 * * * *"
+"""
+
+        self.kestra_client.flows.create_flow(tenant=self.tenant, body=body)
+        time.sleep(1)
+
+        return flow_id, trigger_id
+
+    def create_backfill_for_trigger(self, flow_id: str, trigger_id: str, start: Optional[datetime] = None, end: Optional[datetime] = None, namespace: str = "test.triggers") -> Trigger:
+        """Attach a backfill to the given trigger by calling update_trigger.
+
+        Returns the updated Trigger.
+        """
+        if start is None:
+            start = (datetime.now(timezone.utc) - timedelta(hours=5)).isoformat()
+        else:
+            if isinstance(start, datetime):
+                start = start.astimezone(timezone.utc).isoformat()
+
+        if end is not None and isinstance(end, datetime):
+            end = end.astimezone(timezone.utc).isoformat()
+
+        backfill = Backfill(start=start, end=end)
+
+        trigger = Trigger(namespace=namespace, flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), backfill=backfill, tenant_id=self.tenant)
+
+        updated = self.kestra_client.triggers.update_trigger(tenant=self.tenant, trigger=trigger)
+        return updated
 
     def test_delete_backfill(self) -> None:
         """Test case for delete_backfill
 
         Delete a backfill
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+
+        resp = self.kestra_client.triggers.delete_backfill(tenant=self.tenant, trigger=trigger)
+        assert resp is not None
 
     def test_delete_backfill_by_ids(self) -> None:
         """Test case for delete_backfill_by_ids
 
         Delete backfill for given triggers
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # ensure a backfill exists
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.delete_backfill_by_ids(tenant=self.tenant, trigger=[trigger])
+        assert resp is not None
 
     def test_delete_backfill_by_query(self) -> None:
         """Test case for delete_backfill_by_query
 
         Delete backfill for given triggers
         """
-        pass
+
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+        req = DeleteExecutionsByQueryRequest(filters=[qf])
+        resp = self.kestra_client.triggers.delete_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        assert resp is not None
+
 
     def test_disabled_triggers_by_ids(self) -> None:
         """Test case for disabled_triggers_by_ids
 
         Disable/enable given triggers
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        req = TriggerControllerSetDisabledRequest(triggers=[trigger], disabled=True)
+        resp = self.kestra_client.triggers.disabled_triggers_by_ids(tenant=self.tenant, trigger_controller_set_disabled_request=req)
+        assert resp is not None
 
     def test_disabled_triggers_by_query(self) -> None:
         """Test case for disabled_triggers_by_query
 
         Disable/enable triggers by query parameters
         """
-        pass
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+        delete_req = DeleteExecutionsByQueryRequest(filters=[qf])
+        resp = self.kestra_client.triggers.disabled_triggers_by_query(disabled=True, tenant=self.tenant, delete_executions_by_query_request=delete_req)
+        assert resp is not None
 
     def test_pause_backfill(self) -> None:
         """Test case for pause_backfill
 
         Pause a backfill
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # ensure a backfill exists
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.pause_backfill(tenant=self.tenant, trigger=trigger)
+        assert resp is not None
 
     def test_pause_backfill_by_ids(self) -> None:
         """Test case for pause_backfill_by_ids
 
         Pause backfill for given triggers
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # ensure a backfill exists
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.pause_backfill_by_ids(tenant=self.tenant, trigger=[trigger])
+        assert resp is not None
 
     def test_pause_backfill_by_query(self) -> None:
         """Test case for pause_backfill_by_query
 
         Pause backfill for given triggers
         """
-        pass
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        qf = QueryFilter(
+            field=QueryFilterField.TRIGGER_ID,
+            operation=QueryFilterOp.CONTAINS,
+            value={"value": self._testMethodName}
+        )
+        req = DeleteExecutionsByQueryRequest(filters=[qf])
+        resp = self.kestra_client.triggers.pause_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        assert resp is not None
 
     def test_restart_trigger(self) -> None:
         """Test case for restart_trigger
 
         Restart a trigger
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # restart uses namespace/flowId/triggerId path params
+        resp = self.kestra_client.triggers.restart_trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, tenant=self.tenant)
+        assert resp is not None
 
     def test_search_triggers(self) -> None:
         """Test case for search_triggers
 
         Search for triggers
         """
-        pass
+        # ensure at least one trigger exists
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        resp = self.kestra_client.triggers.search_triggers(page=1, size=10, tenant=self.tenant)
+        assert resp is not None
 
     def test_search_triggers_for_flow(self) -> None:
         """Test case for search_triggers_for_flow
 
         Get all triggers for a flow
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        resp = self.kestra_client.triggers.search_triggers_for_flow(page=1, size=10, namespace="test.triggers", flow_id=flow_id, tenant=self.tenant)
+        assert resp is not None
 
     def test_unlock_trigger(self) -> None:
         """Test case for unlock_trigger
+        Difficult to have a trigger locked, so just assumed having the exception that raise that the trigger is not lock
+        is enough to says that the endpoint is called correctly
 
         Unlock a trigger
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        with self.assertRaises(Exception) as context:
+            self.kestra_client.triggers.unlock_trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, tenant=self.tenant)
+
+        self.assertTrue('409' in str(context.exception))
 
     def test_unlock_triggers_by_ids(self) -> None:
         """Test case for unlock_triggers_by_ids
 
         Unlock given triggers
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.unlock_triggers_by_ids(tenant=self.tenant, trigger=[trigger])
+        assert resp is not None
 
     def test_unlock_triggers_by_query(self) -> None:
         """Test case for unlock_triggers_by_query
 
         Unlock triggers by query parameters
         """
-        pass
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        req = DeleteExecutionsByQueryRequest()
+        resp = self.kestra_client.triggers.unlock_triggers_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        assert resp is not None
 
     def test_unpause_backfill(self) -> None:
         """Test case for unpause_backfill
 
         Unpause a backfill
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # ensure a backfill exists
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.unpause_backfill(tenant=self.tenant, trigger=trigger)
+        assert resp is not None
 
     def test_unpause_backfill_by_ids(self) -> None:
         """Test case for unpause_backfill_by_ids
 
         Unpause backfill for given triggers
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        # ensure a backfill exists
+        self.create_backfill_for_trigger(flow_id=flow_id, trigger_id=trigger_id)
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.unpause_backfill_by_ids(tenant=self.tenant, trigger=[trigger])
+        assert resp is not None
 
     def test_unpause_backfill_by_query(self) -> None:
         """Test case for unpause_backfill_by_query
 
         Unpause backfill for given triggers
         """
-        pass
+        self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        req = DeleteExecutionsByQueryRequest()
+        resp = self.kestra_client.triggers.unpause_backfill_by_query(tenant=self.tenant, delete_executions_by_query_request=req)
+        assert resp is not None
 
     def test_update_trigger(self) -> None:
         """Test case for update_trigger
 
         Update a trigger
         """
-        pass
+        flow_id, trigger_id = self.create_flow_with_trigger(flow_id=f"{self._testMethodName}", trigger_id=f"{self._testMethodName}_trigger")
+        trigger = Trigger(namespace="test.triggers", flow_id=flow_id, trigger_id=trigger_id, var_date=datetime.now(timezone.utc).isoformat(), tenant_id=self.tenant)
+        resp = self.kestra_client.triggers.update_trigger(tenant=self.tenant, trigger=trigger)
+        assert resp is not None
 
 
 if __name__ == '__main__':
