@@ -401,23 +401,12 @@ public class ExecutionsApi extends BaseApi {
    * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
    * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
-    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated, Collections.emptyMap());
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated) throws ApiException {
+    return this.deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, tenant, filters, includeNonTerminated, Collections.emptyMap());
   }
 
 
@@ -428,27 +417,15 @@ public class ExecutionsApi extends BaseApi {
    * @param deleteMetrics Whether to delete execution metrics (required)
    * @param deleteStorage Whether to delete execution files in the internal storage (required)
    * @param tenant  (required)
-   * @param deleteExecutionsByQueryRequest  (required)
-   * @param q A string filter (optional)
-   * @param scope The scope of the executions to include (optional)
-   * @param namespace A namespace filter prefix (optional)
-   * @param flowId A flow id filter (optional)
-   * @param startDate The start datetime (optional)
-   * @param endDate The end datetime (optional)
-   * @param timeRange A time range filter relative to the current time (optional)
-   * @param state A state filter (optional)
-   * @param labels A labels filter as a list of &#39;key:value&#39; (optional)
-   * @param triggerExecutionId The trigger execution id (optional)
-   * @param childFilter A execution child filter (optional)
+   * @param filters  (required)
    * @param includeNonTerminated Whether to delete non-terminated executions (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return Object
    * @throws ApiException if fails to make API call
    */
-  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest, @javax.annotation.Nullable String q, @javax.annotation.Nullable List<FlowScope> scope, @javax.annotation.Nullable String namespace, @javax.annotation.Nullable String flowId, @javax.annotation.Nullable OffsetDateTime startDate, @javax.annotation.Nullable OffsetDateTime endDate, @javax.annotation.Nullable String timeRange, @javax.annotation.Nullable List<StateType> state, @javax.annotation.Nullable List<String> labels, @javax.annotation.Nullable String triggerExecutionId, @javax.annotation.Nullable ExecutionRepositoryInterfaceChildFilter childFilter, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
-    Object localVarPostBody = deleteExecutionsByQueryRequest;
-
-    // verify the required parameter 'deleteLogs' is set
+  public Object deleteExecutionsByQuery(@javax.annotation.Nonnull Boolean deleteLogs, @javax.annotation.Nonnull Boolean deleteMetrics, @javax.annotation.Nonnull Boolean deleteStorage, @javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull List<QueryFilter> filters, @javax.annotation.Nullable Boolean includeNonTerminated, Map<String, String> additionalHeaders) throws ApiException {
+    Object localVarPostBody = null;
+      // verify the required parameter 'deleteLogs' is set
     if (deleteLogs == null) {
       throw new ApiException(400, "Missing the required parameter 'deleteLogs' when calling deleteExecutionsByQuery");
     }
@@ -468,9 +445,9 @@ public class ExecutionsApi extends BaseApi {
       throw new ApiException(400, "Missing the required parameter 'tenant' when calling deleteExecutionsByQuery");
     }
 
-    // verify the required parameter 'deleteExecutionsByQueryRequest' is set
-    if (deleteExecutionsByQueryRequest == null) {
-      throw new ApiException(400, "Missing the required parameter 'deleteExecutionsByQueryRequest' when calling deleteExecutionsByQuery");
+    // verify the required parameter 'filters' is set
+    if (filters == null) {
+      throw new ApiException(400, "Missing the required parameter 'filters' when calling deleteExecutionsByQuery");
     }
 
     // create path and map variables
@@ -485,22 +462,11 @@ public class ExecutionsApi extends BaseApi {
     Map<String, String> localVarCookieParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-    localVarQueryParams.addAll(apiClient.parameterToPair("q", q));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "scope", scope));
-    localVarQueryParams.addAll(apiClient.parameterToPair("namespace", namespace));
-    localVarQueryParams.addAll(apiClient.parameterToPair("flowId", flowId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("startDate", startDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("endDate", endDate));
-    localVarQueryParams.addAll(apiClient.parameterToPair("timeRange", timeRange));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "state", state));
-    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "labels", labels));
-    localVarQueryParams.addAll(apiClient.parameterToPair("triggerExecutionId", triggerExecutionId));
-    localVarQueryParams.addAll(apiClient.parameterToPair("childFilter", childFilter));
     localVarQueryParams.addAll(apiClient.parameterToPair("includeNonTerminated", includeNonTerminated));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteLogs", deleteLogs));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteMetrics", deleteMetrics));
     localVarQueryParams.addAll(apiClient.parameterToPair("deleteStorage", deleteStorage));
-
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("csv", "filters", filters));
     localVarHeaderParams.putAll(additionalHeaders);
 
 

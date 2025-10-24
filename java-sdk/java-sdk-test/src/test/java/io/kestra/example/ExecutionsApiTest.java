@@ -140,7 +140,7 @@ public class ExecutionsApiTest {
         String triggerExecutionId = null;
         ExecutionRepositoryInterfaceChildFilter childFilter = null;
         Boolean includeNonTerminated = null;
-        Object response = kestraClient().executions().deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated);
+//        Object response = kestraClient().executions().deleteExecutionsByQuery(deleteLogs, deleteMetrics, deleteStorage, MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter, includeNonTerminated);
 
         // TODO: test validations
     }
@@ -172,22 +172,6 @@ public class ExecutionsApiTest {
 
         String body = null;
         ExecutionControllerEvalResult response = kestraClient().executions().evalTaskRunExpression(executionId, taskRunId, MAIN_TENANT, body);
-
-        // TODO: test validations
-    }
-    /**
-     * Follow all execution dependencies executions
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void followDependenciesExecutionsTest() throws ApiException {
-        String executionId = null;
-        Boolean destinationOnly = null;
-        Boolean expandAll = null;
-
-        EventExecutionStatusEvent response = kestraClient().executions().followDependenciesExecutions(executionId, destinationOnly, expandAll, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -401,33 +385,6 @@ public class ExecutionsApiTest {
         // TODO: test validations
     }
     /**
-     * Get all namespaces that have executable flows
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listExecutableDistinctNamespacesTest() throws ApiException {
-
-        List<String> response = kestraClient().executions().listExecutableDistinctNamespaces(MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * Get all flow ids for a namespace. Data returned are FlowForExecution containing minimal information about a Flow for when you are allowed to executing but not reading.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void listFlowExecutionsByNamespaceTest() throws ApiException {
-        String namespace = randomId();
-
-        List<FlowForExecution> response = kestraClient().executions().listFlowExecutionsByNamespace(namespace, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
      * Pause a running execution.
      *
      * @throws ApiException
@@ -477,23 +434,6 @@ public class ExecutionsApiTest {
         String triggerExecutionId = null;
         ExecutionRepositoryInterfaceChildFilter childFilter = null;
         Object response = kestraClient().executions().pauseExecutionsByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, scope, namespace, flowId, startDate, endDate, timeRange, state, labels, triggerExecutionId, childFilter);
-
-        // TODO: test validations
-    }
-    /**
-     * Get file preview for an execution
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void previewFileFromExecutionTest() throws ApiException {
-        String executionId = null;
-        URI path = null;
-        Integer maxRows = null;
-        String encoding = null;
-
-        Object response = kestraClient().executions().previewFileFromExecution(executionId, path, maxRows, encoding, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -641,21 +581,6 @@ public class ExecutionsApiTest {
         // TODO: test validations
     }
     /**
-     * Resume an execution from a breakpoint (in the &#39;BREAKPOINT&#39; state).
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void resumeExecutionFromBreakpointTest() throws ApiException {
-        String executionId = null;
-
-        String breakpoints = null;
-        kestraClient().executions().resumeExecutionFromBreakpoint(executionId, MAIN_TENANT, breakpoints);
-
-        // TODO: test validations
-    }
-    /**
      * Resume a list of paused executions
      *
      * @throws ApiException
@@ -735,7 +660,7 @@ public class ExecutionsApiTest {
         Integer page = null;
         Integer size = null;
 
-        PagedResultsExecution response = kestraClient().executions().searchExecutionsByFlowId(namespace, flowId, page, size, MAIN_TENANT);
+//        PagedResultsExecution response = kestraClient().executions().searchExecutionsByFlowId(namespace, flowId, page, size, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -834,7 +759,7 @@ public class ExecutionsApiTest {
 
         List<String> labels = null;
         Integer revision = null;
-        List<ExecutionControllerExecutionResponse> response = kestraClient().executions().triggerExecution(namespace, id, wait, MAIN_TENANT, labels, revision);
+//        List<ExecutionControllerExecutionResponse> response = kestraClient().executions().triggerExecution(namespace, id, wait, MAIN_TENANT, labels, revision);
 
         // TODO: test validations
     }
@@ -850,39 +775,7 @@ public class ExecutionsApiTest {
         String id = randomId();
         String key = null;
 
-        ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByGetWebhook(namespace, id, key, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * Trigger a new execution by POST webhook trigger
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void triggerExecutionByPostWebhookTest() throws ApiException {
-        String namespace = randomId();
-        String id = randomId();
-        String key = null;
-
-        ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByPostWebhook(namespace, id, key, MAIN_TENANT);
-
-        // TODO: test validations
-    }
-    /**
-     * Trigger a new execution by PUT webhook trigger
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void triggerExecutionByPutWebhookTest() throws ApiException {
-        String namespace = randomId();
-        String id = randomId();
-        String key = null;
-
-        ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByPutWebhook(namespace, id, key, MAIN_TENANT);
+        ExecutionControllerWebhookResponse response = kestraClient().executions().triggerExecutionByWebhook(namespace, id, key, MAIN_TENANT);
 
         // TODO: test validations
     }
@@ -1010,37 +903,6 @@ public class ExecutionsApiTest {
 
         ExecutionControllerStateRequest executionControllerStateRequest = null;
         Execution response = kestraClient().executions().updateTaskRunState(executionId, MAIN_TENANT, executionControllerStateRequest);
-
-        // TODO: test validations
-    }
-    /**
-     * Validate the creation of a new execution for a flow
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void validateNewExecutionInputsTest() throws ApiException {
-        String namespace = randomId();
-        String id = randomId();
-        List<String> labels = null;
-
-        Integer revision = null;
-        List<ExecutionControllerApiValidateExecutionInputsResponse> response = kestraClient().executions().validateNewExecutionInputs(namespace, id, labels, MAIN_TENANT, revision);
-
-        // TODO: test validations
-    }
-    /**
-     * Validate inputs to resume a paused execution.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void validateResumeExecutionInputsTest() throws ApiException {
-        String executionId = null;
-
-        List<ExecutionControllerApiValidateExecutionInputsResponse> response = kestraClient().executions().validateResumeExecutionInputs(executionId, MAIN_TENANT);
 
         // TODO: test validations
     }

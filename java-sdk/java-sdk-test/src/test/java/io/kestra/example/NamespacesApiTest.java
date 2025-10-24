@@ -110,12 +110,16 @@ public class NamespacesApiTest {
         Namespace ns = new Namespace().id(nsId).deleted(false);
         Namespace created = kestraClient().namespaces().createNamespace(MAIN_TENANT, ns);
         String key = "list_keys_key_" + randomId();
+        String unwantedKey = "unwanted_" + randomId();
 
         // Create one secret so the list call has something to return
 
         kestraClient().namespaces().putSecrets(
             created.getId(), MAIN_TENANT,
             new ApiSecretValue().key(key).value("list-value"));
+        kestraClient().namespaces().putSecrets(
+            created.getId(), MAIN_TENANT,
+            new ApiSecretValue().key(unwantedKey).value("list-value"));
 
         QueryFilter queryFilter = new QueryFilter();
         queryFilter.setField(QueryFilterField.QUERY);
@@ -127,7 +131,8 @@ public class NamespacesApiTest {
 
         assertNotNull(entries);
         assertNotNull(entries.getResults(), "Results should not be null");
-        assertThat(entries.getResults().stream().map(s -> s.getKey())).contains(key);
+        assertThat(entries.getResults().stream().map(ApiSecretMeta::getKey)).contains(key);
+        assertThat(entries.getResults().stream().map(ApiSecretMeta::getKey)).doesNotContain(unwantedKey);
     }
 
     @Test
