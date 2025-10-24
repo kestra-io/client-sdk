@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChartChartOption.JSON_PROPERTY_CHART_OPTIONS
 })
 @JsonTypeName("Chart_ChartOption_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ChartChartOption {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -60,7 +61,7 @@ public class ChartChartOption {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getId() {
@@ -68,7 +69,7 @@ public class ChartChartOption {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull String id) {
     this.id = id;
@@ -85,7 +86,7 @@ public class ChartChartOption {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -93,7 +94,7 @@ public class ChartChartOption {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -110,7 +111,7 @@ public class ChartChartOption {
    * @return chartOptions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_CHART_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getChartOptions() {
@@ -118,7 +119,7 @@ public class ChartChartOption {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHART_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_CHART_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChartOptions(@javax.annotation.Nullable Object chartOptions) {
     this.chartOptions = chartOptions;

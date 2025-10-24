@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   RightSidebarConfiguration.JSON_PROPERTY_CUSTOM_LINKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class RightSidebarConfiguration {
   public static final String JSON_PROPERTY_CUSTOM_LINKS = "customLinks";
   @javax.annotation.Nullable
@@ -60,7 +61,7 @@ public class RightSidebarConfiguration {
    * @return customLinks
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CUSTOM_LINKS)
+  @JsonProperty(value = JSON_PROPERTY_CUSTOM_LINKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, RightSidebarConfigurationCustomLink> getCustomLinks() {
@@ -68,7 +69,7 @@ public class RightSidebarConfiguration {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CUSTOM_LINKS)
+  @JsonProperty(value = JSON_PROPERTY_CUSTOM_LINKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomLinks(@javax.annotation.Nullable Map<String, RightSidebarConfigurationCustomLink> customLinks) {
     this.customLinks = customLinks;

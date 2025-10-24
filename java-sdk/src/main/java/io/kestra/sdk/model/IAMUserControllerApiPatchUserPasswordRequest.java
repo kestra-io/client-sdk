@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMUserControllerApiPatchUserPasswordRequest.JSON_PROPERTY_PASSWORD
 })
 @JsonTypeName("IAMUserController.ApiPatchUserPasswordRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMUserControllerApiPatchUserPasswordRequest {
   public static final String JSON_PROPERTY_PASSWORD = "password";
   @javax.annotation.Nonnull
@@ -50,7 +51,7 @@ public class IAMUserControllerApiPatchUserPasswordRequest {
    * @return password
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPassword() {
@@ -58,7 +59,7 @@ public class IAMUserControllerApiPatchUserPasswordRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPassword(@javax.annotation.Nonnull String password) {
     this.password = password;

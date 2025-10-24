@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -48,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MetricEntry.JSON_PROPERTY_DELETED,
   MetricEntry.JSON_PROPERTY_EXECUTION_KIND
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class MetricEntry {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
   @javax.annotation.Nonnull
@@ -112,7 +113,7 @@ public class MetricEntry {
    * @return namespace
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -120,7 +121,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -137,7 +138,7 @@ public class MetricEntry {
    * @return flowId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -145,7 +146,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -168,14 +169,14 @@ public class MetricEntry {
         return taskId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonProperty(value = JSON_PROPERTY_TASK_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getTaskId_JsonNullable() {
     return taskId;
   }
   
-  @JsonProperty(JSON_PROPERTY_TASK_ID)
+  @JsonProperty(value = JSON_PROPERTY_TASK_ID, required = false)
   public void setTaskId_JsonNullable(JsonNullable<String> taskId) {
     this.taskId = taskId;
   }
@@ -201,14 +202,14 @@ public class MetricEntry {
         return executionId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getExecutionId_JsonNullable() {
     return executionId;
   }
   
-  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
   public void setExecutionId_JsonNullable(JsonNullable<String> executionId) {
     this.executionId = executionId;
   }
@@ -234,14 +235,14 @@ public class MetricEntry {
         return taskRunId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getTaskRunId_JsonNullable() {
     return taskRunId;
   }
   
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
   public void setTaskRunId_JsonNullable(JsonNullable<String> taskRunId) {
     this.taskRunId = taskRunId;
   }
@@ -261,7 +262,7 @@ public class MetricEntry {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -269,7 +270,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -286,7 +287,7 @@ public class MetricEntry {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -294,7 +295,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -311,7 +312,7 @@ public class MetricEntry {
    * @return value
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Double getValue() {
@@ -319,7 +320,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setValue(@javax.annotation.Nonnull Double value) {
     this.value = value;
@@ -336,7 +337,7 @@ public class MetricEntry {
    * @return timestamp
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getTimestamp() {
@@ -344,7 +345,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTimestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
     this.timestamp = timestamp;
@@ -379,14 +380,14 @@ public class MetricEntry {
         return tags.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<Map<String, String>> getTags_JsonNullable() {
     return tags;
   }
   
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
   public void setTags_JsonNullable(JsonNullable<Map<String, String>> tags) {
     this.tags = tags;
   }
@@ -406,7 +407,7 @@ public class MetricEntry {
    * @return deleted
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getDeleted() {
@@ -414,7 +415,7 @@ public class MetricEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DELETED)
+  @JsonProperty(value = JSON_PROPERTY_DELETED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDeleted(@javax.annotation.Nonnull Boolean deleted) {
     this.deleted = deleted;
@@ -437,14 +438,14 @@ public class MetricEntry {
         return executionKind.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_KIND, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<ExecutionKind> getExecutionKind_JsonNullable() {
     return executionKind;
   }
   
-  @JsonProperty(JSON_PROPERTY_EXECUTION_KIND)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_KIND, required = false)
   public void setExecutionKind_JsonNullable(JsonNullable<ExecutionKind> executionKind) {
     this.executionKind = executionKind;
   }

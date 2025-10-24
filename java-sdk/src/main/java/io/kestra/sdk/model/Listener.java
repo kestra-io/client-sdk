@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,14 +37,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Listener.JSON_PROPERTY_CONDITIONS,
   Listener.JSON_PROPERTY_TASKS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Listener {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_CONDITIONS = "conditions";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<Condition> conditions = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TASKS = "tasks";
@@ -53,7 +54,7 @@ public class Listener {
   public Listener() {
   }
 
-  public Listener description(@javax.annotation.Nonnull String description) {
+  public Listener description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -63,22 +64,22 @@ public class Listener {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Listener conditions(@javax.annotation.Nonnull List<Condition> conditions) {
+  public Listener conditions(@javax.annotation.Nullable List<Condition> conditions) {
     
     this.conditions = conditions;
     return this;
@@ -96,18 +97,18 @@ public class Listener {
    * Get conditions
    * @return conditions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CONDITIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Condition> getConditions() {
     return conditions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConditions(@javax.annotation.Nonnull List<Condition> conditions) {
+  @JsonProperty(value = JSON_PROPERTY_CONDITIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConditions(@javax.annotation.Nullable List<Condition> conditions) {
     this.conditions = conditions;
   }
 
@@ -130,7 +131,7 @@ public class Listener {
    * @return tasks
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<Task> getTasks() {
@@ -138,7 +139,7 @@ public class Listener {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTasks(@javax.annotation.Nonnull List<Task> tasks) {
     this.tasks = tasks;

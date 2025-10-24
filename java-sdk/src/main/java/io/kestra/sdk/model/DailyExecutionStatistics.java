@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatistics.JSON_PROPERTY_EXECUTION_COUNTS,
   DailyExecutionStatistics.JSON_PROPERTY_GROUP_BY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DailyExecutionStatistics {
   public static final String JSON_PROPERTY_START_DATE = "startDate";
   @javax.annotation.Nonnull
@@ -46,11 +47,11 @@ public class DailyExecutionStatistics {
   private DailyExecutionStatisticsDuration duration;
 
   public static final String JSON_PROPERTY_EXECUTION_COUNTS = "executionCounts";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private DailyExecutionStatisticsExecutionCounts executionCounts;
 
   public static final String JSON_PROPERTY_GROUP_BY = "groupBy";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String groupBy;
 
   public DailyExecutionStatistics() {
@@ -67,7 +68,7 @@ public class DailyExecutionStatistics {
    * @return startDate
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getStartDate() {
@@ -75,7 +76,7 @@ public class DailyExecutionStatistics {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartDate(@javax.annotation.Nonnull OffsetDateTime startDate) {
     this.startDate = startDate;
@@ -92,7 +93,7 @@ public class DailyExecutionStatistics {
    * @return duration
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DURATION)
+  @JsonProperty(value = JSON_PROPERTY_DURATION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DailyExecutionStatisticsDuration getDuration() {
@@ -100,13 +101,13 @@ public class DailyExecutionStatistics {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DURATION)
+  @JsonProperty(value = JSON_PROPERTY_DURATION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDuration(@javax.annotation.Nonnull DailyExecutionStatisticsDuration duration) {
     this.duration = duration;
   }
 
-  public DailyExecutionStatistics executionCounts(@javax.annotation.Nonnull DailyExecutionStatisticsExecutionCounts executionCounts) {
+  public DailyExecutionStatistics executionCounts(@javax.annotation.Nullable DailyExecutionStatisticsExecutionCounts executionCounts) {
     
     this.executionCounts = executionCounts;
     return this;
@@ -116,22 +117,22 @@ public class DailyExecutionStatistics {
    * Get executionCounts
    * @return executionCounts
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXECUTION_COUNTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_COUNTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public DailyExecutionStatisticsExecutionCounts getExecutionCounts() {
     return executionCounts;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXECUTION_COUNTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExecutionCounts(@javax.annotation.Nonnull DailyExecutionStatisticsExecutionCounts executionCounts) {
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_COUNTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecutionCounts(@javax.annotation.Nullable DailyExecutionStatisticsExecutionCounts executionCounts) {
     this.executionCounts = executionCounts;
   }
 
-  public DailyExecutionStatistics groupBy(@javax.annotation.Nonnull String groupBy) {
+  public DailyExecutionStatistics groupBy(@javax.annotation.Nullable String groupBy) {
     
     this.groupBy = groupBy;
     return this;
@@ -141,18 +142,18 @@ public class DailyExecutionStatistics {
    * Get groupBy
    * @return groupBy
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_GROUP_BY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroupBy() {
     return groupBy;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP_BY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroupBy(@javax.annotation.Nonnull String groupBy) {
+  @JsonProperty(value = JSON_PROPERTY_GROUP_BY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupBy(@javax.annotation.Nullable String groupBy) {
     this.groupBy = groupBy;
   }
 

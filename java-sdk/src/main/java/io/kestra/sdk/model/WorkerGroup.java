@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   WorkerGroup.JSON_PROPERTY_KEY,
   WorkerGroup.JSON_PROPERTY_FALLBACK
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class WorkerGroup {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nullable
@@ -55,7 +56,7 @@ public class WorkerGroup {
    * @return key
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getKey() {
@@ -63,7 +64,7 @@ public class WorkerGroup {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@javax.annotation.Nullable String key) {
     this.key = key;
@@ -80,7 +81,7 @@ public class WorkerGroup {
    * @return fallback
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @JsonProperty(value = JSON_PROPERTY_FALLBACK, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public WorkerGroupFallback getFallback() {
@@ -88,7 +89,7 @@ public class WorkerGroup {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FALLBACK)
+  @JsonProperty(value = JSON_PROPERTY_FALLBACK, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFallback(@javax.annotation.Nullable WorkerGroupFallback fallback) {
     this.fallback = fallback;

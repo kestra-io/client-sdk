@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,36 +41,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMTenantAccessControllerApiRoleAssignment.JSON_PROPERTY_PERMISSIONS
 })
 @JsonTypeName("IAMTenantAccessController.ApiRoleAssignment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMTenantAccessControllerApiRoleAssignment {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String namespace;
 
   public static final String JSON_PROPERTY_ORIGIN = "origin";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private RBACServiceRoleAssignmentRoleOrigin origin;
 
   public static final String JSON_PROPERTY_SOURCE_ID = "sourceId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String sourceId;
 
   public static final String JSON_PROPERTY_PERMISSIONS = "permissions";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<IAMTenantAccessControllerApiUserPermission> permissions = new ArrayList<>();
 
   public IAMTenantAccessControllerApiRoleAssignment() {
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment id(@javax.annotation.Nonnull String id) {
+  public IAMTenantAccessControllerApiRoleAssignment id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -79,22 +80,22 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment name(@javax.annotation.Nonnull String name) {
+  public IAMTenantAccessControllerApiRoleAssignment name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -104,22 +105,22 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment namespace(@javax.annotation.Nonnull String namespace) {
+  public IAMTenantAccessControllerApiRoleAssignment namespace(@javax.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -129,22 +130,22 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment origin(@javax.annotation.Nonnull RBACServiceRoleAssignmentRoleOrigin origin) {
+  public IAMTenantAccessControllerApiRoleAssignment origin(@javax.annotation.Nullable RBACServiceRoleAssignmentRoleOrigin origin) {
     
     this.origin = origin;
     return this;
@@ -154,22 +155,22 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get origin
    * @return origin
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ORIGIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ORIGIN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RBACServiceRoleAssignmentRoleOrigin getOrigin() {
     return origin;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORIGIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOrigin(@javax.annotation.Nonnull RBACServiceRoleAssignmentRoleOrigin origin) {
+  @JsonProperty(value = JSON_PROPERTY_ORIGIN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrigin(@javax.annotation.Nullable RBACServiceRoleAssignmentRoleOrigin origin) {
     this.origin = origin;
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment sourceId(@javax.annotation.Nonnull String sourceId) {
+  public IAMTenantAccessControllerApiRoleAssignment sourceId(@javax.annotation.Nullable String sourceId) {
     
     this.sourceId = sourceId;
     return this;
@@ -179,22 +180,22 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get sourceId
    * @return sourceId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SOURCE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SOURCE_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSourceId() {
     return sourceId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOURCE_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSourceId(@javax.annotation.Nonnull String sourceId) {
+  @JsonProperty(value = JSON_PROPERTY_SOURCE_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSourceId(@javax.annotation.Nullable String sourceId) {
     this.sourceId = sourceId;
   }
 
-  public IAMTenantAccessControllerApiRoleAssignment permissions(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiUserPermission> permissions) {
+  public IAMTenantAccessControllerApiRoleAssignment permissions(@javax.annotation.Nullable List<IAMTenantAccessControllerApiUserPermission> permissions) {
     
     this.permissions = permissions;
     return this;
@@ -212,18 +213,18 @@ public class IAMTenantAccessControllerApiRoleAssignment {
    * Get permissions
    * @return permissions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PERMISSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMTenantAccessControllerApiUserPermission> getPermissions() {
     return permissions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PERMISSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPermissions(@javax.annotation.Nonnull List<IAMTenantAccessControllerApiUserPermission> permissions) {
+  @JsonProperty(value = JSON_PROPERTY_PERMISSIONS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPermissions(@javax.annotation.Nullable List<IAMTenantAccessControllerApiUserPermission> permissions) {
     this.permissions = permissions;
   }
 

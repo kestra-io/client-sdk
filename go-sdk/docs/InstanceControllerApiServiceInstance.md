@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Type** | [**ServiceType**](ServiceType.md) |  | 
-**State** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
-**Server** | [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  | 
-**CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to [**ServiceType**](ServiceType.md) |  | [optional] 
+**State** | Pointer to [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
+**Server** | Pointer to [**InstanceControllerApiServerInstance**](InstanceControllerApiServerInstance.md) |  | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiServiceInstance
 
-`func NewInstanceControllerApiServiceInstance(id string, type_ ServiceType, state ServiceServiceState, server InstanceControllerApiServerInstance, createdAt time.Time, updatedAt time.Time, ) *InstanceControllerApiServiceInstance`
+`func NewInstanceControllerApiServiceInstance() *InstanceControllerApiServiceInstance`
 
 NewInstanceControllerApiServiceInstance instantiates a new InstanceControllerApiServiceInstance object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *InstanceControllerApiServiceInstance) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetType
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *InstanceControllerApiServiceInstance) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetState
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
+### HasState
+
+`func (o *InstanceControllerApiServiceInstance) HasState() bool`
+
+HasState returns a boolean if a field has been set.
 
 ### GetServer
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetServer sets Server field to given value.
 
+### HasServer
+
+`func (o *InstanceControllerApiServiceInstance) HasServer() bool`
+
+HasServer returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -129,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *InstanceControllerApiServiceInstance) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -149,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *InstanceControllerApiServiceInstance) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

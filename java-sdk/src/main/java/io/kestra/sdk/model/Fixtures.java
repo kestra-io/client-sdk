@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Fixtures.JSON_PROPERTY_TASKS,
   Fixtures.JSON_PROPERTY_TRIGGER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Fixtures {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @javax.annotation.Nullable
@@ -79,7 +80,7 @@ public class Fixtures {
    * @return inputs
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getInputs() {
@@ -87,7 +88,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
   public void setInputs(@javax.annotation.Nullable Map<String, Object> inputs) {
     this.inputs = inputs;
@@ -112,7 +113,7 @@ public class Fixtures {
    * @return files
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FILES)
+  @JsonProperty(value = JSON_PROPERTY_FILES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getFiles() {
@@ -120,7 +121,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FILES)
+  @JsonProperty(value = JSON_PROPERTY_FILES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFiles(@javax.annotation.Nullable Map<String, String> files) {
     this.files = files;
@@ -145,7 +146,7 @@ public class Fixtures {
    * @return tasks
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<TaskFixture> getTasks() {
@@ -153,7 +154,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTasks(@javax.annotation.Nullable List<TaskFixture> tasks) {
     this.tasks = tasks;
@@ -170,7 +171,7 @@ public class Fixtures {
    * @return trigger
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TriggerFixture getTrigger() {
@@ -178,7 +179,7 @@ public class Fixtures {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRIGGER)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTrigger(@javax.annotation.Nullable TriggerFixture trigger) {
     this.trigger = trigger;

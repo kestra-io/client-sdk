@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Filter** | **string** |  | 
+**Filter** | Pointer to **string** |  | [optional] 
 **Expression** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewFilter
 
-`func NewFilter(filter string, ) *Filter`
+`func NewFilter() *Filter`
 
 NewFilter instantiates a new Filter object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetFilter sets Filter field to given value.
 
+### HasFilter
+
+`func (o *Filter) HasFilter() bool`
+
+HasFilter returns a boolean if a field has been set.
 
 ### GetExpression
 

@@ -8,8 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**uid** | **String** |  |  |
-|**namespace** | **String** |  |  |
-|**id** | **String** |  |  |
+|**namespace** | **String** |  |  [optional] |
+|**id** | **String** |  |  [optional] |
 
 
 

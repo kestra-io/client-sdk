@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ApiRoleSummary type satisfies the MappedNullable interface at compile time
@@ -20,10 +19,10 @@ var _ MappedNullable = &ApiRoleSummary{}
 
 // ApiRoleSummary struct for ApiRoleSummary
 type ApiRoleSummary struct {
-	Id                   string `json:"id"`
-	Name                 string `json:"name"`
-	IsDefault            bool   `json:"isDefault"`
-	IsManaged            bool   `json:"isManaged"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	IsDefault            *bool   `json:"isDefault,omitempty"`
+	IsManaged            *bool   `json:"isManaged,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +32,8 @@ type _ApiRoleSummary ApiRoleSummary
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiRoleSummary(id string, name string, isDefault bool, isManaged bool) *ApiRoleSummary {
+func NewApiRoleSummary() *ApiRoleSummary {
 	this := ApiRoleSummary{}
-	this.Id = id
-	this.Name = name
-	this.IsDefault = isDefault
-	this.IsManaged = isManaged
 	return &this
 }
 
@@ -50,100 +45,132 @@ func NewApiRoleSummaryWithDefaults() *ApiRoleSummary {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *ApiRoleSummary) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiRoleSummary) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *ApiRoleSummary) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *ApiRoleSummary) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *ApiRoleSummary) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiRoleSummary) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *ApiRoleSummary) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *ApiRoleSummary) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetIsDefault returns the IsDefault field value
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
 func (o *ApiRoleSummary) GetIsDefault() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsDefault
+	return *o.IsDefault
 }
 
-// GetIsDefaultOk returns a tuple with the IsDefault field value
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiRoleSummary) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		return nil, false
 	}
-	return &o.IsDefault, true
+	return o.IsDefault, true
 }
 
-// SetIsDefault sets field value
+// HasIsDefault returns a boolean if a field has been set.
+func (o *ApiRoleSummary) HasIsDefault() bool {
+	if o != nil && !IsNil(o.IsDefault) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
 func (o *ApiRoleSummary) SetIsDefault(v bool) {
-	o.IsDefault = v
+	o.IsDefault = &v
 }
 
-// GetIsManaged returns the IsManaged field value
+// GetIsManaged returns the IsManaged field value if set, zero value otherwise.
 func (o *ApiRoleSummary) GetIsManaged() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsManaged) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsManaged
+	return *o.IsManaged
 }
 
-// GetIsManagedOk returns a tuple with the IsManaged field value
+// GetIsManagedOk returns a tuple with the IsManaged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiRoleSummary) GetIsManagedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsManaged) {
 		return nil, false
 	}
-	return &o.IsManaged, true
+	return o.IsManaged, true
 }
 
-// SetIsManaged sets field value
+// HasIsManaged returns a boolean if a field has been set.
+func (o *ApiRoleSummary) HasIsManaged() bool {
+	if o != nil && !IsNil(o.IsManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsManaged gets a reference to the given bool and assigns it to the IsManaged field.
 func (o *ApiRoleSummary) SetIsManaged(v bool) {
-	o.IsManaged = v
+	o.IsManaged = &v
 }
 
 func (o ApiRoleSummary) MarshalJSON() ([]byte, error) {
@@ -156,10 +183,18 @@ func (o ApiRoleSummary) MarshalJSON() ([]byte, error) {
 
 func (o ApiRoleSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["isDefault"] = o.IsDefault
-	toSerialize["isManaged"] = o.IsManaged
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.IsDefault) {
+		toSerialize["isDefault"] = o.IsDefault
+	}
+	if !IsNil(o.IsManaged) {
+		toSerialize["isManaged"] = o.IsManaged
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -169,30 +204,6 @@ func (o ApiRoleSummary) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiRoleSummary) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"isDefault",
-		"isManaged",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varApiRoleSummary := _ApiRoleSummary{}
 
 	err = json.Unmarshal(data, &varApiRoleSummary)

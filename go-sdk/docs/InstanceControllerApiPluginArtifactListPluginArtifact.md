@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Total** | **int32** |  | 
-**Results** | **[]map[string]interface{}** |  | 
+**Total** | Pointer to **int32** |  | [optional] 
+**Results** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginArtifactListPluginArtifact
 
-`func NewInstanceControllerApiPluginArtifactListPluginArtifact(total int32, results []map[string]interface{}, ) *InstanceControllerApiPluginArtifactListPluginArtifact`
+`func NewInstanceControllerApiPluginArtifactListPluginArtifact() *InstanceControllerApiPluginArtifactListPluginArtifact`
 
 NewInstanceControllerApiPluginArtifactListPluginArtifact instantiates a new InstanceControllerApiPluginArtifactListPluginArtifact object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetTotal sets Total field to given value.
 
+### HasTotal
+
+`func (o *InstanceControllerApiPluginArtifactListPluginArtifact) HasTotal() bool`
+
+HasTotal returns a boolean if a field has been set.
 
 ### GetResults
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
+### HasResults
+
+`func (o *InstanceControllerApiPluginArtifactListPluginArtifact) HasResults() bool`
+
+HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

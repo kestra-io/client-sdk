@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -39,36 +40,36 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BlueprintControllerApiBlueprintItem.JSON_PROPERTY_PUBLISHED_AT
 })
 @JsonTypeName("BlueprintController.ApiBlueprintItem")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class BlueprintControllerApiBlueprintItem {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_TITLE = "title";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String title;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_INCLUDED_TASKS = "includedTasks";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> includedTasks = new ArrayList<>();
 
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> tags = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime publishedAt;
 
   public BlueprintControllerApiBlueprintItem() {
   }
 
-  public BlueprintControllerApiBlueprintItem id(@javax.annotation.Nonnull String id) {
+  public BlueprintControllerApiBlueprintItem id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -78,22 +79,22 @@ public class BlueprintControllerApiBlueprintItem {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public BlueprintControllerApiBlueprintItem title(@javax.annotation.Nonnull String title) {
+  public BlueprintControllerApiBlueprintItem title(@javax.annotation.Nullable String title) {
     
     this.title = title;
     return this;
@@ -103,22 +104,22 @@ public class BlueprintControllerApiBlueprintItem {
    * Get title
    * @return title
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTitle(@javax.annotation.Nonnull String title) {
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
   }
 
-  public BlueprintControllerApiBlueprintItem description(@javax.annotation.Nonnull String description) {
+  public BlueprintControllerApiBlueprintItem description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -128,22 +129,22 @@ public class BlueprintControllerApiBlueprintItem {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public BlueprintControllerApiBlueprintItem includedTasks(@javax.annotation.Nonnull List<String> includedTasks) {
+  public BlueprintControllerApiBlueprintItem includedTasks(@javax.annotation.Nullable List<String> includedTasks) {
     
     this.includedTasks = includedTasks;
     return this;
@@ -161,22 +162,22 @@ public class BlueprintControllerApiBlueprintItem {
    * Get includedTasks
    * @return includedTasks
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_INCLUDED_TASKS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getIncludedTasks() {
     return includedTasks;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INCLUDED_TASKS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIncludedTasks(@javax.annotation.Nonnull List<String> includedTasks) {
+  @JsonProperty(value = JSON_PROPERTY_INCLUDED_TASKS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIncludedTasks(@javax.annotation.Nullable List<String> includedTasks) {
     this.includedTasks = includedTasks;
   }
 
-  public BlueprintControllerApiBlueprintItem tags(@javax.annotation.Nonnull List<String> tags) {
+  public BlueprintControllerApiBlueprintItem tags(@javax.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -194,22 +195,22 @@ public class BlueprintControllerApiBlueprintItem {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
     return tags;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<String> tags) {
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 
-  public BlueprintControllerApiBlueprintItem publishedAt(@javax.annotation.Nonnull OffsetDateTime publishedAt) {
+  public BlueprintControllerApiBlueprintItem publishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
     
     this.publishedAt = publishedAt;
     return this;
@@ -219,18 +220,18 @@ public class BlueprintControllerApiBlueprintItem {
    * Get publishedAt
    * @return publishedAt
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PUBLISHED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getPublishedAt() {
     return publishedAt;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPublishedAt(@javax.annotation.Nonnull OffsetDateTime publishedAt) {
+  @JsonProperty(value = JSON_PROPERTY_PUBLISHED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedAt(@javax.annotation.Nullable OffsetDateTime publishedAt) {
     this.publishedAt = publishedAt;
   }
 

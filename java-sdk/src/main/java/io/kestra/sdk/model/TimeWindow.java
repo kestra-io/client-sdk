@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TimeWindow.JSON_PROPERTY_DEFAULT,
   TimeWindow.JSON_PROPERTY_MAX
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TimeWindow {
   public static final String JSON_PROPERTY_DEFAULT = "default";
   @javax.annotation.Nullable
@@ -54,7 +55,7 @@ public class TimeWindow {
    * @return _default
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFAULT)
+  @JsonProperty(value = JSON_PROPERTY_DEFAULT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefault() {
@@ -62,7 +63,7 @@ public class TimeWindow {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT)
+  @JsonProperty(value = JSON_PROPERTY_DEFAULT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefault(@javax.annotation.Nullable String _default) {
     this._default = _default;
@@ -79,7 +80,7 @@ public class TimeWindow {
    * @return max
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMax() {
@@ -87,7 +88,7 @@ public class TimeWindow {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonProperty(value = JSON_PROPERTY_MAX, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMax(@javax.annotation.Nullable String max) {
     this.max = max;

@@ -21,7 +21,7 @@ var _ MappedNullable = &ChartChartOption{}
 // ChartChartOption struct for ChartChartOption
 type ChartChartOption struct {
 	Id                   string                 `json:"id" validate:"regexp=^[a-zA-Z0-9][a-zA-Z0-9_-]*"`
-	Type                 string                 `json:"type" validate:"regexp=\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*(\\\\.\\\\p{javaJavaIdentifierStart}\\\\p{javaJavaIdentifierPart}*)*"`
+	Type                 string                 `json:"type" validate:"regexp=^[A-Za-z_$][A-Za-z0-9_$]*(\\\\.[A-Za-z_$][A-Za-z0-9_$]*)*$"`
 	ChartOptions         map[string]interface{} `json:"chartOptions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

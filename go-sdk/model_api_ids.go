@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ApiIds type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &ApiIds{}
 
 // ApiIds struct for ApiIds
 type ApiIds struct {
-	Ids                  []string `json:"ids"`
+	Ids                  []string `json:"ids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _ApiIds ApiIds
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiIds(ids []string) *ApiIds {
+func NewApiIds() *ApiIds {
 	this := ApiIds{}
-	this.Ids = ids
 	return &this
 }
 
@@ -44,26 +42,34 @@ func NewApiIdsWithDefaults() *ApiIds {
 	return &this
 }
 
-// GetIds returns the Ids field value
+// GetIds returns the Ids field value if set, zero value otherwise.
 func (o *ApiIds) GetIds() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Ids) {
 		var ret []string
 		return ret
 	}
-
 	return o.Ids
 }
 
-// GetIdsOk returns a tuple with the Ids field value
+// GetIdsOk returns a tuple with the Ids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiIds) GetIdsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Ids) {
 		return nil, false
 	}
 	return o.Ids, true
 }
 
-// SetIds sets field value
+// HasIds returns a boolean if a field has been set.
+func (o *ApiIds) HasIds() bool {
+	if o != nil && !IsNil(o.Ids) {
+		return true
+	}
+
+	return false
+}
+
+// SetIds gets a reference to the given []string and assigns it to the Ids field.
 func (o *ApiIds) SetIds(v []string) {
 	o.Ids = v
 }
@@ -78,7 +84,9 @@ func (o ApiIds) MarshalJSON() ([]byte, error) {
 
 func (o ApiIds) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["ids"] = o.Ids
+	if !IsNil(o.Ids) {
+		toSerialize["ids"] = o.Ids
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o ApiIds) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ApiIds) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"ids",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varApiIds := _ApiIds{}
 
 	err = json.Unmarshal(data, &varApiIds)

@@ -5,6 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | **String** |  | 
-**details** | **String** |  | 
+**details** | **String** |  | [optional] 
 
 

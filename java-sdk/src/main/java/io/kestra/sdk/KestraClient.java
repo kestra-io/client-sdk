@@ -41,49 +41,9 @@ public class KestraClient {
     // FIXME we may want to hide some API from the generator (and also from the OpenAPI spec) as some are only there for the UI
     // START -- Individual API
 
-    public AppsApi apps() {
-        return new AppsApi(this.apiClient);
-    }
-
-    public AuditLogsApi auditLogs() {
-        return new AuditLogsApi(this.apiClient);
-    }
-
-    public AuthsApi auths() {
-        return new AuthsApi(this.apiClient);
-    }
-
-    public BannersApi banners() {
-        return new BannersApi(this.apiClient);
-    }
-
-    public BindingsApi bindings() {
-        return new BindingsApi(this.apiClient);
-    }
-
-    public BlueprintsApi blueprints() {
-        return new BlueprintsApi(this.apiClient);
-    }
-
-    public BlueprintTagsApi blueprintTags() {
-        return new BlueprintTagsApi(this.apiClient);
-    }
-
-    public DashboardsApi dashboards() {
-        return new DashboardsApi(this.apiClient);
-    }
-
-    // FIXME why is it named default and not invitation?
-    public DefaultApi defaultApi() {
-        return new DefaultApi(this.apiClient);
-    }
 
     public ExecutionsApi executions() {
         return new ExecutionsApi(this.apiClient);
-    }
-
-    public FilesApi files() {
-        return new FilesApi(this.apiClient);
     }
 
     public FlowsApi flows() {
@@ -94,56 +54,16 @@ public class KestraClient {
         return new GroupsApi(this.apiClient);
     }
 
-    public InvitationsApi invitations() {
-        return new InvitationsApi(this.apiClient);
-    }
-
     public KvApi kv() {
         return new KvApi(this.apiClient);
-    }
-
-    public LogsApi logs() {
-        return new LogsApi(this.apiClient);
-    }
-
-    public MetricsApi metrics() {
-        return new MetricsApi(this.apiClient);
-    }
-
-    public MiscApi misc() {
-        return new MiscApi(this.apiClient);
     }
 
     public NamespacesApi namespaces() {
         return new NamespacesApi(this.apiClient);
     }
 
-    public PluginsApi plugins() {
-        return new PluginsApi(this.apiClient);
-    }
-
     public RolesApi roles() {
         return new RolesApi(this.apiClient);
-    }
-
-    public ScimConfigurationApi scimConfiguration() {
-        return new ScimConfigurationApi(this.apiClient);
-    }
-
-    public SecurityIntegrationsApi securityIntegrations() {
-        return new SecurityIntegrationsApi(this.apiClient);
-    }
-
-    public ServicesApi services() {
-        return new ServicesApi(this.apiClient);
-    }
-
-    public TenantsApi tenants() {
-        return new TenantsApi(this.apiClient);
-    }
-
-    public TestSuitesApi testSuites() {
-        return new TestSuitesApi(this.apiClient);
     }
 
     public TriggersApi triggers() {
@@ -154,9 +74,7 @@ public class KestraClient {
         return new UsersApi(this.apiClient);
     }
 
-    public WorkerGroupsApi workerGroups() {
-        return new WorkerGroupsApi(this.apiClient);
-    }
+    public ServiceAccountApi serviceAccount() { return new ServiceAccountApi(this.apiClient); }
 
     // END -- Individual API
 

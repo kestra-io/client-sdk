@@ -20,9 +20,9 @@ var _ MappedNullable = &FlowGenerationPrompt{}
 
 // FlowGenerationPrompt struct for FlowGenerationPrompt
 type FlowGenerationPrompt struct {
-	ConversationId       string `json:"conversationId"`
-	UserPrompt           string `json:"userPrompt"`
-	FlowYaml             string `json:"flowYaml"`
+	ConversationId       string  `json:"conversationId"`
+	UserPrompt           string  `json:"userPrompt"`
+	FlowYaml             *string `json:"flowYaml,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +32,10 @@ type _FlowGenerationPrompt FlowGenerationPrompt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlowGenerationPrompt(conversationId string, userPrompt string, flowYaml string) *FlowGenerationPrompt {
+func NewFlowGenerationPrompt(conversationId string, userPrompt string) *FlowGenerationPrompt {
 	this := FlowGenerationPrompt{}
 	this.ConversationId = conversationId
 	this.UserPrompt = userPrompt
-	this.FlowYaml = flowYaml
 	return &this
 }
 
@@ -96,28 +95,36 @@ func (o *FlowGenerationPrompt) SetUserPrompt(v string) {
 	o.UserPrompt = v
 }
 
-// GetFlowYaml returns the FlowYaml field value
+// GetFlowYaml returns the FlowYaml field value if set, zero value otherwise.
 func (o *FlowGenerationPrompt) GetFlowYaml() string {
-	if o == nil {
+	if o == nil || IsNil(o.FlowYaml) {
 		var ret string
 		return ret
 	}
-
-	return o.FlowYaml
+	return *o.FlowYaml
 }
 
-// GetFlowYamlOk returns a tuple with the FlowYaml field value
+// GetFlowYamlOk returns a tuple with the FlowYaml field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FlowGenerationPrompt) GetFlowYamlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowYaml) {
 		return nil, false
 	}
-	return &o.FlowYaml, true
+	return o.FlowYaml, true
 }
 
-// SetFlowYaml sets field value
+// HasFlowYaml returns a boolean if a field has been set.
+func (o *FlowGenerationPrompt) HasFlowYaml() bool {
+	if o != nil && !IsNil(o.FlowYaml) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowYaml gets a reference to the given string and assigns it to the FlowYaml field.
 func (o *FlowGenerationPrompt) SetFlowYaml(v string) {
-	o.FlowYaml = v
+	o.FlowYaml = &v
 }
 
 func (o FlowGenerationPrompt) MarshalJSON() ([]byte, error) {
@@ -132,7 +139,9 @@ func (o FlowGenerationPrompt) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["conversationId"] = o.ConversationId
 	toSerialize["userPrompt"] = o.UserPrompt
-	toSerialize["flowYaml"] = o.FlowYaml
+	if !IsNil(o.FlowYaml) {
+		toSerialize["flowYaml"] = o.FlowYaml
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -148,7 +157,6 @@ func (o *FlowGenerationPrompt) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"conversationId",
 		"userPrompt",
-		"flowYaml",
 	}
 
 	allProperties := make(map[string]interface{})

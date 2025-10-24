@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMUserControllerApiUserAuth type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &IAMUserControllerApiUserAuth{}
 
 // IAMUserControllerApiUserAuth struct for IAMUserControllerApiUserAuth
 type IAMUserControllerApiUserAuth struct {
-	Id                   string `json:"id"`
-	Name                 string `json:"name"`
-	Type                 string `json:"type"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _IAMUserControllerApiUserAuth IAMUserControllerApiUserAuth
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMUserControllerApiUserAuth(id string, name string, type_ string) *IAMUserControllerApiUserAuth {
+func NewIAMUserControllerApiUserAuth() *IAMUserControllerApiUserAuth {
 	this := IAMUserControllerApiUserAuth{}
-	this.Id = id
-	this.Name = name
-	this.Type = type_
 	return &this
 }
 
@@ -48,76 +44,100 @@ func NewIAMUserControllerApiUserAuthWithDefaults() *IAMUserControllerApiUserAuth
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMUserControllerApiUserAuth) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUserAuth) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMUserControllerApiUserAuth) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMUserControllerApiUserAuth) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *IAMUserControllerApiUserAuth) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUserAuth) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *IAMUserControllerApiUserAuth) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IAMUserControllerApiUserAuth) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *IAMUserControllerApiUserAuth) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiUserAuth) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *IAMUserControllerApiUserAuth) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *IAMUserControllerApiUserAuth) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 func (o IAMUserControllerApiUserAuth) MarshalJSON() ([]byte, error) {
@@ -130,9 +150,15 @@ func (o IAMUserControllerApiUserAuth) MarshalJSON() ([]byte, error) {
 
 func (o IAMUserControllerApiUserAuth) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o IAMUserControllerApiUserAuth) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *IAMUserControllerApiUserAuth) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"type",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMUserControllerApiUserAuth := _IAMUserControllerApiUserAuth{}
 
 	err = json.Unmarshal(data, &varIAMUserControllerApiUserAuth)

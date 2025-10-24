@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,16 +31,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerApiValidateExecutionInputsResponseApiInputError.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("ExecutionController.ApiValidateExecutionInputsResponse.ApiInputError")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError {
   public static final String JSON_PROPERTY_MESSAGE = "message";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String message;
 
   public ExecutionControllerApiValidateExecutionInputsResponseApiInputError() {
   }
 
-  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@javax.annotation.Nonnull String message) {
+  public ExecutionControllerApiValidateExecutionInputsResponseApiInputError message(@javax.annotation.Nullable String message) {
     
     this.message = message;
     return this;
@@ -49,18 +50,18 @@ public class ExecutionControllerApiValidateExecutionInputsResponseApiInputError 
    * Get message
    * @return message
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMessage() {
     return message;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMessage(@javax.annotation.Nonnull String message) {
+  @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessage(@javax.annotation.Nullable String message) {
     this.message = message;
   }
 

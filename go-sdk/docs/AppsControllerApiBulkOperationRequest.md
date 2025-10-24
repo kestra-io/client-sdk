@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Uids** | **[]string** |  | 
+**Uids** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewAppsControllerApiBulkOperationRequest
 
-`func NewAppsControllerApiBulkOperationRequest(uids []string, ) *AppsControllerApiBulkOperationRequest`
+`func NewAppsControllerApiBulkOperationRequest() *AppsControllerApiBulkOperationRequest`
 
 NewAppsControllerApiBulkOperationRequest instantiates a new AppsControllerApiBulkOperationRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetUids sets Uids field to given value.
 
+### HasUids
+
+`func (o *AppsControllerApiBulkOperationRequest) HasUids() bool`
+
+HasUids returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

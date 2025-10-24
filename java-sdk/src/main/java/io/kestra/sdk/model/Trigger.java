@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -51,11 +52,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Trigger.JSON_PROPERTY_EVALUATE_RUNNING_DATE,
   Trigger.JSON_PROPERTY_WORKER_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Trigger {
   public static final String JSON_PROPERTY_DISABLED = "disabled";
   @javax.annotation.Nullable
-  private Boolean disabled;
+  private Boolean disabled = false;
 
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @javax.annotation.Nullable
@@ -119,7 +120,7 @@ public class Trigger {
    * @return disabled
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDisabled() {
@@ -127,7 +128,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISABLED)
+  @JsonProperty(value = JSON_PROPERTY_DISABLED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDisabled(@javax.annotation.Nullable Boolean disabled) {
     this.disabled = disabled;
@@ -144,7 +145,7 @@ public class Trigger {
    * @return tenantId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTenantId() {
@@ -152,7 +153,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
+  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTenantId(@javax.annotation.Nullable String tenantId) {
     this.tenantId = tenantId;
@@ -169,7 +170,7 @@ public class Trigger {
    * @return namespace
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getNamespace() {
@@ -177,7 +178,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNamespace(@javax.annotation.Nonnull String namespace) {
     this.namespace = namespace;
@@ -194,7 +195,7 @@ public class Trigger {
    * @return flowId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getFlowId() {
@@ -202,7 +203,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFlowId(@javax.annotation.Nonnull String flowId) {
     this.flowId = flowId;
@@ -219,7 +220,7 @@ public class Trigger {
    * @return triggerId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTriggerId() {
@@ -227,7 +228,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRIGGER_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGER_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTriggerId(@javax.annotation.Nonnull String triggerId) {
     this.triggerId = triggerId;
@@ -244,7 +245,7 @@ public class Trigger {
    * @return date
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getDate() {
@@ -252,7 +253,7 @@ public class Trigger {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATE)
+  @JsonProperty(value = JSON_PROPERTY_DATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDate(@javax.annotation.Nonnull OffsetDateTime date) {
     this.date = date;
@@ -275,14 +276,14 @@ public class Trigger {
         return nextExecutionDate.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_NEXT_EXECUTION_DATE)
+  @JsonProperty(value = JSON_PROPERTY_NEXT_EXECUTION_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<OffsetDateTime> getNextExecutionDate_JsonNullable() {
     return nextExecutionDate;
   }
   
-  @JsonProperty(JSON_PROPERTY_NEXT_EXECUTION_DATE)
+  @JsonProperty(value = JSON_PROPERTY_NEXT_EXECUTION_DATE, required = false)
   public void setNextExecutionDate_JsonNullable(JsonNullable<OffsetDateTime> nextExecutionDate) {
     this.nextExecutionDate = nextExecutionDate;
   }
@@ -308,14 +309,14 @@ public class Trigger {
         return backfill.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_BACKFILL)
+  @JsonProperty(value = JSON_PROPERTY_BACKFILL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<Backfill> getBackfill_JsonNullable() {
     return backfill;
   }
   
-  @JsonProperty(JSON_PROPERTY_BACKFILL)
+  @JsonProperty(value = JSON_PROPERTY_BACKFILL, required = false)
   public void setBackfill_JsonNullable(JsonNullable<Backfill> backfill) {
     this.backfill = backfill;
   }
@@ -353,14 +354,14 @@ public class Trigger {
         return stopAfter.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
+  @JsonProperty(value = JSON_PROPERTY_STOP_AFTER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<StateType>> getStopAfter_JsonNullable() {
     return stopAfter;
   }
   
-  @JsonProperty(JSON_PROPERTY_STOP_AFTER)
+  @JsonProperty(value = JSON_PROPERTY_STOP_AFTER, required = false)
   public void setStopAfter_JsonNullable(JsonNullable<List<StateType>> stopAfter) {
     this.stopAfter = stopAfter;
   }
@@ -386,14 +387,14 @@ public class Trigger {
         return executionId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getExecutionId_JsonNullable() {
     return executionId;
   }
   
-  @JsonProperty(JSON_PROPERTY_EXECUTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXECUTION_ID, required = false)
   public void setExecutionId_JsonNullable(JsonNullable<String> executionId) {
     this.executionId = executionId;
   }
@@ -419,14 +420,14 @@ public class Trigger {
         return updatedDate.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_DATE)
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<OffsetDateTime> getUpdatedDate_JsonNullable() {
     return updatedDate;
   }
   
-  @JsonProperty(JSON_PROPERTY_UPDATED_DATE)
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_DATE, required = false)
   public void setUpdatedDate_JsonNullable(JsonNullable<OffsetDateTime> updatedDate) {
     this.updatedDate = updatedDate;
   }
@@ -452,14 +453,14 @@ public class Trigger {
         return evaluateRunningDate.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_EVALUATE_RUNNING_DATE)
+  @JsonProperty(value = JSON_PROPERTY_EVALUATE_RUNNING_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<OffsetDateTime> getEvaluateRunningDate_JsonNullable() {
     return evaluateRunningDate;
   }
   
-  @JsonProperty(JSON_PROPERTY_EVALUATE_RUNNING_DATE)
+  @JsonProperty(value = JSON_PROPERTY_EVALUATE_RUNNING_DATE, required = false)
   public void setEvaluateRunningDate_JsonNullable(JsonNullable<OffsetDateTime> evaluateRunningDate) {
     this.evaluateRunningDate = evaluateRunningDate;
   }
@@ -485,14 +486,14 @@ public class Trigger {
         return workerId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getWorkerId_JsonNullable() {
     return workerId;
   }
   
-  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_ID, required = false)
   public void setWorkerId_JsonNullable(JsonNullable<String> workerId) {
     this.workerId = workerId;
   }

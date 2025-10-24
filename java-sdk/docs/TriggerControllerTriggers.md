@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**abstractTrigger** | [**AbstractTrigger**](AbstractTrigger.md) |  |  |
-|**triggerContext** | [**Trigger**](Trigger.md) |  |  |
+|**abstractTrigger** | [**AbstractTrigger**](AbstractTrigger.md) |  |  [optional] |
+|**triggerContext** | [**Trigger**](Trigger.md) |  |  [optional] |
 
 
 

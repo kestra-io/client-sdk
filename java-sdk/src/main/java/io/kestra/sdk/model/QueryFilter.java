@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   QueryFilter.JSON_PROPERTY_OPERATION,
   QueryFilter.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class QueryFilter {
   public static final String JSON_PROPERTY_FIELD = "field";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private QueryFilterField field;
 
   public static final String JSON_PROPERTY_OPERATION = "operation";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private QueryFilterOp operation;
 
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Object value;
 
   public QueryFilter() {
   }
 
-  public QueryFilter field(@javax.annotation.Nonnull QueryFilterField field) {
+  public QueryFilter field(@javax.annotation.Nullable QueryFilterField field) {
     
     this.field = field;
     return this;
@@ -60,22 +61,22 @@ public class QueryFilter {
    * Get field
    * @return field
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIELD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FIELD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public QueryFilterField getField() {
     return field;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIELD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setField(@javax.annotation.Nonnull QueryFilterField field) {
+  @JsonProperty(value = JSON_PROPERTY_FIELD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setField(@javax.annotation.Nullable QueryFilterField field) {
     this.field = field;
   }
 
-  public QueryFilter operation(@javax.annotation.Nonnull QueryFilterOp operation) {
+  public QueryFilter operation(@javax.annotation.Nullable QueryFilterOp operation) {
     
     this.operation = operation;
     return this;
@@ -85,22 +86,22 @@ public class QueryFilter {
    * Get operation
    * @return operation
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public QueryFilterOp getOperation() {
     return operation;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOperation(@javax.annotation.Nonnull QueryFilterOp operation) {
+  @JsonProperty(value = JSON_PROPERTY_OPERATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOperation(@javax.annotation.Nullable QueryFilterOp operation) {
     this.operation = operation;
   }
 
-  public QueryFilter value(@javax.annotation.Nonnull Object value) {
+  public QueryFilter value(@javax.annotation.Nullable Object value) {
     
     this.value = value;
     return this;
@@ -110,18 +111,18 @@ public class QueryFilter {
    * Get value
    * @return value
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getValue() {
     return value;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValue(@javax.annotation.Nonnull Object value) {
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValue(@javax.annotation.Nullable Object value) {
     this.value = value;
   }
 

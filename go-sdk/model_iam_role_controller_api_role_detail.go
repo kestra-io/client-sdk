@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMRoleControllerApiRoleDetail type satisfies the MappedNullable interface at compile time
@@ -20,12 +19,12 @@ var _ MappedNullable = &IAMRoleControllerApiRoleDetail{}
 
 // IAMRoleControllerApiRoleDetail struct for IAMRoleControllerApiRoleDetail
 type IAMRoleControllerApiRoleDetail struct {
-	Id                   string                                                   `json:"id"`
-	Name                 string                                                   `json:"name"`
-	Description          string                                                   `json:"description"`
-	Permissions          IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions `json:"permissions"`
-	IsDefault            bool                                                     `json:"isDefault"`
-	IsManaged            bool                                                     `json:"isManaged"`
+	Id                   *string                                                   `json:"id,omitempty"`
+	Name                 *string                                                   `json:"name,omitempty"`
+	Description          *string                                                   `json:"description,omitempty"`
+	Permissions          *IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions `json:"permissions,omitempty"`
+	IsDefault            *bool                                                     `json:"isDefault,omitempty"`
+	IsManaged            *bool                                                     `json:"isManaged,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,14 +34,8 @@ type _IAMRoleControllerApiRoleDetail IAMRoleControllerApiRoleDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMRoleControllerApiRoleDetail(id string, name string, description string, permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, isDefault bool, isManaged bool) *IAMRoleControllerApiRoleDetail {
+func NewIAMRoleControllerApiRoleDetail() *IAMRoleControllerApiRoleDetail {
 	this := IAMRoleControllerApiRoleDetail{}
-	this.Id = id
-	this.Name = name
-	this.Description = description
-	this.Permissions = permissions
-	this.IsDefault = isDefault
-	this.IsManaged = isManaged
 	return &this
 }
 
@@ -54,148 +47,196 @@ func NewIAMRoleControllerApiRoleDetailWithDefaults() *IAMRoleControllerApiRoleDe
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMRoleControllerApiRoleDetail) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IAMRoleControllerApiRoleDetail) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *IAMRoleControllerApiRoleDetail) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetPermissions returns the Permissions field value
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetPermissions() IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
-	if o == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions
 		return ret
 	}
-
-	return o.Permissions
+	return *o.Permissions
 }
 
-// GetPermissionsOk returns a tuple with the Permissions field value
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetPermissionsOk() (*IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
-	return &o.Permissions, true
+	return o.Permissions, true
 }
 
-// SetPermissions sets field value
+// HasPermissions returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasPermissions() bool {
+	if o != nil && !IsNil(o.Permissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions and assigns it to the Permissions field.
 func (o *IAMRoleControllerApiRoleDetail) SetPermissions(v IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions) {
-	o.Permissions = v
+	o.Permissions = &v
 }
 
-// GetIsDefault returns the IsDefault field value
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetIsDefault() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsDefault
+	return *o.IsDefault
 }
 
-// GetIsDefaultOk returns a tuple with the IsDefault field value
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		return nil, false
 	}
-	return &o.IsDefault, true
+	return o.IsDefault, true
 }
 
-// SetIsDefault sets field value
+// HasIsDefault returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasIsDefault() bool {
+	if o != nil && !IsNil(o.IsDefault) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
 func (o *IAMRoleControllerApiRoleDetail) SetIsDefault(v bool) {
-	o.IsDefault = v
+	o.IsDefault = &v
 }
 
-// GetIsManaged returns the IsManaged field value
+// GetIsManaged returns the IsManaged field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleDetail) GetIsManaged() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsManaged) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsManaged
+	return *o.IsManaged
 }
 
-// GetIsManagedOk returns a tuple with the IsManaged field value
+// GetIsManagedOk returns a tuple with the IsManaged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleDetail) GetIsManagedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsManaged) {
 		return nil, false
 	}
-	return &o.IsManaged, true
+	return o.IsManaged, true
 }
 
-// SetIsManaged sets field value
+// HasIsManaged returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleDetail) HasIsManaged() bool {
+	if o != nil && !IsNil(o.IsManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsManaged gets a reference to the given bool and assigns it to the IsManaged field.
 func (o *IAMRoleControllerApiRoleDetail) SetIsManaged(v bool) {
-	o.IsManaged = v
+	o.IsManaged = &v
 }
 
 func (o IAMRoleControllerApiRoleDetail) MarshalJSON() ([]byte, error) {
@@ -208,12 +249,24 @@ func (o IAMRoleControllerApiRoleDetail) MarshalJSON() ([]byte, error) {
 
 func (o IAMRoleControllerApiRoleDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["description"] = o.Description
-	toSerialize["permissions"] = o.Permissions
-	toSerialize["isDefault"] = o.IsDefault
-	toSerialize["isManaged"] = o.IsManaged
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.IsDefault) {
+		toSerialize["isDefault"] = o.IsDefault
+	}
+	if !IsNil(o.IsManaged) {
+		toSerialize["isManaged"] = o.IsManaged
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -223,32 +276,6 @@ func (o IAMRoleControllerApiRoleDetail) ToMap() (map[string]interface{}, error) 
 }
 
 func (o *IAMRoleControllerApiRoleDetail) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"description",
-		"permissions",
-		"isDefault",
-		"isManaged",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMRoleControllerApiRoleDetail := _IAMRoleControllerApiRoleDetail{}
 
 	err = json.Unmarshal(data, &varIAMRoleControllerApiRoleDetail)

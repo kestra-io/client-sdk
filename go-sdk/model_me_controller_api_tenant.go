@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the MeControllerApiTenant type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &MeControllerApiTenant{}
 
 // MeControllerApiTenant struct for MeControllerApiTenant
 type MeControllerApiTenant struct {
-	Id                   string `json:"id"`
-	Name                 string `json:"name"`
-	Logo                 string `json:"logo"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Logo                 *string `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _MeControllerApiTenant MeControllerApiTenant
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMeControllerApiTenant(id string, name string, logo string) *MeControllerApiTenant {
+func NewMeControllerApiTenant() *MeControllerApiTenant {
 	this := MeControllerApiTenant{}
-	this.Id = id
-	this.Name = name
-	this.Logo = logo
 	return &this
 }
 
@@ -48,76 +44,100 @@ func NewMeControllerApiTenantWithDefaults() *MeControllerApiTenant {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *MeControllerApiTenant) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiTenant) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *MeControllerApiTenant) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *MeControllerApiTenant) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *MeControllerApiTenant) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiTenant) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *MeControllerApiTenant) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *MeControllerApiTenant) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetLogo returns the Logo field value
+// GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *MeControllerApiTenant) GetLogo() string {
-	if o == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret string
 		return ret
 	}
-
-	return o.Logo
+	return *o.Logo
 }
 
-// GetLogoOk returns a tuple with the Logo field value
+// GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MeControllerApiTenant) GetLogoOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
-	return &o.Logo, true
+	return o.Logo, true
 }
 
-// SetLogo sets field value
+// HasLogo returns a boolean if a field has been set.
+func (o *MeControllerApiTenant) HasLogo() bool {
+	if o != nil && !IsNil(o.Logo) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogo gets a reference to the given string and assigns it to the Logo field.
 func (o *MeControllerApiTenant) SetLogo(v string) {
-	o.Logo = v
+	o.Logo = &v
 }
 
 func (o MeControllerApiTenant) MarshalJSON() ([]byte, error) {
@@ -130,9 +150,15 @@ func (o MeControllerApiTenant) MarshalJSON() ([]byte, error) {
 
 func (o MeControllerApiTenant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
-	toSerialize["logo"] = o.Logo
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Logo) {
+		toSerialize["logo"] = o.Logo
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o MeControllerApiTenant) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MeControllerApiTenant) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-		"logo",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varMeControllerApiTenant := _MeControllerApiTenant{}
 
 	err = json.Unmarshal(data, &varMeControllerApiTenant)

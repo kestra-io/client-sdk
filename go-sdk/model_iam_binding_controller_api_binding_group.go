@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMBindingControllerApiBindingGroup type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &IAMBindingControllerApiBindingGroup{}
 
 // IAMBindingControllerApiBindingGroup struct for IAMBindingControllerApiBindingGroup
 type IAMBindingControllerApiBindingGroup struct {
-	Id                   string `json:"id"`
-	Name                 string `json:"name"`
+	Id                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _IAMBindingControllerApiBindingGroup IAMBindingControllerApiBindingGroup
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMBindingControllerApiBindingGroup(id string, name string) *IAMBindingControllerApiBindingGroup {
+func NewIAMBindingControllerApiBindingGroup() *IAMBindingControllerApiBindingGroup {
 	this := IAMBindingControllerApiBindingGroup{}
-	this.Id = id
-	this.Name = name
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewIAMBindingControllerApiBindingGroupWithDefaults() *IAMBindingControllerA
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMBindingControllerApiBindingGroup) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMBindingControllerApiBindingGroup) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMBindingControllerApiBindingGroup) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMBindingControllerApiBindingGroup) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *IAMBindingControllerApiBindingGroup) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMBindingControllerApiBindingGroup) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *IAMBindingControllerApiBindingGroup) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *IAMBindingControllerApiBindingGroup) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 func (o IAMBindingControllerApiBindingGroup) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o IAMBindingControllerApiBindingGroup) MarshalJSON() ([]byte, error) {
 
 func (o IAMBindingControllerApiBindingGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["name"] = o.Name
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o IAMBindingControllerApiBindingGroup) ToMap() (map[string]interface{}, er
 }
 
 func (o *IAMBindingControllerApiBindingGroup) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMBindingControllerApiBindingGroup := _IAMBindingControllerApiBindingGroup{}
 
 	err = json.Unmarshal(data, &varIAMBindingControllerApiBindingGroup)

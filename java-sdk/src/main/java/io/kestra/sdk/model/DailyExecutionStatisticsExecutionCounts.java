@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -44,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DailyExecutionStatisticsExecutionCounts.JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T
 })
 @JsonTypeName("DailyExecutionStatistics_executionCounts")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DailyExecutionStatisticsExecutionCounts {
   public static final String JSON_PROPERTY_C_R_E_A_T_E_D = "CREATED";
   @javax.annotation.Nullable
@@ -120,7 +121,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return CREATED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_C_R_E_A_T_E_D)
+  @JsonProperty(value = JSON_PROPERTY_C_R_E_A_T_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCREATED() {
@@ -128,7 +129,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_C_R_E_A_T_E_D)
+  @JsonProperty(value = JSON_PROPERTY_C_R_E_A_T_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCREATED(@javax.annotation.Nullable Long CREATED) {
     this.CREATED = CREATED;
@@ -145,7 +146,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return RUNNING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R_U_N_N_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_R_U_N_N_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRUNNING() {
@@ -153,7 +154,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_R_U_N_N_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_R_U_N_N_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRUNNING(@javax.annotation.Nullable Long RUNNING) {
     this.RUNNING = RUNNING;
@@ -170,7 +171,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return PAUSED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_P_A_U_S_E_D)
+  @JsonProperty(value = JSON_PROPERTY_P_A_U_S_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getPAUSED() {
@@ -178,7 +179,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_P_A_U_S_E_D)
+  @JsonProperty(value = JSON_PROPERTY_P_A_U_S_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPAUSED(@javax.annotation.Nullable Long PAUSED) {
     this.PAUSED = PAUSED;
@@ -195,7 +196,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return RESTARTED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R_E_S_T_A_R_T_E_D)
+  @JsonProperty(value = JSON_PROPERTY_R_E_S_T_A_R_T_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRESTARTED() {
@@ -203,7 +204,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_R_E_S_T_A_R_T_E_D)
+  @JsonProperty(value = JSON_PROPERTY_R_E_S_T_A_R_T_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRESTARTED(@javax.annotation.Nullable Long RESTARTED) {
     this.RESTARTED = RESTARTED;
@@ -220,7 +221,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return KILLING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_K_I_L_L_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_K_I_L_L_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getKILLING() {
@@ -228,7 +229,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_K_I_L_L_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_K_I_L_L_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKILLING(@javax.annotation.Nullable Long KILLING) {
     this.KILLING = KILLING;
@@ -245,7 +246,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return SUCCESS
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S_U_C_C_E_S_S)
+  @JsonProperty(value = JSON_PROPERTY_S_U_C_C_E_S_S, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSUCCESS() {
@@ -253,7 +254,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_S_U_C_C_E_S_S)
+  @JsonProperty(value = JSON_PROPERTY_S_U_C_C_E_S_S, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSUCCESS(@javax.annotation.Nullable Long SUCCESS) {
     this.SUCCESS = SUCCESS;
@@ -270,7 +271,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return WARNING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_W_A_R_N_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_W_A_R_N_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getWARNING() {
@@ -278,7 +279,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_W_A_R_N_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_W_A_R_N_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWARNING(@javax.annotation.Nullable Long WARNING) {
     this.WARNING = WARNING;
@@ -295,7 +296,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return FAILED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_F_A_I_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_F_A_I_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getFAILED() {
@@ -303,7 +304,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_F_A_I_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_F_A_I_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFAILED(@javax.annotation.Nullable Long FAILED) {
     this.FAILED = FAILED;
@@ -320,7 +321,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return KILLED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_K_I_L_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_K_I_L_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getKILLED() {
@@ -328,7 +329,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_K_I_L_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_K_I_L_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKILLED(@javax.annotation.Nullable Long KILLED) {
     this.KILLED = KILLED;
@@ -345,7 +346,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return CANCELLED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_C_A_N_C_E_L_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_C_A_N_C_E_L_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getCANCELLED() {
@@ -353,7 +354,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_C_A_N_C_E_L_L_E_D)
+  @JsonProperty(value = JSON_PROPERTY_C_A_N_C_E_L_L_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCANCELLED(@javax.annotation.Nullable Long CANCELLED) {
     this.CANCELLED = CANCELLED;
@@ -370,7 +371,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return QUEUED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_Q_U_E_U_E_D)
+  @JsonProperty(value = JSON_PROPERTY_Q_U_E_U_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getQUEUED() {
@@ -378,7 +379,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_Q_U_E_U_E_D)
+  @JsonProperty(value = JSON_PROPERTY_Q_U_E_U_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setQUEUED(@javax.annotation.Nullable Long QUEUED) {
     this.QUEUED = QUEUED;
@@ -395,7 +396,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return RETRYING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R_E_T_R_Y_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_R_E_T_R_Y_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRETRYING() {
@@ -403,7 +404,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_R_E_T_R_Y_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_R_E_T_R_Y_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRETRYING(@javax.annotation.Nullable Long RETRYING) {
     this.RETRYING = RETRYING;
@@ -420,7 +421,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return RETRIED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R_E_T_R_I_E_D)
+  @JsonProperty(value = JSON_PROPERTY_R_E_T_R_I_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getRETRIED() {
@@ -428,7 +429,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_R_E_T_R_I_E_D)
+  @JsonProperty(value = JSON_PROPERTY_R_E_T_R_I_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRETRIED(@javax.annotation.Nullable Long RETRIED) {
     this.RETRIED = RETRIED;
@@ -445,7 +446,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return SKIPPED
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S_K_I_P_P_E_D)
+  @JsonProperty(value = JSON_PROPERTY_S_K_I_P_P_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSKIPPED() {
@@ -453,7 +454,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_S_K_I_P_P_E_D)
+  @JsonProperty(value = JSON_PROPERTY_S_K_I_P_P_E_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSKIPPED(@javax.annotation.Nullable Long SKIPPED) {
     this.SKIPPED = SKIPPED;
@@ -470,7 +471,7 @@ public class DailyExecutionStatisticsExecutionCounts {
    * @return BREAKPOINT
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T)
+  @JsonProperty(value = JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getBREAKPOINT() {
@@ -478,7 +479,7 @@ public class DailyExecutionStatisticsExecutionCounts {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T)
+  @JsonProperty(value = JSON_PROPERTY_B_R_E_A_K_P_O_I_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBREAKPOINT(@javax.annotation.Nullable Long BREAKPOINT) {
     this.BREAKPOINT = BREAKPOINT;

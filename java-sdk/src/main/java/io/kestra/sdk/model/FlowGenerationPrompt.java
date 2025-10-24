@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGenerationPrompt.JSON_PROPERTY_USER_PROMPT,
   FlowGenerationPrompt.JSON_PROPERTY_FLOW_YAML
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGenerationPrompt {
   public static final String JSON_PROPERTY_CONVERSATION_ID = "conversationId";
   @javax.annotation.Nonnull
@@ -42,7 +43,7 @@ public class FlowGenerationPrompt {
   private String userPrompt;
 
   public static final String JSON_PROPERTY_FLOW_YAML = "flowYaml";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String flowYaml;
 
   public FlowGenerationPrompt() {
@@ -59,7 +60,7 @@ public class FlowGenerationPrompt {
    * @return conversationId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSATION_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getConversationId() {
@@ -67,7 +68,7 @@ public class FlowGenerationPrompt {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSATION_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConversationId(@javax.annotation.Nonnull String conversationId) {
     this.conversationId = conversationId;
@@ -84,7 +85,7 @@ public class FlowGenerationPrompt {
    * @return userPrompt
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonProperty(value = JSON_PROPERTY_USER_PROMPT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUserPrompt() {
@@ -92,13 +93,13 @@ public class FlowGenerationPrompt {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_PROMPT)
+  @JsonProperty(value = JSON_PROPERTY_USER_PROMPT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUserPrompt(@javax.annotation.Nonnull String userPrompt) {
     this.userPrompt = userPrompt;
   }
 
-  public FlowGenerationPrompt flowYaml(@javax.annotation.Nonnull String flowYaml) {
+  public FlowGenerationPrompt flowYaml(@javax.annotation.Nullable String flowYaml) {
     
     this.flowYaml = flowYaml;
     return this;
@@ -108,18 +109,18 @@ public class FlowGenerationPrompt {
    * Get flowYaml
    * @return flowYaml
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_YAML)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FLOW_YAML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowYaml() {
     return flowYaml;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_YAML)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowYaml(@javax.annotation.Nonnull String flowYaml) {
+  @JsonProperty(value = JSON_PROPERTY_FLOW_YAML, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowYaml(@javax.annotation.Nullable String flowYaml) {
     this.flowYaml = flowYaml;
   }
 

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,24 +32,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateApiTokenResponse.JSON_PROPERTY_NAME,
   CreateApiTokenResponse.JSON_PROPERTY_FULL_TOKEN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class CreateApiTokenResponse {
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_FULL_TOKEN = "fullToken";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String fullToken;
 
   public CreateApiTokenResponse() {
   }
 
-  public CreateApiTokenResponse id(@javax.annotation.Nonnull String id) {
+  public CreateApiTokenResponse id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -58,22 +59,22 @@ public class CreateApiTokenResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public CreateApiTokenResponse name(@javax.annotation.Nonnull String name) {
+  public CreateApiTokenResponse name(@javax.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -83,22 +84,22 @@ public class CreateApiTokenResponse {
    * Get name
    * @return name
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(@javax.annotation.Nonnull String name) {
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public CreateApiTokenResponse fullToken(@javax.annotation.Nonnull String fullToken) {
+  public CreateApiTokenResponse fullToken(@javax.annotation.Nullable String fullToken) {
     
     this.fullToken = fullToken;
     return this;
@@ -108,18 +109,18 @@ public class CreateApiTokenResponse {
    * Get fullToken
    * @return fullToken
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FULL_TOKEN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFullToken() {
     return fullToken;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FULL_TOKEN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFullToken(@javax.annotation.Nonnull String fullToken) {
+  @JsonProperty(value = JSON_PROPERTY_FULL_TOKEN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFullToken(@javax.annotation.Nullable String fullToken) {
     this.fullToken = fullToken;
   }
 

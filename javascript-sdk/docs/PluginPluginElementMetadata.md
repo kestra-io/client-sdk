@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cls** | **String** |  | 
-**deprecated** | **Boolean** |  | 
+**cls** | **String** |  | [optional] 
+**deprecated** | **Boolean** |  | [optional] 
 
 

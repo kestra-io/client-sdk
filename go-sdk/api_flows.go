@@ -3839,11 +3839,11 @@ type ApiValidateTriggerRequest struct {
 	ctx        context.Context
 	ApiService *FlowsAPIService
 	tenant     string
-	body       *string
+	body       *map[string]interface{}
 }
 
 // The trigger
-func (r ApiValidateTriggerRequest) Body(body string) ApiValidateTriggerRequest {
+func (r ApiValidateTriggerRequest) Body(body map[string]interface{}) ApiValidateTriggerRequest {
 	r.body = &body
 	return r
 }

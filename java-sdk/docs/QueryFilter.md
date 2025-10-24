@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**field** | **QueryFilterField** |  |  |
-|**operation** | **QueryFilterOp** |  |  |
-|**value** | **Object** |  |  |
+|**field** | **QueryFilterField** |  |  [optional] |
+|**operation** | **QueryFilterOp** |  |  [optional] |
+|**value** | **Object** |  |  [optional] |
 
 
 

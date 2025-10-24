@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**name** | **String** |  |  |
-|**value** | **String** |  |  |
-|**operations** | [**List&lt;QueryFilterOperation&gt;**](QueryFilterOperation.md) |  |  |
+|**name** | **String** |  |  [optional] |
+|**value** | **String** |  |  [optional] |
+|**operations** | [**List&lt;QueryFilterOperation&gt;**](QueryFilterOperation.md) |  |  [optional] |
 
 
 

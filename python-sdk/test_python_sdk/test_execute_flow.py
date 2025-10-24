@@ -9,7 +9,7 @@ def kestra_client():
     return KestraClient(configuration)
 
 def test_execute_flow():
-    api_client = kestra_client()
+    kestra = kestra_client()
 
 
     tenant = 'main'
@@ -38,7 +38,7 @@ def test_execute_flow():
     """
 
     try:
-        flow_deleted = api_client.flows.delete_flow(
+        flow_deleted = kestra.flows.delete_flow(
             id=flow_id,
             namespace=namespace,
             tenant=tenant,
@@ -46,13 +46,13 @@ def test_execute_flow():
     except:
         print("Flow probably does not exist, continuing...")
 
-    flow_created = api_client.flows.create_flow(
+    flow_created = kestra.flows.create_flow(
         tenant,
         body
     )
     print("Flow created")
 
-    execution_created = api_client.executions.create_execution(
+    execution_created = kestra.executions.create_execution(
         namespace=namespace,
         id=flow_id,
         wait=False,
@@ -63,7 +63,7 @@ def test_execute_flow():
 
     print(f"Created execution: {execution_id}")
 
-    execution_fetched = api_client.executions.get_execution(
+    execution_fetched = kestra.executions.get_execution(
         tenant=tenant,
         execution_id=execution_id
 
@@ -72,7 +72,7 @@ def test_execute_flow():
 
     print("execution created, following it")
 
-    following_execution = api_client.executions.follow_execution_sse(
+    following_execution = kestra.executions.follow_execution_sse(
         execution_id=execution_id,
         tenant=tenant
     )
@@ -89,7 +89,7 @@ def test_execute_flow():
 
 
     print("Replay execution")
-    replayed_execution = api_client.executions.replay_execution(
+    replayed_execution = kestra.executions.replay_execution(
         tenant=tenant,
         execution_id=execution_id
     )
@@ -98,7 +98,7 @@ def test_execute_flow():
 
 
     print("Search execution by flow id")
-    search_execution = api_client.executions.search_executions_by_flow_id(
+    search_execution = kestra.executions.search_executions_by_flow_id(
         tenant=tenant,
         namespace=namespace,
         flow_id=flow_id,

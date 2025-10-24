@@ -16,17 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The AppsControllerApiAppTags model module.
  * @module model/AppsControllerApiAppTags
- * @version 1.0.0
+ * @version v1.0.5
  */
 class AppsControllerApiAppTags {
     /**
      * Constructs a new <code>AppsControllerApiAppTags</code>.
      * @alias module:model/AppsControllerApiAppTags
-     * @param tags {Array.<String>} 
      */
-    constructor(tags) { 
+    constructor() { 
         
-        AppsControllerApiAppTags.initialize(this, tags);
+        AppsControllerApiAppTags.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class AppsControllerApiAppTags {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, tags) { 
-        obj['tags'] = tags;
+    static initialize(obj) { 
     }
 
     /**
@@ -62,12 +60,6 @@ class AppsControllerApiAppTags {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>AppsControllerApiAppTags</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of AppsControllerApiAppTags.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is an array
         if (!Array.isArray(data['tags'])) {
             throw new Error("Expected the field `tags` to be an array in the JSON data but got " + data['tags']);
@@ -79,7 +71,7 @@ class AppsControllerApiAppTags {
 
 }
 
-AppsControllerApiAppTags.RequiredProperties = ["tags"];
+
 
 /**
  * @member {Array.<String>} tags

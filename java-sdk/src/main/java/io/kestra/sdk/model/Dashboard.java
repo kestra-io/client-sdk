@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Dashboard.JSON_PROPERTY_CHARTS,
   Dashboard.JSON_PROPERTY_SOURCE_CODE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Dashboard {
   public static final String JSON_PROPERTY_TITLE = "title";
   @javax.annotation.Nonnull
@@ -74,7 +75,7 @@ public class Dashboard {
    * @return title
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTitle() {
@@ -82,7 +83,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTitle(@javax.annotation.Nonnull String title) {
     this.title = title;
@@ -99,7 +100,7 @@ public class Dashboard {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -107,7 +108,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -124,7 +125,7 @@ public class Dashboard {
    * @return timeWindow
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
+  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TimeWindow getTimeWindow() {
@@ -132,7 +133,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
+  @JsonProperty(value = JSON_PROPERTY_TIME_WINDOW, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeWindow(@javax.annotation.Nullable TimeWindow timeWindow) {
     this.timeWindow = timeWindow;
@@ -157,7 +158,7 @@ public class Dashboard {
    * @return charts
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ChartChartOption> getCharts() {
@@ -165,7 +166,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCharts(@javax.annotation.Nullable List<ChartChartOption> charts) {
     this.charts = charts;
@@ -182,7 +183,7 @@ public class Dashboard {
    * @return sourceCode
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
+  @JsonProperty(value = JSON_PROPERTY_SOURCE_CODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSourceCode() {
@@ -190,7 +191,7 @@ public class Dashboard {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOURCE_CODE)
+  @JsonProperty(value = JSON_PROPERTY_SOURCE_CODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSourceCode(@javax.annotation.Nullable String sourceCode) {
     this.sourceCode = sourceCode;

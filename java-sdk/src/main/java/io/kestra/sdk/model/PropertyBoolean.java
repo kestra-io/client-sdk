@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,10 +32,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PropertyBoolean.JSON_PROPERTY_VALUE
 })
 @JsonTypeName("Property_Boolean_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PropertyBoolean {
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String expression;
 
   public static final String JSON_PROPERTY_VALUE = "value";
@@ -44,7 +45,7 @@ public class PropertyBoolean {
   public PropertyBoolean() {
   }
 
-  public PropertyBoolean expression(@javax.annotation.Nonnull String expression) {
+  public PropertyBoolean expression(@javax.annotation.Nullable String expression) {
     
     this.expression = expression;
     return this;
@@ -54,18 +55,18 @@ public class PropertyBoolean {
    * Get expression
    * @return expression
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExpression() {
     return expression;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExpression(@javax.annotation.Nonnull String expression) {
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpression(@javax.annotation.Nullable String expression) {
     this.expression = expression;
   }
 
@@ -80,7 +81,7 @@ public class PropertyBoolean {
    * @return value
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getValue() {
@@ -88,7 +89,7 @@ public class PropertyBoolean {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable Boolean value) {
     this.value = value;

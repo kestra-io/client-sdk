@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiPluginListRequest.JSON_PROPERTY_PLUGINS
 })
 @JsonTypeName("InstanceController.ApiPluginListRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiPluginListRequest {
   public static final String JSON_PROPERTY_PLUGINS = "plugins";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> plugins = new ArrayList<>();
 
   public InstanceControllerApiPluginListRequest() {
   }
 
-  public InstanceControllerApiPluginListRequest plugins(@javax.annotation.Nonnull List<String> plugins) {
+  public InstanceControllerApiPluginListRequest plugins(@javax.annotation.Nullable List<String> plugins) {
     
     this.plugins = plugins;
     return this;
@@ -60,18 +61,18 @@ public class InstanceControllerApiPluginListRequest {
    * Get plugins
    * @return plugins
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PLUGINS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getPlugins() {
     return plugins;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PLUGINS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPlugins(@javax.annotation.Nonnull List<String> plugins) {
+  @JsonProperty(value = JSON_PROPERTY_PLUGINS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPlugins(@javax.annotation.Nullable List<String> plugins) {
     this.plugins = plugins;
   }
 

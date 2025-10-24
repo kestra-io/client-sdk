@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   UserUsage.JSON_PROPERTY_OIDC_COUNT,
   UserUsage.JSON_PROPERTY_BASIC_AUTH_COUNT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UserUsage {
   public static final String JSON_PROPERTY_COUNT = "count";
   @javax.annotation.Nonnull
@@ -64,7 +65,7 @@ public class UserUsage {
    * @return count
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getCount() {
@@ -72,7 +73,7 @@ public class UserUsage {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCount(@javax.annotation.Nonnull Long count) {
     this.count = count;
@@ -89,7 +90,7 @@ public class UserUsage {
    * @return apiKeyCount
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_API_KEY_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_API_KEY_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getApiKeyCount() {
@@ -97,7 +98,7 @@ public class UserUsage {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_API_KEY_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_API_KEY_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setApiKeyCount(@javax.annotation.Nonnull Long apiKeyCount) {
     this.apiKeyCount = apiKeyCount;
@@ -114,7 +115,7 @@ public class UserUsage {
    * @return oidcCount
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_OIDC_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_OIDC_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getOidcCount() {
@@ -122,7 +123,7 @@ public class UserUsage {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OIDC_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_OIDC_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setOidcCount(@javax.annotation.Nonnull Long oidcCount) {
     this.oidcCount = oidcCount;
@@ -139,7 +140,7 @@ public class UserUsage {
    * @return basicAuthCount
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BASIC_AUTH_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_BASIC_AUTH_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getBasicAuthCount() {
@@ -147,7 +148,7 @@ public class UserUsage {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BASIC_AUTH_COUNT)
+  @JsonProperty(value = JSON_PROPERTY_BASIC_AUTH_COUNT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setBasicAuthCount(@javax.annotation.Nonnull Long basicAuthCount) {
     this.basicAuthCount = basicAuthCount;

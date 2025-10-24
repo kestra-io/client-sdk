@@ -5,6 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **namespace** | **String** |  | 
-**flowId** | **String** |  | 
+**flowId** | **String** |  | [optional] 
 
 

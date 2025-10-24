@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**flowId** | **String** |  | 
-**namespace** | **String** |  | 
-**startDate** | **Date** |  | 
-**status** | [**StateType**](StateType.md) |  | 
+**id** | **String** |  | [optional] 
+**flowId** | **String** |  | [optional] 
+**namespace** | **String** |  | [optional] 
+**startDate** | **Date** |  | [optional] 
+**status** | [**StateType**](StateType.md) |  | [optional] 
 
 

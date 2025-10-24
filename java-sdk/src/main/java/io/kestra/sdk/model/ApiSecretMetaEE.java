@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ApiSecretMetaEE.JSON_PROPERTY_TAGS,
   ApiSecretMetaEE.JSON_PROPERTY_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiSecretMetaEE {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @javax.annotation.Nonnull
@@ -63,7 +64,7 @@ public class ApiSecretMetaEE {
    * @return description
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
@@ -71,7 +72,7 @@ public class ApiSecretMetaEE {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
@@ -96,7 +97,7 @@ public class ApiSecretMetaEE {
    * @return tags
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<ApiSecretTag> getTags() {
@@ -104,7 +105,7 @@ public class ApiSecretMetaEE {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTags(@javax.annotation.Nonnull List<ApiSecretTag> tags) {
     this.tags = tags;
@@ -121,7 +122,7 @@ public class ApiSecretMetaEE {
    * @return key
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getKey() {
@@ -129,7 +130,7 @@ public class ApiSecretMetaEE {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setKey(@javax.annotation.Nonnull String key) {
     this.key = key;

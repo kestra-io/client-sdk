@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**title** | **String** |  |  |
-|**icon** | **String** |  |  |
-|**groupId** | **String** |  |  |
-|**artifactId** | **String** |  |  |
-|**versions** | **List&lt;String&gt;** |  |  |
+|**title** | **String** |  |  [optional] |
+|**icon** | **String** |  |  [optional] |
+|**groupId** | **String** |  |  [optional] |
+|**artifactId** | **String** |  |  [optional] |
+|**versions** | **List&lt;String&gt;** |  |  [optional] |
 
 
 

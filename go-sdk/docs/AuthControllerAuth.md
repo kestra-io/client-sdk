@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LoginPassword** | Pointer to **bool** |  | [optional] 
 **MailsEnabled** | Pointer to **bool** |  | [optional] 
+**Passwordless** | Pointer to **bool** |  | [optional] 
 **Oauths** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -76,6 +77,31 @@ SetMailsEnabled sets MailsEnabled field to given value.
 `func (o *AuthControllerAuth) HasMailsEnabled() bool`
 
 HasMailsEnabled returns a boolean if a field has been set.
+
+### GetPasswordless
+
+`func (o *AuthControllerAuth) GetPasswordless() bool`
+
+GetPasswordless returns the Passwordless field if non-nil, zero value otherwise.
+
+### GetPasswordlessOk
+
+`func (o *AuthControllerAuth) GetPasswordlessOk() (*bool, bool)`
+
+GetPasswordlessOk returns a tuple with the Passwordless field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPasswordless
+
+`func (o *AuthControllerAuth) SetPasswordless(v bool)`
+
+SetPasswordless sets Passwordless field to given value.
+
+### HasPasswordless
+
+`func (o *AuthControllerAuth) HasPasswordless() bool`
+
+HasPasswordless returns a boolean if a field has been set.
 
 ### GetOauths
 

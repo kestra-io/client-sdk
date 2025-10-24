@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**Type** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewIAMUserControllerApiUserAuth
 
-`func NewIAMUserControllerApiUserAuth(id string, name string, type_ string, ) *IAMUserControllerApiUserAuth`
+`func NewIAMUserControllerApiUserAuth() *IAMUserControllerApiUserAuth`
 
 NewIAMUserControllerApiUserAuth instantiates a new IAMUserControllerApiUserAuth object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMUserControllerApiUserAuth) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *IAMUserControllerApiUserAuth) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *IAMUserControllerApiUserAuth) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

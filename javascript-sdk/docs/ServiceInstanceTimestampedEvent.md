@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ts** | **Date** |  | 
-**value** | **String** |  | 
-**type** | **String** |  | 
-**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | 
+**ts** | **Date** |  | [optional] 
+**value** | **String** |  | [optional] 
+**type** | **String** |  | [optional] 
+**state** | [**ServiceServiceState**](ServiceServiceState.md) |  | [optional] 
 
 

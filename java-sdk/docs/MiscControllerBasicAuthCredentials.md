@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uid** | **String** |  |  |
-|**username** | **String** |  |  |
-|**password** | **String** |  |  |
+|**uid** | **String** |  |  [optional] |
+|**username** | **String** |  |  [optional] |
+|**password** | **String** |  |  [optional] |
 
 
 

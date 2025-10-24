@@ -11,13 +11,13 @@ Name | Type | Description | Notes
 **State** | [**TestState**](TestState.md) |  | 
 **StartDate** | **time.Time** |  | 
 **EndDate** | **time.Time** |  | 
-**Results** | [**[]UnitTestResult**](UnitTestResult.md) |  | 
+**Results** | Pointer to [**[]UnitTestResult**](UnitTestResult.md) |  | [optional] 
 
 ## Methods
 
 ### NewTestSuiteRunResult
 
-`func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time, results []UnitTestResult, ) *TestSuiteRunResult`
+`func NewTestSuiteRunResult(id string, testSuiteId string, namespace string, flowId string, state TestState, startDate time.Time, endDate time.Time, ) *TestSuiteRunResult`
 
 NewTestSuiteRunResult instantiates a new TestSuiteRunResult object
 This constructor will assign default values to properties that have it defined,
@@ -191,6 +191,11 @@ and a boolean to check if the value has been set.
 
 SetResults sets Results field to given value.
 
+### HasResults
+
+`func (o *TestSuiteRunResult) HasResults() bool`
+
+HasResults returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

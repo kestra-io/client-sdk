@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Type** | **string** |  | 
-**Variables** | **map[string]map[string]interface{}** |  | 
-**LogFile** | **string** |  | 
+**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**LogFile** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewExecutionTrigger
 
-`func NewExecutionTrigger(id string, type_ string, variables map[string]map[string]interface{}, logFile string, ) *ExecutionTrigger`
+`func NewExecutionTrigger(id string, type_ string, ) *ExecutionTrigger`
 
 NewExecutionTrigger instantiates a new ExecutionTrigger object
 This constructor will assign default values to properties that have it defined,
@@ -87,6 +87,11 @@ and a boolean to check if the value has been set.
 
 SetVariables sets Variables field to given value.
 
+### HasVariables
+
+`func (o *ExecutionTrigger) HasVariables() bool`
+
+HasVariables returns a boolean if a field has been set.
 
 ### GetLogFile
 
@@ -107,6 +112,11 @@ and a boolean to check if the value has been set.
 
 SetLogFile sets LogFile field to given value.
 
+### HasLogFile
+
+`func (o *ExecutionTrigger) HasLogFile() bool`
+
+HasLogFile returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

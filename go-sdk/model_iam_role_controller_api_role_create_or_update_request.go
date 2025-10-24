@@ -22,8 +22,8 @@ var _ MappedNullable = &IAMRoleControllerApiRoleCreateOrUpdateRequest{}
 type IAMRoleControllerApiRoleCreateOrUpdateRequest struct {
 	Permissions          IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions `json:"permissions"`
 	Name                 string                                                   `json:"name"`
-	Description          string                                                   `json:"description"`
-	IsDefault            bool                                                     `json:"isDefault"`
+	Description          *string                                                  `json:"description,omitempty"`
+	IsDefault            *bool                                                    `json:"isDefault,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,12 +33,10 @@ type _IAMRoleControllerApiRoleCreateOrUpdateRequest IAMRoleControllerApiRoleCrea
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMRoleControllerApiRoleCreateOrUpdateRequest(permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, name string, description string, isDefault bool) *IAMRoleControllerApiRoleCreateOrUpdateRequest {
+func NewIAMRoleControllerApiRoleCreateOrUpdateRequest(permissions IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions, name string) *IAMRoleControllerApiRoleCreateOrUpdateRequest {
 	this := IAMRoleControllerApiRoleCreateOrUpdateRequest{}
 	this.Permissions = permissions
 	this.Name = name
-	this.Description = description
-	this.IsDefault = isDefault
 	return &this
 }
 
@@ -98,52 +96,68 @@ func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetIsDefault returns the IsDefault field value
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) GetIsDefault() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsDefault
+	return *o.IsDefault
 }
 
-// GetIsDefaultOk returns a tuple with the IsDefault field value
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) GetIsDefaultOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefault) {
 		return nil, false
 	}
-	return &o.IsDefault, true
+	return o.IsDefault, true
 }
 
-// SetIsDefault sets field value
+// HasIsDefault returns a boolean if a field has been set.
+func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) HasIsDefault() bool {
+	if o != nil && !IsNil(o.IsDefault) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
 func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) SetIsDefault(v bool) {
-	o.IsDefault = v
+	o.IsDefault = &v
 }
 
 func (o IAMRoleControllerApiRoleCreateOrUpdateRequest) MarshalJSON() ([]byte, error) {
@@ -158,8 +172,12 @@ func (o IAMRoleControllerApiRoleCreateOrUpdateRequest) ToMap() (map[string]inter
 	toSerialize := map[string]interface{}{}
 	toSerialize["permissions"] = o.Permissions
 	toSerialize["name"] = o.Name
-	toSerialize["description"] = o.Description
-	toSerialize["isDefault"] = o.IsDefault
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.IsDefault) {
+		toSerialize["isDefault"] = o.IsDefault
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -175,8 +193,6 @@ func (o *IAMRoleControllerApiRoleCreateOrUpdateRequest) UnmarshalJSON(data []byt
 	requiredProperties := []string{
 		"permissions",
 		"name",
-		"description",
-		"isDefault",
 	}
 
 	allProperties := make(map[string]interface{})

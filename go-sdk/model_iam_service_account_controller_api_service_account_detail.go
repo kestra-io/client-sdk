@@ -21,13 +21,13 @@ var _ MappedNullable = &IAMServiceAccountControllerApiServiceAccountDetail{}
 // IAMServiceAccountControllerApiServiceAccountDetail A User Service Account.
 type IAMServiceAccountControllerApiServiceAccountDetail struct {
 	// the identifier of this service account.
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// the name of this service account.
 	Name string `json:"name" validate:"regexp=^(?=.{1,63}$)[a-z0-9]+(?:-[a-z0-9]+)*$"`
 	// the description of this service account.
-	Description          string             `json:"description"`
-	Tenants              []ApiTenantSummary `json:"tenants"`
-	SuperAdmin           bool               `json:"superAdmin"`
+	Description          *string            `json:"description,omitempty"`
+	Tenants              []ApiTenantSummary `json:"tenants,omitempty"`
+	SuperAdmin           *bool              `json:"superAdmin,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,13 +37,9 @@ type _IAMServiceAccountControllerApiServiceAccountDetail IAMServiceAccountContro
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMServiceAccountControllerApiServiceAccountDetail(id string, name string, description string, tenants []ApiTenantSummary, superAdmin bool) *IAMServiceAccountControllerApiServiceAccountDetail {
+func NewIAMServiceAccountControllerApiServiceAccountDetail(name string) *IAMServiceAccountControllerApiServiceAccountDetail {
 	this := IAMServiceAccountControllerApiServiceAccountDetail{}
-	this.Id = id
 	this.Name = name
-	this.Description = description
-	this.Tenants = tenants
-	this.SuperAdmin = superAdmin
 	return &this
 }
 
@@ -55,28 +51,36 @@ func NewIAMServiceAccountControllerApiServiceAccountDetailWithDefaults() *IAMSer
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -103,76 +107,100 @@ func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetName(v string) {
 	o.Name = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
-// GetTenants returns the Tenants field value
+// GetTenants returns the Tenants field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetTenants() []ApiTenantSummary {
-	if o == nil {
+	if o == nil || IsNil(o.Tenants) {
 		var ret []ApiTenantSummary
 		return ret
 	}
-
 	return o.Tenants
 }
 
-// GetTenantsOk returns a tuple with the Tenants field value
+// GetTenantsOk returns a tuple with the Tenants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetTenantsOk() ([]ApiTenantSummary, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Tenants) {
 		return nil, false
 	}
 	return o.Tenants, true
 }
 
-// SetTenants sets field value
+// HasTenants returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasTenants() bool {
+	if o != nil && !IsNil(o.Tenants) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenants gets a reference to the given []ApiTenantSummary and assigns it to the Tenants field.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetTenants(v []ApiTenantSummary) {
 	o.Tenants = v
 }
 
-// GetSuperAdmin returns the SuperAdmin field value
+// GetSuperAdmin returns the SuperAdmin field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetSuperAdmin() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		var ret bool
 		return ret
 	}
-
-	return o.SuperAdmin
+	return *o.SuperAdmin
 }
 
-// GetSuperAdminOk returns a tuple with the SuperAdmin field value
+// GetSuperAdminOk returns a tuple with the SuperAdmin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) GetSuperAdminOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SuperAdmin) {
 		return nil, false
 	}
-	return &o.SuperAdmin, true
+	return o.SuperAdmin, true
 }
 
-// SetSuperAdmin sets field value
+// HasSuperAdmin returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiServiceAccountDetail) HasSuperAdmin() bool {
+	if o != nil && !IsNil(o.SuperAdmin) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuperAdmin gets a reference to the given bool and assigns it to the SuperAdmin field.
 func (o *IAMServiceAccountControllerApiServiceAccountDetail) SetSuperAdmin(v bool) {
-	o.SuperAdmin = v
+	o.SuperAdmin = &v
 }
 
 func (o IAMServiceAccountControllerApiServiceAccountDetail) MarshalJSON() ([]byte, error) {
@@ -185,11 +213,19 @@ func (o IAMServiceAccountControllerApiServiceAccountDetail) MarshalJSON() ([]byt
 
 func (o IAMServiceAccountControllerApiServiceAccountDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
-	toSerialize["description"] = o.Description
-	toSerialize["tenants"] = o.Tenants
-	toSerialize["superAdmin"] = o.SuperAdmin
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Tenants) {
+		toSerialize["tenants"] = o.Tenants
+	}
+	if !IsNil(o.SuperAdmin) {
+		toSerialize["superAdmin"] = o.SuperAdmin
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -203,11 +239,7 @@ func (o *IAMServiceAccountControllerApiServiceAccountDetail) UnmarshalJSON(data 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
-		"description",
-		"tenants",
-		"superAdmin",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,20 +33,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InstanceControllerApiActiveService.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("InstanceController.ApiActiveService")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InstanceControllerApiActiveService {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServiceType type;
 
   public static final String JSON_PROPERTY_TOTAL = "total";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Long total;
 
   public InstanceControllerApiActiveService() {
   }
 
-  public InstanceControllerApiActiveService type(@javax.annotation.Nonnull ServiceType type) {
+  public InstanceControllerApiActiveService type(@javax.annotation.Nullable ServiceType type) {
     
     this.type = type;
     return this;
@@ -55,22 +56,22 @@ public class InstanceControllerApiActiveService {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceType getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull ServiceType type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable ServiceType type) {
     this.type = type;
   }
 
-  public InstanceControllerApiActiveService total(@javax.annotation.Nonnull Long total) {
+  public InstanceControllerApiActiveService total(@javax.annotation.Nullable Long total) {
     
     this.total = total;
     return this;
@@ -80,18 +81,18 @@ public class InstanceControllerApiActiveService {
    * Get total
    * @return total
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getTotal() {
     return total;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOTAL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTotal(@javax.annotation.Nonnull Long total) {
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(@javax.annotation.Nullable Long total) {
     this.total = total;
   }
 

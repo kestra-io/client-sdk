@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -36,14 +37,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutableTaskSubflowId.JSON_PROPERTY_REVISION
 })
 @JsonTypeName("ExecutableTask.SubflowId")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutableTaskSubflowId {
   public static final String JSON_PROPERTY_NAMESPACE = "namespace";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String namespace;
 
   public static final String JSON_PROPERTY_FLOW_ID = "flowId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String flowId;
 
   public static final String JSON_PROPERTY_REVISION = "revision";
@@ -53,7 +54,7 @@ public class ExecutableTaskSubflowId {
   public ExecutableTaskSubflowId() {
   }
 
-  public ExecutableTaskSubflowId namespace(@javax.annotation.Nonnull String namespace) {
+  public ExecutableTaskSubflowId namespace(@javax.annotation.Nullable String namespace) {
     
     this.namespace = namespace;
     return this;
@@ -63,22 +64,22 @@ public class ExecutableTaskSubflowId {
    * Get namespace
    * @return namespace
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNamespace() {
     return namespace;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNamespace(@javax.annotation.Nonnull String namespace) {
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamespace(@javax.annotation.Nullable String namespace) {
     this.namespace = namespace;
   }
 
-  public ExecutableTaskSubflowId flowId(@javax.annotation.Nonnull String flowId) {
+  public ExecutableTaskSubflowId flowId(@javax.annotation.Nullable String flowId) {
     
     this.flowId = flowId;
     return this;
@@ -88,18 +89,18 @@ public class ExecutableTaskSubflowId {
    * Get flowId
    * @return flowId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFlowId() {
     return flowId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FLOW_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFlowId(@javax.annotation.Nonnull String flowId) {
+  @JsonProperty(value = JSON_PROPERTY_FLOW_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFlowId(@javax.annotation.Nullable String flowId) {
     this.flowId = flowId;
   }
 
@@ -120,14 +121,14 @@ public class ExecutableTaskSubflowId {
         return revision.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<Integer> getRevision_JsonNullable() {
     return revision;
   }
   
-  @JsonProperty(JSON_PROPERTY_REVISION)
+  @JsonProperty(value = JSON_PROPERTY_REVISION, required = false)
   public void setRevision_JsonNullable(JsonNullable<Integer> revision) {
     this.revision = revision;
   }

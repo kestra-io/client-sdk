@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,20 +31,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InputType.JSON_PROPERTY_TYPE,
   InputType.JSON_PROPERTY_CLS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class InputType {
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String type;
 
   public static final String JSON_PROPERTY_CLS = "cls";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String cls;
 
   public InputType() {
   }
 
-  public InputType type(@javax.annotation.Nonnull String type) {
+  public InputType type(@javax.annotation.Nullable String type) {
     
     this.type = type;
     return this;
@@ -53,22 +54,22 @@ public class InputType {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull String type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable String type) {
     this.type = type;
   }
 
-  public InputType cls(@javax.annotation.Nonnull String cls) {
+  public InputType cls(@javax.annotation.Nullable String cls) {
     
     this.cls = cls;
     return this;
@@ -78,18 +79,18 @@ public class InputType {
    * Get cls
    * @return cls
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CLS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCls() {
     return cls;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCls(@javax.annotation.Nonnull String cls) {
+  @JsonProperty(value = JSON_PROPERTY_CLS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCls(@javax.annotation.Nullable String cls) {
     this.cls = cls;
   }
 

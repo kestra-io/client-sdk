@@ -15,13 +15,12 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -33,19 +32,19 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginDefault.JSON_PROPERTY_FORCED,
   PluginDefault.JSON_PROPERTY_VALUES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginDefault {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
   private String type;
 
   public static final String JSON_PROPERTY_FORCED = "forced";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean forced;
 
   public static final String JSON_PROPERTY_VALUES = "values";
-  @javax.annotation.Nonnull
-  private Map<String, Object> values = new HashMap<>();
+  @javax.annotation.Nullable
+  private Object values;
 
   public PluginDefault() {
   }
@@ -61,7 +60,7 @@ public class PluginDefault {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -69,13 +68,13 @@ public class PluginDefault {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
   }
 
-  public PluginDefault forced(@javax.annotation.Nonnull Boolean forced) {
+  public PluginDefault forced(@javax.annotation.Nullable Boolean forced) {
     
     this.forced = forced;
     return this;
@@ -85,29 +84,24 @@ public class PluginDefault {
    * Get forced
    * @return forced
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FORCED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_FORCED, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getForced() {
     return forced;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FORCED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setForced(@javax.annotation.Nonnull Boolean forced) {
+  @JsonProperty(value = JSON_PROPERTY_FORCED, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setForced(@javax.annotation.Nullable Boolean forced) {
     this.forced = forced;
   }
 
-  public PluginDefault values(@javax.annotation.Nonnull Map<String, Object> values) {
+  public PluginDefault values(@javax.annotation.Nullable Object values) {
     
     this.values = values;
-    return this;
-  }
-
-  public PluginDefault putValuesItem(String key, Object valuesItem) {
-    this.values.put(key, valuesItem);
     return this;
   }
 
@@ -115,18 +109,18 @@ public class PluginDefault {
    * Get values
    * @return values
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_VALUES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getValues() {
+  public Object getValues() {
     return values;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setValues(@javax.annotation.Nonnull Map<String, Object> values) {
+  @JsonProperty(value = JSON_PROPERTY_VALUES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValues(@javax.annotation.Nullable Object values) {
     this.values = values;
   }
 

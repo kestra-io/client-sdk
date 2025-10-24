@@ -9,7 +9,6 @@ public class Main {
 
     static void runAllExamples(){
         BasicSDKUsageExample.listFlows();
-        BasicSDKUsageExample.getInstanceConfEdition();
     }
 }
 

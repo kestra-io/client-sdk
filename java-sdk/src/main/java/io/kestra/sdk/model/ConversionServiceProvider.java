@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ConversionServiceProvider.JSON_PROPERTY_CONVERSION_SERVICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ConversionServiceProvider {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @javax.annotation.Nonnull
@@ -49,7 +50,7 @@ public class ConversionServiceProvider {
    * @return conversionService
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -57,7 +58,7 @@ public class ConversionServiceProvider {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;

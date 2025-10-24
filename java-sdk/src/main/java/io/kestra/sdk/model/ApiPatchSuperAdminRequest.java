@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ApiPatchSuperAdminRequest.JSON_PROPERTY_SUPER_ADMIN
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiPatchSuperAdminRequest {
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
   @javax.annotation.Nonnull
@@ -49,7 +50,7 @@ public class ApiPatchSuperAdminRequest {
    * @return superAdmin
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getSuperAdmin() {
@@ -57,7 +58,7 @@ public class ApiPatchSuperAdminRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
     this.superAdmin = superAdmin;

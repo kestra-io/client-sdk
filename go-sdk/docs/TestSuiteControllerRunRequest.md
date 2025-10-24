@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TestCases** | **[]string** |  | 
+**TestCases** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewTestSuiteControllerRunRequest
 
-`func NewTestSuiteControllerRunRequest(testCases []string, ) *TestSuiteControllerRunRequest`
+`func NewTestSuiteControllerRunRequest() *TestSuiteControllerRunRequest`
 
 NewTestSuiteControllerRunRequest instantiates a new TestSuiteControllerRunRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetTestCases sets TestCases field to given value.
 
+### HasTestCases
+
+`func (o *TestSuiteControllerRunRequest) HasTestCases() bool`
+
+HasTestCases returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

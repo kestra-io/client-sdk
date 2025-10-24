@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**description** | **String** |  |  |
-|**conditions** | [**List&lt;Condition&gt;**](Condition.md) |  |  |
+|**description** | **String** |  |  [optional] |
+|**conditions** | [**List&lt;Condition&gt;**](Condition.md) |  |  [optional] |
 |**tasks** | [**List&lt;Task&gt;**](Task.md) |  |  |
 
 

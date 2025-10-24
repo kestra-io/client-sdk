@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -56,7 +57,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions.JSON_PROPERTY_U_N_K_N_O_W_N
 })
 @JsonTypeName("IAMRoleController_ApiRoleCreateOrUpdateRequest_permissions")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   public static final String JSON_PROPERTY_F_L_O_W = "FLOW";
   @javax.annotation.Nullable
@@ -176,7 +177,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return FLOW
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_F_L_O_W)
+  @JsonProperty(value = JSON_PROPERTY_F_L_O_W, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getFLOW() {
@@ -184,7 +185,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_F_L_O_W)
+  @JsonProperty(value = JSON_PROPERTY_F_L_O_W, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFLOW(@javax.annotation.Nullable List<String> FLOW) {
     this.FLOW = FLOW;
@@ -209,7 +210,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return BLUEPRINT
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_B_L_U_E_P_R_I_N_T)
+  @JsonProperty(value = JSON_PROPERTY_B_L_U_E_P_R_I_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getBLUEPRINT() {
@@ -217,7 +218,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_B_L_U_E_P_R_I_N_T)
+  @JsonProperty(value = JSON_PROPERTY_B_L_U_E_P_R_I_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBLUEPRINT(@javax.annotation.Nullable List<String> BLUEPRINT) {
     this.BLUEPRINT = BLUEPRINT;
@@ -242,7 +243,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return TEMPLATE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_T_E_M_P_L_A_T_E)
+  @JsonProperty(value = JSON_PROPERTY_T_E_M_P_L_A_T_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTEMPLATE() {
@@ -250,7 +251,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_T_E_M_P_L_A_T_E)
+  @JsonProperty(value = JSON_PROPERTY_T_E_M_P_L_A_T_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTEMPLATE(@javax.annotation.Nullable List<String> TEMPLATE) {
     this.TEMPLATE = TEMPLATE;
@@ -275,7 +276,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return NAMESPACE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_N_A_M_E_S_P_A_C_E)
+  @JsonProperty(value = JSON_PROPERTY_N_A_M_E_S_P_A_C_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getNAMESPACE() {
@@ -283,7 +284,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_N_A_M_E_S_P_A_C_E)
+  @JsonProperty(value = JSON_PROPERTY_N_A_M_E_S_P_A_C_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNAMESPACE(@javax.annotation.Nullable List<String> NAMESPACE) {
     this.NAMESPACE = NAMESPACE;
@@ -308,7 +309,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return EXECUTION
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_E_X_E_C_U_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_E_X_E_C_U_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getEXECUTION() {
@@ -316,7 +317,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_E_X_E_C_U_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_E_X_E_C_U_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEXECUTION(@javax.annotation.Nullable List<String> EXECUTION) {
     this.EXECUTION = EXECUTION;
@@ -341,7 +342,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return USER
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_U_S_E_R)
+  @JsonProperty(value = JSON_PROPERTY_U_S_E_R, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getUSER() {
@@ -349,7 +350,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_U_S_E_R)
+  @JsonProperty(value = JSON_PROPERTY_U_S_E_R, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUSER(@javax.annotation.Nullable List<String> USER) {
     this.USER = USER;
@@ -374,7 +375,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return GROUP
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_G_R_O_U_P)
+  @JsonProperty(value = JSON_PROPERTY_G_R_O_U_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGROUP() {
@@ -382,7 +383,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_G_R_O_U_P)
+  @JsonProperty(value = JSON_PROPERTY_G_R_O_U_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGROUP(@javax.annotation.Nullable List<String> GROUP) {
     this.GROUP = GROUP;
@@ -407,7 +408,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return ROLE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R_O_L_E)
+  @JsonProperty(value = JSON_PROPERTY_R_O_L_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getROLE() {
@@ -415,7 +416,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_R_O_L_E)
+  @JsonProperty(value = JSON_PROPERTY_R_O_L_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setROLE(@javax.annotation.Nullable List<String> ROLE) {
     this.ROLE = ROLE;
@@ -440,7 +441,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return BINDING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_B_I_N_D_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_B_I_N_D_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getBINDING() {
@@ -448,7 +449,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_B_I_N_D_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_B_I_N_D_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBINDING(@javax.annotation.Nullable List<String> BINDING) {
     this.BINDING = BINDING;
@@ -473,7 +474,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return AUDITLOG
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_A_U_D_I_T_L_O_G)
+  @JsonProperty(value = JSON_PROPERTY_A_U_D_I_T_L_O_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAUDITLOG() {
@@ -481,7 +482,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_A_U_D_I_T_L_O_G)
+  @JsonProperty(value = JSON_PROPERTY_A_U_D_I_T_L_O_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAUDITLOG(@javax.annotation.Nullable List<String> AUDITLOG) {
     this.AUDITLOG = AUDITLOG;
@@ -506,7 +507,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return SECRET
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S_E_C_R_E_T)
+  @JsonProperty(value = JSON_PROPERTY_S_E_C_R_E_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSECRET() {
@@ -514,7 +515,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_S_E_C_R_E_T)
+  @JsonProperty(value = JSON_PROPERTY_S_E_C_R_E_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSECRET(@javax.annotation.Nullable List<String> SECRET) {
     this.SECRET = SECRET;
@@ -539,7 +540,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return KVSTORE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_K_V_S_T_O_R_E)
+  @JsonProperty(value = JSON_PROPERTY_K_V_S_T_O_R_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getKVSTORE() {
@@ -547,7 +548,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_K_V_S_T_O_R_E)
+  @JsonProperty(value = JSON_PROPERTY_K_V_S_T_O_R_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKVSTORE(@javax.annotation.Nullable List<String> KVSTORE) {
     this.KVSTORE = KVSTORE;
@@ -572,7 +573,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return IMPERSONATE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E)
+  @JsonProperty(value = JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getIMPERSONATE() {
@@ -580,7 +581,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E)
+  @JsonProperty(value = JSON_PROPERTY_I_M_P_E_R_S_O_N_A_T_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIMPERSONATE(@javax.annotation.Nullable List<String> IMPERSONATE) {
     this.IMPERSONATE = IMPERSONATE;
@@ -605,7 +606,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return SETTING
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S_E_T_T_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_S_E_T_T_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSETTING() {
@@ -613,7 +614,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_S_E_T_T_I_N_G)
+  @JsonProperty(value = JSON_PROPERTY_S_E_T_T_I_N_G, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSETTING(@javax.annotation.Nullable List<String> SETTING) {
     this.SETTING = SETTING;
@@ -638,7 +639,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return INFRASTRUCTURE
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_I_N_F_R_A_S_T_R_U_C_T_U_R_E)
+  @JsonProperty(value = JSON_PROPERTY_I_N_F_R_A_S_T_R_U_C_T_U_R_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getINFRASTRUCTURE() {
@@ -646,7 +647,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_I_N_F_R_A_S_T_R_U_C_T_U_R_E)
+  @JsonProperty(value = JSON_PROPERTY_I_N_F_R_A_S_T_R_U_C_T_U_R_E, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setINFRASTRUCTURE(@javax.annotation.Nullable List<String> INFRASTRUCTURE) {
     this.INFRASTRUCTURE = INFRASTRUCTURE;
@@ -671,7 +672,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return APP
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_A_P_P)
+  @JsonProperty(value = JSON_PROPERTY_A_P_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAPP() {
@@ -679,7 +680,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_A_P_P)
+  @JsonProperty(value = JSON_PROPERTY_A_P_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAPP(@javax.annotation.Nullable List<String> APP) {
     this.APP = APP;
@@ -704,7 +705,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return APPEXECUTION
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAPPEXECUTION() {
@@ -712,7 +713,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_A_P_P_E_X_E_C_U_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAPPEXECUTION(@javax.annotation.Nullable List<String> APPEXECUTION) {
     this.APPEXECUTION = APPEXECUTION;
@@ -737,7 +738,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return TEST
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_T_E_S_T)
+  @JsonProperty(value = JSON_PROPERTY_T_E_S_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTEST() {
@@ -745,7 +746,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_T_E_S_T)
+  @JsonProperty(value = JSON_PROPERTY_T_E_S_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTEST(@javax.annotation.Nullable List<String> TEST) {
     this.TEST = TEST;
@@ -770,7 +771,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return DASHBOARD
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_D_A_S_H_B_O_A_R_D)
+  @JsonProperty(value = JSON_PROPERTY_D_A_S_H_B_O_A_R_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getDASHBOARD() {
@@ -778,7 +779,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_D_A_S_H_B_O_A_R_D)
+  @JsonProperty(value = JSON_PROPERTY_D_A_S_H_B_O_A_R_D, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDASHBOARD(@javax.annotation.Nullable List<String> DASHBOARD) {
     this.DASHBOARD = DASHBOARD;
@@ -803,7 +804,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return TENANT_ACCESS
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S)
+  @JsonProperty(value = JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTENANTACCESS() {
@@ -811,7 +812,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S)
+  @JsonProperty(value = JSON_PROPERTY_T_E_N_A_N_T_A_C_C_E_S_S, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTENANTACCESS(@javax.annotation.Nullable List<String> TENANT_ACCESS) {
     this.TENANT_ACCESS = TENANT_ACCESS;
@@ -836,7 +837,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return SERVICE_ACCOUNT
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T)
+  @JsonProperty(value = JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSERVICEACCOUNT() {
@@ -844,7 +845,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T)
+  @JsonProperty(value = JSON_PROPERTY_S_E_R_V_I_C_E_A_C_C_O_U_N_T, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSERVICEACCOUNT(@javax.annotation.Nullable List<String> SERVICE_ACCOUNT) {
     this.SERVICE_ACCOUNT = SERVICE_ACCOUNT;
@@ -869,7 +870,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return INVITATION
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getINVITATION() {
@@ -877,7 +878,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N)
+  @JsonProperty(value = JSON_PROPERTY_I_N_V_I_T_A_T_I_O_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setINVITATION(@javax.annotation.Nullable List<String> INVITATION) {
     this.INVITATION = INVITATION;
@@ -902,7 +903,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return GROUP_MEMBERSHIP
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P)
+  @JsonProperty(value = JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGROUPMEMBERSHIP() {
@@ -910,7 +911,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P)
+  @JsonProperty(value = JSON_PROPERTY_G_R_O_U_P_M_E_M_B_E_R_S_H_I_P, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGROUPMEMBERSHIP(@javax.annotation.Nullable List<String> GROUP_MEMBERSHIP) {
     this.GROUP_MEMBERSHIP = GROUP_MEMBERSHIP;
@@ -935,7 +936,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
    * @return UNKNOWN
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_U_N_K_N_O_W_N)
+  @JsonProperty(value = JSON_PROPERTY_U_N_K_N_O_W_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getUNKNOWN() {
@@ -943,7 +944,7 @@ public class IAMRoleControllerApiRoleCreateOrUpdateRequestPermissions {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_U_N_K_N_O_W_N)
+  @JsonProperty(value = JSON_PROPERTY_U_N_K_N_O_W_N, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUNKNOWN(@javax.annotation.Nullable List<String> UNKNOWN) {
     this.UNKNOWN = UNKNOWN;

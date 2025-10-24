@@ -17,18 +17,16 @@ import QueryFilterFieldOp from './QueryFilterFieldOp';
 /**
  * The QueryFilterResourceField model module.
  * @module model/QueryFilterResourceField
- * @version 1.0.0
+ * @version v1.0.5
  */
 class QueryFilterResourceField {
     /**
      * Constructs a new <code>QueryFilterResourceField</code>.
      * @alias module:model/QueryFilterResourceField
-     * @param name {String} 
-     * @param fields {Array.<module:model/QueryFilterFieldOp>} 
      */
-    constructor(name, fields) { 
+    constructor() { 
         
-        QueryFilterResourceField.initialize(this, name, fields);
+        QueryFilterResourceField.initialize(this);
     }
 
     /**
@@ -36,9 +34,7 @@ class QueryFilterResourceField {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, fields) { 
-        obj['name'] = name;
-        obj['fields'] = fields;
+    static initialize(obj) { 
     }
 
     /**
@@ -68,12 +64,6 @@ class QueryFilterResourceField {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>QueryFilterResourceField</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of QueryFilterResourceField.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -95,7 +85,7 @@ class QueryFilterResourceField {
 
 }
 
-QueryFilterResourceField.RequiredProperties = ["name", "fields"];
+
 
 /**
  * @member {String} name

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**color** | **String** |  | 
+**name** | **String** |  | [optional] 
+**color** | **String** |  | [optional] 
 
 

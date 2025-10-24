@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   HttpParameters.JSON_PROPERTY_CONVERSION_SERVICE,
   HttpParameters.JSON_PROPERTY_EMPTY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class HttpParameters {
   public static final String JSON_PROPERTY_CONVERSION_SERVICE = "conversionService";
   @javax.annotation.Nonnull
@@ -54,7 +55,7 @@ public class HttpParameters {
    * @return conversionService
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getConversionService() {
@@ -62,7 +63,7 @@ public class HttpParameters {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONVERSION_SERVICE)
+  @JsonProperty(value = JSON_PROPERTY_CONVERSION_SERVICE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConversionService(@javax.annotation.Nonnull Object conversionService) {
     this.conversionService = conversionService;
@@ -79,7 +80,7 @@ public class HttpParameters {
    * @return empty
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEmpty() {
@@ -87,7 +88,7 @@ public class HttpParameters {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMPTY)
+  @JsonProperty(value = JSON_PROPERTY_EMPTY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEmpty(@javax.annotation.Nullable Boolean empty) {
     this.empty = empty;

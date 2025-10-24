@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DependsOn.JSON_PROPERTY_INPUTS,
   DependsOn.JSON_PROPERTY_CONDITION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DependsOn {
   public static final String JSON_PROPERTY_INPUTS = "inputs";
   @javax.annotation.Nullable
@@ -79,14 +80,14 @@ public class DependsOn {
         return inputs.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<String>> getInputs_JsonNullable() {
     return inputs;
   }
   
-  @JsonProperty(JSON_PROPERTY_INPUTS)
+  @JsonProperty(value = JSON_PROPERTY_INPUTS, required = false)
   public void setInputs_JsonNullable(JsonNullable<List<String>> inputs) {
     this.inputs = inputs;
   }
@@ -112,14 +113,14 @@ public class DependsOn {
         return condition.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_CONDITION)
+  @JsonProperty(value = JSON_PROPERTY_CONDITION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getCondition_JsonNullable() {
     return condition;
   }
   
-  @JsonProperty(JSON_PROPERTY_CONDITION)
+  @JsonProperty(value = JSON_PROPERTY_CONDITION, required = false)
   public void setCondition_JsonNullable(JsonNullable<String> condition) {
     this.condition = condition;
   }

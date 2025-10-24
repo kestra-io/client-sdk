@@ -39,6 +39,7 @@
 |**rightSidebar** | [**RightSidebarConfiguration**](RightSidebarConfiguration.md) |  |  [optional] |
 |**inMaintenance** | **Boolean** |  |  [optional] |
 |**passwordRegexp** | **String** |  |  [optional] |
+|**passwordlessEnabled** | **Boolean** |  |  [optional] |
 
 
 

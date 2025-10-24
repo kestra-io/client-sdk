@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Icon** | **string** |  | 
+**Name** | Pointer to **string** |  | [optional] 
+**Icon** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiPluginVersionDetailsApiPluginClass
 
-`func NewInstanceControllerApiPluginVersionDetailsApiPluginClass(name string, icon string, ) *InstanceControllerApiPluginVersionDetailsApiPluginClass`
+`func NewInstanceControllerApiPluginVersionDetailsApiPluginClass() *InstanceControllerApiPluginVersionDetailsApiPluginClass`
 
 NewInstanceControllerApiPluginVersionDetailsApiPluginClass instantiates a new InstanceControllerApiPluginVersionDetailsApiPluginClass object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetIcon
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetIcon sets Icon field to given value.
 
+### HasIcon
+
+`func (o *InstanceControllerApiPluginVersionDetailsApiPluginClass) HasIcon() bool`
+
+HasIcon returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

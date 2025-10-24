@@ -18,7 +18,7 @@ import StateType from './StateType';
 /**
  * The TriggerContext model module.
  * @module model/TriggerContext
- * @version 1.0.0
+ * @version v1.0.5
  */
 class TriggerContext {
     /**
@@ -40,6 +40,7 @@ class TriggerContext {
      * Only for internal use.
      */
     static initialize(obj, namespace, flowId, triggerId, date) { 
+        obj['disabled'] = false;
         obj['namespace'] = namespace;
         obj['flowId'] = flowId;
         obj['triggerId'] = triggerId;
@@ -135,8 +136,9 @@ TriggerContext.RequiredProperties = ["namespace", "flowId", "triggerId", "date"]
 
 /**
  * @member {Boolean} disabled
+ * @default false
  */
-TriggerContext.prototype['disabled'] = undefined;
+TriggerContext.prototype['disabled'] = false;
 
 /**
  * @member {String} tenantId

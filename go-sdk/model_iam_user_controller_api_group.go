@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMUserControllerApiGroup type satisfies the MappedNullable interface at compile time
@@ -20,8 +19,8 @@ var _ MappedNullable = &IAMUserControllerApiGroup{}
 
 // IAMUserControllerApiGroup struct for IAMUserControllerApiGroup
 type IAMUserControllerApiGroup struct {
-	Id                   string `json:"id"`
-	TenantId             string `json:"tenantId"`
+	Id                   *string `json:"id,omitempty"`
+	TenantId             *string `json:"tenantId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,10 +30,8 @@ type _IAMUserControllerApiGroup IAMUserControllerApiGroup
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMUserControllerApiGroup(id string, tenantId string) *IAMUserControllerApiGroup {
+func NewIAMUserControllerApiGroup() *IAMUserControllerApiGroup {
 	this := IAMUserControllerApiGroup{}
-	this.Id = id
-	this.TenantId = tenantId
 	return &this
 }
 
@@ -46,52 +43,68 @@ func NewIAMUserControllerApiGroupWithDefaults() *IAMUserControllerApiGroup {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMUserControllerApiGroup) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiGroup) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMUserControllerApiGroup) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMUserControllerApiGroup) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetTenantId returns the TenantId field value
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
 func (o *IAMUserControllerApiGroup) GetTenantId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		var ret string
 		return ret
 	}
-
-	return o.TenantId
+	return *o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMUserControllerApiGroup) GetTenantIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		return nil, false
 	}
-	return &o.TenantId, true
+	return o.TenantId, true
 }
 
-// SetTenantId sets field value
+// HasTenantId returns a boolean if a field has been set.
+func (o *IAMUserControllerApiGroup) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
 func (o *IAMUserControllerApiGroup) SetTenantId(v string) {
-	o.TenantId = v
+	o.TenantId = &v
 }
 
 func (o IAMUserControllerApiGroup) MarshalJSON() ([]byte, error) {
@@ -104,8 +117,12 @@ func (o IAMUserControllerApiGroup) MarshalJSON() ([]byte, error) {
 
 func (o IAMUserControllerApiGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["tenantId"] = o.TenantId
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,28 +132,6 @@ func (o IAMUserControllerApiGroup) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *IAMUserControllerApiGroup) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"tenantId",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMUserControllerApiGroup := _IAMUserControllerApiGroup{}
 
 	err = json.Unmarshal(data, &varIAMUserControllerApiGroup)

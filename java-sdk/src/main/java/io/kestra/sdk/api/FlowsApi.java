@@ -45,10 +45,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowsApi extends BaseApi {
 
   public FlowsApi() {
@@ -2730,7 +2731,7 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body) throws ApiException {
+  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body) throws ApiException {
     return this.validateTrigger(tenant, body, Collections.emptyMap());
   }
 
@@ -2744,7 +2745,7 @@ public class FlowsApi extends BaseApi {
    * @return ValidateConstraintViolation
    * @throws ApiException if fails to make API call
    */
-  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull String body, Map<String, String> additionalHeaders) throws ApiException {
+  public ValidateConstraintViolation validateTrigger(@javax.annotation.Nonnull String tenant, @javax.annotation.Nonnull Object body, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = body;
     
     // verify the required parameter 'tenant' is set

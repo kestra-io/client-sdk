@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**DeleteKeyValues**](KVAPI.md#DeleteKeyValues) | **Delete** /api/v1/{tenant}/namespaces/{namespace}/kv | Bulk-delete multiple key/value pairs from the given namespace.
 [**GetKeyValue**](KVAPI.md#GetKeyValue) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Get value for a key
 [**ListKeys**](KVAPI.md#ListKeys) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv | List all keys for a namespace
-[**ListKeysWithInheritence**](KVAPI.md#ListKeysWithInheritence) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for a namespace and parent namespaces
+[**ListKeysWithInheritence**](KVAPI.md#ListKeysWithInheritence) | **Get** /api/v1/{tenant}/namespaces/{namespace}/kv/inheritance | List all keys for inherited namespaces
 [**SetKeyValue**](KVAPI.md#SetKeyValue) | **Put** /api/v1/{tenant}/namespaces/{namespace}/kv/{key} | Puts a key-value pair in store
 
 
@@ -108,7 +108,7 @@ import (
 func main() {
 	namespace := "namespace_example" // string | The namespace id
 	tenant := "tenant_example" // string | 
-	kVControllerApiDeleteBulkRequest := *openapiclient.NewKVControllerApiDeleteBulkRequest([]string{"Keys_example"}) // KVControllerApiDeleteBulkRequest | The keys
+	kVControllerApiDeleteBulkRequest := *openapiclient.NewKVControllerApiDeleteBulkRequest() // KVControllerApiDeleteBulkRequest | The keys
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 > []KVEntry ListKeysWithInheritence(ctx, namespace, tenant).Execute()
 
-List all keys for a namespace and parent namespaces
+List all keys for inherited namespaces
 
 ### Example
 

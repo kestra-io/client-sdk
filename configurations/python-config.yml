@@ -3,9 +3,10 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/python-sdk
 
 globalProperties:
-  apiTests: false
+  apiTests: true
   modelTests: false
-
+  apiDocs: true
+  modelDocs: true
 hideGenerationTimestamp: true
 
 additionalProperties:
@@ -16,3 +17,6 @@ additionalProperties:
   customEmail: "contact@kestra.io"
   customAuthor: "Kestra.io"
   customDescription: "Kestra Python SDK"
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'

@@ -15,11 +15,13 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Locale;
 
 /**
  * Gets or Sets ResourceType_1
@@ -32,6 +34,8 @@ public enum ResourceType1 {
   
   APP_EXECUTION("APP_EXECUTION"),
   
+  BLUEPRINT("BLUEPRINT"),
+  
   BINDING("BINDING"),
   
   DASHBOARD("DASHBOARD"),
@@ -40,11 +44,15 @@ public enum ResourceType1 {
   
   FLOW("FLOW"),
   
+  KV_STORE("KV_STORE"),
+  
   GROUP("GROUP"),
   
   INVITATION("INVITATION"),
   
   NAMESPACE("NAMESPACE"),
+  
+  NAMESPACE_FILE("NAMESPACE_FILE"),
   
   ROLE("ROLE"),
   
@@ -55,6 +63,8 @@ public enum ResourceType1 {
   SETTING("SETTING"),
   
   TEMPLATE("TEMPLATE"),
+  
+  TRIGGER("TRIGGER"),
   
   TENANT("TENANT"),
   

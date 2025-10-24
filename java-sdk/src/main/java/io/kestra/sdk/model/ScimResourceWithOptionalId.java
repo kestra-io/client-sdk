@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ScimResourceWithOptionalId.JSON_PROPERTY_EXTERNAL_ID,
   ScimResourceWithOptionalId.JSON_PROPERTY_RESOURCE_TYPE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ScimResourceWithOptionalId {
   public static final String JSON_PROPERTY_SCHEMAS = "schemas";
   @javax.annotation.Nullable
@@ -69,7 +70,7 @@ public class ScimResourceWithOptionalId {
   private String externalId;
 
   public static final String JSON_PROPERTY_RESOURCE_TYPE = "resourceType";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String resourceType;
 
   public ScimResourceWithOptionalId() {
@@ -94,7 +95,7 @@ public class ScimResourceWithOptionalId {
    * @return schemas
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSchemas() {
@@ -102,7 +103,7 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SCHEMAS)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMAS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchemas(@javax.annotation.Nullable List<String> schemas) {
     this.schemas = schemas;
@@ -119,7 +120,7 @@ public class ScimResourceWithOptionalId {
    * @return baseUrn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonProperty(value = JSON_PROPERTY_BASE_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getBaseUrn() {
@@ -127,7 +128,7 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BASE_URN)
+  @JsonProperty(value = JSON_PROPERTY_BASE_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBaseUrn(@javax.annotation.Nullable String baseUrn) {
     this.baseUrn = baseUrn;
@@ -152,7 +153,7 @@ public class ScimResourceWithOptionalId {
    * @return extensions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonProperty(value = JSON_PROPERTY_EXTENSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, ScimExtension> getExtensions() {
@@ -160,7 +161,7 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTENSIONS)
+  @JsonProperty(value = JSON_PROPERTY_EXTENSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExtensions(@javax.annotation.Nullable Map<String, ScimExtension> extensions) {
     this.extensions = extensions;
@@ -177,7 +178,7 @@ public class ScimResourceWithOptionalId {
    * @return meta
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_META)
+  @JsonProperty(value = JSON_PROPERTY_META, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Meta getMeta() {
@@ -185,7 +186,7 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_META)
+  @JsonProperty(value = JSON_PROPERTY_META, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMeta(@javax.annotation.Nonnull Meta meta) {
     this.meta = meta;
@@ -202,7 +203,7 @@ public class ScimResourceWithOptionalId {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -210,7 +211,7 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -227,7 +228,7 @@ public class ScimResourceWithOptionalId {
    * @return externalId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getExternalId() {
@@ -235,13 +236,13 @@ public class ScimResourceWithOptionalId {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+  @JsonProperty(value = JSON_PROPERTY_EXTERNAL_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExternalId(@javax.annotation.Nullable String externalId) {
     this.externalId = externalId;
   }
 
-  public ScimResourceWithOptionalId resourceType(@javax.annotation.Nonnull String resourceType) {
+  public ScimResourceWithOptionalId resourceType(@javax.annotation.Nullable String resourceType) {
     
     this.resourceType = resourceType;
     return this;
@@ -251,18 +252,18 @@ public class ScimResourceWithOptionalId {
    * Get resourceType
    * @return resourceType
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResourceType() {
     return resourceType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResourceType(@javax.annotation.Nonnull String resourceType) {
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResourceType(@javax.annotation.Nullable String resourceType) {
     this.resourceType = resourceType;
   }
 

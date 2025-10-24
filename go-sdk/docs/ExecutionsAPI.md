@@ -65,7 +65,7 @@ Method | HTTP request | Description
 
 ## CreateExecution
 
-> []ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
+> ExecutionControllerExecutionResponse CreateExecution(ctx, namespace, id, tenant).Wait(wait).Labels(labels).Revision(revision).ScheduleDate(scheduleDate).Breakpoints(breakpoints).Kind(kind).Execute()
 
 Create a new execution for a flow
 
@@ -100,7 +100,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionsAPI.CreateExecution``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateExecution`: []ExecutionControllerExecutionResponse
+	// response from `CreateExecution`: ExecutionControllerExecutionResponse
 	fmt.Fprintf(os.Stdout, "Response from `ExecutionsAPI.CreateExecution`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]ExecutionControllerExecutionResponse**](ExecutionControllerExecutionResponse.md)
+[**ExecutionControllerExecutionResponse**](ExecutionControllerExecutionResponse.md)
 
 ### Authorization
 
@@ -1245,7 +1245,7 @@ import (
 )
 
 func main() {
-	executionId := "executionId_example" // string | The execution that you want flow information's
+	executionId := "executionId_example" // string | The execution that you want flow informations
 	tenant := "tenant_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -1266,7 +1266,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**executionId** | **string** | The execution that you want flow information&#39;s | 
+**executionId** | **string** | The execution that you want flow informations | 
 **tenant** | **string** |  | 
 
 ### Other Parameters
@@ -2937,7 +2937,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	scope := []openapiclient.FlowScope{openapiclient.FlowScope("USER")} // []FlowScope | The scope of the executions to include (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
@@ -3112,7 +3112,7 @@ func main() {
 	size := int32(56) // int32 | The current page size (default to 10)
 	tenant := "tenant_example" // string | 
 	sort := []string{"Inner_example"} // []string | The sort of current page (optional)
-	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter(openapiclient.QueryFilter.Field("QUERY"), openapiclient.QueryFilter.Op("EQUALS"), map[string]interface{}(123))} // []QueryFilter | Filters (optional)
+	filters := []openapiclient.QueryFilter{*openapiclient.NewQueryFilter()} // []QueryFilter | Filters (optional)
 	q := "q_example" // string | A string filter (optional)
 	namespace := "namespace_example" // string | A namespace filter prefix (optional)
 	flowId := "flowId_example" // string | A flow id filter (optional)
@@ -3278,7 +3278,7 @@ import (
 
 func main() {
 	tenant := "tenant_example" // string | 
-	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest([]string{"ExecutionsId_example"}, []openapiclient.Label{*openapiclient.NewLabel("Key_example", "Value_example")}) // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
+	executionControllerSetLabelsByIdsRequest := *openapiclient.NewExecutionControllerSetLabelsByIdsRequest() // ExecutionControllerSetLabelsByIdsRequest | The request containing a list of labels and a list of executions
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4233,7 +4233,7 @@ import (
 func main() {
 	executionId := "executionId_example" // string | The execution id
 	tenant := "tenant_example" // string | 
-	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest("TaskRunId_example", openapiclient.State.Type("CREATED")) // ExecutionControllerStateRequest | the taskRun id and state to apply
+	executionControllerStateRequest := *openapiclient.NewExecutionControllerStateRequest() // ExecutionControllerStateRequest | the taskRun id and state to apply
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

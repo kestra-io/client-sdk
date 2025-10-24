@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeniedServices** | [**[]ServiceType**](ServiceType.md) |  | 
-**Enabled** | **bool** |  | 
+**DeniedServices** | Pointer to [**[]ServiceType**](ServiceType.md) |  | [optional] 
+**Enabled** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewIsolation
 
-`func NewIsolation(deniedServices []ServiceType, enabled bool, ) *Isolation`
+`func NewIsolation() *Isolation`
 
 NewIsolation instantiates a new Isolation object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetDeniedServices sets DeniedServices field to given value.
 
+### HasDeniedServices
+
+`func (o *Isolation) HasDeniedServices() bool`
+
+HasDeniedServices returns a boolean if a field has been set.
 
 ### GetEnabled
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
+### HasEnabled
+
+`func (o *Isolation) HasEnabled() bool`
+
+HasEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

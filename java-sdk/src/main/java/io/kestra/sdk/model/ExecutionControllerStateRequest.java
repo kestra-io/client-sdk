@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,20 +33,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ExecutionControllerStateRequest.JSON_PROPERTY_STATE
 })
 @JsonTypeName("ExecutionController.StateRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ExecutionControllerStateRequest {
   public static final String JSON_PROPERTY_TASK_RUN_ID = "taskRunId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String taskRunId;
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private StateType state;
 
   public ExecutionControllerStateRequest() {
   }
 
-  public ExecutionControllerStateRequest taskRunId(@javax.annotation.Nonnull String taskRunId) {
+  public ExecutionControllerStateRequest taskRunId(@javax.annotation.Nullable String taskRunId) {
     
     this.taskRunId = taskRunId;
     return this;
@@ -55,22 +56,22 @@ public class ExecutionControllerStateRequest {
    * Get taskRunId
    * @return taskRunId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaskRunId() {
     return taskRunId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASK_RUN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTaskRunId(@javax.annotation.Nonnull String taskRunId) {
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUN_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTaskRunId(@javax.annotation.Nullable String taskRunId) {
     this.taskRunId = taskRunId;
   }
 
-  public ExecutionControllerStateRequest state(@javax.annotation.Nonnull StateType state) {
+  public ExecutionControllerStateRequest state(@javax.annotation.Nullable StateType state) {
     
     this.state = state;
     return this;
@@ -80,18 +81,18 @@ public class ExecutionControllerStateRequest {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StateType getState() {
     return state;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull StateType state) {
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@javax.annotation.Nullable StateType state) {
     this.state = state;
   }
 

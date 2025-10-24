@@ -2034,7 +2034,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | updateFlow 200 response |  -  |
+| **200** | On success |  -  |
 
 
 ## updateFlowsInNamespaceFromJson
@@ -2388,7 +2388,7 @@ public class Example {
 
         FlowsApi apiInstance = new FlowsApi(defaultClient);
         String tenant = "tenant_example"; // String | 
-        String body = "body_example"; // String | The trigger
+        Object body = null; // Object | The trigger
         try {
             ValidateConstraintViolation result = apiInstance.validateTrigger(tenant, body);
             System.out.println(result);
@@ -2409,7 +2409,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **tenant** | **String**|  | |
-| **body** | **String**| The trigger | |
+| **body** | **Object**| The trigger | |
 
 ### Return type
 

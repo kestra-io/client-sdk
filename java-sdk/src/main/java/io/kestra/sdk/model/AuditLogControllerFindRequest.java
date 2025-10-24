@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,10 +41,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogControllerFindRequest.JSON_PROPERTY_DETAIL
 })
 @JsonTypeName("AuditLogController.FindRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogControllerFindRequest {
   public static final String JSON_PROPERTY_RESOURCE = "resource";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ResourceType1 resource;
 
   public static final String JSON_PROPERTY_TYPE = "type";
@@ -51,13 +52,13 @@ public class AuditLogControllerFindRequest {
   private JsonNullable<CrudEventType> type = JsonNullable.<CrudEventType>undefined();
 
   public static final String JSON_PROPERTY_DETAIL = "detail";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> detail = new HashMap<>();
 
   public AuditLogControllerFindRequest() {
   }
 
-  public AuditLogControllerFindRequest resource(@javax.annotation.Nonnull ResourceType1 resource) {
+  public AuditLogControllerFindRequest resource(@javax.annotation.Nullable ResourceType1 resource) {
     
     this.resource = resource;
     return this;
@@ -67,18 +68,18 @@ public class AuditLogControllerFindRequest {
    * Get resource
    * @return resource
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResource() {
     return resource;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResource(@javax.annotation.Nonnull ResourceType1 resource) {
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setResource(@javax.annotation.Nullable ResourceType1 resource) {
     this.resource = resource;
   }
 
@@ -99,14 +100,14 @@ public class AuditLogControllerFindRequest {
         return type.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<CrudEventType> getType_JsonNullable() {
     return type;
   }
   
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
   public void setType_JsonNullable(JsonNullable<CrudEventType> type) {
     this.type = type;
   }
@@ -115,13 +116,16 @@ public class AuditLogControllerFindRequest {
     this.type = JsonNullable.<CrudEventType>of(type);
   }
 
-  public AuditLogControllerFindRequest detail(@javax.annotation.Nonnull Map<String, Object> detail) {
+  public AuditLogControllerFindRequest detail(@javax.annotation.Nullable Map<String, Object> detail) {
     
     this.detail = detail;
     return this;
   }
 
   public AuditLogControllerFindRequest putDetailItem(String key, Object detailItem) {
+    if (this.detail == null) {
+      this.detail = new HashMap<>();
+    }
     this.detail.put(key, detailItem);
     return this;
   }
@@ -130,18 +134,18 @@ public class AuditLogControllerFindRequest {
    * Get detail
    * @return detail
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getDetail() {
     return detail;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DETAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDetail(@javax.annotation.Nonnull Map<String, Object> detail) {
+  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetail(@javax.annotation.Nullable Map<String, Object> detail) {
     this.detail = detail;
   }
 

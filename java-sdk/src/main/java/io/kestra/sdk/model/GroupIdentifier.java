@@ -15,12 +15,17 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.kestra.sdk.model.GroupIdentifierMembership;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -33,30 +38,30 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   GroupIdentifier.JSON_PROPERTY_MEMBERSHIP,
   GroupIdentifier.JSON_PROPERTY_MANAGED_EXTERNALLY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class GroupIdentifier {
   public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
   @javax.annotation.Nullable
-  private String tenantId;
+  private JsonNullable<String> tenantId = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_GROUP_ID = "groupId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String groupId;
 
   public static final String JSON_PROPERTY_MEMBERSHIP = "membership";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private GroupIdentifierMembership membership;
 
   public static final String JSON_PROPERTY_MANAGED_EXTERNALLY = "managedExternally";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean managedExternally;
 
   public GroupIdentifier() {
   }
 
   public GroupIdentifier tenantId(@javax.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
     
-    this.tenantId = tenantId;
     return this;
   }
 
@@ -65,21 +70,29 @@ public class GroupIdentifier {
    * @return tenantId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonIgnore
 
   public String getTenantId() {
-    return tenantId;
+        return tenantId.orElse(null);
   }
 
+  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+  public JsonNullable<String> getTenantId_JsonNullable() {
+    return tenantId;
+  }
+  
+  @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = false)
+  public void setTenantId_JsonNullable(JsonNullable<String> tenantId) {
     this.tenantId = tenantId;
   }
 
-  public GroupIdentifier groupId(@javax.annotation.Nonnull String groupId) {
+  public void setTenantId(@javax.annotation.Nullable String tenantId) {
+    this.tenantId = JsonNullable.<String>of(tenantId);
+  }
+
+  public GroupIdentifier groupId(@javax.annotation.Nullable String groupId) {
     
     this.groupId = groupId;
     return this;
@@ -89,22 +102,22 @@ public class GroupIdentifier {
    * Get groupId
    * @return groupId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_GROUP_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroupId() {
     return groupId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroupId(@javax.annotation.Nonnull String groupId) {
+  @JsonProperty(value = JSON_PROPERTY_GROUP_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupId(@javax.annotation.Nullable String groupId) {
     this.groupId = groupId;
   }
 
-  public GroupIdentifier membership(@javax.annotation.Nonnull GroupIdentifierMembership membership) {
+  public GroupIdentifier membership(@javax.annotation.Nullable GroupIdentifierMembership membership) {
     
     this.membership = membership;
     return this;
@@ -114,22 +127,22 @@ public class GroupIdentifier {
    * Get membership
    * @return membership
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MEMBERSHIP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public GroupIdentifierMembership getMembership() {
     return membership;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEMBERSHIP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMembership(@javax.annotation.Nonnull GroupIdentifierMembership membership) {
+  @JsonProperty(value = JSON_PROPERTY_MEMBERSHIP, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMembership(@javax.annotation.Nullable GroupIdentifierMembership membership) {
     this.membership = membership;
   }
 
-  public GroupIdentifier managedExternally(@javax.annotation.Nonnull Boolean managedExternally) {
+  public GroupIdentifier managedExternally(@javax.annotation.Nullable Boolean managedExternally) {
     
     this.managedExternally = managedExternally;
     return this;
@@ -139,18 +152,18 @@ public class GroupIdentifier {
    * Get managedExternally
    * @return managedExternally
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MANAGED_EXTERNALLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MANAGED_EXTERNALLY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getManagedExternally() {
     return managedExternally;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MANAGED_EXTERNALLY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setManagedExternally(@javax.annotation.Nonnull Boolean managedExternally) {
+  @JsonProperty(value = JSON_PROPERTY_MANAGED_EXTERNALLY, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManagedExternally(@javax.annotation.Nullable Boolean managedExternally) {
     this.managedExternally = managedExternally;
   }
 
@@ -163,15 +176,26 @@ public class GroupIdentifier {
       return false;
     }
     GroupIdentifier groupIdentifier = (GroupIdentifier) o;
-    return Objects.equals(this.tenantId, groupIdentifier.tenantId) &&
+    return equalsNullable(this.tenantId, groupIdentifier.tenantId) &&
         Objects.equals(this.groupId, groupIdentifier.groupId) &&
         Objects.equals(this.membership, groupIdentifier.membership) &&
         Objects.equals(this.managedExternally, groupIdentifier.managedExternally);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(tenantId, groupId, membership, managedExternally);
+    return Objects.hash(hashCodeNullable(tenantId), groupId, membership, managedExternally);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

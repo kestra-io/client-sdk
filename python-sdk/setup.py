@@ -21,7 +21,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "@kestra-io/kestrapy"
-VERSION = "v1.0.4"
+VERSION = "v1.0.5"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
 "requests (>= 2.32.5)",

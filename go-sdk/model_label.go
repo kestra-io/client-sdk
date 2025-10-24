@@ -18,7 +18,7 @@ import (
 // checks if the Label type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Label{}
 
-// Label struct for Label
+// Label A key/value pair that can be attached to a Flow or Execution. Labels are often used to organize and categorize objects.
 type Label struct {
 	Key                  string `json:"key"`
 	Value                string `json:"value"`

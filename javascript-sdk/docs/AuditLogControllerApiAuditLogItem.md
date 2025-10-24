@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**auditLog** | [**AuditLog**](AuditLog.md) |  | 
-**user** | [**ApiUser**](ApiUser.md) |  | 
+**auditLog** | [**AuditLog**](AuditLog.md) |  | [optional] 
+**user** | [**ApiUser**](ApiUser.md) |  | [optional] 
 
 

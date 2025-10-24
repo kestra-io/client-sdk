@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,20 +36,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkImportResponse.JSON_PROPERTY_ERRORS
 })
 @JsonTypeName("AppsController.ApiBulkImportResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkImportResponse {
   public static final String JSON_PROPERTY_SUCCESS = "success";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> success = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ERRORS = "errors";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<AppsControllerApiBulkImportResponseError> errors = new ArrayList<>();
 
   public AppsControllerApiBulkImportResponse() {
   }
 
-  public AppsControllerApiBulkImportResponse success(@javax.annotation.Nonnull List<String> success) {
+  public AppsControllerApiBulkImportResponse success(@javax.annotation.Nullable List<String> success) {
     
     this.success = success;
     return this;
@@ -66,22 +67,22 @@ public class AppsControllerApiBulkImportResponse {
    * Get success
    * @return success
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getSuccess() {
     return success;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuccess(@javax.annotation.Nonnull List<String> success) {
+  @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuccess(@javax.annotation.Nullable List<String> success) {
     this.success = success;
   }
 
-  public AppsControllerApiBulkImportResponse errors(@javax.annotation.Nonnull List<AppsControllerApiBulkImportResponseError> errors) {
+  public AppsControllerApiBulkImportResponse errors(@javax.annotation.Nullable List<AppsControllerApiBulkImportResponseError> errors) {
     
     this.errors = errors;
     return this;
@@ -99,18 +100,18 @@ public class AppsControllerApiBulkImportResponse {
    * Get errors
    * @return errors
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AppsControllerApiBulkImportResponseError> getErrors() {
     return errors;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERRORS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setErrors(@javax.annotation.Nonnull List<AppsControllerApiBulkImportResponseError> errors) {
+  @JsonProperty(value = JSON_PROPERTY_ERRORS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrors(@javax.annotation.Nullable List<AppsControllerApiBulkImportResponseError> errors) {
     this.errors = errors;
   }
 

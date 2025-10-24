@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   KVControllerApiDeleteBulkResponse.JSON_PROPERTY_KEYS
 })
 @JsonTypeName("KVController.ApiDeleteBulkResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class KVControllerApiDeleteBulkResponse {
   public static final String JSON_PROPERTY_KEYS = "keys";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> keys = new ArrayList<>();
 
   public KVControllerApiDeleteBulkResponse() {
   }
 
-  public KVControllerApiDeleteBulkResponse keys(@javax.annotation.Nonnull List<String> keys) {
+  public KVControllerApiDeleteBulkResponse keys(@javax.annotation.Nullable List<String> keys) {
     
     this.keys = keys;
     return this;
@@ -60,18 +61,18 @@ public class KVControllerApiDeleteBulkResponse {
    * Get keys
    * @return keys
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_KEYS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getKeys() {
     return keys;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_KEYS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setKeys(@javax.annotation.Nonnull List<String> keys) {
+  @JsonProperty(value = JSON_PROPERTY_KEYS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setKeys(@javax.annotation.Nullable List<String> keys) {
     this.keys = keys;
   }
 

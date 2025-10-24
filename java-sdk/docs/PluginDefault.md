@@ -8,8 +8,8 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | **String** |  |  |
-|**forced** | **Boolean** |  |  |
-|**values** | **Map&lt;String, Object&gt;** |  |  |
+|**forced** | **Boolean** |  |  [optional] |
+|**values** | **Object** |  |  [optional] |
 
 
 

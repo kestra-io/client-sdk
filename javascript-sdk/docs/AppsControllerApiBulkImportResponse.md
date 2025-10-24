@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**success** | **[String]** |  | 
-**errors** | [**[AppsControllerApiBulkImportResponseError]**](AppsControllerApiBulkImportResponseError.md) |  | 
+**success** | **[String]** |  | [optional] 
+**errors** | [**[AppsControllerApiBulkImportResponseError]**](AppsControllerApiBulkImportResponseError.md) |  | [optional] 
 
 

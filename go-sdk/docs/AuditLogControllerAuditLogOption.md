@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Date** | **time.Time** |  | 
-**Username** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Date** | Pointer to **time.Time** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAuditLogControllerAuditLogOption
 
-`func NewAuditLogControllerAuditLogOption(id string, date time.Time, username string, ) *AuditLogControllerAuditLogOption`
+`func NewAuditLogControllerAuditLogOption() *AuditLogControllerAuditLogOption`
 
 NewAuditLogControllerAuditLogOption instantiates a new AuditLogControllerAuditLogOption object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *AuditLogControllerAuditLogOption) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetDate
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetDate sets Date field to given value.
 
+### HasDate
+
+`func (o *AuditLogControllerAuditLogOption) HasDate() bool`
+
+HasDate returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *AuditLogControllerAuditLogOption) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

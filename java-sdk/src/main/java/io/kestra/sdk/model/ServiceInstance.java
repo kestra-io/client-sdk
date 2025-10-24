@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -51,56 +52,56 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServiceInstance.JSON_PROPERTY_PROPS,
   ServiceInstance.JSON_PROPERTY_SEQ_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServiceInstance {
   public static final String JSON_PROPERTY_SERVER = "server";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServerInstance server;
 
   public static final String JSON_PROPERTY_METRICS = "metrics";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<Metric> metrics = new ArrayList<>();
 
   public static final String JSON_PROPERTY_STATE = "state";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServiceServiceState state;
 
   public static final String JSON_PROPERTY_ID = "id";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_TYPE = "type";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServiceType type;
 
   public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public static final String JSON_PROPERTY_EVENTS = "events";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<ServiceInstanceTimestampedEvent> events = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CONFIG = "config";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ServerConfig config;
 
   public static final String JSON_PROPERTY_PROPS = "props";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> props = new HashMap<>();
 
   public static final String JSON_PROPERTY_SEQ_ID = "seqId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Long seqId;
 
   public ServiceInstance() {
   }
 
-  public ServiceInstance server(@javax.annotation.Nonnull ServerInstance server) {
+  public ServiceInstance server(@javax.annotation.Nullable ServerInstance server) {
     
     this.server = server;
     return this;
@@ -110,22 +111,22 @@ public class ServiceInstance {
    * Get server
    * @return server
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SERVER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SERVER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServerInstance getServer() {
     return server;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setServer(@javax.annotation.Nonnull ServerInstance server) {
+  @JsonProperty(value = JSON_PROPERTY_SERVER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServer(@javax.annotation.Nullable ServerInstance server) {
     this.server = server;
   }
 
-  public ServiceInstance metrics(@javax.annotation.Nonnull List<Metric> metrics) {
+  public ServiceInstance metrics(@javax.annotation.Nullable List<Metric> metrics) {
     
     this.metrics = metrics;
     return this;
@@ -143,22 +144,22 @@ public class ServiceInstance {
    * Get metrics
    * @return metrics
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_METRICS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Metric> getMetrics() {
     return metrics;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METRICS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetrics(@javax.annotation.Nonnull List<Metric> metrics) {
+  @JsonProperty(value = JSON_PROPERTY_METRICS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetrics(@javax.annotation.Nullable List<Metric> metrics) {
     this.metrics = metrics;
   }
 
-  public ServiceInstance state(@javax.annotation.Nonnull ServiceServiceState state) {
+  public ServiceInstance state(@javax.annotation.Nullable ServiceServiceState state) {
     
     this.state = state;
     return this;
@@ -168,22 +169,22 @@ public class ServiceInstance {
    * Get state
    * @return state
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceServiceState getState() {
     return state;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setState(@javax.annotation.Nonnull ServiceServiceState state) {
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setState(@javax.annotation.Nullable ServiceServiceState state) {
     this.state = state;
   }
 
-  public ServiceInstance id(@javax.annotation.Nonnull String id) {
+  public ServiceInstance id(@javax.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -193,22 +194,22 @@ public class ServiceInstance {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(@javax.annotation.Nonnull String id) {
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public ServiceInstance type(@javax.annotation.Nonnull ServiceType type) {
+  public ServiceInstance type(@javax.annotation.Nullable ServiceType type) {
     
     this.type = type;
     return this;
@@ -218,22 +219,22 @@ public class ServiceInstance {
    * Get type
    * @return type
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceType getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setType(@javax.annotation.Nonnull ServiceType type) {
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(@javax.annotation.Nullable ServiceType type) {
     this.type = type;
   }
 
-  public ServiceInstance createdAt(@javax.annotation.Nonnull OffsetDateTime createdAt) {
+  public ServiceInstance createdAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     
     this.createdAt = createdAt;
     return this;
@@ -243,22 +244,22 @@ public class ServiceInstance {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCreatedAt(@javax.annotation.Nonnull OffsetDateTime createdAt) {
+  @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreatedAt(@javax.annotation.Nullable OffsetDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public ServiceInstance updatedAt(@javax.annotation.Nonnull OffsetDateTime updatedAt) {
+  public ServiceInstance updatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     
     this.updatedAt = updatedAt;
     return this;
@@ -268,22 +269,22 @@ public class ServiceInstance {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUpdatedAt(@javax.annotation.Nonnull OffsetDateTime updatedAt) {
+  @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUpdatedAt(@javax.annotation.Nullable OffsetDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
-  public ServiceInstance events(@javax.annotation.Nonnull List<ServiceInstanceTimestampedEvent> events) {
+  public ServiceInstance events(@javax.annotation.Nullable List<ServiceInstanceTimestampedEvent> events) {
     
     this.events = events;
     return this;
@@ -301,22 +302,22 @@ public class ServiceInstance {
    * Get events
    * @return events
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EVENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_EVENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceInstanceTimestampedEvent> getEvents() {
     return events;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EVENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEvents(@javax.annotation.Nonnull List<ServiceInstanceTimestampedEvent> events) {
+  @JsonProperty(value = JSON_PROPERTY_EVENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEvents(@javax.annotation.Nullable List<ServiceInstanceTimestampedEvent> events) {
     this.events = events;
   }
 
-  public ServiceInstance config(@javax.annotation.Nonnull ServerConfig config) {
+  public ServiceInstance config(@javax.annotation.Nullable ServerConfig config) {
     
     this.config = config;
     return this;
@@ -326,28 +327,31 @@ public class ServiceInstance {
    * Get config
    * @return config
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONFIG)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CONFIG, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServerConfig getConfig() {
     return config;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONFIG)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setConfig(@javax.annotation.Nonnull ServerConfig config) {
+  @JsonProperty(value = JSON_PROPERTY_CONFIG, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConfig(@javax.annotation.Nullable ServerConfig config) {
     this.config = config;
   }
 
-  public ServiceInstance props(@javax.annotation.Nonnull Map<String, Object> props) {
+  public ServiceInstance props(@javax.annotation.Nullable Map<String, Object> props) {
     
     this.props = props;
     return this;
   }
 
   public ServiceInstance putPropsItem(String key, Object propsItem) {
+    if (this.props == null) {
+      this.props = new HashMap<>();
+    }
     this.props.put(key, propsItem);
     return this;
   }
@@ -356,22 +360,22 @@ public class ServiceInstance {
    * Get props
    * @return props
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PROPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, Object> getProps() {
     return props;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PROPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setProps(@javax.annotation.Nonnull Map<String, Object> props) {
+  @JsonProperty(value = JSON_PROPERTY_PROPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProps(@javax.annotation.Nullable Map<String, Object> props) {
     this.props = props;
   }
 
-  public ServiceInstance seqId(@javax.annotation.Nonnull Long seqId) {
+  public ServiceInstance seqId(@javax.annotation.Nullable Long seqId) {
     
     this.seqId = seqId;
     return this;
@@ -381,18 +385,18 @@ public class ServiceInstance {
    * Get seqId
    * @return seqId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SEQ_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SEQ_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getSeqId() {
     return seqId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SEQ_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSeqId(@javax.annotation.Nonnull Long seqId) {
+  @JsonProperty(value = JSON_PROPERTY_SEQ_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSeqId(@javax.annotation.Nullable Long seqId) {
     this.seqId = seqId;
   }
 

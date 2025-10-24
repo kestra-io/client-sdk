@@ -20,8 +20,6 @@ List roles for autocomplete
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -30,38 +28,15 @@ from kestrapy.models.api_role_summary import ApiRoleSummary
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
     api_autocomplete = kestrapy.ApiAutocomplete() # ApiAutocomplete | Autocomplete request
 
     try:
         # List roles for autocomplete
-        api_response = api_instance.autocomplete_roles(tenant, api_autocomplete)
+        api_response = api_client.autocomplete_roles(tenant, api_autocomplete)
         print("The response of RolesApi->autocomplete_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -106,8 +81,6 @@ Create a role
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -116,38 +89,15 @@ from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControlle
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
     iam_role_controller_api_role_create_or_update_request = kestrapy.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
     try:
         # Create a role
-        api_response = api_instance.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = api_client.create_role(tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->create_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -193,46 +143,21 @@ Delete a role
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
 
     try:
         # Delete a role
-        api_instance.delete_role(id, tenant)
+        api_client.delete_role(id, tenant)
     except Exception as e:
         print("Exception when calling RolesApi->delete_role: %s\n" % e)
 ```
@@ -275,8 +200,6 @@ Retrieve a role
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -284,38 +207,15 @@ from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControlle
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
 
     try:
         # Retrieve a role
-        api_response = api_instance.get_role(id, tenant)
+        api_response = api_client.get_role(id, tenant)
         print("The response of RolesApi->get_role:\n")
         pprint(api_response)
     except Exception as e:
@@ -361,8 +261,6 @@ List roles by ids
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -371,38 +269,15 @@ from kestrapy.models.role import Role
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     tenant = 'tenant_example' # str | 
     api_ids = kestrapy.ApiIds() # ApiIds | The ids that must be present on results
 
     try:
         # List roles by ids
-        api_response = api_instance.list_roles_from_given_ids(tenant, api_ids)
+        api_response = api_client.list_roles_from_given_ids(tenant, api_ids)
         print("The response of RolesApi->list_roles_from_given_ids:\n")
         pprint(api_response)
     except Exception as e:
@@ -447,8 +322,6 @@ Search for roles
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -456,32 +329,9 @@ from kestrapy.models.paged_results_api_role_summary import PagedResultsApiRoleSu
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     page = 1 # int | The current page (default to 1)
     size = 10 # int | The current page size (default to 10)
     tenant = 'tenant_example' # str | 
@@ -490,7 +340,7 @@ with kestrapy.ApiClient(configuration) as api_client:
 
     try:
         # Search for roles
-        api_response = api_instance.search_roles(page, size, tenant, q=q, sort=sort)
+        api_response = api_client.search_roles(page, size, tenant, q=q, sort=sort)
         print("The response of RolesApi->search_roles:\n")
         pprint(api_response)
     except Exception as e:
@@ -538,8 +388,6 @@ Update a role
 
 ### Example
 
-* Basic Authentication (basicAuth):
-* Bearer (Bearer) Authentication (bearerAuth):
 
 ```python
 import kestrapy
@@ -548,39 +396,16 @@ from kestrapy.models.iam_role_controller_api_role_detail import IAMRoleControlle
 from kestrapy.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = kestrapy.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = kestrapy.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization (Bearer): bearerAuth
-configuration = kestrapy.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with kestrapy.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = kestrapy.RolesApi(api_client)
     id = 'id_example' # str | The role id
     tenant = 'tenant_example' # str | 
     iam_role_controller_api_role_create_or_update_request = kestrapy.IAMRoleControllerApiRoleCreateOrUpdateRequest() # IAMRoleControllerApiRoleCreateOrUpdateRequest | 
 
     try:
         # Update a role
-        api_response = api_instance.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
+        api_response = api_client.update_role(id, tenant, iam_role_controller_api_role_create_or_update_request)
         print("The response of RolesApi->update_role:\n")
         pprint(api_response)
     except Exception as e:

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | **string** |  | 
-**Conditions** | [**[]Condition**](Condition.md) |  | 
+**Description** | Pointer to **string** |  | [optional] 
+**Conditions** | Pointer to [**[]Condition**](Condition.md) |  | [optional] 
 **Tasks** | [**[]Task**](Task.md) |  | 
 
 ## Methods
 
 ### NewListener
 
-`func NewListener(description string, conditions []Condition, tasks []Task, ) *Listener`
+`func NewListener(tasks []Task, ) *Listener`
 
 NewListener instantiates a new Listener object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *Listener) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetConditions
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetConditions sets Conditions field to given value.
 
+### HasConditions
+
+`func (o *Listener) HasConditions() bool`
+
+HasConditions returns a boolean if a field has been set.
 
 ### GetTasks
 

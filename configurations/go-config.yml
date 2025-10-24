@@ -3,8 +3,11 @@ inputSpec: /local/kestra-ee.yml
 outputDir: /local/go-sdk
 
 globalProperties:
-  apiTests: false
+  apiTests: true
   modelTests: false
+  apiDocs: true
+  modelDocs: true
+
 
 additionalProperties:
   packageName: kestra_api_client
@@ -24,3 +27,6 @@ typeMappings:
   PropertyDouble: string
   PropertyListString: string
   PropertyObject: string
+
+openapiNormalizer:
+  FILTER: 'tag:Executions|Flows|Namespaces|Triggers|Users|Groups|KV|Roles|ServiceAccount'

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**External** | **bool** |  | 
-**Membership** | [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**External** | Pointer to **bool** |  | [optional] 
+**Membership** | Pointer to [**GroupIdentifierMembership**](GroupIdentifierMembership.md) |  | [optional] 
 
 ## Methods
 
 ### NewIAMGroupControllerApiGroupMembership
 
-`func NewIAMGroupControllerApiGroupMembership(id string, name string, external bool, membership GroupIdentifierMembership, ) *IAMGroupControllerApiGroupMembership`
+`func NewIAMGroupControllerApiGroupMembership() *IAMGroupControllerApiGroupMembership`
 
 NewIAMGroupControllerApiGroupMembership instantiates a new IAMGroupControllerApiGroupMembership object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *IAMGroupControllerApiGroupMembership) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *IAMGroupControllerApiGroupMembership) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetExternal
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetExternal sets External field to given value.
 
+### HasExternal
+
+`func (o *IAMGroupControllerApiGroupMembership) HasExternal() bool`
+
+HasExternal returns a boolean if a field has been set.
 
 ### GetMembership
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetMembership sets Membership field to given value.
 
+### HasMembership
+
+`func (o *IAMGroupControllerApiGroupMembership) HasMembership() bool`
+
+HasMembership returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

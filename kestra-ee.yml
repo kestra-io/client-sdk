@@ -35,6 +35,109 @@ tags:
   - name: Misc
     description: Misc api
 paths:
+  /api/v1/auditlogs/export:
+    get:
+      tags:
+        - Audit Logs
+      summary: Export all audit logs as a streamed CSV file
+      operationId: exportAuditLogsForAllTenants
+      parameters:
+        - name: q
+          in: query
+          description: A string filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: namespace
+          in: query
+          description: A namespace filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: flowId
+          in: query
+          description: A flow id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: executionId
+          in: query
+          description: An execution filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: userId
+          in: query
+          description: A user id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: id
+          in: query
+          description: A id filter
+          explode: false
+          schema:
+            type: string
+            nullable: true
+        - name: resources
+          in: query
+          description: A resource filter
+          explode: false
+          schema:
+            type: array
+            nullable: true
+            items:
+              $ref: "#/components/schemas/ResourceType_1"
+        - name: startDate
+          in: query
+          description: The start datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: endDate
+          in: query
+          description: The end datetime
+          explode: false
+          schema:
+            type: string
+            format: date-time
+            nullable: true
+        - name: details
+          in: query
+          description: A list of auditLog details
+          explode: false
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+            nullable: true
+        - name: type
+          in: query
+          description: The event that create the audit log
+          explode: false
+          schema:
+            nullable: true
+            allOf:
+              - $ref: "#/components/schemas/CrudEventType"
+      responses:
+        "200":
+          description: exportAuditLogsForAllTenants 200 response
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - bearerAuth: []
+        - basicAuth: []
   /api/v1/auditlogs/search:
     get:
       tags:
@@ -340,6 +443,8 @@ paths:
         - basicAuth: []
   /api/v1/forgotten-password:
     get:
+      tags:
+        - Auths
       summary: Sends an email to reset a password.
       description: "Sends an email to reset a password. Note that whatever the username\
         \ is found or not, the response will always be 200 to avoid leaking information."
@@ -896,6 +1001,8 @@ paths:
         - basicAuth: []
   /api/v1/invitation/accept/{invitationId}:
     post:
+      tags:
+        - Auths
       operationId: acceptInvitation
       parameters:
         - name: invitationId
@@ -912,6 +1019,8 @@ paths:
                 type: object
   /api/v1/invitation/create/{invitationId}:
     post:
+      tags:
+        - Auths
       operationId: createFromInvitation
       parameters:
         - name: invitationId
@@ -1363,7 +1472,7 @@ paths:
   /api/v1/request-code/{email}:
     get:
       tags:
-        - Authentication Code
+        - Auths
       summary: Request an authentication code for login verification
       operationId: requestCode
       parameters:
@@ -1381,6 +1490,8 @@ paths:
                 type: object
   /api/v1/reset-password:
     post:
+      tags:
+        - Auths
       summary: Change a password for given token.
       description: "Change a password for given token. If password does not match\
         \ password policy, use can still retry."
@@ -1556,9 +1667,9 @@ paths:
   /api/v1/service-accounts/{id}/api-tokens:
     get:
       tags:
-        - Users
-      summary: List API tokens for a specific user
-      operationId: listApiTokens
+        - ServiceAccount
+      summary: List API tokens for a specific service account
+      operationId: listApiTokensForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1568,7 +1679,7 @@ paths:
             type: string
       responses:
         "200":
-          description: listApiTokens 200 response
+          description: listApiTokensForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -1578,9 +1689,9 @@ paths:
         - basicAuth: []
     post:
       tags:
-        - Users
-      summary: Create new API Token for a specific user
-      operationId: createApiTokensForUser
+        - ServiceAccount
+      summary: Create new API Token for a specific service account
+      operationId: createApiTokensForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1597,7 +1708,7 @@ paths:
         required: true
       responses:
         "200":
-          description: createApiTokensForUser 200 response
+          description: createApiTokensForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -1608,9 +1719,9 @@ paths:
   /api/v1/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
-        - Users
-      summary: Delete an API Token for specific user and token id
-      operationId: deleteApiToken
+        - ServiceAccount
+      summary: Delete an API Token for specific service account and token id
+      operationId: deleteApiTokenForServiceAccount
       parameters:
         - name: id
           in: path
@@ -1626,7 +1737,7 @@ paths:
             type: string
       responses:
         "200":
-          description: deleteApiToken 200 response
+          description: deleteApiTokenForServiceAccount 200 response
           content:
             application/json:
               schema:
@@ -1936,6 +2047,10 @@ paths:
       responses:
         "201":
           description: User was successfully created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAMUserController.ApiUser"
         "404":
           description: "Tenant, or group not found"
       security:
@@ -2056,7 +2171,7 @@ paths:
         - Users
       summary: List API tokens for a specific user
       description: Superadmin-only. Get all API token existing for a user.
-      operationId: listApiTokens_1
+      operationId: listApiTokensForUser
       parameters:
         - name: id
           in: path
@@ -2068,11 +2183,11 @@ paths:
         "404":
           description: User not found
         "200":
-          description: listApiTokens_1 200 response
+          description: listApiTokensForUser 200 response
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/ApiTokenList"
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -2081,7 +2196,7 @@ paths:
         - Users
       summary: Create new API Token for a specific user
       description: Superadmin-only. Create a new API token for a user.
-      operationId: createApiTokensForUser_1
+      operationId: createApiTokensForUser
       parameters:
         - name: id
           in: path
@@ -2097,7 +2212,7 @@ paths:
               $ref: "#/components/schemas/CreateApiTokenRequest"
         required: true
       responses:
-        "200":
+        "201":
           description: API token successfully created
           content:
             application/json:
@@ -2114,7 +2229,7 @@ paths:
         - Users
       summary: Delete an API Token for specific user and token id
       description: Superadmin-only. Delete an API token for a user.
-      operationId: deleteApiToken_1
+      operationId: deleteApiTokenForUser
       parameters:
         - name: id
           in: path
@@ -2220,7 +2335,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/IAMUserController.ApiUser"
         "404":
           description: User not found
       security:
@@ -8914,6 +9029,7 @@ paths:
               schema:
                 oneOf:
                   - $ref: "#/components/schemas/FlowWithSource"
+                  - $ref: "#/components/schemas/Flow"
               example: null
       deprecated: true
       security:
@@ -12294,12 +12410,6 @@ paths:
       responses:
         "200":
           description: deleteSecret 200 response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
       security:
         - bearerAuth: []
         - basicAuth: []
@@ -12315,12 +12425,13 @@ paths:
           required: true
           schema:
             type: string
-        - name: tenant
+        - name: key
           in: path
+          description: The secret key
           required: true
           schema:
             type: string
-        - name: key
+        - name: tenant
           in: path
           required: true
           schema:
@@ -12873,9 +12984,9 @@ paths:
   /api/v1/{tenant}/service-accounts/{id}/api-tokens:
     get:
       tags:
-        - Users
-      summary: List API tokens for a specific user
-      operationId: listApiTokensWithTenant
+        - ServiceAccount
+      summary: List API tokens for a specific service account
+      operationId: listApiTokensForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -12890,7 +13001,7 @@ paths:
             type: string
       responses:
         "200":
-          description: listApiTokensWithTenant 200 response
+          description: listApiTokensForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:
@@ -12900,9 +13011,9 @@ paths:
         - basicAuth: []
     post:
       tags:
-        - Users
-      summary: Create new API Token for a specific user
-      operationId: createApiTokensForUserWithTenant
+        - ServiceAccount
+      summary: Create new API Token for a specific service account
+      operationId: createApiTokensForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -12924,7 +13035,7 @@ paths:
         required: true
       responses:
         "200":
-          description: createApiTokensForUserWithTenant 200 response
+          description: createApiTokensForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:
@@ -12935,9 +13046,9 @@ paths:
   /api/v1/{tenant}/service-accounts/{id}/api-tokens/{tokenId}:
     delete:
       tags:
-        - Users
-      summary: Delete an API Token for specific user and token id
-      operationId: deleteApiTokenWithTenant
+        - ServiceAccount
+      summary: Delete an API Token for specific service account and token id
+      operationId: deleteApiTokenForServiceAccountWithTenant
       parameters:
         - name: id
           in: path
@@ -12958,7 +13069,7 @@ paths:
             type: string
       responses:
         "200":
-          description: deleteApiTokenWithTenant 200 response
+          description: deleteApiTokenForServiceAccountWithTenant 200 response
           content:
             application/json:
               schema:
@@ -12968,6 +13079,8 @@ paths:
         - basicAuth: []
   /api/v1/{tenant}/stats/generate-reports:
     get:
+      tags:
+        - Misc
       operationId: generate
       parameters:
         - name: from
@@ -14686,6 +14799,8 @@ paths:
         - basicAuth: []
   /login:
     post:
+      tags:
+        - login
       operationId: login
       requestBody:
         content:
@@ -15055,6 +15170,40 @@ components:
           type: string
         name:
           type: string
+    ApiToken:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        prefix:
+          type: string
+        iat:
+          type: string
+          format: date-time
+        exp:
+          type: string
+          format: date-time
+        lastUsed:
+          type: string
+          format: date-time
+        extended:
+          type: boolean
+        expired:
+          type: boolean
+    ApiTokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiToken"
     ApiUser:
       type: object
       allOf:
@@ -17717,7 +17866,9 @@ components:
         type:
           $ref: "#/components/schemas/KVType"
         value:
-          type: object
+          anyOf:
+            - type: object
+            - type: string
     KVEntry:
       type: object
       properties:

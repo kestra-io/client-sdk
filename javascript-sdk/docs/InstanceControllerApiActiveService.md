@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**ServiceType**](ServiceType.md) |  | 
-**total** | **Number** |  | 
+**type** | [**ServiceType**](ServiceType.md) |  | [optional] 
+**total** | **Number** |  | [optional] 
 
 

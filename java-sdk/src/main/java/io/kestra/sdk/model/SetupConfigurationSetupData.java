@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SetupConfigurationSetupData.JSON_PROPERTY_TENANT
 })
 @JsonTypeName("SetupConfiguration.SetupData")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SetupConfigurationSetupData {
   public static final String JSON_PROPERTY_USERNAME = "username";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String username;
 
   public static final String JSON_PROPERTY_PASSWORD = "password";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String password;
 
   public static final String JSON_PROPERTY_TENANT = "tenant";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Tenant tenant;
 
   public SetupConfigurationSetupData() {
   }
 
-  public SetupConfigurationSetupData username(@javax.annotation.Nonnull String username) {
+  public SetupConfigurationSetupData username(@javax.annotation.Nullable String username) {
     
     this.username = username;
     return this;
@@ -60,22 +61,22 @@ public class SetupConfigurationSetupData {
    * Get username
    * @return username
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUsername() {
     return username;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUsername(@javax.annotation.Nonnull String username) {
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUsername(@javax.annotation.Nullable String username) {
     this.username = username;
   }
 
-  public SetupConfigurationSetupData password(@javax.annotation.Nonnull String password) {
+  public SetupConfigurationSetupData password(@javax.annotation.Nullable String password) {
     
     this.password = password;
     return this;
@@ -85,22 +86,22 @@ public class SetupConfigurationSetupData {
    * Get password
    * @return password
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPassword() {
     return password;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PASSWORD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPassword(@javax.annotation.Nonnull String password) {
+  @JsonProperty(value = JSON_PROPERTY_PASSWORD, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPassword(@javax.annotation.Nullable String password) {
     this.password = password;
   }
 
-  public SetupConfigurationSetupData tenant(@javax.annotation.Nonnull Tenant tenant) {
+  public SetupConfigurationSetupData tenant(@javax.annotation.Nullable Tenant tenant) {
     
     this.tenant = tenant;
     return this;
@@ -110,18 +111,18 @@ public class SetupConfigurationSetupData {
    * Get tenant
    * @return tenant
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TENANT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TENANT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Tenant getTenant() {
     return tenant;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TENANT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTenant(@javax.annotation.Nonnull Tenant tenant) {
+  @JsonProperty(value = JSON_PROPERTY_TENANT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTenant(@javax.annotation.Nullable Tenant tenant) {
     this.tenant = tenant;
   }
 

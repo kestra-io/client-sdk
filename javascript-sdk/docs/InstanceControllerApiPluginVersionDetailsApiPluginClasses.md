@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **String** |  | 
-**classes** | [**[InstanceControllerApiPluginVersionDetailsApiPluginClass]**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  | 
+**type** | **String** |  | [optional] 
+**classes** | [**[InstanceControllerApiPluginVersionDetailsApiPluginClass]**](InstanceControllerApiPluginVersionDetailsApiPluginClass.md) |  | [optional] 
 
 

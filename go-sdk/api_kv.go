@@ -478,7 +478,7 @@ func (r ApiListKeysWithInheritenceRequest) Execute() ([]KVEntry, *http.Response,
 }
 
 /*
-ListKeysWithInheritence List all keys for a namespace and parent namespaces
+ListKeysWithInheritence List all keys for inherited namespaces
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param namespace The namespace id

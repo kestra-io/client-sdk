@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiBulkOperationRequest.JSON_PROPERTY_UIDS
 })
 @JsonTypeName("AppsController.ApiBulkOperationRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiBulkOperationRequest {
   public static final String JSON_PROPERTY_UIDS = "uids";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> uids = new ArrayList<>();
 
   public AppsControllerApiBulkOperationRequest() {
   }
 
-  public AppsControllerApiBulkOperationRequest uids(@javax.annotation.Nonnull List<String> uids) {
+  public AppsControllerApiBulkOperationRequest uids(@javax.annotation.Nullable List<String> uids) {
     
     this.uids = uids;
     return this;
@@ -60,18 +61,18 @@ public class AppsControllerApiBulkOperationRequest {
    * Get uids
    * @return uids
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UIDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_UIDS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getUids() {
     return uids;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UIDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUids(@javax.annotation.Nonnull List<String> uids) {
+  @JsonProperty(value = JSON_PROPERTY_UIDS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setUids(@javax.annotation.Nullable List<String> uids) {
     this.uids = uids;
   }
 

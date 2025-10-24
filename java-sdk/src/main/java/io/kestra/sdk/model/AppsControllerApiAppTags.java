@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppsControllerApiAppTags.JSON_PROPERTY_TAGS
 })
 @JsonTypeName("AppsController.ApiAppTags")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppsControllerApiAppTags {
   public static final String JSON_PROPERTY_TAGS = "tags";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> tags = new ArrayList<>();
 
   public AppsControllerApiAppTags() {
   }
 
-  public AppsControllerApiAppTags tags(@javax.annotation.Nonnull List<String> tags) {
+  public AppsControllerApiAppTags tags(@javax.annotation.Nullable List<String> tags) {
     
     this.tags = tags;
     return this;
@@ -60,18 +61,18 @@ public class AppsControllerApiAppTags {
    * Get tags
    * @return tags
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
     return tags;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TAGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTags(@javax.annotation.Nonnull List<String> tags) {
+  @JsonProperty(value = JSON_PROPERTY_TAGS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTags(@javax.annotation.Nullable List<String> tags) {
     this.tags = tags;
   }
 

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +34,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TestSuiteControllerRunRequest.JSON_PROPERTY_TEST_CASES
 })
 @JsonTypeName("TestSuiteController.RunRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TestSuiteControllerRunRequest {
   public static final String JSON_PROPERTY_TEST_CASES = "testCases";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> testCases = new ArrayList<>();
 
   public TestSuiteControllerRunRequest() {
   }
 
-  public TestSuiteControllerRunRequest testCases(@javax.annotation.Nonnull List<String> testCases) {
+  public TestSuiteControllerRunRequest testCases(@javax.annotation.Nullable List<String> testCases) {
     
     this.testCases = testCases;
     return this;
@@ -60,18 +61,18 @@ public class TestSuiteControllerRunRequest {
    * Get testCases
    * @return testCases
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TEST_CASES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTestCases() {
     return testCases;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TEST_CASES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTestCases(@javax.annotation.Nonnull List<String> testCases) {
+  @JsonProperty(value = JSON_PROPERTY_TEST_CASES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTestCases(@javax.annotation.Nullable List<String> testCases) {
     this.testCases = testCases;
   }
 

@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The ID of worker group. | 
-**Key** | **string** | The key of the worker group. | 
-**Description** | **string** | The description of the worker group. | 
-**AllowedTenants** | **[]string** |  | 
+**Id** | Pointer to **string** | The ID of worker group. | [optional] 
+**Key** | Pointer to **string** | The key of the worker group. | [optional] 
+**Description** | Pointer to **string** | The description of the worker group. | [optional] 
+**AllowedTenants** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
 ### NewInstanceControllerApiWorkerGroup
 
-`func NewInstanceControllerApiWorkerGroup(id string, key string, description string, allowedTenants []string, ) *InstanceControllerApiWorkerGroup`
+`func NewInstanceControllerApiWorkerGroup() *InstanceControllerApiWorkerGroup`
 
 NewInstanceControllerApiWorkerGroup instantiates a new InstanceControllerApiWorkerGroup object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *InstanceControllerApiWorkerGroup) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+### HasKey
+
+`func (o *InstanceControllerApiWorkerGroup) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -87,6 +97,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *InstanceControllerApiWorkerGroup) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetAllowedTenants
 
@@ -107,6 +122,11 @@ and a boolean to check if the value has been set.
 
 SetAllowedTenants sets AllowedTenants field to given value.
 
+### HasAllowedTenants
+
+`func (o *InstanceControllerApiWorkerGroup) HasAllowedTenants() bool`
+
+HasAllowedTenants returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

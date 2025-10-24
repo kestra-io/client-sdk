@@ -19,31 +19,20 @@ import WorkerGroup from './WorkerGroup';
 /**
  * The ApiTenant model module.
  * @module model/ApiTenant
- * @version 1.0.0
+ * @version v1.0.5
  */
 class ApiTenant {
     /**
      * Constructs a new <code>ApiTenant</code>.
      * @alias module:model/ApiTenant
      * @implements module:model/Tenant
-     * @param storageIsolation {module:model/Isolation} 
-     * @param secretIsolation {module:model/Isolation} 
      * @param id {String} 
      * @param name {String} 
      * @param deleted {Boolean} 
-     * @param workerGroup {module:model/WorkerGroup} 
-     * @param storageType {String} 
-     * @param storageConfiguration {Object.<String, Object>} 
-     * @param secretType {String} 
-     * @param secretReadOnly {Boolean} 
-     * @param secretConfiguration {Object.<String, Object>} 
-     * @param requireExistingNamespace {Boolean} 
-     * @param outputsInInternalStorage {Boolean} 
-     * @param logo {String} 
      */
-    constructor(storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, logo) { 
-        Tenant.initialize(this, storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage);
-        ApiTenant.initialize(this, storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, logo);
+    constructor(id, name, deleted) { 
+        Tenant.initialize(this, id, name, deleted);
+        ApiTenant.initialize(this, id, name, deleted);
     }
 
     /**
@@ -51,21 +40,10 @@ class ApiTenant {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storageIsolation, secretIsolation, id, name, deleted, workerGroup, storageType, storageConfiguration, secretType, secretReadOnly, secretConfiguration, requireExistingNamespace, outputsInInternalStorage, logo) { 
-        obj['storageIsolation'] = storageIsolation;
-        obj['secretIsolation'] = secretIsolation;
+    static initialize(obj, id, name, deleted) { 
         obj['id'] = id;
         obj['name'] = name;
         obj['deleted'] = deleted;
-        obj['workerGroup'] = workerGroup;
-        obj['storageType'] = storageType;
-        obj['storageConfiguration'] = storageConfiguration;
-        obj['secretType'] = secretType;
-        obj['secretReadOnly'] = secretReadOnly;
-        obj['secretConfiguration'] = secretConfiguration;
-        obj['requireExistingNamespace'] = requireExistingNamespace;
-        obj['outputsInInternalStorage'] = outputsInInternalStorage;
-        obj['logo'] = logo;
     }
 
     /**
@@ -177,7 +155,7 @@ class ApiTenant {
 
 }
 
-ApiTenant.RequiredProperties = ["storageIsolation", "secretIsolation", "id", "name", "deleted", "workerGroup", "storageType", "storageConfiguration", "secretType", "secretReadOnly", "secretConfiguration", "requireExistingNamespace", "outputsInInternalStorage", "logo"];
+ApiTenant.RequiredProperties = ["id", "name", "deleted"];
 
 /**
  * @member {module:model/Isolation} storageIsolation

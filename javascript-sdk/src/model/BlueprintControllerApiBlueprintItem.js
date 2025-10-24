@@ -16,22 +16,16 @@ import ApiClient from '../ApiClient';
 /**
  * The BlueprintControllerApiBlueprintItem model module.
  * @module model/BlueprintControllerApiBlueprintItem
- * @version 1.0.0
+ * @version v1.0.5
  */
 class BlueprintControllerApiBlueprintItem {
     /**
      * Constructs a new <code>BlueprintControllerApiBlueprintItem</code>.
      * @alias module:model/BlueprintControllerApiBlueprintItem
-     * @param id {String} 
-     * @param title {String} 
-     * @param description {String} 
-     * @param includedTasks {Array.<String>} 
-     * @param tags {Array.<String>} 
-     * @param publishedAt {Date} 
      */
-    constructor(id, title, description, includedTasks, tags, publishedAt) { 
+    constructor() { 
         
-        BlueprintControllerApiBlueprintItem.initialize(this, id, title, description, includedTasks, tags, publishedAt);
+        BlueprintControllerApiBlueprintItem.initialize(this);
     }
 
     /**
@@ -39,13 +33,7 @@ class BlueprintControllerApiBlueprintItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, title, description, includedTasks, tags, publishedAt) { 
-        obj['id'] = id;
-        obj['title'] = title;
-        obj['description'] = description;
-        obj['includedTasks'] = includedTasks;
-        obj['tags'] = tags;
-        obj['publishedAt'] = publishedAt;
+    static initialize(obj) { 
     }
 
     /**
@@ -87,12 +75,6 @@ class BlueprintControllerApiBlueprintItem {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>BlueprintControllerApiBlueprintItem</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of BlueprintControllerApiBlueprintItem.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -120,7 +102,7 @@ class BlueprintControllerApiBlueprintItem {
 
 }
 
-BlueprintControllerApiBlueprintItem.RequiredProperties = ["id", "title", "description", "includedTasks", "tags", "publishedAt"];
+
 
 /**
  * @member {String} id

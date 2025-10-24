@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -42,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TaskRunAttempt.JSON_PROPERTY_WORKER_ID,
   TaskRunAttempt.JSON_PROPERTY_LOG_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class TaskRunAttempt {
   public static final String JSON_PROPERTY_METRICS = "metrics";
   @javax.annotation.Nullable
@@ -84,7 +85,7 @@ public class TaskRunAttempt {
    */
   @Deprecated
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonProperty(value = JSON_PROPERTY_METRICS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractMetricEntryObject> getMetrics() {
@@ -92,7 +93,7 @@ public class TaskRunAttempt {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METRICS)
+  @JsonProperty(value = JSON_PROPERTY_METRICS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetrics(@javax.annotation.Nullable List<AbstractMetricEntryObject> metrics) {
     this.metrics = metrics;
@@ -109,7 +110,7 @@ public class TaskRunAttempt {
    * @return state
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public State getState() {
@@ -117,7 +118,7 @@ public class TaskRunAttempt {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setState(@javax.annotation.Nonnull State state) {
     this.state = state;
@@ -140,14 +141,14 @@ public class TaskRunAttempt {
         return workerId.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<String> getWorkerId_JsonNullable() {
     return workerId;
   }
   
-  @JsonProperty(JSON_PROPERTY_WORKER_ID)
+  @JsonProperty(value = JSON_PROPERTY_WORKER_ID, required = false)
   public void setWorkerId_JsonNullable(JsonNullable<String> workerId) {
     this.workerId = workerId;
   }
@@ -173,14 +174,14 @@ public class TaskRunAttempt {
         return logFile.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  @JsonProperty(value = JSON_PROPERTY_LOG_FILE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<URI> getLogFile_JsonNullable() {
     return logFile;
   }
   
-  @JsonProperty(JSON_PROPERTY_LOG_FILE)
+  @JsonProperty(value = JSON_PROPERTY_LOG_FILE, required = false)
   public void setLogFile_JsonNullable(JsonNullable<URI> logFile) {
     this.logFile = logFile;
   }

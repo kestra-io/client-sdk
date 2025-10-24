@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the QueryFilterFieldOp type satisfies the MappedNullable interface at compile time
@@ -20,9 +19,9 @@ var _ MappedNullable = &QueryFilterFieldOp{}
 
 // QueryFilterFieldOp struct for QueryFilterFieldOp
 type QueryFilterFieldOp struct {
-	Name                 string                 `json:"name"`
-	Value                string                 `json:"value"`
-	Operations           []QueryFilterOperation `json:"operations"`
+	Name                 *string                `json:"name,omitempty"`
+	Value                *string                `json:"value,omitempty"`
+	Operations           []QueryFilterOperation `json:"operations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +31,8 @@ type _QueryFilterFieldOp QueryFilterFieldOp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewQueryFilterFieldOp(name string, value string, operations []QueryFilterOperation) *QueryFilterFieldOp {
+func NewQueryFilterFieldOp() *QueryFilterFieldOp {
 	this := QueryFilterFieldOp{}
-	this.Name = name
-	this.Value = value
-	this.Operations = operations
 	return &this
 }
 
@@ -48,74 +44,98 @@ func NewQueryFilterFieldOpWithDefaults() *QueryFilterFieldOp {
 	return &this
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *QueryFilterFieldOp) GetName() string {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilterFieldOp) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *QueryFilterFieldOp) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *QueryFilterFieldOp) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *QueryFilterFieldOp) GetValue() string {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilterFieldOp) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *QueryFilterFieldOp) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
 func (o *QueryFilterFieldOp) SetValue(v string) {
-	o.Value = v
+	o.Value = &v
 }
 
-// GetOperations returns the Operations field value
+// GetOperations returns the Operations field value if set, zero value otherwise.
 func (o *QueryFilterFieldOp) GetOperations() []QueryFilterOperation {
-	if o == nil {
+	if o == nil || IsNil(o.Operations) {
 		var ret []QueryFilterOperation
 		return ret
 	}
-
 	return o.Operations
 }
 
-// GetOperationsOk returns a tuple with the Operations field value
+// GetOperationsOk returns a tuple with the Operations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryFilterFieldOp) GetOperationsOk() ([]QueryFilterOperation, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Operations) {
 		return nil, false
 	}
 	return o.Operations, true
 }
 
-// SetOperations sets field value
+// HasOperations returns a boolean if a field has been set.
+func (o *QueryFilterFieldOp) HasOperations() bool {
+	if o != nil && !IsNil(o.Operations) {
+		return true
+	}
+
+	return false
+}
+
+// SetOperations gets a reference to the given []QueryFilterOperation and assigns it to the Operations field.
 func (o *QueryFilterFieldOp) SetOperations(v []QueryFilterOperation) {
 	o.Operations = v
 }
@@ -130,9 +150,15 @@ func (o QueryFilterFieldOp) MarshalJSON() ([]byte, error) {
 
 func (o QueryFilterFieldOp) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
-	toSerialize["value"] = o.Value
-	toSerialize["operations"] = o.Operations
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.Operations) {
+		toSerialize["operations"] = o.Operations
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -142,29 +168,6 @@ func (o QueryFilterFieldOp) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *QueryFilterFieldOp) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-		"value",
-		"operations",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varQueryFilterFieldOp := _QueryFilterFieldOp{}
 
 	err = json.Unmarshal(data, &varQueryFilterFieldOp)

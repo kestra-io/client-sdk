@@ -23,7 +23,7 @@ import UserGroup from './UserGroup';
 /**
  * The ScimUser model module.
  * @module model/ScimUser
- * @version 1.0.0
+ * @version v1.0.5
  */
 class ScimUser {
     /**
@@ -33,11 +33,10 @@ class ScimUser {
      * @implements module:model/ScimResource
      * @implements module:model/BaseResourceScimResource
      * @param meta {module:model/Meta} 
-     * @param resourceType {String} 
      */
-    constructor(meta, resourceType) { 
-        ScimResource.initialize(this, meta, resourceType);BaseResourceScimResource.initialize(this);
-        ScimUser.initialize(this, meta, resourceType);
+    constructor(meta) { 
+        ScimResource.initialize(this, meta);BaseResourceScimResource.initialize(this);
+        ScimUser.initialize(this, meta);
     }
 
     /**
@@ -45,9 +44,8 @@ class ScimUser {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, meta, resourceType) { 
+    static initialize(obj, meta) { 
         obj['meta'] = meta;
-        obj['resourceType'] = resourceType;
     }
 
     /**
@@ -181,7 +179,7 @@ class ScimUser {
 
 }
 
-ScimUser.RequiredProperties = ["meta", "resourceType"];
+ScimUser.RequiredProperties = ["meta"];
 
 /**
  * @member {Array.<String>} schemas

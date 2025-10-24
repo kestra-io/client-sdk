@@ -17,7 +17,7 @@ import ApiAutocomplete from './ApiAutocomplete';
 /**
  * The IAMTenantAccessControllerUserApiAutocomplete model module.
  * @module model/IAMTenantAccessControllerUserApiAutocomplete
- * @version 1.0.0
+ * @version v1.0.5
  */
 class IAMTenantAccessControllerUserApiAutocomplete {
     /**

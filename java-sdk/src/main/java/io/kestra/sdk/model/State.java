@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -43,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   State.JSON_PROPERTY_CURRENT,
   State.JSON_PROPERTY_HISTORIES
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class State {
   public static final String JSON_PROPERTY_DURATION = "duration";
   @javax.annotation.Nullable
@@ -72,9 +73,9 @@ public class State {
    */
   @JsonCreator
   public State(
-    @JsonProperty(JSON_PROPERTY_DURATION) String duration, 
-    @JsonProperty(JSON_PROPERTY_START_DATE) OffsetDateTime startDate, 
-    @JsonProperty(JSON_PROPERTY_END_DATE) OffsetDateTime endDate
+    @JsonProperty(value = JSON_PROPERTY_DURATION, required = false) String duration, 
+    @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false) OffsetDateTime startDate, 
+    @JsonProperty(value = JSON_PROPERTY_END_DATE, required = false) OffsetDateTime endDate
   ) {
     this();
     this.duration = duration;
@@ -87,7 +88,7 @@ public class State {
    * @return duration
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DURATION)
+  @JsonProperty(value = JSON_PROPERTY_DURATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDuration() {
@@ -101,7 +102,7 @@ public class State {
    * @return startDate
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonProperty(value = JSON_PROPERTY_START_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getStartDate() {
@@ -125,14 +126,14 @@ public class State {
     return endDate.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<OffsetDateTime> getEndDate_JsonNullable() {
     return endDate;
   }
   
-  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonProperty(value = JSON_PROPERTY_END_DATE, required = false)
   private void setEndDate_JsonNullable(JsonNullable<OffsetDateTime> endDate) {
     this.endDate = endDate;
   }
@@ -149,7 +150,7 @@ public class State {
    * @return current
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @JsonProperty(value = JSON_PROPERTY_CURRENT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StateType getCurrent() {
@@ -157,7 +158,7 @@ public class State {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CURRENT)
+  @JsonProperty(value = JSON_PROPERTY_CURRENT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCurrent(@javax.annotation.Nonnull StateType current) {
     this.current = current;
@@ -182,7 +183,7 @@ public class State {
    * @return histories
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @JsonProperty(value = JSON_PROPERTY_HISTORIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<StateHistory> getHistories() {
@@ -190,7 +191,7 @@ public class State {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HISTORIES)
+  @JsonProperty(value = JSON_PROPERTY_HISTORIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHistories(@javax.annotation.Nullable List<StateHistory> histories) {
     this.histories = histories;

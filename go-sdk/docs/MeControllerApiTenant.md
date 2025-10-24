@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | **string** |  | 
-**Logo** | **string** |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Logo** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewMeControllerApiTenant
 
-`func NewMeControllerApiTenant(id string, name string, logo string, ) *MeControllerApiTenant`
+`func NewMeControllerApiTenant() *MeControllerApiTenant`
 
 NewMeControllerApiTenant instantiates a new MeControllerApiTenant object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *MeControllerApiTenant) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *MeControllerApiTenant) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetLogo
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetLogo sets Logo field to given value.
 
+### HasLogo
+
+`func (o *MeControllerApiTenant) HasLogo() bool`
+
+HasLogo returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,24 +33,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AppResponse.JSON_PROPERTY_STREAM,
   AppResponse.JSON_PROPERTY_LAYOUT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AppResponse {
   public static final String JSON_PROPERTY_DISPATCH = "dispatch";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String dispatch;
 
   public static final String JSON_PROPERTY_STREAM = "stream";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String stream;
 
   public static final String JSON_PROPERTY_LAYOUT = "layout";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private AppResponseUILayout layout;
 
   public AppResponse() {
   }
 
-  public AppResponse dispatch(@javax.annotation.Nonnull String dispatch) {
+  public AppResponse dispatch(@javax.annotation.Nullable String dispatch) {
     
     this.dispatch = dispatch;
     return this;
@@ -59,22 +60,22 @@ public class AppResponse {
    * Get dispatch
    * @return dispatch
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DISPATCH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DISPATCH, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDispatch() {
     return dispatch;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISPATCH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDispatch(@javax.annotation.Nonnull String dispatch) {
+  @JsonProperty(value = JSON_PROPERTY_DISPATCH, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDispatch(@javax.annotation.Nullable String dispatch) {
     this.dispatch = dispatch;
   }
 
-  public AppResponse stream(@javax.annotation.Nonnull String stream) {
+  public AppResponse stream(@javax.annotation.Nullable String stream) {
     
     this.stream = stream;
     return this;
@@ -84,22 +85,22 @@ public class AppResponse {
    * Get stream
    * @return stream
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STREAM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_STREAM, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStream() {
     return stream;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STREAM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStream(@javax.annotation.Nonnull String stream) {
+  @JsonProperty(value = JSON_PROPERTY_STREAM, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStream(@javax.annotation.Nullable String stream) {
     this.stream = stream;
   }
 
-  public AppResponse layout(@javax.annotation.Nonnull AppResponseUILayout layout) {
+  public AppResponse layout(@javax.annotation.Nullable AppResponseUILayout layout) {
     
     this.layout = layout;
     return this;
@@ -109,18 +110,18 @@ public class AppResponse {
    * Get layout
    * @return layout
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAYOUT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_LAYOUT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AppResponseUILayout getLayout() {
     return layout;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAYOUT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLayout(@javax.annotation.Nonnull AppResponseUILayout layout) {
+  @JsonProperty(value = JSON_PROPERTY_LAYOUT, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLayout(@javax.annotation.Nullable AppResponseUILayout layout) {
     this.layout = layout;
   }
 

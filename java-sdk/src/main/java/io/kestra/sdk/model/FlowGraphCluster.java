@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,32 +39,32 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraphCluster.JSON_PROPERTY_END
 })
 @JsonTypeName("FlowGraph.Cluster")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraphCluster {
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private AbstractGraph cluster;
 
   public static final String JSON_PROPERTY_NODES = "nodes";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> nodes = new ArrayList<>();
 
   public static final String JSON_PROPERTY_PARENTS = "parents";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> parents = new ArrayList<>();
 
   public static final String JSON_PROPERTY_START = "start";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String start;
 
   public static final String JSON_PROPERTY_END = "end";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String end;
 
   public FlowGraphCluster() {
   }
 
-  public FlowGraphCluster cluster(@javax.annotation.Nonnull AbstractGraph cluster) {
+  public FlowGraphCluster cluster(@javax.annotation.Nullable AbstractGraph cluster) {
     
     this.cluster = cluster;
     return this;
@@ -73,22 +74,22 @@ public class FlowGraphCluster {
    * Get cluster
    * @return cluster
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CLUSTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CLUSTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AbstractGraph getCluster() {
     return cluster;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLUSTER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCluster(@javax.annotation.Nonnull AbstractGraph cluster) {
+  @JsonProperty(value = JSON_PROPERTY_CLUSTER, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCluster(@javax.annotation.Nullable AbstractGraph cluster) {
     this.cluster = cluster;
   }
 
-  public FlowGraphCluster nodes(@javax.annotation.Nonnull List<String> nodes) {
+  public FlowGraphCluster nodes(@javax.annotation.Nullable List<String> nodes) {
     
     this.nodes = nodes;
     return this;
@@ -106,22 +107,22 @@ public class FlowGraphCluster {
    * Get nodes
    * @return nodes
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NODES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getNodes() {
     return nodes;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NODES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNodes(@javax.annotation.Nonnull List<String> nodes) {
+  @JsonProperty(value = JSON_PROPERTY_NODES, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNodes(@javax.annotation.Nullable List<String> nodes) {
     this.nodes = nodes;
   }
 
-  public FlowGraphCluster parents(@javax.annotation.Nonnull List<String> parents) {
+  public FlowGraphCluster parents(@javax.annotation.Nullable List<String> parents) {
     
     this.parents = parents;
     return this;
@@ -139,22 +140,22 @@ public class FlowGraphCluster {
    * Get parents
    * @return parents
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PARENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_PARENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getParents() {
     return parents;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARENTS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setParents(@javax.annotation.Nonnull List<String> parents) {
+  @JsonProperty(value = JSON_PROPERTY_PARENTS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setParents(@javax.annotation.Nullable List<String> parents) {
     this.parents = parents;
   }
 
-  public FlowGraphCluster start(@javax.annotation.Nonnull String start) {
+  public FlowGraphCluster start(@javax.annotation.Nullable String start) {
     
     this.start = start;
     return this;
@@ -164,22 +165,22 @@ public class FlowGraphCluster {
    * Get start
    * @return start
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_START, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStart() {
     return start;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_START)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStart(@javax.annotation.Nonnull String start) {
+  @JsonProperty(value = JSON_PROPERTY_START, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStart(@javax.annotation.Nullable String start) {
     this.start = start;
   }
 
-  public FlowGraphCluster end(@javax.annotation.Nonnull String end) {
+  public FlowGraphCluster end(@javax.annotation.Nullable String end) {
     
     this.end = end;
     return this;
@@ -189,18 +190,18 @@ public class FlowGraphCluster {
    * Get end
    * @return end
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_END)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_END, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEnd() {
     return end;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_END)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEnd(@javax.annotation.Nonnull String end) {
+  @JsonProperty(value = JSON_PROPERTY_END, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEnd(@javax.annotation.Nullable String end) {
     this.end = end;
   }
 

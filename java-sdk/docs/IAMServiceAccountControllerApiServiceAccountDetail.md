@@ -8,11 +8,11 @@ A User Service Account.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | the identifier of this service account. |  |
+|**id** | **String** | the identifier of this service account. |  [optional] |
 |**name** | **String** | the name of this service account. |  |
-|**description** | **String** | the description of this service account. |  |
-|**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  |
-|**superAdmin** | **Boolean** |  |  |
+|**description** | **String** | the description of this service account. |  [optional] |
+|**tenants** | [**List&lt;ApiTenantSummary&gt;**](ApiTenantSummary.md) |  |  [optional] |
+|**superAdmin** | **Boolean** |  |  [optional] |
 
 
 

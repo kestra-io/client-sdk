@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,18 +36,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMGroupControllerApiCreateGroupRequest.JSON_PROPERTY_MEMBERS_ID
 })
 @JsonTypeName("IAMGroupController.ApiCreateGroupRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMGroupControllerApiCreateGroupRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_MEMBERS_ID = "membersId";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> membersId = new ArrayList<>();
 
   public IAMGroupControllerApiCreateGroupRequest() {
@@ -63,7 +64,7 @@ public class IAMGroupControllerApiCreateGroupRequest {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -71,13 +72,13 @@ public class IAMGroupControllerApiCreateGroupRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMGroupControllerApiCreateGroupRequest description(@javax.annotation.Nonnull String description) {
+  public IAMGroupControllerApiCreateGroupRequest description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -87,22 +88,22 @@ public class IAMGroupControllerApiCreateGroupRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public IAMGroupControllerApiCreateGroupRequest membersId(@javax.annotation.Nonnull List<String> membersId) {
+  public IAMGroupControllerApiCreateGroupRequest membersId(@javax.annotation.Nullable List<String> membersId) {
     
     this.membersId = membersId;
     return this;
@@ -120,18 +121,18 @@ public class IAMGroupControllerApiCreateGroupRequest {
    * Get membersId
    * @return membersId
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_MEMBERS_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getMembersId() {
     return membersId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MEMBERS_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMembersId(@javax.annotation.Nonnull List<String> membersId) {
+  @JsonProperty(value = JSON_PROPERTY_MEMBERS_ID, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMembersId(@javax.annotation.Nullable List<String> membersId) {
     this.membersId = membersId;
   }
 

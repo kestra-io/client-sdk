@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**total** | **Integer** |  |  |
-|**results** | **List&lt;Object&gt;** |  |  |
+|**total** | **Integer** |  |  [optional] |
+|**results** | **List&lt;Object&gt;** |  |  [optional] |
 
 
 

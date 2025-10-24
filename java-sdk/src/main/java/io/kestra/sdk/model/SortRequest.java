@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SortRequest.JSON_PROPERTY_SORT_BY,
   SortRequest.JSON_PROPERTY_SORT_ORDER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SortRequest {
   public static final String JSON_PROPERTY_SORT_BY = "sortBy";
   @javax.annotation.Nullable
@@ -56,7 +57,7 @@ public class SortRequest {
    * @return sortBy
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @JsonProperty(value = JSON_PROPERTY_SORT_BY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AttributeReference getSortBy() {
@@ -64,7 +65,7 @@ public class SortRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SORT_BY)
+  @JsonProperty(value = JSON_PROPERTY_SORT_BY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSortBy(@javax.annotation.Nullable AttributeReference sortBy) {
     this.sortBy = sortBy;
@@ -81,7 +82,7 @@ public class SortRequest {
    * @return sortOrder
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @JsonProperty(value = JSON_PROPERTY_SORT_ORDER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SortOrder getSortOrder() {
@@ -89,7 +90,7 @@ public class SortRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SORT_ORDER)
+  @JsonProperty(value = JSON_PROPERTY_SORT_ORDER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSortOrder(@javax.annotation.Nullable SortOrder sortOrder) {
     this.sortOrder = sortOrder;

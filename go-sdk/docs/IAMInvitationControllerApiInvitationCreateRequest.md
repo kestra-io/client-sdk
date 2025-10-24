@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreateUserIfNotExist** | **bool** |  | 
-**SuperAdmin** | **bool** |  | 
-**Roles** | [**[]IAMInvitationControllerApiInvitationRole**](IAMInvitationControllerApiInvitationRole.md) |  | 
-**Groups** | **[]string** |  | 
+**CreateUserIfNotExist** | Pointer to **bool** |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**Roles** | Pointer to [**[]IAMInvitationControllerApiInvitationRole**](IAMInvitationControllerApiInvitationRole.md) |  | [optional] 
+**Groups** | Pointer to **[]string** |  | [optional] 
 **Email** | **string** |  | 
 
 ## Methods
 
 ### NewIAMInvitationControllerApiInvitationCreateRequest
 
-`func NewIAMInvitationControllerApiInvitationCreateRequest(createUserIfNotExist bool, superAdmin bool, roles []IAMInvitationControllerApiInvitationRole, groups []string, email string, ) *IAMInvitationControllerApiInvitationCreateRequest`
+`func NewIAMInvitationControllerApiInvitationCreateRequest(email string, ) *IAMInvitationControllerApiInvitationCreateRequest`
 
 NewIAMInvitationControllerApiInvitationCreateRequest instantiates a new IAMInvitationControllerApiInvitationCreateRequest object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetCreateUserIfNotExist sets CreateUserIfNotExist field to given value.
 
+### HasCreateUserIfNotExist
+
+`func (o *IAMInvitationControllerApiInvitationCreateRequest) HasCreateUserIfNotExist() bool`
+
+HasCreateUserIfNotExist returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -68,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *IAMInvitationControllerApiInvitationCreateRequest) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetRoles
 
@@ -88,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetRoles sets Roles field to given value.
 
+### HasRoles
+
+`func (o *IAMInvitationControllerApiInvitationCreateRequest) HasRoles() bool`
+
+HasRoles returns a boolean if a field has been set.
 
 ### GetGroups
 
@@ -108,6 +123,11 @@ and a boolean to check if the value has been set.
 
 SetGroups sets Groups field to given value.
 
+### HasGroups
+
+`func (o *IAMInvitationControllerApiInvitationCreateRequest) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
 
 ### GetEmail
 

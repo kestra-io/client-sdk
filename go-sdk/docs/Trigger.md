@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Disabled** | Pointer to **bool** |  | [optional] 
+**Disabled** | Pointer to **bool** |  | [optional] [default to false]
 **TenantId** | Pointer to **string** |  | [optional] 
 **Namespace** | **string** |  | 
 **FlowId** | **string** |  | 

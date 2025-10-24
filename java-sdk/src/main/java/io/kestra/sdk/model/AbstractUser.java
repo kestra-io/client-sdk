@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -46,7 +47,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AbstractUser.JSON_PROPERTY_LAST_NAME,
   AbstractUser.JSON_PROPERTY_PROVIDERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AbstractUser {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull
@@ -110,7 +111,7 @@ public class AbstractUser {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public UserType getType() {
@@ -118,7 +119,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull UserType type) {
     this.type = type;
@@ -143,7 +144,7 @@ public class AbstractUser {
    * @return groupList
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUP_LIST)
+  @JsonProperty(value = JSON_PROPERTY_GROUP_LIST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<GroupIdentifier> getGroupList() {
@@ -151,7 +152,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP_LIST)
+  @JsonProperty(value = JSON_PROPERTY_GROUP_LIST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroupList(@javax.annotation.Nullable List<GroupIdentifier> groupList) {
     this.groupList = groupList;
@@ -176,7 +177,7 @@ public class AbstractUser {
    * @return groups
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Object> getGroups() {
@@ -184,7 +185,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUPS)
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroups(@javax.annotation.Nullable List<Object> groups) {
     this.groups = groups;
@@ -201,7 +202,7 @@ public class AbstractUser {
    * @return username
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUsername() {
@@ -209,7 +210,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USERNAME)
+  @JsonProperty(value = JSON_PROPERTY_USERNAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUsername(@javax.annotation.Nonnull String username) {
     this.username = username;
@@ -226,7 +227,7 @@ public class AbstractUser {
    * @return email
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getEmail() {
@@ -234,7 +235,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEmail(@javax.annotation.Nonnull String email) {
     this.email = email;
@@ -251,7 +252,7 @@ public class AbstractUser {
    * @return superAdmin
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
@@ -259,7 +260,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
@@ -276,7 +277,7 @@ public class AbstractUser {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -284,7 +285,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -301,7 +302,7 @@ public class AbstractUser {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -309,7 +310,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -326,7 +327,7 @@ public class AbstractUser {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -334,7 +335,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -351,7 +352,7 @@ public class AbstractUser {
    * @return firstName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFirstName() {
@@ -359,7 +360,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFirstName(@javax.annotation.Nullable String firstName) {
     this.firstName = firstName;
@@ -376,7 +377,7 @@ public class AbstractUser {
    * @return lastName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLastName() {
@@ -384,7 +385,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLastName(@javax.annotation.Nullable String lastName) {
     this.lastName = lastName;
@@ -409,7 +410,7 @@ public class AbstractUser {
    * @return providers
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROVIDERS)
+  @JsonProperty(value = JSON_PROPERTY_PROVIDERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<AbstractUserTenantIdentityProvider> getProviders() {
@@ -417,7 +418,7 @@ public class AbstractUser {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PROVIDERS)
+  @JsonProperty(value = JSON_PROPERTY_PROVIDERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProviders(@javax.annotation.Nullable List<AbstractUserTenantIdentityProvider> providers) {
     this.providers = providers;

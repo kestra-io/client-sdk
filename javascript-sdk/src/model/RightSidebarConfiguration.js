@@ -17,7 +17,7 @@ import RightSidebarConfigurationCustomLink from './RightSidebarConfigurationCust
 /**
  * The RightSidebarConfiguration model module.
  * @module model/RightSidebarConfiguration
- * @version 1.0.0
+ * @version v1.0.5
  */
 class RightSidebarConfiguration {
     /**

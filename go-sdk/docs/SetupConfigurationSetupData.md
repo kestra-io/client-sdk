@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Username** | **string** |  | 
-**Password** | **string** |  | 
-**Tenant** | [**Tenant**](Tenant.md) |  | 
+**Username** | Pointer to **string** |  | [optional] 
+**Password** | Pointer to **string** |  | [optional] 
+**Tenant** | Pointer to [**Tenant**](Tenant.md) |  | [optional] 
 
 ## Methods
 
 ### NewSetupConfigurationSetupData
 
-`func NewSetupConfigurationSetupData(username string, password string, tenant Tenant, ) *SetupConfigurationSetupData`
+`func NewSetupConfigurationSetupData() *SetupConfigurationSetupData`
 
 NewSetupConfigurationSetupData instantiates a new SetupConfigurationSetupData object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+### HasUsername
+
+`func (o *SetupConfigurationSetupData) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
 
 ### GetPassword
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
+### HasPassword
+
+`func (o *SetupConfigurationSetupData) HasPassword() bool`
+
+HasPassword returns a boolean if a field has been set.
 
 ### GetTenant
 
@@ -86,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetTenant sets Tenant field to given value.
 
+### HasTenant
+
+`func (o *SetupConfigurationSetupData) HasTenant() bool`
+
+HasTenant returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

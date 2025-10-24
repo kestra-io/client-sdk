@@ -17,17 +17,16 @@ import AttributeReference from './AttributeReference';
 /**
  * The ValuePathExpression model module.
  * @module model/ValuePathExpression
- * @version 1.0.0
+ * @version v1.0.5
  */
 class ValuePathExpression {
     /**
      * Constructs a new <code>ValuePathExpression</code>.
      * @alias module:model/ValuePathExpression
-     * @param attributePath {module:model/AttributeReference} 
      */
-    constructor(attributePath) { 
+    constructor() { 
         
-        ValuePathExpression.initialize(this, attributePath);
+        ValuePathExpression.initialize(this);
     }
 
     /**
@@ -35,8 +34,7 @@ class ValuePathExpression {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, attributePath) { 
-        obj['attributePath'] = attributePath;
+    static initialize(obj) { 
     }
 
     /**
@@ -66,12 +64,6 @@ class ValuePathExpression {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>ValuePathExpression</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of ValuePathExpression.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // validate the optional field `attributePath`
         if (data['attributePath']) { // data not null
           AttributeReference.validateJSON(data['attributePath']);
@@ -83,7 +75,7 @@ class ValuePathExpression {
 
 }
 
-ValuePathExpression.RequiredProperties = ["attributePath"];
+
 
 /**
  * @member {module:model/AttributeReference} attributePath

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  | 
-**password** | **String** |  | 
+**token** | **String** |  | [optional] 
+**password** | **String** |  | [optional] 
 
 

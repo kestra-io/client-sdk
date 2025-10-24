@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,20 +32,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PluginPluginElementMetadata.JSON_PROPERTY_DEPRECATED
 })
 @JsonTypeName("Plugin.PluginElementMetadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PluginPluginElementMetadata {
   public static final String JSON_PROPERTY_CLS = "cls";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String cls;
 
   public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean deprecated;
 
   public PluginPluginElementMetadata() {
   }
 
-  public PluginPluginElementMetadata cls(@javax.annotation.Nonnull String cls) {
+  public PluginPluginElementMetadata cls(@javax.annotation.Nullable String cls) {
     
     this.cls = cls;
     return this;
@@ -54,22 +55,22 @@ public class PluginPluginElementMetadata {
    * Get cls
    * @return cls
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_CLS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCls() {
     return cls;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CLS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCls(@javax.annotation.Nonnull String cls) {
+  @JsonProperty(value = JSON_PROPERTY_CLS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCls(@javax.annotation.Nullable String cls) {
     this.cls = cls;
   }
 
-  public PluginPluginElementMetadata deprecated(@javax.annotation.Nonnull Boolean deprecated) {
+  public PluginPluginElementMetadata deprecated(@javax.annotation.Nullable Boolean deprecated) {
     
     this.deprecated = deprecated;
     return this;
@@ -79,18 +80,18 @@ public class PluginPluginElementMetadata {
    * Get deprecated
    * @return deprecated
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DEPRECATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DEPRECATED, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getDeprecated() {
     return deprecated;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEPRECATED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDeprecated(@javax.annotation.Nonnull Boolean deprecated) {
+  @JsonProperty(value = JSON_PROPERTY_DEPRECATED, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDeprecated(@javax.annotation.Nullable Boolean deprecated) {
     this.deprecated = deprecated;
   }
 

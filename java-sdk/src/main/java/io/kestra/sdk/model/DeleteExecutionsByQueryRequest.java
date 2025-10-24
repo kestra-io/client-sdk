@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -38,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   DeleteExecutionsByQueryRequest.JSON_PROPERTY_FILTERS
 })
 @JsonTypeName("deleteExecutionsByQuery_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class DeleteExecutionsByQueryRequest {
   public static final String JSON_PROPERTY_FILTERS = "filters";
   @javax.annotation.Nullable
@@ -76,14 +77,14 @@ public class DeleteExecutionsByQueryRequest {
         return filters.orElse(null);
   }
 
-  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_FILTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public JsonNullable<List<QueryFilter>> getFilters_JsonNullable() {
     return filters;
   }
   
-  @JsonProperty(JSON_PROPERTY_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_FILTERS, required = false)
   public void setFilters_JsonNullable(JsonNullable<List<QueryFilter>> filters) {
     this.filters = filters;
   }

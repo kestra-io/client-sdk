@@ -11,6 +11,8 @@
 
 * `APP_EXECUTION` (value: `"APP_EXECUTION"`)
 
+* `BLUEPRINT` (value: `"BLUEPRINT"`)
+
 * `BINDING` (value: `"BINDING"`)
 
 * `DASHBOARD` (value: `"DASHBOARD"`)
@@ -19,11 +21,15 @@
 
 * `FLOW` (value: `"FLOW"`)
 
+* `KV_STORE` (value: `"KV_STORE"`)
+
 * `GROUP` (value: `"GROUP"`)
 
 * `INVITATION` (value: `"INVITATION"`)
 
 * `NAMESPACE` (value: `"NAMESPACE"`)
+
+* `NAMESPACE_FILE` (value: `"NAMESPACE_FILE"`)
 
 * `ROLE` (value: `"ROLE"`)
 
@@ -34,6 +40,8 @@
 * `SETTING` (value: `"SETTING"`)
 
 * `TEMPLATE` (value: `"TEMPLATE"`)
+
+* `TRIGGER` (value: `"TRIGGER"`)
 
 * `TENANT` (value: `"TENANT"`)
 

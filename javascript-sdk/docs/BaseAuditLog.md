@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenantId** | **String** |  | 
+**tenantId** | **String** |  | [optional] 
 **id** | **String** |  | 
 **type** | [**CrudEventType**](CrudEventType.md) |  | 
 **detail** | [**AuditLogDetail**](AuditLogDetail.md) |  | 
 **date** | **Date** |  | 
 **userId** | **String** |  | 
-**ipAddress** | **String** |  | 
-**impersonatedBy** | **String** |  | 
-**deleted** | **Boolean** |  | 
+**ipAddress** | **String** |  | [optional] 
+**impersonatedBy** | **String** |  | [optional] 
+**deleted** | **Boolean** |  | [optional] 
 
 

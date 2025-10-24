@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,10 +38,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   IAMServiceAccountControllerApiServiceAccountRequest.JSON_PROPERTY_SUPER_ADMIN
 })
 @JsonTypeName("IAMServiceAccountController.ApiServiceAccountRequest")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class IAMServiceAccountControllerApiServiceAccountRequest {
   public static final String JSON_PROPERTY_GROUPS = "groups";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<IAMServiceAccountControllerApiGroup> groups = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME = "name";
@@ -48,17 +49,17 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_SUPER_ADMIN = "superAdmin";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean superAdmin;
 
   public IAMServiceAccountControllerApiServiceAccountRequest() {
   }
 
-  public IAMServiceAccountControllerApiServiceAccountRequest groups(@javax.annotation.Nonnull List<IAMServiceAccountControllerApiGroup> groups) {
+  public IAMServiceAccountControllerApiServiceAccountRequest groups(@javax.annotation.Nullable List<IAMServiceAccountControllerApiGroup> groups) {
     
     this.groups = groups;
     return this;
@@ -76,18 +77,18 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
    * Get groups
    * @return groups
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<IAMServiceAccountControllerApiGroup> getGroups() {
     return groups;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setGroups(@javax.annotation.Nonnull List<IAMServiceAccountControllerApiGroup> groups) {
+  @JsonProperty(value = JSON_PROPERTY_GROUPS, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroups(@javax.annotation.Nullable List<IAMServiceAccountControllerApiGroup> groups) {
     this.groups = groups;
   }
 
@@ -102,7 +103,7 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
@@ -110,13 +111,13 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountRequest description(@javax.annotation.Nonnull String description) {
+  public IAMServiceAccountControllerApiServiceAccountRequest description(@javax.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -126,22 +127,22 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
    * Get description
    * @return description
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(@javax.annotation.Nonnull String description) {
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public IAMServiceAccountControllerApiServiceAccountRequest superAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  public IAMServiceAccountControllerApiServiceAccountRequest superAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     
     this.superAdmin = superAdmin;
     return this;
@@ -151,18 +152,18 @@ public class IAMServiceAccountControllerApiServiceAccountRequest {
    * Get superAdmin
    * @return superAdmin
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSuperAdmin() {
     return superAdmin;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUPER_ADMIN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSuperAdmin(@javax.annotation.Nonnull Boolean superAdmin) {
+  @JsonProperty(value = JSON_PROPERTY_SUPER_ADMIN, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuperAdmin(@javax.annotation.Nullable Boolean superAdmin) {
     this.superAdmin = superAdmin;
   }
 

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**SuperAdmin** | **bool** |  | 
-**Restricted** | **bool** |  | 
-**Profile** | [**MeControllerApiProfile**](MeControllerApiProfile.md) |  | 
-**Auths** | [**[]IAMTenantAccessControllerApiAuthentication**](IAMTenantAccessControllerApiAuthentication.md) |  | 
-**Tenants** | [**[]MeControllerApiTenant**](MeControllerApiTenant.md) |  | 
+**Id** | Pointer to **string** |  | [optional] 
+**SuperAdmin** | Pointer to **bool** |  | [optional] 
+**Restricted** | Pointer to **bool** |  | [optional] 
+**Profile** | Pointer to [**MeControllerApiProfile**](MeControllerApiProfile.md) |  | [optional] 
+**Auths** | Pointer to [**[]IAMTenantAccessControllerApiAuthentication**](IAMTenantAccessControllerApiAuthentication.md) |  | [optional] 
+**Tenants** | Pointer to [**[]MeControllerApiTenant**](MeControllerApiTenant.md) |  | [optional] 
 
 ## Methods
 
 ### NewMeControllerApiMe
 
-`func NewMeControllerApiMe(id string, superAdmin bool, restricted bool, profile MeControllerApiProfile, auths []IAMTenantAccessControllerApiAuthentication, tenants []MeControllerApiTenant, ) *MeControllerApiMe`
+`func NewMeControllerApiMe() *MeControllerApiMe`
 
 NewMeControllerApiMe instantiates a new MeControllerApiMe object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *MeControllerApiMe) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetSuperAdmin
 
@@ -69,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetSuperAdmin sets SuperAdmin field to given value.
 
+### HasSuperAdmin
+
+`func (o *MeControllerApiMe) HasSuperAdmin() bool`
+
+HasSuperAdmin returns a boolean if a field has been set.
 
 ### GetRestricted
 
@@ -89,6 +99,11 @@ and a boolean to check if the value has been set.
 
 SetRestricted sets Restricted field to given value.
 
+### HasRestricted
+
+`func (o *MeControllerApiMe) HasRestricted() bool`
+
+HasRestricted returns a boolean if a field has been set.
 
 ### GetProfile
 
@@ -109,6 +124,11 @@ and a boolean to check if the value has been set.
 
 SetProfile sets Profile field to given value.
 
+### HasProfile
+
+`func (o *MeControllerApiMe) HasProfile() bool`
+
+HasProfile returns a boolean if a field has been set.
 
 ### GetAuths
 
@@ -129,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetAuths sets Auths field to given value.
 
+### HasAuths
+
+`func (o *MeControllerApiMe) HasAuths() bool`
+
+HasAuths returns a boolean if a field has been set.
 
 ### GetTenants
 
@@ -149,6 +174,11 @@ and a boolean to check if the value has been set.
 
 SetTenants sets Tenants field to given value.
 
+### HasTenants
+
+`func (o *MeControllerApiMe) HasTenants() bool`
+
+HasTenants returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

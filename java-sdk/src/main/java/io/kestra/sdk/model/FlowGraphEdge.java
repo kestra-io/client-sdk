@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   FlowGraphEdge.JSON_PROPERTY_RELATION
 })
 @JsonTypeName("FlowGraph.Edge")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class FlowGraphEdge {
   public static final String JSON_PROPERTY_SOURCE = "source";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String source;
 
   public static final String JSON_PROPERTY_TARGET = "target";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String target;
 
   public static final String JSON_PROPERTY_RELATION = "relation";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Relation relation;
 
   public FlowGraphEdge() {
   }
 
-  public FlowGraphEdge source(@javax.annotation.Nonnull String source) {
+  public FlowGraphEdge source(@javax.annotation.Nullable String source) {
     
     this.source = source;
     return this;
@@ -60,22 +61,22 @@ public class FlowGraphEdge {
    * Get source
    * @return source
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSource() {
     return source;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSource(@javax.annotation.Nonnull String source) {
+  @JsonProperty(value = JSON_PROPERTY_SOURCE, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSource(@javax.annotation.Nullable String source) {
     this.source = source;
   }
 
-  public FlowGraphEdge target(@javax.annotation.Nonnull String target) {
+  public FlowGraphEdge target(@javax.annotation.Nullable String target) {
     
     this.target = target;
     return this;
@@ -85,22 +86,22 @@ public class FlowGraphEdge {
    * Get target
    * @return target
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_TARGET, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTarget() {
     return target;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TARGET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTarget(@javax.annotation.Nonnull String target) {
+  @JsonProperty(value = JSON_PROPERTY_TARGET, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTarget(@javax.annotation.Nullable String target) {
     this.target = target;
   }
 
-  public FlowGraphEdge relation(@javax.annotation.Nonnull Relation relation) {
+  public FlowGraphEdge relation(@javax.annotation.Nullable Relation relation) {
     
     this.relation = relation;
     return this;
@@ -110,18 +111,18 @@ public class FlowGraphEdge {
    * Get relation
    * @return relation
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(value = JSON_PROPERTY_RELATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Relation getRelation() {
     return relation;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RELATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRelation(@javax.annotation.Nonnull Relation relation) {
+  @JsonProperty(value = JSON_PROPERTY_RELATION, required = false)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRelation(@javax.annotation.Nullable Relation relation) {
     this.relation = relation;
   }
 

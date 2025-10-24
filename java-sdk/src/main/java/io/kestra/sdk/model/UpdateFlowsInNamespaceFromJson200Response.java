@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.kestra.sdk.model.Flow;
 import io.kestra.sdk.model.FlowInterface;
@@ -28,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
 })
 @JsonTypeName("updateFlowsInNamespaceFromJson_200_response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class UpdateFlowsInNamespaceFromJson200Response {
   public UpdateFlowsInNamespaceFromJson200Response() {
   }

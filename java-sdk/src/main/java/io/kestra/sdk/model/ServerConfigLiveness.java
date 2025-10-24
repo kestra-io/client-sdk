@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ServerConfigLiveness.JSON_PROPERTY_HEARTBEAT_INTERVAL
 })
 @JsonTypeName("ServerConfig.Liveness")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ServerConfigLiveness {
   public static final String JSON_PROPERTY_ENABLED = "enabled";
   @javax.annotation.Nonnull
@@ -70,7 +71,7 @@ public class ServerConfigLiveness {
    * @return enabled
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Boolean getEnabled() {
@@ -78,7 +79,7 @@ public class ServerConfigLiveness {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENABLED)
+  @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEnabled(@javax.annotation.Nonnull Boolean enabled) {
     this.enabled = enabled;
@@ -95,7 +96,7 @@ public class ServerConfigLiveness {
    * @return interval
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INTERVAL)
+  @JsonProperty(value = JSON_PROPERTY_INTERVAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getInterval() {
@@ -103,7 +104,7 @@ public class ServerConfigLiveness {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INTERVAL)
+  @JsonProperty(value = JSON_PROPERTY_INTERVAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInterval(@javax.annotation.Nonnull String interval) {
     this.interval = interval;
@@ -120,7 +121,7 @@ public class ServerConfigLiveness {
    * @return timeout
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonProperty(value = JSON_PROPERTY_TIMEOUT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getTimeout() {
@@ -128,7 +129,7 @@ public class ServerConfigLiveness {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonProperty(value = JSON_PROPERTY_TIMEOUT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTimeout(@javax.annotation.Nonnull String timeout) {
     this.timeout = timeout;
@@ -145,7 +146,7 @@ public class ServerConfigLiveness {
    * @return initialDelay
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
+  @JsonProperty(value = JSON_PROPERTY_INITIAL_DELAY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getInitialDelay() {
@@ -153,7 +154,7 @@ public class ServerConfigLiveness {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INITIAL_DELAY)
+  @JsonProperty(value = JSON_PROPERTY_INITIAL_DELAY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInitialDelay(@javax.annotation.Nonnull String initialDelay) {
     this.initialDelay = initialDelay;
@@ -170,7 +171,7 @@ public class ServerConfigLiveness {
    * @return heartbeatInterval
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
+  @JsonProperty(value = JSON_PROPERTY_HEARTBEAT_INTERVAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getHeartbeatInterval() {
@@ -178,7 +179,7 @@ public class ServerConfigLiveness {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HEARTBEAT_INTERVAL)
+  @JsonProperty(value = JSON_PROPERTY_HEARTBEAT_INTERVAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setHeartbeatInterval(@javax.annotation.Nonnull String heartbeatInterval) {
     this.heartbeatInterval = heartbeatInterval;

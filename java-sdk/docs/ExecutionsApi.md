@@ -65,7 +65,7 @@ All URIs are relative to *http://localhost*
 
 ## createExecution
 
-> List&lt;ExecutionControllerExecutionResponse&gt; createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind)
+> ExecutionControllerExecutionResponse createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind)
 
 Create a new execution for a flow
 
@@ -105,7 +105,7 @@ public class Example {
         String breakpoints = "breakpoints_example"; // String | Set a list of breakpoints at specific tasks 'id.value', separated by a coma.
         ExecutionKind kind = ExecutionKind.fromValue("NORMAL"); // ExecutionKind | Specific execution kind
         try {
-            List<ExecutionControllerExecutionResponse> result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
+            ExecutionControllerExecutionResponse result = apiInstance.createExecution(namespace, id, wait, tenant, labels, revision, scheduleDate, breakpoints, kind);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExecutionsApi#createExecution");
@@ -135,7 +135,7 @@ public class Example {
 
 ### Return type
 
-[**List&lt;ExecutionControllerExecutionResponse&gt;**](ExecutionControllerExecutionResponse.md)
+[**ExecutionControllerExecutionResponse**](ExecutionControllerExecutionResponse.md)
 
 ### Authorization
 
@@ -151,7 +151,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **409** | if the flow is disabled |  -  |
-| **200** | createExecution 200 response |  -  |
+| **200** | On execution created |  -  |
 
 
 ## deleteExecution
@@ -1336,7 +1336,7 @@ public class Example {
         bearerAuth.setBearerToken("BEARER TOKEN");
 
         ExecutionsApi apiInstance = new ExecutionsApi(defaultClient);
-        String executionId = "executionId_example"; // String | The execution that you want flow information's
+        String executionId = "executionId_example"; // String | The execution that you want flow informations
         String tenant = "tenant_example"; // String | 
         try {
             FlowForExecution result = apiInstance.getFlowFromExecutionById(executionId, tenant);
@@ -1357,7 +1357,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **executionId** | **String**| The execution that you want flow information&#39;s | |
+| **executionId** | **String**| The execution that you want flow informations | |
 | **tenant** | **String**|  | |
 
 ### Return type

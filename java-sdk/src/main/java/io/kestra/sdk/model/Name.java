@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Name.JSON_PROPERTY_FAMILY_NAME,
   Name.JSON_PROPERTY_GIVEN_NAME
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Name {
   public static final String JSON_PROPERTY_FAMILY_NAME = "familyName";
   @javax.annotation.Nullable
@@ -54,7 +55,7 @@ public class Name {
    * @return familyName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FAMILY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFamilyName() {
@@ -62,7 +63,7 @@ public class Name {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FAMILY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_FAMILY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFamilyName(@javax.annotation.Nullable String familyName) {
     this.familyName = familyName;
@@ -79,7 +80,7 @@ public class Name {
    * @return givenName
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
+  @JsonProperty(value = JSON_PROPERTY_GIVEN_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGivenName() {
@@ -87,7 +88,7 @@ public class Name {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GIVEN_NAME)
+  @JsonProperty(value = JSON_PROPERTY_GIVEN_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGivenName(@javax.annotation.Nullable String givenName) {
     this.givenName = givenName;

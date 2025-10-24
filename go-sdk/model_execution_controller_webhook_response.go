@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ExecutionControllerWebhookResponse type satisfies the MappedNullable interface at compile time
@@ -20,16 +19,16 @@ var _ MappedNullable = &ExecutionControllerWebhookResponse{}
 
 // ExecutionControllerWebhookResponse struct for ExecutionControllerWebhookResponse
 type ExecutionControllerWebhookResponse struct {
-	TenantId             string                            `json:"tenantId"`
-	Id                   string                            `json:"id"`
-	Namespace            string                            `json:"namespace"`
-	FlowId               string                            `json:"flowId"`
-	FlowRevision         int32                             `json:"flowRevision"`
-	Trigger              ExecutionTrigger                  `json:"trigger"`
-	Outputs              map[string]map[string]interface{} `json:"outputs"`
-	Labels               []Label                           `json:"labels"`
-	State                State                             `json:"state"`
-	Url                  string                            `json:"url"`
+	TenantId             *string                           `json:"tenantId,omitempty"`
+	Id                   *string                           `json:"id,omitempty"`
+	Namespace            *string                           `json:"namespace,omitempty"`
+	FlowId               *string                           `json:"flowId,omitempty"`
+	FlowRevision         *int32                            `json:"flowRevision,omitempty"`
+	Trigger              *ExecutionTrigger                 `json:"trigger,omitempty"`
+	Outputs              map[string]map[string]interface{} `json:"outputs,omitempty"`
+	Labels               []Label                           `json:"labels,omitempty"`
+	State                *State                            `json:"state,omitempty"`
+	Url                  *string                           `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -39,18 +38,8 @@ type _ExecutionControllerWebhookResponse ExecutionControllerWebhookResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExecutionControllerWebhookResponse(tenantId string, id string, namespace string, flowId string, flowRevision int32, trigger ExecutionTrigger, outputs map[string]map[string]interface{}, labels []Label, state State, url string) *ExecutionControllerWebhookResponse {
+func NewExecutionControllerWebhookResponse() *ExecutionControllerWebhookResponse {
 	this := ExecutionControllerWebhookResponse{}
-	this.TenantId = tenantId
-	this.Id = id
-	this.Namespace = namespace
-	this.FlowId = flowId
-	this.FlowRevision = flowRevision
-	this.Trigger = trigger
-	this.Outputs = outputs
-	this.Labels = labels
-	this.State = state
-	this.Url = url
 	return &this
 }
 
@@ -62,244 +51,324 @@ func NewExecutionControllerWebhookResponseWithDefaults() *ExecutionControllerWeb
 	return &this
 }
 
-// GetTenantId returns the TenantId field value
+// GetTenantId returns the TenantId field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetTenantId() string {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		var ret string
 		return ret
 	}
-
-	return o.TenantId
+	return *o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value
+// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetTenantIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TenantId) {
 		return nil, false
 	}
-	return &o.TenantId, true
+	return o.TenantId, true
 }
 
-// SetTenantId sets field value
+// HasTenantId returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasTenantId() bool {
+	if o != nil && !IsNil(o.TenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
 func (o *ExecutionControllerWebhookResponse) SetTenantId(v string) {
-	o.TenantId = v
+	o.TenantId = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *ExecutionControllerWebhookResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetNamespace returns the Namespace field value
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetNamespace() string {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
-
-	return o.Namespace
+	return *o.Namespace
 }
 
-// GetNamespaceOk returns a tuple with the Namespace field value
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetNamespaceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
-	return &o.Namespace, true
+	return o.Namespace, true
 }
 
-// SetNamespace sets field value
+// HasNamespace returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
 func (o *ExecutionControllerWebhookResponse) SetNamespace(v string) {
-	o.Namespace = v
+	o.Namespace = &v
 }
 
-// GetFlowId returns the FlowId field value
+// GetFlowId returns the FlowId field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetFlowId() string {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		var ret string
 		return ret
 	}
-
-	return o.FlowId
+	return *o.FlowId
 }
 
-// GetFlowIdOk returns a tuple with the FlowId field value
+// GetFlowIdOk returns a tuple with the FlowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetFlowIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowId) {
 		return nil, false
 	}
-	return &o.FlowId, true
+	return o.FlowId, true
 }
 
-// SetFlowId sets field value
+// HasFlowId returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasFlowId() bool {
+	if o != nil && !IsNil(o.FlowId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowId gets a reference to the given string and assigns it to the FlowId field.
 func (o *ExecutionControllerWebhookResponse) SetFlowId(v string) {
-	o.FlowId = v
+	o.FlowId = &v
 }
 
-// GetFlowRevision returns the FlowRevision field value
+// GetFlowRevision returns the FlowRevision field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetFlowRevision() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.FlowRevision) {
 		var ret int32
 		return ret
 	}
-
-	return o.FlowRevision
+	return *o.FlowRevision
 }
 
-// GetFlowRevisionOk returns a tuple with the FlowRevision field value
+// GetFlowRevisionOk returns a tuple with the FlowRevision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetFlowRevisionOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.FlowRevision) {
 		return nil, false
 	}
-	return &o.FlowRevision, true
+	return o.FlowRevision, true
 }
 
-// SetFlowRevision sets field value
+// HasFlowRevision returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasFlowRevision() bool {
+	if o != nil && !IsNil(o.FlowRevision) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlowRevision gets a reference to the given int32 and assigns it to the FlowRevision field.
 func (o *ExecutionControllerWebhookResponse) SetFlowRevision(v int32) {
-	o.FlowRevision = v
+	o.FlowRevision = &v
 }
 
-// GetTrigger returns the Trigger field value
+// GetTrigger returns the Trigger field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetTrigger() ExecutionTrigger {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		var ret ExecutionTrigger
 		return ret
 	}
-
-	return o.Trigger
+	return *o.Trigger
 }
 
-// GetTriggerOk returns a tuple with the Trigger field value
+// GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetTriggerOk() (*ExecutionTrigger, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Trigger) {
 		return nil, false
 	}
-	return &o.Trigger, true
+	return o.Trigger, true
 }
 
-// SetTrigger sets field value
+// HasTrigger returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasTrigger() bool {
+	if o != nil && !IsNil(o.Trigger) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrigger gets a reference to the given ExecutionTrigger and assigns it to the Trigger field.
 func (o *ExecutionControllerWebhookResponse) SetTrigger(v ExecutionTrigger) {
-	o.Trigger = v
+	o.Trigger = &v
 }
 
-// GetOutputs returns the Outputs field value
+// GetOutputs returns the Outputs field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetOutputs() map[string]map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Outputs) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
-
 	return o.Outputs
 }
 
-// GetOutputsOk returns a tuple with the Outputs field value
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetOutputsOk() (map[string]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Outputs) {
 		return map[string]map[string]interface{}{}, false
 	}
 	return o.Outputs, true
 }
 
-// SetOutputs sets field value
+// HasOutputs returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given map[string]map[string]interface{} and assigns it to the Outputs field.
 func (o *ExecutionControllerWebhookResponse) SetOutputs(v map[string]map[string]interface{}) {
 	o.Outputs = v
 }
 
-// GetLabels returns the Labels field value
+// GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetLabels() []Label {
-	if o == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret []Label
 		return ret
 	}
-
 	return o.Labels
 }
 
-// GetLabelsOk returns a tuple with the Labels field value
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetLabelsOk() ([]Label, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
 }
 
-// SetLabels sets field value
+// HasLabels returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
 func (o *ExecutionControllerWebhookResponse) SetLabels(v []Label) {
 	o.Labels = v
 }
 
-// GetState returns the State field value
+// GetState returns the State field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetState() State {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		var ret State
 		return ret
 	}
-
-	return o.State
+	return *o.State
 }
 
-// GetStateOk returns a tuple with the State field value
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetStateOk() (*State, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
-	return &o.State, true
+	return o.State, true
 }
 
-// SetState sets field value
+// HasState returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given State and assigns it to the State field.
 func (o *ExecutionControllerWebhookResponse) SetState(v State) {
-	o.State = v
+	o.State = &v
 }
 
-// GetUrl returns the Url field value
+// GetUrl returns the Url field value if set, zero value otherwise.
 func (o *ExecutionControllerWebhookResponse) GetUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
-
-	return o.Url
+	return *o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutionControllerWebhookResponse) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-	return &o.Url, true
+	return o.Url, true
 }
 
-// SetUrl sets field value
+// HasUrl returns a boolean if a field has been set.
+func (o *ExecutionControllerWebhookResponse) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *ExecutionControllerWebhookResponse) SetUrl(v string) {
-	o.Url = v
+	o.Url = &v
 }
 
 func (o ExecutionControllerWebhookResponse) MarshalJSON() ([]byte, error) {
@@ -312,16 +381,36 @@ func (o ExecutionControllerWebhookResponse) MarshalJSON() ([]byte, error) {
 
 func (o ExecutionControllerWebhookResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["tenantId"] = o.TenantId
-	toSerialize["id"] = o.Id
-	toSerialize["namespace"] = o.Namespace
-	toSerialize["flowId"] = o.FlowId
-	toSerialize["flowRevision"] = o.FlowRevision
-	toSerialize["trigger"] = o.Trigger
-	toSerialize["outputs"] = o.Outputs
-	toSerialize["labels"] = o.Labels
-	toSerialize["state"] = o.State
-	toSerialize["url"] = o.Url
+	if !IsNil(o.TenantId) {
+		toSerialize["tenantId"] = o.TenantId
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.FlowId) {
+		toSerialize["flowId"] = o.FlowId
+	}
+	if !IsNil(o.FlowRevision) {
+		toSerialize["flowRevision"] = o.FlowRevision
+	}
+	if !IsNil(o.Trigger) {
+		toSerialize["trigger"] = o.Trigger
+	}
+	if !IsNil(o.Outputs) {
+		toSerialize["outputs"] = o.Outputs
+	}
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -331,36 +420,6 @@ func (o ExecutionControllerWebhookResponse) ToMap() (map[string]interface{}, err
 }
 
 func (o *ExecutionControllerWebhookResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"tenantId",
-		"id",
-		"namespace",
-		"flowId",
-		"flowRevision",
-		"trigger",
-		"outputs",
-		"labels",
-		"state",
-		"url",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varExecutionControllerWebhookResponse := _ExecutionControllerWebhookResponse{}
 
 	err = json.Unmarshal(data, &varExecutionControllerWebhookResponse)

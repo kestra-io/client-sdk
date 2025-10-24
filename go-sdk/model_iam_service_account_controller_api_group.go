@@ -12,7 +12,6 @@ package kestra_api_client
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IAMServiceAccountControllerApiGroup type satisfies the MappedNullable interface at compile time
@@ -20,7 +19,7 @@ var _ MappedNullable = &IAMServiceAccountControllerApiGroup{}
 
 // IAMServiceAccountControllerApiGroup struct for IAMServiceAccountControllerApiGroup
 type IAMServiceAccountControllerApiGroup struct {
-	Id                   string `json:"id"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,9 +29,8 @@ type _IAMServiceAccountControllerApiGroup IAMServiceAccountControllerApiGroup
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIAMServiceAccountControllerApiGroup(id string) *IAMServiceAccountControllerApiGroup {
+func NewIAMServiceAccountControllerApiGroup() *IAMServiceAccountControllerApiGroup {
 	this := IAMServiceAccountControllerApiGroup{}
-	this.Id = id
 	return &this
 }
 
@@ -44,28 +42,36 @@ func NewIAMServiceAccountControllerApiGroupWithDefaults() *IAMServiceAccountCont
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IAMServiceAccountControllerApiGroup) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IAMServiceAccountControllerApiGroup) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IAMServiceAccountControllerApiGroup) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IAMServiceAccountControllerApiGroup) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 func (o IAMServiceAccountControllerApiGroup) MarshalJSON() ([]byte, error) {
@@ -78,7 +84,9 @@ func (o IAMServiceAccountControllerApiGroup) MarshalJSON() ([]byte, error) {
 
 func (o IAMServiceAccountControllerApiGroup) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -88,27 +96,6 @@ func (o IAMServiceAccountControllerApiGroup) ToMap() (map[string]interface{}, er
 }
 
 func (o *IAMServiceAccountControllerApiGroup) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIAMServiceAccountControllerApiGroup := _IAMServiceAccountControllerApiGroup{}
 
 	err = json.Unmarshal(data, &varIAMServiceAccountControllerApiGroup)

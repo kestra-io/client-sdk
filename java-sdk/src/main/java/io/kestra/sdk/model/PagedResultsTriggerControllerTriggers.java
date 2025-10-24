@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PagedResultsTriggerControllerTriggers.JSON_PROPERTY_TOTAL
 })
 @JsonTypeName("PagedResults_TriggerController.Triggers_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class PagedResultsTriggerControllerTriggers {
   public static final String JSON_PROPERTY_RESULTS = "results";
   @javax.annotation.Nonnull
@@ -67,7 +68,7 @@ public class PagedResultsTriggerControllerTriggers {
    * @return results
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public List<TriggerControllerTriggers> getResults() {
@@ -75,7 +76,7 @@ public class PagedResultsTriggerControllerTriggers {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESULTS)
+  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResults(@javax.annotation.Nonnull List<TriggerControllerTriggers> results) {
     this.results = results;
@@ -92,7 +93,7 @@ public class PagedResultsTriggerControllerTriggers {
    * @return total
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Long getTotal() {
@@ -100,7 +101,7 @@ public class PagedResultsTriggerControllerTriggers {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTotal(@javax.annotation.Nonnull Long total) {
     this.total = total;

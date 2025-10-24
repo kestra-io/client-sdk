@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cluster** | [**AbstractGraph**](AbstractGraph.md) |  | 
-**nodes** | **[String]** |  | 
-**parents** | **[String]** |  | 
-**start** | **String** |  | 
-**end** | **String** |  | 
+**cluster** | [**AbstractGraph**](AbstractGraph.md) |  | [optional] 
+**nodes** | **[String]** |  | [optional] 
+**parents** | **[String]** |  | [optional] 
+**start** | **String** |  | [optional] 
+**end** | **String** |  | [optional] 
 
 

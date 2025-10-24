@@ -57,12 +57,11 @@ docker run --rm -v ${PWD}:/local --user ${HOST_UID}:${HOST_GID} openapitools/ope
     -c /local/configurations/python-config.yml \
     --skip-validate-spec \
     --additional-properties=packageVersion=$VERSION \
-    --template-dir=/local/templates/python
+    --template-dir=/local/templates/python \
 
 sed $SED_INPLACE -E 's/^license = .*/license = "Apache-2.0"/' python-sdk/pyproject.toml
 sed $SED_INPLACE -E 's/^requires-python = .*/requires-python = ">=3.9"/' python-sdk/pyproject.toml
 sed $SED_INPLACE -E '/from kestrapy\.models\.list\[label\] import List\[Label\]/d' python-sdk/kestrapy/api/executions_api.py
-grep -vF '{javaJavaIdentifierStart}\p{javaJavaIdentifierPart}' python-sdk/kestrapy/models/task.py > temp_file && mv temp_file python-sdk/kestrapy/models/task.py
 echo "from kestrapy.kestra_client import KestraClient as KestraClient" >> python-sdk/kestrapy/__init__.py
 sh generation-helpers/python/inject_sse_method.sh # Inject SSE method in the client for follow execution endpoint
 fi

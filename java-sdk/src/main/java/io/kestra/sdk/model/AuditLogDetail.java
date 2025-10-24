@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AuditLogDetail.JSON_PROPERTY_TYPE,
   AuditLogDetail.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class AuditLogDetail {
   public static final String JSON_PROPERTY_PERMISSION = "permission";
   @javax.annotation.Nullable
@@ -66,7 +67,7 @@ public class AuditLogDetail {
    * @return permission
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonProperty(value = JSON_PROPERTY_PERMISSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Permission getPermission() {
@@ -74,7 +75,7 @@ public class AuditLogDetail {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PERMISSION)
+  @JsonProperty(value = JSON_PROPERTY_PERMISSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPermission(@javax.annotation.Nullable Permission permission) {
     this.permission = permission;
@@ -91,7 +92,7 @@ public class AuditLogDetail {
    * @return resourceType
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ResourceType1 getResourceType() {
@@ -99,7 +100,7 @@ public class AuditLogDetail {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESOURCE_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_RESOURCE_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResourceType(@javax.annotation.Nullable ResourceType1 resourceType) {
     this.resourceType = resourceType;
@@ -116,7 +117,7 @@ public class AuditLogDetail {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getType() {
@@ -124,7 +125,7 @@ public class AuditLogDetail {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -141,7 +142,7 @@ public class AuditLogDetail {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -149,7 +150,7 @@ public class AuditLogDetail {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;

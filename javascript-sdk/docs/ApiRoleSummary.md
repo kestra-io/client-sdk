@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
-**name** | **String** |  | 
-**isDefault** | **Boolean** |  | 
-**isManaged** | **Boolean** |  | 
+**id** | **String** |  | [optional] 
+**name** | **String** |  | [optional] 
+**isDefault** | **Boolean** |  | [optional] 
+**isManaged** | **Boolean** |  | [optional] 
 
 

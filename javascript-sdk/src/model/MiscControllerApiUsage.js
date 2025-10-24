@@ -18,7 +18,7 @@ import FlowUsage from './FlowUsage';
 /**
  * The MiscControllerApiUsage model module.
  * @module model/MiscControllerApiUsage
- * @version 1.0.0
+ * @version v1.0.5
  */
 class MiscControllerApiUsage {
     /**

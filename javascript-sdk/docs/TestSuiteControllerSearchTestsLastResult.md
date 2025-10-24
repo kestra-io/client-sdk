@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**testSuiteIds** | [**[TestSuiteControllerTestSuiteApiId]**](TestSuiteControllerTestSuiteApiId.md) |  | 
+**testSuiteIds** | [**[TestSuiteControllerTestSuiteApiId]**](TestSuiteControllerTestSuiteApiId.md) |  | [optional] 
 
 

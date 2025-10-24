@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Inputs** | Pointer to [**[]InputObject**](InputObject.md) |  | [optional] 
 **Outputs** | Pointer to [**[]Output**](Output.md) | Output values make information about the execution of your Flow available and expose for other Kestra flows to use. Output values are similar to return values in programming languages. | [optional] 
 **Disabled** | **bool** |  | 
-**Labels** | Pointer to [**FlowWithSourceAllOfLabels**](FlowWithSourceAllOfLabels.md) |  | [optional] 
-**Variables** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Labels** | Pointer to [**[]Label**](Label.md) | Labels as a list of Label (key/value pairs) or as a map of string to string. | [optional] 
+**Variables** | Pointer to **map[string]interface{}** |  | [optional] 
 **WorkerGroup** | Pointer to [**WorkerGroup**](WorkerGroup.md) |  | [optional] 
 **Deleted** | **bool** |  | 
 **Finally** | Pointer to [**[]Task**](Task.md) |  | [optional] 
@@ -208,20 +208,20 @@ SetDisabled sets Disabled field to given value.
 
 ### GetLabels
 
-`func (o *FlowWithSource) GetLabels() FlowWithSourceAllOfLabels`
+`func (o *FlowWithSource) GetLabels() []Label`
 
 GetLabels returns the Labels field if non-nil, zero value otherwise.
 
 ### GetLabelsOk
 
-`func (o *FlowWithSource) GetLabelsOk() (*FlowWithSourceAllOfLabels, bool)`
+`func (o *FlowWithSource) GetLabelsOk() (*[]Label, bool)`
 
 GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLabels
 
-`func (o *FlowWithSource) SetLabels(v FlowWithSourceAllOfLabels)`
+`func (o *FlowWithSource) SetLabels(v []Label)`
 
 SetLabels sets Labels field to given value.
 
@@ -233,20 +233,20 @@ HasLabels returns a boolean if a field has been set.
 
 ### GetVariables
 
-`func (o *FlowWithSource) GetVariables() map[string]map[string]interface{}`
+`func (o *FlowWithSource) GetVariables() map[string]interface{}`
 
 GetVariables returns the Variables field if non-nil, zero value otherwise.
 
 ### GetVariablesOk
 
-`func (o *FlowWithSource) GetVariablesOk() (*map[string]map[string]interface{}, bool)`
+`func (o *FlowWithSource) GetVariablesOk() (*map[string]interface{}, bool)`
 
 GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariables
 
-`func (o *FlowWithSource) SetVariables(v map[string]map[string]interface{})`
+`func (o *FlowWithSource) SetVariables(v map[string]interface{})`
 
 SetVariables sets Variables field to given value.
 

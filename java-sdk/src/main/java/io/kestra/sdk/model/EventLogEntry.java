@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   EventLogEntry.JSON_PROPERTY_RETRY
 })
 @JsonTypeName("Event_LogEntry_")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class EventLogEntry {
   public static final String JSON_PROPERTY_DATA = "data";
   @javax.annotation.Nullable
@@ -71,7 +72,7 @@ public class EventLogEntry {
    * @return data
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LogEntry getData() {
@@ -79,7 +80,7 @@ public class EventLogEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
+  @JsonProperty(value = JSON_PROPERTY_DATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(@javax.annotation.Nullable LogEntry data) {
     this.data = data;
@@ -96,7 +97,7 @@ public class EventLogEntry {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
@@ -104,7 +105,7 @@ public class EventLogEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable String id) {
     this.id = id;
@@ -121,7 +122,7 @@ public class EventLogEntry {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -129,7 +130,7 @@ public class EventLogEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -146,7 +147,7 @@ public class EventLogEntry {
    * @return comment
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COMMENT)
+  @JsonProperty(value = JSON_PROPERTY_COMMENT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getComment() {
@@ -154,7 +155,7 @@ public class EventLogEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_COMMENT)
+  @JsonProperty(value = JSON_PROPERTY_COMMENT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setComment(@javax.annotation.Nullable String comment) {
     this.comment = comment;
@@ -171,7 +172,7 @@ public class EventLogEntry {
    * @return retry
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RETRY)
+  @JsonProperty(value = JSON_PROPERTY_RETRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRetry() {
@@ -179,7 +180,7 @@ public class EventLogEntry {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RETRY)
+  @JsonProperty(value = JSON_PROPERTY_RETRY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRetry(@javax.annotation.Nullable String retry) {
     this.retry = retry;

@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -61,7 +62,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Plugin.JSON_PROPERTY_CATEGORIES,
   Plugin.JSON_PROPERTY_SUB_GROUP
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class Plugin {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nullable
@@ -181,7 +182,7 @@ public class Plugin {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -189,7 +190,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -206,7 +207,7 @@ public class Plugin {
    * @return title
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
@@ -214,7 +215,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonProperty(value = JSON_PROPERTY_TITLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTitle(@javax.annotation.Nullable String title) {
     this.title = title;
@@ -231,7 +232,7 @@ public class Plugin {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -239,7 +240,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -256,7 +257,7 @@ public class Plugin {
    * @return license
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @JsonProperty(value = JSON_PROPERTY_LICENSE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLicense() {
@@ -264,7 +265,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LICENSE)
+  @JsonProperty(value = JSON_PROPERTY_LICENSE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLicense(@javax.annotation.Nullable String license) {
     this.license = license;
@@ -281,7 +282,7 @@ public class Plugin {
    * @return longDescription
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_LONG_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getLongDescription() {
@@ -289,7 +290,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_LONG_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLongDescription(@javax.annotation.Nullable String longDescription) {
     this.longDescription = longDescription;
@@ -306,7 +307,7 @@ public class Plugin {
    * @return group
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGroup() {
@@ -314,7 +315,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGroup(@javax.annotation.Nullable String group) {
     this.group = group;
@@ -331,7 +332,7 @@ public class Plugin {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getVersion() {
@@ -339,7 +340,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable String version) {
     this.version = version;
@@ -364,7 +365,7 @@ public class Plugin {
    * @return manifest
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Map<String, String> getManifest() {
@@ -372,7 +373,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManifest(@javax.annotation.Nullable Map<String, String> manifest) {
     this.manifest = manifest;
@@ -397,7 +398,7 @@ public class Plugin {
    * @return guides
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @JsonProperty(value = JSON_PROPERTY_GUIDES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getGuides() {
@@ -405,7 +406,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_GUIDES)
+  @JsonProperty(value = JSON_PROPERTY_GUIDES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGuides(@javax.annotation.Nullable List<String> guides) {
     this.guides = guides;
@@ -430,7 +431,7 @@ public class Plugin {
    * @return aliases
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @JsonProperty(value = JSON_PROPERTY_ALIASES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAliases() {
@@ -438,7 +439,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ALIASES)
+  @JsonProperty(value = JSON_PROPERTY_ALIASES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAliases(@javax.annotation.Nullable List<String> aliases) {
     this.aliases = aliases;
@@ -463,7 +464,7 @@ public class Plugin {
    * @return tasks
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTasks() {
@@ -471,7 +472,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASKS)
+  @JsonProperty(value = JSON_PROPERTY_TASKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTasks(@javax.annotation.Nullable List<PluginPluginElementMetadata> tasks) {
     this.tasks = tasks;
@@ -496,7 +497,7 @@ public class Plugin {
    * @return triggers
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTriggers() {
@@ -504,7 +505,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRIGGERS)
+  @JsonProperty(value = JSON_PROPERTY_TRIGGERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTriggers(@javax.annotation.Nullable List<PluginPluginElementMetadata> triggers) {
     this.triggers = triggers;
@@ -529,7 +530,7 @@ public class Plugin {
    * @return conditions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @JsonProperty(value = JSON_PROPERTY_CONDITIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getConditions() {
@@ -537,7 +538,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONDITIONS)
+  @JsonProperty(value = JSON_PROPERTY_CONDITIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConditions(@javax.annotation.Nullable List<PluginPluginElementMetadata> conditions) {
     this.conditions = conditions;
@@ -562,7 +563,7 @@ public class Plugin {
    * @return controllers
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @JsonProperty(value = JSON_PROPERTY_CONTROLLERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getControllers() {
@@ -570,7 +571,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONTROLLERS)
+  @JsonProperty(value = JSON_PROPERTY_CONTROLLERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setControllers(@javax.annotation.Nullable List<PluginPluginElementMetadata> controllers) {
     this.controllers = controllers;
@@ -595,7 +596,7 @@ public class Plugin {
    * @return storages
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @JsonProperty(value = JSON_PROPERTY_STORAGES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getStorages() {
@@ -603,7 +604,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STORAGES)
+  @JsonProperty(value = JSON_PROPERTY_STORAGES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorages(@javax.annotation.Nullable List<PluginPluginElementMetadata> storages) {
     this.storages = storages;
@@ -628,7 +629,7 @@ public class Plugin {
    * @return secrets
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @JsonProperty(value = JSON_PROPERTY_SECRETS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getSecrets() {
@@ -636,7 +637,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SECRETS)
+  @JsonProperty(value = JSON_PROPERTY_SECRETS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecrets(@javax.annotation.Nullable List<PluginPluginElementMetadata> secrets) {
     this.secrets = secrets;
@@ -661,7 +662,7 @@ public class Plugin {
    * @return taskRunners
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUNNERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getTaskRunners() {
@@ -669,7 +670,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TASK_RUNNERS)
+  @JsonProperty(value = JSON_PROPERTY_TASK_RUNNERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaskRunners(@javax.annotation.Nullable List<PluginPluginElementMetadata> taskRunners) {
     this.taskRunners = taskRunners;
@@ -694,7 +695,7 @@ public class Plugin {
    * @return apps
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APPS)
+  @JsonProperty(value = JSON_PROPERTY_APPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getApps() {
@@ -702,7 +703,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_APPS)
+  @JsonProperty(value = JSON_PROPERTY_APPS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setApps(@javax.annotation.Nullable List<PluginPluginElementMetadata> apps) {
     this.apps = apps;
@@ -727,7 +728,7 @@ public class Plugin {
    * @return appBlocks
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @JsonProperty(value = JSON_PROPERTY_APP_BLOCKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAppBlocks() {
@@ -735,7 +736,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_APP_BLOCKS)
+  @JsonProperty(value = JSON_PROPERTY_APP_BLOCKS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAppBlocks(@javax.annotation.Nullable List<PluginPluginElementMetadata> appBlocks) {
     this.appBlocks = appBlocks;
@@ -760,7 +761,7 @@ public class Plugin {
    * @return charts
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getCharts() {
@@ -768,7 +769,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHARTS)
+  @JsonProperty(value = JSON_PROPERTY_CHARTS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCharts(@javax.annotation.Nullable List<PluginPluginElementMetadata> charts) {
     this.charts = charts;
@@ -793,7 +794,7 @@ public class Plugin {
    * @return dataFilters
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_DATA_FILTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFilters() {
@@ -801,7 +802,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS)
+  @JsonProperty(value = JSON_PROPERTY_DATA_FILTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDataFilters(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFilters) {
     this.dataFilters = dataFilters;
@@ -826,7 +827,7 @@ public class Plugin {
    * @return dataFiltersKPI
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonProperty(value = JSON_PROPERTY_DATA_FILTERS_K_P_I, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getDataFiltersKPI() {
@@ -834,7 +835,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA_FILTERS_K_P_I)
+  @JsonProperty(value = JSON_PROPERTY_DATA_FILTERS_K_P_I, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDataFiltersKPI(@javax.annotation.Nullable List<PluginPluginElementMetadata> dataFiltersKPI) {
     this.dataFiltersKPI = dataFiltersKPI;
@@ -859,7 +860,7 @@ public class Plugin {
    * @return logExporters
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @JsonProperty(value = JSON_PROPERTY_LOG_EXPORTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getLogExporters() {
@@ -867,7 +868,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOG_EXPORTERS)
+  @JsonProperty(value = JSON_PROPERTY_LOG_EXPORTERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLogExporters(@javax.annotation.Nullable List<PluginPluginElementMetadata> logExporters) {
     this.logExporters = logExporters;
@@ -892,7 +893,7 @@ public class Plugin {
    * @return additionalPlugins
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_PLUGINS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginPluginElementMetadata> getAdditionalPlugins() {
@@ -900,7 +901,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_PLUGINS)
+  @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_PLUGINS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAdditionalPlugins(@javax.annotation.Nullable List<PluginPluginElementMetadata> additionalPlugins) {
     this.additionalPlugins = additionalPlugins;
@@ -925,7 +926,7 @@ public class Plugin {
    * @return categories
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @JsonProperty(value = JSON_PROPERTY_CATEGORIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PluginSubGroupPluginCategory> getCategories() {
@@ -933,7 +934,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CATEGORIES)
+  @JsonProperty(value = JSON_PROPERTY_CATEGORIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCategories(@javax.annotation.Nullable List<PluginSubGroupPluginCategory> categories) {
     this.categories = categories;
@@ -950,7 +951,7 @@ public class Plugin {
    * @return subGroup
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_SUB_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSubGroup() {
@@ -958,7 +959,7 @@ public class Plugin {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUB_GROUP)
+  @JsonProperty(value = JSON_PROPERTY_SUB_GROUP, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubGroup(@javax.annotation.Nullable String subGroup) {
     this.subGroup = subGroup;

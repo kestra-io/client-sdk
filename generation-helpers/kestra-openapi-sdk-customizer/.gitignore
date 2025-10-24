@@ -1,0 +1,40 @@
+### Java
+Thumbs.db
+.DS_Store
+.gradle
+build/
+target/
+out/
+.idea
+.vscode
+prettierrc.js
+*.iml
+*.ipr
+*.iws
+.project
+.settings
+.classpath
+.attach*
+**/*.class
+**/bin/*
+
+### Configurations
+docker-compose.override.yml
+cli/src/main/resources/application-*.yml
+/local
+
+### Javascript
+node
+node_modules
+coverage
+
+### Build
+core/src/main/resources/gradle.properties
+.plugins.override
+
+# Allure Reports
+**/allure-results/*
+
+*storybook.log
+storybook-static
+/jmh-benchmarks/src/main/resources/gradle.properties

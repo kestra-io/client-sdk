@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**storageByTenant** | **Boolean** |  |  |
-|**secretByTenant** | **Boolean** |  |  |
+|**storageByTenant** | **Boolean** |  |  [optional] |
+|**secretByTenant** | **Boolean** |  |  [optional] |
 
 
 

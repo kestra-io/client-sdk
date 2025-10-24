@@ -15,6 +15,8 @@ package io.kestra.sdk.internal;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.Supplier;
 import java.util.TimeZone;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,7 +83,7 @@ import io.kestra.sdk.internal.auth.Authentication;
 import io.kestra.sdk.internal.auth.HttpBasicAuth;
 import io.kestra.sdk.internal.auth.HttpBearerAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class ApiClient extends JavaTimeFormatter {
   protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
   protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
@@ -127,7 +130,7 @@ public class ApiClient extends JavaTimeFormatter {
     dateFormat = ApiClient.buildDefaultDateFormat();
 
     // Set default User-Agent.
-    setUserAgent("OpenAPI-Generator/1.0.0/java");
+    setUserAgent("OpenAPI-Generator/v1.0.5/java");
 
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
@@ -548,6 +551,41 @@ public class ApiClient extends JavaTimeFormatter {
       return params;
     }
 
+    if (value.stream().findFirst().get() instanceof QueryFilter) {
+        for (Object o : value) {
+            if (o instanceof QueryFilter queryFilter) {
+                if (queryFilter.getField().equals(QueryFilterField.LABELS)) {
+                    if (queryFilter.getValue() instanceof Map<?,?> mapValue) {
+                        for (Entry<?, ?> entry : mapValue.entrySet()) {
+                            params.add(new Pair(new StringBuilder()
+                                .append("filters[")
+                                .append(queryFilter.getField())
+                                .append("][")
+                                .append(queryFilter.getOperation())
+                                .append("]")
+                                .append("[")
+                                .append(entry.getKey())
+                                .append("]")
+                                .toString(), entry.getValue().toString()));
+                        }
+                    } else {
+                        throw new ApiException(400, "Filter LABEL value must be instance of Map<String, Object>");
+                    }
+                } else {
+                    params.add(new Pair(new StringBuilder()
+                        .append("filters[")
+                        .append(queryFilter.getField())
+                        .append("][")
+                        .append(queryFilter.getOperation())
+                        .append("]")
+                        .toString(), queryFilter.getValue().toString()));
+                }
+            } else {
+                throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
+            }
+        }
+    }
+
     // create the params based on the collection format
     if ("multi".equals(collectionFormat)) {
       for (Object item : value) {
@@ -595,11 +633,6 @@ public class ApiClient extends JavaTimeFormatter {
     return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
   }
 
-  public boolean isYamlMime(String mime) {
-    // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
-    String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
-    return mime != null && mime.matches(yamlMime);
-  }
   /**
    * Select the Accept header's value from the given accepts array:
    *   if JSON exists in the given array, use it;
@@ -697,7 +730,11 @@ public class ApiClient extends JavaTimeFormatter {
     }
     return null;
   }
-
+    public boolean isYamlMime(String mime) {
+        // This regex matches application/x-yaml, text/yaml, or any subtype like application/vnd.api+yaml
+        String yamlMime = "(?i)^(application/x-yaml|text/yaml|[^;/ \t]+/[^;/ \t]+[+]yaml)[ \t]*(;.*)?$";
+        return mime != null && mime.matches(yamlMime);
+    }
   /**
    * Serialize the given Java object into string according the given
    * Content-Type (only JSON is supported for now).
@@ -715,8 +752,6 @@ public class ApiClient extends JavaTimeFormatter {
       } catch (JsonProcessingException e) {
         throw new ApiException(e);
       }
-    } else if (isYamlMime(mimeType)) {
-        return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
     } else if (mimeType.equals(ContentType.MULTIPART_FORM_DATA.getMimeType())) {
       MultipartEntityBuilder multiPartBuilder = MultipartEntityBuilder.create();
       for (Entry<String, Object> paramEntry : formParams.entrySet()) {
@@ -743,6 +778,8 @@ public class ApiClient extends JavaTimeFormatter {
         formValues.add(new BasicNameValuePair(paramEntry.getKey(), parameterToString(paramEntry.getValue())));
       }
       return new UrlEncodedFormEntity(formValues, contentType.getCharset());
+    } else if (isYamlMime(mimeType)) {
+        return new StringEntity((String) obj, contentType.withCharset(StandardCharsets.UTF_8));
     } else {
       // Handle files with unknown content type
       if (obj instanceof File) {
@@ -853,6 +890,7 @@ public class ApiClient extends JavaTimeFormatter {
     if (serverIndex != null) {
       if (serverIndex < 0 || serverIndex >= servers.size()) {
         throw new ArrayIndexOutOfBoundsException(String.format(
+          Locale.ROOT,
           "Invalid index %d when selecting the host settings. Must be less than %d", serverIndex, servers.size()
         ));
       }

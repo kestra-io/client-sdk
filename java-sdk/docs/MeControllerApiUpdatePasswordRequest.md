@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**oldPassword** | **String** |  |  |
-|**newPassword** | **String** |  |  |
+|**oldPassword** | **String** |  |  [optional] |
+|**newPassword** | **String** |  |  [optional] |
 
 
 

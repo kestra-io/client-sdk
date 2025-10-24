@@ -15,6 +15,7 @@ package io.kestra.sdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.Locale;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -52,7 +53,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   SchemaAttribute.JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE
 })
 @JsonTypeName("Schema.Attribute")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
 public class SchemaAttribute {
   public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
   @javax.annotation.Nullable
@@ -140,7 +141,7 @@ public class SchemaAttribute {
    * @return attributes
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SchemaAttribute> getAttributes() {
@@ -148,7 +149,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonProperty(value = JSON_PROPERTY_ATTRIBUTES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttributes(@javax.annotation.Nullable List<SchemaAttribute> attributes) {
     this.attributes = attributes;
@@ -165,7 +166,7 @@ public class SchemaAttribute {
    * @return urn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonProperty(value = JSON_PROPERTY_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUrn() {
@@ -173,7 +174,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_URN)
+  @JsonProperty(value = JSON_PROPERTY_URN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUrn(@javax.annotation.Nullable String urn) {
     this.urn = urn;
@@ -190,7 +191,7 @@ public class SchemaAttribute {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
@@ -198,7 +199,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -215,7 +216,7 @@ public class SchemaAttribute {
    * @return type
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeType getType() {
@@ -223,7 +224,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(@javax.annotation.Nullable SchemaAttributeType type) {
     this.type = type;
@@ -248,7 +249,7 @@ public class SchemaAttribute {
    * @return subAttributes
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
+  @JsonProperty(value = JSON_PROPERTY_SUB_ATTRIBUTES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SchemaAttribute> getSubAttributes() {
@@ -256,7 +257,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SUB_ATTRIBUTES)
+  @JsonProperty(value = JSON_PROPERTY_SUB_ATTRIBUTES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubAttributes(@javax.annotation.Nullable List<SchemaAttribute> subAttributes) {
     this.subAttributes = subAttributes;
@@ -273,7 +274,7 @@ public class SchemaAttribute {
    * @return multiValued
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_VALUED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getMultiValued() {
@@ -281,7 +282,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MULTI_VALUED)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_VALUED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMultiValued(@javax.annotation.Nullable Boolean multiValued) {
     this.multiValued = multiValued;
@@ -298,7 +299,7 @@ public class SchemaAttribute {
    * @return description
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
@@ -306,7 +307,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(@javax.annotation.Nullable String description) {
     this.description = description;
@@ -323,7 +324,7 @@ public class SchemaAttribute {
    * @return required
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
@@ -331,7 +332,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
+  @JsonProperty(value = JSON_PROPERTY_REQUIRED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequired(@javax.annotation.Nullable Boolean required) {
     this.required = required;
@@ -356,7 +357,7 @@ public class SchemaAttribute {
    * @return canonicalValues
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
+  @JsonProperty(value = JSON_PROPERTY_CANONICAL_VALUES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getCanonicalValues() {
@@ -364,7 +365,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CANONICAL_VALUES)
+  @JsonProperty(value = JSON_PROPERTY_CANONICAL_VALUES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCanonicalValues(@javax.annotation.Nullable List<String> canonicalValues) {
     this.canonicalValues = canonicalValues;
@@ -381,7 +382,7 @@ public class SchemaAttribute {
    * @return caseExact
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
+  @JsonProperty(value = JSON_PROPERTY_CASE_EXACT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getCaseExact() {
@@ -389,7 +390,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CASE_EXACT)
+  @JsonProperty(value = JSON_PROPERTY_CASE_EXACT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCaseExact(@javax.annotation.Nullable Boolean caseExact) {
     this.caseExact = caseExact;
@@ -406,7 +407,7 @@ public class SchemaAttribute {
    * @return mutability
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MUTABILITY)
+  @JsonProperty(value = JSON_PROPERTY_MUTABILITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeMutability getMutability() {
@@ -414,7 +415,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_MUTABILITY)
+  @JsonProperty(value = JSON_PROPERTY_MUTABILITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMutability(@javax.annotation.Nullable SchemaAttributeMutability mutability) {
     this.mutability = mutability;
@@ -431,7 +432,7 @@ public class SchemaAttribute {
    * @return returned
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_RETURNED)
+  @JsonProperty(value = JSON_PROPERTY_RETURNED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeReturned getReturned() {
@@ -439,7 +440,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RETURNED)
+  @JsonProperty(value = JSON_PROPERTY_RETURNED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReturned(@javax.annotation.Nullable SchemaAttributeReturned returned) {
     this.returned = returned;
@@ -456,7 +457,7 @@ public class SchemaAttribute {
    * @return uniqueness
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
+  @JsonProperty(value = JSON_PROPERTY_UNIQUENESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SchemaAttributeUniqueness getUniqueness() {
@@ -464,7 +465,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UNIQUENESS)
+  @JsonProperty(value = JSON_PROPERTY_UNIQUENESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUniqueness(@javax.annotation.Nullable SchemaAttributeUniqueness uniqueness) {
     this.uniqueness = uniqueness;
@@ -489,7 +490,7 @@ public class SchemaAttribute {
    * @return referenceTypes
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
+  @JsonProperty(value = JSON_PROPERTY_REFERENCE_TYPES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getReferenceTypes() {
@@ -497,7 +498,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REFERENCE_TYPES)
+  @JsonProperty(value = JSON_PROPERTY_REFERENCE_TYPES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReferenceTypes(@javax.annotation.Nullable List<String> referenceTypes) {
     this.referenceTypes = referenceTypes;
@@ -514,7 +515,7 @@ public class SchemaAttribute {
    * @return accessor
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ACCESSOR)
+  @JsonProperty(value = JSON_PROPERTY_ACCESSOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Object getAccessor() {
@@ -522,7 +523,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACCESSOR)
+  @JsonProperty(value = JSON_PROPERTY_ACCESSOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccessor(@javax.annotation.Nullable Object accessor) {
     this.accessor = accessor;
@@ -539,7 +540,7 @@ public class SchemaAttribute {
    * @return scimResourceIdReference
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
+  @JsonProperty(value = JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getScimResourceIdReference() {
@@ -547,7 +548,7 @@ public class SchemaAttribute {
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE)
+  @JsonProperty(value = JSON_PROPERTY_SCIM_RESOURCE_ID_REFERENCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setScimResourceIdReference(@javax.annotation.Nullable Boolean scimResourceIdReference) {
     this.scimResourceIdReference = scimResourceIdReference;

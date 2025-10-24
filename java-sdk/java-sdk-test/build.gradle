@@ -13,6 +13,7 @@ repositories {
 dependencies {
     implementation 'io.kestra:kestra-api-client:local-ci-version'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation("org.assertj:assertj-core:3.27.6")
 
     // Logging API and runtime binding
     implementation 'org.slf4j:slf4j-api:2.0.13'
