@@ -38,6 +38,27 @@ import static io.kestra.example.CommonTestSetup.*;
 
 public class ExecutionsApiTest {
 
+    /** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. */
+    private void createSimpleFlowWithTrigger(String flowId, String namespace) throws ApiException {
+
+        String body = """
+            id: %s
+            namespace: %s
+
+            tasks:
+              - id: hello
+                type: io.kestra.plugin.core.log.Log
+                message: Hello World! 🚀
+            """.formatted(flowId, namespace);
+
+        kestraClient().flows().createFlow(MAIN_TENANT, body);
+        try {
+            Thread.sleep(200L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Create a new execution for a flow
      *
