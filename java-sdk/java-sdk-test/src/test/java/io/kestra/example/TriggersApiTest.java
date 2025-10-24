@@ -1,298 +1,324 @@
 package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
-import io.kestra.sdk.model.DeleteExecutionsByQueryRequest;
-import io.kestra.sdk.model.PagedResultsTrigger;
-import io.kestra.sdk.model.PagedResultsTriggerControllerTriggers;
-import io.kestra.sdk.model.QueryFilter;
-import io.kestra.sdk.model.Trigger;
-import io.kestra.sdk.model.TriggerControllerSetDisabledRequest;
+import io.kestra.sdk.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.kestraLocalClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TriggersApiTest {
 
+    // --- helpers -------------------------------------------------------------
 
-    /**
-     * Delete a backfill
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void deleteBackfillTest() throws ApiException {
+    /** Create a flow via YAML with a single scheduled trigger; returns [flowId, triggerId]. */
+    private void createFlowWithTrigger(String flowId, String triggerId, String namespace) throws ApiException {
 
-        Trigger trigger = null;
-        Trigger response = kestraClient().triggers().deleteBackfill(MAIN_TENANT, trigger);
+        String body = ""
+            + "id: " + flowId + "\n"
+            + "namespace: " + namespace + "\n"
+            + "\n"
+            + "tasks:\n"
+            + "  - id: hello\n"
+            + "    type: io.kestra.plugin.core.flow.Sleep\n"
+            + "    duration: PT5S\n"
+            + "\n"
+            + "triggers:\n"
+            + "  - id: " + triggerId + "\n"
+            + "    type: io.kestra.plugin.core.trigger.Schedule\n"
+            + "    cron: \"*/5 * * * *\"\n";
 
-        // TODO: test validations
+        kestraClient().flows().createFlow(MAIN_TENANT, body);
+        try {
+            Thread.sleep(100L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
-    /**
-     * Delete backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
+    /** Attach a backfill to a trigger by calling updateTrigger; returns updated Trigger. */
+    private Trigger createBackfillForTrigger(String flowId, String triggerId, String namespace) throws ApiException {
+        OffsetDateTime nowIso = OffsetDateTime.now(ZoneOffset.UTC);
+        OffsetDateTime startIso = OffsetDateTime.now(ZoneOffset.UTC).minusHours(5);
+
+        Backfill backfill = new Backfill()
+            .start(startIso)
+            .end(null);
+
+        Trigger trigger = new Trigger()
+            .namespace(namespace)
+            .flowId(flowId)
+            .triggerId(triggerId)
+            .date(nowIso)
+            .backfill(backfill)
+            .tenantId(MAIN_TENANT);
+
+        return kestraClient().triggers().updateTrigger(MAIN_TENANT, trigger);
+    }
+
+    private Trigger triggerRef(String namespace, String flowId, String triggerId) {
+        return new Trigger()
+            .namespace(namespace)
+            .flowId(flowId)
+            .triggerId(triggerId)
+            .date(OffsetDateTime.now(ZoneOffset.UTC))
+            .tenantId(MAIN_TENANT);
+    }
+
+    // --- tests --------------------------------------------------------------
+
+    @Test
+    public void deleteBackfillTest() throws ApiException, InterruptedException {
+        String flowId = "deleteBackfillTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        // ensure trigger exists
+        Thread.sleep(1000);
+        createBackfillForTrigger(flowId, triggerId, namespace);
+
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Trigger resp = kestraClient().triggers().deleteBackfill(MAIN_TENANT, t);
+        assertNotNull(resp);
+    }
+
     @Test
     public void deleteBackfillByIdsTest() throws ApiException {
+        String flowId = "deleteBackfillByIdsTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, flowId + "_trigger", namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().deleteBackfillByIds(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Object resp = kestraClient().triggers().deleteBackfillByIds(MAIN_TENANT, List.of(t));
+        assertNotNull(resp);
     }
-    /**
-     * Delete backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteBackfillByQueryTest() throws ApiException {
+        String flowId = "deleteBackfillByQueryTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        String namespace = randomId();
-        Object response = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
+        QueryFilter qf = new QueryFilter()
+            .field(QueryFilterField.TRIGGER_ID)
+            .operation(QueryFilterOp.CONTAINS)
+            .value(flowId);
+        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        // TODO: test validations
+        Object resp = kestraClient().triggers().deleteBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        assertNotNull(resp);
     }
-    /**
-     * Disable/enable given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void disabledTriggersByIdsTest() throws ApiException {
+        String flowId = "disabledTriggersByIdsTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, flowId + "_trigger", namespace);
 
-        TriggerControllerSetDisabledRequest triggerControllerSetDisabledRequest = null;
-        Object response = kestraClient().triggers().disabledTriggersByIds(MAIN_TENANT, triggerControllerSetDisabledRequest);
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        TriggerControllerSetDisabledRequest req = new TriggerControllerSetDisabledRequest()
+            .triggers(List.of(t))
+            .disabled(true);
 
-        // TODO: test validations
+        Object resp = kestraClient().triggers().disabledTriggersByIds(MAIN_TENANT, req);
+        assertNotNull(resp);
     }
-    /**
-     * Disable/enable triggers by query parameters
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void disabledTriggersByQueryTest() throws ApiException {
-        Boolean disabled = null;
+        String flowId = "disabledTriggersByQueryTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        String namespace = randomId();
-        Object response = kestraClient().triggers().disabledTriggersByQuery(disabled, MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
+        QueryFilter qf = new QueryFilter()
+            .field(QueryFilterField.TRIGGER_ID)
+            .operation(QueryFilterOp.CONTAINS)
+            .value(flowId);
+        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        // TODO: test validations
+        Object resp = kestraClient().triggers().disabledTriggersByQuery(true, MAIN_TENANT, req, null, namespace);
+        assertNotNull(resp);
     }
-    /**
-     * Pause a backfill
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void pauseBackfillTest() throws ApiException {
+        String flowId = "pauseBackfillTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        Trigger trigger = null;
-        Trigger response = kestraClient().triggers().pauseBackfill(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Trigger resp = kestraClient().triggers().pauseBackfill(MAIN_TENANT, t);
+        assertNotNull(resp);
     }
-    /**
-     * Pause backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void pauseBackfillByIdsTest() throws ApiException {
+        String flowId = "pauseBackfillByIdsTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().pauseBackfillByIds(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Object resp = kestraClient().triggers().pauseBackfillByIds(MAIN_TENANT, List.of(t));
+        assertNotNull(resp);
     }
-    /**
-     * Pause backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void pauseBackfillByQueryTest() throws ApiException {
+        String flowId = "pauseBackfillByQueryTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        String namespace = randomId();
-        Object response = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
+        QueryFilter qf = new QueryFilter()
+            .field(QueryFilterField.TRIGGER_ID)
+            .operation(QueryFilterOp.CONTAINS)
+            .value(flowId);
+        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest().filters(List.of(qf));
 
-        // TODO: test validations
+        Object resp = kestraClient().triggers().pauseBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        assertNotNull(resp);
     }
-    /**
-     * Restart a trigger
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void restartTriggerTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = null;
-        String triggerId = null;
+        String flowId = "restartTriggerTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        Object response = kestraClient().triggers().restartTrigger(namespace, flowId, triggerId, MAIN_TENANT);
-
-        // TODO: test validations
+        Object resp = kestraClient().triggers().restartTrigger(namespace, flowId, triggerId, MAIN_TENANT);
+        assertNotNull(resp);
     }
-    /**
-     * Search for triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void searchTriggersTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
+        String flowId = "searchTriggersTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        List<String> sort = null;
-        List<QueryFilter> filters = null;
-        String q = null;
-        String namespace = randomId();
-        String workerId = null;
-        String flowId = null;
-        PagedResultsTriggerControllerTriggers response = kestraClient().triggers().searchTriggers(page, size, MAIN_TENANT, sort, filters, q, namespace, workerId, flowId);
+        PagedResultsTriggerControllerTriggers page =
+            kestraClient().triggers().searchTriggers(1, 10, MAIN_TENANT, null, null, null, namespace, null, null);
 
-        // TODO: test validations
+        assertNotNull(page);
     }
-    /**
-     * Get all triggers for a flow
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void searchTriggersForFlowTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
-        String namespace = randomId();
-        String flowId = null;
+        String flowId = "searchTriggersForFlowTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        List<String> sort = null;
-        String q = null;
-        PagedResultsTrigger response = kestraClient().triggers().searchTriggersForFlow(page, size, namespace, flowId, MAIN_TENANT, sort, q);
+        PagedResultsTrigger page =
+            kestraClient().triggers().searchTriggersForFlow(1, 10, namespace, flowId, MAIN_TENANT, null, null);
 
-        // TODO: test validations
+        assertNotNull(page);
     }
-    /**
-     * Unlock a trigger
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unlockTriggerTest() throws ApiException {
-        String namespace = randomId();
-        String flowId = null;
-        String triggerId = null;
+        String flowId = "unlockTriggerTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        Trigger response = kestraClient().triggers().unlockTrigger(namespace, flowId, triggerId, MAIN_TENANT);
+        ApiException ex = assertThrows(ApiException.class, () ->
+            kestraClient().triggers().unlockTrigger(namespace, flowId, triggerId, MAIN_TENANT));
 
-        // TODO: test validations
+        // Expecting 409 if not locked
+        Integer code = ex.getCode(); // if available
+        assertEquals(409, code);
     }
-    /**
-     * Unlock given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unlockTriggersByIdsTest() throws ApiException {
+        String flowId = "unlockTriggersByIdsTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().unlockTriggersByIds(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Object resp = kestraClient().triggers().unlockTriggersByIds(MAIN_TENANT, List.of(t));
+        assertNotNull(resp);
     }
-    /**
-     * Unlock triggers by query parameters
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unlockTriggersByQueryTest() throws ApiException {
+        String flowId = "unlockTriggersByQueryTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        String namespace = randomId();
-        Object response = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
-
-        // TODO: test validations
+        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest(); // empty, like Python
+        Object resp = kestraClient().triggers().unlockTriggersByQuery(MAIN_TENANT, req, null, namespace);
+        assertNotNull(resp);
     }
-    /**
-     * Unpause a backfill
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unpauseBackfillTest() throws ApiException {
+        String flowId = "unpauseBackfillTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        Trigger trigger = null;
-        Trigger response = kestraClient().triggers().unpauseBackfill(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Trigger resp = kestraClient().triggers().unpauseBackfill(MAIN_TENANT, t);
+        assertNotNull(resp);
     }
-    /**
-     * Unpause backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unpauseBackfillByIdsTest() throws ApiException {
+        String flowId = "unpauseBackfillByIdsTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
+        createBackfillForTrigger(flowId, triggerId, namespace);
 
-        List<Trigger> trigger = null;
-        Object response = kestraClient().triggers().unpauseBackfillByIds(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Object resp = kestraClient().triggers().unpauseBackfillByIds(MAIN_TENANT, List.of(t));
+        assertNotNull(resp);
     }
-    /**
-     * Unpause backfill for given triggers
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void unpauseBackfillByQueryTest() throws ApiException {
+        String flowId = "unpauseBackfillByQueryTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        DeleteExecutionsByQueryRequest deleteExecutionsByQueryRequest = null;
-        String q = null;
-        String namespace = randomId();
-        Object response = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, deleteExecutionsByQueryRequest, q, namespace);
-
-        // TODO: test validations
+        DeleteExecutionsByQueryRequest req = new DeleteExecutionsByQueryRequest();
+        Object resp = kestraClient().triggers().unpauseBackfillByQuery(MAIN_TENANT, req, null, namespace);
+        assertNotNull(resp);
     }
-    /**
-     * Update a trigger
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateTriggerTest() throws ApiException {
+        String flowId = "updateTriggerTest_" + randomId();
+        String triggerId = flowId + "_trigger";
+        String namespace = "test.triggers." + randomId();
+        createFlowWithTrigger(flowId, triggerId, namespace);
 
-        Trigger trigger = null;
-        Trigger response = kestraClient().triggers().updateTrigger(MAIN_TENANT, trigger);
-
-        // TODO: test validations
+        Trigger t = triggerRef(namespace, flowId, triggerId);
+        Trigger resp = kestraClient().triggers().updateTrigger(MAIN_TENANT, t);
+        assertNotNull(resp);
     }
 }
