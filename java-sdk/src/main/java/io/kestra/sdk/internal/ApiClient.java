@@ -15,6 +15,8 @@ package io.kestra.sdk.internal;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.kestra.sdk.model.QueryFilter;
+import io.kestra.sdk.model.QueryFilterField;
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -555,6 +557,42 @@ public class ApiClient extends JavaTimeFormatter {
         params.add(new Pair(name, escapeString(parameterToString(item))));
       }
       return params;
+    }
+
+    //Create filter serializer
+    if ("filters".equals(collectionFormat)){
+        for (Object o : value) {
+            if (o instanceof QueryFilter queryFilter) {
+                if (queryFilter.getField().equals(QueryFilterField.LABELS)) {
+                    if (queryFilter.getValue() instanceof Map<?,?> mapValue) {
+                        for (Entry<?, ?> entry : mapValue.entrySet()) {
+                            params.add(new Pair(new StringBuilder()
+                                .append("filters[")
+                                .append(queryFilter.getField())
+                                .append("][")
+                                .append(queryFilter.getOperation())
+                                .append("]")
+                                .append("[")
+                                .append(entry.getKey())
+                                .append("]")
+                                .toString(), entry.getValue().toString()));
+                        }
+                    } else {
+                        throw new ApiException(400, "Filter LABEL value must be instance of Map<String, Object>");
+                    }
+                } else {
+                    params.add(new Pair(new StringBuilder()
+                        .append("filters[")
+                        .append(queryFilter.getField())
+                        .append("][")
+                        .append(queryFilter.getOperation())
+                        .append("]")
+                        .toString(), queryFilter.getValue().toString()));
+                }
+            } else {
+                throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
+            }
+        }
     }
 
     // collectionFormat is assumed to be "csv" by default
