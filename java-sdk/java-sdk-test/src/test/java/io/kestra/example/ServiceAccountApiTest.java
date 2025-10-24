@@ -2,164 +2,180 @@ package io.kestra.example;
 
 import io.kestra.sdk.internal.ApiException;
 import io.kestra.sdk.model.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.kestra.example.CommonTestSetup.*;
+import static io.kestra.example.CommonTestSetup.MAIN_TENANT;
+import static io.kestra.example.CommonTestSetup.kestraClient;
+import static io.kestra.example.CommonTestSetup.randomId;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceAccountApiTest {
 
-
-    /**
-     * Create a service account
-     *
-     * Superadmin-only. CReate service account with access to multiple tenants.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
     @Test
     public void createServiceAccountTest() throws ApiException {
-        IAMServiceAccountControllerApiCreateServiceAccountRequest iaMServiceAccountControllerApiCreateServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().createServiceAccount(iaMServiceAccountControllerApiCreateServiceAccountRequest);
+        String name = "test-create-service-account-" + randomId();
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiCreateServiceAccountRequest req =
+            new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                .name(name)
+                .description("service account created by tests");
+
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(req);
+
+        assertNotNull(created.getId());
     }
-    /**
-     * Create a service account for the given tenant
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void createServiceAccountForTenantTest() throws ApiException {
+        String fullName = "test-create-service-account-for-tenant-" + randomId();
+        String name = fullName.substring(0, 62);
 
-        IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().createServiceAccountForTenant(MAIN_TENANT, iaMServiceAccountControllerApiServiceAccountRequest);
+        IAMServiceAccountControllerApiServiceAccountRequest req =
+            new IAMServiceAccountControllerApiServiceAccountRequest()
+                .name(name)
+                .description("service account for tenant");
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountResponse created =
+            kestraClient().serviceAccount().createServiceAccountForTenant(MAIN_TENANT, req);
+
+        assertNotNull(created.getId());
     }
-    /**
-     * Delete a service account
-     *
-     * Superadmin-only. Delete a service account including all its access.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteServiceAccountTest() throws ApiException {
-        String id = randomId();
-        kestraClient().serviceAccount().deleteServiceAccount(id);
+        String name = "test-delete-service-account-" + randomId();
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
+
+        kestraClient().serviceAccount().deleteServiceAccount(created.getId());
+
+        assertThrows(ApiException.class,
+            () -> kestraClient().serviceAccount().getServiceAccount(created.getId()));
     }
-    /**
-     * Delete a service account
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void deleteServiceAccountForTenantTest() throws ApiException {
-        String id = randomId();
+        String fullName = "test-delete-service-account-for-tenant-" + randomId();
+        String name = fullName.substring(0, 62);
 
-        kestraClient().serviceAccount().deleteServiceAccountForTenant(id, MAIN_TENANT);
+        IAMServiceAccountControllerApiServiceAccountResponse created =
+            kestraClient().serviceAccount().createServiceAccountForTenant(
+                MAIN_TENANT,
+                new IAMServiceAccountControllerApiServiceAccountRequest().name(name)
+            );
 
-        // TODO: test validations
+        kestraClient().serviceAccount().deleteServiceAccountForTenant(created.getId(), MAIN_TENANT);
+        assertThrows(ApiException.class,
+            () -> kestraClient().serviceAccount().getServiceAccountForTenant(created.getId(), MAIN_TENANT));
     }
-    /**
-     * Get a service account
-     *
-     * Superadmin-only. Get user account details.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void getServiceAccountTest() throws ApiException {
-        String id = randomId();
-        IAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().getServiceAccount(id);
+        String name = "test-get-service-account-" + randomId();
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
+
+        IAMServiceAccountControllerApiServiceAccountDetail fetched =
+            kestraClient().serviceAccount().getServiceAccount(created.getId());
+
+        assertEquals(created.getId(), fetched.getId());
     }
-    /**
-     * Retrieve a service account
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void getServiceAccountForTenantTest() throws ApiException {
-        String id = randomId();
+        String fullName = "test-get-service-account-for-tenant-" + randomId();
+        String name = fullName.substring(0, 62);
 
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().getServiceAccountForTenant(id, MAIN_TENANT);
+        IAMServiceAccountControllerApiServiceAccountResponse created =
+            kestraClient().serviceAccount().createServiceAccountForTenant(
+                MAIN_TENANT,
+                new IAMServiceAccountControllerApiServiceAccountRequest().name(name));
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountResponse fetched =
+            kestraClient().serviceAccount().getServiceAccountForTenant(created.getId(), MAIN_TENANT);
+
+        assertEquals(created.getId(), fetched.getId());
     }
-    /**
-     * List service accounts. Superadmin-only.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void listServiceAccountsTest() throws ApiException {
-        Integer page = null;
-        Integer size = null;
-        String q = null;
-        List<String> sort = null;
-        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().listServiceAccounts(page, size, q, sort);
+        String name = "test-list-service-accounts-" + randomId();
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
+
+        PagedResultsIAMServiceAccountControllerApiServiceAccountDetail page =
+            kestraClient().serviceAccount().listServiceAccounts(1, 50, null, null);
+
+        assertNotNull(page);
+        assertNotNull(page.getResults());
+        assertTrue(page.getResults().stream().anyMatch(sa -> created.getId().equals(sa.getId())));
     }
-    /**
-     * Update service account details
-     *
-     * Superadmin-only. Updates the details of a service account.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchServiceAccountDetailsTest() throws ApiException {
-        String id = randomId();
-        IAMServiceAccountControllerApiPatchServiceAccountRequest iaMServiceAccountControllerApiPatchServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountDetail response = kestraClient().serviceAccount().patchServiceAccountDetails(id, iaMServiceAccountControllerApiPatchServiceAccountRequest);
+        String fullName = "test-patch-service-account-details-" + randomId();
+        String name = fullName.substring(0, 62);
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                    .name(name).description("old"));
+
+        IAMServiceAccountControllerApiPatchServiceAccountRequest patchReq =
+            new IAMServiceAccountControllerApiPatchServiceAccountRequest()
+                .name(name).description("new");
+
+        IAMServiceAccountControllerApiServiceAccountDetail patched =
+            kestraClient().serviceAccount().patchServiceAccountDetails(created.getId(), patchReq);
+
+        String desc = patched.getDescription();
+        assertEquals("new", desc);
     }
-    /**
-     * Update service account superadmin privileges
-     *
-     * Superadmin-only. Updates whether a service account is a superadmin.
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void patchServiceAccountSuperAdminTest() throws ApiException {
-        String id = randomId();
-        ApiPatchSuperAdminRequest apiPatchSuperAdminRequest = null;
-        kestraClient().serviceAccount().patchServiceAccountSuperAdmin(id, apiPatchSuperAdminRequest);
+        String fullName = "test-patch-service-account-super-admin-" + randomId();
+        String name = fullName.substring(0, 62);
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest().name(name));
+
+        ApiPatchSuperAdminRequest patch = new ApiPatchSuperAdminRequest().superAdmin(true);
+        kestraClient().serviceAccount().patchServiceAccountSuperAdmin(created.getId(), patch);
+
+        IAMServiceAccountControllerApiServiceAccountDetail fetched =
+            kestraClient().serviceAccount().getServiceAccount(created.getId());
+
+        assertTrue(Boolean.TRUE.equals(fetched.getSuperAdmin()));
     }
-    /**
-     * Update a user service account
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
+
     @Test
     public void updateServiceAccountTest() throws ApiException {
-        String id = randomId();
+        String name = "test-update-service-account-" + randomId();
 
-        IAMServiceAccountControllerApiServiceAccountRequest iaMServiceAccountControllerApiServiceAccountRequest = null;
-        IAMServiceAccountControllerApiServiceAccountResponse response = kestraClient().serviceAccount().updateServiceAccount(id, MAIN_TENANT, iaMServiceAccountControllerApiServiceAccountRequest);
+        IAMServiceAccountControllerApiServiceAccountDetail created =
+            kestraClient().serviceAccount().createServiceAccount(
+                new IAMServiceAccountControllerApiCreateServiceAccountRequest()
+                    .name(name).description("Before"));
 
-        // TODO: test validations
+        IAMServiceAccountControllerApiServiceAccountRequest updateReq =
+            new IAMServiceAccountControllerApiServiceAccountRequest()
+                .name(created.getName()).description("After");
+
+        IAMServiceAccountControllerApiServiceAccountResponse updated =
+            kestraClient().serviceAccount().updateServiceAccount(created.getId(), MAIN_TENANT, updateReq);
+
+        String desc = updated.getDescription();
+        assertEquals("After", desc);
     }
 }
