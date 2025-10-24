@@ -551,16 +551,7 @@ public class ApiClient extends JavaTimeFormatter {
       return params;
     }
 
-    // create the params based on the collection format
-    if ("multi".equals(collectionFormat)) {
-      for (Object item : value) {
-        params.add(new Pair(name, escapeString(parameterToString(item))));
-      }
-      return params;
-    }
-
-    //Create filter serializer
-    if ("filters".equals(collectionFormat)){
+    if (value.stream().findFirst().get() instanceof QueryFilter) {
         for (Object o : value) {
             if (o instanceof QueryFilter queryFilter) {
                 if (queryFilter.getField().equals(QueryFilterField.LABELS)) {
@@ -593,6 +584,14 @@ public class ApiClient extends JavaTimeFormatter {
                 throw new ApiException(400, "Filter parameters must be instance of QueryFilter");
             }
         }
+    }
+
+    // create the params based on the collection format
+    if ("multi".equals(collectionFormat)) {
+      for (Object item : value) {
+        params.add(new Pair(name, escapeString(parameterToString(item))));
+      }
+      return params;
     }
 
     // collectionFormat is assumed to be "csv" by default
