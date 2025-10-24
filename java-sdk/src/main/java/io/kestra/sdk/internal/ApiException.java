@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.List;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.16.0")
-public class ApiException extends Exception {
+public class ApiException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     private int code = 0;
