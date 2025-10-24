@@ -9,12 +9,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CommonTestSetup {
+
+    public static final String HOST = "http://localhost:9901";
     public static String MAIN_TENANT = "main";
+//    public static String MAIN_TENANT = "tenant";
+//    public static final String HOST = "http://localhost:8080";
 
     public static KestraClient kestraClient() {
         return KestraClient.builder()
             .basicAuth("root@root.com", "Root!1234")
-            .url("http://localhost:9901")
+            .url(HOST)
+            .build();
+    }
+
+    public static KestraClient kestraLocalClient() {
+        return KestraClient.builder()
+            .basicAuth("demo", "DemoDemo1")
+            .url("http://localhost:8080")
             .build();
     }
 
