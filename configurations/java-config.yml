@@ -20,6 +20,7 @@ artifactId: kestra-api-client
 
 hideGenerationTimestamp: true
 supportUrlQuery: false
+useRuntimeException: true
 
 typeMappings:
   PropertyDuration: String
